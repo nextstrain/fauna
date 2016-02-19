@@ -6,7 +6,7 @@ from Bio import SeqIO
 
 class vdb_upload(object):
 
-    def __init__(self, fasta_fields, fasta_file):
+    def __init__(self, database, virus, source, fasta_fname, fasta_fields, path='data/'):
         '''
 
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
@@ -15,11 +15,12 @@ class vdb_upload(object):
         '''
         print("Uploading Viruses to VDB")
 
-        self.database = "test"
-        self.virus_type = "H3N2"
+        self.database = database
+        self.virus_type = virus
         self.fasta_fields = fasta_fields
-        self.fasta_file = fasta_file
-        self.virus_source = "GISAID"
+        self.path = path
+        self.fasta_file = self.path + self.virus_type + "/" + fasta_fname
+        self.virus_source = source
 
         # fields that are needed to upload
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences']
@@ -59,6 +60,7 @@ class vdb_upload(object):
             handle = open(fasta, 'r')
         except IOError:
             print(fasta, "not found")
+            print("Tried to find :" + self.fasta_file)
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
@@ -95,9 +97,7 @@ class vdb_upload(object):
         '''
         self.format_sequence_schema()
         self.format_date()
-
-        if self.strain_name_location:
-            self.filter_geo()
+        self.filter_region()
         self.check_all_attributes()
 
     def format_date(self):
@@ -121,36 +121,12 @@ class vdb_upload(object):
         # filter out viruses without correct dating format, must at least have the year specified
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']) != None, self.viruses)
 
-    def filter_geo(self, prune = True):
+    def filter_region(self, prune = True):
         '''
-        Label viruses with country based on strain name
         Label viruses with region based on country, if prune then filter out viruses without region
+        :param prune:
+        :return:
         '''
-        """Location is to the level of country of administrative division when available"""
-        reader = csv.DictReader(open("source-data/geo_synonyms.tsv"), delimiter='\t')		# list of dicts
-        label_to_country = {}
-        for line in reader:
-            label_to_country[line['label'].lower()] = line['country']
-        for v in self.viruses:
-            if "country" not in v:
-                v['country'] = 'Unknown'
-                try:
-                    label = re.match(r'^[AB]/([^/]+)/', v['strain']).group(1).lower()						# check first for whole geo match
-                    if label in label_to_country:
-                        v['country'] = label_to_country[label]
-                    else:
-                        label = re.match(r'^[AB]/([^\-^\/]+)[\-\/]', v['strain']).group(1).lower()			# check for partial geo match
-                    if label in label_to_country:
-                        v['country'] = label_to_country[label]
-                    else:
-                        label = re.match(r'^[AB]/([A-Z][a-z]+)[A-Z0-9]', v['strain']).group(1).lower()			# check for partial geo match
-                    if label in label_to_country:
-                        v['country'] = label_to_country[label]
-                    if v['country'] == 'Unknown':
-                        print("couldn't parse location for", v['strain'])
-                except:
-                    print("couldn't parse location for", v['strain'])
-
         reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
         country_to_region = {}
         for line in reader:
@@ -164,7 +140,6 @@ class vdb_upload(object):
 
         if prune:
             self.viruses = filter(lambda v: v['region'] != 'Unknown', self.viruses)
-
     def check_all_attributes(self):
         '''
         Assigns 'None' to optional attributes that are missing
@@ -240,8 +215,8 @@ class vdb_upload(object):
                             virus_seq[0])}).run()
 
 
-
-fasta_fields = {0:'strain', 1:'accession', 5:'date', 8:"locus"}
-fasta_file = 'data/H3N2_gisaid_epiflu_sequence.fasta'
-upload = vdb_upload(fasta_fields, fasta_file)
-upload.upload()
+if __name__=="__main__":
+    fasta_fields = {0:'strain', 1:'accession', 5:'date', 8:"locus"}
+    fasta_file = 'data/H3N2_gisaid_epiflu_sequence.fasta'
+    upload = vdb_upload("test", "H3N2", "GISAID",fasta_file, fasta_fields)
+    upload.upload()
