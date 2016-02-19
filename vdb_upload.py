@@ -30,37 +30,24 @@ class vdb_upload(object):
         self.viruses = self.parse_fasta(self.fasta_file)
         self.strain_name_location = True
 
+        # connect to database
         try:
             r.connect(host="ec2-52-90-204-136.compute-1.amazonaws.com", port=28015, db=self.database, auth_key="KeHiybPoX8BM6aAhfYqy").repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
             raise Exception
-        #create virus table with primary key 'strain'
-        try:
-            existing_tables = r.db(self.database).table_list().run()
-        except:
-            print("Couldn't get list of tables")
-            raise Exception
-        if self.virus_type not in existing_tables:
-            try:
-                r.db(self.database).table_create(self.virus_type, primary_key='strain').run()
-            except:
-                print("Couldn't create new table for " + self.virus_type)
 
-    #
+        #create virus table with primary key 'strain'
+        existing_tables = r.db(self.database).table_list().run()
+        if self.virus_type not in existing_tables:
+            r.db(self.database).table_create(self.virus_type, primary_key='strain').run()
 
     def print_virus_info(self, virus):
 
         print("----------")
         for key, value in virus.items():
             print(key + " : " + str(value))
-        '''
-        #print(virus['country'] + "\n")
-        #print(virus['region'] + "\n")
-        print(virus.keys())
-        '''
-
 
     def parse_fasta(self, fasta):
         '''
@@ -76,7 +63,7 @@ class vdb_upload(object):
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq)
+                v['sequence'] = str(record.seq).upper()
                 v['virus'] = self.virus_type
                 viruses.append(v)
             handle.close()
@@ -102,16 +89,15 @@ class vdb_upload(object):
         self.upload_documents()
 
     def format(self):
+        '''
+        format virus information in preparation to upload to database table
+        :return:
+        '''
         self.format_sequence_schema()
-
         self.format_date()
 
         if self.strain_name_location:
             self.filter_geo()
-        '''
-        for virus in self.viruses:
-            self.print_virus_info(virus)
-        '''
         self.check_all_attributes()
 
     def format_date(self):
@@ -185,10 +171,14 @@ class vdb_upload(object):
         Checks that each virus has upload attributes, filters out viruses that don't.
         :return:
         '''
-        self.assign_none()
+        self.check_optional_attributes()
         self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
 
-    def assign_none(self):
+    def check_optional_attributes(self):
+        '''
+        Create and assign 'None' to optional attributes that don't exist
+        :return:
+        '''
         for virus in self.viruses:
             for atr in self.virus_optional_fields:
                 if atr not in virus:
@@ -199,7 +189,7 @@ class vdb_upload(object):
 
     def check_upload_attributes(self, virus):
         '''
-
+        Check that upload attributes are present, print virus information if missing attributes
         :param virus:
         :return: returns true if it has all required upload attributes, else returns false and prints missing attributes
         '''
@@ -226,41 +216,28 @@ class vdb_upload(object):
         '''
         print("Uploading " + str(len(self.viruses)) + " viruses to the table")
         for virus in self.viruses:
-
             print("Inserting next virus into database: " + virus['strain'])
-            try:
-                document = r.table(self.virus_type).get(virus['strain']).run()
-            except:
-                print("Couldn't get document from table")
-                print("Strain: " + virus['strain'])
-                raise Exception
+            # Retrieve virus from table to see if it already exists
+            document = r.table(self.virus_type).get(virus['strain']).run()
+
+            # Virus doesn't exist in table yet so add it
             if document is None:
-                try:
-                    r.table(self.virus_type).insert(virus).run()
-                    print("Successfully inserted virus into database")
-                except:
-                    print("Couldn't insert new virus")
-                    print("Strain: " + virus['strain'])
+                r.table(self.virus_type).insert(virus).run()
+
+            # Virus exists in table so just add sequence information
             else:
-                print(document)
                 doc_seqs = document['sequences']
                 virus_seq = virus['sequences']
-                print(virus_seq[0]['accession'])
-                if all(doc_sequence_info['accession'] != virus_seq[0]['accession'] and
-                       doc_sequence_info['sequence'] != virus_seq[0]['sequences']
-                       for doc_sequence_info in doc_seqs):
-                    try:
-                        r.table(self.virus_type).get(virus['strain']).update({"sequences": r.row["sequences"].append(
-                            virus_seq[0])}).run()
-                    except:
-                        print("Failed to update virus")
-                        print("Strain: " + virus['strain'])
-                        raise Exception
-                    print("Successfully inserted virus into database")
-                else:
-                    print("This virus accession and sequence already exists in the database")
+                # check that the sequence information isn't already there
+                if any(doc_sequence_info['accession'] == virus_seq[0]['accession'] for doc_sequence_info in doc_seqs) or\
+                        (virus_seq[0]['accession'] == None) and any(doc_sequence_info['sequence'] ==
+                        virus_seq[0]['sequences'] for doc_sequence_info in doc_seqs):
+                    print("This virus accession and/or sequence already exists in the database")
                     print("Strain: " + virus['strain'])
                     print("Accession: " + virus_seq[0]['accession'])
+                else:
+                    r.table(self.virus_type).get(virus['strain']).update({"sequences": r.row["sequences"].append(
+                            virus_seq[0])}).run()
 
 
 
