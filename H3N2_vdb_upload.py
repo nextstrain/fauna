@@ -5,8 +5,9 @@ from vdb_upload import vdb_upload
 
 class H3N2_vdb_upload(vdb_upload):
 
-    def __init__(self, database, virus, source, fasta_fname, fasta_fields):
+    def __init__(self, database, virus, source, fasta_fname, fasta_fields, path='data/'):
         vdb_upload.__init__(self, database, virus, source, fasta_fname, fasta_fields)
+        print("Hello")
 
     def format(self):
         '''

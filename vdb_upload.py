@@ -6,7 +6,7 @@ from Bio import SeqIO
 
 class vdb_upload(object):
 
-    def __init__(self, database, virus, source, fasta_fname, fasta_fields, path='data/'):
+    def __init__(self, database, virus, source, fasta_fname, fasta_fields, locus=None, path='data/'):
         '''
 
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
@@ -16,14 +16,15 @@ class vdb_upload(object):
         print("Uploading Viruses to VDB")
 
         self.database = database
-        self.virus_type = virus
+        self.virus_type = virus.title()
+        self.locus = locus.title()
         self.fasta_fields = fasta_fields
         self.path = path
         self.fasta_file = self.path + self.virus_type + "/" + fasta_fname
         self.virus_source = source
 
         # fields that are needed to upload
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus']
         self.virus_optional_fields = ['division', 'location']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
@@ -43,6 +44,16 @@ class vdb_upload(object):
         existing_tables = r.db(self.database).table_list().run()
         if self.virus_type not in existing_tables:
             r.db(self.database).table_create(self.virus_type, primary_key='strain').run()
+
+        #for formatting region
+        try:
+            reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
+        except:
+            print("Couldn't find geo regions file")
+            raise Exception
+        self.country_to_region = {}
+        for line in reader:
+            self.country_to_region[line['country']] = line['region']
 
     def print_virus_info(self, virus):
 
@@ -67,24 +78,13 @@ class vdb_upload(object):
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
                 v['sequence'] = str(record.seq).upper()
                 v['virus'] = self.virus_type
+                if self.locus is not None:
+                    v['locus'] = self.locus
                 viruses.append(v)
             handle.close()
             print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return viruses
 
-    def format_sequence_schema(self):
-        '''
-        move sequence information into nested 'sequences' field
-        :return:
-        '''
-        sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
-        for v in self.viruses:
-            v['sequences'] = [{}]
-            v['sequences'][0]['source'] = self.virus_source
-            for field in sequence_fields:
-                if field in v.keys():
-                    v['sequences'][0][field] = v[field]
-                    del v[field]
 
     def upload(self):
         self.format()
@@ -95,51 +95,69 @@ class vdb_upload(object):
         format virus information in preparation to upload to database table
         :return:
         '''
-        self.format_sequence_schema()
-        self.format_date()
-        self.filter_region()
+        for virus in self.viruses:
+            self.format_sequence_schema(virus)
+            self.format_date(virus)
+            self.filter_region(virus)
+            self.format_place(virus)
+        self.viruses = filter(lambda v: v['region'] != 'Unknown', self.viruses)
         self.check_all_attributes()
 
-    def format_date(self):
+    def format_sequence_schema(self, virus):
+        '''
+        move sequence information into nested 'sequences' field
+        :return:
+        '''
+        sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
+
+        virus['sequences'] = [{}]
+        virus['sequences'][0]['source'] = self.virus_source.title()
+        for field in sequence_fields:
+            if field in virus.keys():
+                virus['sequences'][0][field] = virus[field]
+                del virus[field]
+
+    def format_date(self, virus):
         '''
         Format viruses date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
         '''
 
-        for virus in self.viruses:
-            # ex. 2002 (Month and day unknown)
-            if re.match(r'\d\d\d\d-\d\d-\d\d', virus['date']):
-                pass
-            elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
-                virus['date'] = virus['date'][0:4] + "-XX-XX"
-            # ex. 2009-06 (Day unknown)
-            elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
-                virus['date'] = virus['date'][0:7] + "-XX"
-            else:
-                print("Couldn't reformat this date: " + virus['date'])
+        # ex. 2002 (Month and day unknown)
+        if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
+            pass
+        elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
+            virus['date'] = virus['date'][0:4] + "-XX-XX"
+        # ex. 2009-06 (Day unknown)
+        elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+            virus['date'] = virus['date'][0:7] + "-XX"
+        else:
+            print("Couldn't reformat this date: " + virus['date'])
 
 
-        # filter out viruses without correct dating format, must at least have the year specified
-        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']) != None, self.viruses)
+        # filter out viruses without correct dating format, must have at least have the year specified
+        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
 
-    def filter_region(self, prune = True):
+    def filter_region(self, virus):
         '''
         Label viruses with region based on country, if prune then filter out viruses without region
         :param prune:
         :return:
         '''
-        reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
-        country_to_region = {}
-        for line in reader:
-            country_to_region[line['country']] = line['region']
-        for v in self.viruses:
-            v['region'] = 'Unknown'
-            if v['country'] in country_to_region:
-                v['region'] = country_to_region[v['country']]
-            if v['country'] != 'Unknown' and v['region'] == 'Unknown':
-                print("couldn't parse region for", v['strain'], "country:", v["country"])
+        virus['region'] = 'Unknown'
+        if virus['country'] in self.country_to_region:
+            virus['region'] = self.country_to_region[virus['country']]
+        if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
+            print("couldn't parse region for " + virus['strain'] + " country: " + virus["country"])
 
-        if prune:
-            self.viruses = filter(lambda v: v['region'] != 'Unknown', self.viruses)
+    def format_place(self, virus):
+        '''
+        Ensure Camelcase formatting
+        :return:
+        '''
+        location_fields = ['region', 'country', 'division', 'location']
+        for field in location_fields:
+            virus[field] = virus[field].title()
+
     def check_all_attributes(self):
         '''
         Assigns 'None' to optional attributes that are missing
@@ -158,8 +176,12 @@ class vdb_upload(object):
             for atr in self.virus_optional_fields:
                 if atr not in virus:
                     virus[atr] = None
+                elif virus[atr] == '?':
+                    virus[atr] = None
             for atr in self.sequence_optional_fields:
                 if atr not in virus['sequences'][0]:
+                    virus['sequences'][0][atr] = None
+                elif virus['sequences'][0][atr] == '?':
                     virus['sequences'][0][atr] = None
 
     def check_upload_attributes(self, virus):
@@ -191,6 +213,7 @@ class vdb_upload(object):
         '''
         print("Uploading " + str(len(self.viruses)) + " viruses to the table")
         for virus in self.viruses:
+            print("-----------------------")
             print("Inserting next virus into database: " + virus['strain'])
             # Retrieve virus from table to see if it already exists
             document = r.table(self.virus_type).get(virus['strain']).run()
@@ -199,20 +222,36 @@ class vdb_upload(object):
             if document is None:
                 r.table(self.virus_type).insert(virus).run()
 
-            # Virus exists in table so just add sequence information
+            # Virus exists in table so just add sequence information and update meta data if needed
             else:
-                doc_seqs = document['sequences']
-                virus_seq = virus['sequences']
-                # check that the sequence information isn't already there
-                if any(doc_sequence_info['accession'] == virus_seq[0]['accession'] for doc_sequence_info in doc_seqs) or\
-                        (virus_seq[0]['accession'] == None) and any(doc_sequence_info['sequence'] ==
-                        virus_seq[0]['sequences'] for doc_sequence_info in doc_seqs):
-                    print("This virus accession and/or sequence already exists in the database")
-                    print("Strain: " + virus['strain'])
-                    print("Accession: " + virus_seq[0]['accession'])
-                else:
-                    r.table(self.virus_type).get(virus['strain']).update({"sequences": r.row["sequences"].append(
-                            virus_seq[0])}).run()
+                self.update_document_sequence(document, virus)
+                self.update_document_meta(document, virus)
+
+    def update_document_meta(self, document, virus):
+        '''
+        update doc_virus information if virus info is different and not null
+        '''
+        updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
+        for field in updateable_virus_fields:
+            if virus[field] != None and document[field] != virus[field]:
+                print("Updating virus field ", field, ", from ", document[field], " to ", virus[field])
+                r.table(self.virus_type).get(virus['strain']).update({field: virus[field]}).run()
+
+    def update_document_sequence(self, document, virus):
+        '''
+        Add sequence to sequence list if it's not already there
+        '''
+        doc_seqs = document['sequences']
+        virus_seq = virus['sequences']
+        # check that the sequence information isn't already there
+        if any(doc_sequence_info['accession'] == virus_seq[0]['accession'] for doc_sequence_info in doc_seqs) or\
+                (virus_seq[0]['accession'] == None) and any(doc_sequence_info['sequence'] ==
+                virus_seq[0]['sequences'] for doc_sequence_info in doc_seqs):
+            print("This virus accession and/or sequence already exists in the database")
+            print("Accession: " + str(virus_seq[0]['accession']))
+        else:
+            r.table(self.virus_type).get(virus['strain']).update({"sequences": r.row["sequences"].append(
+                    virus_seq[0])}).run()
 
 
 if __name__=="__main__":
