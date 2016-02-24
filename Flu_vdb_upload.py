@@ -3,7 +3,7 @@ import rethinkdb as r
 from Bio import SeqIO
 from vdb_upload import vdb_upload
 
-class H3N2_vdb_upload(vdb_upload):
+class Flu_vdb_upload(vdb_upload):
 
     def __init__(self, database, virus, source, fasta_fname, fasta_fields, path='data/'):
         vdb_upload.__init__(self, database, virus, source, fasta_fname, fasta_fields)
@@ -59,5 +59,5 @@ if __name__=="__main__":
     fasta_fields = {0:'strain', 1:'accession', 5:'date', 8:"locus"}
 
 
-    upload_run = H3N2_vdb_upload(database, virus, source, fasta_fname, fasta_fields)
+    upload_run = Flu_vdb_upload(database, virus, source, fasta_fname, fasta_fields)
     upload_run.upload()
