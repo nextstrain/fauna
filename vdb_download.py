@@ -8,11 +8,11 @@ parser.add_argument('-db', '--database', default='vdb', help="database to downlo
 parser.add_argument('-v', '--virus', default='Zika', help="virus table to interact with")
 parser.add_argument('--path', default='data/', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
-parser.add_argument('--fname', default=None, help="default output file name is \"VirusName_Year-Month-Date\"")
+parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 
 class vdb_download(object):
 
-    def __init__(self, database, virus, ftype, path='data/'):
+    def __init__(self, database='vdb', virus='Zika', ftype='fasta', fstem=None, path='data/'):
 
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
@@ -20,11 +20,17 @@ class vdb_download(object):
 
         self.database = database
         self.virus_type = virus
-        self.output_file_type = 'json'
+        self.ftype = ftype
 
         self.path = path
-        self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
+        if not os.path.isdir(self.path):
+            os.makedirs(self.path)
 
+        self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
+        self.fstem = fstem    
+        if self.fstem is None:
+            self.fstem = self.virus_type.lower() + '_' + self.current_date
+        self.fname = self.fstem + '.' +  self.ftype
 
         self.viruses = []
 
@@ -78,7 +84,6 @@ class vdb_download(object):
         '''
         writes as list of viruses (dictionaries)
         '''
-        fname += ".json"
         try:
             handle = open(fname, 'w')
         except:
@@ -92,7 +97,6 @@ class vdb_download(object):
 
     def write_fasta(self, viruses, fname):
         fasta_fields = ['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus']
-        fname += ".fasta"
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -109,19 +113,15 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self, file_type, fname):
-        if fname is None:
-            fname = self.path + self.virus_type + "/" + self.virus_type + "_" + self.current_date
+    def output(self):
+        if self.ftype == 'json':
+            self.write_json(self.viruses, self.path+self.fname)
         else:
-            fname = self.path + self.virus_type + "/" + fname
-        if file_type == 'json':
-            self.write_json(self.viruses, fname)
-        else:
-            self.write_fasta(self.viruses, fname)
+            self.write_fasta(self.viruses, self.path+self.fname)
 
 if __name__=="__main__":
 
     args = parser.parse_args()
-    run = vdb_download(args.database, args.virus, args.ftype)
+    run = vdb_download(database = args.database, virus = args.virus, ftype = args.ftype, fstem = args.fstem, path = args.path)   
     run.download_all_documents()
-    run.output(args.ftype, args.fname)
+    run.output()
