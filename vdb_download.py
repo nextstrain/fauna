@@ -9,14 +9,21 @@ parser.add_argument('-v', '--virus', default='Zika', help="virus table to intera
 parser.add_argument('--path', default='data/', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 class vdb_download(object):
 
-    def __init__(self, database='vdb', virus='Zika', ftype='fasta', fstem=None, path='data/'):
+    def __init__(self, database='vdb', virus='Zika', ftype='fasta', fstem=None, path='data/', auth_key=None):
 
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
+
+        self.auth_key = auth_key
+        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
+            self.auth_key = os.environ['RETHINK_AUTH_KEY']
+        if self.auth_key is None:
+            raise Exception("Missing auth_key")
 
         self.database = database
         self.virus_type = virus
@@ -36,7 +43,7 @@ class vdb_download(object):
 
         # connect to database
         try:
-            r.connect(host="ec2-52-90-204-136.compute-1.amazonaws.com", port=28015, db=self.database, auth_key="KeHiybPoX8BM6aAhfYqy").repl()
+            r.connect(host="ec2-52-90-204-136.compute-1.amazonaws.com", port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -122,6 +129,6 @@ class vdb_download(object):
 if __name__=="__main__":
 
     args = parser.parse_args()
-    run = vdb_download(database = args.database, virus = args.virus, ftype = args.ftype, fstem = args.fstem, path = args.path)   
+    run = vdb_download(database = args.database, virus = args.virus, ftype = args.ftype, fstem = args.fstem, path = args.path, auth_key = args.auth_key)   
     run.download_all_documents()
     run.output()
