@@ -64,11 +64,16 @@ class vdb_upload(object):
             print("Failed to connect to the database, " + self.database)
             raise Exception
 
+        existing_tables = r.db(self.database).table_list().run()
+        if self.virus not in existing_tables:
+            raise Exception("No table exists yet for " + self.virus)
+
+        '''
         #create virus table with primary key 'strain'
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
             r.db(self.database).table_create(self.virus, primary_key='strain').run()
-
+        '''
     def print_virus_info(self, virus):
 
         print("----------")
