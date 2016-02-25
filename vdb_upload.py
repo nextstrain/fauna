@@ -80,7 +80,6 @@ class vdb_upload(object):
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
         '''
-        print("Orginal")
         viruses = []
         try:
             handle = open(fasta, 'r')
@@ -111,7 +110,7 @@ class vdb_upload(object):
         '''
         format virus information in preparation to upload to database table
         '''
-        print("Original")
+        print('Formatting for upload')
         self.define_regions()
         for virus in self.viruses:
             self.format_sequence_schema(virus)
@@ -170,7 +169,6 @@ class vdb_upload(object):
         Label viruses with region based on country, if prune then filter out viruses without region
         '''
         virus['region'] = 'Unknown'
-        self.print_virus_info(virus)
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
@@ -182,7 +180,8 @@ class vdb_upload(object):
         '''
         location_fields = ['region', 'country', 'division', 'location']
         for field in location_fields:
-            virus[field] = virus[field].title()
+            if field in virus:
+                virus[field] = virus[field].title()
 
     def check_all_attributes(self):
         '''
