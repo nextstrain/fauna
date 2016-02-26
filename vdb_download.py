@@ -37,7 +37,7 @@ class vdb_download(object):
         self.fstem = fstem    
         if self.fstem is None:
             self.fstem = self.virus_type.lower() + '_' + self.current_date
-        self.fname = self.fstem + '.' +  self.ftype
+        self.fname = self.fstem + '.' + self.ftype
 
         self.viruses = []
 
@@ -103,7 +103,7 @@ class vdb_download(object):
             print("Wrote to " + fname)
 
     def write_fasta(self, viruses, fname):
-        fasta_fields = ['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus']
+        fasta_fields = ['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors', 'subtype']
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -112,9 +112,11 @@ class vdb_download(object):
             for v in viruses:
                 handle.write(">")
                 for field in fasta_fields:
-                    if v[field] is None:
-                        v[field] = '?'
-                    handle.write(str(v[field]) + "|")
+                    if field in v and v[field] is not None:
+                        handle.write(str(v[field]) + '|')
+                    else:
+                        handle.write('?|')
+
                 handle.write("\n")
                 handle.write(v['sequence'] + "\n")
             handle.close()
