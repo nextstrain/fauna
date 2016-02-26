@@ -120,13 +120,12 @@ class vdb_upload(object):
         format virus information in preparation to upload to database table
         '''
         print('Formatting for upload')
-        self.define_countries()
         self.define_regions()
         for virus in self.viruses:
             self.format_sequence_schema(virus)
             self.format_date(virus)
-            self.format_country(virus)
             self.format_region(virus)
+            self.format_place(virus)
 
         # filter out viruses without correct dating format or without region specified
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
@@ -161,30 +160,6 @@ class vdb_upload(object):
         else:
             print("Couldn't reformat this date: " + virus['date'])
 
-    def define_countries(self):
-        '''
-        open synonym to country dictionary
-        Location is to the level of country of administrative division when available
-        '''
-        reader = csv.DictReader(open("source-data/geo_synonyms.tsv"), delimiter='\t')		# list of dicts
-        self.label_to_country = {}
-        for line in reader:
-            self.label_to_country[line['label'].lower()] = line['country']
-
-    def format_country(self, v):
-        '''
-        Label viruses with country based on strain name
-        '''
-        # check if country.lower in label_to_country, if it is set equal to label_to_country[label]
-        # else set equal to country.lower
-        if 'country' in v:
-            label = v['country'].lower()
-            if label in self.label_to_country:
-                v['country'] = self.label_to_country[label]
-            else:
-                v['country'] = v['country'].title()
-                print("couldn't parse country for", v['strain'], v['country'])
-
     def define_regions(self):
         '''
         open country to region dictionary
@@ -206,6 +181,15 @@ class vdb_upload(object):
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
             print("couldn't parse region for " + virus['strain'] + " country: " + virus["country"])
+
+    def format_place(self, virus):
+        '''
+        Ensure Camelcase formatting for geographic information
+        '''
+        location_fields = ['region', 'country', 'division', 'location']
+        for field in location_fields:
+            if field in virus:
+                virus[field] = virus[field].title()
 
     def check_all_attributes(self):
         '''
