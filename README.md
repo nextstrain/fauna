@@ -18,7 +18,7 @@ The virus database (VDB) is used to store viral information in an organized sche
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
 
-## Accessing Database
+## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
 
 To access vdb you need an authorization key. This can be passed as a command line argument (see below) or set as an environment variable with a bash script.
@@ -38,7 +38,16 @@ Sequences can be uploaded from a fasta file to a virus specific table within vdb
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
 	* If strain already in database, updates attributes with new information
+	
+### Attribute Requirements
+Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, 
+* Required sequence attributes: `source`, `locus`, `sequence`
+* Optional virus attributes: `subtype`, `division`, `location`
+* Optional sequence attributes: `accession`, `authors`
+(`subtype` is required for Flu)
 
+### Commands
 Command line arguments to run vdb_upload:
 * -db --database default='vdb', help=database to upload to. Ex 'vdb', 'test'
 * -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
@@ -56,13 +65,6 @@ Example commands:
 
 `python Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome`
 
-Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, 
-* Required sequence attributes: `source`, `locus`, `sequence`
-* Optional virus attributes: `subtype`, `division`, `location`
-* Optional sequence attributes: `accession`, `authors`
-(`subtype` is required for Flu)
-
 ## Downloading
 Sequences can be downloaded from vdb.
 * Downloads all documents in database
@@ -71,6 +73,7 @@ Sequences can be downloaded from vdb.
 	* Writes null attributes as '?'
 	* Writes fasta description in this order (0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
 
+###Commands
 Command line arguments to run vdb_download:
 * -db --database default='vdb', help=database to download from. Ex 'vdb', 'test'
 * -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
