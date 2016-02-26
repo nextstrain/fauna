@@ -4,19 +4,19 @@ from Bio import SeqIO
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-db', '-database', help="database to download from")
-parser.add_argument('-v', '-virus', help="virus table to interact with")
-parser.add_argument('-fname', help="input file name, default \"fasta\", other is \"json\"")
-parser.add_argument('-source', help="source of fasta file")
+parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
+parser.add_argument('-v', '--virus', help="virus table to interact with")
+parser.add_argument('--fname', help="input file name")
+parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
+parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--subtype', default=None, help="virus subtype, ie \'H3N2\' or \'Yamagata\' for Flu")
-parser.add_argument('--path', default=None, help="path to fasta import files, default is \"data/virus/\"")
-parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-
+parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--auth_key', default=None, help="authorization key for rethink database")
 
 class vdb_upload(object):
 
-    def __init__(self,  fasta_fields, fasta_fname, database, virus, source, locus=None, vsubtype=None, path=None, auth_key=None):
+    def __init__(self,  fasta_fields, fasta_fname, database, virus, source, locus=None, vsubtype=None, authors=None, path=None, auth_key=None):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
@@ -24,10 +24,10 @@ class vdb_upload(object):
 
         self.database = database
         self.virus = virus.title()
-        if source is not None:
-            self.virus_source = source.title()
-        if locus is not None:
-            self.locus = locus.title()
+        self.virus_source = source
+        self.locus = source
+        self.vsubtype = vsubtype
+        self.authors = authors
         self.fasta_fields = fasta_fields
 
         self.path = path
@@ -40,7 +40,7 @@ class vdb_upload(object):
 
         # fields that are needed to upload
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus']
-        self.virus_optional_fields = ['division', 'location', ]
+        self.virus_optional_fields = ['division', 'location', 'subtype']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession', 'authors']  # ex. if from virological.org or not in a database
 
@@ -97,7 +97,11 @@ class vdb_upload(object):
                 v['sequence'] = str(record.seq).upper()
                 v['virus'] = self.virus
                 if 'locus' not in v and self.locus is not None:
-                    v['locus'] = self.locus
+                    v['locus'] = self.locus.title()
+                if 'authors' not in v and self.authors is not None:
+                    v['authors'] = self.authors.title()
+                if 'subtype' not in v and self.vsubtype is not None:
+                    v['subtype'] = self.vsubtype.title()
                 viruses.append(v)
             handle.close()
             print("There were " + str(len(viruses)) + " viruses in the parsed file")
@@ -145,7 +149,6 @@ class vdb_upload(object):
         '''
         Format viruses date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
         '''
-
         # ex. 2002 (Month and day unknown)
         if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
             pass
@@ -263,7 +266,7 @@ class vdb_upload(object):
         '''
         updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
         for field in updateable_virus_fields:
-            if virus[field] != None and document[field] != virus[field]:
+            if document[field] != virus[field]:
                 print("Updating virus field ", field, ", from ", document[field], " to ", virus[field])
                 r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
 
@@ -291,7 +294,7 @@ class vdb_upload(object):
                 for field in (self.sequence_upload_fields+self.sequence_optional_fields):
                     if field not in doc_sequence_info:
                         doc_sequence_info[field] = virus_seq[field]
-                    if virus_seq[field] != None and doc_sequence_info[field] != virus_seq[field]:
+                    elif doc_sequence_info[field] != virus_seq[field]:
                         print("Updating virus field \"" + field + "\", from \"" + doc_sequence_info[field] + "\" to \"" + virus_seq[field] + "\"")
                         doc_sequence_info[field] = virus_seq[field]
         r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
@@ -299,8 +302,5 @@ class vdb_upload(object):
 if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
-    run = vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.db, virus=args.v, source=args.source,
-                     locus=args.locus, vsubtype=args.subtype, path=args.path)
+    run = vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.database, virus=args.virus, source=args.source, locus=args.locus, vsubtype=args.subtype, authors= args.authors, path=args.path, auth_key=args.auth_key)
     run.upload()
-
-#python vdb_upload.py -database test -v zika -fname zika_virological_02-22-2016.fasta -source Virological --locus Genome

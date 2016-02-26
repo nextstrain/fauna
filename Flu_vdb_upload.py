@@ -6,39 +6,13 @@ from vdb_upload import parser
 
 class Flu_vdb_upload(vdb_upload):
 
-    def __init__(self,  fasta_fields, fasta_fname, database, virus, source, locus=None, vsubtype=None, path=None, auth_key=None):
+    def __init__(self,  fasta_fields, fasta_fname, database, virus, source, locus=None, vsubtype=None, authors=None, path=None, auth_key=None):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
-        if vsubtype is not None:
-            self.vsubtype = vsubtype.title()
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'subtype']
-        vdb_upload.__init__(self, fasta_fields, fasta_fname, database, virus, source, locus, vsubtype, path, auth_key)
-
-    def parse_fasta(self, fasta):
-        '''
-        Parse FASTA file with default header formatting
-        :return: list of documents(dictionaries of attributes) to upload
-        '''
-        viruses = []
-        try:
-            handle = open(fasta, 'r')
-        except IOError:
-            print(fasta, "not found")
-        else:
-            for record in SeqIO.parse(handle, "fasta"):
-                content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq).upper()
-                v['virus'] = self.virus
-                if 'locus' not in v and self.locus is not None:
-                    v['locus'] = self.locus
-                if 'subtype' not in v and self.vsubtype is not None:
-                    v['subtype'] = self.vsubtype
-                viruses.append(v)
-            handle.close()
-            print("There were " + str(len(viruses)) + " viruses in the parsed file")
-        return viruses
+        self.virus_optional_fields = ['division', 'location']
+        vdb_upload.__init__(self, fasta_fields, fasta_fname, database, virus, source, locus, vsubtype, authors, path, auth_key)
 
     def format(self):
         '''
@@ -92,13 +66,9 @@ class Flu_vdb_upload(vdb_upload):
             except:
                 print("couldn't parse location for", v['strain'])
 
-
 if __name__=="__main__":
 
     args = parser.parse_args()
     fasta_fields = {0:'strain', 1:'accession', 2:'date', 5:'date', 8:'locus'}
-    run = Flu_vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.db, virus=args.v, source=args.source,
-                        locus=args.locus, vsubtype=args.subtype, path=args.path)
+    run = Flu_vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.database, virus=args.virus, source=args.source, locus=args.locus, vsubtype=args.subtype, authors=args.authors, path=args.path)
     run.upload()
-
-#python Flu_vdb_upload.py -database test -v flu -fname H3N2_gisaid_epiflu_sequence.fasta -source gisaid --subtype H3N2
