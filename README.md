@@ -5,7 +5,7 @@ The virus database (VDB) is used to store viral information in an organized sche
 
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `Flu`, `Ebola`, `Zika`.
-* `Subtype`: Virus subtype in CamelCase format, where available,null otherwise. Examples include `H3N2`, `H1N1pdm`, `Vic`, `Yam`
+* `Subtype`: Virus subtype in CamelCase format, where available, Null otherwise. `H3N2`, `H1N1pdm`, `Vic`, `Yam`
 * `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28`.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
@@ -14,7 +14,7 @@ The virus database (VDB) is used to store viral information in an organized sche
 * `Sequences`: list of...
   * `Accession`: Accession number. Where available, Null otherwise.
   * `Source`: Genbank, GISAID, etc... in CamelCase format.
-  * `Authors`: Authors to attribute credit to. When available, Null otherwise. in CamelCase format.
+  * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
 
@@ -22,6 +22,7 @@ The virus database (VDB) is used to store viral information in an organized sche
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
 
 To access vdb you need an authorization key. This can be passed as a command line argument (see below) or set as an environment variable with a bash script.
+
 `source environment_rethink.sh`
 ```shell
 #!/bin/bash
@@ -31,8 +32,8 @@ export RETHINK\_AUTH\_KEY=EXAMPLE\_KEY
 ## Uploading
 Sequences can be uploaded from a fasta file to a virus specific table within vdb. It currently
 * Reads a fasta file for description and sequence information.
-	* Reads fasta description in this order for Zika\_vdb\_upload: 0:`accession`, 1:`strain`, 2:`date`, 4:`country`, 5:`division`, 6:`location`
-	* Reading order can easily be changed in source code
+	* Reads fasta description in this order for Zika\_vdb\_upload (0:`accession`, 1:`strain`, 2:`date`, 4:`country`, 5:`division`, 6:`location`)
+	* Reading order can easily be changed in source code for different viruses or files
 * Formats information to fit with vdb schema. 
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
@@ -50,7 +51,9 @@ Command line arguments to run vdb_upload:
 * --auth\_key help=authorization key for rethink database
 
 Example commands:
+
 `python Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2`
+
 `python Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome`
 
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
@@ -66,7 +69,7 @@ Sequences can be downloaded from vdb.
 * If virus has more than one sequence, picks the longest sequence
 * Prints result to designated fasta or json file. 
 	* Writes null attributes as '?'
-	* Writes fasta description in this order 0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`
+	* Writes fasta description in this order (0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
 
 Command line arguments to run vdb_download:
 * -db --database default='vdb', help=database to download from. Ex 'vdb', 'test'
@@ -77,4 +80,5 @@ Command line arguments to run vdb_download:
 * --auth\_key help=authorization key for rethink database
 
 Example commands:
+
 `python vdb_download.py -db vdb -v Zika --fstem Zika_test`
