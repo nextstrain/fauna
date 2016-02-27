@@ -1,3 +1,6 @@
 # For vdb repo #
 environment*
 data/
+
+# Compiled intermediates
+*.pyc
