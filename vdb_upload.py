@@ -148,7 +148,10 @@ class vdb_upload(object):
     def format_date(self, virus):
         '''
         Format viruses date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
+        Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
         '''
+        # ex. 2002_04_25 to 2002-04-25
+        virus['date'] = re.sub(r'_', r'-', virus['date'])
         # ex. 2002 (Month and day unknown)
         if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
             pass
@@ -156,6 +159,10 @@ class vdb_upload(object):
             virus['date'] = virus['date'][0:4] + "-XX-XX"
         # ex. 2009-06 (Day unknown)
         elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+            virus['date'] = virus['date'][0:7] + "-XX"
+        elif re.match(r'\d\d\d\d', virus['date']):
+            virus['date'] = virus['date'][0:4] + "-XX-XX"
+        elif re.match(r'\d\d\d\d-\d\d', virus['date']):
             virus['date'] = virus['date'][0:7] + "-XX"
         else:
             print("Couldn't reformat this date: " + virus['date'])
