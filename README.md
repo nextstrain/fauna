@@ -37,7 +37,7 @@ Sequences can be uploaded from a fasta file to a virus specific table within vdb
 * Formats information to fit with vdb schema. 
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
-	* If strain already in database, updates attributes with new information
+	* If strain already in database, default is to update attributes with new information only if current attribute is null
 	
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
@@ -56,6 +56,7 @@ Command line arguments to run vdb_upload:
 * --locus
 * --authors
 * --subtype
+* --overwrite default=False help=whether to overwrite existing non-null fields
 * --path help=path to fasta file, default is data/virus/
 * --auth\_key help=authorization key for rethink database
 
