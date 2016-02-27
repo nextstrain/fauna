@@ -10,6 +10,8 @@ class Zika_vdb_upload(vdb_upload):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
+        self.virus_optional_fields = ['division', 'location']
+        self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
         vdb_upload.__init__(self, fasta_fields, fasta_fname, database, virus, source, overwrite, locus, vsubtype, authors, path, auth_key)
 
 if __name__=="__main__":
