@@ -87,6 +87,8 @@ Command line arguments to run vdb_download:
 * --fstem help=output file stem name, default is VirusName\_Year\_Month\_Date
 * --auth\_key help=authorization key for rethink database
 
-Example commands:
+### Examples:
 
-`python vdb_download.py -db vdb -v Zika --fstem Zika_test`
+Download sequences for `Zika_process.py`:
+
+    python vdb_download.py -db vdb -v Zika --fstem zika
