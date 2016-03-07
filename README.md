@@ -60,11 +60,15 @@ Command line arguments to run vdb_upload:
 * --path help=path to fasta file, default is data/virus/
 * --auth\_key help=authorization key for rethink database
 
-Example commands:
+### Examples:
 
-`python Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2`
+    python Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
 
-`python Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome`
+    python Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
+
+Upload Zika sequences from VIPR:
+
+    python Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
 
 ## Downloading
 Sequences can be downloaded from vdb.

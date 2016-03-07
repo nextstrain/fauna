@@ -17,8 +17,7 @@ class Zika_vdb_upload(vdb_upload):
 if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 2:'strain', 4:'date', 6:'country'}
-    fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
-    #  0        1          2                            3  4       5     6
-    # >KU647676|Zika_virus|MRS_OPY_Martinique_PaRi_2015|NA|2015_12|Human|Martinique
+    # 0        1          2      3  4          5     6
+    #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
     run = Zika_vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.database, virus=args.virus, source=args.source, overwrite=args.overwrite, locus=args.locus, vsubtype=args.subtype, authors=args.authors, path=args.path)
     run.upload()
