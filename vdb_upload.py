@@ -17,27 +17,38 @@ parser.add_argument('--overwrite', default=False, action="store_true",  help ="O
 
 class vdb_upload(object):
 
-    def __init__(self,  fasta_fields, fasta_fname, database, virus, source, overwrite, locus=None, vsubtype=None, authors=None, path=None, auth_key=None):
+    def __init__(self,  fasta_fields, **kwargs):
+
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
         print("Uploading Viruses to VDB")
-
-        self.database = database
-        self.virus = virus.title()
-        self.virus_source = source
-        self.locus = locus
-        self.vsubtype = vsubtype
-        self.authors = authors
         self.fasta_fields = fasta_fields
-        self.overwrite = overwrite
+        self.kwargs = kwargs
+        if 'database' in self.kwargs:
+            self.database = self.kwargs['database']
+        if 'virus' in self.kwargs:
+            self.virus = self.kwargs['virus'].title()
+        if 'source' in self.kwargs:
+            self.virus_source = self.kwargs['source']
+        if 'locus' in self.kwargs:
+            self.locus = self.kwargs['locus']
+        if 'subtype' in self.kwargs:
+            self.vsubtype = self.kwargs['subtype']
+        if 'authors' in self.kwargs:
+            self.authors = self.kwargs['authors']
+        if 'overwrite' in self.kwargs:
+            self.overwrite = self.kwargs['overwrite']
+        if 'fname' in self.kwargs:
+            self.fasta_fname = self.kwargs['fname']
 
-        self.path = path
+        if 'path' in self.kwargs:
+            self.path = self.kwargs['path']
         if self.path is None:
             self.path = "data/" + self.virus + "/"
         if not os.path.isdir(self.path):
             os.makedirs(self.path)
-        self.fasta_fname = fasta_fname
+
         self.viruses = self.parse_fasta(self.path + self.fasta_fname)
 
         # fields that are needed to upload
@@ -47,7 +58,8 @@ class vdb_upload(object):
         self.sequence_optional_fields = ['accession', 'authors']  # ex. if from virological.org or not in a database
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
-        self.auth_key = auth_key
+        if 'auth_key' in self.kwargs:
+            self.auth_key = self.kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
@@ -66,7 +78,7 @@ class vdb_upload(object):
         except:
             print("Failed to connect to the database, " + self.database)
             raise Exception
-
+        '''
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
             raise Exception("No table exists yet for " + self.virus)
@@ -76,7 +88,7 @@ class vdb_upload(object):
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
             r.db(self.database).table_create(self.virus, primary_key='strain').run()
-        '''
+
     def print_virus_info(self, virus):
 
         print("----------")
@@ -318,5 +330,5 @@ class vdb_upload(object):
 if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
-    run = vdb_upload(fasta_fields, fasta_fname=args.fname, database=args.database, virus=args.virus, source=args.source, overwrite=args.overwrite, locus=args.locus, vsubtype=args.subtype, authors= args.authors, path=args.path, auth_key=args.auth_key)
+    run = vdb_upload(fasta_fields, **args.__dict__)
     run.upload()

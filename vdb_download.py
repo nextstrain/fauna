@@ -13,30 +13,35 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 
 class vdb_download(object):
 
-    def __init__(self, database='vdb', virus='Zika', ftype='fasta', fstem=None, path='data/', auth_key=None):
-
+    def __init__(self, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
-
-        self.auth_key = auth_key
+        self.kwargs = kwargs
+        if 'auth_key' in self.kwargs:
+            self.auth_key = self.kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
             raise Exception("Missing auth_key")
 
-        self.database = database
-        self.virus_type = virus
-        self.ftype = ftype
+        if 'database' in self.kwargs:
+            self.database = self.kwargs['database']
+        if 'virus' in self.kwargs:
+            self.virus = self.kwargs['virus']
+        if 'ftype' in self.kwargs:
+            self.ftype = self.kwargs['ftype']
 
-        self.path = path
+        if 'path' in self.kwargs:
+            self.path = self.kwargs['path']
         if not os.path.isdir(self.path):
             os.makedirs(self.path)
 
         self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
-        self.fstem = fstem    
+        if 'fstem' in self.kwargs:
+            self.fstem = self.kwargs['fstem']
         if self.fstem is None:
-            self.fstem = self.virus_type.lower() + '_' + self.current_date
+            self.fstem = self.virus.lower() + '_' + self.current_date
         self.fname = self.fstem + '.' + self.ftype
 
         self.viruses = []
@@ -55,11 +60,11 @@ class vdb_download(object):
         :return:
         '''
 
-        cursor = list(r.db(self.database).table(self.virus_type).run())
+        cursor = list(r.db(self.database).table(self.virus).run())
         for doc in cursor:
             self.pick_best_sequence(doc)
         self.viruses = cursor
-        print("Downloading all viruses from the table: " + self.virus_type)
+        print("Downloading all viruses from the table: " + self.virus)
 
     def pick_best_sequence(self, document):
         '''
@@ -131,6 +136,6 @@ class vdb_download(object):
 if __name__=="__main__":
 
     args = parser.parse_args()
-    run = vdb_download(database = args.database, virus = args.virus, ftype = args.ftype, fstem = args.fstem, path = args.path, auth_key = args.auth_key)   
+    run = vdb_download(**args.__dict__)
     run.download_all_documents()
     run.output()
