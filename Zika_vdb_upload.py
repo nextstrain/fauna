@@ -10,9 +10,18 @@ class Zika_vdb_upload(vdb_upload):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
+
         vdb_upload.__init__(self, fasta_fields, **kwargs)
         self.virus_optional_fields = ['division', 'location']
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
+
+
+    def canonicalize(self, virus):
+        '''
+        Canonicalize strain names to consistent format
+        '''
+        if 'strain' in virus:
+            virus['strain'] = self.remove_strings(virus['strain'], ['_Asian', '_Asia'])
 
 if __name__=="__main__":
     args = parser.parse_args()

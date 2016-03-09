@@ -78,7 +78,7 @@ class vdb_upload(object):
         except:
             print("Failed to connect to the database, " + self.database)
             raise Exception
-        '''
+
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
             raise Exception("No table exists yet for " + self.virus)
@@ -88,6 +88,7 @@ class vdb_upload(object):
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
             r.db(self.database).table_create(self.virus, primary_key='strain').run()
+        '''
 
     def print_virus_info(self, virus):
 
@@ -117,6 +118,8 @@ class vdb_upload(object):
                     v['authors'] = self.authors.title()
                 if 'subtype' not in v and self.vsubtype is not None:
                     v['subtype'] = self.vsubtype.title()
+                if 'source' not in v and self.virus_source is not None:
+                    v['source'] = self.virus_source.title()
                 viruses.append(v)
             handle.close()
             print("There were " + str(len(viruses)) + " viruses in the parsed file")
@@ -137,6 +140,7 @@ class vdb_upload(object):
         print('Formatting for upload')
         self.define_regions()
         for virus in self.viruses:
+            self.canonicalize(virus)
             self.format_sequence_schema(virus)
             self.format_date(virus)
             self.format_region(virus)
@@ -147,6 +151,18 @@ class vdb_upload(object):
         self.viruses = filter(lambda v: v['region'] != 'Unknown', self.viruses)
         self.check_all_attributes()
 
+    def canonicalize(self, virus):
+        '''
+        Canonicalize strain names to consistent format
+        '''
+        if 'strain' in virus:
+            pass
+
+    def remove_strings(self, name, strings):
+            for word in strings:
+                name = re.sub(word, '', name, re.IGNORECASE)
+            return name
+
     def format_sequence_schema(self, virus):
         '''
         move sequence information into nested 'sequences' field
@@ -154,7 +170,6 @@ class vdb_upload(object):
         sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
 
         virus['sequences'] = [{}]
-        virus['sequences'][0]['source'] = self.virus_source.title()
         for field in sequence_fields:
             if field in virus.keys():
                 virus['sequences'][0][field] = virus[field]
@@ -294,7 +309,7 @@ class vdb_upload(object):
                 document[field] = virus[field]
                 print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
-                print("Updating virus field ", field, ", from ", document[field], " to ", virus[field])
+                print("Updating virus field ", str(field), ", from ", str(document[field]), " to ", virus[field])
                 r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
 
     def update_document_sequence(self, document, virus):
