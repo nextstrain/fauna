@@ -190,10 +190,10 @@ class vdb_upload(object):
         # ex. 2009-06 (Day unknown)
         elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
             virus['date'] = virus['date'][0:7] + "-XX"
-        elif re.match(r'\d\d\d\d', virus['date']):
-            virus['date'] = virus['date'][0:4] + "-XX-XX"
         elif re.match(r'\d\d\d\d-\d\d', virus['date']):
             virus['date'] = virus['date'][0:7] + "-XX"
+        elif re.match(r'\d\d\d\d', virus['date']):
+            virus['date'] = virus['date'][0:4] + "-XX-XX"
         else:
             print("Couldn't reformat this date: " + virus['date'])
 
