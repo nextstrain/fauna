@@ -6,6 +6,7 @@ The virus database (VDB) is used to store viral information in an organized sche
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `Flu`, `Ebola`, `Zika`.
 * `Subtype`: Virus subtype in CamelCase format, where available, Null otherwise. `H3N2`, `H1N1pdm`, `Vic`, `Yam`
+* `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
 * `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28`.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
@@ -37,11 +38,11 @@ Sequences can be uploaded from a fasta file to a virus specific table within vdb
 * Formats information to fit with vdb schema. 
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
-	* If strain already in database, default is to update attributes with new information only if current attribute is null
+	* If strain already in database, default is to update attributes with new information only if current attribute is null. Can overwrite existing non-null data with `--overwrite` option.
 	
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, 
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified` 
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `subtype`, `division`, `location`
 * Optional sequence attributes: `accession`, `authors`
