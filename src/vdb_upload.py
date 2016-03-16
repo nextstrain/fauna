@@ -52,7 +52,7 @@ class vdb_upload(object):
         self.viruses = self.parse_fasta(self.path + self.fasta_fname)
 
         # fields that are needed to upload
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified']
         self.virus_optional_fields = ['division', 'location', 'subtype']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession', 'authors']  # ex. if from virological.org or not in a database
@@ -112,6 +112,7 @@ class vdb_upload(object):
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
                 v['sequence'] = str(record.seq).upper()
                 v['virus'] = self.virus
+                v['date_modified'] = self.get_upload_date()
                 if 'locus' not in v and self.locus is not None:
                     v['locus'] = self.locus.title()
                 if 'authors' not in v and self.authors is not None:
@@ -120,10 +121,14 @@ class vdb_upload(object):
                     v['subtype'] = self.vsubtype.title()
                 if 'source' not in v and self.virus_source is not None:
                     v['source'] = self.virus_source.title()
+
                 viruses.append(v)
             handle.close()
             print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return viruses
+
+    def get_upload_date(self):
+        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
     def upload(self):
         '''
@@ -294,8 +299,10 @@ class vdb_upload(object):
                 r.table(self.virus).insert(virus).run()
             # Virus exists in table so just add sequence information and update meta data if needed
             else:
+                self.updated = False
                 self.update_document_sequence(document, virus)
                 self.update_document_meta(document, virus)
+
 
     def update_document_meta(self, document, virus):
         '''
@@ -309,8 +316,11 @@ class vdb_upload(object):
                 document[field] = virus[field]
                 print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
-                print("Updating virus field ", str(field), ", from ", str(document[field]), " to ", virus[field])
+                print("Updating virus field " + str(field) + ", from " + str(document[field]) + " to " + virus[field])
                 r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
+                self.updated = True
+        if self.updated:
+            r.table(self.virus).get(virus['strain']).update({'date_modified': virus['date_modified']}).run()
 
     def update_document_sequence(self, document, virus):
         '''
@@ -325,22 +335,27 @@ class vdb_upload(object):
             self.update_sequence_field(virus, document, 'sequence')
         if (virus_seq['accession'] != None and all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs)) or (virus_seq['accession'] == None and all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs)):
             r.table(self.virus).get(virus['strain']).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
+            self.updated = True
         else:
             print("This virus already exists in the table")
 
     def update_sequence_field(self, virus, document, check_field):
+        '''
+        Checks for matching viruses by comparing sequence and accession, updates other attributes if needed
+        '''
         doc_seqs = document['sequences']
         virus_seq = virus['sequences'][0]
+        updated_sequence = False
         for doc_sequence_info in doc_seqs:
             if doc_sequence_info[check_field] == virus_seq[check_field]:
                 for field in (self.sequence_upload_fields+self.sequence_optional_fields):
-                    if field not in doc_sequence_info:
+                    if (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
+                        print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
                         doc_sequence_info[field] = virus_seq[field]
-                        print("Creating virus field ", field, " assigned to ", virus[field])
-                    elif (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
-                        print("Updating virus field \"" + field + "\", from \"" + doc_sequence_info[field] + "\" to \"" + virus_seq[field] + "\"")
-                        doc_sequence_info[field] = virus_seq[field]
-        r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
+                        updated_sequence = True
+        if updated_sequence:
+            r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
+            self.updated = True
 
 if __name__=="__main__":
     args = parser.parse_args()
