@@ -62,13 +62,13 @@ Command line arguments to run vdb_upload:
 
 ### Examples:
 
-    python Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
+    python src/Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
 
-    python Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
+    python src/Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
 
 Upload Zika sequences from VIPR:
 
-    python Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
+    python src/Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
 
 ## Downloading
 Sequences can be downloaded from vdb.
@@ -91,4 +91,4 @@ Command line arguments to run vdb_download:
 
 Download sequences for `Zika_process.py`:
 
-    python vdb_download.py -db vdb -v Zika --fstem zika
+    python src/cvdb_download.py -db vdb -v Zika --fstem zika
