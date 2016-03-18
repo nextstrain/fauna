@@ -2,6 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 import argparse
+from vdb_parse import vdb_parse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
@@ -16,7 +17,7 @@ parser.add_argument('--path', default=None, help="path to fasta file, default is
 parser.add_argument('--auth_key', default=None, help="authorization key for rethink database")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 
-class vdb_upload(object):
+class vdb_upload(vdb_parse):
 
     def __init__(self,  fasta_fields, **kwargs):
 
@@ -24,39 +25,24 @@ class vdb_upload(object):
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
         print("Uploading Viruses to VDB")
-        self.fasta_fields = fasta_fields
-        self.kwargs = kwargs
-        if 'database' in self.kwargs:
-            self.database = self.kwargs['database']
-        if 'virus' in self.kwargs:
-            self.virus = self.kwargs['virus'].title()
-        if 'source' in self.kwargs:
-            self.virus_source = self.kwargs['source']
-        if 'locus' in self.kwargs:
-            self.locus = self.kwargs['locus']
-        if 'subtype' in self.kwargs:
-            self.vsubtype = self.kwargs['subtype']
-        if 'authors' in self.kwargs:
-            self.authors = self.kwargs['authors']
-        if 'overwrite' in self.kwargs:
-            self.overwrite = self.kwargs['overwrite']
-        if 'fname' in self.kwargs:
-            self.fasta_fname = self.kwargs['fname']
+        vdb_parse.__init__(self, fasta_fields, **kwargs)
 
-        if 'path' in self.kwargs:
-            self.path = self.kwargs['path']
+        if 'virus' in kwargs:
+            self.virus = kwargs['virus'].title()
+        self.database = kwargs['database']
+        self.virus_source = kwargs['source']
+        self.locus = kwargs['locus']
+        self.vsubtype = kwargs['subtype']
+        self.authors = kwargs['authors']
+        self.overwrite = kwargs['overwrite']
+        self.fasta_fname = kwargs['fname']
+        self.ftype = kwargs['ftype']
+
+        self.path = kwargs['path']
         if self.path is None:
             self.path = "data/" + self.virus + "/"
         if not os.path.isdir(self.path):
             os.makedirs(self.path)
-
-        if 'ftype' in self.kwargs:
-            self.ftype = self.kwargs['ftype']
-        if self.ftype == 'genbank':
-            self.viruses = self.parse_gb(self.path + self.fasta_fname)
-        else:
-            self.viruses = self.parse_fasta(self.path + self.fasta_fname)
-
 
         # fields that are needed to upload
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified']
@@ -65,8 +51,7 @@ class vdb_upload(object):
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
-        if 'auth_key' in self.kwargs:
-            self.auth_key = self.kwargs['auth_key']
+        self.auth_key = kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
@@ -103,93 +88,6 @@ class vdb_upload(object):
         for key, value in virus.items():
             print(key + " : " + str(value))
 
-    def parse_fasta(self, fasta):
-        '''
-        Parse FASTA file with default header formatting
-        :return: list of documents(dictionaries of attributes) to upload
-        '''
-        viruses = []
-        try:
-            handle = open(fasta, 'r')
-        except IOError:
-            print(fasta, "not found")
-        else:
-            for record in SeqIO.parse(handle, "fasta"):
-                content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq).upper()
-                v['virus'] = self.virus
-                v['date_modified'] = self.get_upload_date()
-                if 'locus' not in v and self.locus is not None:
-                    v['locus'] = self.locus.title()
-                if 'authors' not in v and self.authors is not None:
-                    v['authors'] = self.authors.title()
-                if 'subtype' not in v and self.vsubtype is not None:
-                    v['subtype'] = self.vsubtype.title()
-                if 'source' not in v and self.virus_source is not None:
-                    v['source'] = self.virus_source.title()
-
-                viruses.append(v)
-            handle.close()
-            print("There were " + str(len(viruses)) + " viruses in the parsed file")
-        return viruses
-
-    def parse_gb(self, gb):
-        '''
-        Parse genbank file
-        :return: list of documents(dictionaries of attributes) to upload
-        '''
-        viruses = []
-        try:
-            handle = open(gb, 'r')
-        except IOError:
-            print(gb, "not found")
-        else:
-            for record in SeqIO.parse(handle, "genbank"):
-                v = {}
-                v['source'] = 'Genbank'
-                v['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
-                v['sequence'] = str(record.seq).upper()
-                v['virus'] = self.virus
-                v['date_modified'] = self.get_upload_date()
-                reference = record.annotations["references"][0]
-                if reference.authors is not None:
-                    first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
-                    v['authors'] = first_author + " et al"
-                if reference.title is not None:
-                    v['title'] = reference.title
-                v['url'] = "http://www.ncbi.nlm.nih.gov/nuccore/" + v['accession']
-                record_features = record.features
-                for feat in record_features:
-                    if feat.type == 'source':
-                        qualifiers = feat.qualifiers
-                        v['date'] = self.convert_gb_date(qualifiers['collection_date'][0])
-                        v['country'] = qualifiers['country'][0]
-                        v['strain'] = qualifiers['isolate'][0]
-                if 'locus' not in v and self.locus is not None:
-                    v['locus'] = self.locus.title()
-                if 'authors' not in v and self.authors is not None:
-                    v['authors'] = self.authors.title()
-                if 'subtype' not in v and self.vsubtype is not None:
-                    v['subtype'] = self.vsubtype.title()
-                viruses.append(v)
-            handle.close()
-            print("There were " + str(len(viruses)) + " viruses in the parsed file")
-        return viruses
-
-    def convert_gb_date(self, collection_date):
-        '''
-        Converts calendar dates between given formats
-        Credit to Gytis Dudas
-        '''
-        N_fields = len(collection_date.split('-'))
-        if N_fields == 1:
-            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%Y'), '%Y-XX-XX')
-        elif N_fields == 2:
-            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%b-%Y'), '%Y-%m-XX')
-        elif N_fields == 3:
-            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%d-%b-%Y'), '%Y-%m-%d')
-
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
@@ -198,6 +96,7 @@ class vdb_upload(object):
         format virus information, then upload to database
         :return:
         '''
+        self.parse()
         self.format()
         self.upload_documents()
 
