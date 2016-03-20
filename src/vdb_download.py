@@ -9,6 +9,7 @@ parser.add_argument('-v', '--virus', default='Zika', help="virus table to intera
 parser.add_argument('--path', default='data/', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 class vdb_download(object):
@@ -18,12 +19,20 @@ class vdb_download(object):
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
         self.kwargs = kwargs
+
+        if 'host' in self.kwargs:
+            self.host = self.kwargs['host']
+        if 'RETHINK_HOST' in os.environ and self.host is None:
+            self.host = os.environ['RETHINK_HOST']
+        if self.host is None:
+            raise Exception("Missing rethink host")
+
         if 'auth_key' in self.kwargs:
             self.auth_key = self.kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
-            raise Exception("Missing auth_key")
+            raise Exception("Missing rethink auth_key")
 
         if 'database' in self.kwargs:
             self.database = self.kwargs['database']
@@ -48,7 +57,7 @@ class vdb_download(object):
 
         # connect to database
         try:
-            r.connect(host="ec2-52-90-204-136.compute-1.amazonaws.com", port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)

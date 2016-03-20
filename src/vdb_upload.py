@@ -14,7 +14,8 @@ parser.add_argument('--locus', default=None, help="gene or genomic region for se
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--subtype', default=None, help="virus subtype, ie \'H3N2\' or \'Yamagata\' for Flu")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
-parser.add_argument('--auth_key', default=None, help="authorization key for rethink database")
+parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 
 class vdb_upload(vdb_parse):
@@ -51,6 +52,13 @@ class vdb_upload(vdb_parse):
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
+        if 'host' in self.kwargs:
+            self.host = self.kwargs['host']
+        if 'RETHINK_HOST' in os.environ and self.host is None:
+            self.host = os.environ['RETHINK_HOST']
+        if self.host is None:
+            raise Exception("Missing rethink host")
+
         self.auth_key = kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
@@ -65,7 +73,7 @@ class vdb_upload(vdb_parse):
         Check for existing table, otherwise create it
         '''
         try:
-            r.connect(host="ec2-52-90-204-136.compute-1.amazonaws.com", port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)

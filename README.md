@@ -92,4 +92,4 @@ Command line arguments to run vdb_download:
 
 Download sequences for `Zika_process.py`:
 
-    python src/cvdb_download.py -db vdb -v Zika --fstem zika
+    python src/vdb_download.py -db vdb -v Zika --fstem zika
