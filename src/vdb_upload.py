@@ -192,7 +192,7 @@ class vdb_upload(vdb_parse):
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
-            print("couldn't parse region for " + virus['strain'] + " country: " + virus["country"])
+            print("couldn't parse region for " + virus['sequences'][0]['accession'] + " country: " + virus["country"])
 
     def format_place(self, virus):
         '''

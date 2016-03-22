@@ -124,16 +124,26 @@ class vdb_parse(object):
             if reference.authors is not None:
                 first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
                 v['authors'] = first_author + " et al"
+            else:
+                print("Couldn't parse authors for " + v['accession'])
             if reference.title is not None:
                 v['title'] = reference.title
+            else:
+                print("Couldn't parse reference title for " + v['accession'])
             v['url'] = "http://www.ncbi.nlm.nih.gov/nuccore/" + v['accession']
+
             record_features = record.features
             for feat in record_features:
                 if feat.type == 'source':
                     qualifiers = feat.qualifiers
                     v['date'] = self.convert_gb_date(qualifiers['collection_date'][0])
                     v['country'] = qualifiers['country'][0]
-                    v['strain'] = qualifiers['isolate'][0]
+                    if 'isolate' in qualifiers:
+                        v['strain'] = qualifiers['isolate'][0]
+                    elif 'strain' in qualifiers:
+                        v['strain'] = qualifiers['strain'][0]
+                    else:
+                        print("Couldn't parse strain name for " + v['accession'])
             if 'locus' not in v and self.locus is not None:
                 v['locus'] = self.locus.title()
             if 'authors' not in v and self.authors is not None:
