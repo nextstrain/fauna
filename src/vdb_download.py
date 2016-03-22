@@ -50,7 +50,7 @@ class vdb_download(object):
         if 'fstem' in self.kwargs:
             self.fstem = self.kwargs['fstem']
         if self.fstem is None:
-            self.fstem = self.virus.lower() + '_' + self.current_date
+            self.fstem = self.virus + '_' + self.current_date
         self.fname = self.fstem + '.' + self.ftype
 
         self.viruses = []
