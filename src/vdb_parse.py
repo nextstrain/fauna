@@ -148,7 +148,7 @@ class vdb_parse(object):
                 if feat.type == 'source':
                     qualifiers = feat.qualifiers
                     v['date'] = self.convert_gb_date(qualifiers['collection_date'][0])
-                    v['country'] = qualifiers['country'][0]
+                    v['country'] = re.match(r'^([^:]*)', qualifiers['country'][0]).group(0)
                     if 'isolate' in qualifiers:
                         v['strain'] = qualifiers['isolate'][0]
                     elif 'strain' in qualifiers:

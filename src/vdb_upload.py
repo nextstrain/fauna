@@ -120,12 +120,13 @@ class vdb_upload(vdb_parse):
             self.canonicalize(virus)
             self.format_sequence_schema(virus)
             self.format_date(virus)
-            self.format_region(virus)
             self.format_place(virus)
+            self.format_region(virus)
+
 
         # filter out viruses without correct dating format or without region specified
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
-        self.viruses = filter(lambda v: v['region'] != 'Unknown', self.viruses)
+        self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
         self.check_all_attributes()
 
     def canonicalize(self, virus):
@@ -189,10 +190,10 @@ class vdb_upload(vdb_parse):
         '''
         Label viruses with region based on country, if prune then filter out viruses without region
         '''
-        virus['region'] = 'Unknown'
+        virus['region'] = '?'
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
-        if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
+        if virus['country'] != '?' and virus['region'] == '?':
             print("couldn't parse region for " + virus['sequences'][0]['accession'] + " country: " + virus["country"])
 
     def format_place(self, virus):
@@ -202,7 +203,7 @@ class vdb_upload(vdb_parse):
         location_fields = ['region', 'country', 'division', 'location']
         for field in location_fields:
             if field in virus:
-                virus[field] = virus[field].title()
+                virus[field] = virus[field].title().replace(" ", "").replace("_", "")
 
     def check_all_attributes(self):
         '''
@@ -320,7 +321,11 @@ class vdb_upload(vdb_parse):
         for doc_sequence_info in doc_seqs:
             if doc_sequence_info[check_field] == virus_seq[check_field]:
                 for field in (self.sequence_upload_fields+self.sequence_optional_fields):
-                    if (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
+                    if field not in doc_sequence_info:
+                        doc_sequence_info[field] = virus_seq[field]
+                        print("Creating sequences field ", field, " assigned to ", virus_seq[field])
+                        updated_sequence = True
+                    elif (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
                         print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
                         doc_sequence_info[field] = virus_seq[field]
                         updated_sequence = True
