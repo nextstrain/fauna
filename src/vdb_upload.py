@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
 parser.add_argument('-v', '--virus', help="virus table to interact with")
 parser.add_argument('--fname', help="input file name")
-parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\"")
+parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\" or \"accession\"")
 parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
@@ -17,6 +17,7 @@ parser.add_argument('--path', default=None, help="path to fasta file, default is
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
+parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
 
 class vdb_upload(vdb_parse):
 
@@ -36,8 +37,9 @@ class vdb_upload(vdb_parse):
         self.vsubtype = kwargs['subtype']
         self.authors = kwargs['authors']
         self.overwrite = kwargs['overwrite']
-        self.fasta_fname = kwargs['fname']
+        self.fname = kwargs['fname']
         self.ftype = kwargs['ftype']
+        self.email = kwargs['email']
 
         self.path = kwargs['path']
         if self.path is None:
@@ -52,8 +54,7 @@ class vdb_upload(vdb_parse):
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
-        if 'host' in self.kwargs:
-            self.host = self.kwargs['host']
+        self.host = kwargs['host']
         if 'RETHINK_HOST' in os.environ and self.host is None:
             self.host = os.environ['RETHINK_HOST']
         if self.host is None:
@@ -143,7 +144,6 @@ class vdb_upload(vdb_parse):
         move sequence information into nested 'sequences' field
         '''
         sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
-
         virus['sequences'] = [{}]
         for field in sequence_fields:
             if field in virus.keys():
@@ -192,7 +192,7 @@ class vdb_upload(vdb_parse):
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != 'Unknown' and virus['region'] == 'Unknown':
-            print("couldn't parse region for " + virus['strain'] + " country: " + virus["country"])
+            print("couldn't parse region for " + virus['sequences'][0]['accession'] + " country: " + virus["country"])
 
     def format_place(self, virus):
         '''
@@ -332,4 +332,4 @@ if __name__=="__main__":
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
     run = vdb_upload(fasta_fields, **args.__dict__)
     run.upload()
-    #python src/Zika_vdb_upload.py --database test --virus Zika --fname genbank_test.gb --source Genbank --locus Genome --path data/ --ftype genbank
+    #python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --source Genbank --locus Genome --path data/ --ftype accession --email chacalle@uw.edu
