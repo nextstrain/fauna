@@ -90,7 +90,7 @@ Upload Zika sequences from VIPR:
     
 Upload via accession file:
 
-	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --source Genbank --locus Genome --path data/ --ftype accession --email email@email.org
+	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome --path data/ --email email@email.org
 
 Upload via accession list:
 

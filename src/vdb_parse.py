@@ -8,7 +8,10 @@ class vdb_parse(object):
         self.accessions = kwargs['accessions']
 
     def parse(self):
-        if self.ftype is not None and self.fname is not None:
+        if self.accessions is not None:
+            accessions = [acc.strip() for acc in self.accessions.split(",")]
+            self.viruses = self.access_entrez(accessions)
+        elif self.ftype is not None and self.fname is not None:
             if self.ftype == 'genbank':
                 self.viruses = self.parse_gb_file(self.path + self.fname)
             elif self.ftype == 'accession':
@@ -16,9 +19,6 @@ class vdb_parse(object):
                 self.viruses = self.access_entrez(accessions)
             elif self.ftype == 'fasta':
                 self.viruses = self.parse_fasta_file(self.path + self.fname)
-        elif self.accessions is not None:
-            accessions = [acc.strip() for acc in self.accessions.split(",")]
-            self.viruses = self.access_entrez(accessions)
         else:
             raise Exception("No input file name and type defined or accessions given")
 
