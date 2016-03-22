@@ -68,7 +68,10 @@ class vdb_parse(object):
         '''
         #define email for entrez login
         db = "nuccore"
-        Entrez.email = self.email
+        if self.email is not None:
+            Entrez.email = self.email
+        else:
+            raise Exception("Need to give email to upload via accession number")
 
         ## define batch size for download
         batchSize = 100
