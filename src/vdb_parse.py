@@ -5,15 +5,23 @@ from Bio import Entrez
 class vdb_parse(object):
     def __init__(self, fasta_fields, **kwargs):
         self.fasta_fields = fasta_fields
+        self.accessions = kwargs['accessions']
 
     def parse(self):
-        if self.ftype == 'genbank':
-            self.viruses = self.parse_gb_file(self.path + self.fname)
-        elif self.ftype == 'accession':
-            accessions = self.parse_accession_file(self.path + self.fname)
+        if self.ftype is not None and self.fname is not None:
+            if self.ftype == 'genbank':
+                self.viruses = self.parse_gb_file(self.path + self.fname)
+            elif self.ftype == 'accession':
+                accessions = self.parse_accession_file(self.path + self.fname)
+                self.viruses = self.access_entrez(accessions)
+            elif self.ftype == 'fasta':
+                self.viruses = self.parse_fasta_file(self.path + self.fname)
+        elif self.accessions is not None:
+            accessions = [acc.strip() for acc in self.accessions.split(",")]
             self.viruses = self.access_entrez(accessions)
-        elif self.ftype == 'fasta':
-            self.viruses = self.parse_fasta_file(self.path + self.fname)
+        else:
+            raise Exception("No input file name and type defined or accessions given")
+
         return self.viruses
 
     def parse_fasta_file(self, fasta):
@@ -46,6 +54,18 @@ class vdb_parse(object):
             handle.close()
             print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return viruses
+
+    def parse_gb_file(self, gb):
+        '''
+        Parse genbank file
+        :return: list of documents(dictionaries of attributes) to upload
+        '''
+        try:
+            handle = open(gb, 'r')
+        except IOError:
+            print(gb, "not found")
+        else:
+            return self.parse_gb_entries(handle)
 
     def parse_accession_file(self, acc):
         '''
@@ -99,18 +119,6 @@ class vdb_parse(object):
                 viruses.extend(self.parse_gb_entries(handle))
         return viruses
 
-    def parse_gb_file(self, gb):
-        '''
-        Parse genbank file
-        :return: list of documents(dictionaries of attributes) to upload
-        '''
-        try:
-            handle = open(gb, 'r')
-        except IOError:
-            print(gb, "not found")
-        else:
-            return self.parse_gb_entries(handle)
-
     def parse_gb_entries(self, handle):
         '''
         Go through genbank records to get relevant virus information
@@ -161,7 +169,6 @@ class vdb_parse(object):
     def convert_gb_date(self, collection_date):
         '''
         Converts calendar dates between given formats
-        Credit to Gytis Dudas
         '''
         N_fields = len(collection_date.split('-'))
         if N_fields == 1:
