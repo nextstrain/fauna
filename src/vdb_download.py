@@ -63,6 +63,12 @@ class vdb_download(object):
             print("Failed to connect to the database, " + self.database)
             raise Exception
 
+    def count_documents(self):
+        '''
+        return integer count of number of documents in table
+        '''
+        return r.db(self.database).table(self.virus).count().run()
+
     def download_all_documents(self):
         '''
         download all documents from table
@@ -146,5 +152,6 @@ if __name__=="__main__":
 
     args = parser.parse_args()
     run = vdb_download(**args.__dict__)
+    print "Documents in table:", run.count_documents()
     run.download_all_documents()
     run.output()
