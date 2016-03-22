@@ -18,6 +18,8 @@ The virus database (VDB) is used to store viral information in an organized sche
   * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
+  * `Title`: Title of reference.
+  * `url`: Url of reference if available, otherwise link to genbank entry. 
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
@@ -28,13 +30,20 @@ To access vdb you need an authorization key. This can be passed as a command lin
 ```shell
 #!/bin/bash
 export RETHINK\_AUTH\_KEY=EXAMPLE\_KEY
+export RETHINK\_HOST=EXAMPLE\_HOST
 ```
 
 ## Uploading
-Sequences can be uploaded from a fasta file to a virus specific table within vdb. It currently
+Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently
 * Reads a fasta file for description and sequence information.
 	* Reads fasta description in this order for Zika\_vdb\_upload (0:`accession`, 1:`strain`, 2:`date`, 4:`country`, 5:`division`, 6:`location`)
 	* Reading order can easily be changed in source code for different viruses or files
+* Reads a genbank file as downloaded from the genbank website
+	* Can include multiple genbank entries
+	* Parses information from entries
+* Reads a file of accession numbers
+	* One accession number on each line in file
+	* Uses entrez to get genbank entries from accession numbers
 * Formats information to fit with vdb schema. 
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
@@ -45,21 +54,24 @@ Viruses with null values for required attributes will be filtered out of those u
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified` 
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `subtype`, `division`, `location`
-* Optional sequence attributes: `accession`, `authors`
+* Optional sequence attributes: `accession`, `authors`, `title`, `url`
 (`subtype` is required for Flu)
 
 ### Commands
 Command line arguments to run vdb_upload:
 * -db --database default='vdb', help=database to upload to. Ex 'vdb', 'test'
 * -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
-* --fname help=input fasta file name
+* --fname help=input file name
+* --ftype default='fasta', help=input file type, fasta, genbank or accession
 * --source
 * --locus
-* --authors
+* --authors help=authors of source of sequences
 * --subtype
 * --overwrite default=False help=whether to overwrite existing non-null fields
 * --path help=path to fasta file, default is data/virus/
 * --auth\_key help=authorization key for rethink database
+* --host help=rethink host url
+* --email help=to upload viruses via accession must include email to use entrez
 
 ### Examples:
 
@@ -70,6 +82,10 @@ Command line arguments to run vdb_upload:
 Upload Zika sequences from VIPR:
 
     python src/Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
+    
+Upload via accession file:
+
+	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --source Genbank --locus Genome --path data/ --ftype accession --email email@email.org
 
 ## Downloading
 Sequences can be downloaded from vdb.
