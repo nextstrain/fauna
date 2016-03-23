@@ -123,7 +123,6 @@ class vdb_upload(vdb_parse):
             self.format_place(virus)
             self.format_region(virus)
 
-
         # filter out viruses without correct dating format or without region specified
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
         self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
@@ -194,16 +193,18 @@ class vdb_upload(vdb_parse):
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != '?' and virus['region'] == '?':
-            print("couldn't parse region for " + virus['sequences'][0]['accession'] + " country: " + virus["country"])
+            print("couldn't parse region for " + virus['sequences'][0]['accession'] + ", country: " + virus["country"])
 
     def format_place(self, virus):
         '''
         Ensure Camelcase formatting for geographic information
         '''
-        location_fields = ['region', 'country', 'division', 'location']
+        location_fields = ['country', 'division', 'location']
         for field in location_fields:
             if field in virus:
-                virus[field] = virus[field].title().replace(" ", "").replace("_", "")
+                if len(virus[field].split()) > 1:
+                    virus[field] = virus[field].title()
+        virus['country'] = virus['country'].replace("_", "").replace(" ", "")
 
     def check_all_attributes(self):
         '''
@@ -274,7 +275,6 @@ class vdb_upload(vdb_parse):
                 self.updated = False
                 self.update_document_sequence(document, virus)
                 self.update_document_meta(document, virus)
-
 
     def update_document_meta(self, document, virus):
         '''
