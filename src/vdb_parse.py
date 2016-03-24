@@ -1,6 +1,7 @@
-import os, re, datetime
+import os, re, datetime, json
 from Bio import SeqIO
 from Bio import Entrez
+import requests
 
 class vdb_parse(object):
     def __init__(self, fasta_fields, **kwargs):
@@ -132,16 +133,19 @@ class vdb_parse(object):
             v['virus'] = self.virus
             v['date_modified'] = self.get_upload_date()
             reference = record.annotations["references"][0]
-            if reference.authors is not None:
-                first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
-                v['authors'] = first_author + " et al"
-            else:
-                print("Couldn't parse authors for " + v['accession'])
             if reference.title is not None:
                 v['title'] = reference.title
             else:
                 print("Couldn't parse reference title for " + v['accession'])
-            v['url'] = "http://www.ncbi.nlm.nih.gov/nuccore/" + v['accession']
+                v['title'] = None
+            if reference.authors is not None:
+                first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
+            else:
+                print("Couldn't parse authors for " + v['accession'])
+                first_author = None
+            url = "http://www.ncbi.nlm.nih.gov/nuccore/" + v['accession']
+            v['url'] = self.get_gb_url(url, v['title'], first_author)
+            v['authors'] = first_author + " et al"
 
             record_features = record.features
             for feat in record_features:
@@ -165,6 +169,20 @@ class vdb_parse(object):
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return viruses
+
+    def get_gb_url(self, url, title, author):
+        '''
+        Use crossref api to look for matching title and author name to link to DOI"
+        '''
+        num = str(2)
+        response = json.loads(requests.get('http://api.crossref.org/works?query=%' + title + '%22&rows=' + num).text)
+        items = response['message']['items']
+        for item in items:
+            if 'title' in item and item['title'][0] == title:
+                if 'author' in item and item['author'][0]['family'] == author:
+                    if 'DOI' in item:
+                        url = 'http://dx.doi.org/' + item['DOI']
+        return url
 
     def convert_gb_date(self, collection_date):
         '''

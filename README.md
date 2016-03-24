@@ -19,7 +19,7 @@ The virus database (VDB) is used to store viral information in an organized sche
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
   * `Title`: Title of reference.
-  * `url`: Url of reference if available, otherwise link to genbank entry. 
+  * `url`: Url of reference if available, check crossref database for DOI, otherwise link to genbank entry. 
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
