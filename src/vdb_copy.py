@@ -1,8 +1,8 @@
-import os, argparse
+import os, argparse, shutil
 import rethinkdb as r
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-edb', '--export_database', default='test', help="database to make backup of")
+parser.add_argument('-edb', '--export_database', default='vdb', help="database to make backup of")
 parser.add_argument('-idb', '--import_database', default='test', help="database that will be restored to backup copy")
 parser.add_argument('-v', '--virus', help="virus table to backup or copy")
 parser.add_argument('--fname', help="input file name")
@@ -11,7 +11,7 @@ parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 
-class vdb_backup(object):
+class vdb_copy(object):
     def __init__(self, **kwargs):
         if 'virus' in kwargs:
             self.virus = kwargs['virus'].title()
@@ -19,7 +19,7 @@ class vdb_backup(object):
             self.export_database = kwargs['export_database']
         if 'import_database' in kwargs:
             self.import_database = kwargs['import_database']
-        self.backup_file = 'rethindb_dump_' + self.export_database + '_' + self.virus + '.tar.gz'
+        self.backup_file = 'rethindb_export_' + self.export_database + '_' + self.virus
 
 
         if 'host' in kwargs:
@@ -40,28 +40,30 @@ class vdb_backup(object):
         '''
         make copy of input database table and import into another database table
         '''
-        self.backup()
-        self.restore()
+        self.export_table()
+        self.import_table()
 
-    def backup(self):
+    def export_table(self):
         '''
         backup self.export_database self.virus table to self.backup_file
-        :return:
         '''
         print("Making backup of database: " + self.export_database + ", table: " + self.virus + ", to file: " + self.backup_file)
-        command = 'rethinkdb dump -c ' + self.host + ' -a ' + self.auth_key + ' -e ' + self.export_database + '.' + self.virus + ' -f ' + self.backup_file
+        command = 'rethinkdb export -c ' + self.host + ' -a ' + self.auth_key + ' -e ' + self.export_database + '.' + self.virus + ' -d ' + self.backup_file + ' --format json'
         os.system(command)
 
-    def restore(self):
+    def import_table(self):
+        '''
+        import the exported table into self.import_database from self.backup_file
+        '''
         print("Restoring database: " + self.import_database + ", table: " + self.virus + ", from file: " + self.backup_file)
-        command = 'rethinkdb restore ' + self.backup_file + ' -c ' + self.host + ' -a ' + self.auth_key + ' -i ' + self.import_database + '.' + self.virus + " --force"
-        # rethinkdb restore
+        json_file = self.backup_file + '/' + self.export_database + '/' + self.virus + '.json'
+        command = 'rethinkdb import -c ' + self.host + ' -a ' + self.auth_key + ' --table ' + self.import_database + '.' + self.virus + ' -f ' + json_file + ' --format json --pkey strain --force'
         os.system(command)
-        #os.remove(self.backup_file)
+        shutil.rmtree(self.backup_file)
 
 if __name__=="__main__":
     args = parser.parse_args()
-    run = vdb_backup(**args.__dict__)
+    run = vdb_copy(**args.__dict__)
     run.copy()
 
 
