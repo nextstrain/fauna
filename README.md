@@ -119,3 +119,15 @@ Command line arguments to run vdb_download:
 Download sequences for `Zika_process.py`:
 
     python src/vdb_download.py -db vdb -v Zika --fstem zika
+
+
+## Updating
+Sequences in vdb can be automatically updated
+* Only sequences whose source is Genbank
+* Uses entrez to check for updates to certain fields
+* Updates the fields: `authors`, `title`, `url`, `sequence` 
+* Must specify database, virus and email.
+
+### Examples:
+
+	python src/vdb_update.py -db test -v zika --email email@email.org
