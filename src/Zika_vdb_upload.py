@@ -7,14 +7,9 @@ from vdb_upload import parser
 class Zika_vdb_upload(vdb_upload):
 
     def __init__(self, **kwargs):
-        '''
-        :param fasta_fields: Dictionary defining position in fasta field to be included in database
-        '''
-
         vdb_upload.__init__(self, **kwargs)
         self.virus_optional_fields = ['division', 'location']
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
-
 
     def canonicalize(self, virus):
         '''

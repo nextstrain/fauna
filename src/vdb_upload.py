@@ -23,11 +23,6 @@ parser.add_argument('--email', default=None, help="email to access NCBI database
 class vdb_upload(vdb_parse):
 
     def __init__(self, **kwargs):
-
-        '''
-        :param fasta_fields: Dictionary defining position in fasta field to be included in database
-        '''
-        print("Uploading Viruses to VDB")
         vdb_parse.__init__(self, **kwargs)
 
         if 'virus' in kwargs:
@@ -63,7 +58,7 @@ class vdb_upload(vdb_parse):
         self.virus_optional_fields = ['division', 'location', 'subtype']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
-        self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
         if 'host' in kwargs:
             self.host = kwargs['host']
@@ -105,7 +100,6 @@ class vdb_upload(vdb_parse):
         '''
 
     def print_virus_info(self, virus):
-
         print("----------")
         for key, value in virus.items():
             print(key + " : " + str(value))
@@ -116,10 +110,11 @@ class vdb_upload(vdb_parse):
     def upload(self):
         '''
         format virus information, then upload to database
-        :return:
         '''
+        print("Uploading Viruses to VDB")
         self.parse()
         self.format()
+        self.filter()
         self.upload_documents()
 
     def format(self):
@@ -135,11 +130,6 @@ class vdb_upload(vdb_parse):
             self.format_place(virus)
             self.format_region(virus)
 
-        # filter out viruses without correct dating format or without region specified
-        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
-        self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
-        self.check_all_attributes()
-
     def canonicalize(self, virus):
         '''
         Canonicalize strain names to consistent format
@@ -148,9 +138,9 @@ class vdb_upload(vdb_parse):
             pass
 
     def remove_strings(self, name, strings):
-            for word in strings:
-                name = re.sub(word, '', name, re.IGNORECASE)
-            return name
+        for word in strings:
+            name = re.sub(word, '', name, re.IGNORECASE)
+        return name
 
     def format_sequence_schema(self, virus):
         '''
@@ -218,11 +208,14 @@ class vdb_upload(vdb_parse):
                     virus[field] = virus[field].title()
         virus['country'] = virus['country'].replace("_", "").replace(" ", "")
 
-    def check_all_attributes(self):
+    def filter(self):
         '''
-        Check that each virus has upload attributes, filters out viruses that don't.
+        Filter out viruses without correct dating format or without region specified
+        Check  optional and upload attributes
         '''
         self.check_optional_attributes()
+        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
+        self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
         self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
 
     def check_optional_attributes(self):
@@ -293,7 +286,7 @@ class vdb_upload(vdb_parse):
         if overwrite is false update doc_virus information only if virus info is different and not null
         if overwrite is true update doc_virus information if virus info is different
         '''
-        for field in self.updateable_virus_fields:
+        for field in self.overwritable_virus_fields:
             # update if overwrite and anything
             # update if !overwrite only if document[field] is not none
             if field not in document:
