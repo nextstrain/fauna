@@ -6,12 +6,12 @@ from vdb_upload import parser
 
 class Zika_vdb_upload(vdb_upload):
 
-    def __init__(self, fasta_fields, **kwargs):
+    def __init__(self, **kwargs):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
 
-        vdb_upload.__init__(self, fasta_fields, **kwargs)
+        vdb_upload.__init__(self, **kwargs)
         self.virus_optional_fields = ['division', 'location']
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
 
@@ -28,5 +28,6 @@ if __name__=="__main__":
     fasta_fields = {0:'accession', 2:'strain', 4:'date', 6:'country'}
     # 0        1          2      3  4          5     6
     #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
-    run = Zika_vdb_upload(fasta_fields, **args.__dict__)
+    setattr(args, 'fasta_fields', fasta_fields)
+    run = Zika_vdb_upload(**args.__dict__)
     run.upload()

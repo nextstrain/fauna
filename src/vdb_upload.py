@@ -22,27 +22,37 @@ parser.add_argument('--email', default=None, help="email to access NCBI database
 
 class vdb_upload(vdb_parse):
 
-    def __init__(self,  fasta_fields, **kwargs):
+    def __init__(self, **kwargs):
 
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
         print("Uploading Viruses to VDB")
-        vdb_parse.__init__(self, fasta_fields, **kwargs)
+        vdb_parse.__init__(self, **kwargs)
 
         if 'virus' in kwargs:
             self.virus = kwargs['virus'].title()
-        self.database = kwargs['database']
-        self.virus_source = kwargs['source']
-        self.locus = kwargs['locus']
-        self.vsubtype = kwargs['subtype']
-        self.authors = kwargs['authors']
-        self.overwrite = kwargs['overwrite']
-        self.fname = kwargs['fname']
-        self.ftype = kwargs['ftype']
-        self.email = kwargs['email']
+        if 'database' in kwargs:
+            self.database = kwargs['database']
+        if 'source' in kwargs:
+            self.virus_source = kwargs['source']
+        if 'locus' in kwargs:
+            self.locus = kwargs['locus']
+        if 'subtype' in kwargs:
+            self.vsubtype = kwargs['subtype']
+        if 'authors' in kwargs:
+            self.authors = kwargs['authors']
+        if 'overwrite' in kwargs:
+            self.overwrite = kwargs['overwrite']
+        if 'fname' in kwargs:
+            self.fname = kwargs['fname']
+        if 'ftype' in kwargs:
+            self.ftype = kwargs['ftype']
+        if 'email' in kwargs:
+            self.email = kwargs['email']
 
-        self.path = kwargs['path']
+        if 'path' in kwargs:
+            self.path = kwargs['path']
         if self.path is None:
             self.path = "data/" + self.virus + "/"
         if not os.path.isdir(self.path):
@@ -55,13 +65,15 @@ class vdb_upload(vdb_parse):
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
 
-        self.host = kwargs['host']
+        if 'host' in kwargs:
+            self.host = kwargs['host']
         if 'RETHINK_HOST' in os.environ and self.host is None:
             self.host = os.environ['RETHINK_HOST']
         if self.host is None:
             raise Exception("Missing rethink host")
 
-        self.auth_key = kwargs['auth_key']
+        if 'auth_key' in kwargs:
+            self.auth_key = kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
@@ -336,6 +348,7 @@ class vdb_upload(vdb_parse):
 if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
-    run = vdb_upload(fasta_fields, **args.__dict__)
+    setattr(args, 'fasta_fields', fasta_fields)
+    run = vdb_upload(**args.__dict__)
     run.upload()
     #python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --source Genbank --locus Genome --path data/ --ftype accession --email chacalle@uw.edu

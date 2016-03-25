@@ -8,13 +8,13 @@ from vdb_upload import parser
 
 class Flu_vdb_upload(vdb_upload):
 
-    def __init__(self,  fasta_fields, **kwargs):
+    def __init__(self, **kwargs):
         '''
         :param fasta_fields: Dictionary defining position in fasta field to be included in database
         '''
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'subtype']
         self.virus_optional_fields = ['division', 'location']
-        vdb_upload.__init__(self, fasta_fields, **kwargs)
+        vdb_upload.__init__(self, **kwargs)
 
         self.patterns = {('A / H3N2', ''): 'H3N2',
                     ('A / H1N1', 'pdm09'): 'H1N1pdm',
@@ -135,5 +135,6 @@ if __name__=="__main__":
 
     args = parser.parse_args()
     fasta_fields = {0: 'strain', 1: 'accession', 2: 'subtype', 4:'lineage', 5: 'date', 8: 'locus'}
-    run = Flu_vdb_upload(fasta_fields, **args.__dict__)
+    setattr(args, 'fasta_fields', fasta_fields)
+    run = Flu_vdb_upload(**args.__dict__)
     run.upload()

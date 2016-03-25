@@ -4,8 +4,9 @@ from Bio import Entrez
 import requests
 
 class vdb_parse(object):
-    def __init__(self, fasta_fields, **kwargs):
-        self.fasta_fields = fasta_fields
+    def __init__(self, **kwargs):
+        if 'fasta_fields' in kwargs:
+            self.fasta_fields = kwargs['fasta_fields']
         self.accessions = kwargs['accessions']
 
     def parse(self):
