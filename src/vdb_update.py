@@ -16,7 +16,7 @@ class vdb_update(vdb_upload):
         self.update_documents()
 
     def get_accessions(self):
-        print("Getting accession numbers for sequences from Genbank")
+        print("Getting accession numbers for sequences obtained from Genbank")
         cursor = list(r.db(self.database).table(self.virus).run())
         accessions = []
         for doc in cursor:
@@ -46,10 +46,10 @@ class vdb_update(vdb_upload):
                 for field in self.updateable_fields:
                     if field not in doc_sequence_info:
                         doc_sequence_info[field] = virus_seq[field]
-                        print("Creating sequences field ", field, " assigned to ", virus_seq[field])
+                        print("For strain: \"" + str(virus['strain']) + "\", accession: \"" + str(virus_seq['accession']) + "\", creating sequences field " + str(field) + " assigned to \"", virus_seq[field]) + "\""
                         updated_sequence = True
                     elif (field in virus_seq and virus_seq[field] is not None and doc_sequence_info[field] != virus_seq[field]):
-                        print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
+                        print("For strain: \"" + str(virus['strain']) + "\", accession: \"" + str(virus_seq['accession']) + "\", updating virus field " + str(field) + ", from \"" + str(doc_sequence_info[field]) + "\" to \"" + str(virus_seq[field])) + "\""
                         doc_sequence_info[field] = virus_seq[field]
                         updated_sequence = True
         if updated_sequence:

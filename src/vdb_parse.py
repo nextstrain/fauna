@@ -134,10 +134,10 @@ class vdb_parse(object):
             v['virus'] = self.virus
             v['date_modified'] = self.get_upload_date()
             reference = record.annotations["references"][0]
-            if reference.title is not None:
+            if reference.title is not None and reference.title != "Direct Submission":
                 v['title'] = reference.title
             else:
-                print("Couldn't parse reference title for " + v['accession'])
+                print("Couldn't find reference title for " + v['accession'])
                 v['title'] = None
             if reference.authors is not None:
                 first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
@@ -175,14 +175,15 @@ class vdb_parse(object):
         '''
         Use crossref api to look for matching title and author name to link to DOI"
         '''
-        num = str(2)
-        response = json.loads(requests.get('http://api.crossref.org/works?query=%' + title + '%22&rows=' + num).text)
-        items = response['message']['items']
-        for item in items:
-            if 'title' in item and item['title'][0] == title:
-                if 'author' in item and item['author'][0]['family'] == author:
-                    if 'DOI' in item:
-                        url = 'http://dx.doi.org/' + item['DOI']
+        if title is not None:
+            num = str(2)
+            response = json.loads(requests.get('http://api.crossref.org/works?query=%' + title + '%22&rows=' + num).text)
+            items = response['message']['items']
+            for item in items:
+                if 'title' in item and item['title'][0] == title:
+                    if 'author' in item and item['author'][0]['family'] == author:
+                        if 'DOI' in item:
+                            url = 'http://dx.doi.org/' + item['DOI']
         return url
 
     def convert_gb_date(self, collection_date):
