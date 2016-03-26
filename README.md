@@ -29,8 +29,9 @@ To access vdb you need an authorization key. This can be passed as a command lin
 `source environment_rethink.sh`
 ```shell
 #!/bin/bash
-export RETHINK\_AUTH\_KEY=EXAMPLE\_KEY
-export RETHINK\_HOST=EXAMPLE\_HOST
+export RETHINK_AUTH_KEY=EXAMPLE_KEY
+export RETHINK_HOST=EXAMPLE_HOST
+export NCBI_EMAIL=example\@email.org
 ```
 
 ## Uploading
