@@ -43,8 +43,6 @@ class vdb_upload(vdb_parse):
             self.fname = kwargs['fname']
         if 'ftype' in kwargs:
             self.ftype = kwargs['ftype']
-        if 'email' in kwargs:
-            self.email = kwargs['email']
 
         if 'path' in kwargs:
             self.path = kwargs['path']
@@ -73,6 +71,13 @@ class vdb_upload(vdb_parse):
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
             raise Exception("Missing auth_key")
+
+        if 'email' in kwargs:
+            self.email = kwargs['auth_key']
+        if 'NCBI_EMAIL' in os.environ and self.email is None:
+            self.email = os.environ['NCBI_EMAIL']
+        if self.email is None:
+            raise Exception("Missing NCBI email")
 
         self.connect_rethink()
 
