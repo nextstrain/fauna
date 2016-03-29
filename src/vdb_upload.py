@@ -295,12 +295,14 @@ class vdb_upload(vdb_parse):
             # update if overwrite and anything
             # update if !overwrite only if document[field] is not none
             if field not in document:
-                document[field] = virus[field]
-                print("Creating virus field ", field, " assigned to ", virus[field])
+                if field in virus:
+                    document[field] = virus[field]
+                    print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
-                print("Updating virus field " + str(field) + ", from " + str(document[field]) + " to " + virus[field])
-                r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
-                self.updated = True
+                if field in virus:
+                    print("Updating virus field " + str(field) + ", from " + str(document[field]) + " to " + virus[field])
+                    r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
+                    self.updated = True
         if self.updated:
             r.table(self.virus).get(virus['strain']).update({'date_modified': virus['date_modified']}).run()
 
@@ -332,13 +334,15 @@ class vdb_upload(vdb_parse):
             if doc_sequence_info[check_field] == virus_seq[check_field]:
                 for field in (self.sequence_upload_fields+self.sequence_optional_fields):
                     if field not in doc_sequence_info:
-                        doc_sequence_info[field] = virus_seq[field]
-                        print("Creating sequences field ", field, " assigned to ", virus_seq[field])
-                        updated_sequence = True
+                        if field in virus_seq:
+                            doc_sequence_info[field] = virus_seq[field]
+                            print("Creating sequences field ", field, " assigned to ", virus_seq[field])
+                            updated_sequence = True
                     elif (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
-                        print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
-                        doc_sequence_info[field] = virus_seq[field]
-                        updated_sequence = True
+                        if field in virus_seq:
+                            doc_sequence_info[field] = virus_seq[field]
+                            print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
+                            updated_sequence = True
         if updated_sequence:
             r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
             self.updated = True

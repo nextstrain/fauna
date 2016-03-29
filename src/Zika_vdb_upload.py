@@ -10,6 +10,7 @@ class Zika_vdb_upload(vdb_upload):
         vdb_upload.__init__(self, **kwargs)
         self.virus_optional_fields = ['division', 'location']
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
 
     def canonicalize(self, virus):
         '''
