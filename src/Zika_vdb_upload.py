@@ -17,7 +17,8 @@ class Zika_vdb_upload(vdb_upload):
         Canonicalize strain names to consistent format
         '''
         if 'strain' in virus:
-            virus['strain'] = self.remove_strings(virus['strain'], ['_Asian', '_Asia'])
+            virus['strain'] = self.remove_strings(virus['strain'], ['_Asian', '_Asia'], '')
+            virus['strain'] = self.remove_strings(virus['strain'], [' '], '-')
 
 if __name__=="__main__":
     args = parser.parse_args()

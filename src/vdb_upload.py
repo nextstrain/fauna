@@ -142,9 +142,9 @@ class vdb_upload(vdb_parse):
         if 'strain' in virus:
             pass
 
-    def remove_strings(self, name, strings):
+    def remove_strings(self, name, strings, replace):
         for word in strings:
-            name = re.sub(word, '', name, re.IGNORECASE)
+            name = re.sub(word, replace, name, re.IGNORECASE)
         return name
 
     def format_sequence_schema(self, virus):
