@@ -140,9 +140,12 @@ class vdb_upload(vdb_parse):
         Canonicalize strain names to consistent format
         '''
         if 'strain' in virus:
-            pass
+            virus['strain'] = re.sub(r"\s+", '-', virus['strain'])
 
     def remove_strings(self, name, strings, replace):
+        '''
+        Replace each of the strings in name with replace
+        '''
         for word in strings:
             name = re.sub(word, replace, name, re.IGNORECASE)
         return name
