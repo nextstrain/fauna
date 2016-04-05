@@ -2,6 +2,7 @@ import rethinkdb as r
 from vdb_upload import vdb_upload
 from vdb_upload import parser
 from vdb_parse import vdb_parse
+import re
 
 class vdb_update(vdb_upload):
     def __init__(self, **kwargs):
@@ -27,12 +28,37 @@ class vdb_update(vdb_upload):
 
     def update_documents(self):
         print("Checking for updates to " + str(len(self.viruses)) + " sequences")
+        self.relaxed_strains()
         for virus in self.viruses:
+            relaxed_name = self.relax_name(virus['strain'])
+            if relaxed_name in self.strains:
+                self.strain_name = self.strains[relaxed_name]
+            else:
+                self.strain_name = virus['strain']
+            document = r.table(self.virus).get(self.strain_name).run()
             # Retrieve virus from table to see if it already exists
-            document = r.table(self.virus).get(virus['strain']).run()
             if document is not None:
                 self.updated = False
                 self.update_sequence_field(virus, document, 'accession')
+
+    def relaxed_strains(self):
+        '''
+        Create dictionary from relaxed vdb strain names to actual vdb strain names.
+        '''
+        strains = {}
+        cursor = list(r.db(self.database).table(self.virus).run())
+        for doc in cursor:
+            strains[self.relax_name(doc['strain'])] = doc['strain']
+        self.strains = strains
+
+    def relax_name(self, name):
+        '''
+        Return the relaxed strain name to compare with
+        '''
+        name = re.sub(r"-", '', name)
+        name = re.sub(r"_", '', name)
+        name = re.sub(r"/", '', name)
+        return name
 
     def update_sequence_field(self, virus, document, check_field):
         '''
@@ -53,8 +79,8 @@ class vdb_update(vdb_upload):
                         doc_sequence_info[field] = virus_seq[field]
                         updated_sequence = True
         if updated_sequence:
-            r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
-            r.table(self.virus).get(virus['strain']).update({'date_modified': virus['date_modified']}).run()
+            r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
+            r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
             self.updated = True
 
 if __name__=="__main__":

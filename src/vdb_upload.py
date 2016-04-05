@@ -79,6 +79,7 @@ class vdb_upload(vdb_parse):
         if self.email is None:
             raise Exception("Missing NCBI email")
 
+        self.strains = {}
         self.connect_rethink()
 
     def connect_rethink(self):
@@ -235,9 +236,12 @@ class vdb_upload(vdb_parse):
             for key in virus.keys():
                 if virus[key] == '?':
                     virus[key] = None
+                if type(virus[key]) == 'string':
+                    virus[key] = virus[key].strip()
             for key in virus['sequences'][0].keys():
                 if virus['sequences'][0][key] == '?':
                     virus['sequences'][0][key] = None
+                virus['sequences'][0][key] = virus['sequences'][0][key].strip()
             for atr in self.virus_optional_fields:
                 if atr not in virus:
                     virus[atr] = None
@@ -275,11 +279,17 @@ class vdb_upload(vdb_parse):
         Insert viruses into collection
         '''
         print("Uploading " + str(len(self.viruses)) + " viruses to the table")
+        self.relaxed_strains()
         for virus in self.viruses:
             print("-----------------------")
             print("Inserting next virus into database: " + virus['strain'])
-            # Retrieve virus from table to see if it already exists
-            document = r.table(self.virus).get(virus['strain']).run()
+            # Retrieve virus from table to see if it already exists, try relaxed comparison first
+            relaxed_name = self.relax_name(virus['strain'])
+            if relaxed_name in self.strains:
+                self.strain_name = self.strains[relaxed_name]
+            else:
+                self.strain_name = virus['strain']
+            document = r.table(self.virus).get(self.strain_name).run()
             # Virus doesn't exist in table yet so add it
             if document is None:
                 r.table(self.virus).insert(virus).run()
@@ -288,6 +298,25 @@ class vdb_upload(vdb_parse):
                 self.updated = False
                 self.update_document_sequence(document, virus)
                 self.update_document_meta(document, virus)
+
+    def relaxed_strains(self):
+        '''
+        Create dictionary from relaxed vdb strain names to actual vdb strain names.
+        '''
+        strains = {}
+        cursor = list(r.db(self.database).table(self.virus).run())
+        for doc in cursor:
+            strains[self.relax_name(doc['strain'])] = doc['strain']
+        self.strains = strains
+
+    def relax_name(self, name):
+        '''
+        Return the relaxed strain name to compare with
+        '''
+        name = re.sub(r"-", '', name)
+        name = re.sub(r"_", '', name)
+        name = re.sub(r"/", '', name)
+        return name
 
     def update_document_meta(self, document, virus):
         '''
@@ -303,11 +332,11 @@ class vdb_upload(vdb_parse):
                     print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
                 if field in virus:
-                    print("Updating virus field " + str(field) + ", from " + str(document[field]) + " to " + virus[field])
-                    r.table(self.virus).get(virus['strain']).update({field: virus[field]}).run()
+                    print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + virus[field]) + "\""
+                    r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
                     self.updated = True
         if self.updated:
-            r.table(self.virus).get(virus['strain']).update({'date_modified': virus['date_modified']}).run()
+            r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
 
     def update_document_sequence(self, document, virus):
         '''
@@ -321,7 +350,7 @@ class vdb_upload(vdb_parse):
         else:
             self.update_sequence_field(virus, document, 'sequence')
         if (virus_seq['accession'] != None and all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs)) or (virus_seq['accession'] == None and all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs)):
-            r.table(self.virus).get(virus['strain']).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
+            r.table(self.virus).get(self.strain_name).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
             self.updated = True
         else:
             print("This virus already exists in the table")
@@ -339,15 +368,15 @@ class vdb_upload(vdb_parse):
                     if field not in doc_sequence_info:
                         if field in virus_seq:
                             doc_sequence_info[field] = virus_seq[field]
-                            print("Creating sequences field ", field, " assigned to ", virus_seq[field])
+                            print("Creating sequences field ", field, " assigned to \"", virus_seq[field]) + "\""
                             updated_sequence = True
                     elif (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
                         if field in virus_seq:
                             doc_sequence_info[field] = virus_seq[field]
-                            print("Updating virus field " + str(field) + ", from " + str(doc_sequence_info[field]) + " to " + str(virus_seq[field]))
+                            print("Updating virus sequence field " + str(field) + ", from \"" + str(doc_sequence_info[field]) + "\" to \"" + str(virus_seq[field])) + "\""
                             updated_sequence = True
         if updated_sequence:
-            r.table(self.virus).get(virus['strain']).update({"sequences": doc_seqs}).run()
+            r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
             self.updated = True
 
 if __name__=="__main__":
