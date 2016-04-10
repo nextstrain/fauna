@@ -280,9 +280,7 @@ class vdb_upload(vdb_parse):
         '''
         print("Uploading " + str(len(self.viruses)) + " viruses to the table")
         self.relaxed_strains()
-        for virus in self.viruses:
-            print("-----------------------")
-            print("Inserting next virus into database: " + virus['strain'])
+        for virus in self.viruses:            
             # Retrieve virus from table to see if it already exists, try relaxed comparison first
             relaxed_name = self.relax_name(virus['strain'])
             if relaxed_name in self.strains:
@@ -292,6 +290,7 @@ class vdb_upload(vdb_parse):
             document = r.table(self.virus).get(self.strain_name).run()
             # Virus doesn't exist in table yet so add it
             if document is None:
+                print("Inserting " + virus['strain'] + " into database")
                 r.table(self.virus).insert(virus).run()
             # Virus exists in table so just add sequence information and update meta data if needed
             else:
@@ -352,8 +351,6 @@ class vdb_upload(vdb_parse):
         if (virus_seq['accession'] != None and all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs)) or (virus_seq['accession'] == None and all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs)):
             r.table(self.virus).get(self.strain_name).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
             self.updated = True
-        else:
-            print("This virus already exists in the table")
 
     def update_sequence_field(self, virus, document, check_field):
         '''
