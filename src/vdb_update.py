@@ -41,25 +41,6 @@ class vdb_update(vdb_upload):
                 self.updated = False
                 self.update_sequence_field(virus, document, 'accession')
 
-    def relaxed_strains(self):
-        '''
-        Create dictionary from relaxed vdb strain names to actual vdb strain names.
-        '''
-        strains = {}
-        cursor = list(r.db(self.database).table(self.virus).run())
-        for doc in cursor:
-            strains[self.relax_name(doc['strain'])] = doc['strain']
-        self.strains = strains
-
-    def relax_name(self, name):
-        '''
-        Return the relaxed strain name to compare with
-        '''
-        name = re.sub(r"-", '', name)
-        name = re.sub(r"_", '', name)
-        name = re.sub(r"/", '', name)
-        return name
-
     def update_sequence_field(self, virus, document, check_field):
         '''
         Checks for matching viruses by comparing sequence and accession, updates other attributes if needed
