@@ -7,18 +7,22 @@ class vdb_parse(object):
     def __init__(self, **kwargs):
         if 'fasta_fields' in kwargs:
             self.fasta_fields = kwargs['fasta_fields']
-        self.accessions = kwargs['accessions']
+        if 'accessions' in kwargs:
+            self.accessions = kwargs['accessions']
+        self.gbdb = "nuccore"
 
     def parse(self):
         if self.accessions is not None:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
-            self.viruses = self.access_entrez(accessions)
+            gi = self.get_GIs(accessions)
+            self.viruses = self.get_entrez_viruses(gi)
         elif self.ftype is not None and self.fname is not None:
             if self.ftype == 'genbank':
                 self.viruses = self.parse_gb_file(self.path + self.fname)
             elif self.ftype == 'accession':
                 accessions = self.parse_accession_file(self.path + self.fname)
-                self.viruses = self.access_entrez(accessions)
+                gi = self.get_GIs(accessions)
+                self.viruses = self.get_entrez_viruses(gi)
             elif self.ftype == 'fasta':
                 self.viruses = self.parse_fasta_file(self.path + self.fname)
         else:
@@ -84,28 +88,37 @@ class vdb_parse(object):
                 accessions.append(acc.strip())
             return accessions
 
-    def access_entrez(self, accessions):
+    def get_GIs(self, accessions):
         '''
         Use entrez database to get genbank entries for list of accessions
         '''
         #define email for entrez login
-        db = "nuccore"
         if self.email is not None:
             Entrez.email = self.email
         else:
             raise Exception("Need to give email to upload via accession number")
-
-        ## define batch size for download
-        batchSize = 100
         retmax = 10**9
 
         # Get genbank identifiers from accession numbers using esearch
         query = " ".join(accessions)
-        handle = Entrez.esearch(db=db, term=query, retmax=retmax)
+        handle = Entrez.esearch(db=self.gbdb, term=query, retmax=retmax)
         giList = Entrez.read(handle)['IdList']
+        return giList
+
+    def get_entrez_viruses(self, giList):
+        '''
+        Use entrez database to get genbank entries for list of accessions
+        '''
+        #define email for entrez login
+        if self.email is not None:
+            Entrez.email = self.email
+        else:
+            raise Exception("Need to give email to upload via accession number")
+        ## define batch size for download
+        batchSize = 100
 
         # post NCBI query
-        search_handle = Entrez.epost(db=db, id=",".join(giList))
+        search_handle = Entrez.epost(db=self.gbdb, id=",".join(giList))
         search_results = Entrez.read(search_handle)
         webenv, query_key = search_results["WebEnv"], search_results["QueryKey"]
 
@@ -114,7 +127,7 @@ class vdb_parse(object):
         for start in range(0,len(giList),batchSize):
             #fetch entries in batch
             try:
-                handle = Entrez.efetch(db=db, rettype="gb", retstart=start, retmax=batchSize, webenv=webenv, query_key=query_key)
+                handle = Entrez.efetch(db=self.gbdb, rettype="gb", retstart=start, retmax=batchSize, webenv=webenv, query_key=query_key)
             except IOError:
                 print("Couldn't connect with entrez")
             else:

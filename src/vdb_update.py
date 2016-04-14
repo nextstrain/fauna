@@ -12,7 +12,8 @@ class vdb_update(vdb_upload):
 
     def update(self):
         accessions = self.get_accessions()
-        self.viruses = self.access_entrez(accessions)
+        gi = self.get_GIs(accessions)
+        self.viruses = self.get_entrez_viruses(gi)
         self.format()
         self.update_documents()
 
