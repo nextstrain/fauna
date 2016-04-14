@@ -73,7 +73,7 @@ class vdb_upload(vdb_parse):
             raise Exception("Missing auth_key")
 
         if 'email' in kwargs:
-            self.email = kwargs['auth_key']
+            self.email = kwargs['email']
         if 'NCBI_EMAIL' in os.environ and self.email is None:
             self.email = os.environ['NCBI_EMAIL']
         if self.email is None:
