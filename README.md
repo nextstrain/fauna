@@ -91,11 +91,11 @@ Upload Zika sequences from VIPR:
     
 Upload via accession file:
 
-	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome --path data/ --email email@email.org
+	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome --path data/
 
 Upload via accession list:
 
-	python src/Zika_vdb_upload.py --database test --virus Zika --source Genbank --locus Genome --email email@email.org --accessions KU501216,KU501217,KU365780,KU365777
+	python src/Zika_vdb_upload.py --database test --virus Zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 Sequences can be downloaded from vdb.
@@ -131,4 +131,4 @@ Sequences in vdb can be automatically updated
 
 ### Examples:
 
-	python src/vdb_update.py -db test -v zika --email email@email.org
+	python src/vdb_update.py -db test -v zika
