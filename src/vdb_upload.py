@@ -19,6 +19,7 @@ parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
+parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
 class vdb_upload(vdb_parse):
 
@@ -43,6 +44,9 @@ class vdb_upload(vdb_parse):
             self.fname = kwargs['fname']
         if 'ftype' in kwargs:
             self.ftype = kwargs['ftype']
+        if 'auto_upload' in kwargs:
+            self.auto_upload = kwargs['auto_upload']
+
 
         if 'path' in kwargs:
             self.path = kwargs['path']
@@ -71,13 +75,6 @@ class vdb_upload(vdb_parse):
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
             raise Exception("Missing auth_key")
-
-        if 'email' in kwargs:
-            self.email = kwargs['email']
-        if 'NCBI_EMAIL' in os.environ and self.email is None:
-            self.email = os.environ['NCBI_EMAIL']
-        if self.email is None:
-            raise Exception("Missing NCBI email")
 
         self.strains = {}
         self.connect_rethink()
