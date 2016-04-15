@@ -1,6 +1,26 @@
 # VDB
 The virus database (VDB) is used to store viral information in an organized schema. This allows easy storage and querying of viruses which can be downloaded in formatted fasta or json files.
 
+## Uploading
+Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently
+* Uploads from an input file
+	* FASTA
+		* Reads fasta description in this order for Zika\_vdb\_upload (0:`accession`, 2:`strain`, 4:`date`, 6:`country`)
+		* Reading order can easily be changed in source code for different viruses or files
+	* Genbank
+		* Can include multiple genbank entries
+		* Parses information from entries
+	* Accession 
+		* One accession number on each line in file
+		* Uses entrez to get genbank entries from accession numbers
+* Uploads from command line argument `--accessions`
+	* comma separated list of accession numbers
+	* Uses entrez to get genbank entries from accession numbers
+* Formats information to fit with vdb schema. 
+* Uploads information to virus table
+	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
+	* If strain already in database, default is to update attributes with new information only if current attribute is null. Can overwrite existing non-null data with `--overwrite` option.
+
 ## Schema
 
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
@@ -19,7 +39,7 @@ The virus database (VDB) is used to store viral information in an organized sche
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
   * `Title`: Title of reference.
-  * `url`: Url of reference if available, check crossref database for DOI, otherwise link to genbank entry. 
+  * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
@@ -34,26 +54,6 @@ export RETHINK_HOST=EXAMPLE_HOST
 export NCBI_EMAIL=example\@email.org
 ```
 
-## Uploading
-Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently
-* Uploads from an input file
-	* FASTA
-		* Reads fasta description in this order for Zika\_vdb\_upload (0:`accession`, 1:`strain`, 2:`date`, 4:`country`, 5:`division`, 6:`location`)
-		* Reading order can easily be changed in source code for different viruses or files
-	* Genbank
-		* Can include multiple genbank entries
-		* Parses information from entries
-	* Accession 
-		* One accession number on each line in file
-		* Uses entrez to get genbank entries from accession numbers
-* Uploads from command line argument `--accessions`
-	* comma separated list of accession numbers
-	* Uses entrez to get genbank entries from accession numbers
-* Formats information to fit with vdb schema. 
-* Uploads information to virus table
-	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
-	* If strain already in database, default is to update attributes with new information only if current attribute is null. Can overwrite existing non-null data with `--overwrite` option.
-	
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified` 
@@ -121,7 +121,6 @@ Download sequences for `Zika_process.py`:
 
     python src/vdb_download.py -db vdb -v Zika --fstem zika
 
-
 ## Updating
 Sequences in vdb can be automatically updated
 * Only sequences whose source is Genbank
@@ -132,3 +131,14 @@ Sequences in vdb can be automatically updated
 ### Examples:
 
 	python src/vdb_update.py -db test -v zika
+	
+## Backup
+VDB tables can be backed up to S3
+* Can be run manually or continuously everyday
+* Deletes old backups after a certain length (default is 40 days)
+
+### Examples
+	
+	python src/vdb_backup.py -db vdb
+	
+	python src/vdb_backup.py -db vdb --continous
