@@ -41,19 +41,6 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
   * `Title`: Title of reference.
   * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
 
-## Accessing the Database
-All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
-
-To access vdb you need an authorization key. This can be passed as a command line argument (see below) or set as an environment variable with a bash script.
-
-`source environment_rethink.sh`
-```shell
-#!/bin/bash
-export RETHINK_AUTH_KEY=EXAMPLE_KEY
-export RETHINK_HOST=EXAMPLE_HOST
-export NCBI_EMAIL=example\@email.org
-```
-
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified` 
@@ -142,3 +129,17 @@ VDB tables can be backed up to S3
 	python src/vdb_backup.py -db vdb
 	
 	python src/vdb_backup.py -db vdb --continous
+	
+
+## Accessing the Database
+All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
+
+To access vdb you need an authorization key. This can be passed as a command line argument (see below) or set as an environment variable with a bash script.
+
+`source environment_rethink.sh`
+```shell
+#!/bin/bash
+export RETHINK_AUTH_KEY=EXAMPLE_KEY
+export RETHINK_HOST=EXAMPLE_HOST
+export NCBI_EMAIL=example\@email.org
+```
