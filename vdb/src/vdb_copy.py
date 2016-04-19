@@ -6,7 +6,6 @@ parser.add_argument('-edb', '--export_database', default='vdb', help="database t
 parser.add_argument('-idb', '--import_database', default='test', help="database that will be restored to backup copy")
 parser.add_argument('-v', '--virus', help="virus table to backup or copy")
 parser.add_argument('--fname', help="input file name")
-parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 

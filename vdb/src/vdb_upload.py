@@ -51,7 +51,7 @@ class vdb_upload(vdb_parse):
         if 'path' in kwargs:
             self.path = kwargs['path']
         if self.path is None:
-            self.path = "data/" + self.virus + "/"
+            self.path = "vdb/data/" + self.virus + "/"
         if not os.path.isdir(self.path):
             os.makedirs(self.path)
 
