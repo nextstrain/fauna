@@ -37,7 +37,7 @@ class vdb_upload(vdb_parse):
             self.locus = kwargs['locus']
         if 'subtype' in kwargs:
             self.vsubtype = kwargs['subtype']
-        if 'public' in kwargs:
+        if 'private' in kwargs:
             self.public = not kwargs['private']  #store opposite private
         if 'authors' in kwargs:
             self.authors = kwargs['authors']
