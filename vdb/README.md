@@ -32,6 +32,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
 * `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
 * `Location`: Specific location in CamelCase format. Where available, Null otherwise.
+* `Public`: True if publicly available sequence. False otherwise.
 * `Sequences`: list of...
   * `Accession`: Accession number. Where available, Null otherwise.
   * `Source`: Genbank, GISAID, etc... in CamelCase format.
@@ -43,7 +44,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified` 
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public` 
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `subtype`, `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`
@@ -60,6 +61,7 @@ Command line arguments to run vdb_upload:
 * --locus
 * --authors help=authors of source of sequences
 * --subtype
+* --private help=to designate sequences being uploaded as not `public`
 * --overwrite default=False help=whether to overwrite existing non-null fields
 * --path help=path to fasta file, default is data/virus/
 * --auth\_key help=authorization key for rethink database
@@ -68,21 +70,21 @@ Command line arguments to run vdb_upload:
 
 ### Examples:
 
-    python src/Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
+    python vdb/src/Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
 
-    python src/Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
+    python vdb/src/Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
 
 Upload Zika sequences from VIPR:
 
-    python src/Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
+    python vdb/src/Zika_vdb_upload.py --database vdb --virus Zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome --path data/
     
 Upload via accession file:
 
-	python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome --path data/
+	python vdb/src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome --path data/
 
 Upload via accession list:
 
-	python src/Zika_vdb_upload.py --database test --virus Zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/src/Zika_vdb_upload.py --database test --virus Zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 Sequences can be downloaded from vdb.
@@ -106,7 +108,7 @@ Command line arguments to run vdb_download:
 
 Download sequences for `Zika_process.py`:
 
-    python src/vdb_download.py -db vdb -v Zika --fstem zika
+    python vdb/src/vdb_download.py -db vdb -v Zika --fstem zika
 
 ## Updating
 Sequences in vdb can be automatically updated
@@ -117,7 +119,7 @@ Sequences in vdb can be automatically updated
 
 ### Examples:
 
-	python src/vdb_update.py -db test -v zika
+	python vdb/src/vdb_update.py -db test -v zika
 	
 ## Backup
 VDB tables can be backed up to S3
@@ -126,9 +128,9 @@ VDB tables can be backed up to S3
 
 ### Examples
 	
-	python src/vdb_backup.py -db vdb
+	python vdb/src/vdb_backup.py -db vdb
 	
-	python src/vdb_backup.py -db vdb --continous
+	python vdb/src/vdb_backup.py -db vdb --continous
 	
 
 ## Accessing the Database
