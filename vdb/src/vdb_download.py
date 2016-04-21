@@ -11,6 +11,8 @@ parser.add_argument('--ftype', default='fasta', help="output file format, defaul
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
+parser.add_argument('--countries', nargs = '+', type = str, default = None, help="Countries(in CamelCase Format) to be include in download")
 
 class vdb_download(object):
 
@@ -19,20 +21,22 @@ class vdb_download(object):
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
         self.kwargs = kwargs
-
         if 'host' in self.kwargs:
             self.host = self.kwargs['host']
         if 'RETHINK_HOST' in os.environ and self.host is None:
             self.host = os.environ['RETHINK_HOST']
         if self.host is None:
             raise Exception("Missing rethink host")
-
         if 'auth_key' in self.kwargs:
             self.auth_key = self.kwargs['auth_key']
         if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
             self.auth_key = os.environ['RETHINK_AUTH_KEY']
         if self.auth_key is None:
             raise Exception("Missing rethink auth_key")
+        if 'path' in self.kwargs:
+            self.path = self.kwargs['path']
+        if not os.path.isdir(self.path):
+            os.makedirs(self.path)
 
         if 'database' in self.kwargs:
             self.database = self.kwargs['database']
@@ -40,11 +44,11 @@ class vdb_download(object):
             self.virus = self.kwargs['virus']
         if 'ftype' in self.kwargs:
             self.ftype = self.kwargs['ftype']
-
-        if 'path' in self.kwargs:
-            self.path = self.kwargs['path']
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
+        if 'public_only' in self.kwargs:
+            self.public_only = self.kwargs['public_only']
+        if 'countries' in kwargs:
+            self.countries = kwargs['countries']
+        self.viruses = []
 
         self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
         if 'fstem' in self.kwargs:
@@ -52,8 +56,6 @@ class vdb_download(object):
         if self.fstem is None:
             self.fstem = self.virus + '_' + self.current_date
         self.fname = self.fstem + '.' + self.ftype
-
-        self.viruses = []
 
         # connect to database
         try:
@@ -69,17 +71,17 @@ class vdb_download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download_all_documents(self):
+    def download(self):
         '''
-        download all documents from table
-        :return:
+        download documents from table
         '''
-
+        print("Downloading all viruses from the table: " + self.virus)
         cursor = list(r.db(self.database).table(self.virus).run())
+        cursor = self.subsetting(cursor)
         for doc in cursor:
             self.pick_best_sequence(doc)
         self.viruses = cursor
-        print("Downloading all viruses from the table: " + self.virus)
+        self.output()
 
     def pick_best_sequence(self, document):
         '''
@@ -106,6 +108,20 @@ class vdb_download(object):
             document[atr] = best_sequence_info[atr]
         del document['sequences']
 
+    def subsetting(self, cursor):
+        '''
+        filter through documents in vdb to return subsets of sequence
+        '''
+        result = cursor
+        print("Documents in table before subsetting: " + str(len(result)))
+        if self.public_only:
+            result = filter(lambda doc: doc['public'], result)
+            print('Removed documents that were not public, remaining documents: ' + str(len(result)))
+        if self.countries is not None:
+            result = filter(lambda doc: any(doc['country'] == cn for cn in self.countries), result)
+            print('Removed documents that were not in countries specified (' + ','.join(self.countries) + '), remaining documents: ' + str(len(result)))
+        print("Documents in table after subsetting: " + str(len(result)))
+        return result
 
     def write_json(self, data, fname, indent=1):
         '''
@@ -152,6 +168,4 @@ if __name__=="__main__":
 
     args = parser.parse_args()
     run = vdb_download(**args.__dict__)
-    print "Documents in table:", run.count_documents()
-    run.download_all_documents()
-    run.output()
+    run.download()
