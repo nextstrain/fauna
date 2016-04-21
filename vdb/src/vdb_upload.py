@@ -188,7 +188,7 @@ class vdb_upload(vdb_parse):
         open country to region dictionary
         '''
         try:
-            reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
+            reader = csv.DictReader(open("vdb/source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
         except:
             raise Exception("Couldn't find geo regions file")
         self.country_to_region = {}
