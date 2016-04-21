@@ -65,6 +65,12 @@ class vdb_update(vdb_upload):
             r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
             self.updated = True
 
+    def update_field(self):
+        cursor = list(r.db(self.database).table(self.virus).run())
+        for doc in cursor:
+            strain = doc['strain']
+            r.table(self.virus).get(strain).update({'public': True}).run()
+
 if __name__=="__main__":
     args = parser.parse_args()
     run = vdb_update(**args.__dict__)
