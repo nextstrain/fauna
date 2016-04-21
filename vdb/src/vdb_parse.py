@@ -39,9 +39,25 @@ class vdb_parse(object):
             print(len(gi))
             raise Exception("stop")
             self.viruses = self.get_entrez_viruses(gi)
-
         else:
             raise Exception("No input file name and type defined or accessions given")
+
+    def add_attributes(self, v):
+        '''
+        Add attributes to virus
+        '''
+        v['virus'] = self.virus
+        v['date_modified'] = self.get_upload_date()
+        if 'locus' not in v and self.locus is not None:
+            v['locus'] = self.locus.title()
+        if 'authors' not in v and self.authors is not None:
+            v['authors'] = self.authors.title()
+        if 'subtype' not in v and self.vsubtype is not None:
+            v['subtype'] = self.vsubtype.title()
+        if 'source' not in v and self.virus_source is not None:
+            v['source'] = self.virus_source.title()
+        if 'public' not in v and self.public is not None:
+            v['public'] = self.public
 
     def auto_gb_upload(self):
         '''
@@ -85,6 +101,7 @@ class vdb_parse(object):
                     v['subtype'] = self.vsubtype.title()
                 if 'source' not in v and self.virus_source is not None:
                     v['source'] = self.virus_source.title()
+                self.add_attributes(v)
 
                 viruses.append(v)
             handle.close()
@@ -163,8 +180,6 @@ class vdb_parse(object):
             v['source'] = 'Genbank'
             v['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
             v['sequence'] = str(record.seq).upper()
-            v['virus'] = self.virus
-            v['date_modified'] = self.get_upload_date()
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
                 v['title'] = reference.title
@@ -192,12 +207,7 @@ class vdb_parse(object):
                         v['strain'] = qualifiers['strain'][0]
                     else:
                         print("Couldn't parse strain name for " + v['accession'])
-            if 'locus' not in v and self.locus is not None:
-                v['locus'] = self.locus.title()
-            if 'authors' not in v and self.authors is not None:
-                v['authors'] = self.authors.title()
-            if 'subtype' not in v and self.vsubtype is not None:
-                v['subtype'] = self.vsubtype.title()
+            self.add_attributes(v)
             viruses.append(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")

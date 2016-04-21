@@ -14,6 +14,7 @@ parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--subtype', default=None, help="virus subtype, ie \'H3N2\' or \'Yamagata\' for Flu")
+parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
@@ -36,6 +37,8 @@ class vdb_upload(vdb_parse):
             self.locus = kwargs['locus']
         if 'subtype' in kwargs:
             self.vsubtype = kwargs['subtype']
+        if 'public' in kwargs:
+            self.public = not kwargs['private']  #store opposite private
         if 'authors' in kwargs:
             self.authors = kwargs['authors']
         if 'overwrite' in kwargs:
@@ -47,7 +50,6 @@ class vdb_upload(vdb_parse):
         if 'auto_upload' in kwargs:
             self.auto_upload = kwargs['auto_upload']
 
-
         if 'path' in kwargs:
             self.path = kwargs['path']
         if self.path is None:
@@ -56,11 +58,11 @@ class vdb_upload(vdb_parse):
             os.makedirs(self.path)
 
         # fields that are needed to upload
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'public']
         self.virus_optional_fields = ['division', 'location', 'subtype']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
-        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype', 'public']
 
         if 'host' in kwargs:
             self.host = kwargs['host']
@@ -221,6 +223,7 @@ class vdb_upload(vdb_parse):
         '''
         self.check_optional_attributes()
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
+        self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
         self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
         self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
 
