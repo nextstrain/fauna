@@ -103,12 +103,16 @@ Command line arguments to run vdb_download:
 * --fstem help=output file stem name, default is VirusName\_Year\_Month\_Date
 * --auth\_key help=authorization key for rethink database
 * --host help=rethink host url
+* --public\_only help=include to subset public sequences
+* --countries help=Countries(in CamelCase Format) to be include in download, multiple arguments allowed
 
 ### Examples:
 
 Download sequences for `Zika_process.py`:
 
     python vdb/src/vdb_download.py -db vdb -v Zika --fstem zika
+    
+    python vdb/src/vdb_download.py -db test -v Zika --ftype json --countries Brazil Haiti --public_only
 
 ## Updating
 Sequences in vdb can be automatically updated
