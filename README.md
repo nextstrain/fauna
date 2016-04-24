@@ -22,7 +22,15 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 ## Chateau
 
-[Chateau](chateau/) allows easy web access to the database.
+[Chateau](chateau/) allows easy web access to the database. To run, do the following:
+
+1. Install Chateau with `sudo npm install -g chateau`.
+2. Navigate to the base directory of `nextstrain-db/`.
+3. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
+4. Run with `chateau`.
+5. Fire up a browser and go to `http://localhost:3000/`.
+
+Chateau configuration is stored in the file [`config.js`](config.js).
 
 ## License and copyright
 

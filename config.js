@@ -1,7 +1,7 @@
 // RethinkDB settings
-exports.host = 'ec2-52-90-204-136.compute-1.amazonaws.com';    	// RethinkDB host
+exports.host = process.env.RETHINK_HOST;	   					// RethinkDB host
+exports.authKey = process.env.RETHINK_AUTH_KEY;   				// RethinkDB authentification key
 exports.port = 28015;          									// RethinkDB driver port
-exports.authKey = 'KeHiybPoX8BM6aAhfYqy';   					// Authentification key (leave an empty string if you did not set one)
 
 // Express settings
 exports.expressPort = 3000;    // Port used by express
