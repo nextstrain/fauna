@@ -32,6 +32,10 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 Chateau configuration is stored in the file [`config.js`](config.js).
 
+## Compatibility
+
+The current rethink server requires an older version of Python bindings. Install with `pip install rethinkdb==1.13.0.post2`.
+
 ## License and copyright
 
 Copyright 2016 Trevor Bedford and Charlton Callender.
