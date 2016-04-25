@@ -27,5 +27,5 @@ if __name__=="__main__":
     # 0        1          2      3  4          5     6
     #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
     setattr(args, 'fasta_fields', fasta_fields)
-    run = Zika_vdb_upload(**args.__dict__)
-    run.upload()
+    connVDB = Zika_vdb_upload(**args.__dict__)
+    connVDB.upload()

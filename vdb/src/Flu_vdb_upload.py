@@ -133,5 +133,5 @@ if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0: 'strain', 1: 'accession', 2: 'subtype', 4:'lineage', 5: 'date', 8: 'locus'}
     setattr(args, 'fasta_fields', fasta_fields)
-    run = Flu_vdb_upload(**args.__dict__)
-    run.upload()
+    connVDB = Flu_vdb_upload(**args.__dict__)
+    connVDB.upload()

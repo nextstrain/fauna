@@ -73,5 +73,5 @@ class vdb_update(vdb_upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    run = vdb_update(**args.__dict__)
-    run.update()
+    connVDB = vdb_update(**args.__dict__)
+    connVDB.update()

@@ -122,8 +122,8 @@ class vdb_backup(object):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    run = vdb_backup(**args.__dict__)
+    connVDB = vdb_backup(**args.__dict__)
     if args.continuous:
-        run.continuous_backup()
+        connVDB.continuous_backup()
     else:
-        run.backup()
+        connVDB.backup()

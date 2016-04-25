@@ -62,7 +62,7 @@ class vdb_copy(object):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    run = vdb_copy(**args.__dict__)
-    run.copy()
+    connVDB = vdb_copy(**args.__dict__)
+    connVDB.copy()
 
 

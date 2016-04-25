@@ -167,5 +167,5 @@ class vdb_download(object):
 if __name__=="__main__":
 
     args = parser.parse_args()
-    run = vdb_download(**args.__dict__)
-    run.download()
+    connVDB = vdb_download(**args.__dict__)
+    connVDB.download()

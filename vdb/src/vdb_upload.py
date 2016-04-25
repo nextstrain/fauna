@@ -380,6 +380,5 @@ if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
     setattr(args, 'fasta_fields', fasta_fields)
-    run = vdb_upload(**args.__dict__)
-    run.upload()
-    #python src/Zika_vdb_upload.py --database test --virus Zika --fname entrez_test.txt --source Genbank --locus Genome --path data/ --ftype accession --email chacalle@uw.edu
+    connVDB = vdb_upload(**args.__dict__)
+    connVDB.upload()
