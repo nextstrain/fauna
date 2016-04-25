@@ -34,7 +34,7 @@ Chateau configuration is stored in the file [`config.js`](config.js).
 
 ## Compatibility
 
-The current rethink server requires an older version of Python bindings. Install with `pip install rethinkdb==2.1.0`.
+The current rethink server requires an older version of Python bindings. Install with `pip install rethinkdb==2.2.0.post2`.
 
 ## License and copyright
 
