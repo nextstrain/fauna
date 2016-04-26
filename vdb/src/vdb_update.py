@@ -41,8 +41,7 @@ class vdb_update(vdb_upload):
             # Retrieve virus from table to see if it already exists
             if document is not None:
                 self.updated = False
-                doc_seqs = self.update_sequence_field(virus, document, 'accession')
-                self.update_best_sequence(document, doc_seqs)
+                self.update_sequence_field(virus, document, 'accession')
 
     def update_sequence_field(self, virus, document, check_field):
         '''
@@ -65,42 +64,8 @@ class vdb_update(vdb_upload):
             r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
             r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
             self.updated = True
-        return doc_seqs
-
-    def update_field(self):
-        cursor = list(r.db(self.database).table(self.virus).run())
-        for doc in cursor:
-            strain = doc['strain']
-            self.add_best_sequence(doc, doc['sequences'], strain)
-
-    def add_best_sequence(self, document, list_sequences, strain):
-        '''
-        find the best sequence in the uploading virus. Currently by longest sequence.
-        Updates the document best sequence info
-        '''
-        longest_sequence_pos = 0
-        if len(list_sequences) == 1:
-            best_sequence_info = list_sequences[0]
-        else:
-            longest_sequence_length = len(list_sequences[0]['sequence'])
-            current_pos = 0
-            for sequence_info in list_sequences:
-                if len(sequence_info['sequence']) > longest_sequence_length or (len(sequence_info['sequence']) ==
-                                                        longest_sequence_length and sequence_info['accession'] is None):
-                    longest_sequence_length = len(sequence_info['sequence'])
-                    longest_sequence_pos = current_pos
-                current_pos += 1
-            best_sequence_info = list_sequences[longest_sequence_pos]
-        document['seq_position'] = longest_sequence_pos
-        r.table(self.virus).get(strain).update({'seq_position': longest_sequence_pos}).run()
-
-        for field in best_sequence_info:
-            document[field] = best_sequence_info[field]
-            print("Updating best virus sequence field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + str(best_sequence_info[field])) + "\""
-            r.table(self.virus).get(strain).update({field: best_sequence_info[field]}).run()
 
 if __name__=="__main__":
     args = parser.parse_args()
     connVDB = vdb_update(**args.__dict__)
     connVDB.update()
-    #connVDB.update_field()

@@ -88,6 +88,8 @@ class vdb_download(object):
         print("Downloading all viruses from the table: " + self.virus)
         cursor = list(r.db(self.database).table(self.virus).run())
         cursor = self.subsetting(cursor)
+        for doc in cursor:
+            self.pick_best_sequence(doc)
         self.viruses = cursor
         self.output()
 
@@ -105,6 +107,31 @@ class vdb_download(object):
             print('Removed documents that were not in countries specified (' + ','.join(self.countries) + '), remaining documents: ' + str(len(result)))
         print("Documents in table after subsetting: " + str(len(result)))
         return result
+
+    def pick_best_sequence(self, document):
+        '''
+        find the best sequence in the given document. Currently by longest sequence.
+        Resulting document is with flatter dictionary structure
+        '''
+        list_sequences = document['sequences']
+        if len(list_sequences) == 1:
+            best_sequence_info = document['sequences'][0]
+        else:
+            longest_sequence_pos = 0
+            longest_sequence_length = len(document['sequences'][0]['sequence'])
+            current_pos = 0
+            for sequence_info in document['sequences']:
+                if len(sequence_info['sequence']) > longest_sequence_length or (len(sequence_info['sequence']) ==
+                                                        longest_sequence_length and sequence_info['accession'] is None):
+                    longest_sequence_length = len(sequence_info['sequence'])
+                    longest_sequence_pos = current_pos
+                current_pos += 1
+            best_sequence_info = document['sequences'][longest_sequence_pos]
+
+        # create flatter structure for virus info
+        for atr in best_sequence_info.keys():
+            document[atr] = best_sequence_info[atr]
+        del document['sequences']
 
     def write_json(self, data, fname, indent=1):
         '''
