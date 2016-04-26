@@ -9,9 +9,9 @@ from vdb_upload import parser
 class Flu_vdb_upload(vdb_upload):
 
     def __init__(self, **kwargs):
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'subtype']
-        self.virus_optional_fields = ['division', 'location']
         vdb_upload.__init__(self, **kwargs)
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'subtype', 'region']
+        self.virus_optional_fields = ['division', 'location']
 
         self.patterns = {('A / H3N2', ''): 'H3N2',
                     ('A / H1N1', 'pdm09'): 'H1N1pdm',
@@ -71,11 +71,17 @@ class Flu_vdb_upload(vdb_upload):
             self.format_place(virus)
             self.format_region(virus)
 
-        # filter out viruses without correct dating format or without region specified
+    def filter(self):
+        '''
+        Filter out viruses without correct dating format or without region specified
+        Check  optional and upload attributes
+        '''
+        self.check_optional_attributes()
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
+        self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
         self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
         self.viruses = filter(lambda v: v['subtype'] != '?', self.viruses)
-        self.check_all_attributes()
+        self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
 
     def define_countries(self):
         '''

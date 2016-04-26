@@ -10,7 +10,7 @@ class Zika_vdb_upload(vdb_upload):
         vdb_upload.__init__(self, **kwargs)
         self.virus_optional_fields = ['division', 'location']
         self.updateable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
-        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
 
     def canonicalize(self, virus):
         '''
@@ -19,7 +19,6 @@ class Zika_vdb_upload(vdb_upload):
         if 'strain' in virus:
             virus['strain'] = self.remove_strings(virus['strain'], ['_Asian', '_Asia'], '')
             virus['strain'] = re.sub(r"\s+", '-', virus['strain'])
-            #virus['strain'] = self.remove_strings(virus['strain'], [' '], '-')
 
 if __name__=="__main__":
     args = parser.parse_args()
