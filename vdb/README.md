@@ -33,7 +33,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
 * `Location`: Specific location in CamelCase format. Where available, Null otherwise.
 * `Public`: True if publicly available sequence. False otherwise.
-* `Sequences`: list of...
+* `Sequences`: list of sequences and corresponding information...
   * `Accession`: Accession number. Where available, Null otherwise.
   * `Source`: Genbank, GISAID, etc... in CamelCase format.
   * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
@@ -41,10 +41,12 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
   * `Sequence`: Actual sequence. Upper case.
   * `Title`: Title of reference.
   * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
+* Best sequence (longest sequence) information shown at first level
+* `Seq_Position`: Position of best sequence in the list `Sequences`
 
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public` 
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`, 'seq_position' 
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `subtype`, `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`

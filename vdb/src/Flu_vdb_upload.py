@@ -10,7 +10,7 @@ class Flu_vdb_upload(vdb_upload):
 
     def __init__(self, **kwargs):
         vdb_upload.__init__(self, **kwargs)
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'subtype', 'region']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'subtype', 'region', 'seq_position']
         self.virus_optional_fields = ['division', 'location']
 
         self.patterns = {('A / H3N2', ''): 'H3N2',
