@@ -41,7 +41,7 @@ class vdb_download(object):
         if 'database' in self.kwargs:
             self.database = self.kwargs['database']
         if 'virus' in self.kwargs:
-            self.virus = self.kwargs['virus']
+            self.virus = self.kwargs['virus'].title()
         if 'ftype' in self.kwargs:
             self.ftype = self.kwargs['ftype']
         if 'public_only' in self.kwargs:
@@ -57,13 +57,23 @@ class vdb_download(object):
             self.fstem = self.virus + '_' + self.current_date
         self.fname = self.fstem + '.' + self.ftype
 
-        # connect to database
+        self.connect_rethink()
+
+    def connect_rethink(self):
+        '''
+        Connect to rethink database,
+        Check for existing table, otherwise create it
+        '''
         try:
             r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
             raise Exception
+
+        existing_tables = r.db(self.database).table_list().run()
+        if self.virus not in existing_tables:
+            raise Exception("No table exists yet for " + self.virus)
 
     def count_documents(self):
         '''
@@ -78,35 +88,8 @@ class vdb_download(object):
         print("Downloading all viruses from the table: " + self.virus)
         cursor = list(r.db(self.database).table(self.virus).run())
         cursor = self.subsetting(cursor)
-        for doc in cursor:
-            self.pick_best_sequence(doc)
         self.viruses = cursor
         self.output()
-
-    def pick_best_sequence(self, document):
-        '''
-        find the best sequence in the given document. Currently by longest sequence.
-        Resulting document is with flatter dictionary structure
-        '''
-        list_sequences = document['sequences']
-        if len(list_sequences) == 1:
-            best_sequence_info = document['sequences'][0]
-        else:
-            longest_sequence_pos = 0
-            longest_sequence_length = len(document['sequences'][0]['sequence'])
-            current_pos = 0
-            for sequence_info in document['sequences']:
-                if len(sequence_info['sequence']) > longest_sequence_length or (len(sequence_info['sequence']) ==
-                                                        longest_sequence_length and sequence_info['accession'] is None):
-                    longest_sequence_length = len(sequence_info['sequence'])
-                    longest_sequence_pos = current_pos
-                current_pos += 1
-            best_sequence_info = document['sequences'][longest_sequence_pos]
-
-        # create flatter structure for virus info
-        for atr in best_sequence_info.keys():
-            document[atr] = best_sequence_info[atr]
-        del document['sequences']
 
     def subsetting(self, cursor):
         '''
