@@ -2,8 +2,8 @@ import os, argparse, shutil
 import rethinkdb as r
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-edb', '--export_database', default='vdb', help="database to make backup of")
-parser.add_argument('-idb', '--import_database', default='test', help="database that will be restored to backup copy")
+parser.add_argument('-edb', '--export_database', default='vdb', help="database to make copy of")
+parser.add_argument('-idb', '--import_database', default='test', help="database that will be changed")
 parser.add_argument('-v', '--virus', help="virus table to backup or copy")
 parser.add_argument('--fname', help="input file name")
 parser.add_argument('--host', default=None, help="rethink host url")
