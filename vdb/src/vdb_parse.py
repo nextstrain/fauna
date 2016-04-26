@@ -201,10 +201,10 @@ class vdb_parse(object):
                     qualifiers = feat.qualifiers
                     v['date'] = self.convert_gb_date(qualifiers['collection_date'][0])
                     v['country'] = re.match(r'^([^:]*)', qualifiers['country'][0]).group(0)
-                    if 'isolate' in qualifiers:
-                        v['strain'] = qualifiers['isolate'][0]
-                    elif 'strain' in qualifiers:
+                    if 'strain' in qualifiers:
                         v['strain'] = qualifiers['strain'][0]
+                    elif 'isolate' in qualifiers:
+                        v['strain'] = qualifiers['isolate'][0]
                     else:
                         print("Couldn't parse strain name for " + v['accession'])
             self.add_attributes(v)
