@@ -58,10 +58,10 @@ class vdb_upload(vdb_parse):
             os.makedirs(self.path)
 
         # fields that are needed to upload
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'public']
-        self.virus_optional_fields = ['division', 'location', 'subtype']
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'public', 'region', 'seq_position']
+        self.virus_optional_fields = ['division', 'location', 'subtype']
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype', 'public']
 
         if 'host' in kwargs:
@@ -159,7 +159,6 @@ class vdb_upload(vdb_parse):
         for field in sequence_fields:
             if field in virus.keys():
                 virus['sequences'][0][field] = virus[field]
-                del virus[field]
 
     def format_date(self, virus):
         '''
@@ -265,6 +264,15 @@ class vdb_upload(vdb_parse):
                 pass
             else:
                 missing_attributes.append(atr)
+        # check extra attributes
+        for key in virus.keys():
+            if key not in self.virus_upload_fields + self.virus_optional_fields + self.sequence_upload_fields + self.sequence_optional_fields:
+                print("Deleting virus info " + key + ": " + virus[key] + " from " + virus['strain'])
+                del virus[key]
+        for key in virus['sequences'][0].keys():
+            if key not in self.sequence_upload_fields + self.sequence_optional_fields:
+                print("Deleting sequence info " + key + ": " + virus['sequences'][0][key] + " from " + virus['strain'])
+                del virus['sequences'][0][key]
 
         if len(missing_attributes) > 0:
             print("This strain is missing a required attribute and will be removed from upload sequences")
@@ -295,8 +303,9 @@ class vdb_upload(vdb_parse):
             # Virus exists in table so just add sequence information and update meta data if needed
             else:
                 self.updated = False
-                self.update_document_sequence(document, virus)
+                doc_seqs = self.update_document_sequence(document, virus)
                 self.update_document_meta(document, virus)
+                self.update_best_sequence(document, doc_seqs)
 
     def relaxed_strains(self):
         '''
@@ -327,15 +336,18 @@ class vdb_upload(vdb_parse):
             # update if !overwrite only if document[field] is not none
             if field not in document:
                 if field in virus:
+                    r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
                     document[field] = virus[field]
                     print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
                 if field in virus:
                     print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + virus[field]) + "\""
                     r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
+                    document[field] = virus[field]
                     self.updated = True
         if self.updated:
             r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
+            document['date_modified'] = virus['date_modified']
 
     def update_document_sequence(self, document, virus):
         '''
@@ -345,12 +357,14 @@ class vdb_upload(vdb_parse):
         doc_seqs = document['sequences']
         virus_seq = virus['sequences'][0]
         if virus_seq['accession'] != None:
-            self.update_sequence_field(virus, document, 'accession')
+            doc_seqs = self.update_sequence_field(virus, document, 'accession')
         else:
-            self.update_sequence_field(virus, document, 'sequence')
+            doc_seqs = self.update_sequence_field(virus, document, 'sequence')
         if (virus_seq['accession'] != None and all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs)) or (virus_seq['accession'] == None and all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs)):
             r.table(self.virus).get(self.strain_name).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
+            document['sequences'].append(virus_seq)
             self.updated = True
+        return doc_seqs
 
     def update_sequence_field(self, virus, document, check_field):
         '''
@@ -374,7 +388,36 @@ class vdb_upload(vdb_parse):
                             updated_sequence = True
         if updated_sequence:
             r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
+            document['sequences'] = doc_seqs
             self.updated = True
+        return doc_seqs
+
+    def update_best_sequence(self, document, list_sequences):
+        '''
+        find the best sequence in the uploading virus. Currently by longest sequence.
+        Updates the document best sequence info
+        '''
+        longest_sequence_pos = 0
+        if len(list_sequences) == 1:
+            best_sequence_info = list_sequences[0]
+        else:
+            longest_sequence_length = len(list_sequences[0]['sequence'])
+            current_pos = 0
+            for sequence_info in list_sequences:
+                if len(sequence_info['sequence']) > longest_sequence_length or (len(sequence_info['sequence']) ==
+                                                        longest_sequence_length and sequence_info['accession'] is None):
+                    longest_sequence_length = len(sequence_info['sequence'])
+                    longest_sequence_pos = current_pos
+                current_pos += 1
+            best_sequence_info = list_sequences[longest_sequence_pos]
+        document['seq_position'] = longest_sequence_pos
+        r.table(self.virus).get(self.strain_name).update({'seq_position': longest_sequence_pos}).run()
+
+        for field in best_sequence_info:
+            if field in document and document[field] != best_sequence_info[field]:
+                document[field] = best_sequence_info[field]
+                print("Updating best virus sequence field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + str(best_sequence_info[field])) + "\""
+                r.table(self.virus).get(self.strain_name).update({field: best_sequence_info[field]}).run()
 
 if __name__=="__main__":
     args = parser.parse_args()
