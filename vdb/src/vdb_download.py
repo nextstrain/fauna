@@ -86,11 +86,10 @@ class vdb_download(object):
         download documents from table
         '''
         print("Downloading all viruses from the table: " + self.virus)
-        cursor = list(r.db(self.database).table(self.virus).run())
-        cursor = self.subsetting(cursor)
-        for doc in cursor:
+        self.viruses = list(r.db(self.database).table(self.virus).run())
+        for doc in self.viruses:
             self.pick_best_sequence(doc)
-        self.viruses = cursor
+        self.viruses = self.subsetting(self.viruses)
         self.output()
 
     def subsetting(self, cursor):
@@ -113,9 +112,9 @@ class vdb_download(object):
         find the best sequence in the given document. Currently by longest sequence.
         Resulting document is with flatter dictionary structure
         '''
-        list_sequences = document['sequences']
-        if len(list_sequences) == 1:
+        if len(document['sequences']) == 1:
             best_sequence_info = document['sequences'][0]
+            best_citation_info = document['citations'][0]
         else:
             longest_sequence_pos = 0
             longest_sequence_length = len(document['sequences'][0]['sequence'])
@@ -127,11 +126,15 @@ class vdb_download(object):
                     longest_sequence_pos = current_pos
                 current_pos += 1
             best_sequence_info = document['sequences'][longest_sequence_pos]
+            best_citation_info = document['citations'][longest_sequence_pos]
 
         # create flatter structure for virus info
         for atr in best_sequence_info.keys():
             document[atr] = best_sequence_info[atr]
+        for atr in best_citation_info.keys():
+            document[atr] = best_citation_info[atr]
         del document['sequences']
+        del document['citations']
 
     def write_json(self, data, fname, indent=1):
         '''

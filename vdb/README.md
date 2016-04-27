@@ -33,12 +33,13 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
 * `Location`: Specific location in CamelCase format. Where available, Null otherwise.
 * `Public`: True if publicly available sequence. False otherwise.
-* `Sequences`: list of sequences and corresponding information...
+* `Sequences`: list of sequences...
   * `Accession`: Accession number. Where available, Null otherwise.
   * `Source`: Genbank, GISAID, etc... in CamelCase format.
-  * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
   * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
   * `Sequence`: Actual sequence. Upper case.
+*`Citations`: list of citations for corresponding sequences
+  * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
   * `Title`: Title of reference.
   * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
 
@@ -124,6 +125,8 @@ Sequences in vdb can be automatically updated
 ### Examples:
 
 	python vdb/src/vdb_update.py -db test -v zika
+	
+	python vdb/src/vdb_update.py -db test -v zika --accessions KU501216,KU501217
 	
 ## Backup
 VDB tables can be backed up to S3

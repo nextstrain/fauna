@@ -36,7 +36,6 @@ class vdb_parse(object):
                 self.viruses = self.parse_fasta_file(self.path + self.fname)
         elif self.auto_upload:
             gi = self.auto_gb_upload()
-            print(len(gi))
             raise Exception("stop")
             self.viruses = self.get_entrez_viruses(gi)
         else:
@@ -105,7 +104,6 @@ class vdb_parse(object):
 
                 viruses.append(v)
             handle.close()
-            print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return viruses
 
     def parse_gb_file(self, gb):

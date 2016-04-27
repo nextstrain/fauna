@@ -59,8 +59,9 @@ class vdb_upload(vdb_parse):
 
         # fields that are needed to upload
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
-        self.sequence_optional_fields = ['accession', 'authors', 'title', 'url']  # ex. if from virological.org or not in a database
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'virus', 'date_modified', 'public', 'region']
+        self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
+        self.citation_optional_fields = ['authors', 'title', 'url']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region']
         self.virus_optional_fields = ['division', 'location', 'subtype']
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype', 'public']
 
@@ -130,10 +131,11 @@ class vdb_upload(vdb_parse):
         self.define_regions()
         for virus in self.viruses:
             self.canonicalize(virus)
-            self.format_sequence_schema(virus)
+            self.format_schema(virus)
             self.format_date(virus)
             self.format_place(virus)
             self.format_region(virus)
+            self.delete_extra_fields(virus)
 
     def canonicalize(self, virus):
         '''
@@ -150,15 +152,20 @@ class vdb_upload(vdb_parse):
             name = re.sub(word, replace, name, re.IGNORECASE)
         return name
 
-    def format_sequence_schema(self, virus):
+    def format_schema(self, virus):
         '''
         move sequence information into nested 'sequences' field
         '''
         sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
         virus['sequences'] = [{}]
+        virus['citations'] = [{}]
         for field in sequence_fields:
             if field in virus.keys():
                 virus['sequences'][0][field] = virus[field]
+                del virus[field]
+        for field in self.citation_optional_fields:
+            if field in virus.keys():
+                virus['citations'][0][field] = virus[field]
                 del virus[field]
 
     def format_date(self, virus):
@@ -199,7 +206,7 @@ class vdb_upload(vdb_parse):
         '''
         Label viruses with region based on country, if prune then filter out viruses without region
         '''
-        virus['region'] = '?'
+        virus['region'] = None
         if virus['country'] in self.country_to_region:
             virus['region'] = self.country_to_region[virus['country']]
         if virus['country'] != '?' and virus['region'] == '?':
@@ -221,11 +228,13 @@ class vdb_upload(vdb_parse):
         Filter out viruses without correct dating format or without region specified
         Check  optional and upload attributes
         '''
+        print(str(len(self.viruses)) + " viruses before filtering")
         self.check_optional_attributes()
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
         self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
-        self.viruses = filter(lambda v: v['region'] != '?', self.viruses)
+        self.viruses = filter(lambda v: v['region'] is not None, self.viruses)
         self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
+        print(str(len(self.viruses)) + " viruses after filtering")
 
     def check_optional_attributes(self):
         '''
@@ -236,18 +245,28 @@ class vdb_upload(vdb_parse):
             for key in virus.keys():
                 if virus[key] == '?':
                     virus[key] = None
-                if type(virus[key]) == 'string':
-                    virus[key] = virus[key].strip()
+                if isinstance(virus[key], (str)):
+                    virus[key] = virus[key].strip
             for key in virus['sequences'][0].keys():
                 if virus['sequences'][0][key] == '?':
                     virus['sequences'][0][key] = None
-                virus['sequences'][0][key] = virus['sequences'][0][key].strip()
+                if isinstance(virus['sequences'][0][key], (str)):
+                    virus['sequences'][0][key] = virus['sequences'][0][key].strip
+            for key in virus['citations'][0].keys():
+                if virus['citations'][0][key] == '?':
+                    virus['citations'][0][key] = None
+                if isinstance(virus['citations'][0], (str)):
+                    virus['citations'][0] = virus['citations'][0].strip
+
             for atr in self.virus_optional_fields:
                 if atr not in virus:
                     virus[atr] = None
             for atr in self.sequence_optional_fields:
                 if atr not in virus['sequences'][0]:
                     virus['sequences'][0][atr] = None
+            for atr in self.citation_optional_fields:
+                if atr not in virus['citations'][0]:
+                    virus['citations'][0][atr] = None
 
     def check_upload_attributes(self, virus):
         '''
@@ -265,16 +284,6 @@ class vdb_upload(vdb_parse):
                 pass
             else:
                 missing_attributes.append(atr)
-        # check extra attributes
-        for key in virus.keys():
-            if key not in self.virus_upload_fields + self.virus_optional_fields + self.sequence_upload_fields + self.sequence_optional_fields:
-                print("Deleting virus info " + key + ": " + virus[key] + " from " + virus['strain'])
-                del virus[key]
-        for key in virus['sequences'][0].keys():
-            if key not in self.sequence_upload_fields + self.sequence_optional_fields:
-                print("Deleting sequence info " + key + ": " + virus['sequences'][0][key] + " from " + virus['strain'])
-                del virus['sequences'][0][key]
-
         if len(missing_attributes) > 0:
             print("This strain is missing a required attribute and will be removed from upload sequences")
             print(virus['strain'])
@@ -282,6 +291,20 @@ class vdb_upload(vdb_parse):
             return False
         else:
             return True
+
+    def delete_extra_fields(self, virus):
+        for key in virus.keys():
+            if key not in self.virus_upload_fields + self.virus_optional_fields:
+                print("Deleting virus info " + key + ": " + virus[key] + " from " + virus['strain'])
+                del virus[key]
+        for key in virus['sequences'][0].keys():
+            if key not in self.sequence_upload_fields + self.sequence_optional_fields:
+                print("Deleting sequence info " + key + ": " + virus['sequences'][0][key] + " from " + virus['strain'])
+                del virus['sequences'][0][key]
+        for key in virus['citations'][0].keys():
+            if key not in self.citation_optional_fields:
+                print("Deleting citation info " + key + ": " + virus['citations'][0][key] + " from " + virus['strain'])
+                del virus['citations'][0][key]
 
     def upload_documents(self):
         '''
@@ -336,9 +359,9 @@ class vdb_upload(vdb_parse):
             # update if !overwrite only if document[field] is not none
             if field not in document:
                 if field in virus:
+                    print("Creating virus field ", field, " assigned to ", virus[field])
                     r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
                     document[field] = virus[field]
-                    print("Creating virus field ", field, " assigned to ", virus[field])
             elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
                 if field in virus:
                     print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + virus[field]) + "\""
@@ -356,39 +379,75 @@ class vdb_upload(vdb_parse):
         '''
         doc_seqs = document['sequences']
         virus_seq = virus['sequences'][0]
+        virus_citation = virus['citations'][0]
         if virus_seq['accession'] != None:
-            self.update_sequence_field(virus, document, 'accession')
+            if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
+                self.append_new_sequence(document, virus_seq, virus_citation)
+            else:
+                self.update_sequence_citation_field(virus, document, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields)
         else:
-            self.update_sequence_field(virus, document, 'sequence')
-        if (virus_seq['accession'] != None and all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs)) or (virus_seq['accession'] == None and all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs)):
-            r.table(self.virus).get(self.strain_name).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
-            document['sequences'].append(virus_seq)
-            self.updated = True
+            if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
+                self.append_new_sequence(document, virus_seq, virus_citation)
+            else:
+                self.update_sequence_citation_field(virus, document, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields)
 
-    def update_sequence_field(self, virus, document, check_field):
+        if len(document['sequences']) != len(document['citations']):
+            print("Warning: length of list of sequences and citations does not match for " + virus['strain'])
+
+    def append_new_sequence(self, document, virus_seq, virus_citation):
+        try:
+            r.table(self.virus).get(self.strain_name).update({"sequences": r.row["sequences"].append(virus_seq)}).run()
+            r.table(self.virus).get(self.strain_name).update({"citations": r.row["citations"].append(virus_citation)}).run()
+        except:
+            print("Couldn't append new sequence and citation info for " + document['strain'])
+        document['sequences'].append(virus_seq)
+        document['citations'].append(virus_citation)
+        self.updated = True
+
+    def update_sequence_citation_field(self, virus, document, check_field, sequence_fields, citation_fields):
         '''
         Checks for matching viruses by comparing sequence and accession, updates other attributes if needed
         '''
+        updated_sequence = False
+        updated_citation = False
+        strain = virus['strain']
         doc_seqs = document['sequences']
         virus_seq = virus['sequences'][0]
-        updated_sequence = False
+        index = -1
         for doc_sequence_info in doc_seqs:
+            index += 1
             if doc_sequence_info[check_field] == virus_seq[check_field]:
-                for field in (self.sequence_upload_fields+self.sequence_optional_fields):
-                    if field not in doc_sequence_info:
-                        if field in virus_seq:
-                            doc_sequence_info[field] = virus_seq[field]
-                            print("Creating sequences field ", field, " assigned to \"", virus_seq[field]) + "\""
-                            updated_sequence = True
-                    elif (self.overwrite and doc_sequence_info[field] != virus_seq[field]) or (not self.overwrite and doc_sequence_info[field] is None and doc_sequence_info[field] != virus_seq[field]):
-                        if field in virus_seq:
-                            doc_sequence_info[field] = virus_seq[field]
-                            print("Updating virus sequence field " + str(field) + ", from \"" + str(doc_sequence_info[field]) + "\" to \"" + str(virus_seq[field])) + "\""
-                            updated_sequence = True
+                updated_sequence = self.update_nested_field(strain, sequence_fields, doc_sequence_info, virus_seq)
+                virus_citation = virus['citations'][0]
+                doc_citation_info = document['citations'][index]
+                updated_citation = self.update_nested_field(strain, citation_fields, doc_citation_info, virus_citation)
+
         if updated_sequence:
-            r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
             document['sequences'] = doc_seqs
+            r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
             self.updated = True
+        if updated_citation:
+            document['citations'][index] = doc_citation_info
+            r.table(self.virus).get(self.strain_name).update({"citations": document['citations']}).run()
+            self.updated = True
+
+    def update_nested_field(self, strain, fields, doc_info, virus_info):
+        '''
+        check for updates to nested sequences and citations fields.
+        '''
+        updated_sequence = False
+        for field in fields:
+            if field not in doc_info:
+                if field in virus_info:
+                    print("Creating field ", field, " assigned to \"", virus_info[field] + "\" for strain: " + strain)
+                    doc_info[field] = virus_info[field]
+                    updated_sequence = True
+            elif (self.overwrite and doc_info[field] != virus_info[field]) or (not self.overwrite and doc_info[field] is None and doc_info[field] != virus_info[field]):
+                if field in virus_info:
+                    print("Updating field " + str(field) + ", from \"" + str(doc_info[field]) + "\" to \"" + str(virus_info[field]) + "\" for strain: " + strain)
+                    doc_info[field] = virus_info[field]
+                    updated_sequence = True
+        return updated_sequence
 
 if __name__=="__main__":
     args = parser.parse_args()

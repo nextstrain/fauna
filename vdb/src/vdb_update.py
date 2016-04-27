@@ -8,7 +8,8 @@ class vdb_update(vdb_upload):
     def __init__(self, **kwargs):
         vdb_upload.__init__(self, **kwargs)
         vdb_parse.__init__(self, **kwargs)
-        self.updateable_fields = ['authors', 'title', 'url', 'sequence']
+        self.updateable_citation_fields = ['authors', 'title', 'url']
+        self.updateable_sequence_fields = ['sequence']
 
     def update(self):
         if self.accessions is None:
@@ -41,29 +42,25 @@ class vdb_update(vdb_upload):
             # Retrieve virus from table to see if it already exists
             if document is not None:
                 self.updated = False
-                self.update_sequence_field(virus, document, 'accession')
+                self.update_sequence_citation_field(virus, document, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields)
 
-    def update_sequence_field(self, virus, document, check_field):
-        '''
-        Checks for matching viruses by comparing sequence and accession, updates other attributes if needed
-        '''
-        doc_seqs = document['sequences']
-        virus_seq = virus['sequences'][0]
-        updated_sequence = False
-        for doc_sequence_info in doc_seqs:
-            for field in self.updateable_fields:
-                if field not in doc_sequence_info:
-                    doc_sequence_info[field] = virus_seq[field]
-                    print("For strain: \"" + str(virus['strain']) + "\", accession: \"" + str(virus_seq['accession']) + "\", creating sequences field " + str(field) + " assigned to \"", virus_seq[field]) + "\""
-                    updated_sequence = True
-                elif (field in virus_seq and virus_seq[field] is not None and doc_sequence_info[field] != virus_seq[field]):
-                    print("For strain: \"" + str(virus['strain']) + "\", accession: \"" + str(virus_seq['accession']) + "\", updating virus field " + str(field) + ", from \"" + str(doc_sequence_info[field]) + "\" to \"" + str(virus_seq[field])) + "\""
-                    doc_sequence_info[field] = virus_seq[field]
-                    updated_sequence = True
-        if updated_sequence:
-            r.table(self.virus).get(self.strain_name).update({"sequences": doc_seqs}).run()
-            r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
-            self.updated = True
+    def create_citations_field(self):
+        cursor = list(r.db(self.database).table(self.virus).run())
+        for doc in cursor:
+            strain = doc['strain']
+            sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
+            sequence_info = [{}]
+            citation_info = [{}]
+            for atr in doc['sequences'][0]:
+                if atr not in sequence_fields:
+                    citation_info[0][atr] = doc['sequences'][0][atr]
+                else:
+                    sequence_info[0][atr] = doc['sequences'][0][atr]
+            for field in self.citation_optional_fields:
+                if field not in citation_info[0]:
+                    citation_info[0][field] = '?'
+            r.table(self.virus).get(strain).update({'sequences': sequence_info}).run()
+            r.table(self.virus).get(strain).update({'citations': citation_info}).run()
 
 if __name__=="__main__":
     args = parser.parse_args()
