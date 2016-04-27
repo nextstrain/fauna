@@ -246,17 +246,17 @@ class vdb_upload(vdb_parse):
                 if virus[key] == '?':
                     virus[key] = None
                 if isinstance(virus[key], (str)):
-                    virus[key] = virus[key].strip
+                    virus[key] = virus[key].strip()
             for key in virus['sequences'][0].keys():
                 if virus['sequences'][0][key] == '?':
                     virus['sequences'][0][key] = None
                 if isinstance(virus['sequences'][0][key], (str)):
-                    virus['sequences'][0][key] = virus['sequences'][0][key].strip
+                    virus['sequences'][0][key] = virus['sequences'][0][key].strip()
             for key in virus['citations'][0].keys():
                 if virus['citations'][0][key] == '?':
                     virus['citations'][0][key] = None
                 if isinstance(virus['citations'][0], (str)):
-                    virus['citations'][0] = virus['citations'][0].strip
+                    virus['citations'][0] = virus['citations'][0].strip()
 
             for atr in self.virus_optional_fields:
                 if atr not in virus:
