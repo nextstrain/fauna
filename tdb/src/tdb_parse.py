@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os, re, datetime, gzip
 from Bio import SeqIO
 from Bio import Entrez
 import requests
 import pandas as pd
 import numpy as np
+from unidecode import unidecode
 
 class tdb_parse(object):
     def __init__(self, **kwargs):
@@ -56,14 +59,14 @@ class tdb_parse(object):
         '''
         from string import strip
         import csv
-        name_abbrev = {'HK':"HONGKONG", 'SWITZ':"SWITZERLAND", 'VIC':"VICTORIA", 'STOCK':"STOCKHOLM",
-                        'STHAFR':"SOUTHAFRICA", 'SAFRICA':"SOUTHAFRICA", "ENG":"ENGLAND", "NIB-85":"A/ALMATY/2958/2013", 'NOR':'NORWAY',
+        name_abbrev = {'HK':"HONGKONG", 'SWITZ':"SWITZERLAND", 'VIC':"VICTORIA", 'STOCK':"STOCKHOLM", 'DR':'DOMINICANREPUBLIC', 'NJ': 'NEWJERSEY',
+                        'STHAFR':"SOUTHAFRICA", 'SAFRICA':"SOUTHAFRICA", "ENG":"ENGLAND", "NIB-85":"A/ALMATY/2958/2013", 'X-243':'A/SOUTHAFRICA/3626/2013', 'NOR':'NORWAY',
                         'NTHCAROL':"NORTHCAROLINA",'ALA':"ALABAMA", 'NY':"NEWYORK", "GLAS":"GLASGOW", "AL":"ALABAMA",
                         "NETH":"NETHERLANDS", "FIN":"FINLAND", "BRIS":"BRISBANE", "MARY":"MARYLAND",
-                        "ST.P'BURG":"ST.PETERSBURG", 'CAL':'CALIFORNIA', 'CA':'CALIFORNIA', 'AUCK':'AUCKLAND', "C'CHURCH":'CHRISTCHURCH', "CCHURCH":'CHRISTCHURCH',
-                        'CHCH':'CHRISTCHURCH', 'ASTR':'ASTRAKHAN', 'ASTRAK':'ASTRAKHAN', 'ST.P':"ST.PETERSBURG",'ST P':"ST.PETERSBURG",'STP':"ST.PETERSBURG", 'ST.PBURG': "ST.PETERSBURG",
-                        'JHB':'JOHANNESBURG', 'FOR':'FORMOSA','MAL':'MALAYSIA', 'STHAUS':'SOUTHAUSTRALIA',
-                        'FL':'FLORIDA', 'MASS':'MASSACHUSETTS','NOVO':'NOVOSIBIRSK','WIS':'WISCONSIN','BANG':'BANGLADESH','EG':'EGYPT'}
+                        "ST.P'BURG":"ST.PETERSBURG", 'CAL':'CALIFORNIA', 'CA':'CALIFORNIA', 'AUCK':'AUCKLAND', "C'CHURCH":'CHRISTCHURCH', "CCHURCH":'CHRISTCHURCH', 'CC': 'CHRISTCHURCH',
+                        'CHCH':'CHRISTCHURCH', 'ASTR':'ASTRAKHAN', 'ASTRAK':'ASTRAKHAN', 'ST.P':"ST.PETERSBURG",'ST P':"ST.PETERSBURG",'STP':"ST.PETERSBURG", 'ST.PBURG': "ST.PETERSBURG", 'STPBURG':'ST.PETERSBURG',
+                        'JHB':'JOHANNESBURG', 'FOR':'FORMOSA','MAL':'MALAYSIA', 'STHAUS':'SOUTHAUSTRALIA', 'BAY':'BAYERN',
+                        'FL':'FLORIDA', 'MASS':'MASSACHUSETTS','NOVO':'NOVOSIBIRSK','WIS':'WISCONSIN','BANG':'BANGLADESH','EG':'EGYPT', 'SLOV':'SLOVENIA'}
         src_id = fname.split('/')[-1]
         with myopen(fname) as infile:
             csv_reader = csv.reader(infile)
@@ -114,11 +117,9 @@ class tdb_parse(object):
                 if not (row[0].startswith('A/') or row[0].startswith('B/')):
                     break
                 else:
-                    test_strains.append(HI_fix_name(row[0].strip()))
+                    name = unidecode(row[0].strip().decode('utf-8'))
+                    test_strains.append(HI_fix_name(name))
                     test_matrix.append([src_id,'test']+map(strip,row[1:4])+map(titer_to_number, row[4:]))
-
-            #print(len(ref_sera), ref_sera)
-            #print(len(ref_strains), len(test_strains))
             HI_table  = pd.DataFrame(ref_matrix+test_matrix, index = ref_strains+test_strains, columns= fields)
             return HI_table
 
@@ -142,15 +143,18 @@ def myopen(fname, mode='r'):
 
 def HI_fix_name(name):
     if name.split() == ["NIB-85", "(A/Almaty/2958/2013)"]:
+        print(name)
         tmp_name = fix_name("A/Almaty/2958/2013")
     elif name.split() == ["A/Texas/50/2012","(6&7)"]:
         tmp_name = fix_name("A/Texas/50/2012")
+    elif name.split() == ["X-243", "(A/SOUTHAFRICA/3626/2013)"]:
+        tmp_name = fix_name("A/SOUTHAFRICA/3626/2013")
     else:
         tmp_name = fix_name(name)
     return tmp_name.upper().lstrip('*')
 
 def fix_name(name):
-    tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/')
+    tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.','')
     fields = tmp_name.split('/')
     if len(fields[-1])==2:
         try:

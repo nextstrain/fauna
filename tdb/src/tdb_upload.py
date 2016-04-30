@@ -7,22 +7,20 @@ from tdb_parse import tdb_parse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
 parser.add_argument('-v', '--virus', default='H3N2', help="virus table to interact with, ie \'H3N2\' or \'Yam\' for Flu")
-parser.add_argument('--fname', help="input file name")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 class tdb_upload(tdb_parse):
     def __init__(self, **kwargs):
         tdb_parse.__init__(self, **kwargs)
-
         if 'database' in kwargs:
             self.database = kwargs['database']
         if 'virus' in kwargs:
-            self.virus = kwargs['virus'].upper()
-        if 'fname' in kwargs:
-            self.fname = kwargs['fname']
-
+            self.virus = kwargs['virus'].lower()
+        if 'overwrite' in kwargs:
+            self.overwrite = kwargs['overwrite']
         if 'path' in kwargs:
             self.path = kwargs['path']
         if self.path is None:
@@ -31,8 +29,10 @@ class tdb_upload(tdb_parse):
             os.makedirs(self.path)
 
         # fields that are needed to upload
-        self.upload_fields = ['virus', 'serum', 'titer', 'ferret_id', 'date_modified', 'source']
+        self.upload_fields = ['virus', 'serum', 'titer', 'ferret_id', 'date_modified', 'source', 'index']
         self.optional_fields = ['date', 'passage', 'group', 'ref']
+        self.overwritable_fields = ['titer', 'date', 'group', 'ref']
+        self.index_fields = ['virus', 'serum', 'ferret_id', 'source', 'passage']
 
         if 'host' in kwargs:
             self.host = kwargs['host']
@@ -51,6 +51,8 @@ class tdb_upload(tdb_parse):
         self.connect_rethink()
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
+        self.indexes = set()
+        self.passage = set()
 
     def connect_rethink(self):
         '''
@@ -66,7 +68,7 @@ class tdb_upload(tdb_parse):
 
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus)
+            raise Exception("No table exists yet for " + str(self.virus))
 
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
@@ -80,6 +82,7 @@ class tdb_upload(tdb_parse):
         self.format()
         self.filter()
         self.upload_documents()
+        print('indexes', len(self.indexes))
 
     def format(self):
         '''
@@ -96,6 +99,7 @@ class tdb_upload(tdb_parse):
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum'])
                 self.ref_virus_strains.add(meas['virus'])
+
         self.check_strain_names()
 
     def check_strain_names(self):
@@ -142,7 +146,7 @@ class tdb_upload(tdb_parse):
             meas['date'] = None
         elif meas['date'] == 'Si':
             meas['date'] = '2009-07-01'
-            print(meas['virus'], 'A/BAYERN/69/2009', 'date assigned to 2009-07-01')
+            #print(meas['virus'], 'A/BAYERN/69/2009', 'date assigned to 2009-07-01')
         else:
             print("Couldn't reformat this date: \'" + meas['date'] + "\'")
 
@@ -176,8 +180,13 @@ class tdb_upload(tdb_parse):
         '''
         create unique key for storage in rethinkdb
         '''
-        index = [meas['virus'], meas['serum'], meas['ferret_id']]
+        index = [meas[field] for field in self.index_fields]
+        #index = [meas['virus'], meas['serum'], meas['ferret_id'], meas['source'], meas['passage']]
         meas['index'] = index
+        if str(index) in self.indexes:
+            print("Repeat Index: " + str(index))
+        else:
+            self.indexes.add(str(index))
 
     def filter(self):
         '''
@@ -186,6 +195,9 @@ class tdb_upload(tdb_parse):
         '''
         print(len(self.measurements), " measurements before filtering")
         self.check_optional_attributes()
+        for meas in self.measurements:
+            self.passage.add(meas['passage'])
+        #print(self.passage)
         self.measurements = filter(lambda meas: isinstance(meas['ref'], (bool)), self.measurements)
         self.measurements = filter(lambda meas: meas['serum'] in self.ref_virus_strains, self.measurements)
         self.measurements = filter(lambda meas: self.check_upload_attributes(meas), self.measurements)
@@ -225,19 +237,49 @@ class tdb_upload(tdb_parse):
         '''
         print("Uploading " + str(len(self.measurements)) + " measurements to the table")
         for meas in self.measurements:
-            document = r.table(self.virus).get(meas['index']).run()
+            try:
+                document = r.table(self.virus).get(meas['index']).run()
+            except:
+                print(meas)
+                raise Exception("Couldn't retrieve this measurement")
             # Virus doesn't exist in table yet so add it
             if document is None:
-                print("Inserting " + meas['index'] + " into database")
-                r.table(self.virus).insert(meas).run()
+                #print("Inserting " + meas['index'] + " into database")
+                try:
+                    r.table(self.virus).insert(meas).run()
+                except:
+                    print(meas)
+                    raise Exception("Couldn't insert this measurement")
             # Virus exists in table so just add sequence information and update meta data if needed
             else:
-                pass
-                #self.updated = False
-                #self.update_document_sequence(document, meas)
-                #self.update_document_meta(document, meas)
+                self.updated = False
+                self.update_document_meta(document, meas)
+
+    def update_document_meta(self, document, meas):
+        '''
+        if overwrite is false update doc_virus information only if virus info is different and not null
+        if overwrite is true update doc_virus information if virus info is different
+        '''
+        for field in self.overwritable_fields:
+            # update if overwrite and anything
+            # update if !overwrite only if document[field] is not none
+            if field not in document:
+                if field in meas:
+                    print("Creating measurement field ", field, " assigned to ", meas[field])
+                    r.table(self.virus).get(self.strain_name).update({field: meas[field]}).run()
+                    document[field] = meas[field]
+                    self.updated = True
+            elif (self.overwrite and document[field] != meas[field]) or (not self.overwrite and document[field] is None and document[field] != meas[field]):
+                if field in meas:
+                    print("Updating measurement field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + meas[field]) + "\""
+                    r.table(self.virus).get(self.strain_name).update({field: meas[field]}).run()
+                    document[field] = meas[field]
+                    self.updated = True
+        if self.updated:
+            r.table(self.virus).get(self.strain_name).update({'date_modified': meas['date_modified']}).run()
+            document['date_modified'] = meas['date_modified']
 
 if __name__=="__main__":
     args = parser.parse_args()
-    run = tdb_upload(**args.__dict__)
-    run.upload()
+    connTDB = tdb_upload(**args.__dict__)
+    connTDB.upload()
