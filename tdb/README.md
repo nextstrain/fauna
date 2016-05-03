@@ -57,7 +57,7 @@ Command line arguments to run vdb_download:
 
 ### Examples:
 
-python tdb/src/tdb_download.py -db tdb -v H1N1pdm
+python tdb/src/tdb_download.py -db tdb -v h1n1pdm
 
 ## Accessing the Database
 All titer measurements are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
