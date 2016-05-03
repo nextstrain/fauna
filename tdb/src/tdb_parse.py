@@ -75,6 +75,8 @@ class tdb_parse(object):
             row1 = csv_reader.next()
             row2 = csv_reader.next()
             row3 = csv_reader.next()
+            if any('Passage history' in item for item in row3):
+                row3 = csv_reader.next()
             ref_sera = [[HI_fix_name(e1+'/'+e2), e3.replace(' ', '')] for e1, e2, e3 in zip(row1, row2, row3)[4:]]
             for ri in xrange(len(ref_sera)):
                 # replace abbreviations
