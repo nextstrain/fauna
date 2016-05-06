@@ -142,13 +142,10 @@ class tdb_parse(object):
                     test_strains.append(self.HI_fix_name(name))
                     test_matrix.append([src_id,'test']+map(strip,row[1:ref_sera_start])+map(self.titer_to_number, row[ref_sera_start:]))
                     # look for titer values that are not normal
-                    titers = map(self.titer_to_number, row[ref_sera_start:])
-                    for t in titers:
-                        t = str(t)
-                        if t not in self.titer_values:
-                            print("Weird titer value", t, src_id)
+                    self.check_titer_values(map(self.titer_to_number, row[ref_sera_start:]), src_id)
                 except:
                     print("Couldn't parse name from file", row[0].strip(), src_id)
+
             HI_table  = pd.DataFrame(ref_matrix+test_matrix, index = ref_strains+test_strains, columns= fields)
             # get rid of columns 'other' and ''
             if 'other' in HI_table:
@@ -156,7 +153,7 @@ class tdb_parse(object):
             while '' in HI_table:
                 HI_table = HI_table.drop('', 1)
             return HI_table
-    def determine_table_meta_fields(self, row1):
+    def determine_columns(self, row1):
         fields = []
         for col in row1:
             if col.strip().lower() not in self.table_column_names:
@@ -182,6 +179,12 @@ class tdb_parse(object):
         except:
             #print "Bad HI measurement:", val
             return np.nan
+
+    def check_titer_values(self, titers, src_id):
+        for t in titers:
+            t = str(t)
+            if t not in self.titer_values:
+                print("Weird titer value", t, src_id)
 
     def myopen(self, fname, mode='rU'):
         if fname[-2:]=='gz':
