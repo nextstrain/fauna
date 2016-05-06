@@ -60,6 +60,9 @@ class tdb_upload(tdb_parse):
         self.test_virus_strains = set()
         self.indexes = set()
         self.passage = set()
+        self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV',
+                                      'NIMR-REPORT-SEP2009_03.CSV', 'NIMR-REPORT-FEB2010_04.CSV', 'NIMR_FEB2010_15.CSV', 'NIMR_FEB2010_16.CSV']
+        self.new_different_date_format = set()
 
     def connect_rethink(self):
         '''
@@ -101,6 +104,7 @@ class tdb_upload(tdb_parse):
         print('Formatting for upload')
         for meas in self.measurements:
             self.format_date(meas)
+            #self.assign_numdate(meas)
             self.format_passage(meas)
             self.format_id(meas)
             self.format_ref(meas)
@@ -110,6 +114,9 @@ class tdb_upload(tdb_parse):
                 self.ref_virus_strains.add(meas['virus'])
             if meas['ref'] == False:
                 self.test_virus_strains.add(meas['virus'])
+        if len(self.new_different_date_format) > 0:
+            print("Found files that had a different date format, need to add to self.different_date_format")
+            print(self.new_different_date_format)
         self.check_strain_names()
 
     def check_strain_names(self):
@@ -159,30 +166,61 @@ class tdb_upload(tdb_parse):
             meas['date'] = meas['date'][0:7] + "-XX"
         elif re.match(r'\d\d\d\d', meas['date']):
             meas['date'] = meas['date'][0:4] + "-XX-XX"
-        elif re.match(r'\d/\d\d/\d\d\d\d', meas['date']):  #1/17/2014
-            meas['date'] = meas['date'][5:9] + "-" + meas['date'][2:4] + "-0" + meas['date'][0:1]
-        elif re.match(r'\d/\d/\d\d\d\d', meas['date']):  #7/4/2009
-            meas['date'] = meas['date'][4:8] + "-0" + meas['date'][2:3] + "-0" + meas['date'][0:1]
-        elif re.match(r'\d\d/\d/\d\d\d\d', meas['date']):  #11/7/2013
-            meas['date'] = meas['date'][5:9] + "-" + meas['date'][3:4] + "-0" + meas['date'][0:2]
-        elif re.match(r'\d\d/\d\d/\d\d\d\d', meas['date']):  #11/17/2013
-            meas['date'] = meas['date'][6:10] + "-" + meas['date'][3:5] + "-" + meas['date'][0:2]
-        elif re.match(r'\d/\d\d/\d\d', meas['date']):  #1/17/14
-            meas['date'] = '20' + meas['date'][5:7] + "-" + meas['date'][2:4] + "-0" + meas['date'][0:1]
-        elif re.match(r'\d/\d/\d\d', meas['date']):  #7/4/09
-            meas['date'] = '20' + meas['date'][4:6] + "-0" + meas['date'][2:3] + "-0" + meas['date'][0:1]
-        elif re.match(r'\d\d/\d/\d\d', meas['date']):  #11/7/13
-            meas['date'] = '20' + meas['date'][5:7] + "-" + meas['date'][3:4] + "-0" + meas['date'][0:2]
-        elif re.match(r'\d\d/\d\d/\d\d', meas['date']):  #11/17/13
-            meas['date'] = '20' + meas['date'][6:8] + "-" + meas['date'][3:5] + "-" + meas['date'][0:2]
-        elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-\d\d', meas['date']):
-            meas['date'] = '20' + meas['date'][4:6] + '-' + lookup_month[meas['date'][0:3]] + "-XX"
+        elif re.match(r'^\d+/\d+/\d\d$', meas['date']):
+            try:
+                if meas['source'] not in self.different_date_format:
+                    date = datetime.datetime.strptime(meas['date'], '%m/%d/%y').date()
+                else:
+                    date = datetime.datetime.strptime(meas['date'], '%d/%m/%y').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                meas['date'] = None
+                self.new_different_date_format.add(meas['source'])
+        elif re.match(r'^\d+/\d+/\d\d\d\d$', meas['date']):
+            try:
+                if meas['source'] not in self.different_date_format:
+                    date = datetime.datetime.strptime(meas['date'], '%m/%d/%Y').date()
+                else:
+                    date = datetime.datetime.strptime(meas['date'], '%d/%m/%Y').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                meas['date'] = None
+                self.new_different_date_format.add(meas['source'])
         elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]\s\d\d\d\d', meas['date']):  #Jan 2012
-            meas['date'] = meas['date'][4:8] + '-' + lookup_month[meas['date'][0:3]] + "-XX"
-        elif re.match(r'\d-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']):  #9-Jun
-            meas['date'] = '200' + meas['date'][0] + '-' + lookup_month[meas['date'][2:5]] + "-XX"
-        elif re.match(r'\d\d-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']):  #12-Jan
-            meas['date'] = '20' + meas['date'][0:1] + '-' + lookup_month[meas['date'][3:6]] + "-XX"
+            try:
+                date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                meas['date'] = None
+        elif re.match(r'\d-[a-zA-Z][a-zA-Z][a-zA-Z]X', meas['date']):  #9-Jun
+            try:
+                date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                meas['date'] = None
+        elif re.match(r'(\d+)-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']):  #12-Jan, 9-Jun
+            try:
+                year = re.match(r'(\d+)-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']).group(1)
+                if len(str(year)) == 1:
+                    meas['date'] = '0' + meas['date']
+                date = datetime.datetime.strptime(meas['date'], '%y-%b').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                meas['date'] = None
+        elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-(\d+)', meas['date']):  #Nov-09, Jan-2012
+            try:
+                year = re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-(\d+)', meas['date']).group(1)
+                if len(str(year)) == 4:
+                    date = datetime.datetime.strptime(meas['date'], '%b-%Y').date()
+                else:
+                    date = datetime.datetime.strptime(meas['date'], '%b-%y').date()
+                meas['date'] = date.strftime('%Y-%m-%d')
+            except:
+                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                meas['date'] = None
         elif meas['date'].lower() == 'unknown' or meas['date'].lower() == 'd/m unknown':
             meas['date'] = None
         elif meas['date'] == '':
@@ -193,6 +231,21 @@ class tdb_upload(tdb_parse):
         else:
             print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum'], meas['virus'])
             meas['date'] = None
+
+    def assign_numdate(self, meas, format = '%Y-%m-%d'):
+        '''
+        Takes a calendar date and a numerical dates in terms of years
+        If date is missing precision, still return numerical date
+        '''
+        meas['numdate'] = meas['date']
+        if meas['date'] is not None:
+            date = meas['date'].replace("XX", "01")
+            if isinstance(date, basestring):
+                try:
+                    date = datetime.datetime.strptime(date, format).date()
+                    meas['numdate'] = round(date.year + 1.0*date.timetuple().tm_yday/365.25, 3)
+                except:
+                    print("Couldn't parse date, may need to fix manually", meas['date'], meas['source'], meas['serum'], meas['virus'])
 
     def format_passage(self, meas):
         '''

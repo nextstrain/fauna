@@ -79,26 +79,19 @@ class tdb_parse(object):
             row1 = csv_reader.next()
             row2 = csv_reader.next()
             row3 = csv_reader.next()
-            fields = self.determine_table_meta_fields(row1)
+            # starting 2016, included passage history row, need to get fourth row
+            if self.determine_source_year(src_id) >= 2016:
+                row3 = csv_reader.next()
+            fields = self.determine_columns(row1)
             ref_sera_start = len(fields)
             if not all(field in fields for field in ['collection', 'passage']):
-                fields = self.determine_table_meta_fields(row2)
+                fields = self.determine_columns(row2)
                 fields[0] = 'viruses'
             ref_sera_start = len(fields)
             try:
                 fields.remove("viruses")
             except:
                 print("couldn't remove viruses field", fields, src_id)
-            # starting 2016, included passage history row
-            if re.match(r'(\D+)(\d\d\d\d)', src_id):  #NIMR_Feb2012_10.csv, NIMR-report-Feb2011_04.csv
-                num = re.match(r'(\D+)(\d\d\d\d)', src_id).group(2)
-                try:
-                    num = int(num)
-                    if num >= 2016:
-                        row3 = csv_reader.next()
-                except:
-                    pass
-                    print("couldn't parse file name")
             row3 = [re.match(r'^([^\*]*)', id).group(0).upper() for id in row3]  # get everything before the '*'?
             ref_sera = [[self.HI_fix_name(e1+'/'+e2), e3.replace(' ', '')] for e1, e2, e3 in zip(row1, row2, row3)[ref_sera_start:]]
             for ri in xrange(len(ref_sera)):
@@ -141,7 +134,6 @@ class tdb_parse(object):
                     name = unidecode(row[0].strip().decode('utf-8'))
                     test_strains.append(self.HI_fix_name(name))
                     test_matrix.append([src_id,'test']+map(strip,row[1:ref_sera_start])+map(self.titer_to_number, row[ref_sera_start:]))
-                    # look for titer values that are not normal
                     self.check_titer_values(map(self.titer_to_number, row[ref_sera_start:]), src_id)
                 except:
                     print("Couldn't parse name from file", row[0].strip(), src_id)
@@ -153,6 +145,7 @@ class tdb_parse(object):
             while '' in HI_table:
                 HI_table = HI_table.drop('', 1)
             return HI_table
+
     def determine_columns(self, row1):
         fields = []
         for col in row1:
@@ -161,6 +154,19 @@ class tdb_parse(object):
             else:
                 fields.append(col.strip().lower())
         return fields
+
+    def determine_source_year(self, src_id):
+        '''
+        # starting 2016, included passage history row
+        '''
+        year = 0
+        if re.match(r'\D+(\d\d\d\d)', src_id):  #NIMR_Feb2012_10.csv, NIMR-report-Feb2011_04.csv
+            year = re.match(r'\D+(\d\d\d\d)', src_id).group(1)
+            try:
+                year = int(year)
+            except:
+                print("couldn't source file name to get year")
+        return year
 
     def titer_to_number(self, val):
         try:
@@ -181,6 +187,9 @@ class tdb_parse(object):
             return np.nan
 
     def check_titer_values(self, titers, src_id):
+        '''
+        look for titer values that are not normal
+        '''
         for t in titers:
             t = str(t)
             if t not in self.titer_values:
