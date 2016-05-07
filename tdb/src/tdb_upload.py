@@ -189,14 +189,7 @@ class tdb_upload(tdb_parse):
         elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]\s\d\d\d\d', meas['date']):  #Jan 2012
             try:
                 date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
-            except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
-                meas['date'] = None
-        elif re.match(r'\d-[a-zA-Z][a-zA-Z][a-zA-Z]X', meas['date']):  #9-Jun
-            try:
-                date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
+                meas['date'] = date.strftime('%Y-%m') + '-XX'
             except:
                 print("Couldn't parse as datetime object", meas['date'], meas['source'])
                 meas['date'] = None
@@ -206,7 +199,8 @@ class tdb_upload(tdb_parse):
                 if len(str(year)) == 1:
                     meas['date'] = '0' + meas['date']
                 date = datetime.datetime.strptime(meas['date'], '%y-%b').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
+                meas['date'] = date.strftime('%Y-%m') + '-XX'
+                print(meas['date'])
             except:
                 print("Couldn't parse as datetime object", meas['date'], meas['source'])
                 meas['date'] = None
@@ -217,7 +211,8 @@ class tdb_upload(tdb_parse):
                     date = datetime.datetime.strptime(meas['date'], '%b-%Y').date()
                 else:
                     date = datetime.datetime.strptime(meas['date'], '%b-%y').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
+                meas['date'] = date.strftime('%Y-%m') + '-XX'
+                print(meas['date'])
             except:
                 print("Couldn't parse as datetime object", meas['date'], meas['source'])
                 meas['date'] = None
