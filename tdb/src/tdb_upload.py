@@ -11,6 +11,7 @@ parser.add_argument('--path', default=None, help="path to fasta file, default is
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
 parser.add_argument('--upload', default=False, action="store_true",  help ="If included, actually upload documents, otherwise test parsing")
+parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
 parser.add_argument('--host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
@@ -19,6 +20,8 @@ class tdb_upload(tdb_parse):
         tdb_parse.__init__(self, **kwargs)
         if 'database' in kwargs:
             self.database = kwargs['database']
+            if self.database == 'vdb':
+                raise Exception("Cant upload to vdb database")
         if 'virus' in kwargs:
             self.virus = kwargs['virus'].lower()
         if 'overwrite' in kwargs:
@@ -27,6 +30,8 @@ class tdb_upload(tdb_parse):
             self.exclusive = kwargs['exclusive']
         if 'upload' in kwargs:
             self.upload_docs = kwargs['upload']
+        if 'replace' in kwargs:
+            self.replace = kwargs['replace']
         if 'path' in kwargs:
             self.path = kwargs['path']
         if self.path is None:
@@ -200,7 +205,6 @@ class tdb_upload(tdb_parse):
                     meas['date'] = '0' + meas['date']
                 date = datetime.datetime.strptime(meas['date'], '%y-%b').date()
                 meas['date'] = date.strftime('%Y-%m') + '-XX'
-                print(meas['date'])
             except:
                 print("Couldn't parse as datetime object", meas['date'], meas['source'])
                 meas['date'] = None
@@ -212,7 +216,6 @@ class tdb_upload(tdb_parse):
                 else:
                     date = datetime.datetime.strptime(meas['date'], '%b-%y').date()
                 meas['date'] = date.strftime('%Y-%m') + '-XX'
-                print(meas['date'])
             except:
                 print("Couldn't parse as datetime object", meas['date'], meas['source'])
                 meas['date'] = None
@@ -322,6 +325,9 @@ class tdb_upload(tdb_parse):
         '''
         Insert viruses into collection
         '''
+        if self.replace:
+            print("Deleting documents in database:", self.database, "table:", self.virus)
+            r.table(self.virus).delete().run()
         if self.exclusive:
             db_measurements = list(r.db(self.database).table(self.virus).run())
             uploaded_indexes = {" ".join([str(i) for i in db_meas['index']]): db_meas for db_meas in db_measurements}

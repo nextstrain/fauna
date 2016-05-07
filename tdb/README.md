@@ -31,6 +31,7 @@ Command line arguments to run tdb_upload:
 * --overwrite default=False help=whether to overwrite existing non-null fields
 * --exclusive default=True help=default downloads all documents in database to see if measurements present, include --exclusive to get each document on its own (takes longer, but better if others updating database at same time).
 * --upload default=False help=default allows parsing of HI tables to be tested, include --upload to actually upload measurements
+* --replace default=False help=If included, delete all documents in table
 * --path help=path to fasta file, default is data/virus/
 * --auth\_key help=authorization key for rethink database
 * --host help=rethink host url
@@ -40,6 +41,8 @@ Command line arguments to run tdb_upload:
 Test parsing of HI tables without actually uploading to database `python tdb/src/tdb_upload.py -db tdb -v h1n1pdm`
 
 Upload measurements to database `python tdb/src/tdb_upload.py -db tdb -v h1n1pdm --upload`
+
+Replace all measurements in table before uploading `python tdb/src/tdb_upload.py -db tdb -v h1n1pdm --upload --replace`
 
 ### HI Table Troubleshooting
 
