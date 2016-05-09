@@ -6,7 +6,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to download from")
 parser.add_argument('-v', '--virus', default='Zika', help="virus table to interact with")
-parser.add_argument('--path', default='tdb/data/', help="path to dump output files to")
+parser.add_argument('--path', default='data/', help="path to dump output files to")
 parser.add_argument('--ftype', default='txt', help="output file format, default \"txt\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 parser.add_argument('--host', default=None, help="rethink host url")
