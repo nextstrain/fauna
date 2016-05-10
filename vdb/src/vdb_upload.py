@@ -62,8 +62,8 @@ class vdb_upload(vdb_parse):
         self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
         self.citation_optional_fields = ['authors', 'title', 'url']
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region']
-        self.virus_optional_fields = ['division', 'location', 'subtype']
-        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'subtype', 'public']
+        self.virus_optional_fields = ['division', 'location']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
 
         if 'host' in kwargs:
             self.host = kwargs['host']
