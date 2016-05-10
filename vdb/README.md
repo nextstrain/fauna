@@ -47,9 +47,8 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`
 * Required sequence attributes: `source`, `locus`, `sequence`
-* Optional virus attributes: `subtype`, `division`, `location`
+* Optional virus attributes: `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`
-(`subtype` is required for Flu)
 
 ### Commands
 Command line arguments to run vdb_upload:
@@ -61,7 +60,6 @@ Command line arguments to run vdb_upload:
 * --source
 * --locus
 * --authors help=authors of source of sequences
-* --subtype
 * --private help=to designate sequences being uploaded as not `public`
 * --overwrite default=False help=whether to overwrite existing non-null fields
 * --path help=path to fasta file, default is data/virus/
@@ -71,7 +69,7 @@ Command line arguments to run vdb_upload:
 
 ### Examples:
 
-    python vdb/src/Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
+    python vdb/src/Flu_vdb_upload.py -db test -v h32n --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid
 
     python vdb/src/Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
 
@@ -139,6 +137,18 @@ VDB tables can be backed up to S3
 	
 	python vdb/src/vdb_backup.py -db vdb --continous
 	
+## Copy
+VDB tables can be copied into other tables and/or other databases
+
+### Examples
+	
+Copy `vdb.zika` to `test.zika`
+
+	python vdb/src/vdb_copy.py -edb vdb -ev zika -idb test -iv zika
+	
+Copy `vdb.Zika` to `vdb.zika` (need to change string.lower() in code)
+	
+	python vdb/src/vdb_copy.py -edb vdb -ev Zika -idb vdb -iv zika
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
@@ -152,3 +162,4 @@ export RETHINK_AUTH_KEY=EXAMPLE_KEY
 export RETHINK_HOST=EXAMPLE_HOST
 export NCBI_EMAIL=example\@email.org
 ```
+
