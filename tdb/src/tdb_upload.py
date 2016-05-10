@@ -159,7 +159,6 @@ class tdb_upload(tdb_parse):
             meas['date'] = re.sub(r'_', r'-', meas['date']).strip()
         except:
             meas['date'] = ''
-        # ex. 2002 (Month and day unknown)
         if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', meas['date']):
             pass
         elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', meas['date']):
@@ -223,9 +222,6 @@ class tdb_upload(tdb_parse):
             meas['date'] = None
         elif meas['date'] == '':
             meas['date'] = None
-        elif meas['date'] == 'Si':
-            meas['date'] = '2009-07-01'
-            #print(meas['virus'], 'A/BAYERN/69/2009', 'date assigned to 2009-07-01')
         else:
             print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum'], meas['virus'])
             meas['date'] = None
