@@ -13,7 +13,6 @@ parser.add_argument('--accessions', default=None, help="comma seperated list of 
 parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
-parser.add_argument('--subtype', default=None, help="virus subtype, ie \'H3N2\' or \'Yamagata\' for Flu")
 parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
 parser.add_argument('--host', default=None, help="rethink host url")
