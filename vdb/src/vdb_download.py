@@ -1,6 +1,7 @@
 import os, json, datetime
 import rethinkdb as r
 from Bio import SeqIO
+import numpy as np
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -115,7 +116,7 @@ class vdb_download(object):
         find the best sequence in the given document. Currently by longest sequence.
         Resulting document is with flatter dictionary structure
         '''
-        longest_sequence_pos = np.argmax([len(seq_info['sequence']) for seq in document['sequences']])
+        longest_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])
         best_sequence_info = document['sequences'][longest_sequence_pos]
         best_citation_info = document['citations'][longest_sequence_pos]
 
