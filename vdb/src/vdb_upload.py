@@ -28,9 +28,11 @@ class vdb_upload(vdb_parse):
         vdb_parse.__init__(self, **kwargs)
 
         if 'virus' in kwargs:
-            self.virus = kwargs['virus'].title()
+            self.virus = kwargs['virus'].lower()
         if 'database' in kwargs:
             self.database = kwargs['database']
+            if self.database == 'tdb':
+                raise Exception("Cant upload to tdb database")
         if 'source' in kwargs:
             self.virus_source = kwargs['source']
         if 'locus' in kwargs:

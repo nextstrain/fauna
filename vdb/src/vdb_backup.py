@@ -12,9 +12,6 @@ class vdb_backup(object):
     def __init__(self, **kwargs):
         self.days_to_expiration = 40
         self.upload_hour = 3
-
-        if 'virus' in kwargs and kwargs['virus'] is not None:
-            self.virus = kwargs['virus'].title()
         if 'database' in kwargs:
             self.database = kwargs['database']
 

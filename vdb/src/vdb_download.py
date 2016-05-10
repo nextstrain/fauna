@@ -42,7 +42,7 @@ class vdb_download(object):
         if 'database' in self.kwargs:
             self.database = self.kwargs['database']
         if 'virus' in self.kwargs:
-            self.virus = self.kwargs['virus'].title()
+            self.virus = self.kwargs['virus'].lower()
         if 'ftype' in self.kwargs:
             self.ftype = self.kwargs['ftype']
         if 'public_only' in self.kwargs:

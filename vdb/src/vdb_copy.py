@@ -14,7 +14,7 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 class vdb_copy(object):
     def __init__(self, **kwargs):
         if 'export_virus' in kwargs:
-            self.export_virus = kwargs['export_virus']
+            self.export_virus = kwargs['export_virus'].lower()
         if 'export_database' in kwargs:
             self.export_database = kwargs['export_database']
         if 'import_database' in kwargs:
