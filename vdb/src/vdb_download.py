@@ -1,6 +1,7 @@
 import os, json, datetime
 import rethinkdb as r
 from Bio import SeqIO
+import numpy as np
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -81,7 +82,7 @@ class vdb_download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self):
+    def download(self, output=True):
         '''
         download documents from table
         '''
@@ -90,7 +91,9 @@ class vdb_download(object):
         for doc in self.viruses:
             self.pick_best_sequence(doc)
         self.viruses = self.subsetting(self.viruses)
-        self.output()
+        if output:
+            self.output()
+
 
     def subsetting(self, cursor):
         '''
@@ -102,8 +105,9 @@ class vdb_download(object):
             result = filter(lambda doc: doc['public'], result)
             print('Removed documents that were not public, remaining documents: ' + str(len(result)))
         if self.countries is not None:
-            result = filter(lambda doc: any(doc['country'] == cn for cn in self.countries), result)
-            print('Removed documents that were not in countries specified (' + ','.join(self.countries) + '), remaining documents: ' + str(len(result)))
+            result = filter(lambda doc: doc['country'] in self.countries, result)
+            print('Removed documents that were not in countries specified ('
+                + ','.join(self.countries) + '), remaining documents: ' + str(len(result)))
         print("Documents in table after subsetting: " + str(len(result)))
         return result
 
@@ -112,21 +116,9 @@ class vdb_download(object):
         find the best sequence in the given document. Currently by longest sequence.
         Resulting document is with flatter dictionary structure
         '''
-        if len(document['sequences']) == 1:
-            best_sequence_info = document['sequences'][0]
-            best_citation_info = document['citations'][0]
-        else:
-            longest_sequence_pos = 0
-            longest_sequence_length = len(document['sequences'][0]['sequence'])
-            current_pos = 0
-            for sequence_info in document['sequences']:
-                if len(sequence_info['sequence']) > longest_sequence_length or (len(sequence_info['sequence']) ==
-                                                        longest_sequence_length and sequence_info['accession'] is None):
-                    longest_sequence_length = len(sequence_info['sequence'])
-                    longest_sequence_pos = current_pos
-                current_pos += 1
-            best_sequence_info = document['sequences'][longest_sequence_pos]
-            best_citation_info = document['citations'][longest_sequence_pos]
+        longest_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])
+        best_sequence_info = document['sequences'][longest_sequence_pos]
+        best_citation_info = document['citations'][longest_sequence_pos]
 
         # create flatter structure for virus info
         for atr in best_sequence_info.keys():
@@ -151,22 +143,19 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_fasta(self, viruses, fname):
-        fasta_fields = ['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors', 'subtype']
+    def write_fasta(self, viruses, fname, sep='|',
+                    fasta_fields = ['strain', 'virus', 'accession', 'date', 'region',
+                                    'country', 'division', 'location', 'source',
+                                    'locus', 'authors', 'subtype']):
         try:
             handle = open(fname, 'w')
         except IOError:
             pass
         else:
             for v in viruses:
-                handle.write(">")
-                for field in fasta_fields:
-                    if field in v and v[field] is not None:
-                        handle.write(str(v[field]) + '|')
-                    else:
-                        handle.write('?|')
-
-                handle.write("\n")
+                fields = [str(v[field]) if (field in v and v[field] is not None) else '?'
+                          for field in fasta_fields]
+                handle.write(">"+sep.join(fields)+'\n')
                 handle.write(v['sequence'] + "\n")
             handle.close()
             print("Wrote to " + fname)
