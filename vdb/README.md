@@ -71,9 +71,9 @@ Command line arguments to run vdb_upload:
 
 ### Examples:
 
-    python vdb/src/Flu_vdb_upload.py -db test -v flu --fname H3N2_gisaid_epiflu_sequence.fasta --source gisaid --subtype H3N2
+Upload flu sequences from GISAID:
 
-    python vdb/src/Zika_vdb_upload.py --database vdb --virus zika --fname zika_virological_02-22-2016.fasta --source Virological --locus Genome
+    python vdb/src/Flu_vdb_upload.py -db test_vdb -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
 
 Upload Zika sequences from VIPR:
 
