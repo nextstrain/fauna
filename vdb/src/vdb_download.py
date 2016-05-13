@@ -40,16 +40,6 @@ class vdb_download(object):
         else:
             self.auth_key = auth_key
         self.connect_rethink()
-
-        self.kwargs = kwargs
-        if 'public_only' in self.kwargs:
-            self.public_only = self.kwargs['public_only']
-        else:
-            self.public_only = False
-        if 'countries' in kwargs:
-            self.countries = kwargs['countries']
-        else:
-            self.countries = None
         self.viruses = []
 
     def connect_rethink(self):
@@ -82,23 +72,23 @@ class vdb_download(object):
         self.viruses = list(r.db(self.database).table(self.virus).run())
         for doc in self.viruses:
             self.pick_best_sequence(doc)
-        self.viruses = self.subsetting(self.viruses)
+        self.viruses = self.subsetting(self.viruses, **kwargs)
         if output:
             self.output(**kwargs)
 
-    def subsetting(self, cursor):
+    def subsetting(self, cursor, public_only=False, countries=None, **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
         result = cursor
         print("Documents in table before subsetting: " + str(len(result)))
-        if self.public_only:
+        if public_only:
             result = filter(lambda doc: doc['public'], result)
             print('Removed documents that were not public, remaining documents: ' + str(len(result)))
-        if self.countries is not None:
-            result = filter(lambda doc: doc['country'] in self.countries, result)
+        if countries is not None:
+            result = filter(lambda doc: doc['country'] in countries, result)
             print('Removed documents that were not in countries specified ('
-                + ','.join(self.countries) + '), remaining documents: ' + str(len(result)))
+                + ','.join(countries) + '), remaining documents: ' + str(len(result)))
         print("Documents in table after subsetting: " + str(len(result)))
         return result
 
