@@ -6,6 +6,8 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to download from")
 parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with")
+parser.add_argument('--subtype', nargs='+', type=str, default=None, help="subtype to be include in download")
+parser.add_argument('--host', nargs='+', type=str, default=None, help="hosts to be include in download")
 parser.add_argument('--path', default='data', help="path to dump output files to")
 parser.add_argument('--ftype', default='text', help="output file format, default \"text\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
@@ -66,15 +68,24 @@ class tdb_download(object):
         '''
         print("Downloading all titer measurements from the table: " + self.virus)
         self.measurements = list(r.db(self.database).table(self.virus).run())
+        self.measurements = self.subsetting(self.measurements, **kwargs)
         if output:
             self.output(**kwargs)
 
-    def subsetting(self, cursor):
+    def subsetting(self, cursor, subtype=None, host=None, **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
         result = cursor
         print("Documents in table before subsetting: " + str(len(result)))
+        if subtype is not None:
+            subtype = [s.lower() for s in subtype]
+            result = filter(lambda doc: doc['subtype'] in subtype, result)
+            print('Removed documents that were not of the specified subtype (' + ','.join(subtype) + '), remaining documents: ' + str(len(result)))
+        if host is not None:
+            host = [h.title() for h in host]
+            result = filter(lambda doc: doc['host'] in host, result)
+            print('Removed documents that were not of the specified host (' + ','.join(host) + '), remaining documents: ' + str(len(result)))
         print("Documents in table after subsetting: " + str(len(result)))
         return result
 
