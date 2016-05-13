@@ -13,7 +13,9 @@ Each document in the database represents an HI test between a virus and serum fr
 * `ferret_id`: id of the ferret the serum was raised in.
 * `source`: List of document names from which titer measurements were added. 
 * `passage`: Passage history of the virus.
-* `index`: Used as compound index in rethinkdb. Array with `virus`, `serum`, `ferret_id`, `source`, `passage`.
+* `subtype`: Subtype of virus, ie h1n1pdm, vic, yam, h3n2
+* `host`: Host of virus, ie Human, Swine
+* `index`: Used as compound index in rethinkdb. Array with `virus`, `serum`, `ferret_id`, `source`, `passage`, `subtype`, `host`.
 * `titer`: List of all titer measurements for this test. 
 * `date_modified`:  Last modification date for document in `YYYY-MM-DD` format.
 * `date`: Collection date of virus in `YYYY-MM-DD` format, for example, `2016-02-28`.
@@ -77,6 +79,8 @@ Measurements can be downloaded from tdb
 Command line arguments to run vdb_download:
 * -db --database default='vdb', help=database to download from. Ex 'vdb', 'test'
 * -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
+* --subtype help=subtype to be include in download, multiple arguments allowed
+* --host help=host to be include in download, multiple arguments allowed
 * --path help=path to dump output files to, default is data/
 * --ftype help=output file format, default is 'fasta', other option is 'json'
 * --fstem help=output file stem name, default is VirusName\_Year\_Month\_Date

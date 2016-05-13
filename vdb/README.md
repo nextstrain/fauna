@@ -25,7 +25,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `Flu`, `Ebola`, `Zika`.
-* `Subtype`: Virus subtype in CamelCase format, where available, Null otherwise. `H3N2`, `H1N1pdm`, `Vic`, `Yam`
+* `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
 * `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
 * `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28`.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
