@@ -20,43 +20,39 @@ class vdb_parse(object):
             raise Exception("Missing NCBI email")
         Entrez.email = self.email
 
-    def parse(self):
+    def parse(self, path, fname, ftype, **kwargs):
         if self.accessions is not None:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
             gi = self.get_GIs(accessions)
-            self.viruses = self.get_entrez_viruses(gi)
-        elif self.ftype is not None and self.fname is not None:
-            if self.ftype == 'genbank':
-                self.viruses = self.parse_gb_file(self.path + self.fname)
-            elif self.ftype == 'accession':
-                accessions = self.parse_accession_file(self.path + self.fname)
+            self.viruses = self.get_entrez_viruses(gi, **kwargs)
+        elif ftype is not None and fname is not None:
+            if ftype == 'genbank':
+                self.viruses = self.parse_gb_file(path + fname, **kwargs)
+            elif ftype == 'accession':
+                accessions = self.parse_accession_file(path + fname, **kwargs)
                 gi = self.get_GIs(accessions)
-                self.viruses = self.get_entrez_viruses(gi)
-            elif self.ftype == 'fasta':
-                self.viruses = self.parse_fasta_file(self.path + self.fname)
-        elif self.auto_upload:
-            gi = self.auto_gb_upload()
-            raise Exception("stop")
-            self.viruses = self.get_entrez_viruses(gi)
+                self.viruses = self.get_entrez_viruses(gi, **kwargs)
+            elif ftype == 'fasta':
+                self.viruses = self.parse_fasta_file(path + fname, **kwargs)
         else:
             raise Exception("No input file name and type defined or accessions given")
 
-    def add_attributes(self, v):
+    def add_attributes(self, v, locus, authors, subtype, source, public=True, **kwargs):
         '''
         Add attributes to virus
         '''
         v['virus'] = self.virus
         v['date_modified'] = self.get_upload_date()
-        if 'locus' not in v and self.locus is not None:
-            v['locus'] = self.locus.title()
-        if 'authors' not in v and self.authors is not None:
-            v['authors'] = self.authors.title()
-        if 'subtype' not in v and self.vsubtype is not None:
-            v['subtype'] = self.vsubtype.title()
-        if 'source' not in v and self.virus_source is not None:
-            v['source'] = self.virus_source.title()
-        if 'public' not in v and self.public is not None:
-            v['public'] = self.public
+        if 'locus' not in v and locus is not None:
+            v['locus'] = locus.title()
+        if 'authors' not in v and authors is not None:
+            v['authors'] = authors.title()
+        if 'subtype' not in v and subtype is not None:
+            v['subtype'] = subtype.title()
+        if 'source' not in v and source is not None:
+            v['source'] = source.title()
+        if 'public' not in v and public is not None:
+            v['public'] = public
 
     def auto_gb_upload(self):
         '''
@@ -75,7 +71,7 @@ class vdb_parse(object):
         giList = Entrez.read(handle)['IdList']
         return giList
 
-    def parse_fasta_file(self, fasta):
+    def parse_fasta_file(self, fasta, **kwargs):
         '''
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
@@ -92,21 +88,13 @@ class vdb_parse(object):
                 v['sequence'] = str(record.seq).upper()
                 v['virus'] = self.virus
                 v['date_modified'] = self.get_upload_date()
-                if 'locus' not in v and self.locus is not None:
-                    v['locus'] = self.locus.title()
-                if 'authors' not in v and self.authors is not None:
-                    v['authors'] = self.authors.title()
-                if 'subtype' not in v and self.vsubtype is not None:
-                    v['subtype'] = self.vsubtype.title()
-                if 'source' not in v and self.virus_source is not None:
-                    v['source'] = self.virus_source.title()
-                self.add_attributes(v)
+                self.add_attributes(v, **kwargs)
 
                 viruses.append(v)
             handle.close()
         return viruses
 
-    def parse_gb_file(self, gb):
+    def parse_gb_file(self, gb, **kwargs):
         '''
         Parse genbank file
         :return: list of documents(dictionaries of attributes) to upload
@@ -116,9 +104,9 @@ class vdb_parse(object):
         except IOError:
             print(gb, "not found")
         else:
-            return self.parse_gb_entries(handle)
+            return self.parse_gb_entries(handle, **kwargs)
 
-    def parse_accession_file(self, acc):
+    def parse_accession_file(self, acc, **kwargs):
         '''
         Parse file for list of accession numbers to be uploaded to vdb
         :return: list of documents(dictionaries of attributes) to upload
@@ -144,7 +132,7 @@ class vdb_parse(object):
         giList = Entrez.read(handle)['IdList']
         return giList
 
-    def get_entrez_viruses(self, giList):
+    def get_entrez_viruses(self, giList, **kwargs):
         '''
         Use entrez efetch to get genbank entries from genbank identifiers
         '''
@@ -165,10 +153,10 @@ class vdb_parse(object):
             except IOError:
                 print("Couldn't connect with entrez")
             else:
-                viruses.extend(self.parse_gb_entries(handle))
+                viruses.extend(self.parse_gb_entries(handle, **kwargs))
         return viruses
 
-    def parse_gb_entries(self, handle):
+    def parse_gb_entries(self, handle, **kwargs):
         '''
         Go through genbank records to get relevant virus information
         '''
@@ -205,7 +193,7 @@ class vdb_parse(object):
                         v['strain'] = qualifiers['isolate'][0]
                     else:
                         print("Couldn't parse strain name for " + v['accession'])
-            self.add_attributes(v)
+            self.add_attributes(v, **kwargs)
             viruses.append(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")

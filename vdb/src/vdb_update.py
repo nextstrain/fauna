@@ -11,13 +11,13 @@ class vdb_update(vdb_upload):
         self.updateable_citation_fields = ['authors', 'title', 'url']
         self.updateable_sequence_fields = ['sequence']
 
-    def update(self):
+    def update(self, **kwargs):
         if self.accessions is None:
             self.accessions = self.get_accessions()
         gi = self.get_GIs(self.accessions)
-        self.viruses = self.get_entrez_viruses(gi)
+        self.viruses = self.get_entrez_viruses(gi, **kwargs)
         self.format()
-        self.update_documents()
+        self.update_documents(**kwargs)
 
     def get_accessions(self):
         print("Getting accession numbers for sequences obtained from Genbank")
@@ -29,7 +29,7 @@ class vdb_update(vdb_upload):
                     accessions.append(seq['accession'])
         return accessions
 
-    def update_documents(self):
+    def update_documents(self, **kwargs):
         print("Checking for updates to " + str(len(self.viruses)) + " sequences")
         self.relaxed_strains()
         for virus in self.viruses:
@@ -42,7 +42,7 @@ class vdb_update(vdb_upload):
             # Retrieve virus from table to see if it already exists
             if document is not None:
                 self.updated = False
-                self.update_sequence_citation_field(virus, document, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields)
+                self.update_sequence_citation_field(virus, document, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields, **kwargs)
 
     def create_citations_field(self):
         cursor = list(r.db(self.database).table(self.virus).run())
@@ -65,4 +65,4 @@ class vdb_update(vdb_upload):
 if __name__=="__main__":
     args = parser.parse_args()
     connVDB = vdb_update(**args.__dict__)
-    connVDB.update()
+    connVDB.update(**args.__dict__)

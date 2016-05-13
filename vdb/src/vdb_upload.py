@@ -12,51 +12,41 @@ parser.add_argument('--ftype', default='fasta', help="input file format, default
 parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
 parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
+parser.add_argument('--subtype', default=None, help="subtype of virus")
+parser.add_argument('--host', default=None, help="host virus isolated from")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+parser.add_argument('--upload', default=False, action="store_true",  help ="If included, actually upload documents, otherwise test parsing")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
 class vdb_upload(vdb_parse):
 
-    def __init__(self, **kwargs):
+    def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         vdb_parse.__init__(self, **kwargs)
-
-        if 'virus' in kwargs:
-            self.virus = kwargs['virus'].lower()
-        if 'database' in kwargs:
-            self.database = kwargs['database']
-            if self.database == 'tdb':
-                raise Exception("Cant upload to tdb database")
-        if 'source' in kwargs:
-            self.virus_source = kwargs['source']
-        if 'locus' in kwargs:
-            self.locus = kwargs['locus']
-        if 'subtype' in kwargs:
-            self.vsubtype = kwargs['subtype']
-        if 'private' in kwargs:
-            self.public = not kwargs['private']  #store opposite private
-        if 'authors' in kwargs:
-            self.authors = kwargs['authors']
-        if 'overwrite' in kwargs:
-            self.overwrite = kwargs['overwrite']
-        if 'fname' in kwargs:
-            self.fname = kwargs['fname']
-        if 'ftype' in kwargs:
-            self.ftype = kwargs['ftype']
-        if 'auto_upload' in kwargs:
-            self.auto_upload = kwargs['auto_upload']
-
-        if 'path' in kwargs:
-            self.path = kwargs['path']
-        if self.path is None:
-            self.path = "vdb/data/" + self.virus + "/"
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
+        self.virus = virus.lower()
+        self.database = database.lower()
+        if self.database not in ['vdb', 'test_vdb']:
+            raise Exception("Cant upload to this database: " + self.database)
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
+        self.connect_rethink()
 
         # fields that are needed to upload
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
@@ -65,23 +55,7 @@ class vdb_upload(vdb_parse):
         self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region']
         self.virus_optional_fields = ['division', 'location']
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
-
-        if 'host' in kwargs:
-            self.host = kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-
-        if 'auth_key' in kwargs:
-            self.auth_key = kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing auth_key")
-
         self.strains = {}
-        self.connect_rethink()
 
     def connect_rethink(self):
         '''
@@ -89,7 +63,7 @@ class vdb_upload(vdb_parse):
         Check for existing table, otherwise create it
         '''
         try:
-            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -114,15 +88,16 @@ class vdb_upload(vdb_parse):
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
-    def upload(self):
+    def upload(self, upload=False, **kwargs):
         '''
         format virus information, then upload to database
         '''
         print("Uploading Viruses to VDB")
-        self.parse()
+        self.parse(**kwargs)
         self.format()
         self.filter()
-        self.upload_documents()
+        if upload:
+            self.upload_documents(**kwargs)
 
     def format(self):
         '''
@@ -307,7 +282,7 @@ class vdb_upload(vdb_parse):
                 print("Deleting citation info " + key + ": " + virus['citations'][0][key] + " from " + virus['strain'])
                 del virus['citations'][0][key]
 
-    def upload_documents(self):
+    def upload_documents(self, **kwargs):
         '''
         Insert viruses into collection
         '''
@@ -328,8 +303,8 @@ class vdb_upload(vdb_parse):
             # Virus exists in table so just add sequence information and update meta data if needed
             else:
                 self.updated = False
-                self.update_document_sequence(document, virus)
-                self.update_document_meta(document, virus)
+                self.update_document_sequence(document, virus, **kwargs)
+                self.update_document_meta(document, virus, **kwargs)
 
     def relaxed_strains(self):
         '''
@@ -350,7 +325,7 @@ class vdb_upload(vdb_parse):
         name = re.sub(r"/", '', name)
         return name
 
-    def update_document_meta(self, document, virus):
+    def update_document_meta(self, document, virus, overwrite, **kwargs):
         '''
         if overwrite is false update doc_virus information only if virus info is different and not null
         if overwrite is true update doc_virus information if virus info is different
@@ -363,7 +338,7 @@ class vdb_upload(vdb_parse):
                     print("Creating virus field ", field, " assigned to ", virus[field])
                     r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
                     document[field] = virus[field]
-            elif (self.overwrite and document[field] != virus[field]) or (not self.overwrite and document[field] is None and document[field] != virus[field]):
+            elif (overwrite and document[field] != virus[field]) or (not overwrite and document[field] is None and document[field] != virus[field]):
                 if field in virus:
                     print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + virus[field]) + "\""
                     r.table(self.virus).get(self.strain_name).update({field: virus[field]}).run()
@@ -373,7 +348,7 @@ class vdb_upload(vdb_parse):
             r.table(self.virus).get(self.strain_name).update({'date_modified': virus['date_modified']}).run()
             document['date_modified'] = virus['date_modified']
 
-    def update_document_sequence(self, document, virus):
+    def update_document_sequence(self, document, virus, **kwargs):
         '''
         Update sequence fields if matching accession or sequence
         Append sequence to sequence list if no matching accession or sequence
@@ -385,12 +360,12 @@ class vdb_upload(vdb_parse):
             if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
                 self.append_new_sequence(document, virus_seq, virus_citation)
             else:
-                self.update_sequence_citation_field(virus, document, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields)
+                self.update_sequence_citation_field(virus, document, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
         else:
             if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
                 self.append_new_sequence(document, virus_seq, virus_citation)
             else:
-                self.update_sequence_citation_field(virus, document, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields)
+                self.update_sequence_citation_field(virus, document, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
 
         if len(document['sequences']) != len(document['citations']):
             print("Warning: length of list of sequences and citations does not match for " + virus['strain'])
@@ -405,23 +380,23 @@ class vdb_upload(vdb_parse):
         document['citations'].append(virus_citation)
         self.updated = True
 
-    def update_sequence_citation_field(self, virus, document, check_field, sequence_fields, citation_fields):
+    def update_sequence_citation_field(self, virus_doc, document, check_field, sequence_fields, citation_fields, **kwargs):
         '''
         Checks for matching viruses by comparing sequence and accession, updates other attributes if needed
         '''
         updated_sequence = False
         updated_citation = False
-        strain = virus['strain']
+        strain = virus_doc['strain']
         doc_seqs = document['sequences']
-        virus_seq = virus['sequences'][0]
+        virus_seq = virus_doc['sequences'][0]
         index = -1
         for doc_sequence_info in doc_seqs:
             index += 1
             if doc_sequence_info[check_field] == virus_seq[check_field]:
-                updated_sequence = self.update_nested_field(strain, sequence_fields, doc_sequence_info, virus_seq)
-                virus_citation = virus['citations'][0]
+                updated_sequence = self.update_nested_field(strain, sequence_fields, doc_sequence_info, virus_seq, **kwargs)
+                virus_citation = virus_doc['citations'][0]
                 doc_citation_info = document['citations'][index]
-                updated_citation = self.update_nested_field(strain, citation_fields, doc_citation_info, virus_citation)
+                updated_citation = self.update_nested_field(strain, citation_fields, doc_citation_info, virus_citation, **kwargs)
 
         if updated_sequence:
             document['sequences'] = doc_seqs
@@ -432,7 +407,7 @@ class vdb_upload(vdb_parse):
             r.table(self.virus).get(self.strain_name).update({"citations": document['citations']}).run()
             self.updated = True
 
-    def update_nested_field(self, strain, fields, doc_info, virus_info):
+    def update_nested_field(self, strain, fields, doc_info, virus_info, overwrite, **kwargs):
         '''
         check for updates to nested sequences and citations fields.
         '''
@@ -443,7 +418,7 @@ class vdb_upload(vdb_parse):
                     print("Creating field ", field, " assigned to \"", virus_info[field] + "\" for strain: " + strain)
                     doc_info[field] = virus_info[field]
                     updated_sequence = True
-            elif (self.overwrite and doc_info[field] != virus_info[field]) or (not self.overwrite and doc_info[field] is None and doc_info[field] != virus_info[field]):
+            elif (overwrite and doc_info[field] != virus_info[field]) or (not overwrite and doc_info[field] is None and doc_info[field] != virus_info[field]):
                 if field in virus_info:
                     print("Updating field " + str(field) + ", from \"" + str(doc_info[field]) + "\" to \"" + str(virus_info[field]) + "\" for strain: " + strain)
                     doc_info[field] = virus_info[field]
@@ -454,5 +429,9 @@ if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
     setattr(args, 'fasta_fields', fasta_fields)
+    if args.path is None:
+        args.path = "vdb/data/" + args.virus + "/"
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
     connVDB = vdb_upload(**args.__dict__)
-    connVDB.upload()
+    connVDB.upload(**args.__dict__)

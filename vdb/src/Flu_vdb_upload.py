@@ -132,9 +132,12 @@ class Flu_vdb_upload(vdb_upload):
                 return '?'
 
 if __name__=="__main__":
-
     args = parser.parse_args()
     fasta_fields = {0: 'strain', 1: 'accession', 2: 'subtype', 4:'lineage', 5: 'date', 8: 'locus'}
     setattr(args, 'fasta_fields', fasta_fields)
+    if args.path is None:
+        args.path = "vdb/data/" + args.virus + "/"
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
     connVDB = Flu_vdb_upload(**args.__dict__)
-    connVDB.upload()
+    connVDB.upload(**args.__dict__)

@@ -3,39 +3,34 @@ import rethinkdb as r
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-edb', '--export_database', default='vdb', help="database to make copy of")
-parser.add_argument('-ev', '--export_virus', help="virus table to copy")
-parser.add_argument('-idb', '--import_database', default='test', help="database that will be changed")
-parser.add_argument('-iv', '--import_virus', help="virus table to import to")
-parser.add_argument('--fname', help="input file name")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('-ev', '--export_virus', default='zika', help="virus table to copy")
+parser.add_argument('-idb', '--import_database', default='test_vdb', help="database that will be changed")
+parser.add_argument('-iv', '--import_virus', default='zika', help="virus table to import to")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 
 class vdb_copy(object):
-    def __init__(self, **kwargs):
-        if 'export_virus' in kwargs:
-            self.export_virus = kwargs['export_virus'].lower()
-        if 'export_database' in kwargs:
-            self.export_database = kwargs['export_database']
-        if 'import_database' in kwargs:
-            self.import_database = kwargs['import_database']
-        if 'import_virus' in kwargs:
-            self.import_virus = kwargs['import_virus'].lower()
+    def __init__(self, export_database, export_virus, import_database, import_virus, rethink_host=None, auth_key=None, **kwargs):
+        self.export_virus = export_virus.lower()
+        self.export_database = export_database.lower()
+        self.import_database = import_database.lower()
+        self.import_virus = import_virus.lower()
         self.backup_file = 'rethindb_export_' + self.export_database + '_' + self.export_virus
-
-        if 'host' in kwargs:
-            self.host = kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-
-        if 'auth_key' in kwargs:
-            self.auth_key = kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing auth_key")
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
 
     def copy(self):
         '''
@@ -49,7 +44,7 @@ class vdb_copy(object):
         backup self.export_database self.virus table to self.backup_file
         '''
         print("Making backup of database: " + self.export_database + ", table: " + self.export_virus + ", to file: " + self.backup_file)
-        command = 'rethinkdb export -c ' + self.host + ' -a ' + self.auth_key + ' -e ' + self.export_database + '.' + self.export_virus + ' -d ' + self.backup_file + ' --format json'
+        command = 'rethinkdb export -c ' + self.rethink_host + ' -a ' + self.auth_key + ' -e ' + self.export_database + '.' + self.export_virus + ' -d ' + self.backup_file + ' --format json'
         os.system(command)
 
     def import_table(self):
@@ -58,7 +53,7 @@ class vdb_copy(object):
         '''
         print("Importing into database: " + self.import_database + ", table: " + self.import_virus + ", from file: " + self.backup_file)
         json_file = self.backup_file + '/' + self.export_database + '/' + self.export_virus + '.json'
-        command = 'rethinkdb import -c ' + self.host + ' -a ' + self.auth_key + ' --table ' + self.import_database + '.' + self.import_virus + ' -f ' + json_file + ' --format json --pkey strain --force'
+        command = 'rethinkdb import -c ' + self.rethink_host + ' -a ' + self.auth_key + ' --table ' + self.import_database + '.' + self.import_virus + ' -f ' + json_file + ' --format json --pkey strain --force'
         os.system(command)
         shutil.rmtree(self.backup_file)
 

@@ -12,32 +12,31 @@ parser.add_argument('--overwrite', default=False, action="store_true",  help ="O
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
 parser.add_argument('--upload', default=False, action="store_true",  help ="If included, actually upload documents, otherwise test parsing")
 parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 class tdb_upload(tdb_parse):
-    def __init__(self, **kwargs):
+    def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         tdb_parse.__init__(self, **kwargs)
-        if 'database' in kwargs:
-            self.database = kwargs['database']
-            if self.database == 'vdb':
-                raise Exception("Cant upload to vdb database")
-        if 'virus' in kwargs:
-            self.virus = kwargs['virus'].lower()
-        if 'overwrite' in kwargs:
-            self.overwrite = kwargs['overwrite']
-        if 'exclusive' in kwargs:
-            self.exclusive = kwargs['exclusive']
-        if 'upload' in kwargs:
-            self.upload_docs = kwargs['upload']
-        if 'replace' in kwargs:
-            self.replace = kwargs['replace']
-        if 'path' in kwargs:
-            self.path = kwargs['path']
-        if self.path is None:
-            self.path = "tdb/data/" + self.virus + "/"
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
+        self.virus = virus.lower()
+        self.database = database.lower()
+        if self.database not in ['tdb', 'test_tdb']:
+            raise Exception("Cant upload to this database: " + self.database)
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
+        self.connect_rethink()
 
         # fields that are needed to upload
         self.upload_fields = ['virus', 'serum', 'titer', 'date_modified', 'source', 'ferret_id', 'passage'] #index too but assign after checking
@@ -45,21 +44,6 @@ class tdb_upload(tdb_parse):
         self.overwritable_fields = ['titer', 'date', 'ref']
         self.index_fields = ['virus', 'serum', 'ferret_id', 'source', 'passage']
 
-        if 'host' in kwargs:
-            self.host = kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-
-        if 'auth_key' in kwargs:
-            self.auth_key = kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing auth_key")
-
-        self.connect_rethink()
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
@@ -75,7 +59,7 @@ class tdb_upload(tdb_parse):
         Check for existing table, otherwise create it
         '''
         try:
-            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -88,18 +72,18 @@ class tdb_upload(tdb_parse):
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
-    def upload(self):
+    def upload(self, upload=False, **kwargs):
         '''
         format virus information, then upload to database
         '''
         print("Uploading Viruses to TDB")
-        self.parse()
+        self.parse(**kwargs)
         self.format()
         self.filter()
         self.create_index()
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(self.measurements))
-        if self.upload_docs:
-            self.upload_documents()
+        if upload:
+            self.upload_documents(**kwargs)
 
 
     def format(self):
@@ -317,14 +301,14 @@ class tdb_upload(tdb_parse):
         else:
             return True
 
-    def upload_documents(self):
+    def upload_documents(self, replace=False, exclusive=True, **kwargs):
         '''
         Insert viruses into collection
         '''
-        if self.replace:
+        if replace:
             print("Deleting documents in database:", self.database, "table:", self.virus)
             r.table(self.virus).delete().run()
-        if self.exclusive:
+        if exclusive:
             db_measurements = list(r.db(self.database).table(self.virus).run())
             uploaded_indexes = {" ".join([str(i) for i in db_meas['index']]): db_meas for db_meas in db_measurements}
             check_update_measurements = []
@@ -341,7 +325,6 @@ class tdb_upload(tdb_parse):
             r.table(self.virus).insert(upload_measurements).run()
             print("Checking for updates to ", len(check_update_measurements), "measurements in database", self.virus)
             for meas in check_update_measurements:
-                pass
                 self.updated = False
                 index_test = " ".join([str(i) for i in meas['index']])
                 self.update_document_meta(uploaded_indexes[index_test], meas)
@@ -364,9 +347,9 @@ class tdb_upload(tdb_parse):
                 # Virus exists in table so just add sequence information and update meta data if needed
                 else:
                     self.updated = False
-                    self.update_document_meta(document, meas)
+                    self.update_document_meta(document, meas, **kwargs)
 
-    def update_document_meta(self, document, meas):
+    def update_document_meta(self, document, meas, overwrite=False, **kwargs):
         '''
         if overwrite is false update doc_virus information only if virus info is different and not null
         if overwrite is true update doc_virus information if virus info is different
@@ -380,7 +363,7 @@ class tdb_upload(tdb_parse):
                     r.table(self.virus).get(meas['index']).update({field: meas[field]}).run()
                     document[field] = meas[field]
                     self.updated = True
-            elif (self.overwrite and document[field] != meas[field]) or (not self.overwrite and document[field] is None and document[field] != meas[field]):
+            elif (overwrite and document[field] != meas[field]) or (not overwrite and document[field] is None and document[field] != meas[field]):
                 if field in meas:
                     print("Updating measurement field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + meas[field]) + "\""
                     r.table(self.virus).get(meas['index']).update({field: meas[field]}).run()
@@ -392,5 +375,9 @@ class tdb_upload(tdb_parse):
 
 if __name__=="__main__":
     args = parser.parse_args()
+    if args.path is None:
+        args.path = "tdb/data/" + args.virus + "/"
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
     connTDB = tdb_upload(**args.__dict__)
-    connTDB.upload()
+    connTDB.upload(**args.__dict__)

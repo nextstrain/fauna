@@ -4,30 +4,31 @@ import boto3
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='test', help="database to make backup of")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--continuous', default=False, action="store_true",  help="Continuously backup database to S3")
 
 class vdb_backup(object):
-    def __init__(self, **kwargs):
+    def __init__(self, database, rethink_host=None, auth_key=None, **kwargs):
         self.days_to_expiration = 40
         self.upload_hour = 3
-        if 'database' in kwargs:
-            self.database = kwargs['database']
+        self.database = database.lower()
 
-        if 'host' in kwargs:
-            self.host = kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-
-        if 'auth_key' in kwargs:
-            self.auth_key = kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing auth_key")
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
+        self.connect_rethink()
 
         if 'AWS_ACCESS_KEY_ID' not in os.environ:
             raise Exception("AWS_ACCESS_KEY_ID")
@@ -42,7 +43,7 @@ class vdb_backup(object):
         Connect to rethink database,
         '''
         try:
-            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -95,13 +96,14 @@ class vdb_backup(object):
             date = re.match(r'^[^_]*', str(fname)).group(0)
             if self.expired(date):
                 self.bucket.delete_objects(Delete={'Objects': [{'Key': fname}]})
+                print("Deleting " + fname)
 
     def dump(self, table, dump_file):
         '''
         backup self.export_database table to self.backup_file
         :return:
         '''
-        command = ['rethinkdb', 'dump', '-c', self.host, '-a', self.auth_key, '-e', self.database + '.' + table, '-f', dump_file]
+        command = ['rethinkdb', 'dump', '-c', self.rethink_host, '-a', self.auth_key, '-e', self.database + '.' + table, '-f', dump_file]
         try:
             with open(os.devnull, 'wb') as devnull:
                 subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)

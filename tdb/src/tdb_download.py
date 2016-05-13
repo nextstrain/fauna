@@ -4,54 +4,39 @@ from Bio import SeqIO
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-parser.add_argument('-v', '--virus', default='Zika', help="virus table to interact with")
-parser.add_argument('--path', default='data/', help="path to dump output files to")
-parser.add_argument('--ftype', default='txt', help="output file format, default \"txt\", other is \"json\"")
+parser.add_argument('-db', '--database', default='tdb', help="database to download from")
+parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with")
+parser.add_argument('--path', default='data', help="path to dump output files to")
+parser.add_argument('--ftype', default='text', help="output file format, default \"text\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
-class vdb_download(object):
-    def __init__(self, **kwargs):
+class tdb_download(object):
+    def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
-        self.kwargs = kwargs
-        if 'host' in self.kwargs:
-            self.host = self.kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-        if 'auth_key' in self.kwargs:
-            self.auth_key = self.kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing rethink auth_key")
-        if 'path' in self.kwargs:
-            self.path = self.kwargs['path']
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
-
-        if 'database' in self.kwargs:
-            self.database = self.kwargs['database']
-        if 'virus' in self.kwargs:
-            self.virus = self.kwargs['virus'].lower()
-        self.measurements = []
-
-        if 'ftype' in self.kwargs:
-            self.ftype = self.kwargs['ftype']
-        self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
-        if 'fstem' in self.kwargs:
-            self.fstem = self.kwargs['fstem']
-        if self.fstem is None:
-            self.fstem = self.virus + '_' + self.current_date
-        self.fname = self.fstem + '.' + self.ftype
-
-        self.txt_fields = ['virus', 'serum', 'ferret_id', 'source', 'titer']
+        self.virus = virus.lower()
+        self.database = database.lower()
+        if self.database not in ['tdb', 'test_tdb']:
+            raise Exception("Cant download to this database: " + self.database)
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
         self.connect_rethink()
+        self.measurements = []
 
     def connect_rethink(self):
         '''
@@ -59,7 +44,7 @@ class vdb_download(object):
         Check for existing table, otherwise create it
         '''
         try:
-            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -75,14 +60,14 @@ class vdb_download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self):
+    def download(self, output=True, **kwargs):
         '''
         download documents from table
         '''
         print("Downloading all titer measurements from the table: " + self.virus)
         self.measurements = list(r.db(self.database).table(self.virus).run())
-        #self.measurements = self.subsetting(self.measurements)
-        self.output()
+        if output:
+            self.output(**kwargs)
 
     def subsetting(self, cursor):
         '''
@@ -108,14 +93,14 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_txt(self, measurements, fname):
+    def write_text(self, measurements, fname, text_fields=['virus', 'serum', 'ferret_id', 'source', 'titer']):
         try:
             handle = open(fname, 'w')
         except IOError:
             pass
         else:
-            for meas in self.measurements:
-                for field in self.txt_fields:
+            for meas in measurements:
+                for field in text_fields:
                     if field in meas and meas[field] is not None:
                         handle.write(str(meas[field]) + '\t')
                     else:
@@ -124,13 +109,21 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self):
-        if self.ftype == 'json':
-            self.write_json(self.measurements, self.path+self.fname)
+    def output(self, path, fstem, ftype, **kwargs):
+        fname = path + '/' + fstem + '.' + ftype
+        if ftype == 'json':
+            self.write_json(self.measurements,fname)
+        elif ftype == 'text':
+            self.write_text(self.measurements, fname)
         else:
-            self.write_txt(self.measurements, self.path+self.fname)
+            raise Exception("Can't output to that file type, only json or text allowed")
 
 if __name__=="__main__":
     args = parser.parse_args()
-    connVDB = vdb_download(**args.__dict__)
-    connVDB.download()
+    current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
+    if args.fstem is None:
+        args.fstem = args.virus + '_' + current_date
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
+    connTDB = tdb_download(**args.__dict__)
+    connTDB.download(**args.__dict__)

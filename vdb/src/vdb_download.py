@@ -6,59 +6,51 @@ import numpy as np
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-parser.add_argument('-v', '--virus', default='Zika', help="virus table to interact with")
-parser.add_argument('--path', default='data/', help="path to dump output files to")
+parser.add_argument('-v', '--virus', default='zika', help="virus table to interact with")
+parser.add_argument('--path', default='data', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
-parser.add_argument('--host', default=None, help="rethink host url")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
-parser.add_argument('--countries', nargs = '+', type = str, default = None, help="Countries(in CamelCase Format) to be include in download")
+parser.add_argument('--countries', nargs='+', type=str, default=None, help="Countries(in CamelCase Format) to be include in download")
 
 class vdb_download(object):
 
-    def __init__(self, **kwargs):
+    def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
-        self.kwargs = kwargs
-        if 'host' in self.kwargs:
-            self.host = self.kwargs['host']
-        if 'RETHINK_HOST' in os.environ and self.host is None:
-            self.host = os.environ['RETHINK_HOST']
-        if self.host is None:
-            raise Exception("Missing rethink host")
-        if 'auth_key' in self.kwargs:
-            self.auth_key = self.kwargs['auth_key']
-        if 'RETHINK_AUTH_KEY' in os.environ and self.auth_key is None:
-            self.auth_key = os.environ['RETHINK_AUTH_KEY']
-        if self.auth_key is None:
-            raise Exception("Missing rethink auth_key")
-        if 'path' in self.kwargs:
-            self.path = self.kwargs['path']
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)
+        self.virus = virus.lower()
+        self.database = database.lower()
+        if self.database not in ['vdb', 'test_vdb']:
+            raise Exception("Cant download from this database: " + self.database)
+        if rethink_host is None:
+            try:
+                self.rethink_host = os.environ['RETHINK_HOST']
+            except:
+                raise Exception("Missing rethink host")
+        else:
+            self.rethink_host = rethink_host
+        if auth_key is None:
+            try:
+                self.auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        else:
+            self.auth_key = auth_key
+        self.connect_rethink()
 
-        if 'database' in self.kwargs:
-            self.database = self.kwargs['database']
-        if 'virus' in self.kwargs:
-            self.virus = self.kwargs['virus'].lower()
-        if 'ftype' in self.kwargs:
-            self.ftype = self.kwargs['ftype']
+        self.kwargs = kwargs
         if 'public_only' in self.kwargs:
             self.public_only = self.kwargs['public_only']
+        else:
+            self.public_only = False
         if 'countries' in kwargs:
             self.countries = kwargs['countries']
+        else:
+            self.countries = None
         self.viruses = []
-
-        self.current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
-        if 'fstem' in self.kwargs:
-            self.fstem = self.kwargs['fstem']
-        if self.fstem is None:
-            self.fstem = self.virus + '_' + self.current_date
-        self.fname = self.fstem + '.' + self.ftype
-
-        self.connect_rethink()
 
     def connect_rethink(self):
         '''
@@ -66,7 +58,7 @@ class vdb_download(object):
         Check for existing table, otherwise create it
         '''
         try:
-            r.connect(host=self.host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
             print("Connected to the \"" + self.database + "\" database")
         except:
             print("Failed to connect to the database, " + self.database)
@@ -82,7 +74,7 @@ class vdb_download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self, output=True):
+    def download(self, output=True, **kwargs):
         '''
         download documents from table
         '''
@@ -92,8 +84,7 @@ class vdb_download(object):
             self.pick_best_sequence(doc)
         self.viruses = self.subsetting(self.viruses)
         if output:
-            self.output()
-
+            self.output(**kwargs)
 
     def subsetting(self, cursor):
         '''
@@ -143,10 +134,9 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_fasta(self, viruses, fname, sep='|',
-                    fasta_fields = ['strain', 'virus', 'accession', 'date', 'region',
-                                    'country', 'division', 'location', 'source',
-                                    'locus', 'authors', 'subtype']):
+    def write_fasta(self, viruses, fname, sep='|', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
+                                                                 'country', 'division', 'location', 'source', 'locus',
+                                                                 'authors', 'subtype']):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -160,14 +150,21 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self):
-        if self.ftype == 'json':
-            self.write_json(self.viruses, self.path+self.fname)
+    def output(self, path, fstem, ftype):
+        fname = path + '/' + fstem + '.' + ftype
+        if ftype == 'json':
+            self.write_json(self.viruses,fname)
+        elif ftype == 'fasta':
+            self.write_fasta(self.viruses, fname)
         else:
-            self.write_fasta(self.viruses, self.path+self.fname)
+            raise Exception("Can't output to that file type, only json or fasta allowed")
 
 if __name__=="__main__":
-
     args = parser.parse_args()
+    current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
+    if args.fstem is None:
+        args.fstem = args.virus + '_' + current_date
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
     connVDB = vdb_download(**args.__dict__)
-    connVDB.download()
+    connVDB.download(path=args.path, fstem=args.fstem, ftype=args.ftype)

@@ -12,13 +12,13 @@ import math
 class tdb_parse(object):
     def __init__(self, **kwargs):
         self.table_column_names = ['viruses', 'other', 'collection', 'passage', '']
-        self.titer_values = ['10.0', '20.0','40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']
+        self.titer_values = ['10.0', '20.0', '40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']
 
-    def parse(self):
+    def parse(self, **kwargs):
         '''
         Parse HI data files to create list of measurement documents
         '''
-        HI_titers = self.read_tables()
+        HI_titers = self.read_tables(**kwargs)
         self.measurements = self.table_to_flat(HI_titers)
 
     def get_upload_date(self):
@@ -27,12 +27,12 @@ class tdb_parse(object):
         '''
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
-    def read_tables(self):
+    def read_tables(self, path, **kwargs):
         '''
         Read all csv tables in path, create data frame with reference viruses as columns
         '''
         import glob
-        flist = glob.glob(self.path + '/NIMR*csv')
+        flist = glob.glob(path + '/NIMR*csv')
         HI_matrices = pd.DataFrame()
         for fname in flist:
             tmp = self.parse_HI_matrix(fname)

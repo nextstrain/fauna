@@ -26,5 +26,9 @@ if __name__=="__main__":
     # 0        1          2      3  4          5     6
     #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
     setattr(args, 'fasta_fields', fasta_fields)
+    if args.path is None:
+        args.path = "vdb/data/" + args.virus + "/"
+    if not os.path.isdir(args.path):
+        os.makedirs(args.path)
     connVDB = Zika_vdb_upload(**args.__dict__)
-    connVDB.upload()
+    connVDB.upload(**args.__dict__)
