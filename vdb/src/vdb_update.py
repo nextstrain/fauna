@@ -62,7 +62,15 @@ class vdb_update(vdb_upload):
             r.table(self.virus).get(strain).update({'sequences': sequence_info}).run()
             r.table(self.virus).get(strain).update({'citations': citation_info}).run()
 
+    def add_attribute(self):
+        cursor = list(r.db(self.database).table(self.virus).run())
+        for doc in cursor:
+            strain = doc['strain']
+            r.table(self.virus).get(strain).update({'host': 'human'}).run()
+            r.table(self.virus).get(strain).update({'subtype': None}).run()
+
 if __name__=="__main__":
     args = parser.parse_args()
     connVDB = vdb_update(**args.__dict__)
     connVDB.update(**args.__dict__)
+    #connVDB.add_attribute()
