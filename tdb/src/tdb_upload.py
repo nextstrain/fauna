@@ -6,7 +6,9 @@ from tdb_parse import tdb_parse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
-parser.add_argument('-v', '--virus', default='H3N2', help="virus table to interact with, ie \'H3N2\' or \'Yam\' for Flu")
+parser.add_argument('-v', '--virus', default='H3N2', help="virus table to interact with, ie Flu")
+parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
+parser.add_argument('--host', default=None, help="host of virus, ie human, swine")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
@@ -39,10 +41,11 @@ class tdb_upload(tdb_parse):
         self.connect_rethink()
 
         # fields that are needed to upload
-        self.upload_fields = ['virus', 'serum', 'titer', 'date_modified', 'source', 'ferret_id', 'passage'] #index too but assign after checking
+        self.upload_fields = ['virus', 'serum', 'titer', 'date_modified', 'source', 'ferret_id', 'passage', 'subtype',
+                              'host'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
-        self.index_fields = ['virus', 'serum', 'ferret_id', 'source', 'passage']
+        self.index_fields = ['virus', 'serum', 'ferret_id', 'source', 'passage', 'subtype', 'host']
 
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
@@ -78,20 +81,28 @@ class tdb_upload(tdb_parse):
         '''
         print("Uploading Viruses to TDB")
         self.parse(**kwargs)
-        self.format()
+        self.format(**kwargs)
         self.filter()
         self.create_index()
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(self.measurements))
         if upload:
             self.upload_documents(**kwargs)
 
+    def add_attributes(self, meas, subtype, host, **kwargs):
+        '''
+        Add attributes to virus
+        '''
+        meas['subtype'] = subtype.lower()
+        meas['host'] = host.title()
+        meas['date_modified'] = self.get_upload_date()
 
-    def format(self):
+    def format(self, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
         print('Formatting for upload')
         for meas in self.measurements:
+            self.add_attributes(meas, **kwargs)
             self.format_date(meas)
             #self.assign_numdate(meas)
             self.format_passage(meas)
@@ -376,7 +387,7 @@ class tdb_upload(tdb_parse):
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
-        args.path = "tdb/data/" + args.virus + "/"
+        args.path = "tdb/data/" + args.subtype + "/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connTDB = tdb_upload(**args.__dict__)
