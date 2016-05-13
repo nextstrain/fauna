@@ -1,4 +1,4 @@
-import os, re, time, datetime, csv, sys
+import os, re, time, datetime, csv, sys, json
 import rethinkdb as r
 from Bio import SeqIO
 import argparse
@@ -98,6 +98,13 @@ class vdb_upload(vdb_parse):
         self.filter()
         if upload:
             self.upload_documents(**kwargs)
+        else:
+            try:
+                print(json.dumps(self.viruses[0:2], indent=1))
+            except:
+                print(json.dumps(self.viruses, indent=1))
+            print("Include \"--upload\" to upload documents")
+            print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
     def format(self):
         '''
