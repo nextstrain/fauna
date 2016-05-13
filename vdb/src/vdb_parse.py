@@ -37,7 +37,7 @@ class vdb_parse(object):
         else:
             raise Exception("No input file name and type defined or accessions given")
 
-    def add_attributes(self, v, locus, authors, subtype, source, public=True, **kwargs):
+    def add_attributes(self, v, locus, authors, subtype, host, source, public=True, **kwargs):
         '''
         Add attributes to virus
         '''
@@ -49,6 +49,8 @@ class vdb_parse(object):
             v['authors'] = authors.title()
         if 'subtype' not in v and subtype is not None:
             v['subtype'] = subtype.title()
+        if 'host' not in v and host is not None:
+            v['host'] = host.title()
         if 'source' not in v and source is not None:
             v['source'] = source.title()
         if 'public' not in v and public is not None:

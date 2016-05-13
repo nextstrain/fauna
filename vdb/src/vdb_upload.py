@@ -13,7 +13,7 @@ parser.add_argument('--accessions', default=None, help="comma seperated list of 
 parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
 parser.add_argument('--subtype', default=None, help="subtype of virus")
-parser.add_argument('--host', default=None, help="host virus isolated from")
+parser.add_argument('--host', default='human', help="host virus isolated from")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
@@ -52,7 +52,7 @@ class vdb_upload(vdb_parse):
         self.sequence_upload_fields = ['source', 'locus', 'sequence']
         self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
         self.citation_optional_fields = ['authors', 'title', 'url']
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region']
+        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region', 'host', 'subtype']
         self.virus_optional_fields = ['division', 'location']
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
         self.strains = {}
