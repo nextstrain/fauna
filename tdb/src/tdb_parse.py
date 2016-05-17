@@ -210,10 +210,7 @@ class tdb_parse(object):
             tmp_name = self.fix_name("X-243A/SOUTHAFRICA/3626/2013")
         else:
             tmp_name = self.fix_name(name)
-        return tmp_name.upper().lstrip('*')
 
-    def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
         fields = tmp_name.split('/')
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
                             'Jul': '7', 'Aug': '8', 'Sep': '9', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
@@ -235,9 +232,9 @@ class tdb_parse(object):
                         y=1900+y
                     else:
                         y=2000+y
-                return '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
+                result = '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
             except:
-                return tmp_name
+                result =  tmp_name
         elif re.match(r'(\D+)-(\d+)',fields[-1]):  # B/SHANDONG/JUL-97
             try:
                 month = lookup_month[re.match(r'(\D+)-(\d+)',fields[-1]).group(1).title()]
@@ -250,9 +247,9 @@ class tdb_parse(object):
                         y=1900+y
                     else:
                         y=2000+y
-                return '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
+                result = '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
             except:
-                return tmp_name
+                result = tmp_name
         elif len(fields[-1])==2:
             try:
                 y = int(fields[-1])
@@ -260,19 +257,24 @@ class tdb_parse(object):
                     y=1900+y
                 else:
                     y=2000+y
-                return '/'.join(fields[:-1])+'/'+str(y)
+                result = '/'.join(fields[:-1])+'/'+str(y)
             except:
-                return tmp_name
+                result = tmp_name
         elif re.match(r'[\d,\*\D\-]+([AB]$)', fields[0]): # 1,3B/FLORIDA/4/2006  #NYMCX-263BA/HK/4801/2014
             try:
                 result = re.match(r'[\d,\*\D\-]+([AB]$)', fields[0]).group(1)
-                return result + '/' + '/'.join(fields[1:])
+                result = result + '/' + '/'.join(fields[1:])
             except:
-                return tmp_name
+                result = tmp_name
         elif re.match(r"[\s\w\-]+\(([/\w]+)\)", tmp_name): # IVR-159 (A/Victoria/502/2010)
             try:
-                return re.match(r"[\s\w\-]+\(([/\w]+)\)", tmp_name).group(1)
+                result = re.match(r"[\s\w\-]+\(([/\w]+)\)", tmp_name).group(1)
             except:
-                return tmp_name
+                result = tmp_name
         else:
-            return tmp_name
+            result = tmp_name
+        return result.upper().lstrip('*')
+
+    def fix_name(self, name):
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
+        return tmp_name
