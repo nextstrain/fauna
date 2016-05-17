@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
 parser.add_argument('-v', '--virus', default='H3N2', help="virus table to interact with, ie Flu")
 parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
-parser.add_argument('--host', default=None, help="host of virus, ie human, swine")
+parser.add_argument('--host', default='human', help="host of virus, ie human, swine")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
@@ -92,6 +92,8 @@ class tdb_upload(tdb_parse):
         '''
         Add attributes to virus
         '''
+        if subtype is None:
+            raise Exception("Subtype needs to be defined as a command line argument")
         meas['subtype'] = subtype.lower()
         meas['host'] = host.title()
         meas['date_modified'] = self.get_upload_date()
