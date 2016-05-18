@@ -1,0 +1,17 @@
+{
+  "name": "nextstrain-db",
+  "version": "0.1.0",
+  "description": "Rethink database for all the viruses, backend for nextstrain",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blab/nextstrain-db"
+  },
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "chateau": "0.3.14",
+    "rethinkdb": "2.2.1"
+  },
+  "bin": {
+    "chateau": "./node_modules/chateau/bin/chateau"
+  }
+}

@@ -8,6 +8,16 @@ nextstrain is comprised of three components:
 * [augur](https://github.com/blab/nextstrain-augur): informatic pipelines to conduct inferences from raw data
 * [auspice](https://github.com/blab/nextstrain-auspice): web app to visualize resulting inferences
 
+## Install
+
+To install Python bindings, run:
+
+    pip install rethinkdb==2.2.0.post2
+
+To install Chateau Web UI, from the base directory of `nextstrain-db/`, run:
+
+    sudo npm install -g
+
 ## db
 
 The nextstrain db stores viral sequences and serological data for (currently) influenza and Zika viruses.
@@ -24,17 +34,12 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 [Chateau](https://github.com/neumino/chateau/) allows easy web access to the database. To run, do the following:
 
-1. Install Chateau with `sudo npm install -g chateau`.
-2. Navigate to the base directory of `nextstrain-db/`.
-3. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
-4. Run with `chateau`.
-5. Fire up a browser and go to `http://localhost:3000/`.
+1. Navigate to the base directory of `nextstrain-db/`.
+2. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
+3. Run with `chateau`.
+4. Fire up a browser and go to `http://localhost:3000/`.
 
 Chateau configuration is stored in the file [`config.js`](config.js).
-
-## Compatibility
-
-The current rethink server requires an older version of Python bindings. Install with `pip install rethinkdb==2.2.0.post2`.
 
 ## License and copyright
 
