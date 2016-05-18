@@ -5,7 +5,7 @@ from Bio import SeqIO
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to download from")
-parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with")
+parser.add_argument('-v', '--virus', default='h3n2', help="virus table to interact with")
 parser.add_argument('--subtype', nargs='+', type=str, default=None, help="subtype to be include in download")
 parser.add_argument('--host', nargs='+', type=str, default=None, help="hosts to be include in download")
 parser.add_argument('--path', default='data', help="path to dump output files to")
@@ -54,7 +54,7 @@ class tdb_download(object):
 
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus)
+            raise Exception("No table exists yet for " + self.virus +' available tables are ' + str(existing_tables))
 
     def count_documents(self):
         '''

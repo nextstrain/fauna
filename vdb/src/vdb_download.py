@@ -56,7 +56,7 @@ class vdb_download(object):
 
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus)
+            raise Exception("No table exists yet for " + self.virus + " available are " + str(existing_tables))
 
     def count_documents(self):
         '''
