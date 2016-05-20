@@ -44,7 +44,9 @@ class vdb_parse(object):
         for field in v.keys():
             if field == 'strain':
                 v[field] = self.fix_name(v[field])
-            else:
+            elif field in ['title', 'authors']:
+                pass
+            elif v[field] is not None:
                 v[field] = v[field].lower().replace(' ', '_')
         for field in self.grouping_upload_fields + self.grouping_optional_fields:
             if field in v:
@@ -57,7 +59,7 @@ class vdb_parse(object):
         if 'locus' not in v and locus is not None:
             v['locus'] = locus.lower().replace(' ', '_')
         if 'authors' not in v and authors is not None:
-            v['authors'] = authors.lower().replace(' ', '_')
+            v['authors'] = authors.title().replace(' ', '_')
         if 'host' not in v and host is not None:
             v['host'] = host.lower().replace(' ', '_')
         if 'source' not in v and source is not None:
@@ -176,7 +178,7 @@ class vdb_parse(object):
             v['sequence'] = str(record.seq)
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
-                v['title'] = reference.lower()
+                v['title'] = reference.title
             else:
                 print("Couldn't find reference title for " + v['accession'])
                 v['title'] = None
@@ -201,7 +203,7 @@ class vdb_parse(object):
                         v['strain'] = qualifiers['isolate'][0]
                     else:
                         print("Couldn't parse strain name for " + v['accession'])
-            self.add_attributes(v, **kwargs)
+            self.add_other_attributes(v, **kwargs)
             viruses.append(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
