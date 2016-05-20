@@ -21,7 +21,6 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
-parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
 parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
@@ -254,15 +253,12 @@ class vdb_upload(vdb_parse):
                     virus['citations'][0][field] = virus[field]
                     del virus[field]
 
-    def upload_documents(self, exclusive, replace, **kwargs):
+    def upload_documents(self, exclusive, **kwargs):
         '''
         Insert viruses into collection
         '''
-        self.connect_rethink()
+        self.connect_rethink(**kwargs)
         db_relaxed_strains = self.relaxed_strains()
-        if replace:
-            print("Deleting documents in database:", self.database, "table:", self.virus)
-            r.table(self.virus).delete().run()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:
             db_viruses = list(r.db(self.database).table(self.virus).run())
