@@ -3,10 +3,14 @@ import rethinkdb as r
 import boto3
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-db', '--database', default='test', help="database to make backup of")
+parser.add_argument('-db', '--database', default='vdb', help="database to make backup of")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-parser.add_argument('--continuous', default=False, action="store_true",  help="Continuously backup database to S3")
+parser.add_argument('--backup', default=False, action="store_true", help="backup database to S3")
+parser.add_argument('--continuous', default=False, action="store_true",  help="continuously backup database to S3")
+parser.add_argument('--restore', default=False, action="store_true", help="restore database to previous version")
+parser.add_argument('--restore_table', default=None, help="table to restore")
+parser.add_argument('--restore_date', default=None, help="date to restore table to")
 
 class vdb_backup(object):
     def __init__(self, database, rethink_host=None, auth_key=None, **kwargs):
@@ -119,10 +123,24 @@ class vdb_backup(object):
         days_since = (cdate-fdate).days
         return days_since >= self.days_to_expiration
 
+    def restore(self, restore_table, restore_date, **kwargs):
+        print("Restoring database " + self.database + " and table " + restore_table.lower() + " on to date " + restore_date)
+        restore_location = self.database+'.'+restore_table
+        restore_file = restore_date + "_" + self.database + "_" + restore_table.lower() + '.tar.gz'
+        command = ['rethinkdb', 'restore', restore_file, '-i', restore_location]
+        try:
+            with open(os.devnull, 'wb') as devnull:
+                subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
+        except:
+            raise Exception("Couldn't restore " + restore_location + " with file " + restore_file)
+
+
 if __name__=="__main__":
     args = parser.parse_args()
     connVDB = vdb_backup(**args.__dict__)
     if args.continuous:
         connVDB.continuous_backup()
-    else:
+    elif args.restore:
+        connVDB.restore(**args.__dict__)
+    elif args.backup:
         connVDB.backup()
