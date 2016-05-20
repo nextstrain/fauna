@@ -14,6 +14,8 @@ parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
 parser.add_argument('--countries', nargs='+', type=str, default=None, help="Countries(in CamelCase Format) to be include in download")
+parser.add_argument('--host', nargs='+', type=str, default=['human'], help="Virus host to select, ie human, swine")
+parser.add_argument('--select_grouping', nargs='+', type=str, default=None, help="Select genetic groupings ie \'--select vtype:a subtype:H3N2,H1N1\'")
 
 class vdb_download(object):
 
@@ -56,7 +58,7 @@ class vdb_download(object):
 
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus)
+            raise Exception("No table exists yet for " + self.virus + " available are " + str(existing_tables))
 
     def count_documents(self):
         '''
@@ -76,7 +78,7 @@ class vdb_download(object):
         if output:
             self.output(**kwargs)
 
-    def subsetting(self, cursor, public_only=False, countries=None, **kwargs):
+    def subsetting(self, cursor, public_only=False, countries=None, host=['human'], select_grouping=None, **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
@@ -85,12 +87,32 @@ class vdb_download(object):
         if public_only:
             result = filter(lambda doc: doc['public'], result)
             print('Removed documents that were not public, remaining documents: ' + str(len(result)))
+        if host is not None:
+            host = [h.lower() for h in host]
+            result = filter(lambda doc: doc['host'] in host, result)
+            print('Removed documents that were not in hosts specified (' + ','.join(host) + '), remaining documents: ' + str(len(result)))
         if countries is not None:
+            countries = [country.lower() for country in countries]
             result = filter(lambda doc: doc['country'] in countries, result)
-            print('Removed documents that were not in countries specified ('
-                + ','.join(countries) + '), remaining documents: ' + str(len(result)))
+            print('Removed documents that were not in countries specified (' + ','.join(countries) + '), remaining documents: ' + str(len(result)))
+        if select_grouping is not None:
+            selections = self.parse_grouping_argument(select_grouping)
+            for sel in selections:
+                result = filter(lambda doc: doc[sel[0]] in sel[1], result)
+                print('Removed documents that were not in groups specified (' + ','.join(sel[1]) + ') for field ' + sel[0] + ', remaining documents: ' + str(len(result)))
         print("Documents in table after subsetting: " + str(len(result)))
         return result
+
+    def parse_grouping_argument(self, grouping):
+        '''
+        parse the select parameter to determine which group name to filter and for what values
+        :return: (grouping name, group values))
+        '''
+        selections = []
+        for group in grouping:
+            result = group.split(':')
+            selections.append((result[0].lower(), result[1].lower().split(',')))
+        return selections
 
     def pick_best_sequence(self, document):
         '''
@@ -140,7 +162,7 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self, path, fstem, ftype):
+    def output(self, path, fstem, ftype, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
         if ftype == 'json':
             self.write_json(self.viruses,fname)
@@ -157,4 +179,4 @@ if __name__=="__main__":
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connVDB = vdb_download(**args.__dict__)
-    connVDB.download(path=args.path, fstem=args.fstem, ftype=args.ftype)
+    connVDB.download(**args.__dict__)
