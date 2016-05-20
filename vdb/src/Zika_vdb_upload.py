@@ -8,16 +8,13 @@ class Zika_vdb_upload(vdb_upload):
 
     def __init__(self, **kwargs):
         vdb_upload.__init__(self, **kwargs)
-        self.virus_optional_fields = ['division', 'location', 'subtype']
-        self.virus_upload_fields = ['strain', 'date', 'country', 'sequences', 'citations', 'virus', 'date_modified', 'public', 'region', 'host']
+        self.grouping_optional_fields = ['lineage']
 
-    def canonicalize(self, virus):
-        '''
-        Canonicalize strain names to consistent format
-        '''
-        if 'strain' in virus:
-            virus['strain'] = self.remove_strings(virus['strain'], ['_Asian', '_Asia'], '')
-            virus['strain'] = re.sub(r"\s+", '-', virus['strain'])
+    def fix_name(self, name):
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').lower()
+        tmp_name = tmp_name.replace('_asian', '').replace('_asia', '')
+        return tmp_name
+
 
 if __name__=="__main__":
     args = parser.parse_args()
