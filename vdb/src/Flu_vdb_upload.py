@@ -13,20 +13,19 @@ class Flu_vdb_upload(vdb_upload):
 
     def __init__(self, **kwargs):
         vdb_upload.__init__(self, **kwargs)
-        self.grouping_upload_fields = ['vtype', 'subtype']
-        self.grouping_optional_fields = ['lineage']
+        self.grouping_upload_fields = ['vtype', 'subtype', 'lineage']
 
         # patterns from the subtype and lineage fields in the GISAID fasta file
-        self.patterns = {('a / h3n2', ''): ('a', 'h3n2', ''),
+        self.patterns = {('a / h3n2', ''): ('a', 'h3n2', 'seasonal_h3n2'),
                     ('a / h3n0', ''): ('a', 'h3n2', ''), # often mistake in GISAID file, aligned closest to H3N2
-                    ('a / h1n1', 'pdm09'): ('a', 'h1n1', 'pdm09'),
-                    ('b / h0n0', 'Victoria'): ('b', 'undetermined', 'victoria'),
-                    ('b / h0n0', 'Yamagata'): ('b', 'undetermined', 'yamagata'),
-                    ('a / h1n1', 'seasonal'): ('a', 'h1n1', 'seasonal'),
-                    ('a / h7n9', ''): ('a', 'h7n9', ''),
-                    ('a / h5n1', ''): ('a', 'h5n1', ''),
-                    ('a / h6n1', ''): ('a', 'h6n1', ''),
-                    ('a / h5n6', ''): ('a', 'h5n6', '')}
+                    ('a / h1n1', 'pdm09'): ('a', 'h1n1', 'seasonal_h1n1pdm'),
+                    ('b / h0n0', 'Victoria'): ('b', 'undetermined', 'seasonal_vic'),
+                    ('b / h0n0', 'Yamagata'): ('b', 'undetermined', 'seasonal_yam'),
+                    ('a / h1n1', 'seasonal'): ('a', 'h1n1', 'seasonal_h1n1'),
+                    ('a / h7n9', ''): ('a', 'h7n9', 'undetermined'),
+                    ('a / h5n1', ''): ('a', 'h5n1', 'undetermined'),
+                    ('a / h6n1', ''): ('a', 'h6n1', 'undetermined'),
+                    ('a / h5n6', ''): ('a', 'h5n6', 'undetermined')}
         self.outgroups = {lineage: SeqIO.read('vdb/source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
         self.outgroup_patterns = {'H3N2': ('a', 'h3n2', ''),
                                   'H1N1pdm': ('a', 'h1n1', 'pdm09'),
@@ -118,7 +117,7 @@ class Flu_vdb_upload(vdb_upload):
         temp_lineage = v['lineage'].replace('_', ' ')
         v['vtype'] = 'undetermined'
         v['subtype'] = 'undetermined'
-        v['lineage'] = ''
+        v['lineage'] = 'undetermined'
 
         if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
             match = self.patterns[(temp_subtype, temp_lineage)]
