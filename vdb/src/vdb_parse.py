@@ -37,22 +37,31 @@ class vdb_parse(object):
         else:
             raise Exception("No input file name and type defined or accessions given")
 
-    def add_attributes(self, v, locus, authors, subtype, host, source, public=True, **kwargs):
+    def add_other_attributes(self, v, locus, authors, host, source, public=True, **kwargs):
         '''
-        Add attributes to virus
+        Add attributes to all viruses to be uploaded that are included at the command line
         '''
-        v['virus'] = self.virus
+        for field in v.keys():
+            if field == 'strain':
+                v[field] = self.fix_name(v[field])
+            else:
+                v[field] = v[field].lower().replace(' ', '_')
+        for field in self.grouping_upload_fields + self.grouping_optional_fields:
+            if field in v:
+                pass
+            elif field in kwargs and kwargs[field] is not None:
+                v[field] = kwargs[field].lower().replace(' ', '_')
+        v['virus'] = self.virus.lower().replace(' ', '_')
+        v['date_modified'] = self.get_upload_date()
         v['date_modified'] = self.get_upload_date()
         if 'locus' not in v and locus is not None:
-            v['locus'] = locus.title()
+            v['locus'] = locus.lower().replace(' ', '_')
         if 'authors' not in v and authors is not None:
-            v['authors'] = authors.title()
-        if 'subtype' not in v and subtype is not None:
-            v['subtype'] = subtype.title()
+            v['authors'] = authors.lower().replace(' ', '_')
         if 'host' not in v and host is not None:
-            v['host'] = host.title()
+            v['host'] = host.lower().replace(' ', '_')
         if 'source' not in v and source is not None:
-            v['source'] = source.title()
+            v['source'] = source.lower().replace(' ', '_')
         if 'public' not in v and public is not None:
             v['public'] = public
 
@@ -86,12 +95,9 @@ class vdb_parse(object):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq).upper()
-                v['virus'] = self.virus
-                v['date_modified'] = self.get_upload_date()
-                self.add_attributes(v, **kwargs)
-
+                v = {key: content[ii].lower() if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
+                v['sequence'] = str(record.seq)
+                self.add_other_attributes(v, **kwargs)
                 viruses.append(v)
             handle.close()
         return viruses
@@ -165,17 +171,17 @@ class vdb_parse(object):
         viruses = []
         for record in SeqIO.parse(handle, "genbank"):
             v = {}
-            v['source'] = 'Genbank'
+            v['source'] = 'genbank'
             v['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
-            v['sequence'] = str(record.seq).upper()
+            v['sequence'] = str(record.seq)
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
-                v['title'] = reference.title
+                v['title'] = reference.lower()
             else:
                 print("Couldn't find reference title for " + v['accession'])
                 v['title'] = None
             if reference.authors is not None:
-                first_author = re.match(r'^([^,]*)', reference.authors).group(0).title()
+                first_author = re.match(r'^([^,]*)', reference.authors).group(0)
             else:
                 print("Couldn't parse authors for " + v['accession'])
                 first_author = None
