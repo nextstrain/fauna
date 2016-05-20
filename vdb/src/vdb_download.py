@@ -10,6 +10,7 @@ parser.add_argument('-v', '--virus', default='zika', help="virus table to intera
 parser.add_argument('--path', default='data', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'authors'], help="fasta fields for output fasta")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
@@ -23,6 +24,7 @@ class vdb_download(object):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
+        self.virus_specific_fasta_fields = []
         self.virus = virus.lower()
         self.database = database.lower()
         if self.database not in ['vdb', 'test_vdb']:
@@ -148,7 +150,7 @@ class vdb_download(object):
 
     def write_fasta(self, viruses, fname, sep='|', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
                                                                  'country', 'division', 'location', 'source', 'locus',
-                                                                 'authors', 'subtype']):
+                                                                 'authors']):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -162,12 +164,12 @@ class vdb_download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self, path, fstem, ftype, **kwargs):
+    def output(self, path, fstem, ftype, fasta_fields, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
         if ftype == 'json':
             self.write_json(self.viruses,fname)
         elif ftype == 'fasta':
-            self.write_fasta(self.viruses, fname)
+            self.write_fasta(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
         else:
             raise Exception("Can't output to that file type, only json or fasta allowed")
 
