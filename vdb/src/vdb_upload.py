@@ -257,7 +257,7 @@ class vdb_upload(vdb_parse):
         '''
         Insert viruses into collection
         '''
-        self.connect_rethink(**kwargs)
+        self.connect_rethink()
         db_relaxed_strains = self.relaxed_strains()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:
@@ -319,7 +319,7 @@ class vdb_upload(vdb_parse):
                         raise Exception("Couldn't insert this virus")
                 # Virus exists in table so just add sequence information and update meta data if needed
                 else:
-                    updated_sequence = self.update_document_sequence(relaxed_name, document, virus, **kwargs)
+                    updated_sequence = self.update_document_sequence(document, virus, **kwargs)
                     updated_meta = self. update_document_meta(relaxed_name, document, virus, self.overwritable_virus_fields, **kwargs)
                     if updated_sequence or updated_meta:
                         document['date_modified'] = virus['date_modified']

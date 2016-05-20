@@ -17,6 +17,7 @@ class vdb_update(vdb_upload):
         gi = self.get_GIs(self.accessions)
         self.viruses = self.get_entrez_viruses(gi, **kwargs)
         self.format()
+        self.format_schema()
         self.update_documents(**kwargs)
 
     def get_accessions(self):
@@ -24,25 +25,32 @@ class vdb_update(vdb_upload):
         cursor = list(r.db(self.database).table(self.virus).run())
         accessions = []
         for doc in cursor:
-            for seq in doc['sequences']:
-                if seq['source'] == 'Genbank':
-                    accessions.append(seq['accession'])
+            index = 0
+            for seq in doc['citations']:
+                if seq['source'] == 'genbank':
+                    accessions.append(doc['sequences'][index]['accession'])
+                index += 1
         return accessions
 
     def update_documents(self, **kwargs):
         print("Checking for updates to " + str(len(self.viruses)) + " sequences")
         self.relaxed_strains()
+        db_relaxed_strains = self.relaxed_strains()
         for virus in self.viruses:
-            relaxed_name = self.relax_name(virus['strain'])
-            if relaxed_name in self.strains:
-                self.strain_name = self.strains[relaxed_name]
-            else:
-                self.strain_name = virus['strain']
-            document = r.table(self.virus).get(self.strain_name).run()
+            relaxed_name = virus['strain']
+            if self.relax_name(virus['strain']) in db_relaxed_strains:
+                relaxed_name = db_relaxed_strains[self.relax_name(virus['strain'])]
+            try:
+                document = r.table(self.virus).get(relaxed_name).run()
+            except:
+                print(virus)
+                raise Exception("Couldn't retrieve this virus")
             # Retrieve virus from table to see if it already exists
             if document is not None:
-                self.updated = False
-                self.update_sequence_citation_field(virus, document, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields, **kwargs)
+                updated = self.update_sequence_citation_field(document, virus, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields, **kwargs)
+                if updated:
+                    document['date_modified'] = virus['date_modified']
+                    r.table(self.virus).insert(document, conflict="replace").run()
 
     def create_citations_field(self):
         cursor = list(r.db(self.database).table(self.virus).run())
