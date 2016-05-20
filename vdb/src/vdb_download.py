@@ -14,9 +14,7 @@ parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', '
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
-parser.add_argument('--countries', nargs='+', type=str, default=None, help="Countries(in CamelCase Format) to be include in download")
-parser.add_argument('--host', nargs='+', type=str, default=['human'], help="Virus host to select, ie human, swine")
-parser.add_argument('--select_grouping', nargs='+', type=str, default=None, help="Select genetic groupings ie \'--select vtype:a subtype:H3N2,H1N1\'")
+parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
 
 class vdb_download(object):
 
@@ -80,30 +78,28 @@ class vdb_download(object):
         if output:
             self.output(**kwargs)
 
-    def subsetting(self, cursor, public_only=False, countries=None, host=['human'], select_grouping=None, **kwargs):
+    def subsetting(self, cursor, public_only=False, select=None, **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
-        result = cursor
-        print("Documents in table before subsetting: " + str(len(result)))
+        # determine fields in all documents that can be filtered by
+        list_of_fields = [set(doc.keys()) for doc in cursor]
+        fields = set.intersection(*list_of_fields)
+
+        print("Documents in table before subsetting: " + str(len(cursor)))
         if public_only:
-            result = filter(lambda doc: doc['public'], result)
-            print('Removed documents that were not public, remaining documents: ' + str(len(result)))
-        if host is not None:
-            host = [h.lower() for h in host]
-            result = filter(lambda doc: doc['host'] in host, result)
-            print('Removed documents that were not in hosts specified (' + ','.join(host) + '), remaining documents: ' + str(len(result)))
-        if countries is not None:
-            countries = [country.lower() for country in countries]
-            result = filter(lambda doc: doc['country'] in countries, result)
-            print('Removed documents that were not in countries specified (' + ','.join(countries) + '), remaining documents: ' + str(len(result)))
-        if select_grouping is not None:
-            selections = self.parse_grouping_argument(select_grouping)
+            cursor = filter(lambda doc: doc['public'], cursor)
+            print('Removed documents that were not public, remaining documents: ' + str(len(cursor)))
+        if select is not None:
+            selections = self.parse_grouping_argument(select)
             for sel in selections:
-                result = filter(lambda doc: doc[sel[0]] in sel[1], result)
-                print('Removed documents that were not in groups specified (' + ','.join(sel[1]) + ') for field ' + sel[0] + ', remaining documents: ' + str(len(result)))
-        print("Documents in table after subsetting: " + str(len(result)))
-        return result
+                if sel[0] in fields:
+                    cursor = filter(lambda doc: doc[sel[0]] in sel[1], cursor)
+                    print('Removed documents that were not in values specified (' + ','.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
+                else:
+                    print(sel[0] + " is not in all documents, can't subset by that field")
+        print("Documents in table after subsetting: " + str(len(cursor)))
+        return cursor
 
     def parse_grouping_argument(self, grouping):
         '''
