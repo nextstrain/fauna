@@ -121,7 +121,7 @@ class vdb_upload(vdb_parse):
             self.delete_extra_fields(virus)
 
     def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').lower()
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
         return tmp_name
 
     def format_date(self, virus):
