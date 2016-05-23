@@ -146,6 +146,15 @@ class vdb_upload(vdb_parse):
         else:
             print("Couldn't reformat this date: " + virus['date'])
 
+    def camelcase_to_snakecase(self, name):
+        '''
+        convert camelcase format to snakecase format
+        :param name:
+        :return:
+        '''
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
     def define_regions(self):
         '''
         open country to region dictionary
@@ -156,7 +165,7 @@ class vdb_upload(vdb_parse):
             raise Exception("Couldn't find geo regions file")
         self.country_to_region = {}
         for line in reader:
-            self.country_to_region[line['country'].lower()] = line['region'].lower()
+            self.country_to_region[self.camelcase_to_snakecase(line['country'])] = line['region'].lower()
 
     def format_region(self, virus):
         '''
