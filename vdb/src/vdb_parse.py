@@ -41,31 +41,36 @@ class vdb_parse(object):
         '''
         Add attributes to all viruses to be uploaded that are included at the command line
         '''
-        for field in v.keys():
-            if field == 'strain':
-                v[field] = self.fix_name(v[field])
-            elif field in ['title', 'authors']:
-                pass
-            elif v[field] is not None:
-                v[field] = v[field].lower().replace(' ', '_')
+        if 'strain' in v:
+            v['strain'] = self.fix_name(v['strain'])
         for field in self.grouping_upload_fields + self.grouping_optional_fields:
             if field in v:
                 pass
             elif field in kwargs and kwargs[field] is not None:
-                v[field] = kwargs[field].lower().replace(' ', '_')
-        v['virus'] = self.virus.lower().replace(' ', '_')
+                v[field] = kwargs[field]
+        v['virus'] = self.virus
         v['date_modified'] = self.get_upload_date()
         v['date_modified'] = self.get_upload_date()
         if 'locus' not in v and locus is not None:
-            v['locus'] = locus.lower().replace(' ', '_')
+            v['locus'] = locus
         if 'authors' not in v and authors is not None:
-            v['authors'] = authors.title().replace(' ', '_')
+            v['authors'] = authors
         if 'host' not in v and host is not None:
-            v['host'] = host.lower().replace(' ', '_')
+            v['host'] = host
         if 'source' not in v and source is not None:
-            v['source'] = source.lower().replace(' ', '_')
+            v['source'] = source
         if 'public' not in v and public is not None:
             v['public'] = public
+
+    def fix_casing(self, v):
+        '''
+        force lower case on fields besides strain, title, authors
+        '''
+        for field in v:
+            if field in ['strain', 'title', 'authors']:
+                pass
+            elif v[field] is not None and isinstance(v[field], str):
+                v[field] = v[field] = v[field].lower().replace(' ', '_')
 
     def auto_gb_upload(self):
         '''
@@ -97,9 +102,10 @@ class vdb_parse(object):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii].lower() if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
+                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
                 v['sequence'] = str(record.seq)
                 self.add_other_attributes(v, **kwargs)
+                self.fix_casing(v)
                 viruses.append(v)
             handle.close()
         return viruses
@@ -204,6 +210,7 @@ class vdb_parse(object):
                     else:
                         print("Couldn't parse strain name for " + v['accession'])
             self.add_other_attributes(v, **kwargs)
+            self.fix_casing(v)
             viruses.append(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
