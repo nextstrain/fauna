@@ -11,7 +11,7 @@ class Zika_vdb_upload(vdb_upload):
         self.grouping_optional_fields = ['lineage']
 
     def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').lower()
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
         tmp_name = tmp_name.replace('_asian', '').replace('_asia', '')
         return tmp_name
 
