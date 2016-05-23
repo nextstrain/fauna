@@ -11,6 +11,7 @@ class vdb_parse(object):
             self.accessions = kwargs['accessions']
         self.gbdb = "nuccore"
 
+    def entrez_email(self, **kwargs):
         #define email for entrez login
         if 'email' in kwargs:
             self.email = kwargs['email']
@@ -23,12 +24,15 @@ class vdb_parse(object):
     def parse(self, path, fname, ftype, **kwargs):
         if self.accessions is not None:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
+            self.entrez_email(**kwargs)
             gi = self.get_GIs(accessions)
             self.viruses = self.get_entrez_viruses(gi, **kwargs)
         elif ftype is not None and fname is not None:
             if ftype == 'genbank':
+                self.entrez_email(**kwargs)
                 self.viruses = self.parse_gb_file(path + fname, **kwargs)
             elif ftype == 'accession':
+                self.entrez_email(**kwargs)
                 accessions = self.parse_accession_file(path + fname, **kwargs)
                 gi = self.get_GIs(accessions)
                 self.viruses = self.get_entrez_viruses(gi, **kwargs)
