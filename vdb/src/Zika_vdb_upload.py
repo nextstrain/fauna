@@ -12,7 +12,7 @@ class Zika_vdb_upload(vdb_upload):
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
-        tmp_name = tmp_name.replace('_asian', '').replace('_asia', '')
+        tmp_name = tmp_name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
         return tmp_name
 
 
