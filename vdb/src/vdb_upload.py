@@ -29,8 +29,9 @@ class vdb_upload(vdb_parse):
         vdb_parse.__init__(self, **kwargs)
         self.virus = virus.lower()
         self.database = database.lower()
-        if self.database not in ['vdb', 'test_vdb']:
-            raise Exception("Cant upload to this database: " + self.database)
+        self.uploadable_databases = ['vdb', 'test_vdb', 'test']
+        if self.database not in self.uploadable_databases:
+            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         if rethink_host is None:
             try:
                 self.rethink_host = os.environ['RETHINK_HOST']
@@ -38,7 +39,9 @@ class vdb_upload(vdb_parse):
                 raise Exception("Missing rethink host")
         else:
             self.rethink_host = rethink_host
-        if auth_key is None:
+        if self.rethink_host == "localhost":
+            self.auth_key = None
+        elif auth_key is None:
             try:
                 self.auth_key = os.environ['RETHINK_AUTH_KEY']
             except:
@@ -64,12 +67,18 @@ class vdb_upload(vdb_parse):
         Connect to rethink database,
         Check for existing table, otherwise create it
         '''
-        try:
-            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
-            print("Connected to the \"" + self.database + "\" database")
-        except:
-            print("Failed to connect to the database, " + self.database)
-            raise Exception
+        if self.auth_key is None:
+            try:
+                r.connect(host=self.rethink_host, port=28015, db=self.database).repl()
+                print("Connected to the \"" + self.database + "\" database")
+            except:
+                raise Exception("Failed to connect to the database, " + self.database)
+        else:
+            try:
+                r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
+                print("Connected to the \"" + self.database + "\" database")
+            except:
+                raise Exception("Failed to connect to the database, " + self.database)
 
         existing_tables = r.db(self.database).table_list().run()
         if self.virus not in existing_tables:
