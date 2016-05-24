@@ -61,9 +61,6 @@ class tdb_upload(tdb_parse):
                                       'NIMR-REPORT-SEP2009_03.CSV', 'NIMR-REPORT-FEB2010_04.CSV', 'NIMR_FEB2010_15.CSV', 'NIMR_FEB2010_16.CSV']
         self.new_different_date_format = set()
 
-    def get_upload_date(self):
-        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
-
     def upload(self, upload=False, **kwargs):
         '''
         format virus information, then upload to database
@@ -85,7 +82,7 @@ class tdb_upload(tdb_parse):
             raise Exception("Subtype needs to be defined as a command line argument")
         meas['subtype'] = subtype.lower()
         meas['host'] = host.title()
-        meas['date_modified'] = self.get_upload_date()
+        meas['date_modified'] = self.rethink_io.get_upload_date()
 
     def format(self, **kwargs):
         '''
@@ -100,6 +97,7 @@ class tdb_upload(tdb_parse):
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
+            self.rethink_io.delete_extra_fields(meas, self.upload_fields+self.optional_fields, self.index_fields)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum'])
                 self.ref_virus_strains.add(meas['virus'])
@@ -109,6 +107,7 @@ class tdb_upload(tdb_parse):
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
         self.check_strain_names()
+
 
     def check_strain_names(self):
         '''
@@ -271,37 +270,11 @@ class tdb_upload(tdb_parse):
         Check  optional and upload attributes
         '''
         print(len(self.measurements), " measurements before filtering")
-        self.check_optional_attributes()
+        self.rethink_io.check_optional_attributes(self.measurements, self.optional_fields)
         self.measurements = filter(lambda meas: isinstance(meas['ref'], (bool)), self.measurements)
         self.measurements = filter(lambda meas: meas['serum'] in self.ref_virus_strains or meas['serum'] in self.test_virus_strains, self.measurements)
-        self.measurements = filter(lambda meas: self.check_upload_attributes(meas), self.measurements)
+        self.measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields), self.measurements)
         print(len(self.measurements), " measurements after filtering")
-
-    def check_optional_attributes(self):
-        '''
-        Create and assign 'None' to optional attributes that don't exist
-        '''
-        for meas in self.measurements:
-            for atr in self.optional_fields + self.upload_fields:
-                if atr not in meas:
-                    meas[atr] = None
-                elif meas[atr] == '':
-                    meas[atr] = None
-
-    def check_upload_attributes(self, meas):
-        '''
-        Checks that required upload attributes are present and not equal to None for given virus
-        :return: returns true if it has all required upload attributes, else returns false and prints missing attributes
-        '''
-        missing_attributes = []
-        for atr in self.upload_fields:
-            if atr not in meas or meas[atr] is None:
-                missing_attributes.append(atr)
-        if len(missing_attributes) > 0:
-            #print("Missing required attributes:" + str(missing_attributes) + ", measurement: " + meas['virus'], meas['serum'], meas['source'])
-            return False
-        else:
-            return True
 
     def upload_documents(self, replace=False, exclusive=True, **kwargs):
         '''

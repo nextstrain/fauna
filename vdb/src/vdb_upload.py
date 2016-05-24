@@ -54,6 +54,7 @@ class vdb_upload(vdb_parse):
         self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
 
         # fields that are needed to upload
+        self.index_field = ['strain']
         self.sequence_upload_fields = ['locus', 'sequence']
         self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
         self.citation_upload_fields = ['source']
@@ -62,11 +63,10 @@ class vdb_upload(vdb_parse):
         self.grouping_optional_fields = []
         self.virus_upload_fields = ['strain', 'date', 'country', 'virus', 'date_modified', 'public', 'region', 'host'] # sequences, citations, added after filtering
         self.virus_optional_fields = ['division', 'location']
+        self.upload_fields = self.virus_upload_fields+self.sequence_upload_fields+self.citation_upload_fields+self.grouping_upload_fields
+        self.optional_fields = self.virus_optional_fields+self.sequence_optional_fields+self.citation_optional_fields+self.grouping_optional_fields
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
         self.strains = {}
-
-    def get_upload_date(self):
-        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
 
     def upload(self, preview=False, **kwargs):
         '''
@@ -96,7 +96,7 @@ class vdb_upload(vdb_parse):
             self.format_date(virus)
             self.format_place(virus)
             self.format_region(virus)
-            self.delete_extra_fields(virus)
+            self.rethink_io.delete_extra_fields(virus, self.upload_fields+self.optional_fields, self.index_field)
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
@@ -171,58 +171,13 @@ class vdb_upload(vdb_parse):
         Filter out viruses without correct format, check  optional and upload attributes
         '''
         print(str(len(self.viruses)) + " viruses before filtering")
-        self.check_optional_attributes()
+        self.rethink_io.check_optional_attributes(self.viruses, self.optional_fields)
         self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
         self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
         self.viruses = filter(lambda v: v['region'] is not None, self.viruses)
-        self.viruses = filter(lambda v: self.check_upload_attributes(v), self.viruses)
+        self.viruses = filter(lambda v: self.rethink_io.check_required_attributes(v, self.upload_fields, self.index_field), self.viruses)
         print(str(len(self.viruses)) + " viruses after filtering")
         self.format_schema()
-
-    def check_optional_attributes(self):
-        '''
-        Reassign unknowns from '?' or '' to 'None'
-        Create and assign 'None' to optional attributes that don't exist
-        '''
-        for virus in self.viruses:
-            for key in virus.keys():
-                if virus[key] == '?' or virus[key] == '':
-                    virus[key] = None
-                if isinstance(virus[key], (str)):
-                    virus[key] = virus[key].strip()
-            for atr in self.virus_optional_fields + self.sequence_optional_fields + self.citation_optional_fields + self.grouping_optional_fields:
-                if atr not in virus:
-                    virus[atr] = None
-
-    def check_upload_attributes(self, virus):
-        '''
-        Checks that required upload attributes are present and not equal to None for given virus
-        :return: returns true if it has all required upload attributes, else returns false and prints missing attributes
-        '''
-        missing_attributes = []
-        for atr in self.virus_upload_fields + self.sequence_upload_fields + self.citation_upload_fields + self.grouping_upload_fields:
-            if atr in virus and virus[atr] is not None:
-                pass
-            else:
-                missing_attributes.append(atr)
-        if len(missing_attributes) > 0:
-            print("This strain is missing a required attribute and will be removed from upload sequences")
-            print(virus['strain'])
-            print("Missing attributes: " + str(missing_attributes))
-            return False
-        else:
-            return True
-
-    def delete_extra_fields(self, virus):
-        '''
-        Delete attributes not defined as a field
-        '''
-        for key in virus.keys():
-            if key not in self.virus_upload_fields + self.virus_optional_fields + self.sequence_upload_fields + \
-                    self.sequence_optional_fields + self.citation_upload_fields + self.citation_optional_fields + \
-                    self.grouping_upload_fields + self.grouping_optional_fields:
-                print("Deleting virus info " + key + ": " + virus[key] + " from " + virus['strain'])
-                del virus[key]
 
     def format_schema(self):
         '''
