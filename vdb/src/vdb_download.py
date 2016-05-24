@@ -2,6 +2,8 @@ import os, json, datetime
 import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
+sys.path.append('')  # need to import from base
+from base.rethink_io import rethink_io
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -34,31 +36,18 @@ class vdb_download(object):
                 raise Exception("Missing rethink host")
         else:
             self.rethink_host = rethink_host
-        if auth_key is None:
+        if self.rethink_host == "localhost":
+            self.auth_key = None
+        elif auth_key is not None:
+            self.auth_key = auth_key
+        else:
             try:
                 self.auth_key = os.environ['RETHINK_AUTH_KEY']
             except:
                 raise Exception("Missing rethink auth_key")
-        else:
-            self.auth_key = auth_key
-        self.connect_rethink()
+        self.rethink_io = rethink_io()
+        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
         self.viruses = []
-
-    def connect_rethink(self):
-        '''
-        Connect to rethink database,
-        Check for existing table, otherwise create it
-        '''
-        try:
-            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
-            print("Connected to the \"" + self.database + "\" database")
-        except:
-            print("Failed to connect to the database, " + self.database)
-            raise Exception
-
-        existing_tables = r.db(self.database).table_list().run()
-        if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus + " available are " + str(existing_tables))
 
     def count_documents(self):
         '''

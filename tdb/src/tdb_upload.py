@@ -3,6 +3,8 @@ import rethinkdb as r
 from Bio import SeqIO
 import argparse
 from tdb_parse import tdb_parse
+sys.path.append('')  # need to import from base
+from base.rethink_io import rethink_io
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
@@ -31,14 +33,17 @@ class tdb_upload(tdb_parse):
                 raise Exception("Missing rethink host")
         else:
             self.rethink_host = rethink_host
-        if auth_key is None:
+        if self.rethink_host == "localhost":
+            self.auth_key = None
+        elif auth_key is not None:
+            self.auth_key = auth_key
+        else:
             try:
                 self.auth_key = os.environ['RETHINK_AUTH_KEY']
             except:
                 raise Exception("Missing rethink auth_key")
-        else:
-            self.auth_key = auth_key
-        self.connect_rethink()
+        self.rethink_io = rethink_io()
+        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
 
         # fields that are needed to upload
         self.upload_fields = ['virus', 'serum', 'titer', 'date_modified', 'source', 'ferret_id', 'passage', 'subtype',
@@ -55,22 +60,6 @@ class tdb_upload(tdb_parse):
         self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV',
                                       'NIMR-REPORT-SEP2009_03.CSV', 'NIMR-REPORT-FEB2010_04.CSV', 'NIMR_FEB2010_15.CSV', 'NIMR_FEB2010_16.CSV']
         self.new_different_date_format = set()
-
-    def connect_rethink(self):
-        '''
-        Connect to rethink database,
-        Check for existing table, otherwise create it
-        '''
-        try:
-            r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
-            print("Connected to the \"" + self.database + "\" database")
-        except:
-            print("Failed to connect to the database, " + self.database)
-            raise Exception
-
-        existing_tables = r.db(self.database).table_list().run()
-        if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + str(self.virus))
 
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))

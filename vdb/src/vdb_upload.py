@@ -3,6 +3,8 @@ import rethinkdb as r
 from Bio import SeqIO
 import argparse
 from vdb_parse import vdb_parse
+sys.path.append('')  # need to import from base
+from base.rethink_io import rethink_io
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
@@ -41,14 +43,15 @@ class vdb_upload(vdb_parse):
             self.rethink_host = rethink_host
         if self.rethink_host == "localhost":
             self.auth_key = None
-        elif auth_key is None:
+        elif auth_key is not None:
+            self.auth_key = auth_key
+        else:
             try:
                 self.auth_key = os.environ['RETHINK_AUTH_KEY']
             except:
                 raise Exception("Missing rethink auth_key")
-        else:
-            self.auth_key = auth_key
-        self.connect_rethink()
+        self.rethink_io = rethink_io()
+        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
 
         # fields that are needed to upload
         self.sequence_upload_fields = ['locus', 'sequence']
@@ -61,40 +64,6 @@ class vdb_upload(vdb_parse):
         self.virus_optional_fields = ['division', 'location']
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
         self.strains = {}
-
-    def connect_rethink(self):
-        '''
-        Connect to rethink database,
-        Check for existing table, otherwise create it
-        '''
-        if self.auth_key is None:
-            try:
-                r.connect(host=self.rethink_host, port=28015, db=self.database).repl()
-                print("Connected to the \"" + self.database + "\" database")
-            except:
-                raise Exception("Failed to connect to the database, " + self.database)
-        else:
-            try:
-                r.connect(host=self.rethink_host, port=28015, db=self.database, auth_key=self.auth_key).repl()
-                print("Connected to the \"" + self.database + "\" database")
-            except:
-                raise Exception("Failed to connect to the database, " + self.database)
-
-        existing_tables = r.db(self.database).table_list().run()
-        if self.virus not in existing_tables:
-            raise Exception("No table exists yet for " + self.virus)
-
-        '''
-        #create virus table with primary key 'strain'
-        existing_tables = r.db(self.database).table_list().run()
-        if self.virus not in existing_tables:
-            r.db(self.database).table_create(self.virus, primary_key='strain').run()
-        '''
-
-    def print_virus_info(self, virus):
-        print("----------")
-        for key, value in virus.items():
-            print(key + " : " + str(value))
 
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
@@ -275,7 +244,7 @@ class vdb_upload(vdb_parse):
         '''
         Insert viruses into collection
         '''
-        self.connect_rethink()
+        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
         db_relaxed_strains = self.relaxed_strains()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:
