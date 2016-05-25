@@ -15,7 +15,7 @@ visualization and editing of the database.
 
 ## Installation for nextstrain-db
 1. Clone nextstrain-db repository `git clone https://github.com/blab/nextstrain-db.git` 
-2. Install correct versions of rethinkdb and chateau from [package.json](package.json) `sudo npm install -g` 
+2. Install correct versions of rethinkdb and chateau from [package.json](package.json) with `sudo npm install -g` 
 3. Install correct version of rethinkdb python module `pip install rethinkdb==2.2.0.post2`
 
 ## Using rethinkdb
@@ -32,6 +32,14 @@ import rethinkdb as r
 ```
 
 ### Open connection to rethink database
+To open a connection to a database on a local host run
+```
+r.connect(host='localhost', port=28015, db=database).repl()
+```
+To open a connection to a database on an external host that requires an authorization key run
+```
+r.connect(host=rethink_host, port=28015, db=database, auth_key=auth_key).repl()
+```
 
 ### Create new databases and tables
 Rethinkdb allows multiple databases within each instance and multiple tables within each
@@ -43,9 +51,43 @@ creating new tables but it actually does create them. When creating the table, y
 what fields to use as the primary key. 
 
 ### Indexes
+Each document in a table must have a unique primary key. This primary key can be a simple 
+index (a string, in [vdb](vdb) this is `strain`) or a compound index (list of strings, 
+used in [tdb](tdb)). If a primary key is not defined for a table, rethink will automatically 
+assign a unique id to each document. 
 
 ### Inserting documents into the database
-
+To [insert](https://rethinkdb.com/api/python/insert/) one JSON document or a whole list 
+of documents into a specific table, run 
+```
+r.table(table).insert(documents).run()
+```
+By default, this will error if a document with the same primary key is already in the table.
+There is also the option to 'replace' the old document, or 'update' fields of the old document
+with the new fields. 
+```
+r.table(table).insert(documents, conflict='replace').run()
+r.table(table).insert(documents, conflict='update').run()
+```
 ### Downloading documents from the database
+To download a cursor of all documents in a table you can run the following and loop 
+through the iterable cursor
+```
+cursor = r.table(table).run()
+for document in cursor:
+    print(document)
+```
+It's also possible to filter the values you receive through rethinkdb or this can be done
+after receiving all the documents in the table. 
+```
+cursor = r.table(table).filter(r.row[field] == field_value).run()
+```
+You can also retrieve a specific document using it's index. This returns `None` if the document
+is not in the table.
+```
+r.db(database).table(table).get(index).run()
+```
 
-### Updating documents in the database
+### More Information about Rethinkdb
+[Ten-minute guide with RethinkDB and Python](https://www.rethinkdb.com/docs/guide/python/)
+[Python ReQL command reference](https://www.rethinkdb.com/api/python/)
