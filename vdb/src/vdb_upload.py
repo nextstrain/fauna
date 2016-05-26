@@ -51,7 +51,8 @@ class vdb_upload(vdb_parse):
             except:
                 raise Exception("Missing rethink auth_key")
         self.rethink_io = rethink_io()
-        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
+        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
+        self.rethink_io.check_table_exists(self.database, self.virus)
 
         # fields that are needed to upload
         self.index_field = ['strain']
@@ -100,6 +101,10 @@ class vdb_upload(vdb_parse):
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
+        try:
+            tmp_name = 'V' + str(int(tmp_name))
+        except:
+            pass
         return tmp_name
 
     def format_date(self, virus):
@@ -199,7 +204,7 @@ class vdb_upload(vdb_parse):
         '''
         Insert viruses into collection
         '''
-        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
+        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
         db_relaxed_strains = self.relaxed_strains()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:
