@@ -127,15 +127,31 @@ Sequences in vdb can be automatically updated
 	python vdb/src/vdb_update.py -db test -v zika --accessions KU501216,KU501217
 	
 ## Backup
-VDB tables can be backed up to S3
+VDB tables can be backed up to S3 or to a local source
 * Can be run manually or continuously everyday
-* Deletes old backups after a certain length (default is 40 days)
+* Deletes old backups after a certain length (default is 50 days)
 
 ### Examples
+
+Backup `test_vdb.zika` to s3 backup file
 	
-	python vdb/src/vdb_backup.py -db vdb
+	python vdb/src/vdb_interact.py -db test_vdb --backup --s3
+
+Restore `test_vdb.zika` to 2016-05-25 from s3 backup file
 	
-	python vdb/src/vdb_backup.py -db vdb --continous
+	python vdb/src/vdb_interact.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --s3
+
+Backup `test_vdb.zika` to local backup file
+	
+	python vdb/src/vdb_interact.py -db test_vdb --backup --local
+
+Restore `test_vdb.zika` to 2016-05-25 from local backup file
+	
+	python vdb/src/vdb_interact.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --local
+
+Backup `test_vdb.zika` to s3 backup file everyday	
+	
+	python vdb/src/vdb_backup.py -db test_vdb --continuous_backup --s3
 	
 ## Copy
 VDB tables can be copied into other tables and/or other databases
