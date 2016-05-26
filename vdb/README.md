@@ -160,11 +160,11 @@ VDB tables can be copied into other tables and/or other databases
 	
 Copy `vdb.zika` to `test.zika`
 
-	python vdb/src/vdb_copy.py -edb vdb -ev zika -idb test -iv zika
+	python vdb/src/vdb_copy.py --copy -edb vdb -ev zika -idb test -iv zika
 	
-Copy `vdb.Zika` to `vdb.zika` (need to change string.lower() in code)
+Copy `vdb.Zika` to `vdb.zika`
 	
-	python vdb/src/vdb_copy.py -edb vdb -ev Zika -idb vdb -iv zika
+	python vdb/src/vdb_copy.py --copy -edb vdb -ev Zika -idb vdb -iv zika
 
 ## Sync
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance
