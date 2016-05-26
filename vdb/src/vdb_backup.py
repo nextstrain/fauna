@@ -9,7 +9,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to make backup of")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-
 parser.add_argument('--backup', default=False, action="store_true", help="backup database")
 parser.add_argument('--continuous_backup', default=False, action="store_true",  help="continuously backup database to S3")
 parser.add_argument('--s3', default=False, action="store_true", help="backup database to s3")
@@ -21,7 +20,7 @@ parser.add_argument('--restore', default=False, action="store_true", help="resto
 parser.add_argument('--restore_table', default=None, help="table to restore")
 parser.add_argument('--restore_date', default=None, help="date to restore table to, format as \'YYYY-MM-DD\'")
 
-class vdb_interact(object):
+class vdb_backup(object):
     def __init__(self, database, rethink_host=None, auth_key=None, **kwargs):
         self.upload_hour = 3
         self.database = database.lower()
@@ -63,6 +62,7 @@ class vdb_interact(object):
         '''
         Continuously run backup script, uploading tar files to s3 every 24 hours
         '''
+        print("Will backup " + self.database + " every 24 hours at hour " + str(self.upload_hour))
         while True:
             if self.time(self.upload_hour):
                 self.backup(**kwargs)
@@ -82,7 +82,7 @@ class vdb_interact(object):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    connVDB = vdb_interact(**args.__dict__)
+    connVDB = vdb_backup(**args.__dict__)
     if args.continuous_backup:
         connVDB.continuous_backup(**args.__dict__)
     elif args.backup:
