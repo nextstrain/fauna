@@ -1,13 +1,12 @@
 import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
-from vdb_upload import vdb_upload
-from vdb_upload import parser
+from upload import upload
+from upload import parser
 
-class Zika_vdb_upload(vdb_upload):
-
+class zika_upload(upload):
     def __init__(self, **kwargs):
-        vdb_upload.__init__(self, **kwargs)
+        upload.__init__(self, **kwargs)
         self.grouping_optional_fields = ['lineage']
 
     def fix_name(self, name):
@@ -30,5 +29,5 @@ if __name__=="__main__":
         args.path = "vdb/data/" + args.virus + "/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connVDB = Zika_vdb_upload(**args.__dict__)
+    connVDB = zika_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)

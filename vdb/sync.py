@@ -13,7 +13,7 @@ parser.add_argument('--sync_from_local', default=False, action="store_true", hel
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
-class vdb_sync(object):
+class sync(object):
     def __init__(self, rethink_host=None, auth_key=None, **kwargs):
         if rethink_host is None:
             try:
@@ -31,7 +31,6 @@ class vdb_sync(object):
                 self.auth_key = os.environ['RETHINK_AUTH_KEY']
             except:
                 raise Exception("Missing rethink auth_key")
-
         self.rethink_interact = rethink_interact()
 
     def sync_from_local(self, export_virus, import_virus, **kwargs):
@@ -58,7 +57,7 @@ class vdb_sync(object):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    connVDB = vdb_sync(**args.__dict__)
+    connVDB = sync(**args.__dict__)
     if args.sync_to_local:
         connVDB.sync_to_local(**args.__dict__)
     elif args.sync_from_local:

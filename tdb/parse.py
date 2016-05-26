@@ -9,7 +9,7 @@ import numpy as np
 from unidecode import unidecode
 import math
 
-class tdb_parse(object):
+class parse(object):
     def __init__(self, **kwargs):
         self.table_column_names = ['viruses', 'other', 'collection', 'passage', '']
         self.titer_values = ['10.0', '20.0', '40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']

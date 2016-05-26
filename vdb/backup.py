@@ -20,7 +20,7 @@ parser.add_argument('--restore', default=False, action="store_true", help="resto
 parser.add_argument('--restore_table', default=None, help="table to restore")
 parser.add_argument('--restore_date', default=None, help="date to restore table to, format as \'YYYY-MM-DD\'")
 
-class vdb_backup(object):
+class backup(object):
     def __init__(self, database, rethink_host=None, auth_key=None, **kwargs):
         self.upload_hour = 3
         self.database = database.lower()
@@ -82,7 +82,7 @@ class vdb_backup(object):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    connVDB = vdb_backup(**args.__dict__)
+    connVDB = backup(**args.__dict__)
     if args.continuous_backup:
         connVDB.continuous_backup(**args.__dict__)
     elif args.backup:

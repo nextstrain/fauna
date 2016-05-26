@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 import argparse
-from tdb_parse import tdb_parse
+from parse import parse
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 
@@ -19,9 +19,9 @@ parser.add_argument('--replace', default=False, action="store_true",  help ="If 
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
-class tdb_upload(tdb_parse):
+class upload(parse):
     def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
-        tdb_parse.__init__(self, **kwargs)
+        parse.__init__(self, **kwargs)
         self.virus = virus.lower()
         self.database = database.lower()
         if self.database not in ['tdb', 'test_tdb']:
@@ -355,5 +355,5 @@ if __name__=="__main__":
         args.path = "tdb/data/" + args.subtype + "/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connTDB = tdb_upload(**args.__dict__)
+    connTDB = upload(**args.__dict__)
     connTDB.upload(**args.__dict__)

@@ -1,4 +1,4 @@
-import os, json, datetime
+import os, json, datetime, sys
 import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
@@ -18,8 +18,7 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
 parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
 
-class vdb_download(object):
-
+class download(object):
     def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
@@ -166,5 +165,5 @@ if __name__=="__main__":
         args.fstem = args.virus + '_' + current_date
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connVDB = vdb_download(**args.__dict__)
+    connVDB = download(**args.__dict__)
     connVDB.download(**args.__dict__)

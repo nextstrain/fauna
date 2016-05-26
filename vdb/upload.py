@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys, json
 import rethinkdb as r
 from Bio import SeqIO
 import argparse
-from vdb_parse import vdb_parse
+from parse import parse
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 
@@ -26,9 +26,9 @@ parser.add_argument('--exclusive', default=True, action="store_false",  help ="d
 parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
-class vdb_upload(vdb_parse):
+class upload(parse):
     def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
-        vdb_parse.__init__(self, **kwargs)
+        parse.__init__(self, **kwargs)
         self.virus = virus.lower()
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
@@ -143,7 +143,7 @@ class vdb_upload(vdb_parse):
         open country to region dictionary
         '''
         try:
-            reader = csv.DictReader(open("vdb/source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
+            reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
         except:
             raise Exception("Couldn't find geo regions file")
         self.country_to_region = {}
@@ -390,5 +390,5 @@ if __name__=="__main__":
     setattr(args, 'fasta_fields', fasta_fields)
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connVDB = vdb_upload(**args.__dict__)
+    connVDB = upload(**args.__dict__)
     connVDB.upload(**args.__dict__)

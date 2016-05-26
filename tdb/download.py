@@ -1,4 +1,4 @@
-import os, json, datetime
+import os, json, datetime, sys
 import rethinkdb as r
 from Bio import SeqIO
 sys.path.append('')  # need to import from base
@@ -16,7 +16,7 @@ parser.add_argument('--fstem', default=None, help="default output file name is \
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
-class tdb_download(object):
+class download(object):
     def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
@@ -126,5 +126,5 @@ if __name__=="__main__":
         args.fstem = args.virus + '_' + current_date
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connTDB = tdb_download(**args.__dict__)
+    connTDB = download(**args.__dict__)
     connTDB.download(**args.__dict__)

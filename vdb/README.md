@@ -71,19 +71,19 @@ Command line arguments to run vdb_upload:
 
 Upload flu sequences from GISAID:
 
-    python vdb/src/Flu_vdb_upload.py -db test_vdb -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
+    python vdb/Flu_upload.py -db test_vdb -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
 
 Upload Zika sequences from VIPR:
 
-    python vdb/src/Zika_vdb_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome
+    python vdb/Zika_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome
     
 Upload via accession file:
 
-	python vdb/src/Zika_vdb_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome
+	python vdb/Zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome
 
 Upload via accession list:
 
-	python vdb/src/Zika_vdb_upload.py --database test --virus zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/Zika_upload.py --database test --virus zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 Sequences can be downloaded from vdb.
@@ -109,9 +109,9 @@ Command line arguments to run vdb_download:
 
 Download sequences for `Zika_process.py`:
 
-    python vdb/src/vdb_download.py -db vdb -v Zika --fstem zika
+    python vdb/download.py -db vdb -v Zika --fstem zika
     
-    python vdb/src/vdb_download.py -db test -v Zika --ftype json --countries Brazil Haiti --public_only
+    python vdb/download.py -db test -v Zika --ftype json --countries Brazil Haiti --public_only
 
 ## Updating
 Sequences in vdb can be automatically updated
@@ -122,9 +122,9 @@ Sequences in vdb can be automatically updated
 
 ### Examples:
 
-	python vdb/src/vdb_update.py -db test -v zika
+	python vdb/update.py -db test -v zika
 	
-	python vdb/src/vdb_update.py -db test -v zika --accessions KU501216,KU501217
+	python vdb/update.py -db test -v zika --accessions KU501216,KU501217
 	
 ## Backup
 VDB tables can be backed up to S3 or to a local source
@@ -135,47 +135,47 @@ VDB tables can be backed up to S3 or to a local source
 
 Backup `test_vdb.zika` to s3 backup file
 	
-	python vdb/src/vdb_interact.py -db test_vdb --backup --s3
+	python vdb/backup.py -db test_vdb --backup --s3
 
 Restore `test_vdb.zika` to 2016-05-25 from s3 backup file
 	
-	python vdb/src/vdb_interact.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --s3
+	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --s3
 
 Backup `test_vdb.zika` to local backup file
 	
-	python vdb/src/vdb_interact.py -db test_vdb --backup --local
+	python vdb/backup.py -db test_vdb --backup --local
 
 Restore `test_vdb.zika` to 2016-05-25 from local backup file
 	
-	python vdb/src/vdb_interact.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --local
+	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --local
 
 Backup `test_vdb.zika` to s3 backup file everyday	
 	
-	python vdb/src/vdb_backup.py -db test_vdb --continuous_backup --s3
+	python vdb/backup.py -db test_vdb --continuous_backup --s3
 	
-## Copy
-VDB tables can be copied into other tables and/or other databases
+## Move
+VDB documents can be moved into other tables and/or other databases
 
 ### Examples
 	
-Copy `vdb.zika` to `test.zika`
+Move `vdb.zika` documents to `test.zika`
 
-	python vdb/src/vdb_copy.py --copy -edb vdb -ev zika -idb test -iv zika
+	python vdb/move.py --move -edb vdb -ev zika -idb test_vdb -iv zika
 	
-Copy `vdb.Zika` to `vdb.zika`
+Move `vdb.Zika` documents to `vdb.zika`
 	
-	python vdb/src/vdb_copy.py --copy -edb vdb -ev Zika -idb vdb -iv zika
+	python vdb/move.py --move -edb vdb -ev Zika -idb vdb -iv zika
 
 ## Sync
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance
 
 Add local rethinkdb vdb.zika documents to external vdb.zika rethinkdb table
 
-	python vdb/src/vdb_sync.py --sync_from_local -edb vdb -ev zika -idb vdb -iv zika
+	python vdb/sync.py --sync_from_local -edb vdb -ev zika -idb vdb -iv zika
 	
 Add external rethinkdb test_vdb.zika documents to local vdb.zika rethinkdb table
 
-	python vdb/src/vdb_sync.py --sync_to_local -edb test_vdb -ev zika -idb vdb -iv zika
+	python vdb/sync.py --sync_to_local -edb test_vdb -ev zika -idb vdb -iv zika
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)

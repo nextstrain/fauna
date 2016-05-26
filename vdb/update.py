@@ -1,13 +1,13 @@
 import rethinkdb as r
-from vdb_upload import vdb_upload
-from vdb_upload import parser
-from vdb_parse import vdb_parse
+from upload import upload
+from upload import parser
+from parse import parse
 import re
 
-class vdb_update(vdb_upload):
+class update(upload):
     def __init__(self, **kwargs):
-        vdb_upload.__init__(self, **kwargs)
-        vdb_parse.__init__(self, **kwargs)
+        upload.__init__(self, **kwargs)
+        parse.__init__(self, **kwargs)
         self.updateable_citation_fields = ['authors', 'title', 'url']
         self.updateable_sequence_fields = ['sequence']
 
@@ -79,6 +79,5 @@ class vdb_update(vdb_upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    connVDB = vdb_update(**args.__dict__)
+    connVDB = update(**args.__dict__)
     connVDB.update(**args.__dict__)
-    #connVDB.add_attribute()

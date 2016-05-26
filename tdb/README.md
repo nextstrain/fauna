@@ -42,15 +42,15 @@ Command line arguments to run tdb_upload:
 
 Test parsing of HI tables without actually uploading to database:
 
-    python tdb/src/tdb_upload.py -db tdb -v h1n1pdm
+    python tdb/upload.py -db tdb -v h1n1pdm
 
 Upload measurements to database:
 
-    python tdb/src/tdb_upload.py -db tdb -v h1n1pdm --upload
+    python tdb/upload.py -db tdb -v h1n1pdm --upload
 
 Replace all measurements in table before uploading:
 
-    python tdb/src/tdb_upload.py -db tdb -v h1n1pdm --upload --replace
+    python tdb/upload.py -db tdb -v h1n1pdm --upload --replace
 
 ### HI Table Troubleshooting
 
@@ -91,7 +91,7 @@ Command line arguments to run vdb_download:
 
 Download all H1N1pdm titers:
 
-    python tdb/src/tdb_download.py -db tdb -v h1n1pdm
+    python tdb/download.py -db tdb -v h1n1pdm
 
 ## Accessing the Database
 All titer measurements are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)

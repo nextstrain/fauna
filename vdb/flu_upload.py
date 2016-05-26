@@ -3,16 +3,15 @@ import numpy as np
 import rethinkdb as r
 from Bio import SeqIO
 from Bio import AlignIO
-from vdb_upload import vdb_upload
-from vdb_upload import parser
+from upload import upload
+from upload import parser
 
 parser.add_argument('--vtype', default=None, help="type of virus, if applicable")
 parser.add_argument('--subtype', default=None, help="subtype of virus")
 parser.add_argument('--lineage', default=None, help="lineage of virus")
-class Flu_vdb_upload(vdb_upload):
-
+class flu_upload(upload):
     def __init__(self, **kwargs):
-        vdb_upload.__init__(self, **kwargs)
+        upload.__init__(self, **kwargs)
         self.grouping_upload_fields = ['vtype', 'subtype', 'lineage']
 
         # patterns from the subtype and lineage fields in the GISAID fasta file
@@ -26,7 +25,7 @@ class Flu_vdb_upload(vdb_upload):
                     ('a / h5n1', ''): ('a', 'h5n1', 'undetermined'),
                     ('a / h6n1', ''): ('a', 'h6n1', 'undetermined'),
                     ('a / h5n6', ''): ('a', 'h5n6', 'undetermined')}
-        self.outgroups = {lineage: SeqIO.read('vdb/source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
+        self.outgroups = {lineage: SeqIO.read('source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
         self.outgroup_patterns = {'H3N2': ('a', 'h3n2', ''),
                                   'H1N1pdm': ('a', 'h1n1', 'pdm09'),
                                   'Vic': ('b', 'undetermined', 'victoria'),
@@ -75,7 +74,7 @@ class Flu_vdb_upload(vdb_upload):
         open synonym to country dictionary
         Location is to the level of country of administrative division when available
         '''
-        reader = csv.DictReader(open("vdb/source-data/geo_synonyms.tsv"), delimiter='\t')		# list of dicts
+        reader = csv.DictReader(open("source-data/geo_synonyms.tsv"), delimiter='\t')		# list of dicts
         self.label_to_country = {}
         for line in reader:
             self.label_to_country[line['label'].lower()] = line['country'].lower()
@@ -167,5 +166,5 @@ if __name__=="__main__":
         args.path = "vdb/data/" + args.virus + "/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connVDB = Flu_vdb_upload(**args.__dict__)
+    connVDB = flu_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)

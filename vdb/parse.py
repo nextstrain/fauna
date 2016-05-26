@@ -3,7 +3,7 @@ from Bio import SeqIO
 from Bio import Entrez
 import requests
 
-class vdb_parse(object):
+class parse(object):
     def __init__(self, **kwargs):
         if 'fasta_fields' in kwargs:
             self.fasta_fields = kwargs['fasta_fields']

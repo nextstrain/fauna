@@ -144,7 +144,7 @@ class rethink_interact(object):
         days_since = (cdate-fdate).days
         return days_since >= days
 
-    def copy(self, export_database, export_table, pkey, **kwargs):
+    def move(self, export_database, export_table, pkey, **kwargs):
         '''
         make copy of input database table and import into another database table
         '''
