@@ -14,7 +14,7 @@ To install Python bindings, run:
 
     pip install rethinkdb==2.2.0.post2
 
-To install Chateau Web UI, from the base directory of `nextstrain-db/`, run:
+To install Chateau Web UI and Rethinkdb, from the base directory of `nextstrain-db/`, run:
 
     sudo npm install -g
 

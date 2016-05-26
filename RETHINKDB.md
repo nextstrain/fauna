@@ -90,4 +90,5 @@ r.db(database).table(table).get(index).run()
 
 ### More Information about Rethinkdb
 [Ten-minute guide with RethinkDB and Python](https://www.rethinkdb.com/docs/guide/python/)
+
 [Python ReQL command reference](https://www.rethinkdb.com/api/python/)

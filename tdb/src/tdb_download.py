@@ -42,7 +42,8 @@ class tdb_download(object):
             except:
                 raise Exception("Missing rethink auth_key")
         self.rethink_io = rethink_io()
-        self.rethink_io.connect_rethink(self.database, self.virus, self.auth_key, self.rethink_host)
+        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
+        self.rethink_io.check_table_exists(self.database, self.virus)
         self.measurements = []
 
     def count_documents(self):

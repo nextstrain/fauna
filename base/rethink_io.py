@@ -5,7 +5,7 @@ class rethink_io(object):
     def __init__(self, **kwargs):
         pass
 
-    def connect_rethink(self, database, table, auth_key, rethink_host='localhost', **kwargs):
+    def connect_rethink(self, database, auth_key, rethink_host='localhost', **kwargs):
         '''
         Connect to rethink database,
         Check for existing table
@@ -23,10 +23,10 @@ class rethink_io(object):
             except:
                 raise Exception("Failed to connect to the database, " +database)
 
+    def check_table_exists(self, database, table):
         existing_tables = r.db(database).table_list().run()
         if table not in existing_tables:
             raise Exception("No table exists yet for " + table + " available are " + str(existing_tables))
-
 
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
