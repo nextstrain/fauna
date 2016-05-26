@@ -17,7 +17,7 @@ parser.add_argument('--locus', default=None, help="gene or genomic region for se
 parser.add_argument('--host', default='human', help="host virus isolated from")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
-parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
@@ -388,8 +388,6 @@ if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = {0:'accession', 1:'strain', 2:'date', 4:'country', 5:'division', 6:'location'}
     setattr(args, 'fasta_fields', fasta_fields)
-    if args.path is None:
-        args.path = "vdb/data/" + args.virus + "/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connVDB = vdb_upload(**args.__dict__)
