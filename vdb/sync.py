@@ -53,7 +53,7 @@ class sync(object):
         del kwargs['auth_key']
         kwargs['export_table'] = export_virus
         kwargs['import_table'] = import_virus
-        self.rethink_interact.sync_from_local(self.rethink_host, self.auth_key, pkey='strain', **kwargs)
+        self.rethink_interact.sync_to_local(self.rethink_host, self.auth_key, pkey='strain', **kwargs)
 
 if __name__=="__main__":
     args = parser.parse_args()

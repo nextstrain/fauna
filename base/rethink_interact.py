@@ -194,7 +194,9 @@ class rethink_interact(object):
         print("Syncing local " + export_database+'.'+export_table + " table to external database")
         backup_directory = 'sync_from_local'
         json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
+        print("Exporting documents from the local rethinkdb instance")
         self.export_json('localhost', None, backup_directory, export_database, export_table, **kwargs)
+        print("Importing documents into the external rethinkdb instance")
         self.import_json(rethink_host, auth_key, backup_directory, json_file, pkey=pkey, **kwargs)
 
     def sync_to_local(self, rethink_host, auth_key, export_database, export_table, pkey, **kwargs):
@@ -205,5 +207,7 @@ class rethink_interact(object):
         print("Syncing external " + export_database+'.'+export_table + " table to local database")
         backup_directory = 'sync_to_local'
         json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
+        print("Exporting documents from the external rethinkdb instance")
         self.export_json(rethink_host, auth_key, backup_directory, export_database, export_table, **kwargs)
+        print("Importing documents into the local rethinkdb instance")
         self.import_json('localhost', None, backup_directory, json_file, pkey=pkey, **kwargs)
