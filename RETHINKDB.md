@@ -24,7 +24,7 @@ visualization and editing of the database.
 The first thing you need to do to start using rethinkdb is [start a rethinkdb server](https://rethinkdb.com/docs/start-a-server/).
 This can be done by just running `rethinkdb` in the terminal. The server can be hosted locally
 or in the cloud (like on [AWS](https://rethinkdb.com/docs/paas/#deploying-on-aws)). If hosted
-locally, data will be saved after stopping the server and loaded when rebooting the server.
+locally, data will be saved after stopping the server and loaded when rebooting the server, but you must run `rehtinkdb` from the same directory.
 
 ### Import rethinkdb driver
 ```
