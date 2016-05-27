@@ -166,13 +166,13 @@ Append `vdb.zika` documents to `test_vdb.zika`
 ## Sync
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance
 
-Add local rethinkdb vdb.zika documents to external vdb.zika rethinkdb table
-
-	python vdb/sync.py --sync_from_local -edb vdb -ev zika -idb vdb -iv zika
+Push local rethinkdb test_vdb.zika documents to remote vdb.zika rethinkdb table
 	
-Add external rethinkdb test_vdb.zika documents to local vdb.zika rethinkdb table
+	python vdb/sync.py --push --local_table test_vdb.zika --remote_table test_vdb.zika	
 
-	python vdb/sync.py --sync_to_local -edb test_vdb -ev zika -idb vdb -iv zika
+Pull remote rethinkdb test_vdb.zika documents to local test_vdb.zika rethinkdb table
+
+	python vdb/sync.py --pull --local_table test_vdb.zika --remote_table test_vdb.zika
 
 ## Accessing the Database
 All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
