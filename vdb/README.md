@@ -126,10 +126,11 @@ Sequences in vdb can be automatically updated
 	
 	python vdb/update.py -db test -v zika --accessions KU501216,KU501217
 	
-## Backup
+## Backup and Restore
 VDB tables can be backed up to S3 or to a local source
 * Can be run manually or continuously everyday
 * Deletes old backups after a certain length (default is 50 days)
+* Restoration keeps current documents in database
 
 ### Examples
 
@@ -153,18 +154,14 @@ Backup `test_vdb.zika` to s3 backup file everyday
 	
 	python vdb/backup.py -db test_vdb --continuous_backup --s3
 	
-## Move
-VDB documents can be moved into other tables and/or other databases
+## Append
+VDB documents can be appended to other tables
 
 ### Examples
 	
-Move `vdb.zika` documents to `test.zika`
+Append `vdb.zika` documents to `test_vdb.zika`
 
-	python vdb/move.py --move -edb vdb -ev zika -idb test_vdb -iv zika
-	
-Move `vdb.Zika` documents to `vdb.zika`
-	
-	python vdb/move.py --move -edb vdb -ev Zika -idb vdb -iv zika
+	python vdb/append.py --from_table vdb.zika --to_table test_vdb.zika
 
 ## Sync
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance
