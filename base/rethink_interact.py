@@ -144,16 +144,27 @@ class rethink_interact(object):
         days_since = (cdate-fdate).days
         return days_since >= days
 
-    def move(self, export_database, export_table, pkey, **kwargs):
+    def append(self, from_table, to_table, pkey, **kwargs):
         '''
         make copy of input database table and import into another database table
         '''
+        export_database, export_table = self.parse_database_table(from_table)
+        import_database, import_table = self.parse_database_table(to_table)
         backup_directory = 'rethindb_export_' + export_database + '_' + export_table
         json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
-        self.export_json(backup_directory=backup_directory, export_database=export_database, export_table=export_table, **kwargs)
-        self.import_json(backup_directory=backup_directory, json_file=json_file, export_database=export_database, export_table=export_table, pkey=pkey, **kwargs)
+        self.export_json(backup_directory, export_database, export_table, **kwargs)
+        self.import_json(backup_directory, json_file, import_database, import_table, pkey, **kwargs)
 
-    def export_json(self, rethink_host, auth_key, backup_directory, export_database, export_table, **kwargs):
+    def parse_database_table(self, database_table):
+        '''
+        Parse the name of the database and table, return as tuple (database, table)
+        '''
+        database_table_split = database_table.split('.')
+        if len(database_table_split) != 2:
+            raise Exception('Name of database and table should be formatted as \'database.table\'')
+        return database_table_split[0].strip().lower(), database_table_split[1].strip().lower()
+
+    def export_json(self, backup_directory, export_database, export_table, rethink_host, auth_key, **kwargs):
         '''
         export export_database.export_table to backup_file
         '''
@@ -170,7 +181,7 @@ class rethink_interact(object):
         except:
             raise Exception("Couldn't export " + export_database + '.' + export_table + " to " + backup_directory)
 
-    def import_json(self, rethink_host, auth_key, backup_directory, json_file, import_database, import_table, pkey, **kwargs):
+    def import_json(self, backup_directory, json_file, import_database, import_table, pkey, rethink_host, auth_key, **kwargs):
         '''
         import the exported table into self.import_database from self.backup_file
         '''
