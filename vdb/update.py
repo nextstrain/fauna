@@ -7,7 +7,6 @@ import re
 class update(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        parse.__init__(self, **kwargs)
         self.updateable_citation_fields = ['authors', 'title', 'url']
         self.updateable_sequence_fields = ['sequence']
 

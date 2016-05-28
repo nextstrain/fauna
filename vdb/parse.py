@@ -10,6 +10,7 @@ class parse(object):
         if 'accessions' in kwargs:
             self.accessions = kwargs['accessions']
         self.gbdb = "nuccore"
+        self.entrez_email(**kwargs)
 
     def entrez_email(self, **kwargs):
         #define email for entrez login
@@ -145,10 +146,9 @@ class parse(object):
         Use entrez esearch to get genbank identifiers from accession numbers
         '''
         retmax = 10**9
-
-        query = " ".join(accessions)
+        query = accessions.replace(',', ' ')
         handle = Entrez.esearch(db=self.gbdb, term=query, retmax=retmax)
-        giList = Entrez.read(handle)['IdList']
+        giList = Entrez.read(handle)
         return giList
 
     def get_entrez_viruses(self, giList, **kwargs):
