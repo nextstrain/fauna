@@ -25,15 +25,12 @@ class parse(object):
     def parse(self, path, fname, ftype, **kwargs):
         if self.accessions is not None:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
-            self.entrez_email(**kwargs)
             gi = self.get_GIs(accessions)
             self.viruses = self.get_entrez_viruses(gi, **kwargs)
         elif ftype is not None and fname is not None:
             if ftype == 'genbank':
-                self.entrez_email(**kwargs)
                 self.viruses = self.parse_gb_file(path + fname, **kwargs)
             elif ftype == 'accession':
-                self.entrez_email(**kwargs)
                 accessions = self.parse_accession_file(path + fname, **kwargs)
                 gi = self.get_GIs(accessions)
                 self.viruses = self.get_entrez_viruses(gi, **kwargs)
@@ -75,23 +72,6 @@ class parse(object):
                 pass
             elif v[field] is not None and isinstance(v[field], str):
                 v[field] = v[field] = v[field].lower().replace(' ', '_')
-
-    def auto_gb_upload(self):
-        '''
-
-        :return:
-        '''
-        retmax = 10**9
-        organism = "\"Zika virus\"[porgn]"
-        start_date = "2015/01/01"
-        end_date = self.get_upload_date()
-        modification_date = "(\"" + start_date + "\"[MDAT] : \"" + end_date + "\"[MDAT])"
-        minimum_length = 10000
-        sequence_length = "(\"" + str(minimum_length) + "\"[SLEN] : \"" + str(minimum_length**2) + "\"[SLEN])"
-        query = " AND ".join([organism, modification_date, sequence_length])
-        handle = Entrez.esearch(db=self.gbdb, term=query, retmax=retmax)
-        giList = Entrez.read(handle)['IdList']
-        return giList
 
     def parse_fasta_file(self, fasta, **kwargs):
         '''
@@ -141,14 +121,14 @@ class parse(object):
                 accessions.append(acc.strip())
             return accessions
 
-    def get_GIs(self, accessions):
+    def get_GIs(self, accessions, **kwargs):
         '''
         Use entrez esearch to get genbank identifiers from accession numbers
         '''
         retmax = 10**9
-        query = accessions.replace(',', ' ')
+        query = " ".join(accessions)
         handle = Entrez.esearch(db=self.gbdb, term=query, retmax=retmax)
-        giList = Entrez.read(handle)
+        giList = Entrez.read(handle)['IdList']
         return giList
 
     def get_entrez_viruses(self, giList, **kwargs):

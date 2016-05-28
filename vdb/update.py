@@ -12,8 +12,10 @@ class update(upload):
 
     def update(self, **kwargs):
         if self.accessions is None:
-            self.accessions = self.get_accessions()
-        gi = self.get_GIs(self.accessions)
+            accessions = self.get_accessions()
+        else:
+            accessions = [acc.strip() for acc in self.accessions.split(",")]
+        gi = self.get_GIs(accessions)
         self.viruses = self.get_entrez_viruses(gi, **kwargs)
         self.format()
         self.format_schema()
@@ -26,8 +28,9 @@ class update(upload):
         for doc in cursor:
             index = 0
             for seq in doc['citations']:
-                if seq['source'] == 'genbank':
-                    accessions.append(doc['sequences'][index]['accession'])
+                if 'source' in seq:
+                    if seq['source'].lower() == 'genbank' or seq['source'].lower() == 'vipr':
+                        accessions.append(doc['sequences'][index]['accession'])
                 index += 1
         return accessions
 
