@@ -27,7 +27,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `Flu`, `Ebola`, `Zika`.
 * `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
 * `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
-* `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28`.
+* `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-xx` if day ambiguous.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
 * `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
@@ -53,7 +53,7 @@ Viruses with null values for required attributes will be filtered out of those u
 ### Commands
 Command line arguments to run vdb_upload:
 * -db --database default='vdb', help=database to upload to. Ex 'vdb', 'test'
-* -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
+* -v --virus help=virus table to interact with. Ex 'zika', 'zlu'
 * --fname help=input file name
 * --ftype help=input file type, fasta, genbank or accession
 * --accessions help=comma separated list of accessions numbers to upload
@@ -75,15 +75,15 @@ Upload flu sequences from GISAID:
 
 Upload Zika sequences from VIPR:
 
-    python vdb/zika_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome
+    python vdb/zika_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source genbank --locus genome
     
 Upload via accession file:
 
-	python vdb/zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome
+	python vdb/zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source genbank --locus genome
 
 Upload via accession list:
 
-	python vdb/zika_upload.py --database test --virus zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/zika_upload.py --database test --virus zika --source genbank --locus genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 Sequences can be downloaded from vdb.

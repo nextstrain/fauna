@@ -115,17 +115,17 @@ class upload(parse):
         # ex. 2002_04_25 to 2002-04-25
         virus['date'] = re.sub(r'_', r'-', virus['date'])
         # ex. 2002 (Month and day unknown)
-        if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
-            pass
+        if re.match(r'\d\d\d\d-(\d\d|XX|xx)-(\d\d|XX|xx)', virus['date']):
+            virus['date'] = virus['date'].lower()
         elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
-            virus['date'] = virus['date'][0:4] + "-XX-XX"
+            virus['date'] = virus['date'][0:4] + "-xx-xx"
         # ex. 2009-06 (Day unknown)
         elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
-            virus['date'] = virus['date'][0:7] + "-XX"
+            virus['date'] = virus['date'][0:7] + "-xx"
         elif re.match(r'\d\d\d\d-\d\d', virus['date']):
-            virus['date'] = virus['date'][0:7] + "-XX"
+            virus['date'] = virus['date'][0:7] + "-xx"
         elif re.match(r'\d\d\d\d', virus['date']):
-            virus['date'] = virus['date'][0:4] + "-XX-XX"
+            virus['date'] = virus['date'][0:4] + "-xx-xx"
         else:
             print("Couldn't reformat this date: " + virus['date'])
 
@@ -177,7 +177,7 @@ class upload(parse):
         '''
         print(str(len(self.viruses)) + " viruses before filtering")
         self.rethink_io.check_optional_attributes(self.viruses, self.optional_fields)
-        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
+        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|xx)-(\d\d|xx)', v['date']), self.viruses)
         self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
         self.viruses = filter(lambda v: v['region'] is not None, self.viruses)
         self.viruses = filter(lambda v: self.rethink_io.check_required_attributes(v, self.upload_fields, self.index_field), self.viruses)

@@ -70,7 +70,7 @@ class parse(object):
         force lower case on fields besides strain, title, authors
         '''
         for field in v:
-            if field in ['strain', 'title', 'authors']:
+            if field in ['strain', 'title', 'authors', 'accession']:
                 pass
             elif v[field] is not None and isinstance(v[field], str):
                 v[field] = v[field] = v[field].lower().replace(' ', '_')
