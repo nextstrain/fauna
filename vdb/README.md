@@ -71,19 +71,19 @@ Command line arguments to run vdb_upload:
 
 Upload flu sequences from GISAID:
 
-    python vdb/Flu_upload.py -db test_vdb -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
+    python vdb/flu_upload.py -db test_vdb -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
 
 Upload Zika sequences from VIPR:
 
-    python vdb/Zika_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome
+    python vdb/zika_upload.py --database vdb --virus zika --fname GenomeFastaResults.fasta --source Genbank --locus Genome
     
 Upload via accession file:
 
-	python vdb/Zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome
+	python vdb/zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source Genbank --locus Genome
 
 Upload via accession list:
 
-	python vdb/Zika_upload.py --database test --virus zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/zika_upload.py --database test --virus zika --source Genbank --locus Genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 Sequences can be downloaded from vdb.

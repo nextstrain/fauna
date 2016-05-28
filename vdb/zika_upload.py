@@ -10,8 +10,12 @@ class zika_upload(upload):
         self.grouping_optional_fields = ['lineage']
 
     def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
+        tmp_name = name
+        tmp_name = tmp_name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('Homo_sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
         tmp_name = tmp_name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
+        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zika', '').replace('ZIKV', '')
+        tmp_name = tmp_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
+        tmp_name = re.sub('^/', '', tmp_name)
         try:
             tmp_name = 'V' + str(int(tmp_name))
         except:
