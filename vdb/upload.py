@@ -148,7 +148,7 @@ class upload(parse):
             raise Exception("Couldn't find geo regions file")
         self.country_to_region = {}
         for line in reader:
-            self.country_to_region[self.camelcase_to_snakecase(line['country'])] = line['region'].lower()
+            self.country_to_region[line['country']] = line['region']
 
     def format_region(self, virus):
         '''
