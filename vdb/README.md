@@ -136,23 +136,23 @@ VDB tables can be backed up to S3 or to a local source
 
 Backup `test_vdb.zika` to s3 backup file
 	
-	python vdb/backup.py -db test_vdb --backup --s3
+	python vdb/backup.py -db test_vdb --backup --backup_s3
 
 Restore `test_vdb.zika` to 2016-05-25 from s3 backup file
 	
-	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --s3
+	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --backup_s3
 
 Backup `test_vdb.zika` to local backup file
 	
-	python vdb/backup.py -db test_vdb --backup --local
+	python vdb/backup.py -db test_vdb --backup --backup_local
 
 Restore `test_vdb.zika` to 2016-05-25 from local backup file
 	
-	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --local
+	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --backup_local
 
 Backup `test_vdb.zika` to s3 backup file everyday	
 	
-	python vdb/backup.py -db test_vdb --continuous_backup --s3
+	python vdb/backup.py -db test_vdb --continuous_backup --backup_s3
 	
 ## Append
 VDB documents can be appended to other tables

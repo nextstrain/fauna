@@ -95,18 +95,18 @@ class rethink_interact(object):
         else:
             raise Exception("define arguments \'--restore_table\' and \'--restore_date\'")
 
-    def get_file(self, s3, local, fname, path='', **kwargs):
+    def get_file(self, backup_s3, backup_local, fname, path='', **kwargs):
         '''
         Download file from s3 to current directory
         '''
-        if s3:
+        if backup_s3:
             bucket = self.connect_S3(**kwargs)
             existing_files = [str(object.key) for object in bucket.objects.all()]
             if fname in existing_files:
                 bucket.download_file(fname, fname)
             else:
                 raise Exception("Specified file could not be found in s3 bucket", fname)
-        elif local:
+        elif backup_local:
             shutil.copy(path+'/'+fname, fname, )
             if not os.path.isfile(path+'/'+fname):
                 raise Exception("Couldn't find backup file at specified location", fname)
