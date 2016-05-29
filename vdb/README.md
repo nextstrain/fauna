@@ -5,7 +5,7 @@ The virus database (VDB) is used to store viral information in an organized sche
 Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently
 * Uploads from an input file
 	* FASTA
-		* Reads fasta description in this order for Zika\_vdb\_upload (0:`accession`, 2:`strain`, 4:`date`, 6:`country`)
+		* Reads fasta description in this order for `zika_upload` (0:`accession`, 2:`strain`, 4:`date`, 6:`country`)
 		* Reading order can easily be changed in source code for different viruses or files
 	* Genbank
 		* Can include multiple genbank entries
@@ -24,7 +24,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 ## Schema
 
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
-* `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `Flu`, `Ebola`, `Zika`.
+* `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
 * `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
 * `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
 * `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-xx` if day ambiguous.
@@ -96,7 +96,7 @@ Sequences can be downloaded from vdb.
 ###Commands
 Command line arguments to run vdb_download:
 * -db --database default='vdb', help=database to download from. Ex 'vdb', 'test'
-* -v --virus help=virus table to interact with. Ex 'Zika', 'Flu'
+* -v --virus help=virus table to interact with. Ex 'zika', 'flu'
 * --path help=path to dump output files to, default is data/
 * --ftype help=output file format, default is 'fasta', other option is 'json'
 * --fstem help=output file stem name, default is VirusName\_Year\_Month\_Date
@@ -109,9 +109,9 @@ Command line arguments to run vdb_download:
 
 Download sequences for `Zika_process.py`:
 
-    python vdb/download.py -db vdb -v Zika --fstem zika
+    python vdb/download.py -db vdb -v zika --fstem zika
     
-    python vdb/download.py -db test -v Zika --ftype json --countries Brazil Haiti --public_only
+    python vdb/download.py -db test -v zika --ftype json --countries Brazil Haiti --public_only
 
 ## Updating
 Sequences in vdb can be automatically updated
