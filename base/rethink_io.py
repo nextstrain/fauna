@@ -1,29 +1,55 @@
 import rethinkdb as r
-import datetime
+import datetime, os
 
 class rethink_io(object):
     def __init__(self, **kwargs):
         pass
 
-    def connect_rethink(self, database, auth_key, rethink_host='localhost', **kwargs):
+    def assign_rethink(self, rethink_host, auth_key, local=False, **kwargs):
         '''
-        Connect to rethink database,
-        Check for existing table
+        Assign rethink_host, auth_key, return as tuple
         '''
-        if auth_key is None:
-            try:
-                r.connect(host=rethink_host, port=28015, db=database).repl()
-                print("Connected to the \"" + database + "\" database")
-            except:
-                raise Exception("Failed to connect to the database, " + database)
+        if local:
+            rethink_host = 'localhost'
+        elif rethink_host is not None:
+            rethink_host=rethink_host
         else:
             try:
-                r.connect(host=rethink_host, port=28015, db=database, auth_key=auth_key).repl()
-                print("Connected to the \"" + database + "\" database")
+                rethink_host = os.environ['RETHINK_HOST']
             except:
-                raise Exception("Failed to connect to the database, " +database)
+                raise Exception("Missing rethink host")
+        if local:
+            auth_key = None
+        elif auth_key is not None:
+            auth_key = auth_key
+        else:
+            try:
+                auth_key = os.environ['RETHINK_AUTH_KEY']
+            except:
+                raise Exception("Missing rethink auth_key")
+        return rethink_host, auth_key
+
+    def connect_rethink(self, db, rethink_host='localhost', auth_key=None, **kwargs):
+        '''
+        Connect to rethink database,
+        '''
+        if rethink_host == 'localhost':
+            try:
+                r.connect(host=rethink_host, port=28015, db=db).repl()
+                print("Connected to the \"" + db + "\" database")
+            except:
+                raise Exception("Failed to connect to the database, " + db)
+        else:
+            try:
+                r.connect(host=rethink_host, port=28015, db=db, auth_key=auth_key).repl()
+                print("Connected to the \"" + db + "\" database")
+            except:
+                raise Exception("Failed to connect to the database, " + db)
 
     def check_table_exists(self, database, table):
+        '''
+        Check for existing table
+        '''
         existing_tables = r.db(database).table_list().run()
         if table not in existing_tables:
             raise Exception("No table exists yet for " + table + " available are " + str(existing_tables))

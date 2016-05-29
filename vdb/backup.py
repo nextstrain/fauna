@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to make backup of")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
 parser.add_argument('--backup', default=False, action="store_true", help="backup database")
 parser.add_argument('--continuous_backup', default=False, action="store_true",  help="continuously backup database to S3")
 parser.add_argument('--s3', default=False, action="store_true", help="backup database to s3")
@@ -21,31 +22,15 @@ parser.add_argument('--restore_table', default=None, help="table to restore")
 parser.add_argument('--restore_date', default=None, help="date to restore table to, format as \'YYYY-MM-DD\'")
 
 class backup(object):
-    def __init__(self, database, rethink_host=None, auth_key=None, **kwargs):
+    def __init__(self, database, **kwargs):
         self.upload_hour = 3
         self.database = database.lower()
         if 'database' in kwargs:
             kwargs['database'] = self.database
 
-        if rethink_host is None:
-            try:
-                self.rethink_host = os.environ['RETHINK_HOST']
-            except:
-                raise Exception("Missing rethink host")
-        else:
-            self.rethink_host = rethink_host
-        if self.rethink_host == "localhost":
-            self.auth_key = None
-        elif auth_key is not None:
-            self.auth_key = auth_key
-        else:
-            try:
-                self.auth_key = os.environ['RETHINK_AUTH_KEY']
-            except:
-                raise Exception("Missing rethink auth_key")
-
         self.rethink_io = rethink_io()
-        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
+        self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
+        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
         self.rethink_interact = rethink_interact()
 
     def backup(self, s3, local, **kwargs):

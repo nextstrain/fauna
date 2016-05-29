@@ -20,6 +20,7 @@ parser.add_argument('--private', default=False, action="store_true",  help ="seq
 parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
 parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
@@ -27,31 +28,16 @@ parser.add_argument('--email', default=None, help="email to access NCBI database
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
 class upload(parse):
-    def __init__(self, database, virus, rethink_host=None, auth_key=None, **kwargs):
+    def __init__(self, database, virus, **kwargs):
         parse.__init__(self, **kwargs)
         self.virus = virus.lower()
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         if self.database not in self.uploadable_databases:
             raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
-        if rethink_host is None:
-            try:
-                self.rethink_host = os.environ['RETHINK_HOST']
-            except:
-                raise Exception("Missing rethink host")
-        else:
-            self.rethink_host = rethink_host
-        if self.rethink_host == "localhost":
-            self.auth_key = None
-        elif auth_key is not None:
-            self.auth_key = auth_key
-        else:
-            try:
-                self.auth_key = os.environ['RETHINK_AUTH_KEY']
-            except:
-                raise Exception("Missing rethink auth_key")
         self.rethink_io = rethink_io()
-        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
+        self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
+        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
         self.rethink_io.check_table_exists(self.database, self.virus)
 
         # fields that are needed to upload
@@ -204,7 +190,7 @@ class upload(parse):
         '''
         Insert viruses into collection
         '''
-        self.rethink_io.connect_rethink(self.database, self.auth_key, self.rethink_host)
+        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
         db_relaxed_strains = self.relaxed_strains()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:

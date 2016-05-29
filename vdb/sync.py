@@ -1,6 +1,7 @@
 import os, argparse, sys
 import rethinkdb as r
 sys.path.append('')  # need to import from base
+from base.rethink_io import rethink_io
 from base.rethink_interact import rethink_interact
 
 parser = argparse.ArgumentParser()
@@ -12,23 +13,9 @@ parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 
 class sync(object):
-    def __init__(self, rethink_host=None, auth_key=None, **kwargs):
-        if rethink_host is None:
-            try:
-                self.rethink_host = os.environ['RETHINK_HOST']
-            except:
-                raise Exception("Missing rethink host")
-        elif rethink_host == "localhost":
-            raise Exception("Need the rethinkhost that is not local")
-        else:
-            self.rethink_host = rethink_host
-        if auth_key is not None:
-            self.auth_key = auth_key
-        else:
-            try:
-                self.auth_key = os.environ['RETHINK_AUTH_KEY']
-            except:
-                raise Exception("Missing rethink auth_key")
+    def __init__(self, **kwargs):
+        self.rethink_io = rethink_io()
+        self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_interact = rethink_interact()
 
     def push(self, **kwargs):
