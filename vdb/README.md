@@ -27,7 +27,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
 * `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
 * `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
-* `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-xx` if day ambiguous.
+* `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
 * `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
