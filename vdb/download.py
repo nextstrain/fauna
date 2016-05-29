@@ -12,7 +12,7 @@ parser.add_argument('-v', '--virus', default='zika', help="virus table to intera
 parser.add_argument('--path', default='data', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
-parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'authors'], help="fasta fields for output fasta")
+parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
