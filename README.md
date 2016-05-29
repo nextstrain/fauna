@@ -41,6 +41,8 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 Chateau configuration is stored in the file [`config.js`](config.js).
 
+To run chateau on `localhost` rethink instance, instead run `chateau -f config_local.js` and go to `http://localhost:3001/` in a browser.
+
 ## License and copyright
 
 Copyright 2016 Trevor Bedford and Charlton Callender.
