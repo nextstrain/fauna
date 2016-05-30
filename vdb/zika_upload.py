@@ -11,9 +11,9 @@ class zika_upload(upload):
 
     def fix_name(self, name):
         tmp_name = name
-        tmp_name = tmp_name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('Homo_sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
+        tmp_name = tmp_name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
         tmp_name = tmp_name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
-        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zika', '').replace('ZIKV', '')
+        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
         tmp_name = tmp_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
         tmp_name = re.sub('^/', '', tmp_name)
         try:
