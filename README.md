@@ -30,6 +30,8 @@ To install Chateau Web UI and Rethinkdb, from the base directory of `nextstrain-
 
     sudo npm install -g
 
+Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/).
+
 ## Chateau
 
 [Chateau](https://github.com/neumino/chateau/) allows easy web access to the database. To run, do the following:
