@@ -1,8 +1,6 @@
 import rethinkdb as r
 from upload import upload
 from upload import parser
-from parse import parse
-import re
 
 class update(upload):
     def __init__(self, **kwargs):
