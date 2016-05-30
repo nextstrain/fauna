@@ -8,6 +8,18 @@ nextstrain is comprised of three components:
 * [augur](https://github.com/blab/nextstrain-augur): informatic pipelines to conduct inferences from raw data
 * [auspice](https://github.com/blab/nextstrain-auspice): web app to visualize resulting inferences
 
+## db
+
+The nextstrain db stores viral sequences and serological data in a [rethink database](RETHINKDB.md). The current database and scripts is designed around influenza and Zika viruses.
+
+### vdb
+
+The [virus database (vdb)](vdb/) is used to store viral information in an organized schema. This allows easy storage and querying of viruses which can be downloaded in formatted fasta or json files.
+
+### tdb
+
+The [titer database (tdb)](tdb/) is used to store titer measurements in an organized schema. This allows easy storage and downloading of all measurements in the database.
+
 ## Install
 
 To install Python bindings, run:
@@ -17,18 +29,6 @@ To install Python bindings, run:
 To install Chateau Web UI and Rethinkdb, from the base directory of `nextstrain-db/`, run:
 
     sudo npm install -g
-
-## db
-
-The nextstrain db stores viral sequences and serological data for (currently) influenza and Zika viruses.
-
-### vdb
-
-The [virus database (vdb)](vdb/) is used to store viral information in an organized schema. This allows easy storage and querying of viruses which can be downloaded in formatted fasta or json files.
-
-### tdb
-
-The [titer database (tdb)](tdb/) is used to store titer measurements in an organized schema. This allows easy storage and downloading of all measurements in the database.
 
 ## Chateau
 
@@ -41,7 +41,7 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 Chateau configuration is stored in the file [`config.js`](config.js).
 
-To run chateau on `localhost` rethink instance, instead run `chateau -f config_local.js` and go to `http://localhost:3001/` in a browser.
+To run chateau on a `localhost` rethink instance, instead run `chateau -f config_local.js` and go to `http://localhost:3001/` in a browser.
 
 ## License and copyright
 
