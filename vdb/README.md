@@ -26,7 +26,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 * `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
 * `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
 * `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
-* `Date_Modified`: Last modification date for virus document in `YYYY-MM-DD` format.
+* `Timestamp`: Last modification date and time for virus document in `YYYY-MM-DD` format.
 * `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
 * `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
 * `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
@@ -45,7 +45,7 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 
 ### Attribute Requirements
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `timestamp`, `public`
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`

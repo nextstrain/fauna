@@ -35,14 +35,16 @@ class rethink_io(object):
         '''
         if rethink_host == 'localhost':
             try:
-                r.connect(host=rethink_host, port=28015, db=db).repl()
+                conn = r.connect(host=rethink_host, port=28015, db=db).repl()
                 print("Connected to the \"" + db + "\" database")
+                return conn
             except:
                 raise Exception("Failed to connect to the database, " + db)
         else:
             try:
-                r.connect(host=rethink_host, port=28015, db=db, auth_key=auth_key).repl()
+                conn = r.connect(host=rethink_host, port=28015, db=db, auth_key=auth_key).repl()
                 print("Connected to the \"" + db + "\" database")
+                return conn
             except:
                 raise Exception("Failed to connect to the database, " + db)
 
@@ -54,8 +56,8 @@ class rethink_io(object):
         if table not in existing_tables:
             raise Exception("No table exists yet for " + table + " available are " + str(existing_tables))
 
-    def get_upload_date(self):
-        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
+    def get_upload_timestamp(self):
+        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d-%H-%M'))
 
     def check_optional_attributes(self, documents, optional_fields):
         '''

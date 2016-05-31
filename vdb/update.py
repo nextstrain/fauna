@@ -49,7 +49,7 @@ class update(upload):
             if document is not None:
                 updated = self.update_sequence_citation_field(document, virus, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields, **kwargs)
                 if updated:
-                    document['date_modified'] = virus['date_modified']
+                    document['timestamp'] = virus['timestamp']
                     r.table(self.virus).insert(document, conflict="replace").run()
 
     def create_citations_field(self):

@@ -25,7 +25,7 @@ class sync(object):
         '''
         kwargs['rethink_host'] = self.rethink_host
         kwargs['auth_key'] = self.auth_key
-        self.rethink_interact.push(pkey='strain', **kwargs)
+        self.rethink_interact.push(**kwargs)
 
     def pull(self, **kwargs):
         '''
@@ -34,7 +34,7 @@ class sync(object):
         '''
         kwargs['rethink_host'] = self.rethink_host
         kwargs['auth_key'] = self.auth_key
-        self.rethink_interact.pull(pkey='strain', **kwargs)
+        self.rethink_interact.pull(**kwargs)
 
 if __name__=="__main__":
     args = parser.parse_args()

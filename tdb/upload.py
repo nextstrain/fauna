@@ -33,7 +33,7 @@ class upload(parse):
         self.rethink_io.check_table_exists(self.database, self.virus)
 
         # fields that are needed to upload
-        self.upload_fields = ['virus', 'serum', 'titer', 'date_modified', 'source', 'ferret_id', 'passage', 'subtype',
+        self.upload_fields = ['virus', 'serum', 'titer', 'timestamp', 'source', 'ferret_id', 'passage', 'subtype',
                               'host'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
@@ -69,7 +69,7 @@ class upload(parse):
             raise Exception("Subtype needs to be defined as a command line argument")
         meas['subtype'] = subtype.lower()
         meas['host'] = host.title()
-        meas['date_modified'] = self.rethink_io.get_upload_date()
+        meas['timestamp'] = self.rethink_io.get_upload_date()
 
     def format(self, **kwargs):
         '''
@@ -332,8 +332,8 @@ class upload(parse):
                     document[field] = meas[field]
                     self.updated = True
         if self.updated:
-            r.table(self.virus).get(meas['index']).update({'date_modified': meas['date_modified']}).run()
-            document['date_modified'] = meas['date_modified']
+            r.table(self.virus).get(meas['index']).update({'timestamp': meas['timestamp']}).run()
+            document['timestamp'] = meas['timestamp']
 
 if __name__=="__main__":
     args = parser.parse_args()

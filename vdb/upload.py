@@ -48,7 +48,7 @@ class upload(parse):
         self.citation_optional_fields = ['authors', 'title', 'url']
         self.grouping_upload_fields = []  # need to define for each virus specific upload script if applicable
         self.grouping_optional_fields = []
-        self.virus_upload_fields = ['strain', 'date', 'country', 'virus', 'date_modified', 'public', 'region', 'host'] # sequences, citations, added after filtering
+        self.virus_upload_fields = ['strain', 'date', 'country', 'virus', 'timestamp', 'public', 'region', 'host'] # sequences, citations, added after filtering
         self.virus_optional_fields = ['division', 'location']
         self.upload_fields = self.virus_upload_fields+self.sequence_upload_fields+self.citation_upload_fields+self.grouping_upload_fields
         self.optional_fields = self.virus_optional_fields+self.sequence_optional_fields+self.citation_optional_fields+self.grouping_optional_fields
@@ -222,7 +222,7 @@ class upload(parse):
                 updated_sequence = self.update_document_sequence(document, v, **kwargs)
                 updated_meta = self.update_document_meta(document, v, self.overwritable_virus_fields, **kwargs)
                 if updated_sequence or updated_meta:
-                    document['date_modified'] = v['date_modified']
+                    document['timestamp'] = v['timestamp']
                     updated.append(document)
             try:
                 r.table(self.virus).insert(updated, conflict="replace").run()
@@ -255,7 +255,7 @@ class upload(parse):
                     updated_sequence = self.update_document_sequence(document, virus, **kwargs)
                     updated_meta = self. update_document_meta(relaxed_name, document, virus, self.overwritable_virus_fields, **kwargs)
                     if updated_sequence or updated_meta:
-                        document['date_modified'] = virus['date_modified']
+                        document['timestamp'] = virus['timestamp']
                         r.table(self.virus).insert(document, conflict="replace").run()
 
     def relaxed_strains(self):

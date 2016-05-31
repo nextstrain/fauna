@@ -1,4 +1,4 @@
-import os, shutil, sys, datetime, re, subprocess
+import os, shutil, sys, datetime, re, subprocess, json
 import rethinkdb as r
 import boto3
 sys.path.append('')  # need to import from base
@@ -144,16 +144,24 @@ class rethink_interact(object):
         days_since = (cdate-fdate).days
         return days_since >= days
 
-    def append(self, from_table, to_table, pkey, **kwargs):
+    def append(self, from_table, to_table, rethink_host, auth_key, **kwargs):
         '''
         make copy of input database table and import into another database table
         '''
         export_database, export_table = self.parse_database_table(from_table)
         import_database, import_table = self.parse_database_table(to_table)
-        backup_directory = 'rethindb_export_' + export_database + '_' + export_table
-        json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
-        self.export_json(backup_directory, export_database, export_table, **kwargs)
-        self.import_json(backup_directory, json_file, import_database, import_table, pkey, **kwargs)
+        directory = 'append'
+        json_file = directory + '/' + export_database + '_' + export_table + '.json'
+
+        conn = self.rethink_io.connect_rethink(export_database, rethink_host, auth_key)
+        self.rethink_io.check_table_exists(export_database, export_table)
+        self.export_json(directory, json_file, export_database, export_table)
+        conn.close()
+
+        conn = self.rethink_io.connect_rethink(import_database, rethink_host, auth_key)
+        self.rethink_io.check_table_exists(import_database, import_table)
+        self.import_json(directory, json_file, import_database, import_table)
+        conn.close()
 
     def parse_database_table(self, database_table):
         '''
@@ -164,63 +172,95 @@ class rethink_interact(object):
             raise Exception('Name of database and table should be formatted as \'database.table\'')
         return database_table_split[0].strip().lower(), database_table_split[1].strip().lower()
 
-    def export_json(self, backup_directory, export_database, export_table, rethink_host, auth_key, **kwargs):
+    def export_json(self, directory, json_file, export_database, export_table, **kwargs):
         '''
         export export_database.export_table to backup_file
         '''
-        print("Exporting database: " + export_database + ", table: " + export_table + ", to directory: " + backup_directory)
-        if os.path.isdir(backup_directory):
-            shutil.rmtree(backup_directory)
-        if rethink_host!='localhost':
-            command = ['rethinkdb', 'export', '-c', rethink_host, '-a', auth_key, '-e', export_database + '.' + export_table, '-d', backup_directory, '--format', 'json']
-        else:
-            command = ['rethinkdb', 'export', '-e', export_database + '.' + export_table, '-d', backup_directory, '--format', 'json']
+        print("Exporting database: " + export_database + ", table: " + export_table + ", to file: " + json_file)
+        if os.path.isdir(directory):
+            shutil.rmtree(directory)
+        os.makedirs(directory)
         try:
-            with open(os.devnull, 'wb') as devnull:
-                subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
+            documents = list(r.db(export_database).table(export_table).run())
+            write_json(documents, json_file)
         except:
-            raise Exception("Couldn't export " + export_database + '.' + export_table + " to " + backup_directory)
+            raise Exception("Couldn't export " + export_database + '.' + export_table + " to " + directory)
 
-    def import_json(self, backup_directory, json_file, import_database, import_table, pkey, rethink_host, auth_key, **kwargs):
+    def import_json(self, directory, json_file, import_database, import_table, **kwargs):
         '''
         import the exported table into self.import_database from self.backup_file
         '''
         print("Importing into database: " + import_database + ", table: " + import_table + ", from file: " + json_file)
-        if rethink_host!='localhost':
-            command = ['rethinkdb', 'import', '-c', rethink_host, '-a', auth_key, '--table', import_database+'.'+import_table, '-f', json_file, '--format', 'json', '--pkey', pkey, '--force']
-        else:
-            command = ['rethinkdb', 'import', '--table', import_database+'.'+import_table, '-f', json_file, '--format', 'json', '--pkey', pkey, '--force']
         try:
-            with open(os.devnull, 'wb') as devnull:
-                subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
-            shutil.rmtree(backup_directory)
+            documents = read_json(json_file)
+            r.table(import_table).insert(documents, conflict=lambda id, old_doc, new_doc: new_doc if new_doc['timestamp'] > old_doc['timestamp'] else old_doc).run()
+            shutil.rmtree(directory)
         except:
-            raise Exception("Couldn't import into " + import_database + '.' + import_table + " from " + backup_directory+'/'+json_file)
+            raise Exception("Couldn't import into " + import_database + '.' + import_table + " from " + json_file)
 
-    def push(self, local_table, remote_table, pkey, rethink_host, auth_key, **kwargs):
+    def push(self, local_table, remote_table, rethink_host, auth_key, **kwargs):
         '''
         push local database documents to remote database
         '''
         export_database, export_table = self.parse_database_table(local_table)
         import_database, import_table = self.parse_database_table(remote_table)
         print("Syncing local " + export_database+'.'+export_table + " table to external database")
-        backup_directory = 'push'
-        json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
-        print("Exporting documents from the local rethinkdb instance")
-        self.export_json(backup_directory, export_database, export_table, 'localhost', None, **kwargs)
-        print("Importing documents into the external rethinkdb instance")
-        self.import_json(backup_directory, json_file, import_database, import_table, pkey, rethink_host, auth_key, **kwargs)
+        directory = 'push'
+        if os.path.isdir(directory):
+            shutil.rmtree(directory)
+        os.makedirs(directory)
+        json_file = directory + '/' + export_database + '_' + export_table + '.json'
 
-    def pull(self, local_table, remote_table, pkey, rethink_host, auth_key, **kwargs):
+        print("Exporting documents from the local rethinkdb instance")
+        conn = self.rethink_io.connect_rethink(export_database, rethink_host='localhost', auth_key=None)
+        self.rethink_io.check_table_exists(export_database, export_table)
+        self.export_json(directory, json_file, export_database, export_table)
+        conn.close()
+
+        print("Importing documents into the external rethinkdb instance")
+        self.rethink_io.connect_rethink(import_database, rethink_host, auth_key)
+        self.rethink_io.check_table_exists(import_database, import_table)
+        self.import_json(directory, json_file, import_database, import_table)
+
+    def pull(self, local_table, remote_table, rethink_host, auth_key, **kwargs):
         '''
         pull remote database documents to local database
         '''
         export_database, export_table = self.parse_database_table(remote_table)
         import_database, import_table = self.parse_database_table(local_table)
         print("Syncing external " + export_database+'.'+export_table + " table to local database")
-        backup_directory = 'pull'
-        json_file = backup_directory + '/' + export_database + '/' + export_table + '.json'
+        directory = 'pull'
+        if os.path.isdir(directory):
+            shutil.rmtree(directory)
+        os.makedirs(directory)
+        json_file = directory + '/' + export_database + '_' + export_table + '.json'
+
         print("Exporting documents from the external rethinkdb instance")
-        self.export_json(backup_directory, export_database, export_table, rethink_host, auth_key, **kwargs)
+        conn = self.rethink_io.connect_rethink(export_database, rethink_host, auth_key)
+        self.rethink_io.check_table_exists(export_database, export_table)
+        self.export_json(directory, json_file, export_database, export_table)
+        conn.close()
+
         print("Importing documents into the local rethinkdb instance")
-        self.import_json(backup_directory, json_file, import_database, import_table, pkey, 'localhost', None, **kwargs)
+        self.rethink_io.connect_rethink(import_database, rethink_host='localhost', auth_key=None)
+        self.rethink_io.check_table_exists(import_database, import_table)
+        self.import_json(directory, json_file, import_database, import_table)
+
+
+def read_json(file_name):
+    try:
+        handle = open(file_name, 'r')
+        data = json.load(handle)
+        handle.close()
+        return data
+    except:
+        raise Exception("Couldn't read json " + file_name)
+
+def write_json(data, file_name, indent=1):
+    try:
+        handle = open(file_name, 'w')
+        json.dump(data, handle, indent=indent)
+        handle.write("\n")
+        handle.close()
+    except:
+        raise Exception("Couldn't write to json " + file_name)

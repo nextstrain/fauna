@@ -23,7 +23,7 @@ class append(object):
         '''
         kwargs['rethink_host'] = self.rethink_host
         kwargs['auth_key'] = self.auth_key
-        self.rethink_interact.append(pkey='strain', **kwargs)
+        self.rethink_interact.append(**kwargs)
 
 if __name__=="__main__":
     args = parser.parse_args()

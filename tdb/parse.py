@@ -49,7 +49,7 @@ class parse(object):
                 sub_set_passage = HI_table['passage'][~np.isnan(HI_table[ref_serum])]
                 sub_set_ref = HI_table['ref/test'][~np.isnan(HI_table[ref_serum])]
                 for virus, val, src_id, date, passage, ref in zip(sub_set_vals.index, sub_set_vals, sub_set_source, sub_set_date, sub_set_passage, sub_set_ref):
-                    flat_measurements.append({'virus': virus.upper(), 'serum': ref_serum[0].upper(), 'ferret_id': ref_serum[1].upper(), 'source': src_id.upper(), 'titer': val, 'date': date, 'passage': passage.upper(), 'ref': ref.upper(), 'date_modified': self.get_upload_date()})
+                    flat_measurements.append({'virus': virus.upper(), 'serum': ref_serum[0].upper(), 'ferret_id': ref_serum[1].upper(), 'source': src_id.upper(), 'titer': val, 'date': date, 'passage': passage.upper(), 'ref': ref.upper(), 'timestamp': self.get_upload_timestamp()})
             except:
                 print("Couldn't parse this serum's measurements", ref_serum)
                 print("Check fields at top left of file")

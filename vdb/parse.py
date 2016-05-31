@@ -51,7 +51,7 @@ class parse(object):
             elif field in kwargs and kwargs[field] is not None:
                 v[field] = kwargs[field]
         v['virus'] = self.virus
-        v['date_modified'] = self.rethink_io.get_upload_date()
+        v['timestamp'] = self.rethink_io.get_upload_timestamp()
         if 'locus' not in v and locus is not None:
             v['locus'] = locus
         if 'authors' not in v and authors is not None:
