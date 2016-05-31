@@ -4,6 +4,7 @@ from upload import parser
 
 class zika_update(update):
     def __init__(self, **kwargs):
+        kwargs['virus'] = 'zika'
         update.__init__(self, **kwargs)
         self.zika_upload = zika_upload(**kwargs)
 
