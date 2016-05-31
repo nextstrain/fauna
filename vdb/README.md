@@ -2,7 +2,9 @@
 The virus database (VDB) is used to store viral information in an organized schema. This allows easy storage and querying of viruses which can be downloaded in formatted fasta or json files.
 
 ## Uploading
-Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently
+
+Sequences can be uploaded from a fasta file, genbank file or file of genbank accession number to a virus specific table within vdb. It currently:
+
 * Uploads from an input file
 	* FASTA
 		* Reads fasta description in this order for `zika_upload` (0:`accession`, 2:`strain`, 4:`date`, 6:`country`)
@@ -44,30 +46,39 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
   * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
 
 ### Attribute Requirements
+<<<<<<< HEAD
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `timestamp`, `public`
+=======
+
+Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded.
+
+* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`
+>>>>>>> 61fe157c7121328ff025eb49668c7e9b0b1a193f
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`
 
 ### Commands
-Command line arguments to run vdb_upload:
-* -db --database default='vdb', help=database to upload to. Ex 'vdb', 'test'
-* -v --virus help=virus table to interact with. Ex 'zika', 'zlu'
-* --fname help=input file name
-* --ftype help=input file type, fasta, genbank or accession
-* --accessions help=comma separated list of accessions numbers to upload
-* --source
-* --locus
-* --authors help=authors of source of sequences
-* --private help=to designate sequences being uploaded as not `public`
-* --overwrite default=False help=whether to overwrite existing non-null fields
-* --path help=path to fasta file, default is data/virus/
-* --auth\_key help=authorization key for rethink database
-* --host help=rethink host url
-* --email help=to upload viruses via accession must include email to use entrez
 
-### Examples:
+Command line arguments to run `upload.py`:
+
+* `-db --database`: database to upload to, eg. `vdb`, `test_vdb`
+* `-v --virus`: virus table to interact with, eg. `zika`, `flu`
+* `--fname`: input file name
+* `--ftype`: input file type, fasta, genbank or accession
+* `--accessions`: comma separated list of accessions numbers to upload
+* `--source`
+* `--locus`
+* `--authors`: authors of source of sequences
+* `--private`: to designate sequences being uploaded as not `public`
+* `--overwrite`: overwrite existing non-null fields
+* `--path`: path to fasta file, default is `data/`
+* `--auth\_key`: authorization key for rethink database
+* `--host`: rethink host url
+* `--email`: to upload viruses via accession must include email to use entrez
+
+### Examples
 
 Upload flu sequences from GISAID:
 
@@ -79,55 +90,63 @@ Upload Zika sequences from VIPR:
     
 Upload via accession file:
 
-	python vdb/zika_upload.py --database test --virus zika --fname entrez_test.txt --ftype accession --source genbank --locus genome
+	python vdb/zika_upload.py --database test_vdb --virus zika --fname entrez_test.txt --ftype accession --source genbank --locus genome
 
 Upload via accession list:
 
-	python vdb/zika_upload.py --database test --virus zika --source genbank --locus genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/zika_upload.py --database test_vdb --virus zika --source genbank --locus genome --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
+
 Sequences can be downloaded from vdb.
+
 * Downloads all documents in database
 * If virus has more than one sequence, picks the longest sequence
 * Prints result to designated fasta or json file. 
 	* Writes null attributes as '?'
 	* Writes fasta description in this order (0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
 
-###Commands
-Command line arguments to run vdb_download:
-* -db --database default='vdb', help=database to download from. Ex 'vdb', 'test'
-* -v --virus help=virus table to interact with. Ex 'zika', 'flu'
-* --path help=path to dump output files to, default is data/
-* --ftype help=output file format, default is 'fasta', other option is 'json'
-* --fstem help=output file stem name, default is VirusName\_Year\_Month\_Date
-* --auth\_key help=authorization key for rethink database
-* --host help=rethink host url
-* --public\_only help=include to subset public sequences
-* --countries help=Countries(in CamelCase Format) to be include in download, multiple arguments allowed
+### Commands
 
-### Examples:
+Command line arguments to run `download.py`:
+
+* `-db --database`: database to download from, eg. `vdb`, `test_vdb`
+* `-v --virus`, virus table to interact with, eg. `zika`, `flu`
+* `--path`: path to dump output files to, default is `data/`
+* `--ftype`: output file format, default is `fasta`, other option is `json`
+* `--fstem`: output file stem name, default is `VirusName\_Year\_Month\_Date`
+* `--auth\_key`: authorization key for rethink database
+* `--host`: rethink host url
+* `--public\_only`: include to subset public sequences
+* `--countries`: countries to be include in download, multiple arguments allowed
+
+### Examples
 
 Download sequences for `Zika_process.py`:
 
     python vdb/download.py -db vdb -v zika --fstem zika
     
-    python vdb/download.py -db test -v zika --ftype json --countries Brazil Haiti --public_only
+    python vdb/download.py -db test_vdb -v zika --ftype json --countries brazil haiti --public_only
 
 ## Updating
-Sequences in vdb can be automatically updated
+
+Sequences in vdb can be automatically updated.
+
 * Only sequences whose source is Genbank
 * Uses entrez to check for updates to certain fields
 * Updates the fields: `authors`, `title`, `url`, `sequence` 
 * Must specify database, virus and email.
 
-### Examples:
+### Examples
 
-	python vdb/update.py -db test -v zika
+	python vdb/update.py -db test_vdb -v zika
 	
-	python vdb/update.py -db test -v zika --accessions KU501216,KU501217
+	python vdb/update.py -db test_vdb -v zika --accessions KU501216,KU501217
 	
 ## Backup and Restore
-VDB tables can be backed up to S3 or to a local source
+
+VDB tables can be backed up to S3 or to a local source.
+
 * Can be run manually or continuously everyday
 * Deletes old backups after a certain length (default is 50 days)
 * Restoration keeps current documents in database
@@ -155,31 +174,31 @@ Backup `test_vdb.zika` to s3 backup file everyday
 	python vdb/backup.py -db test_vdb --continuous_backup --backup_s3
 	
 ## Append
-VDB documents can be appended to other tables
+
+VDB documents can be appended to other tables.
 
 ### Examples
 	
-Append `vdb.zika` documents to `test_vdb.zika`
+Append `vdb.zika` documents to `test_vdb.zika`:
 
 	python vdb/append.py --from_table vdb.zika --to_table test_vdb.zika
 
 ## Sync
-VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance
 
-Push local rethinkdb test_vdb.zika documents to remote vdb.zika rethinkdb table
+VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance.
+
+Push local rethinkdb `test_vdb.zika` documents to remote `vdb.zika` rethinkdb table:
 	
 	python vdb/sync.py --push --local_table test_vdb.zika --remote_table test_vdb.zika	
 
-Pull remote rethinkdb test_vdb.zika documents to local test_vdb.zika rethinkdb table
+Pull remote rethinkdb `test_vdb.zika` documents to local `test_vdb.zika` rethinkdb table:
 
 	python vdb/sync.py --pull --local_table test_vdb.zika --remote_table test_vdb.zika
 
 ## Accessing the Database
-All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws)
 
-To access vdb you need an authorization key. This can be passed as a command line argument (see above) or set as an environment variable with a bash script.
+All viruses are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws). To access vdb you need an authorization key. This can be passed as a command line argument (see above) or set as an environment variable with a bash script, by running `source environment_rethink.sh`:
 
-`source environment_rethink.sh`
 ```shell
 #!/bin/bash
 export RETHINK_AUTH_KEY=EXAMPLE_KEY
