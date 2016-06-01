@@ -57,7 +57,7 @@ class rethink_io(object):
             raise Exception("No table exists yet for " + table + " available are " + str(existing_tables))
 
     def get_upload_timestamp(self):
-        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d-%H-%M'))
+        return str(datetime.datetime.strftime(datetime.datetime.utcnow(),'%Y-%m-%d-%H-%M'))
 
     def check_optional_attributes(self, documents, optional_fields):
         '''
