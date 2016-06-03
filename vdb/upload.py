@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
 parser.add_argument('-v', '--virus', help="virus table to interact with")
 parser.add_argument('--fname', help="input file name")
-parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\" or \"accession\"")
+parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
 parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
 parser.add_argument('--source', default=None, help="source of fasta file")
 parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
@@ -42,8 +42,8 @@ class upload(parse):
 
         # fields that are needed to upload
         self.index_field = ['strain']
-        self.sequence_upload_fields = ['locus', 'sequence']
-        self.sequence_optional_fields = ['accession']  # ex. if from virological.org or not in a database
+        self.sequence_upload_fields = []
+        self.sequence_optional_fields = ['locus', 'sequence', 'accession']  # ex. if from virological.org or not in a database
         self.citation_upload_fields = ['source']
         self.citation_optional_fields = ['authors', 'title', 'url']
         self.grouping_upload_fields = []  # need to define for each virus specific upload script if applicable
@@ -302,22 +302,24 @@ class upload(parse):
         Update sequence fields if matching accession or sequence
         Append sequence to sequence list if no matching accession or sequence
         '''
-        doc_seqs = document['sequences']
-        virus_seq = v['sequences'][0]
-        virus_citation = v['citations'][0]
-        # try comparing accession's first
-        if virus_seq['accession'] != None:
-            if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
-                updated = self.append_new_sequence(document, virus_seq, virus_citation)
-            else:
-                updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-        else:  # if it doesn't have an accession, see if sequence already in document
-            if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
-                updated = self.append_new_sequence(document, virus_seq, virus_citation)
-            else:
-                updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-        if len(document['sequences']) != len(document['citations']):
-            print("Warning: length of list of sequences and citations does not match for " + v['strain'])
+        updated = False
+        if hasattr(document, 'sequences') and hasattr(v, 'sequences'):
+            doc_seqs = document['sequences']
+            virus_seq = v['sequences'][0]
+            virus_citation = v['citations'][0]
+            # try comparing accession's first
+            if virus_seq['accession'] != None:
+                if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
+                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                else:
+                    updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            else:  # if it doesn't have an accession, see if sequence already in document
+                if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
+                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                else:
+                    updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            if len(document['sequences']) != len(document['citations']):
+                print("Warning: length of list of sequences and citations does not match for " + v['strain'])
         return updated
 
     def append_new_sequence(self,document, virus_seq, virus_citation):
