@@ -46,15 +46,10 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
   * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
 
 ### Attribute Requirements
-<<<<<<< HEAD
-Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `timestamp`, `public`
-=======
 
 Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded.
 
 * Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`
->>>>>>> 61fe157c7121328ff025eb49668c7e9b0b1a193f
 * Required sequence attributes: `source`, `locus`, `sequence`
 * Optional virus attributes: `division`, `location`
 * Optional sequence attributes: `accession`, `authors`, `title`, `url`
@@ -64,7 +59,8 @@ Viruses with null values for required attributes will be filtered out of those u
 Command line arguments to run `upload.py`:
 
 * `-db --database`: database to upload to, eg. `vdb`, `test_vdb`
-* `-v --virus`: virus table to interact with, eg. `zika`, `flu`
+* `-tb --table`: table to upload to, eg. `zika`, `zibra`
+* `-v --virus`: name of virus eg. `zika`, `flu`
 * `--fname`: input file name
 * `--ftype`: input file type, fasta, genbank or accession
 * `--accessions`: comma separated list of accessions numbers to upload
