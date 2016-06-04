@@ -30,3 +30,7 @@ Upload metadata with:
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 	
 	python vdb/sync.py --push --local_table vdb.zibra --remote_table vdb.zibra
+	
+Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table:
+
+	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
