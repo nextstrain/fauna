@@ -36,6 +36,10 @@ Upload metadata with:
 Download metadata with:
 
     python vdb/zibra_download.py -db vdb -v zibra --fstem zibra --ftype tsv --local
+    
+Download just metadata for samples from `natal`:
+
+    python vdb/zibra_download.py -db vdb -v zibra --fstem zibra --ftype tsv --select location:natal --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 	
