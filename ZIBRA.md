@@ -35,7 +35,7 @@ Upload metadata with:
 
 Download metadata with:
 
-    python vdb/download.py -db vdb -v zibra --fstem zibra --ftype tsv --local
+    python vdb/zibra_download.py -db vdb -v zibra --fstem zibra --ftype tsv --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 	
