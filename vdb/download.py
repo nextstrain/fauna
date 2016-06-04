@@ -18,6 +18,7 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
 parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
 parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
+parser.add_argument('--present', nargs='+', type=str, default=None, help="Select specific fields to be non-null ie \'--present field1 field2\'")
 
 class download(object):
     def __init__(self, database, virus, **kwargs):
@@ -53,7 +54,7 @@ class download(object):
         if output:
             self.output(**kwargs)
 
-    def subsetting(self, cursor, public_only=False, select=None, **kwargs):
+    def subsetting(self, cursor, public_only=False, select=None, present=None, **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
@@ -66,19 +67,26 @@ class download(object):
             cursor = filter(lambda doc: doc['public'], cursor)
             print('Removed documents that were not public, remaining documents: ' + str(len(cursor)))
         if select is not None:
-            selections = self.parse_grouping_argument(select)
+            selections = self.parse_select_argument(select)
             for sel in selections:
                 if sel[0] in fields:
                     cursor = filter(lambda doc: doc[sel[0]] in sel[1], cursor)
                     print('Removed documents that were not in values specified (' + ','.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
                 else:
                     print(sel[0] + " is not in all documents, can't subset by that field")
+        if present is not None:
+            for sel in present:
+                if sel in fields:
+                    cursor = filter(lambda doc: doc[sel] is not None, cursor)
+                    print('Removed documents that were null for field \'' + sel + '\', remaining documents: ' + str(len(cursor)))
+                else:
+                    print(sel + " is not in all documents, can't subset by that field")        
         print("Documents in table after subsetting: " + str(len(cursor)))
         return cursor
 
-    def parse_grouping_argument(self, grouping):
+    def parse_select_argument(self, grouping):
         '''
-        parse the select parameter to determine which group name to filter and for what values
+        parse the 'select' parameter to determine which field name to filter and for what values
         :return: (grouping name, group values))
         '''
         selections = []
