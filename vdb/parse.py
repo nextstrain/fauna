@@ -36,6 +36,8 @@ class parse(object):
                 self.viruses = self.get_entrez_viruses(gi, **kwargs)
             elif ftype == 'fasta':
                 self.viruses = self.parse_fasta_file(path + fname, **kwargs)
+            elif ftype == 'tsv':
+                self.viruses = self.parse_tsv_file(path + fname, **kwargs)                
         else:
             raise Exception("No input file name and type defined or accessions given")
 
@@ -92,6 +94,28 @@ class parse(object):
                 self.fix_casing(v)
                 viruses.append(v)
             handle.close()
+        return viruses
+
+    def parse_tsv_file(self, tsv, **kwargs):
+        '''
+        Parse TSV file with default field ordering
+        This is the same ordering as specified in 'fasta_fields'
+        :return: list of documents(dictionaries of attributes) to upload
+        '''
+        import csv        
+        viruses = []
+        try:
+            os.path.isfile(tsv)
+        except IOError:
+            print(tsv, "not found")        
+        else:
+            with open(tsv) as infile:
+                table_reader = csv.reader(infile, delimiter="\t")
+                for row in table_reader:
+                    v = {key: row[ii] if ii < len(row) else "" for ii, key in self.fasta_fields.items()}
+                    self.add_other_attributes(v, **kwargs)
+                    self.fix_casing(v)
+                    viruses.append(v)                    
         return viruses
 
     def parse_gb_file(self, gb, **kwargs):
