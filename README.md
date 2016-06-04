@@ -22,28 +22,32 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 ## Install
 
-To install Python bindings, run:
+To install Python bindings need to run upload/download scripts, run:
 
     pip install rethinkdb==2.2.0.post2
 
-To install Chateau Web UI and Rethinkdb, from the base directory of `nextstrain-db/`, run:
+To install Chateau Web UI, run:
 
-    sudo npm install -g
+    npm install
 
 Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/).
 
 ## Chateau
 
-[Chateau](https://github.com/neumino/chateau/) allows easy web access to the database. To run, do the following:
+[Chateau](https://github.com/blab/chateau/) allows easy web access to the database. To run, do the following:
 
-1. Navigate to the base directory of `nextstrain-db/`.
-2. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
-3. Run with `chateau`.
-4. Fire up a browser and go to `http://localhost:3000/`.
+### For remote rethink instance
 
-Chateau configuration is stored in the file [`config.js`](config.js).
+1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
+2. Run with `npm run chateau` from directory `nextstrain-db/`.
+3. Go to `http://localhost:3000/`.
 
-To run chateau on a `localhost` rethink instance, instead run `chateau -f config_local.js` and go to `http://localhost:3001/` in a browser.
+### For local rethink instance
+
+2. Run with `npm run chateau-local` from directory `nextstrain-db/`.
+3. Go to `http://localhost:3001/`.
+
+Chateau configurations are stored in [`config.js`](config.js) for remote server and [`config_local.js`](config_local.js) for local server.
 
 ## License and copyright
 

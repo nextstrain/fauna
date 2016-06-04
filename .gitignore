@@ -4,3 +4,10 @@ data/
 
 # Compiled intermediates
 *.pyc
+
+# Node
+node_modules/
+npm-debug.log
+
+# Rethinkdb
+rethinkdb_data/

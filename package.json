@@ -9,9 +9,15 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "chateau": "0.3.14",
-    "rethinkdb": "2.2.1"
+    "rethinkdb": "2.2.1",
+    "express": "3.3.4",
+    "jade": "= 1.0.2",
+    "optimist": " >= 0.6.0",
+    "stream": ">= 0.0.1",
+    "moment": "2.13.0"    
   },
-  "bin": {
-    "chateau": "./node_modules/chateau/bin/chateau"
-  }
+  "scripts": {
+    "chateau": "./chateau/bin/chateau",
+    "chateau-local": "./chateau/bin/chateau -f config_local.js"
+  }  
 }
