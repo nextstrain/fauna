@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to download from")
 parser.add_argument('-v', '--virus', default='zika', help="virus table to interact with")
 parser.add_argument('--path', default='data', help="path to dump output files to")
-parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
+parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
@@ -90,19 +90,22 @@ class download(object):
     def pick_best_sequence(self, document):
         '''
         find the best sequence in the given document. Currently by longest sequence.
-        Resulting document is with flatter dictionary structure
+        resulting document is with flatter dictionary structure
         '''
-        longest_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])
-        best_sequence_info = document['sequences'][longest_sequence_pos]
-        best_citation_info = document['citations'][longest_sequence_pos]
+        if 'sequences' in document:
+            best_sequence_pos = 0
+            if len(document['sequences']) > 1:
+                best_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])    
+            best_sequence_info = document['sequences'][best_sequence_pos]
+            best_citation_info = document['citations'][best_sequence_pos]
 
-        # create flatter structure for virus info
-        for atr in best_sequence_info.keys():
-            document[atr] = best_sequence_info[atr]
-        for atr in best_citation_info.keys():
-            document[atr] = best_citation_info[atr]
-        del document['sequences']
-        del document['citations']
+            # create flatter structure for virus info
+            for attr in best_sequence_info.keys():
+                document[attr] = best_sequence_info[attr]
+            for attr in best_citation_info.keys():
+                document[attr] = best_citation_info[attr]
+            del document['sequences']
+            del document['citations']
 
     def write_json(self, data, fname, indent=1):
         '''
@@ -127,11 +130,29 @@ class download(object):
         except IOError:
             pass
         else:
-            for v in viruses:
-                fields = [str(v[field]) if (field in v and v[field] is not None) else '?'
+            for virus in viruses:
+            	if 'sequence' in virus:
+            	    if virus['sequence']:
+                        fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?'
+                                  for field in fasta_fields]
+                        handle.write(">"+sep.join(fields)+'\n')
+                        handle.write(virus['sequence'] + "\n")
+            handle.close()
+            print("Wrote to " + fname)
+
+    def write_tsv(self, viruses, fname, sep='\t', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
+                                                                 'country', 'division', 'location', 'source', 'locus',
+                                                                 'authors']):
+        try:
+            handle = open(fname, 'w')
+        except IOError:
+            pass
+        else:
+            handle.write(sep.join(fasta_fields)+'\n')
+            for virus in viruses:
+                fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?'
                           for field in fasta_fields]
-                handle.write(">"+sep.join(fields)+'\n')
-                handle.write(v['sequence'] + "\n")
+                handle.write(sep.join(fields)+'\n')
             handle.close()
             print("Wrote to " + fname)
 
@@ -141,8 +162,10 @@ class download(object):
             self.write_json(self.viruses,fname)
         elif ftype == 'fasta':
             self.write_fasta(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
+        elif ftype == 'tsv':
+            self.write_tsv(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)            
         else:
-            raise Exception("Can't output to that file type, only json or fasta allowed")
+            raise Exception("Can't output to that file type, only json, fasta or tsv allowed")
 
 if __name__=="__main__":
     args = parser.parse_args()
