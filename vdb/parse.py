@@ -41,7 +41,7 @@ class parse(object):
         else:
             raise Exception("No input file name and type defined or accessions given")
 
-    def add_other_attributes(self, v, locus, authors, host, source, public=True, **kwargs):
+    def add_other_attributes(self, v, locus, authors, host, country, source, public=True, **kwargs):
         '''
         Add attributes to all viruses to be uploaded that are included at the command line
         '''
@@ -60,6 +60,8 @@ class parse(object):
             v['authors'] = authors
         if 'host' not in v and host is not None:
             v['host'] = host
+        if 'country' not in v and country is not None:
+            v['country'] = country
         if 'source' not in v and source is not None:
             v['source'] = source
         if 'public' not in v and public is not None:
