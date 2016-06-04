@@ -8,7 +8,8 @@ from base.rethink_io import rethink_io
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
-parser.add_argument('-v', '--virus', help="virus table to interact with")
+parser.add_argument('-tb', '--table', help="virus table to interact with")
+parser.add_argument('-v', '--virus', help="virus name")
 parser.add_argument('--fname', help="input file name")
 parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
 parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
@@ -29,9 +30,10 @@ parser.add_argument('--email', default=None, help="email to access NCBI database
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
 class upload(parse):
-    def __init__(self, database, virus, **kwargs):
+    def __init__(self, database, table, virus, **kwargs):
         parse.__init__(self, **kwargs)
         self.virus = virus.lower()
+        self.table = table.lower()
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         if self.database not in self.uploadable_databases:
@@ -39,7 +41,7 @@ class upload(parse):
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
-        self.rethink_io.check_table_exists(self.database, self.virus)
+        self.rethink_io.check_table_exists(self.database, self.table)
 
         # fields that are needed to upload
         self.index_field = ['strain']
@@ -195,7 +197,7 @@ class upload(parse):
         db_relaxed_strains = self.relaxed_strains()
         # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
         if exclusive:
-            db_viruses = list(r.db(self.database).table(self.virus).run())
+            db_viruses = list(r.db(self.database).table(self.table).run())
             db_strain_to_viruses = {db_v['strain']: db_v for db_v in db_viruses}
             update_viruses = {}
             upload_viruses = {}
@@ -211,12 +213,12 @@ class upload(parse):
                     self.update_document_sequence(upload_v, virus, **kwargs)  # add new sequeunce information to upload_v
                 else:  # new virus that needs to be uploaded
                     upload_viruses[virus['strain']] = virus
-            print("Inserting ", len(upload_viruses), "viruses into database", self.virus)
+            print("Inserting ", len(upload_viruses), "viruses into database", self.table)
             try:
-                r.table(self.virus).insert(upload_viruses.values()).run()
+                r.table(self.table).insert(upload_viruses.values()).run()
             except:
                 raise Exception("Couldn't insert new viruses into database")
-            print("Checking for updates to ", len(update_viruses), "viruses in database", self.virus)
+            print("Checking for updates to ", len(update_viruses), "viruses in database", self.table)
             updated = []
             for db_strain, v in update_viruses.items():  # determine if virus has new information
                 document = db_strain_to_viruses[db_strain]
@@ -226,7 +228,7 @@ class upload(parse):
                     document['timestamp'] = v['timestamp']
                     updated.append(document)
             try:
-                r.table(self.virus).insert(updated, conflict="replace").run()
+                r.table(self.table).insert(updated, conflict="replace").run()
             except:
                 raise Exception("Couldn't update viruses already in database")
         # Slower way to upload but less chance database is changed while updating documents, asks database for each document separately
@@ -239,7 +241,7 @@ class upload(parse):
                 if self.relax_name(virus['strain']) in db_relaxed_strains:
                     relaxed_name = db_relaxed_strains[self.relax_name(virus['strain'])]
                 try:
-                    document = r.table(self.virus).get(relaxed_name).run()
+                    document = r.table(self.table).get(relaxed_name).run()
                 except:
                     print(virus)
                     raise Exception("Couldn't retrieve this virus")
@@ -247,7 +249,7 @@ class upload(parse):
                 if document is None:
                     #print("Inserting " + virus['strain'] + " into database")
                     try:
-                        r.table(self.virus).insert(virus).run()
+                        r.table(self.table).insert(virus).run()
                     except:
                         print(virus)
                         raise Exception("Couldn't insert this virus")
@@ -257,14 +259,14 @@ class upload(parse):
                     updated_meta = self. update_document_meta(relaxed_name, document, virus, self.overwritable_virus_fields, **kwargs)
                     if updated_sequence or updated_meta:
                         document['timestamp'] = virus['timestamp']
-                        r.table(self.virus).insert(document, conflict="replace").run()
+                        r.table(self.table).insert(document, conflict="replace").run()
 
     def relaxed_strains(self):
         '''
         Create dictionary from relaxed vdb strain names to actual vdb strain names.
         '''
         strains = {}
-        cursor = list(r.db(self.database).table(self.virus).run())
+        cursor = list(r.db(self.database).table(self.table).run())
         for doc in cursor:
             strains[self.relax_name(doc['strain'])] = doc['strain']
         return strains

@@ -8,7 +8,7 @@ from base.rethink_io import rethink_io
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-parser.add_argument('-v', '--virus', default='zika', help="virus table to interact with")
+parser.add_argument('-tb', '--table', default='zika', help="table to interact with")
 parser.add_argument('--path', default='data', help="path to dump output files to")
 parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
@@ -20,33 +20,33 @@ parser.add_argument('--public_only', default=False, action="store_true", help="i
 parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
 
 class download(object):
-    def __init__(self, database, virus, **kwargs):
+    def __init__(self, database, table, **kwargs):
         '''
         parser for virus, fasta fields, output file names, output file format path, interval
         '''
         self.virus_specific_fasta_fields = []
-        self.virus = virus.lower()
+        self.table = table.lower()
         self.database = database.lower()
         if self.database not in ['vdb', 'test_vdb']:
             raise Exception("Cant download from this database: " + self.database)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
-        self.rethink_io.check_table_exists(self.database, self.virus)
+        self.rethink_io.check_table_exists(self.database, self.table)
         self.viruses = []
 
     def count_documents(self):
         '''
         return integer count of number of documents in table
         '''
-        return r.db(self.database).table(self.virus).count().run()
+        return r.db(self.database).table(self.table).count().run()
 
     def download(self, output=True, **kwargs):
         '''
         download documents from table
         '''
-        print("Downloading all viruses from the table: " + self.virus)
-        self.viruses = list(r.db(self.database).table(self.virus).run())
+        print("Downloading all viruses from the table: " + self.table)
+        self.viruses = list(r.db(self.database).table(self.table).run())
         for doc in self.viruses:
             self.pick_best_sequence(doc)
         self.viruses = self.subsetting(self.viruses, **kwargs)

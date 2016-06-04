@@ -21,7 +21,7 @@ class update(upload):
 
     def get_accessions(self):
         print("Getting accession numbers for sequences obtained from Genbank")
-        cursor = list(r.db(self.database).table(self.virus).run())
+        cursor = list(r.db(self.database).table(self.table).run())
         accessions = []
         for doc in cursor:
             index = 0
@@ -41,7 +41,7 @@ class update(upload):
             if self.relax_name(virus['strain']) in db_relaxed_strains:
                 relaxed_name = db_relaxed_strains[self.relax_name(virus['strain'])]
             try:
-                document = r.table(self.virus).get(relaxed_name).run()
+                document = r.table(self.table).get(relaxed_name).run()
             except:
                 print(virus)
                 raise Exception("Couldn't retrieve this virus")
@@ -50,10 +50,10 @@ class update(upload):
                 updated = self.update_sequence_citation_field(document, virus, 'accession', self.updateable_sequence_fields, self.updateable_citation_fields, **kwargs)
                 if updated:
                     document['timestamp'] = virus['timestamp']
-                    r.table(self.virus).insert(document, conflict="replace").run()
+                    r.table(self.table).insert(document, conflict="replace").run()
 
     def create_citations_field(self):
-        cursor = list(r.db(self.database).table(self.virus).run())
+        cursor = list(r.db(self.database).table(self.table).run())
         for doc in cursor:
             strain = doc['strain']
             sequence_fields = self.sequence_upload_fields + self.sequence_optional_fields
@@ -67,15 +67,15 @@ class update(upload):
             for field in self.citation_optional_fields:
                 if field not in citation_info[0]:
                     citation_info[0][field] = '?'
-            r.table(self.virus).get(strain).update({'sequences': sequence_info}).run()
-            r.table(self.virus).get(strain).update({'citations': citation_info}).run()
+            r.table(self.table).get(strain).update({'sequences': sequence_info}).run()
+            r.table(self.table).get(strain).update({'citations': citation_info}).run()
 
     def add_attribute(self):
-        cursor = list(r.db(self.database).table(self.virus).run())
+        cursor = list(r.db(self.database).table(self.table).run())
         for doc in cursor:
             strain = doc['strain']
-            r.table(self.virus).get(strain).update({'host': 'human'}).run()
-            r.table(self.virus).get(strain).update({'subtype': None}).run()
+            r.table(self.table).get(strain).update({'host': 'human'}).run()
+            r.table(self.table).get(strain).update({'subtype': None}).run()
 
 if __name__=="__main__":
     args = parser.parse_args()
