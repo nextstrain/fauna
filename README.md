@@ -36,13 +36,13 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 
 [Chateau](https://github.com/blab/chateau/) allows easy web access to the database. To run, do the following:
 
-### For remote rethink instance
+#### For remote rethink instance
 
 1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
 2. Run with `npm run chateau` from directory `nextstrain-db/`.
 3. Go to `http://localhost:3000/`.
 
-### For local rethink instance
+#### For local rethink instance
 
 2. Run with `npm run chateau-local` from directory `nextstrain-db/`.
 3. Go to `http://localhost:3001/`.
