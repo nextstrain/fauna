@@ -25,7 +25,7 @@
 
 Upload metadata with:
 
-    python vdb/zibra_metadata_upload.py -db vdb -v zibra --fname lacen_rn.tsv --ftype tsv --source zibra --country brazil --local
+    python vdb/zibra_metadata_upload.py -db vdb -tb zibra -v zika --fname lacen_rn.tsv --ftype tsv --source zibra --country brazil --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 	
