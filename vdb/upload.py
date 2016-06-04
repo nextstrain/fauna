@@ -47,10 +47,10 @@ class upload(parse):
         self.sequence_optional_fields = ['locus', 'sequence', 'accession']  # ex. if from virological.org or not in a database
         self.citation_upload_fields = ['source']
         self.citation_optional_fields = ['authors', 'title', 'url']
-        self.grouping_upload_fields = []  # need to define for each virus specific upload script if applicable
+        self.grouping_upload_fields = []
         self.grouping_optional_fields = []
-        self.virus_upload_fields = ['strain', 'date', 'country', 'virus', 'timestamp', 'public', 'region', 'host'] # sequences, citations, added after filtering
-        self.virus_optional_fields = ['division', 'location']
+        self.virus_upload_fields = ['strain', 'virus', 'timestamp']
+        self.virus_optional_fields = ['division', 'location', 'date', 'country', 'region', 'host', 'public']
         self.upload_fields = self.virus_upload_fields+self.sequence_upload_fields+self.citation_upload_fields+self.grouping_upload_fields
         self.optional_fields = self.virus_optional_fields+self.sequence_optional_fields+self.citation_optional_fields+self.grouping_optional_fields
         self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
@@ -84,7 +84,6 @@ class upload(parse):
             self.format_date(virus)
             self.format_place(virus)
             self.format_region(virus)
-            self.rethink_io.delete_extra_fields(virus, self.upload_fields+self.optional_fields, self.index_field)
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
@@ -100,21 +99,24 @@ class upload(parse):
         Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
         '''
         # ex. 2002_04_25 to 2002-04-25
-        virus['date'] = re.sub(r'_', r'-', virus['date'])
-        # ex. 2002 (Month and day unknown)
-        if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
-            pass
-        elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
-            virus['date'] = virus['date'][0:4] + "-XX-XX"
-        # ex. 2009-06 (Day unknown)
-        elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
-            virus['date'] = virus['date'][0:7] + "-XX"
-        elif re.match(r'\d\d\d\d-\d\d', virus['date']):
-            virus['date'] = virus['date'][0:7] + "-XX"
-        elif re.match(r'\d\d\d\d', virus['date']):
-            virus['date'] = virus['date'][0:4] + "-XX-XX"
-        else:
-            print("Couldn't reformat this date: " + virus['date'])
+        if 'date' in virus:
+            if virus['date'] is not None:
+                virus['date'] = re.sub(r'_', r'-', virus['date'])
+                # ex. 2002 (Month and day unknown)
+                if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
+                    pass
+                elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
+                    virus['date'] = virus['date'][0:4] + "-XX-XX"
+                # ex. 2009-06 (Day unknown)
+                elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+                    virus['date'] = virus['date'][0:7] + "-XX"
+                elif re.match(r'\d\d\d\d-\d\d', virus['date']):
+                    virus['date'] = virus['date'][0:7] + "-XX"
+                elif re.match(r'\d\d\d\d', virus['date']):
+                    virus['date'] = virus['date'][0:4] + "-XX-XX"
+                else:
+                    print("Couldn't reformat this date: " + virus['date'] + ", setting to None")
+                    virus['date'] = None
 
     def camelcase_to_snakecase(self, name):
         '''
@@ -142,12 +144,14 @@ class upload(parse):
         Label viruses with region based on country, if prune then filter out viruses without region
         '''
         virus['region'] = '?'
-        test_country = virus['country']
-        if test_country is not None and test_country in self.country_to_region:
-            virus['region'] = self.country_to_region[virus['country']].lower()
-        if virus['country'] != '?' and virus['region'] == '?':
-            virus['region'] = None
-            print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
+        if 'country' in virus:
+            if virus['country'] is not None:
+                test_country = virus['country']
+                if test_country is not None and test_country in self.country_to_region:
+                    virus['region'] = self.country_to_region[virus['country']].lower()
+                if virus['country'] != '?' and virus['region'] == '?':
+                    virus['region'] = None
+                    print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
 
     def format_place(self, virus):
         '''
@@ -164,9 +168,6 @@ class upload(parse):
         '''
         print(str(len(self.viruses)) + " viruses before filtering")
         self.rethink_io.check_optional_attributes(self.viruses, self.optional_fields)
-        self.viruses = filter(lambda v: re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', v['date']), self.viruses)
-        self.viruses = filter(lambda v: isinstance(v['public'], (bool)), self.viruses)
-        self.viruses = filter(lambda v: v['region'] is not None, self.viruses)
         self.viruses = filter(lambda v: self.rethink_io.check_required_attributes(v, self.upload_fields, self.index_field), self.viruses)
         print(str(len(self.viruses)) + " viruses after filtering")
         self.format_schema()
@@ -293,6 +294,7 @@ class upload(parse):
             #update doc_virus information if virus info is different, or if overwrite is false update doc_virus information only if virus info is different and not null
             elif (overwrite and document[field] != v[field]) or (not overwrite and document[field] is None and document[field] != v[field]):
                 if field in v:
+                    print field
                     print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + v[field]) + "\""
                     document[field] = v[field]
                     updated = True
@@ -302,23 +304,27 @@ class upload(parse):
         '''
         Update sequence fields if matching accession or sequence
         Append sequence to sequence list if no matching accession or sequence
+        If sequence is currently empty, ie accession: null, sequence: null, then replace
         '''
         updated = False
-        if hasattr(document, 'sequences') and hasattr(v, 'sequences'):
+        if 'sequences' in document and 'sequences' in v:
             doc_seqs = document['sequences']
             virus_seq = v['sequences'][0]
             virus_citation = v['citations'][0]
-            # try comparing accession's first
-            if virus_seq['accession'] != None:
-                if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
-                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                else:
-                    updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-            else:  # if it doesn't have an accession, see if sequence already in document
-                if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
-                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                else:
-                    updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            if doc_seqs[0]['sequence'] is not None:
+                if virus_seq['accession'] is not None: # try comparing accession's first
+                    if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
+                        updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                    else:
+                        updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+                else:  # if it doesn't have an accession, see if sequence already in document
+                    if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
+                        updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                    else:
+                        updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            if len(doc_seqs) == 1 and doc_seqs[0]['accession'] is None and doc_seqs[0]['sequence'] is None:	 # doc 'sequences' currently empty
+                document['sequences'] = v['sequences']
+                updated = True
             if len(document['sequences']) != len(document['citations']):
                 print("Warning: length of list of sequences and citations does not match for " + v['strain'])
         return updated

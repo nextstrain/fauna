@@ -23,8 +23,13 @@
 * `patient_sex`: Patient sex, `male` or `female`.
 * `public`: Whether the sample genome can be shared publicly, `true` or `false`.
 * `region`: All samples should be `south_america`.
+* `sequences`: Contains three fields:
+ * `accession`: Same as `strain`, based on LACEN sample ID.
+ * `locus`: All samples should be `genome`.
+ * `sequence`: Genome sequence.
 * `rt_positive`: Whether RT-PCR is positive for Zika, `true` or `false`.
-* `timestamp`: The last edit time of the database entry in `2016-06-04-14-06` (YYYY-MM-DD-HH-MM) format. This should be automatically managed by scripts/chateau.
+* `timestamp`: The last edit time of the database entry in `2016-06-04-14-06` (YYYY-MM-DD-HH-MM) format. This should be
+automatically managed by scripts/chateau.
 * `virus`: All samples should be `zika`.
 
 ## Database commands
@@ -32,6 +37,10 @@
 Upload metadata with:
 
     python vdb/zibra_metadata_upload.py -db vdb -v zibra --fname lacen_rn.tsv --ftype tsv --source zibra --country brazil --local
+
+Upload sequences with:
+
+    python vdb/zibra_upload.py -db vdb -v zibra --fname minion.fasta --ftype fasta --source zibra --locus genome --local
 
 Download metadata with:
 
@@ -48,3 +57,9 @@ Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table
 Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table:
 
 	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
+
+## Connecting to ZiBRA laptop
+
+SSH in with:
+
+    ssh zibra@192.168.137.1
