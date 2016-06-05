@@ -55,7 +55,7 @@ class upload(parse):
         self.virus_optional_fields = ['division', 'location', 'date', 'country', 'region', 'host', 'public']
         self.upload_fields = self.virus_upload_fields+self.sequence_upload_fields+self.citation_upload_fields+self.grouping_upload_fields
         self.optional_fields = self.virus_optional_fields+self.sequence_optional_fields+self.citation_optional_fields+self.grouping_optional_fields
-        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public']
+        self.overwritable_virus_fields = ['date', 'country', 'division', 'location', 'virus', 'public', 'host', 'region']
         self.strains = {}
 
     def upload(self, preview=False, **kwargs):
