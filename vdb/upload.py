@@ -313,7 +313,7 @@ class upload(parse):
             doc_seqs = document['sequences']
             virus_seq = v['sequences'][0]
             virus_citation = v['citations'][0]
-            if doc_seqs[0]['sequence'] is not None:
+            if doc_seqs[0]['sequence'] is not None and virus_seq['sequence'] is not None:
                 if virus_seq['accession'] is not None: # try comparing accession's first
                     if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
                         updated = self.append_new_sequence(document, virus_seq, virus_citation)

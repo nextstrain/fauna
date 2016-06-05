@@ -55,15 +55,30 @@ class parse(object):
         v['virus'] = self.virus
         v['timestamp'] = self.rethink_io.get_upload_timestamp()
         if 'locus' not in v and locus is not None:
-            v['locus'] = locus
+            if authors == 'null' or authors == 'none' or authors == 'None':
+                v['locus'] = None
+            else:
+                v['locus'] = locus
         if 'authors' not in v and authors is not None:
-            v['authors'] = authors
+            if authors == 'null' or authors == 'none' or authors == 'None':
+                v['authors'] = None
+            else:
+                v['authors'] = authors
         if 'host' not in v and host is not None:
-            v['host'] = host
+            if host == 'null' or host == 'none' or host == 'None':
+                v['host'] = None
+            else:
+                v['host'] = host
         if 'country' not in v and country is not None:
-            v['country'] = country
+            if country == 'null' or country == 'none' or country == 'None':
+                v['country'] = None
+            else :
+                v['country'] = country
         if 'source' not in v and source is not None:
-            v['source'] = source
+            if source == 'null' or source == 'none' or source == 'None':
+                v['source'] = None
+            else:
+                v['source'] = source
         if 'public' not in v and public is not None:
             v['public'] = public
 

@@ -78,19 +78,19 @@ Command line arguments to run `upload.py`:
 
 Upload flu sequences from GISAID:
 
-    python vdb/flu_upload.py -db test_vdb -tb flu -v flu --fname gisaid_epiflu_sequence.fasta --source gisaid
+    python vdb/flu_upload.py -db test_vdb -tb flu --source gisaid --virus flu --fname gisaid_epiflu_sequence.fasta
 
 Upload Zika sequences from VIPR:
 
-    python vdb/zika_upload.py --database vdb --table zika --virus zika --fname GenomeFastaResults.fasta --source genbank --locus genome
+    python vdb/zika_upload.py -db vdb -tb zika --source genbank --locus genome --virus zika --fname GenomeFastaResults.fasta
     
 Upload via accession file:
 
-	python vdb/zika_upload.py --database test_vdb --table zika--virus zika --fname entrez_test.txt --ftype accession --source genbank --locus genome
+	python vdb/zika_upload.py -db vdb -tb zika --ftype accession --source genbank --locus genome --virus zika --fname entrez_test.txt
 
 Upload via accession list:
 
-	python vdb/zika_upload.py --database test_vdb --table zika --virus zika --source genbank --locus genome --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/zika_upload.py --db vdb --tb zika --source genbank --locus genome  --virus zika --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 
