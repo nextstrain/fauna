@@ -8,11 +8,12 @@ class update(upload):
         self.updateable_citation_fields = ['authors', 'title', 'url']
         self.updateable_sequence_fields = ['sequence']
 
-    def update(self, **kwargs):
+    def update(self, email, **kwargs):
         if self.accessions is None:
             accessions = self.get_accessions()
         else:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
+        self.entrez_email(email)
         gi = self.get_GIs(accessions)
         self.viruses = self.get_entrez_viruses(gi, **kwargs)
         self.format()

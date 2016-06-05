@@ -10,21 +10,21 @@ class parse(object):
         if 'accessions' in kwargs:
             self.accessions = kwargs['accessions']
         self.gbdb = "nuccore"
-        self.entrez_email(**kwargs)
 
-    def entrez_email(self, **kwargs):
+    def entrez_email(self, email, **kwargs):
         #define email for entrez login
-        if 'email' in kwargs:
-            self.email = kwargs['email']
-        if 'NCBI_EMAIL' in os.environ and self.email is None:
+        if email is not None:
+            self.email = email
+        elif 'NCBI_EMAIL' in os.environ:
             self.email = os.environ['NCBI_EMAIL']
-        if self.email is None:
+        else:
             raise Exception("Missing NCBI email")
         Entrez.email = self.email
 
-    def parse(self, path, fname, ftype, **kwargs):
+    def parse(self, path, fname, ftype, email, **kwargs):
         if self.accessions is not None:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
+            self.entrez_email(email)
             gi = self.get_GIs(accessions)
             self.viruses = self.get_entrez_viruses(gi, **kwargs)
         elif ftype is not None and fname is not None:
@@ -32,8 +32,9 @@ class parse(object):
                 self.viruses = self.parse_gb_file(path + fname, **kwargs)
             elif ftype == 'accession':
                 accessions = self.parse_accession_file(path + fname, **kwargs)
+                self.entrez_email(email)
                 gi = self.get_GIs(accessions)
-                self.viruses = self.get_entrez_viruses(gi, **kwargs)
+                self.viruses = self.get_entrez_viruses(gi **kwargs)
             elif ftype == 'fasta':
                 self.viruses = self.parse_fasta_file(path + fname, **kwargs)
             elif ftype == 'tsv':
