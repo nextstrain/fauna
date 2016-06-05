@@ -36,19 +36,19 @@ automatically managed by scripts/chateau.
 
 Upload metadata with:
 
-    python vdb/zibra_metadata_upload.py -db vdb -tb zibra -v zika --fname lacen_rn.tsv --ftype tsv --source zibra --country brazil --local
+    python vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname lacen_rn.tsv --ftype tsv --source zibra --virus zika --country brazil --local
 
 Upload sequences with:
 
-    python vdb/zibra_upload.py -db vdb -v zibra --fname minion.fasta --ftype fasta --source zibra --locus genome --local
+    python vdb/zibra_upload.py -db vdb -tb zibra --fname minion.fasta --ftype fasta --source zibra --virus zika --locus genome --local
 
 Download metadata with:
 
-    python vdb/zibra_download.py -db vdb -v zibra --fstem zibra --ftype tsv --local
+    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --local
     
 Download just metadata for samples from `natal`:
 
-    python vdb/zibra_download.py -db vdb -v zibra --fstem zibra --ftype tsv --select location:natal --local
+    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --select location:natal --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 	
