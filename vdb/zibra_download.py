@@ -11,8 +11,8 @@ class zibra_download(download):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    fasta_fields = ['strain', 'amplicon_concentration', 'citation', 'ct', 'country', 'date', 'division', 'location',
-                    'onset_date', 'patient_age', 'patient_sex', 'public', 'region', 'rt_positive', 'timestamp', 'virus']
+    fasta_fields = ['strain', 'amplicon_concentration', 'ct', 'date', 'division', 'location', 'microcephaly',
+                    'onset_date', 'patient_age', 'patient_sex', 'rt_positive', 'sample_type']
     setattr(args, 'fasta_fields', fasta_fields)
     connVDB = zibra_download(**args.__dict__)
     connVDB.download(**args.__dict__)
