@@ -120,20 +120,21 @@ class parse(object):
         This is the same ordering as specified in 'fasta_fields'
         :return: list of documents(dictionaries of attributes) to upload
         '''
-        import csv        
+        import csv
         viruses = []
         try:
             os.path.isfile(tsv)
         except IOError:
-            print(tsv, "not found")        
+            print(tsv, "not found")
         else:
             with open(tsv) as infile:
                 table_reader = csv.reader(infile, delimiter="\t")
+                header = {i: element for i, element in enumerate(next(table_reader), 0)}
                 for row in table_reader:
-                    v = {key: row[ii] if ii < len(row) else "" for ii, key in self.fasta_fields.items()}
+                    v = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
                     self.add_other_attributes(v, **kwargs)
                     self.fix_casing(v)
-                    viruses.append(v)                    
+                    viruses.append(v)
         return viruses
 
     def parse_gb_file(self, gb, **kwargs):
