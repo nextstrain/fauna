@@ -56,7 +56,7 @@ class parse(object):
         v['virus'] = self.virus
         v['timestamp'] = self.rethink_io.get_upload_timestamp()
         if 'locus' not in v and locus is not None:
-            if authors == 'null' or authors == 'none' or authors == 'None':
+            if locus == 'null' or locus == 'none' or locus == 'None':
                 v['locus'] = None
             else:
                 v['locus'] = locus
