@@ -286,17 +286,18 @@ class upload(parse):
         '''
         updated = False
         for field in v:
-            # update if field not present in document
-            if field not in document:
-                print("Creating virus field ", field, " assigned to ", v[field])
-                document[field] = v[field]
-                updated = True
-            #update doc_virus information if virus info is different, or if overwrite is false update doc_virus information only if virus info is different and not null
-            elif (overwrite and document[field] != v[field]) or (not overwrite and document[field] is None and document[field] != v[field]):
-                print field
-                print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + str(v[field])) + "\""
-                document[field] = v[field]
-                updated = True
+            if v[field] is not None and field != 'timestamp':           
+                # update if field not present in document
+                if field not in document:
+                    print("Creating virus field ", field, " assigned to ", v[field])
+                    document[field] = v[field]
+                    updated = True
+                #update doc_virus information if virus info is different, or if overwrite is false update doc_virus information only if virus info is different and not null
+                elif (overwrite and document[field] != v[field]) or (not overwrite and document[field] is None and document[field] != v[field]):
+                    print field
+                    print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + str(v[field])) + "\""
+                    document[field] = v[field]
+                    updated = True
         return updated
 
     def update_document_sequence(self, document, v, **kwargs):
