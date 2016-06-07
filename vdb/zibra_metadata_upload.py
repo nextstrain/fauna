@@ -13,8 +13,8 @@ class zibra_metadata_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-#    fasta_fields = {0:'strain', 1:'municipality', 2:'state', 3:'collection_date'}
-    fasta_fields = {0:'strain', 1:'location', 2:'division', 3:'date'}
+    fasta_fields = ['strain', 'amplicon_concentration', 'ct', 'date', 'division', 'lacen_id', 'location',
+                    'microcephaly', 'onset_date', 'patient_age', 'patient_sex', 'rt_positive', 'sample_type']
     setattr(args, 'fasta_fields', fasta_fields)
     connVDB = zibra_metadata_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)

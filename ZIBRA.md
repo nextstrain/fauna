@@ -2,7 +2,7 @@
 
 ## Schema notes
 
-* `strain`: This is LACEN sample ID. Should be a 12-digit number. This is the *primary key* of the table.
+* `strain`: This study / strain ID in the form of `ZBN47`, `ZBJP1`, etc... This is the *primary key* of the table and is required for every document.
 * `amplicon_concentration`: Purity of DNA after PCR amplification. Measured in ng/ul.
 * `citations`: Not crucial. This can be populated with citation information.
 * `ct`: Ct value of positive RT-PCR result.
@@ -13,6 +13,7 @@
  * `para`
  * `paraiba`
  * `rio_grande_do_norte`
+* `lacen_id`: This is LACEN sample ID. Should be a 12-digit number. This very important to be able to link sample to clinical metadata.
 * `location`: Name of municipality of patient origin. Should be snakecase. Examples:
  * `canguaretama`
  * `natal` 
@@ -32,11 +33,16 @@
 automatically managed by scripts/chateau.
 * `virus`: All samples should be `zika`.
 
+## Sample IDs
+
+* `ZBRA1` is sample 1 from location A (LACEN Natal).
+* `ZBRB1` is sample 1 from location B (LACEN Joao Pessoa).
+
 ## Database commands
 
 Upload metadata with:
 
-    python vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname lacen_rn.tsv --ftype tsv --source zibra --virus zika --country brazil --local
+    python vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname lacen_rn.tsv --ftype tsv --source zibra --virus zika --country brazil --authors ZiBRA --local
 
 Upload sequences with:
 
