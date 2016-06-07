@@ -93,6 +93,17 @@ class parse(object):
             elif v[field] is not None and isinstance(v[field], str):
                 v[field] = v[field] = v[field].lower().replace(' ', '_')
 
+    def fix_boolean(self, v):
+        '''
+        replace strings of "true" and "false" with proper booleans
+        '''
+        for field in v:
+            if v[field] is not None:
+                if v[field] == "true":
+                    v[field] = True
+                if v[field] == "false":
+                    v[field] = False
+
     def parse_fasta_file(self, fasta, **kwargs):
         '''
         Parse FASTA file with default header formatting
@@ -110,6 +121,7 @@ class parse(object):
                 v['sequence'] = str(record.seq)
                 self.add_other_attributes(v, **kwargs)
                 self.fix_casing(v)
+                self.fix_boolean(v)                
                 viruses.append(v)
             handle.close()
         return viruses
@@ -134,6 +146,7 @@ class parse(object):
                     v = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
                     self.add_other_attributes(v, **kwargs)
                     self.fix_casing(v)
+                    self.fix_boolean(v)
                     viruses.append(v)
         return viruses
 
@@ -237,6 +250,7 @@ class parse(object):
                         print("Couldn't parse strain name for " + v['accession'])
             self.add_other_attributes(v, **kwargs)
             self.fix_casing(v)
+            self.fix_boolean(v)
             viruses.append(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
