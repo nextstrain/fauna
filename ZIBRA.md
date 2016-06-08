@@ -71,5 +71,4 @@ From `nextstrain-db/` run:
     source environment_rethink.sh
     python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv
 
-This will result in the file `nextstrain-db/data/zibra.tsv` that has all necessary metadata.
-
+This will result in the file `nextstrain-db/data/zibra.tsv` that has all necessary metadata. This file can be searched for `2_NB07`, etc... in the `minion_barcode` column to match MinION output to metadata, including strain name.
