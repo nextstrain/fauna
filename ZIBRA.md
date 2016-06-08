@@ -23,7 +23,7 @@
 * `microcephaly`: Whether sample was linked to microcephaly, `true` or `false`.
 * `minion_barcode`: List of MinION library/barcodes associated with sample, for example `[2_NB08, 2_NB09]`.
 * `onset_date`: Date of symptom onset. Should be formatted as `2015-07-27` (YYYY-MM-DD). 
-* `patient_age`: Patient age in years.
+* `patient_age`: Patient age, `30y`, `6m`, `10d`, etc...
 * `patient_sex`: Patient sex, `male` or `female`.
 * `public`: Whether the sample genome can be shared publicly, `true` or `false`.
 * `region`: All samples should be `south_america`.
