@@ -120,9 +120,9 @@ Command line arguments to run `download.py`:
 
 Download sequences for `Zika_process.py`:
 
-    python vdb/download.py -db vdb -v zika --fstem zika
+    python vdb/download.py -db vdb -tb zika --fstem zika
     
-    python vdb/download.py -db test_vdb -v zika --ftype json --countries brazil haiti --public_only
+    python vdb/download.py -db vdb -tb zika --ftype json --countries brazil haiti --public_only
 
 ## Updating
 

@@ -5,33 +5,38 @@
 * `strain`: This study / strain ID in the form of `ZBN47`, `ZBJP1`, etc... This is the *primary key* of the table and is required for every document.
 * `amplicon_concentration`: Purity of DNA after PCR amplification. Measured in ng/ul.
 * `citations`: Not crucial. This can be populated with citation information.
-* `ct`: Ct value of positive RT-PCR result.
 * `country`: All samples should be `brazil`.
-* `date`: Collection date of the sample. Should be formatted as `2015-07-27` (YYYY-MM-DD).
-* `division`: Name of Brazilian state of patient origin. Should be snakecase. Examples:
+* `ct`: Ct value of positive RT-PCR result.
+* `date`: Collection date of the sample. Should be formatted as `2015-07-27` (YYYY-MM-DD). If a sample lacks complete date information, enter as `2015-07-XX` (day unknown) or `2015-XX-XX` (month and day unknown).
+* `division`: Name of Brazilian state of patient origin. Should be snakecase without accents. Examples:
  * `bahia`
  * `para`
  * `paraiba`
  * `rio_grande_do_norte`
+* `host`: Host species. Human samples are `human`.
 * `lacen_id`: This is LACEN sample ID. Should be a 12-digit number. This very important to be able to link sample to clinical metadata.
-* `location`: Name of municipality of patient origin. Should be snakecase. Examples:
+* `location`: Name of municipality of patient origin. Should be snakecase without accents. Examples:
  * `canguaretama`
  * `natal` 
  * `nova_cruz`
  * `sao_goncalo_do_amarante`
+* `microcephaly`: Whether sample was linked to microcephaly, `true` or `false`.
+* `minion_barcode`: List of MinION library/barcodes associated with sample, for example `[2_NB08, 2_NB09]`.
 * `onset_date`: Date of symptom onset. Should be formatted as `2015-07-27` (YYYY-MM-DD). 
 * `patient_age`: Patient age in years.
 * `patient_sex`: Patient sex, `male` or `female`.
 * `public`: Whether the sample genome can be shared publicly, `true` or `false`.
 * `region`: All samples should be `south_america`.
+* `rt_positive`: Whether RT-PCR is positive for Zika, `true` or `false`.
 * `sequences`: Contains three fields:
  * `accession`: Same as `strain`, based on LACEN sample ID.
  * `locus`: All samples should be `genome`.
  * `sequence`: Genome sequence.
-* `rt_positive`: Whether RT-PCR is positive for Zika, `true` or `false`.
 * `timestamp`: The last edit time of the database entry in `2016-06-04-14-06` (YYYY-MM-DD-HH-MM) format. This should be
 automatically managed by scripts/chateau.
 * `virus`: All samples should be `zika`.
+
+Modifications to the schema should be made to [zibra_metadata_upload.py]() and [zibra_download.py]().
 
 ## Sample IDs
 
