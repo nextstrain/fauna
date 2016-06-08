@@ -40,6 +40,8 @@ automatically managed by scripts/chateau.
 
 ## Database commands
 
+Remember to [install rethinkdb bindings](README.md#install).
+
 Upload metadata with:
 
     python vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname lacen_rn.tsv --ftype tsv --source zibra --virus zika --country brazil --authors ZiBRA --local
@@ -65,6 +67,8 @@ Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table
 	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
 
 ## Download latest metadata for consensus builds
+
+Remember to [install rethinkdb bindings](README.md#install).
 
 From `nextstrain-db/` run:
 
