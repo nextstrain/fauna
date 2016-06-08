@@ -64,8 +64,12 @@ Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table
 
 	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
 
-## Connecting to ZiBRA laptop
+## Download latest metadata for consensus builds
 
-SSH in with:
+From `nextstrain-db/` run:
 
-    ssh zibra@192.168.137.1
+    source environment_rethink.sh
+    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv
+
+This will result in the file `nextstrain-db/data/zibra.tsv` that has all necessary metadata.
+
