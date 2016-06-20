@@ -13,9 +13,10 @@ class zibra_metadata_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    fasta_fields = ['strain', 'amplicon_concentration', 'minion_barcode', 'ct', 'date', 'division', 'lacen_id',
-                    'location', 'microcephaly', 'onset_date', 'patient_age', 'patient_sex', 'rt_positive',
-                    'sample_type']
+    fasta_fields = ['strain', 'lacen_gal', 'rt_positive', 'ct', 'rt_date', 'amplicon_concentration', 'minion_barcodes',
+                    'country', 'state', 'municipality', 'collection_date', 'onset_date', 'host_species', 'patient_age'
+                    'patient_sex', 'pregnant', 'pregnancy_week', 'pregnancy_trimester', 'microcephaly', 'sample_type',
+                    'symptoms']
     setattr(args, 'fasta_fields', fasta_fields)
     connVDB = zibra_metadata_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)
