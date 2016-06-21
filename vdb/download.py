@@ -5,20 +5,23 @@ import numpy as np
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-parser.add_argument('-tb', '--table', default='zika', help="table to interact with")
-parser.add_argument('--path', default='data', help="path to dump output files to")
-parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
-parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
-parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
-parser.add_argument('--rethink_host', default=None, help="rethink host url")
-parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
-parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
-parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
-parser.add_argument('--present', nargs='+', type=str, default=None, help="Select specific fields to be non-null ie \'--present field1 field2\'")
+def get_parser():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-db', '--database', default='vdb', help="database to download from")
+    parser.add_argument('-tb', '--table', default='zika', help="table to interact with")
+    parser.add_argument('--path', default='data', help="path to dump output files to")
+    parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
+    parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
+    parser.add_argument('--rethink_host', default=None, help="rethink host url")
+    parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+    parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
+    parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
+    parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
+    parser.add_argument('--present', nargs='+', type=str, default=None, help="Select specific fields to be non-null ie \'--present field1 field2\'")
+    return parser
+
 
 class download(object):
     def __init__(self, database, table, **kwargs):
@@ -80,7 +83,7 @@ class download(object):
                     cursor = filter(lambda doc: doc[sel] is not None, cursor)
                     print('Removed documents that were null for field \'' + sel + '\', remaining documents: ' + str(len(cursor)))
                 else:
-                    print(sel + " is not in all documents, can't subset by that field")        
+                    print(sel + " is not in all documents, can't subset by that field")
         print("Documents in table after subsetting: " + str(len(cursor)))
         return cursor
 
@@ -103,7 +106,7 @@ class download(object):
         if 'sequences' in document:
             best_sequence_pos = 0
             if len(document['sequences']) > 1:
-                best_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])    
+                best_sequence_pos = np.argmax([len(seq_info['sequence']) for seq_info in document['sequences']])
             best_sequence_info = document['sequences'][best_sequence_pos]
             best_citation_info = document['citations'][best_sequence_pos]
 
@@ -171,11 +174,12 @@ class download(object):
         elif ftype == 'fasta':
             self.write_fasta(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
         elif ftype == 'tsv':
-            self.write_tsv(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)            
+            self.write_tsv(self.viruses, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
         else:
             raise Exception("Can't output to that file type, only json, fasta or tsv allowed")
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
     if args.fstem is None:

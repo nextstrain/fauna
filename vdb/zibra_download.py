@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 from download import download
-from download import parser
+from download import get_parser
 
 class zibra_download(download):
     def __init__(self, **kwargs):
@@ -10,6 +10,7 @@ class zibra_download(download):
         self.virus_specific_fasta_fields = []
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     fasta_fields = ['strain', 'lacen_gal', 'rt_positive', 'ct', 'rt_date', 'amplicon_concentration', 'minion_barcodes',
                     'country', 'state', 'municipality', 'collection_date', 'onset_date', 'host_species', 'patient_age'
