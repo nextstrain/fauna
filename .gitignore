@@ -12,3 +12,6 @@ npm-debug.log
 
 # Rethinkdb
 rethinkdb_data/
+
+# Other
+.DS_Store
