@@ -33,7 +33,10 @@ class upload(parse):
     def __init__(self, database, table, virus, **kwargs):
         parse.__init__(self, **kwargs)
         self.virus = virus.lower()
-        self.table = table.lower()
+        if table is None:
+            self.table = self.virus
+        else:
+            self.table = table.lower()
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         if self.database not in self.uploadable_databases:
@@ -65,6 +68,7 @@ class upload(parse):
         self.parse(**kwargs)
         self.format()
         self.filter()
+        self.format_schema()
         if not preview:
             self.upload_documents(**kwargs)
         else:
@@ -147,9 +151,9 @@ class upload(parse):
         virus['region'] = '?'
         if 'country' in virus:
             if virus['country'] is not None:
-                test_country = virus['country']
+                test_country = self.camelcase_to_snakecase(virus['country'])
                 if test_country is not None and test_country in self.country_to_region:
-                    virus['region'] = self.country_to_region[virus['country']].lower()
+                    virus['region'] = self.country_to_region[self.camelcase_to_snakecase(virus['country'])]
                 if virus['country'] != '?' and virus['region'] == '?':
                     virus['region'] = None
                     print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
@@ -161,7 +165,7 @@ class upload(parse):
         location_fields = ['region', 'country', 'division', 'location']
         for field in location_fields:
             if field in virus and virus[field] is not None:
-                virus[field] = virus[field].lower().replace(' ', '_')
+                virus[field] = self.camelcase_to_snakecase(virus[field].replace(' ', '_'))
 
     def filter(self):
         '''
@@ -171,7 +175,6 @@ class upload(parse):
         self.rethink_io.check_optional_attributes(self.viruses, self.optional_fields)
         self.viruses = filter(lambda v: self.rethink_io.check_required_attributes(v, self.upload_fields, self.index_field), self.viruses)
         print(str(len(self.viruses)) + " viruses after filtering")
-        self.format_schema()
 
     def format_schema(self):
         '''
@@ -188,6 +191,8 @@ class upload(parse):
                 if field in virus.keys():
                     virus['citations'][0][field] = virus[field]
                     del virus[field]
+            if len(virus['sequences']) > 1:
+                print(virus)
 
     def upload_documents(self, exclusive, **kwargs):
         '''
@@ -210,6 +215,7 @@ class upload(parse):
                     update_viruses[db_strain] = virus
                 elif db_strain in upload_viruses.keys():  # virus already to be uploaded, need to check for updates to sequence information
                     upload_v = upload_viruses[db_strain]
+                    print("updating sequence", db_strain)
                     self.update_document_sequence(upload_v, virus, **kwargs)  # add new sequeunce information to upload_v
                 else:  # new virus that needs to be uploaded
                     upload_viruses[virus['strain']] = virus
@@ -311,17 +317,16 @@ class upload(parse):
             doc_seqs = document['sequences']
             virus_seq = v['sequences'][0]
             virus_citation = v['citations'][0]
-            if doc_seqs[0]['sequence'] is not None and virus_seq['sequence'] is not None:
-                if virus_seq['accession'] is not None: # try comparing accession's first
-                    if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
-                        updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                    else:
-                        updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-                else:  # if it doesn't have an accession, see if sequence already in document
-                    if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
-                        updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                    else:
-                        updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            if virus_seq['accession'] is not None: # try comparing accession's first
+                if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
+                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                else:
+                    updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
+            else:  # if it doesn't have an accession, see if sequence already in document
+                if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
+                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
+                else:
+                    updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
             if len(doc_seqs) == 1 and doc_seqs[0]['accession'] is None and doc_seqs[0]['sequence'] is None:	 # doc 'sequences' currently empty
                 document['sequences'] = v['sequences']
                 updated = True

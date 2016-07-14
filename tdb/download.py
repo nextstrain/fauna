@@ -7,11 +7,11 @@ from base.rethink_io import rethink_io
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to download from")
-parser.add_argument('-v', '--virus', default='h3n2', help="virus table to interact with")
-parser.add_argument('--subtype', nargs='+', type=str, default=None, help="subtype to be include in download")
+parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with")
+parser.add_argument('--subtype', default=None, help="subtype to be include in download")
 parser.add_argument('--host', nargs='+', type=str, default=None, help="hosts to be include in download")
 parser.add_argument('--path', default='data', help="path to dump output files to")
-parser.add_argument('--ftype', default='text', help="output file format, default \"text\", other is \"json\"")
+parser.add_argument('--ftype', default='txt', help="output file format, default \"txt\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
@@ -38,7 +38,7 @@ class download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self, output=True, **kwargs):
+    def download(self, output=True, count=True, **kwargs):
         '''
         download documents from table
         '''
@@ -47,6 +47,8 @@ class download(object):
         self.measurements = self.subsetting(self.measurements, **kwargs)
         if output:
             self.output(**kwargs)
+        if count:
+            self.write_count(**kwargs)
 
     def subsetting(self, cursor, subtype=None, host=None, **kwargs):
         '''
@@ -55,9 +57,8 @@ class download(object):
         result = cursor
         print("Documents in table before subsetting: " + str(len(result)))
         if subtype is not None:
-            subtype = [s.lower() for s in subtype]
-            result = filter(lambda doc: doc['subtype'] in subtype, result)
-            print('Removed documents that were not of the specified subtype (' + ','.join(subtype) + '), remaining documents: ' + str(len(result)))
+            result = filter(lambda doc: doc['subtype'] == subtype.lower(), result)
+            print('Removed documents that were not of the specified subtype (' + subtype + '), remaining documents: ' + str(len(result)))
         if host is not None:
             host = [h.title() for h in host]
             result = filter(lambda doc: doc['host'] in host, result)
@@ -96,20 +97,47 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self, path, fstem, ftype, **kwargs):
+    def output(self, path, fstem, ftype, subtype, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
         if ftype == 'json':
             self.write_json(self.measurements,fname)
-        elif ftype == 'text':
+        elif ftype == 'txt':
+            self.write_text(self.measurements, fname)
+        elif ftype == 'augur':
+            fname = path + '/' + subtype + "_HI_titers.txt"
             self.write_text(self.measurements, fname)
         else:
             raise Exception("Can't output to that file type, only json or text allowed")
+
+    def write_count(self, path, subtype, **kwargs):
+        fname = path + '/' + subtype + '_HI_strains.txt'
+        print("Counting HI_strains and printing to " + fname)
+        HI_titer_count = self.count()
+        try:
+            handle = open(fname, 'w')
+        except IOError:
+            pass
+        else:
+            for strain, count in HI_titer_count.items():
+                handle.write(strain + "\t" + str(count))
+                handle.write("\n")
+            handle.close()
+            print("Wrote to " + fname)
+
+    def count(self):
+        HI_titer_count = {}
+        for meas in self.measurements:
+            if meas['serum'] in HI_titer_count.keys():
+                HI_titer_count[meas['serum']] = HI_titer_count[meas['serum']] + 1
+            else:
+                HI_titer_count[meas['serum']] = 1
+        return HI_titer_count
 
 if __name__=="__main__":
     args = parser.parse_args()
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
     if args.fstem is None:
-        args.fstem = args.virus + '_' + current_date
+        args.fstem = args.subtype + '_' + current_date
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connTDB = download(**args.__dict__)

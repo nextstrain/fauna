@@ -38,7 +38,7 @@ class parse(object):
             elif ftype == 'fasta':
                 self.viruses = self.parse_fasta_file(path + fname, **kwargs)
             elif ftype == 'tsv':
-                self.viruses = self.parse_tsv_file(path + fname, **kwargs)                
+                self.viruses = self.parse_tsv_file(path + fname, **kwargs)
         else:
             raise Exception("No input file name and type defined or accessions given")
 
@@ -82,6 +82,7 @@ class parse(object):
                 v['source'] = source
         if 'public' not in v and public is not None:
             v['public'] = public
+        return v
 
     def fix_casing(self, v):
         '''
@@ -113,7 +114,7 @@ class parse(object):
         try:
             handle = open(fasta, 'r')
         except IOError:
-            print(fasta, "not found")
+            raise Exception(fasta, "not found")
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
@@ -137,7 +138,7 @@ class parse(object):
         try:
             os.path.isfile(tsv)
         except IOError:
-            print(tsv, "not found")
+            raise Exception(tsv, "not found")
         else:
             with open(tsv) as infile:
                 table_reader = csv.reader(infile, delimiter="\t")
@@ -158,7 +159,7 @@ class parse(object):
         try:
             handle = open(gb, 'r')
         except IOError:
-            print(gb, "not found")
+            raise Exception(gb, "not found")
         else:
             return self.parse_gb_entries(handle, **kwargs)
 
@@ -170,7 +171,7 @@ class parse(object):
         try:
             handle = open(acc, 'r')
         except IOError:
-            print(acc, "not found")
+            raise Exception(acc, "not found")
         else:
             accessions = []
             for acc in handle:
