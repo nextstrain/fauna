@@ -8,7 +8,6 @@ from base.rethink_io import rethink_io
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
-parser.add_argument('-tb', '--table', help="virus table to interact with")
 parser.add_argument('-v', '--virus', help="virus name")
 parser.add_argument('--fname', help="input file name")
 parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
@@ -19,6 +18,7 @@ parser.add_argument('--host', default='human', help="host virus isolated from")
 parser.add_argument('--country', default=None, help="country virus isolated from")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
 parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
+parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
 parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
@@ -30,13 +30,11 @@ parser.add_argument('--email', default=None, help="email to access NCBI database
 parser.add_argument('--auto_upload', default=False, action="store_true", help="search genbank for recent sequences")
 
 class upload(parse):
-    def __init__(self, database, table, virus, **kwargs):
+    def __init__(self, database, virus, **kwargs):
         parse.__init__(self, **kwargs)
         self.virus = virus.lower()
-        if table is None:
-            self.table = self.virus
-        else:
-            self.table = table.lower()
+        self.viruses_table = virus + "_viruses"
+        self.sequences_table = virus + "_sequences"
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         if self.database not in self.uploadable_databases:
@@ -44,20 +42,8 @@ class upload(parse):
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
-        self.rethink_io.check_table_exists(self.database, self.table)
-
-        # fields that are needed to upload
-        self.index_field = ['strain']
-        self.sequence_upload_fields = []
-        self.sequence_optional_fields = ['locus', 'sequence', 'accession']  # ex. if from virological.org or not in a database
-        self.citation_upload_fields = ['source']
-        self.citation_optional_fields = ['authors', 'title', 'url']
-        self.grouping_upload_fields = []
-        self.grouping_optional_fields = []
-        self.virus_upload_fields = ['strain', 'virus', 'timestamp']
-        self.virus_optional_fields = ['division', 'location', 'date', 'country', 'region', 'host', 'public']
-        self.upload_fields = self.virus_upload_fields+self.sequence_upload_fields+self.citation_upload_fields+self.grouping_upload_fields
-        self.optional_fields = self.virus_optional_fields+self.sequence_optional_fields+self.citation_optional_fields+self.grouping_optional_fields
+        self.rethink_io.check_table_exists(self.database, self.viruses_table)
+        self.rethink_io.check_table_exists(self.database, self.sequences_table)
         self.strains = {}
 
     def upload(self, preview=False, **kwargs):
@@ -65,30 +51,47 @@ class upload(parse):
         format virus information, then upload to database
         '''
         print("Uploading Viruses to VDB")
-        self.parse(**kwargs)
-        self.format()
-        self.filter()
-        self.format_schema()
+        viruses, sequences = self.parse(**kwargs)
+        print('Formatting viruses for upload')
+        self.format_viruses(viruses, **kwargs)
+        print('Formatting sequences for upload')
+        self.format_sequences(sequences, **kwargs)
+        self.link_viruses_to_sequences(viruses, sequences)
+        print("Upload Step")
         if not preview:
-            self.upload_documents(**kwargs)
+            print("Uploading viruses to " + self.database + "." + self.viruses_table)
+            self.upload_documents(self.viruses_table, viruses, 'strain', **kwargs)
+            print("Uploading sequences to " + self.database + "." + self.sequences_table)
+            self.upload_documents(self.sequences_table, sequences, 'accession', **kwargs)
         else:
-            try:
-                print(json.dumps(self.viruses[0], indent=1))
-            except:
-                print(json.dumps(self.viruses, indent=1))
-            print("Include \"--upload\" to upload documents")
+            print("Viruses:")
+            print(json.dumps(viruses[0], indent=1))
+            print("Sequences:")
+            print(json.dumps(sequences[0], indent=1))
+            print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-    def format(self):
+    def format_viruses(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
-        print('Formatting for upload')
         self.define_regions()
-        for virus in self.viruses:
-            self.format_date(virus)
-            self.format_place(virus)
-            self.format_region(virus)
+        for doc in documents:
+            if 'strain' in doc:
+                doc['strain'] = self.fix_name(doc['strain'])
+            self.format_date(doc)
+            self.format_region(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.format_place(doc)
+
+    def format_sequences(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        for doc in documents:
+            if 'strain' in doc:
+                doc['strain'] = self.fix_name(doc['strain'])
+            self.rethink_io.check_optional_attributes(doc, [])
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
@@ -160,120 +163,102 @@ class upload(parse):
 
     def format_place(self, virus):
         '''
-        Ensure lowercase_with_underscores formatting after assigning these fields
+        Ensure snakecaase formatting after assigning these fields
         '''
         location_fields = ['region', 'country', 'division', 'location']
         for field in location_fields:
             if field in virus and virus[field] is not None:
                 virus[field] = self.camelcase_to_snakecase(virus[field].replace(' ', '_'))
 
-    def filter(self):
+    def link_viruses_to_sequences(self, viruses, sequences):
         '''
-        Filter out viruses without correct format, check  optional and upload attributes
+        Link the sequence information virus isolate information via the strain name
         '''
-        print(str(len(self.viruses)) + " viruses before filtering")
-        self.rethink_io.check_optional_attributes(self.viruses, self.optional_fields)
-        self.viruses = filter(lambda v: self.rethink_io.check_required_attributes(v, self.upload_fields, self.index_field), self.viruses)
-        print(str(len(self.viruses)) + " viruses after filtering")
+        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
+        for sequence_doc in sequences:
+            if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
+                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
+                virus_doc['sequences'].append(sequence_doc['accession'])
+                virus_doc['number_sequences'] += 1
 
-    def format_schema(self):
-        '''
-        move sequence information into nested 'sequences' field
-        '''
-        for virus in self.viruses:
-            virus['sequences'] = [{}]
-            virus['citations'] = [{}]
-            for field in self.sequence_upload_fields + self.sequence_optional_fields:
-                if field in virus.keys():
-                    virus['sequences'][0][field] = virus[field]
-                    del virus[field]
-            for field in self.citation_upload_fields + self.citation_optional_fields:
-                if field in virus.keys():
-                    virus['citations'][0][field] = virus[field]
-                    del virus[field]
-            if len(virus['sequences']) > 1:
-                print(virus)
+    def upload_documents(self, table, documents, index, replace, **kwargs):
+        if replace:
+            print("Deleting documents in database:" + self.database + "." + table)
+            r.table(table).delete().run()
+        db_documents = list(r.db(self.database).table(table).run())
+        db_relaxed_keys = self.relaxed_keys(db_documents)
+        db_key_to_documents = {dd[index]: dd for dd in db_documents}
+        update_documents = {}
+        upload_documents = {}
 
-    def upload_documents(self, exclusive, **kwargs):
-        '''
-        Insert viruses into collection
-        '''
-        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
-        db_relaxed_strains = self.relaxed_strains()
-        # Faster way to upload documents, downloads all database documents locally and looks for precense of strain in database
-        if exclusive:
-            db_viruses = list(r.db(self.database).table(self.table).run())
-            db_strain_to_viruses = {db_v['strain']: db_v for db_v in db_viruses}
-            update_viruses = {}
-            upload_viruses = {}
-            for virus in self.viruses:
-                # determine the corresponding database strain name based on relaxed db and virus strain
-                db_strain = virus['strain']
-                if self.relax_name(virus['strain']) in db_relaxed_strains:
-                    db_strain = db_relaxed_strains[self.relax_name(virus['strain'])]
-                if db_strain in db_strain_to_viruses.keys():  # virus already in database
-                    update_viruses[db_strain] = virus
-                elif db_strain in upload_viruses.keys():  # virus already to be uploaded, need to check for updates to sequence information
-                    upload_v = upload_viruses[db_strain]
-                    print("updating sequence", db_strain)
-                    self.update_document_sequence(upload_v, virus, **kwargs)  # add new sequeunce information to upload_v
-                else:  # new virus that needs to be uploaded
-                    upload_viruses[virus['strain']] = virus
-            print("Inserting ", len(upload_viruses), "viruses into database", self.table)
-            try:
-                r.table(self.table).insert(upload_viruses.values()).run()
-            except:
-                raise Exception("Couldn't insert new viruses into database")
-            print("Checking for updates to ", len(update_viruses), "viruses in database", self.table)
-            updated = []
-            for db_strain, v in update_viruses.items():  # determine if virus has new information
-                document = db_strain_to_viruses[db_strain]
-                updated_sequence = self.update_document_sequence(document, v, **kwargs)
-                updated_meta = self.update_document_meta(document, v, **kwargs)
-                if updated_sequence or updated_meta:
-                    document['timestamp'] = v['timestamp']
-                    updated.append(document)
-            try:
-                r.table(self.table).insert(updated, conflict="replace").run()
-            except:
-                raise Exception("Couldn't update viruses already in database")
-        # Slower way to upload but less chance database is changed while updating documents, asks database for each document separately
+        # Determine whether documents need to be updated or uploaded
+        for doc in documents:
+            # match to relaxed strain name if available
+            db_key = doc[index]
+            if self.relax_name(doc[index]) in db_relaxed_keys:
+                db_key = db_relaxed_keys[self.relax_name(doc[index])]
+
+            if db_key in db_key_to_documents.keys():  # add to update documents
+                update_documents[db_key] = doc
+            elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
+                self.update_document_meta(upload_documents[db_key], doc, **kwargs)
+            else:  # add to upload documents
+                upload_documents[doc[index]] = doc
+        print("Inserting ", len(upload_documents), "documents")
+        self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
+        self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
+
+    def upload_to_rethinkdb(self, database, table, documents, conflict_resolution):
+        try:
+            r.table(table).insert(documents, conflict=conflict_resolution).run()
+        except:
+            raise Exception("Couldn't insert new documents into database", database + "." + table)
+
+    def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
+        print("Checking for updates to ", len(update_documents), "documents")
+        # determine which documents need to be updated
+        updated = [db_key_to_documents[db_key] for db_key, doc in update_documents.items() if self.update_document_meta(db_key_to_documents[db_key], doc, **kwargs)]
+        if len(updated) > 0:
+            print("Found updates to ", len(updated), "documents")
+            self.upload_to_rethinkdb(self.database, table, updated, 'replace')
         else:
-            print("Uploading " + str(len(self.viruses)) + " viruses to the table")
-            self.relaxed_strains()
-            for virus in self.viruses:
-                # Retrieve virus from table to see if it already exists, try relaxed comparison first
-                relaxed_name = virus['strain']
-                if self.relax_name(virus['strain']) in db_relaxed_strains:
-                    relaxed_name = db_relaxed_strains[self.relax_name(virus['strain'])]
-                try:
-                    document = r.table(self.table).get(relaxed_name).run()
-                except:
-                    print(virus)
-                    raise Exception("Couldn't retrieve this virus")
-                # Virus doesn't exist in table yet so add it
-                if document is None:
-                    #print("Inserting " + virus['strain'] + " into database")
-                    try:
-                        r.table(self.table).insert(virus).run()
-                    except:
-                        print(virus)
-                        raise Exception("Couldn't insert this virus")
-                # Virus exists in table so just add sequence information and update meta data if needed
-                else:
-                    updated_sequence = self.update_document_sequence(document, virus, **kwargs)
-                    updated_meta = self.update_document_meta(document, virus, **kwargs)
-                    if updated_sequence or updated_meta:
-                        document['timestamp'] = virus['timestamp']
-                        r.table(self.table).insert(document, conflict="replace").run()
+            print("No documents need to be updated in ", self.database + "." + table)
 
-    def relaxed_strains(self):
+    def update_document_meta(self, db_doc, doc, overwrite, **kwargs):
+        '''
+        update overwritable fields at the base level of the document
+        Updates the db_doc to fields of doc based on rules below
+        '''
+        updated = False
+        for field in db_doc:
+            if field == 'timestamp':
+                pass
+            elif field == 'sequences':
+                # add new accessions to sequences
+                for accession in doc[field]:
+                    if accession not in db_doc[field]:
+                        db_doc[field].append(accession)
+                        db_doc['number_sequences'] += 1
+            else:
+                if doc[field] is not None:
+                    # update if field not present in db_doc
+                    if field not in db_doc:
+                        print("Creating field ", field, " assigned to ", doc[field])
+                        db_doc[field] = doc[field]
+                        updated = True
+                    #update db_doc information if doc info is different, or if overwrite is false update db_doc information only if doc info is different and not null
+                    elif (overwrite and db_doc[field] != doc[field]) or (not overwrite and db_doc[field] is None and db_doc[field] != doc[field]):
+                        print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
+                        db_doc[field] = doc[field]
+                        updated = True
+        return updated
+
+    def relaxed_keys(self, documents):
         '''
         Create dictionary from relaxed vdb strain names to actual vdb strain names.
         '''
         strains = {}
-        cursor = list(r.db(self.database).table(self.table).run())
-        for doc in cursor:
+        for doc in documents:
             strains[self.relax_name(doc['strain'])] = doc['strain']
         return strains
 
@@ -285,104 +270,6 @@ class upload(parse):
         name = re.sub(r"_", '', name)
         name = re.sub(r"/", '', name)
         return name
-
-    def update_document_meta(self, document, v, overwrite, **kwargs):
-        '''
-        update overwritable fields at the base level of the document
-        '''
-        updated = False
-        for field in v:
-            if v[field] is not None and field != 'timestamp':           
-                # update if field not present in document
-                if field not in document:
-                    print("Creating virus field ", field, " assigned to ", v[field])
-                    document[field] = v[field]
-                    updated = True
-                #update doc_virus information if virus info is different, or if overwrite is false update doc_virus information only if virus info is different and not null
-                elif (overwrite and document[field] != v[field]) or (not overwrite and document[field] is None and document[field] != v[field]):
-                    print field
-                    print("Updating virus field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + str(v[field])) + "\""
-                    document[field] = v[field]
-                    updated = True
-        return updated
-
-    def update_document_sequence(self, document, v, **kwargs):
-        '''
-        Update sequence fields if matching accession or sequence
-        Append sequence to sequence list if no matching accession or sequence
-        If sequence is currently empty, ie accession: null, sequence: null, then replace
-        '''
-        updated = False
-        if 'sequences' in document and 'sequences' in v:
-            doc_seqs = document['sequences']
-            virus_seq = v['sequences'][0]
-            virus_citation = v['citations'][0]
-            if virus_seq['accession'] is not None: # try comparing accession's first
-                if all(virus_seq['accession'] != seq_info['accession'] for seq_info in doc_seqs):
-                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                else:
-                    updated = self.update_sequence_citation_field(document, v, 'accession', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-            else:  # if it doesn't have an accession, see if sequence already in document
-                if all(virus_seq['sequence'] != seq_info['sequence'] for seq_info in doc_seqs):
-                    updated = self.append_new_sequence(document, virus_seq, virus_citation)
-                else:
-                    updated = self.update_sequence_citation_field(document, v, 'sequence', self.sequence_upload_fields+self.sequence_optional_fields, self.citation_optional_fields, **kwargs)
-            if len(doc_seqs) == 1 and doc_seqs[0]['accession'] is None and doc_seqs[0]['sequence'] is None:	 # doc 'sequences' currently empty
-                document['sequences'] = v['sequences']
-                updated = True
-            if len(document['sequences']) != len(document['citations']):
-                print("Warning: length of list of sequences and citations does not match for " + v['strain'])
-        return updated
-
-    def append_new_sequence(self,document, virus_seq, virus_citation):
-        '''
-        New sequence information, so append to document sequences and citations field
-        '''
-        document['sequences'].append(virus_seq)
-        document['citations'].append(virus_citation)
-        return True
-
-    def update_sequence_citation_field(self, document, virus_doc, check_field, sequence_fields, citation_fields, **kwargs):
-        '''
-        Based on the check_field (accession or sequence), look for updated sequence and citation information
-        '''
-        updated_sequence = False
-        updated_citation = False
-        strain = virus_doc['strain']
-        doc_seqs = document['sequences']
-        virus_seq = virus_doc['sequences'][0]
-        index = -1
-        for doc_sequence_info in doc_seqs:
-            index += 1
-            if doc_sequence_info[check_field] == virus_seq[check_field]:  # find the identical sequence info based on check field
-                updated_sequence = self.update_nested_field(strain, sequence_fields, doc_sequence_info, virus_seq, **kwargs)
-                updated_citation = self.update_nested_field(strain, citation_fields, document['citations'][index], virus_doc['citations'][0], **kwargs)
-        updated = False
-        if updated_sequence:
-            document['sequences'] = doc_seqs
-            updated = True
-        if updated_citation:
-            document['citations'][index] = document['citations'][index]
-            updated = True
-        return updated
-
-    def update_nested_field(self, strain, fields, doc_info, virus_info, overwrite, **kwargs):
-        '''
-        check for updates to nested sequences and citations fields.
-        '''
-        updated_sequence = False
-        for field in fields:
-            if field not in doc_info:
-                if field in virus_info:
-                    print("Creating field ", field, " assigned to \"", virus_info[field] + "\" for strain: " + strain)
-                    doc_info[field] = virus_info[field]
-                    updated_sequence = True
-            elif (overwrite and doc_info[field] != virus_info[field]) or (not overwrite and doc_info[field] is None and doc_info[field] != virus_info[field]):
-                if field in virus_info:
-                    print("Updating field " + str(field) + ", from \"" + str(doc_info[field]) + "\" to \"" + str(virus_info[field]) + "\" for strain: " + strain)
-                    doc_info[field] = virus_info[field]
-                    updated_sequence = True
-        return updated_sequence
 
 if __name__=="__main__":
     args = parser.parse_args()

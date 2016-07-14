@@ -59,20 +59,19 @@ class rethink_io(object):
     def get_upload_timestamp(self):
         return str(datetime.datetime.strftime(datetime.datetime.utcnow(),'%Y-%m-%d-%H-%M'))
 
-    def check_optional_attributes(self, documents, optional_fields):
+    def check_optional_attributes(self, doc, optional_fields):
         '''
         Reassign unknowns from '?' or '' to 'None'
         Create and assign 'None' to optional attributes that don't exist
         '''
-        for doc in documents:
-            for key in doc.keys():
-                if doc[key] == '?' or doc[key] == '':
-                    doc[key] = None
-                if isinstance(doc[key], (str)):
-                    doc[key] = doc[key].strip()
-            for atr in optional_fields:
-                if atr not in doc:
-                    doc[atr] = None
+        for key in doc.keys():
+            if doc[key] == '?' or doc[key] == '':
+                doc[key] = None
+            if isinstance(doc[key], (str)):
+                doc[key] = doc[key].strip()
+        for atr in optional_fields:
+            if atr not in doc:
+                doc[atr] = None
 
     def check_required_attributes(self, doc, required_fields, index_fields):
         '''

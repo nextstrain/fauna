@@ -26,63 +26,22 @@ class parse(object):
             accessions = [acc.strip() for acc in self.accessions.split(",")]
             self.entrez_email(email)
             gi = self.get_GIs(accessions)
-            self.viruses = self.get_entrez_viruses(gi, **kwargs)
+            viruses, sequences = self.get_entrez_viruses(gi, **kwargs)
         elif ftype is not None and fname is not None:
             if ftype == 'genbank':
-                self.viruses = self.parse_gb_file(path + fname, **kwargs)
+                viruses, sequences = self.parse_gb_file(path + fname, **kwargs)
             elif ftype == 'accession':
                 accessions = self.parse_accession_file(path + fname, **kwargs)
                 self.entrez_email(email)
                 gi = self.get_GIs(accessions)
-                self.viruses = self.get_entrez_viruses(gi **kwargs)
+                viruses, sequences = self.get_entrez_viruses(gi **kwargs)
             elif ftype == 'fasta':
-                self.viruses = self.parse_fasta_file(path + fname, **kwargs)
+                viruses, sequences = self.parse_fasta_file(path + fname, **kwargs)
             elif ftype == 'tsv':
-                self.viruses = self.parse_tsv_file(path + fname, **kwargs)
+                viruses, sequences = self.parse_tsv_file(path + fname, **kwargs)
         else:
             raise Exception("No input file name and type defined or accessions given")
-
-    def add_other_attributes(self, v, locus, authors, host, country, source, public=True, **kwargs):
-        '''
-        Add attributes to all viruses to be uploaded that are included at the command line
-        '''
-        if 'strain' in v:
-            v['strain'] = self.fix_name(v['strain'])
-        for field in self.grouping_upload_fields + self.grouping_optional_fields:
-            if field in v:
-                pass
-            elif field in kwargs and kwargs[field] is not None:
-                v[field] = kwargs[field]
-        v['virus'] = self.virus
-        v['timestamp'] = self.rethink_io.get_upload_timestamp()
-        if 'locus' not in v and locus is not None:
-            if locus == 'null' or locus == 'none' or locus == 'None':
-                v['locus'] = None
-            else:
-                v['locus'] = locus
-        if 'authors' not in v and authors is not None:
-            if authors == 'null' or authors == 'none' or authors == 'None':
-                v['authors'] = None
-            else:
-                v['authors'] = authors
-        if 'host' not in v and host is not None:
-            if host == 'null' or host == 'none' or host == 'None':
-                v['host'] = None
-            else:
-                v['host'] = host
-        if 'country' not in v and country is not None:
-            if country == 'null' or country == 'none' or country == 'None':
-                v['country'] = None
-            else :
-                v['country'] = country
-        if 'source' not in v and source is not None:
-            if source == 'null' or source == 'none' or source == 'None':
-                v['source'] = None
-            else:
-                v['source'] = source
-        if 'public' not in v and public is not None:
-            v['public'] = public
-        return v
+        return (viruses, sequences)
 
     def fix_casing(self, v):
         '''
@@ -177,6 +136,51 @@ class parse(object):
             for acc in handle:
                 accessions.append(acc.strip())
             return accessions
+
+    def add_virus_fields(self, v, host, country, **kwargs):
+        '''
+        add fields to the viruses defined at the command line
+        '''
+        if 'host' not in v and host is not None:
+            if host == 'null' or host == 'none' or host == 'None':
+                v['host'] = None
+            else:
+                v['host'] = host
+        if 'country' not in v and country is not None:
+            if country == 'null' or country == 'none' or country == 'None':
+                v['country'] = None
+            else :
+                v['country'] = country
+        v['virus'] = self.virus
+        v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        v['sequences'] = []
+        v['number_sequences'] = 0
+        return v
+
+    def add_sequence_fields(self, v, locus, authors, source, public=True, **kwargs):
+        '''
+        add fields to the sequences defined aat the commandline
+        '''
+        if 'locus' not in v and locus is not None:
+            if locus == 'null' or locus == 'none' or locus == 'None':
+                v['locus'] = None
+            else:
+                v['locus'] = locus
+        if 'authors' not in v and authors is not None:
+            if authors == 'null' or authors == 'none' or authors == 'None':
+                v['authors'] = None
+            else:
+                v['authors'] = authors
+        if 'source' not in v and source is not None:
+            if source == 'null' or source == 'none' or source == 'None':
+                v['source'] = None
+            else:
+                v['source'] = source
+        if 'public' not in v and public is not None:
+            v['public'] = public
+        v['virus'] = self.virus
+        v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        return v
 
     def get_GIs(self, accessions, **kwargs):
         '''
