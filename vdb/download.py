@@ -9,17 +9,19 @@ def get_parser():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-    parser.add_argument('-v', '--virus', help="virus name")
-    parser.add_argument('--path', default='data', help="path to dump output files to")
-    parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
-    parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
-    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
     parser.add_argument('--rethink_host', default=None, help="rethink host url")
     parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
+    parser.add_argument('-v', '--virus', help="virus name")
+    parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
+    parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+    parser.add_argument('--path', default='data', help="path to dump output files to")
+    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
+
     parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
-    parser.add_argument('--select', nargs='+', type=str, default=None, help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
-    parser.add_argument('--present', nargs='+', type=str, default=None, help="Select specific fields to be non-null ie \'--present field1 field2\'")
+    parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
+    parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
+
     parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
     parser.add_argument('--pick_recent', default=False, action="store_true",  help ="For duplicate strains, only includes the most recent sequence for each locus")
     return parser
@@ -56,8 +58,8 @@ class download(object):
         print("Downloading all viruses from the table: " + self.sequences_table)
         sequences = list(r.table(self.sequences_table).run())
 
-        self.subset(viruses, sequences, **kwargs)
-        self.link_viruses_to_sequences(viruses, sequences)
+        viruses, sequences = self.subset(viruses, sequences, **kwargs)
+        sequences = self.link_viruses_to_sequences(viruses, sequences)
         self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
@@ -69,7 +71,7 @@ class download(object):
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:
                     if pick_longest and self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
                         strain_locus_to_doc[doc['strain']] = doc
-                    elif pick_recent and self.most_recent_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
+                    elif pick_recent and self.most_recent_sequence(doc['date'], strain_locus_to_doc[doc['strain']+doc['locus']]['date']):
                         strain_locus_to_doc[doc['strain']] = doc
                 else:
                     strain_locus_to_doc[doc['strain']] = doc
@@ -79,13 +81,14 @@ class download(object):
         if public_only:
             selections.append(('public', True))
 
-        print("Documents in " + self.database + '.' + self.viruses_table + " before subsetting: " + str(len(viruses)))
+        print("Documents from " + self.database + '.' + self.viruses_table + " before subsetting: " + str(len(viruses)))
         viruses = self.subsetting(viruses, selections, present, **kwargs)
-        print("Documents in " + self.database + '.' + self.viruses_table + " after subsetting: " + str(len(viruses)))
+        print("Documents from " + self.database + '.' + self.viruses_table + " after subsetting: " + str(len(viruses)))
 
-        print("Documents in " + self.database + '.' + self.sequences_table + " before subsetting: " + str(len(sequences)))
+        print("Documents from " + self.database + '.' + self.sequences_table + " before subsetting: " + str(len(sequences)))
         sequences = self.subsetting(sequences, selections, present, **kwargs)
-        print("Documents in " + self.database + '.' + self.sequences_table + " after subsetting: " + str(len(sequences)))
+        print("Documents from " + self.database + '.' + self.sequences_table + " after subsetting: " + str(len(sequences)))
+        return (viruses, sequences)
 
     def subsetting(self, cursor, selections=[], presents=[], **kwargs):
         '''
@@ -126,11 +129,14 @@ class download(object):
         '''
         copy the virus doc to the sequence doc
         '''
+        linked_sequences = []
         strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
         for sequence_doc in sequences:
             if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
                 virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
                 sequence_doc.update(virus_doc)
+                linked_sequences.append(sequence_doc)
+        return linked_sequences
 
     def longer_sequence(self, long_seq, short_seq):
         '''
@@ -157,7 +163,6 @@ class download(object):
         else:
             json.dump(data, handle, indent=indent)
             handle.close()
-            print("Wrote to " + fname)
 
     def write_fasta(self, viruses, fname, sep='|', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
                                                                  'country', 'division', 'location', 'source', 'locus',
@@ -175,7 +180,6 @@ class download(object):
                         handle.write(">"+sep.join(fields)+'\n')
                         handle.write(virus['sequence'] + "\n")
             handle.close()
-            print("Wrote to " + fname)
 
     def write_tsv(self, viruses, fname, sep='\t', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
                                                                  'country', 'division', 'location', 'source', 'locus',
@@ -191,10 +195,11 @@ class download(object):
                           for field in fasta_fields]
                 handle.write(sep.join(fields)+'\n')
             handle.close()
-            print("Wrote to " + fname)
+
 
     def output(self, documents, path, fstem, ftype, fasta_fields, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
+        print("Outputing", len(documents), "documents to ", fname)
         if ftype == 'json':
             self.write_json(documents,fname)
         elif ftype == 'fasta':
@@ -203,6 +208,7 @@ class download(object):
             self.write_tsv(documents, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
         else:
             raise Exception("Can't output to that file type, only json, fasta or tsv allowed")
+        print("Wrote to " + fname)
 
 if __name__=="__main__":
     parser = get_parser()
