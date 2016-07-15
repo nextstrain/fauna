@@ -92,6 +92,7 @@ class gisaid_flu_upload(upload):
             if 'strain' in doc:
                 doc['strain'] = self.fix_name(doc['strain'])
             self.fix_gisaid_casing(doc)
+            self.fix_age(doc)
             self.add_virus_fields(doc, **kwargs)
             self.determine_group_fields(doc, **kwargs)
             self.format_date(doc)
@@ -100,14 +101,25 @@ class gisaid_flu_upload(upload):
             self.rethink_io.check_optional_attributes(doc, [])
             self.format_place(doc)
 
+    def format_sequences(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        for doc in documents:
+            if 'strain' in doc:
+                doc['strain'] = self.fix_name(doc['strain'])
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_gisaid_casing(doc)
+
     def fix_gisaid_casing(self, doc):
         for field in ['originating_lab', 'submitting_lab']:
             if field in doc and doc[field] is not None:
                 doc[field] = doc[field].replace(' ', '_').replace('-', '_').lower()
-        for field in ['gender', 'host']:
+        for field in ['gender', 'host', 'locus']:
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
 
+    def fix_age(self, doc):
         doc['age'] = None
         if 'Host_Age' in doc:
             if doc['Host_Age'] is not None:
