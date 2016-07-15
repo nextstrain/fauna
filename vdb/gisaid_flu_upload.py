@@ -180,8 +180,10 @@ class gisaid_flu_upload(upload):
                 if label in self.label_to_country:
                     v['country'] = self.label_to_country[label]
             except:
-                v['country'] = None
-                print("couldn't parse country for", v['strain'])
+                if len(v['gisaid_location'].split("/")) > 1:
+                    v['country'] = v['gisaid_location'].split("/")[1].strip()
+                else:
+                    print("couldn't parse country for", v['strain'], v['gisaid_location'])
 
     def determine_group_fields(self, v, **kwargs):
         '''
@@ -221,7 +223,7 @@ if __name__=="__main__":
     setattr(args, 'fasta_fields', fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                              ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
-                             ('Location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
+                             ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
                              ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
