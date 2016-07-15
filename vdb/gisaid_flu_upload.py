@@ -33,6 +33,7 @@ class gisaid_flu_upload(upload):
                                   'Yam': ('b', 'undetermined', 'seasonal_yam')}
         db_viruses = r.db(self.database).table(self.virus).run()
         self.db_strains = {v['strain'] for v in db_viruses}
+        self.virus_to_sequence_transfer_fields = ['submission_date']
 
     def parse(self, path, fname, **kwargs):
         '''
@@ -216,10 +217,10 @@ if __name__=="__main__":
     fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
     #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
     setattr(args, 'fasta_fields', fasta_fields)
-    xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('date', 'Collection_Date'),
+    xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                              ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
                              ('Location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
-                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender')]
+                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
         args.path = "vdb/data/" + args.virus + "/"

@@ -45,6 +45,8 @@ class upload(parse):
         self.rethink_io.check_table_exists(self.database, self.sequences_table)
         self.strains = {}
 
+        self.virus_to_sequence_transfer_fields = []
+
     def upload(self, preview=False, **kwargs):
         '''
         format virus information, then upload to database
@@ -56,6 +58,7 @@ class upload(parse):
         print('Formatting sequences for upload')
         self.format_sequences(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
+        self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
@@ -107,23 +110,28 @@ class upload(parse):
         '''
         # ex. 2002_04_25 to 2002-04-25
         if 'date' in virus:
-            if virus['date'] is not None:
-                virus['date'] = re.sub(r'_', r'-', virus['date'])
-                # ex. 2002 (Month and day unknown)
-                if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus['date']):
-                    pass
-                elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus['date']):
-                    virus['date'] = virus['date'][0:4] + "-XX-XX"
-                # ex. 2009-06 (Day unknown)
-                elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
-                    virus['date'] = virus['date'][0:7] + "-XX"
-                elif re.match(r'\d\d\d\d-\d\d', virus['date']):
-                    virus['date'] = virus['date'][0:7] + "-XX"
-                elif re.match(r'\d\d\d\d', virus['date']):
-                    virus['date'] = virus['date'][0:4] + "-XX-XX"
-                else:
-                    print("Couldn't reformat this date: " + virus['date'] + ", setting to None")
-                    virus['date'] = None
+            field = 'date'
+        elif 'submission_date' in virus:
+            field = 'submission_date'
+        else:
+            field = ''
+        if field is not '' and virus[field] is not None:
+            virus[field] = re.sub(r'_', r'-', virus[field])
+            # ex. 2002 (Month and day unknown)
+            if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
+                pass
+            elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
+                virus[field] = virus[field][0:4] + "-XX-XX"
+            # ex. 2009-06 (Day unknown)
+            elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+                virus[field] = virus[field][0:7] + "-XX"
+            elif re.match(r'\d\d\d\d-\d\d', virus['date']):
+                virus[field] = virus[field][0:7] + "-XX"
+            elif re.match(r'\d\d\d\d', virus['date']):
+                virus[field] = virus[field][0:4] + "-XX-XX"
+            else:
+                print("Couldn't reformat this date: " + virus[field] + ", setting to None")
+                virus[field] = None
 
     def camelcase_to_snakecase(self, name):
         '''
@@ -179,6 +187,21 @@ class upload(parse):
                 virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
                 virus_doc['sequences'].append(sequence_doc['accession'])
                 virus_doc['number_sequences'] += 1
+
+    def transfer_fields(self, docs_from, docs_to, fields=[]):
+        '''
+        transfer fields between corresponding dictionaries based on matching strain field
+        '''
+        if len(fields) > 0:
+            strain_name_to_docs_from = {doc['strain']: doc for doc in docs_from}
+            for field in fields:
+                for doc_to in docs_to:
+                    strain = doc_to['strain']
+                    doc_to[field] = strain_name_to_docs_from[strain][field]
+        # delete fields after adding to every doc_to
+        for doc_from in docs_from:
+            for field in fields:
+                del doc_from[field]
 
     def upload_documents(self, table, documents, index, replace, **kwargs):
         if replace:
