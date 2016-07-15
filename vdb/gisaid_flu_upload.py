@@ -119,6 +119,8 @@ class gisaid_flu_upload(upload):
         for field in ['gender', 'host', 'locus']:
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
+        if 'accession' in doc and doc['accession'] is not None:
+            doc['accession'] = 'EPI' + doc['accession']
 
     def fix_age(self, doc):
         doc['age'] = None
