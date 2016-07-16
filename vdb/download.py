@@ -1,4 +1,4 @@
-import os, json, datetime, sys
+import os, json, datetime, sys, re
 import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
@@ -21,6 +21,7 @@ def get_parser():
     parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
+    parser.add_argument('--interval', nargs='+', type=str, default=None, help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
 
     parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
     parser.add_argument('--pick_recent', default=False, action="store_true",  help ="For duplicate strains, only includes the most recent sequence for each locus")
@@ -57,9 +58,8 @@ class download(object):
         viruses = list(r.table(self.viruses_table).run())
         print("Downloading all viruses from the table: " + self.sequences_table)
         sequences = list(r.table(self.sequences_table).run())
-
-        viruses, sequences = self.subset(viruses, sequences, **kwargs)
         sequences = self.link_viruses_to_sequences(viruses, sequences)
+        sequences = self.subset(sequences, **kwargs)
         self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
@@ -76,21 +76,18 @@ class download(object):
                 else:
                     strain_locus_to_doc[doc['strain']] = doc
 
-    def subset(self, viruses, sequences, public_only=False, select=[], present=[], **kwargs):
+    def subset(self, sequences, public_only=False, select=[], present=[], interval=[], **kwargs):
         selections = self.parse_select_argument(select)
         if public_only:
             selections.append(('public', True))
-
-        print("Documents from " + self.database + '.' + self.viruses_table + " before subsetting: " + str(len(viruses)))
-        viruses = self.subsetting(viruses, selections, present, **kwargs)
-        print("Documents from " + self.database + '.' + self.viruses_table + " after subsetting: " + str(len(viruses)))
+        intervals = self.parse_select_argument(interval)
 
         print("Documents from " + self.database + '.' + self.sequences_table + " before subsetting: " + str(len(sequences)))
-        sequences = self.subsetting(sequences, selections, present, **kwargs)
+        sequences = self.subsetting(sequences, selections, present, intervals, **kwargs)
         print("Documents from " + self.database + '.' + self.sequences_table + " after subsetting: " + str(len(sequences)))
-        return (viruses, sequences)
+        return sequences
 
-    def subsetting(self, cursor, selections=[], presents=[], **kwargs):
+    def subsetting(self, cursor, selections=[], presents=[], intervals=[], **kwargs):
         '''
         filter through documents in vdb to return subsets of sequence
         '''
@@ -102,7 +99,7 @@ class download(object):
                 if sel[0] in fields:
                     cursor = filter(lambda doc: doc[sel[0]] in sel[1], cursor)
                     print('Removed documents that were not in values specified (' + ','.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
-                elif sel[0] != 'public':
+                else:
                     print(sel[0] + " is not in all documents, can't subset by that field")
         if len(presents) > 0:
             for sel in presents:
@@ -111,6 +108,14 @@ class download(object):
                     print('Removed documents that were null for field \'' + sel + '\', remaining documents: ' + str(len(cursor)))
                 else:
                     print(sel + " is not in all documents, can't subset by that field")
+        if len(intervals) > 0:
+            for sel in intervals:
+                if sel[0] == 'collection_date' or sel[0] == 'submission_date':
+                    older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
+                    cursor = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date), cursor)
+                    print('Removed documents that were not in the interval specified (' + ' - '.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
+                else:
+                    print(sel[0] + " is not in all documents, can't subset by that field")
         return cursor
 
     def parse_select_argument(self, grouping):
@@ -124,6 +129,38 @@ class download(object):
                 result = group.split(':')
                 selections.append((result[0].lower(), result[1].lower().split(',')))
         return selections
+
+    def check_date_format(self, older_date, newer_date):
+        if newer_date == 'now' or newer_date == 'present':
+            newer_date = str(datetime.datetime.strftime(datetime.datetime.utcnow(),'%Y-%m-%d'))
+        if older_date > newer_date:
+            raise Exception("Date interval must list the earlier date first")
+        if not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', older_date) or not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', newer_date):
+            raise Exception("Date interval must be in YYYY-MM-DD format with all values defined")
+        return(older_date, newer_date)
+
+    def in_date_interval(self, date, older_date, newer_date):
+        '''
+        :return: true if the date is in the interval older_date - newer_date, otherwise False
+        '''
+        return self.date_greater(date.split('-'), older_date.split('-')) and self.date_greater(newer_date.split('-'), date.split('-'))
+
+    def date_greater(self, greater_date, comparison_date):
+        '''
+        :return: true if greater_date > comparison_date
+        '''
+        # compare year
+        if greater_date[0] < comparison_date[0]:
+            return False
+        elif greater_date[0] == comparison_date[0]:
+            # compare month
+            if greater_date != 'XX' and comparison_date != 'XX' and greater_date[1] < comparison_date[1]:
+                return False
+            elif greater_date[1] == comparison_date[1]:
+                # compare day
+                if greater_date != 'XX' and comparison_date != 'XX' and greater_date[2] < comparison_date[2]:
+                    return False
+        return True
 
     def link_viruses_to_sequences(self, viruses, sequences):
         '''
