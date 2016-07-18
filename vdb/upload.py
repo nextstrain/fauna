@@ -53,10 +53,9 @@ class upload(parse):
         '''
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
-        print('Formatting viruses for upload')
-        self.format_viruses(viruses, **kwargs)
-        print('Formatting sequences for upload')
-        self.format_sequences(sequences, **kwargs)
+        print('Formatting documents for upload')
+        self.format(viruses, **kwargs)
+        self.format(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
@@ -73,7 +72,7 @@ class upload(parse):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-    def format_viruses(self, documents, **kwargs):
+    def format(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
@@ -85,15 +84,7 @@ class upload(parse):
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.format_place(doc)
-
-    def format_sequences(self, documents, **kwargs):
-        '''
-        format virus information in preparation to upload to database table
-        '''
-        for doc in documents:
-            if 'strain' in doc:
-                doc['strain'] = self.fix_name(doc['strain'])
-            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
@@ -109,29 +100,29 @@ class upload(parse):
         Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
         '''
         # ex. 2002_04_25 to 2002-04-25
-        if 'date' in virus:
-            field = 'date'
-        elif 'submission_date' in virus:
-            field = 'submission_date'
-        else:
-            field = ''
-        if field is not '' and virus[field] is not None:
-            virus[field] = re.sub(r'_', r'-', virus[field])
-            # ex. 2002 (Month and day unknown)
-            if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
-                pass
-            elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
-                virus[field] = virus[field][0:4] + "-XX-XX"
-            # ex. 2009-06 (Day unknown)
-            elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
-                virus[field] = virus[field][0:7] + "-XX"
-            elif re.match(r'\d\d\d\d-\d\d', virus['date']):
-                virus[field] = virus[field][0:7] + "-XX"
-            elif re.match(r'\d\d\d\d', virus['date']):
-                virus[field] = virus[field][0:4] + "-XX-XX"
-            else:
-                print("Couldn't reformat this date: " + virus[field] + ", setting to None")
-                virus[field] = None
+        date_fields = []
+        for f in ['date', 'collection_date', 'submission_date']:
+            if f in virus:
+                date_fields.append(f)
+
+        for field in date_fields:
+            if virus[field] is not None:
+                virus[field] = re.sub(r'_', r'-', virus[field])
+                # ex. 2002 (Month and day unknown)
+                if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
+                    pass
+                elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
+                    virus[field] = virus[field][0:4] + "-XX-XX"
+                # ex. 2009-06 (Day unknown)
+                elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+                    virus[field] = virus[field][0:7] + "-XX"
+                elif re.match(r'\d\d\d\d-\d\d', virus['date']):
+                    virus[field] = virus[field][0:7] + "-XX"
+                elif re.match(r'\d\d\d\d', virus['date']):
+                    virus[field] = virus[field][0:4] + "-XX-XX"
+                else:
+                    print("Couldn't reformat this date: " + virus[field] + ", setting to None")
+                    virus[field] = None
 
     def camelcase_to_snakecase(self, name):
         '''
@@ -158,8 +149,8 @@ class upload(parse):
         '''
         Label viruses with region based on country, if prune then filter out viruses without region
         '''
-        virus['region'] = '?'
         if 'country' in virus:
+            virus['region'] = '?'
             if virus['country'] is not None:
                 test_country = self.camelcase_to_snakecase(virus['country'])
                 if test_country is not None and test_country in self.country_to_region:

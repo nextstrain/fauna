@@ -7,7 +7,6 @@ from upload import parser
 class zika_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.grouping_optional_fields = ['lineage']
 
     def fix_name(self, name):
         tmp_name = name
@@ -22,12 +21,28 @@ class zika_upload(upload):
             pass
         return tmp_name
 
+    def fix_casing(self, document):
+        for field in ['host']:
+            if field in document and document[field] is not None:
+                document[field] = self.camelcase_to_snakecase(document[field])
+
+    def camelcase_to_snakecase(self, name):
+        '''
+        convert camelcase format to snakecase format
+        :param name:
+        :return:
+        '''
+        name = name.replace('_', '')
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 if __name__=="__main__":
     args = parser.parse_args()
-    fasta_fields = {0:'accession', 2:'strain', 4:'date', 6:'country'}
+    virus_fasta_fields = {2:'strain', 4:'date', 5: 'host', 6:'country'}
+    sequence_fasta_fields = {0:'accession', 2:'strain'}
     # 0        1          2      3  4          5     6
     #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
-    setattr(args, 'fasta_fields', fasta_fields)
+    setattr(args, 'virus_fasta_fields', virus_fasta_fields)
+    setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = zika_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)

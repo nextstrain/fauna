@@ -64,17 +64,18 @@ class download(object):
         if output:
             self.output(sequences, **kwargs)
 
-    def resolve_duplicates(self, sequences, pick_longest, pick_recent, **kwargs):
-        strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if pick_longest or pick_recent:
-            for doc in sequences:
-                if doc['strain']+doc['locus'] in strain_locus_to_doc:
-                    if pick_longest and self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
-                        strain_locus_to_doc[doc['strain']] = doc
-                    elif pick_recent and self.most_recent_sequence(doc['date'], strain_locus_to_doc[doc['strain']+doc['locus']]['date']):
-                        strain_locus_to_doc[doc['strain']] = doc
-                else:
-                    strain_locus_to_doc[doc['strain']] = doc
+    def link_viruses_to_sequences(self, viruses, sequences):
+        '''
+        copy the virus doc to the sequence doc
+        '''
+        linked_sequences = []
+        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
+        for sequence_doc in sequences:
+            if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
+                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
+                sequence_doc.update(virus_doc)
+                linked_sequences.append(sequence_doc)
+        return linked_sequences
 
     def subset(self, sequences, public_only=False, select=[], present=[], interval=[], **kwargs):
         selections = self.parse_select_argument(select)
@@ -150,6 +151,7 @@ class download(object):
         :return: true if greater_date > comparison_date
         '''
         # compare year
+
         if greater_date[0] < comparison_date[0]:
             return False
         elif greater_date[0] == comparison_date[0]:
@@ -162,30 +164,27 @@ class download(object):
                     return False
         return True
 
-    def link_viruses_to_sequences(self, viruses, sequences):
-        '''
-        copy the virus doc to the sequence doc
-        '''
-        linked_sequences = []
-        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
-        for sequence_doc in sequences:
-            if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
-                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
-                sequence_doc.update(virus_doc)
-                linked_sequences.append(sequence_doc)
-        return linked_sequences
+    def resolve_duplicates(self, sequences, pick_longest, pick_recent, **kwargs):
+        strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
+        if pick_longest or pick_recent:
+            for doc in sequences:
+                if doc['strain']+doc['locus'] in strain_locus_to_doc:
+                    if pick_longest and self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
+                        strain_locus_to_doc[doc['strain']] = doc
+                    elif pick_recent and self.date_greater(doc['submission_date'].split('-'), strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'].split('-')):
+                        if doc['submission_date'] != strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date']:
+                            print(doc['strain'])
+                            print(doc['submission_date'] > strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'])
+                            print(doc['submission_date'], strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'])
+                        strain_locus_to_doc[doc['strain']] = doc
+                else:
+                    strain_locus_to_doc[doc['strain']] = doc
 
     def longer_sequence(self, long_seq, short_seq):
         '''
         :return: true if long_seq is longer than short_seq
         '''
         return long_seq > short_seq
-
-    def most_recent_sequence(self, new_seq, old_seq):
-        '''
-        :return: true if new_seq is more recent than old_seq
-        '''
-        return new_seq > old_seq
 
     def write_json(self, data, fname, indent=1):
         '''

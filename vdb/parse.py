@@ -5,8 +5,6 @@ import requests
 
 class parse(object):
     def __init__(self, **kwargs):
-        if 'fasta_fields' in kwargs:
-            self.fasta_fields = kwargs['fasta_fields']
         if 'accessions' in kwargs:
             self.accessions = kwargs['accessions']
         self.gbdb = "nuccore"
@@ -39,8 +37,10 @@ class parse(object):
                 viruses, sequences = self.parse_fasta_file(path + fname, **kwargs)
             elif ftype == 'tsv':
                 viruses, sequences = self.parse_tsv_file(path + fname, **kwargs)
+                print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from file " + path+fname)
         else:
             raise Exception("No input file name and type defined or accessions given")
+
         return (viruses, sequences)
 
     def fix_casing(self, v):
@@ -64,12 +64,13 @@ class parse(object):
                 if v[field] == "false":
                     v[field] = False
 
-    def parse_fasta_file(self, fasta, **kwargs):
+    def parse_fasta_file(self, fasta, virus_fasta_fields, sequence_fasta_fields, **kwargs):
         '''
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
         '''
         viruses = []
+        sequences = []
         try:
             handle = open(fasta, 'r')
         except IOError:
@@ -77,14 +78,17 @@ class parse(object):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq)
-                self.add_other_attributes(v, **kwargs)
-                self.fix_casing(v)
-                self.fix_boolean(v)                
+                v = {key: content[ii] if ii < len(content) else "" for ii, key in virus_fasta_fields.items()}
+                s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
+                s['sequence'] = str(record.seq)
+                v['strain'] = self.fix_name(v['strain'])
+                s['strain'] = self.fix_name(v['strain'])
+                v = self.add_virus_fields(v, **kwargs)
+                s = self.add_sequence_fields(s, **kwargs)
+                sequences.append(s)
                 viruses.append(v)
             handle.close()
-        return viruses
+        return (viruses, sequences)
 
     def parse_tsv_file(self, tsv, **kwargs):
         '''
