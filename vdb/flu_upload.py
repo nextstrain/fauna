@@ -31,8 +31,6 @@ class flu_upload(upload):
                                   'H1N1pdm': ('a', 'h1n1', 'seasonal_h1n1pdm'),
                                   'Vic': ('b', 'undetermined', 'seasonal_vic'),
                                   'Yam': ('b', 'undetermined', 'seasonal_yam')}
-        db_viruses = r.db(self.database).table(self.virus).run()
-        self.db_strains = {v['strain'] for v in db_viruses}
         self.virus_to_sequence_transfer_fields = ['submission_date']
 
     def parse(self, path, fname, **kwargs):
@@ -58,11 +56,11 @@ class flu_upload(upload):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
-                v['sequence'] = str(record.seq)
-                v['strain'] = self.fix_name(v['strain'])
-                v = self.add_sequence_fields(v, **kwargs)
-                sequences.append(v)
+                s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
+                s['sequence'] = str(record.seq)
+                s['strain'] = self.fix_name(s['strain'])
+                s = self.add_sequence_fields(s, **kwargs)
+                sequences.append(s)
             handle.close()
         return sequences
 
@@ -81,6 +79,7 @@ class flu_upload(upload):
             df = df.where((pandas.notnull(df)), None)  # convert Nan type to None
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
+            viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
         return viruses
 
     def format(self, documents, **kwargs):
@@ -95,7 +94,6 @@ class flu_upload(upload):
                 doc['strain'] = self.fix_name(doc['strain'])
             self.fix_casing(doc)
             self.fix_age(doc)
-            self.add_virus_fields(doc, **kwargs)
             self.determine_group_fields(doc, **kwargs)
             self.format_date(doc)
             self.format_country(doc)
