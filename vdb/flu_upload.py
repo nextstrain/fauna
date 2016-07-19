@@ -99,9 +99,9 @@ class flu_upload(upload):
             self.determine_group_fields(doc, **kwargs)
             self.format_date(doc)
             self.format_country(doc)
+            self.format_place(doc)
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
-            self.format_place(doc)
 
     def fix_casing(self, doc):
         for field in ['originating_lab', 'submitting_lab']:
@@ -114,12 +114,11 @@ class flu_upload(upload):
             doc['accession'] = 'EPI' + doc['accession']
 
     def fix_age(self, doc):
-        doc['age'] = None
-        if 'Host_Age' in doc:
+        if 'Host_Age' in doc and 'Host_Age_Unit':
+            doc['age'] = None
             if doc['Host_Age'] is not None:
                 doc['age'] = str(int(doc['Host_Age']))
             del doc['Host_Age']
-        if 'Host_Age_Unit' in doc:
             if doc['Host_Age_Unit'] is not None and doc['age'] is not None:
                 doc['age'] = doc['age'] + doc['Host_Age_Unit'].strip().lower()
             del doc['Host_Age_Unit']
@@ -150,29 +149,29 @@ class flu_upload(upload):
         '''
         Label viruses with country based on strain name
         '''
-        if "country" not in v or v['country'].lower() == 'unknown':
-            v['country'] = '?'
-        if len(v['strain'].split('/')) ==4:
-            v['location'] = v['strain'].split('/')[1]
-        elif len(v['strain'].split('/')) == 5:
-            v['location'] = v['strain'].split('/')[2]
-        else:
-            print("couldn't parse country for", v['strain'], v['gisaid_location'])
-            v['location'] = None
-        try:
-            label = re.match(r'^([^/]+)', v['location']).group(1).lower()						# check first for whole geo match
-            if label in self.label_to_country:
-                v['country'] = self.label_to_country[label]
+        if 'gisaid_location' in v:  # just run for virus documents
+            if "country" not in v or v['country'].lower() == 'unknown':
+                v['country'] = '?'
+            if len(v['strain'].split('/')) ==4:
+                v['location'] = v['strain'].split('/')[1]
+            elif len(v['strain'].split('/')) == 5:
+                v['location'] = v['strain'].split('/')[2]
             else:
-                label = re.match(r'^([^\-^\/]+)', v['location']).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
-            if label in self.label_to_country:
-                v['country'] = self.label_to_country[label]
-            else:
-                label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', v['location']).group(1).lower()			# check for partial geo match
-            if label in self.label_to_country:
-                v['country'] = self.label_to_country[label]
-        except:
-            if 'gisaid_location' in v:
+                print("couldn't parse country for", v['strain'], v['gisaid_location'])
+                v['location'] = None
+            try:
+                label = re.match(r'^([^/]+)', v['location']).group(1).lower()						# check first for whole geo match
+                if label in self.label_to_country:
+                    v['country'] = self.label_to_country[label]
+                else:
+                    label = re.match(r'^([^\-^\/]+)', v['location']).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
+                if label in self.label_to_country:
+                    v['country'] = self.label_to_country[label]
+                else:
+                    label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', v['location']).group(1).lower()			# check for partial geo match
+                if label in self.label_to_country:
+                    v['country'] = self.label_to_country[label]
+            except:
                 if len(v['gisaid_location'].split("/")) > 1:
                     v['country'] = v['gisaid_location'].split("/")[1].strip()
                 else:
