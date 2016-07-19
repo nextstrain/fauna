@@ -19,8 +19,10 @@ class flu_upload(upload):
         self.patterns = {('a / h3n2', ''): ('a', 'h3n2', 'seasonal_h3n2'),
                     ('a / h3n0', ''): ('a', 'h3n2', 'seasonal_h3n2'),  # often mistake in GISAID file, aligned closest to H3N2
                     ('a / h1n1', 'pdm09'): ('a', 'h1n1', 'seasonal_h1n1pdm'),
-                    ('b / h0n0', 'Victoria'): ('b', 'undetermined', 'seasonal_vic'),
-                    ('b / h0n0', 'Yamagata'): ('b', 'undetermined', 'seasonal_yam'),
+                    ('b / h0n0', 'victoria'): ('b', 'undetermined', 'seasonal_vic'),
+                    ('b / h0n0', 'yamagata'): ('b', 'undetermined', 'seasonal_yam'),
+                    ('b' , 'victoria'): ('b', 'undetermined', 'seasonal_vic'),
+                    ('b', 'yamagata'): ('b', 'undetermined', 'seasonal_yam'),
                     ('a / h1n1', 'seasonal'): ('a', 'h1n1', 'seasonal_h1n1'),
                     ('a / h7n9', ''): ('a', 'h7n9', 'undetermined'),
                     ('a / h5n1', ''): ('a', 'h5n1', 'undetermined'),
@@ -183,12 +185,12 @@ class flu_upload(upload):
         # determine virus type from strain name
         if 'Subtype' in v and 'Lineage' in v:
             if v['Subtype'] is not None:
-                temp_subtype = v['Subtype']
+                temp_subtype = v['Subtype'].lower()
             else:
                 temp_subtype = ''
             del v['Subtype']
             if v['Lineage'] is not None:
-                temp_lineage = v['Lineage']
+                temp_lineage = v['Lineage'].lower()
             else:
                 temp_lineage = ''
             del v['Lineage']
@@ -200,12 +202,6 @@ class flu_upload(upload):
                 v['vtype'] = match[0].lower()
                 v['subtype'] = match[1].lower()
                 v['lineage'] = match[2].lower()
-            else:
-                if '/' in v['strain']:
-                    #determine virus type from strain name
-                    fields = v['strain'].split('/')
-                    if re.match(r'^[abcd]$',fields[0].strip()):
-                        v['vtype'] = fields[0].strip().lower()
             return v
 
 if __name__=="__main__":
