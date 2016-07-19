@@ -33,13 +33,24 @@ class flu_upload(upload):
                                   'Yam': ('b', 'undetermined', 'seasonal_yam')}
         db_viruses = r.db(self.database).table(self.virus).run()
         self.db_strains = {v['strain'] for v in db_viruses}
+        self.virus_to_sequence_transfer_fields = ['submission_date']
+
+    def parse(self, path, fname, **kwargs):
+        '''
+        '''
+        fasta_fname = path + fname + ".fasta"
+        xls_fname = path + fname + ".xls"
+        sequences = self.parse_fasta_file(fasta_fname, **kwargs)
+        viruses = self.parse_gisaid_xls_file(xls_fname, **kwargs)
+        print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from file")
+        return (viruses, sequences)
 
     def parse_fasta_file(self, fasta, **kwargs):
         '''
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
         '''
-        viruses = []
+        sequences = []
         try:
             handle = open(fasta, 'r')
         except IOError:
@@ -47,32 +58,77 @@ class flu_upload(upload):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
-                v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq).lower()
-                self.add_other_attributes(v, **kwargs)
-                self.determine_group_fields(v, record, **kwargs)
-                viruses.append(v)
+                v = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
+                v['sequence'] = str(record.seq)
+                v['strain'] = self.fix_name(v['strain'])
+                v = self.add_sequence_fields(v, **kwargs)
+                sequences.append(v)
             handle.close()
+        return sequences
+
+    def parse_gisaid_xls_file(self, xls, xls_fields_wanted, **kwargs):
+        '''
+        parse excel file using pandas
+        :return: list of documents(dictionaries of attributes) to upload
+        '''
+        import pandas
+        try:
+            handle = open(xls, 'rb')
+        except IOError:
+            raise Exception(xls, "not found")
+        else:
+            df = pandas.read_excel(handle)
+            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None
+            viruses = df.to_dict('records')
+            viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
         return viruses
 
-    def format(self):
+    def format(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
         Flu needs to also format country
         '''
-        print('Formatting for upload')
         self.define_countries()
         self.define_regions()
-        for virus in self.viruses:
-            self.format_date(virus)
-            self.format_country(virus)
-            self.format_region(virus)
-            self.format_place(virus)
+        for doc in documents:
+            if 'strain' in doc:
+                doc['strain'] = self.fix_name(doc['strain'])
+            self.fix_casing(doc)
+            self.fix_age(doc)
+            self.add_virus_fields(doc, **kwargs)
+            self.determine_group_fields(doc, **kwargs)
+            self.format_date(doc)
+            self.format_country(doc)
+            self.format_region(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.format_place(doc)
+
+    def fix_casing(self, doc):
+        for field in ['originating_lab', 'submitting_lab']:
+            if field in doc and doc[field] is not None:
+                doc[field] = doc[field].replace(' ', '_').replace('-', '_').lower()
+        for field in ['gender', 'host', 'locus']:
+            if field in doc and doc[field] is not None:
+                doc[field] = self.camelcase_to_snakecase(doc[field])
+        if 'accession' in doc and doc['accession'] is not None:
+            doc['accession'] = 'EPI' + doc['accession']
+
+    def fix_age(self, doc):
+        doc['age'] = None
+        if 'Host_Age' in doc:
+            if doc['Host_Age'] is not None:
+                doc['age'] = str(int(doc['Host_Age']))
+            del doc['Host_Age']
+        if 'Host_Age_Unit' in doc:
+            if doc['Host_Age_Unit'] is not None and doc['age'] is not None:
+                doc['age'] = doc['age'] + doc['Host_Age_Unit'].strip().lower()
+            del doc['Host_Age_Unit']
+        return doc
 
     def fix_name(self, name):
-        if '(' in name:
-            print(name)
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
+        if '(' in name and ')' in name:  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
+            name = re.match(r'^([^(]+)', name).group(1)
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '')
         split_name = tmp_name.split('/')
         if split_name[1].isupper():
             split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
@@ -96,88 +152,73 @@ class flu_upload(upload):
         '''
         if "country" not in v or v['country'].lower() == 'unknown':
             v['country'] = '?'
-            if v['host'] == "human":
-                v['location'] = v['strain'].split('/')[1]
-            elif len(v['strain'].split('/')) ==4:
-                v['location'] = v['strain'].split('/')[1]
-            elif len(v['strain'].split('/')) == 5:
-                v['location'] = v['strain'].split('/')[2]
-            try:
-                label = re.match(r'^([^/]+)', v['location']).group(1).lower()						# check first for whole geo match
-                if label in self.label_to_country:
-                    v['country'] = self.label_to_country[label]
+        if len(v['strain'].split('/')) ==4:
+            v['location'] = v['strain'].split('/')[1]
+        elif len(v['strain'].split('/')) == 5:
+            v['location'] = v['strain'].split('/')[2]
+        else:
+            print("couldn't parse country for", v['strain'], v['gisaid_location'])
+            v['location'] = None
+        try:
+            label = re.match(r'^([^/]+)', v['location']).group(1).lower()						# check first for whole geo match
+            if label in self.label_to_country:
+                v['country'] = self.label_to_country[label]
+            else:
+                label = re.match(r'^([^\-^\/]+)', v['location']).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
+            if label in self.label_to_country:
+                v['country'] = self.label_to_country[label]
+            else:
+                label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', v['location']).group(1).lower()			# check for partial geo match
+            if label in self.label_to_country:
+                v['country'] = self.label_to_country[label]
+        except:
+            if 'gisaid_location' in v:
+                if len(v['gisaid_location'].split("/")) > 1:
+                    v['country'] = v['gisaid_location'].split("/")[1].strip()
                 else:
-                    label = re.match(r'^([^\-^\/]+)', v['location']).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
-                if label in self.label_to_country:
-                    v['country'] = self.label_to_country[label]
-                else:
-                    label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', v['location']).group(1).lower()			# check for partial geo match
-                if label in self.label_to_country:
-                    v['country'] = self.label_to_country[label]
-            except:
-                v['country'] = None
-                print("couldn't parse country for", v['strain'])
+                    print("couldn't parse country for", v['strain'], v['gisaid_location'])
 
-    def determine_group_fields(self, v, seq, vtype, subtype, lineage, **kwargs):
+    def determine_group_fields(self, v, **kwargs):
         '''
         Determine and assign genetic group fields
         '''
         # determine virus type from strain name
-        temp_subtype = v['subtype'].replace('_', ' ')
-        temp_lineage = v['lineage'].replace('_', ' ')
-        v['vtype'] = 'undetermined'
-        v['subtype'] = 'undetermined'
-        v['lineage'] = 'undetermined'
-        ''''
-        if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
-            match = self.patterns[(temp_subtype, temp_lineage)]
-            v['vtype'] = match[0].lower()
-            v['subtype'] = match[1].lower()
-            v['lineage'] = match[2].lower()
-        elif vtype is not None and subtype is not None and lineage is not None: # defined from input for all viruses in input file
-            v['vtype'] = vtype.lower()
-            v['subtype'] = subtype.lower()
-            v['lineage'] = lineage.lower()
-        else:
-            if '/' in v['strain']:
-                #determine virus type from strain name
-                fields = v['strain'].split('/')
-                if re.match(r'^[abcd]$',fields[0].strip()):
-                    v['vtype'] = fields[0].strip().lower()
-                elif vtype is not None:
-                    v['vtype'] = vtype.lower()
-                else:
-                    print("Couldn't parse virus type from strain name: " + v['strain'], (v['subtype'],v['lineage']))
-            try:  # attempt to align with sequence from outgroup to determine subtype and lineage
-                if v['strain'] not in self.db_strains:
-                    scores = []
-                    for olineage, oseq in self.outgroups.items():
-                        SeqIO.write([oseq, seq], "temp_in.fasta", "fasta")
-                        os.system("mafft --auto temp_in.fasta > temp_out.fasta 2>tmp")
-                        tmp_aln = np.array(AlignIO.read('temp_out.fasta', 'fasta'))
-                        scores.append((olineage, (tmp_aln[0]==tmp_aln[1]).sum()))
-                    scores.sort(key = lambda x:x[1], reverse=True)
-                    if scores[0][1]>0.85*len(seq):
-                        print(v['strain'], (temp_subtype, temp_lineage), len(seq), "\n\t lineage based on similarity:",scores[0][0],"\n\t",scores)
-                        match = self.outgroup_patterns[scores[0][0]]
-                        v['vtype'] = match[0].lower()
-                        v['subtype'] = match[1].lower()
-                        v['lineage'] = match[2].lower()
-            except:
-                print("Couldn't parse virus subtype and lineage from aligning sequence: " + v['strain'], (temp_subtype, temp_lineage))
-        '''
+        if 'Subtype' in v and 'Lineage' in v:
+            if v['Subtype'] is not None:
+                temp_subtype = v['Subtype']
+            else:
+                temp_subtype = ''
+            del v['Subtype']
+            if v['Lineage'] is not None:
+                temp_lineage = v['Lineage']
+            else:
+                temp_lineage = ''
+            del v['Lineage']
+            v['vtype'] = 'tbd'
+            v['subtype'] = 'tbd'
+            v['lineage'] = 'tbd'
+            if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
+                match = self.patterns[(temp_subtype, temp_lineage)]
+                v['vtype'] = match[0].lower()
+                v['subtype'] = match[1].lower()
+                v['lineage'] = match[2].lower()
+            else:
+                if '/' in v['strain']:
+                    #determine virus type from strain name
+                    fields = v['strain'].split('/')
+                    if re.match(r'^[abcd]$',fields[0].strip()):
+                        v['vtype'] = fields[0].strip().lower()
+            return v
 
 if __name__=="__main__":
     args = parser.parse_args()
-    fasta_fields = {0: 'strain', 1: 'accession', 2: 'subtype', 4:'lineage', 5: 'date', 8: 'locus'}
-    #              >B/Sao Paulo/61679/2014 | EPI_ISL_164700 | B / H0N0 | Original Sample | Yamagata | 2014-07-11 | Instituto Adolfo Lutz | Instituto Adolfo Lutz | HA
-    #              >A/Alaska/81/2015 | EPI_ISL_197800 | A / H3N2 | Original |  | 2015-07-02 | Alaska State Virology Lab | Centers for Disease Control and Prevention | HA
-    #              >A/Peru/06/2015 | EPI_ISL_209055 | A / H1N1 | C2/C1, MDCK1 | pdm09 | 2015-04-29 | Centers for Disease Control and Prevention | WHO Collaborating Centre for Reference and Research on Influenza | HA
-    setattr(args, 'fasta_fields', fasta_fields)
-    xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('date', 'Collection_Date'),
-                             ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'), ('passage', 'Passage_History'),
-                             ('Location', 'Location'), ('lab', 'Submitting_Lab'), ('Host_Age', 'Host_Age'),
-                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender')]
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
+    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+    setattr(args, 'fasta_fields', sequence_fasta_fields)
+    xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
+                             ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
+                             ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
+                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
         args.path = "vdb/data/" + args.virus + "/"
