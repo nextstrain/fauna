@@ -24,7 +24,6 @@ def get_parser():
     parser.add_argument('--interval', nargs='+', type=str, default=None, help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
 
     parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
-    parser.add_argument('--pick_recent', default=False, action="store_true",  help ="For duplicate strains, only includes the most recent sequence for each locus")
     return parser
 
 class download(object):
@@ -60,7 +59,7 @@ class download(object):
         sequences = list(r.table(self.sequences_table).run())
         sequences = self.link_viruses_to_sequences(viruses, sequences)
         sequences = self.subset(sequences, **kwargs)
-        self.resolve_duplicates(sequences, **kwargs)
+        sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
 
@@ -164,27 +163,22 @@ class download(object):
                     return False
         return True
 
-    def resolve_duplicates(self, sequences, pick_longest, pick_recent, **kwargs):
+    def resolve_duplicates(self, sequences, pick_longest, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if pick_longest or pick_recent:
+        if pick_longest:
             for doc in sequences:
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:
-                    if pick_longest and self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
-                        strain_locus_to_doc[doc['strain']] = doc
-                    elif pick_recent and self.date_greater(doc['submission_date'].split('-'), strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'].split('-')):
-                        if doc['submission_date'] != strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date']:
-                            print(doc['strain'])
-                            print(doc['submission_date'] > strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'])
-                            print(doc['submission_date'], strain_locus_to_doc[doc['strain']+doc['locus']]['submission_date'])
-                        strain_locus_to_doc[doc['strain']] = doc
+                    if self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
+                        strain_locus_to_doc[doc['strain']+doc['locus']] = doc
                 else:
                     strain_locus_to_doc[doc['strain']] = doc
+        return list(strain_locus_to_doc.values())
 
     def longer_sequence(self, long_seq, short_seq):
         '''
         :return: true if long_seq is longer than short_seq
         '''
-        return long_seq > short_seq
+        return len(long_seq) > len(short_seq)
 
     def write_json(self, data, fname, indent=1):
         '''
@@ -200,9 +194,7 @@ class download(object):
             json.dump(data, handle, indent=indent)
             handle.close()
 
-    def write_fasta(self, viruses, fname, sep='|', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
-                                                                 'country', 'division', 'location', 'source', 'locus',
-                                                                 'authors']):
+    def write_fasta(self, viruses, fname, sep='|', fasta_fields=['strain', 'virus', 'accession'], **kwargs):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -217,9 +209,7 @@ class download(object):
                         handle.write(virus['sequence'] + "\n")
             handle.close()
 
-    def write_tsv(self, viruses, fname, sep='\t', fasta_fields=['strain', 'virus', 'accession', 'date', 'region',
-                                                                 'country', 'division', 'location', 'source', 'locus',
-                                                                 'authors']):
+    def write_tsv(self, viruses, fname, sep='\t', fasta_fields=['strain', 'virus', 'accession'], **kwargs):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -233,15 +223,15 @@ class download(object):
             handle.close()
 
 
-    def output(self, documents, path, fstem, ftype, fasta_fields, **kwargs):
+    def output(self, documents, path, fstem, ftype, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
         print("Outputing", len(documents), "documents to ", fname)
         if ftype == 'json':
             self.write_json(documents,fname)
         elif ftype == 'fasta':
-            self.write_fasta(documents, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
+            self.write_fasta(documents, fname, **kwargs)
         elif ftype == 'tsv':
-            self.write_tsv(documents, fname, fasta_fields=fasta_fields+self.virus_specific_fasta_fields)
+            self.write_tsv(documents, fname, **kwargs)
         else:
             raise Exception("Can't output to that file type, only json, fasta or tsv allowed")
         print("Wrote to " + fname)

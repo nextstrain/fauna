@@ -2,7 +2,7 @@ import os,datetime
 from download import download
 from download import get_parser
 
-class flu_download(download):
+class zika_download(download):
     def __init__(self, **kwargs):
         download.__init__(self, **kwargs)
 
@@ -16,5 +16,5 @@ if __name__=="__main__":
         args.fstem = args.virus + '_' + current_date
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connfluVDB = flu_download(**args.__dict__)
+    connfluVDB = zika_download(**args.__dict__)
     connfluVDB.download(**args.__dict__)
