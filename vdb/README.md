@@ -25,104 +25,135 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 
 ## Schema
 
-* `Strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
-* `Virus`: Virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
-* `Subtype`: Virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
-* `Timestamp`: Last modification date and time for virus document in `YYYY-MM-DD` format.
-* `Date`: Collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
-* `Region`: Collection region in CamelCase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
-* `Country`: Collection country in CamelCase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
-* `Division`: Administrative division in CamelCase format. Where available, Null otherwise.
-* `Location`: Specific location in CamelCase format. Where available, Null otherwise.
-* `Public`: True if publicly available sequence. False otherwise.
-* `Sequences`: list of sequences...
-  * `Accession`: Accession number. Where available, Null otherwise.
-  * `Source`: Genbank, GISAID, etc... in CamelCase format.
-  * `Locus`: gene or genomic region, `HA`, `NA`, `Genome`, etc... in CamelCase format.
-  * `Sequence`: Actual sequence. Upper case.
-*`Citations`: list of citations for corresponding sequences
-  * `Authors`: Authors to attribute credit to. Where available, Null otherwise. in CamelCase format.
-  * `Title`: Title of reference.
-  * `url`: Url of reference if available, search crossref database for DOI, otherwise link to genbank entry. 
+Information about the virus is stored in one table (ie. flu\_viruses) with information about corresponding 
+sequence information stored in another table (ie. flu\_sequences). They are linked together by the `sequences`
+field in the viruses table that stores a list of accession numbers of corresponding sequences. 
 
-### Attribute Requirements
+Virus Table:
 
-Viruses with null values for required attributes will be filtered out of those uploaded. Viruses with missing optional attributes will still be uploaded.
+* `strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
+* `isolate_id`: used for some viruses, like those from gisaid. `EPI_ISL_221430`.
+* `virus`: virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
+* `subtype`: virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
+* `collection_date`: collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
+* `region`: collection region where virus was isolated in snakecase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
+* `country`: collection country where virus was isolated in snakecase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
+* `division`: administrative division where virus was isolated in snakecase format. Where available, Null otherwise.
+* `location`: specific location where virus was isolated in snakecase format. Where available, Null otherwise.
+* `originating_lab`: lab where the virus was originally isolated from `alaska_state_virology_lab`
+* `gender`: gender of the individual from which the virus was isolated `male`, `female`
+* `age`: age of the individual from which the virus was isolated, with the age unit. `47y`
+* `host`: species of the individual from which the virus was isolated. `human`, `swine`
+* `sequences`: list of sequence accession numbers associated with this virus from the sequences table
+* `number_of_sequences`: number of sequences for this virus
+* `timestamp`: last modification date and time for virus document in `YYYY-MM-DD` format.
 
-* Required virus attributes: `strain`, `date`, `country`, `sequences`, `virus`, `date_modified`, `public`
-* Required sequence attributes: `source`, `locus`, `sequence`
-* Optional virus attributes: `division`, `location`
-* Optional sequence attributes: `accession`, `authors`, `title`, `url`
+Sequences Table:
+
+* `accession`: primary key. The accession number. Assigned a unique random accession number if the sequence doesn't have one.
+* `strain`: the canonical strain name to link back to the viruses table. For flu this would be something like `A/Perth/16/2009`.
+* `source`: database source for the sequence`genbank`, `gisaid`, etc...
+* `passage`: passage history
+* `locus`: gene or genomic region, `ha`, `na`, `genome`, etc... 
+* `sequence`: actual sequence. Lower case.
+* `authors`: authors to attribute credit to `Azevedo et al`
+* `title`: title of reference. `Discovery of a persistent Zika virus lineage in Bahia, Brazil`
+* `url`: url of reference if available, search crossref database for DOI, or link to genbank entry. `http://dx.doi.org/10.1101/049916`, `http://www.ncbi.nlm.nih.gov/nuccore/ku365779`
+* `public`: false if sequence not be be released publicly. True otherwise.
+* `submitting_lab`: lab that produced and submitted the sequence `who_national_influenza_centre_russian_federation`
+* `submission_date`: submission date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
+* `timestamp`: last modification date and time for virus document in `YYYY-MM-DD` format.
 
 ### Commands
 
 Command line arguments to run `upload.py`:
 
 * `-db --database`: database to upload to, eg. `vdb`, `test_vdb`
-* `-tb --table`: table to upload to, eg. `zika`, `zibra`
-* `-v --virus`: name of virus eg. `zika`, `flu`
+* `--host`: rethink host url
+* `--auth\_key`: authorization key for rethink database
+* `--local`: include when connecting to a local rethinkdb instance
+* `-v --virus`: name of virus and table eg. `zika`, `flu`
 * `--fname`: input file name
 * `--ftype`: input file type, fasta, genbank or accession
-* `--accessions`: comma separated list of accessions numbers to upload
-* `--source`
-* `--locus`
-* `--authors`: authors of source of sequences
-* `--private`: to designate sequences being uploaded as not `public`
-* `--overwrite`: overwrite existing non-null fields
 * `--path`: path to fasta file, default is `data/`
-* `--auth\_key`: authorization key for rethink database
-* `--host`: rethink host url
+* `--accessions`: comma separated list of accessions numbers to upload
 * `--email`: to upload viruses via accession must include email to use entrez
+* `--overwrite`: overwrite existing non-null fields
+* `--preview`: include to preview documents without uploading
+* `--replace`: include to replace all documents in database, 
+
+Assign attribute to all viruses and sequences being uploaded with these arguments
+* `--source`: database source for the sequence`genbank`, `gisaid`, etc...
+* `--locus`: gene or genomic region, `ha`, `na`, `genome`, etc... 
+* `--authors`: authors of source of sequences
+* `--country`: country where virus was isolated
+* `--private`: to designate sequences being uploaded as not `public`
+
 
 ### Examples
 
 Upload flu sequences from GISAID:
 
-    python vdb/flu_upload.py -db test_vdb -tb flu --source gisaid --virus flu --fname gisaid_epiflu_sequence.fasta
+    python vdb/gisaid_flu_upload.py -db test_vdb -v flu --fname 2016_gisaid --source gisaid
 
 Upload Zika sequences from VIPR:
 
-    python vdb/zika_upload.py -db vdb -tb zika --source genbank --locus genome --virus zika --fname GenomeFastaResults.fasta
+    python vdb/zika_upload.py -db test_vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta
     
 Upload via accession file:
 
-	python vdb/zika_upload.py -db vdb -tb zika --ftype accession --source genbank --locus genome --virus zika --fname entrez_test.txt
+	python vdb/zika\_upload.py -db test\_vdb -v zika --ftype accession --source genbank --locus genome --virus zika --fname entrez_test.txt
 
 Upload via accession list:
 
-	python vdb/zika_upload.py --db vdb --tb zika --source genbank --locus genome  --virus zika --accessions KU501216,KU501217,KU365780,KU365777
+	python vdb/zika\_upload.py -db test\_vdb --v zika --source genbank --locus genome  --virus zika --accessions KU501216,KU501217,KU365780,KU365777
 
 ## Downloading
 
 Sequences can be downloaded from vdb.
 
 * Downloads all documents in database
-* If virus has more than one sequence, picks the longest sequence
+* Each sequence has associated virus meta data paired with it
 * Prints result to designated fasta or json file. 
 	* Writes null attributes as '?'
-	* Writes fasta description in this order (0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
+	* Writes fasta description in this order by default(0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
 
 ### Commands
 
 Command line arguments to run `download.py`:
 
 * `-db --database`: database to download from, eg. `vdb`, `test_vdb`
+* `--host`: rethink host url
+* `--auth\_key`: authorization key for rethink database
+* `--local`: include when connecting to a local rethinkdb instance
 * `-v --virus`, virus table to interact with, eg. `zika`, `flu`
-* `--path`: path to dump output files to, default is `data/`
 * `--ftype`: output file format, default is `fasta`, other option is `json`
 * `--fstem`: output file stem name, default is `VirusName\_Year\_Month\_Date`
-* `--auth\_key`: authorization key for rethink database
-* `--host`: rethink host url
-* `--public\_only`: include to subset public sequences
-* `--countries`: countries to be include in download, multiple arguments allowed
+* `--path`: path to dump output files to, default is `data/`
 
+Subset documents with these commands
+* `--public\_only`: include to subset public sequences
+* `--select`: Select specific fields to be certain values eg. `--select field1:value1 field2:value1,value2`
+* `--present`: Select specific fields to be non-null eg. `--present field1 field2`
+* `--interval`: Select date fields to be in a certain interval eg. `--interval collection_date:2016-01-01,2016-01-15`
+
+Resolve duplicate sequences for the same locus with these arguments
+* `--pick_longest`: pick the longest sequence
 ### Examples
 
 Download sequences for `Zika_process.py`:
 
-    python vdb/download.py -db vdb -tb zika --fstem zika
+    python vdb/download.py -db vdb -v zika --fstem zika
     
-    python vdb/download.py -db vdb -tb zika --ftype json --countries brazil haiti --public_only
+    python vdb/download.py -db vdb -v zika --ftype json --countries brazil haiti --public_only
+    
+Download sequences from `flu_download.py`:
+
+    python vdb/download.py -db vdb -v zika --fstem zika
+    
+    python vdb/download.py -db vdb -v zika --ftype json --countries brazil haiti --public_only
+    
+    python vdb/flu_download.py -db test_vdb -v flu --select locus:HA --present age --interval collection_date:2016-01-01,2016-01-15 --pick_longest
 
 ## Updating
 
