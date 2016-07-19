@@ -81,9 +81,9 @@ class upload(parse):
             if 'strain' in doc:
                 doc['strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
+            self.format_place(doc)
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
-            self.format_place(doc)
             self.fix_casing(doc)
 
     def fix_name(self, name):
@@ -114,11 +114,11 @@ class upload(parse):
                 elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
                     virus[field] = virus[field][0:4] + "-XX-XX"
                 # ex. 2009-06 (Day unknown)
-                elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus['date']):
+                elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', virus[field]):
                     virus[field] = virus[field][0:7] + "-XX"
-                elif re.match(r'\d\d\d\d-\d\d', virus['date']):
+                elif re.match(r'\d\d\d\d-\d\d', virus[field]):
                     virus[field] = virus[field][0:7] + "-XX"
-                elif re.match(r'\d\d\d\d', virus['date']):
+                elif re.match(r'\d\d\d\d', virus[field]):
                     virus[field] = virus[field][0:4] + "-XX-XX"
                 else:
                     print("Couldn't reformat this date: " + virus[field] + ", setting to None")
@@ -163,10 +163,12 @@ class upload(parse):
         '''
         Ensure snakecaase formatting after assigning these fields
         '''
-        location_fields = ['region', 'country', 'division', 'location']
+        location_fields = ['country', 'division', 'location']
         for field in location_fields:
             if field in virus and virus[field] is not None:
-                virus[field] = self.camelcase_to_snakecase(virus[field].replace(' ', '_'))
+                if "_" in virus[field]:  # French_Polynesia -> french_polynesia
+                    virus[field] = "_".join(virus[field].split("_")).lower()
+                virus[field] = self.camelcase_to_snakecase(virus[field])
 
     def link_viruses_to_sequences(self, viruses, sequences):
         '''
@@ -210,7 +212,6 @@ class upload(parse):
             db_key = doc[index]
             if self.relax_name(doc[index]) in db_relaxed_keys:
                 db_key = db_relaxed_keys[self.relax_name(doc[index])]
-
             if db_key in db_key_to_documents.keys():  # add to update documents
                 update_documents[db_key] = doc
             elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
@@ -229,8 +230,9 @@ class upload(parse):
 
     def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
         print("Checking for updates to ", len(update_documents), "documents")
-        # determine which documents need to be updated
+        # determine which documents need to be updated and update them
         updated = [db_key_to_documents[db_key] for db_key, doc in update_documents.items() if self.update_document_meta(db_key_to_documents[db_key], doc, **kwargs)]
+        # then insert the updated documents
         if len(updated) > 0:
             print("Found updates to ", len(updated), "documents")
             self.upload_to_rethinkdb(self.database, table, updated, 'replace')
@@ -243,7 +245,7 @@ class upload(parse):
         Updates the db_doc to fields of doc based on rules below
         '''
         updated = False
-        for field in db_doc:
+        for field in doc:
             if field == 'timestamp':
                 pass
             elif field == 'sequences':
@@ -253,17 +255,17 @@ class upload(parse):
                         db_doc[field].append(accession)
                         db_doc['number_sequences'] += 1
             else:
-                if doc[field] is not None:
-                    # update if field not present in db_doc
-                    if field not in db_doc:
+                # update if field not present in db_doc
+                if field not in db_doc:
+                    if doc[field] is not None:
                         print("Creating field ", field, " assigned to ", doc[field])
-                        db_doc[field] = doc[field]
-                        updated = True
-                    #update db_doc information if doc info is different, or if overwrite is false update db_doc information only if doc info is different and not null
-                    elif (overwrite and db_doc[field] != doc[field]) or (not overwrite and db_doc[field] is None and db_doc[field] != doc[field]):
-                        print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
-                        db_doc[field] = doc[field]
-                        updated = True
+                    db_doc[field] = doc[field]
+                    updated = True
+                #update db_doc information if doc info is different, or if overwrite is false update db_doc information only if doc info is different and not null
+                elif doc[field] is not None and (overwrite and db_doc[field] != doc[field]) or (not overwrite and db_doc[field] is None and db_doc[field] != doc[field]):
+                    print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
+                    db_doc[field] = doc[field]
+                    updated = True
         return updated
 
     def relaxed_keys(self, documents):

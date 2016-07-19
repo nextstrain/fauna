@@ -48,7 +48,7 @@ class flu_upload(upload):
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in self.fasta_fields.items()}
-                v['sequence'] = str(record.seq)
+                v['sequence'] = str(record.seq).lower()
                 self.add_other_attributes(v, **kwargs)
                 self.determine_group_fields(v, record, **kwargs)
                 viruses.append(v)

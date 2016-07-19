@@ -40,7 +40,6 @@ class parse(object):
                 print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from file " + path+fname)
         else:
             raise Exception("No input file name and type defined or accessions given")
-
         return (viruses, sequences)
 
     def fix_casing(self, v):
@@ -80,7 +79,7 @@ class parse(object):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in virus_fasta_fields.items()}
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
-                s['sequence'] = str(record.seq)
+                s['sequence'] = str(record.seq).lower()
                 v['strain'] = self.fix_name(v['strain'])
                 s['strain'] = self.fix_name(v['strain'])
                 v = self.add_virus_fields(v, **kwargs)
@@ -209,6 +208,7 @@ class parse(object):
         webenv, query_key = search_results["WebEnv"], search_results["QueryKey"]
 
         viruses = []
+        sequences = []
         #fetch all results in batch of batchSize entries at once
         for start in range(0,len(giList),batchSize):
             #fetch entries in batch
@@ -217,53 +217,60 @@ class parse(object):
             except IOError:
                 print("Couldn't connect with entrez")
             else:
-                viruses.extend(self.parse_gb_entries(handle, **kwargs))
-        return viruses
+                result = self.parse_gb_entries(handle, **kwargs)
+                viruses.extend(result[0])
+                sequences.extend(result[1])
+        return (viruses, sequences)
 
     def parse_gb_entries(self, handle, **kwargs):
         '''
         Go through genbank records to get relevant virus information
         '''
-        viruses = []
+        viruses, sequences = [], []
         for record in SeqIO.parse(handle, "genbank"):
             v = {}
-            v['source'] = 'genbank'
-            v['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
-            v['sequence'] = str(record.seq)
+            s = {}
+            s['source'] = 'genbank'
+            s['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
+            s['sequence'] = str(record.seq).lower()
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
-                v['title'] = reference.title
+                s['title'] = reference.title
             else:
-                print("Couldn't find reference title for " + v['accession'])
-                v['title'] = None
+                print("Couldn't find reference title for " + s['accession'])
+                s['title'] = None
             if reference.authors is not None:
                 first_author = re.match(r'^([^,]*)', reference.authors).group(0)
             else:
-                print("Couldn't parse authors for " + v['accession'])
+                print("Couldn't parse authors for " + s['accession'])
                 first_author = None
-            url = "http://www.ncbi.nlm.nih.gov/nuccore/" + v['accession']
-            v['url'] = self.get_gb_url(url, v['title'], first_author)
-            v['authors'] = first_author + " et al"
+            url = "http://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
+            s['url'] = self.get_gb_url(url, s['title'], first_author)
+            s['authors'] = first_author + " et al"
 
             record_features = record.features
             for feat in record_features:
                 if feat.type == 'source':
                     qualifiers = feat.qualifiers
-                    v['date'] = self.convert_gb_date(qualifiers['collection_date'][0])
+                    v['collection_date'] = self.convert_gb_date(qualifiers['collection_date'][0])
                     v['country'] = re.match(r'^([^:]*)', qualifiers['country'][0]).group(0)
                     if 'strain' in qualifiers:
                         v['strain'] = qualifiers['strain'][0]
+                        s['strain'] = qualifiers['strain'][0]
                     elif 'isolate' in qualifiers:
                         v['strain'] = qualifiers['isolate'][0]
+                        s['strain'] = qualifiers['isolate'][0]
                     else:
-                        print("Couldn't parse strain name for " + v['accession'])
-            self.add_other_attributes(v, **kwargs)
-            self.fix_casing(v)
-            self.fix_boolean(v)
+                        print("Couldn't parse strain name for " + s['accession'])
+            v = self.add_virus_fields(v, **kwargs)
+            s = self.add_sequence_fields(s, **kwargs)
             viruses.append(v)
+            sequences.append(s)
+            #self.fix_casing(v)
+            #self.fix_boolean(v)
         handle.close()
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
-        return viruses
+        return (viruses, sequences)
 
     def get_gb_url(self, url, title, author):
         '''
