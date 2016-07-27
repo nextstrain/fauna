@@ -6,6 +6,7 @@ from Bio import AlignIO
 from upload import upload
 from upload import parser
 
+parser.add_argument('--upload_directory', default=False, action="store_true", help='upload all xls and fasta files in directory')
 parser.add_argument('--vtype', default=None, help="type of virus, if applicable")
 parser.add_argument('--subtype', default=None, help="subtype of virus")
 parser.add_argument('--lineage', default=None, help="lineage of virus")
@@ -35,15 +36,32 @@ class flu_upload(upload):
                                   'Yam': ('b', 'undetermined', 'seasonal_yam')}
         self.virus_to_sequence_transfer_fields = ['submission_date']
 
-    def parse(self, path, fname, **kwargs):
+    def parse(self, path, fname, upload_directory, **kwargs):
         '''
         '''
-        fasta_fname = path + fname + ".fasta"
-        xls_fname = path + fname + ".xls"
-        sequences = self.parse_fasta_file(fasta_fname, **kwargs)
+        viruses, sequences = [], []
+        if upload_directory:
+            import glob
+            for xls_fname, fasta_fname in zip(glob.glob(path + "gisaid*.xls"), glob.glob(path + "gisaid*.fasta")):
+                parsed = self.parse_files(xls_fname, fasta_fname, **kwargs)
+                viruses.extend(parsed[0])
+                sequences.extend(parsed[1])
+        else:
+            fasta_fname = path + fname + ".fasta"
+            xls_fname = path + fname + ".xls"
+            viruses, sequences = self.parse_files(fasta_fname, xls_fname, **kwargs)
+        print("Parsed total of " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from files")
+        return viruses, sequences
+
+    def parse_files(self, xls_fname, fasta_fname, **kwargs):
+        '''
+        parse linked xls and fasta downloaded from gisaid
+        '''
         viruses = self.parse_gisaid_xls_file(xls_fname, **kwargs)
-        print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from file")
-        return (viruses, sequences)
+        sequences = self.parse_fasta_file(fasta_fname, **kwargs)
+        print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from files", fasta_fname, xls_fname)
+        return viruses, sequences
+
 
     def parse_fasta_file(self, fasta, **kwargs):
         '''
@@ -129,9 +147,10 @@ class flu_upload(upload):
             name = re.match(r'^([^(]+)', name).group(1)
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '')
         split_name = tmp_name.split('/')
-        if split_name[1].isupper():
-            split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
-        split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
+        if len(split_name) == 4:
+            if split_name[1].isupper():
+                split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
+            split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
         result_name = '/'.join(split_name)
         return result_name
 
