@@ -1,4 +1,0 @@
-[submodule "chateau"]
-	path = chateau
-	url = https://github.com/blab/chateau.git
-	branch = timestamp
