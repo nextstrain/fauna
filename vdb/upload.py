@@ -54,10 +54,12 @@ class upload(parse):
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
+        viruses = self.filter(viruses, **kwargs)
+        sequences = self.filter(sequences, **kwargs)
         self.format(viruses, **kwargs)
         self.format(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
-        self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
+        #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
@@ -66,9 +68,9 @@ class upload(parse):
             self.upload_documents(self.sequences_table, sequences, 'accession', **kwargs)
         else:
             print("Viruses:")
-            print(json.dumps(viruses[0], indent=1))
+            print(json.dumps(viruses[0:2], indent=1))
             print("Sequences:")
-            print(json.dumps(sequences[0], indent=1))
+            print(json.dumps(sequences[0:2], indent=1))
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
@@ -87,7 +89,7 @@ class upload(parse):
             self.fix_casing(doc)
 
     def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
+        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
         try:
             tmp_name = 'V' + str(int(tmp_name))
         except:
@@ -170,6 +172,9 @@ class upload(parse):
                     virus[field] = "_".join(virus[field].split("_")).lower()
                 virus[field] = self.camelcase_to_snakecase(virus[field])
 
+    def filter(self, documents, **kwargs):
+        return documents
+
     def link_viruses_to_sequences(self, viruses, sequences):
         '''
         Link the sequence information virus isolate information via the strain name
@@ -215,7 +220,7 @@ class upload(parse):
             if db_key in db_key_to_documents.keys():  # add to update documents
                 update_documents[db_key] = doc
             elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
-                self.update_document_meta(upload_documents[db_key], doc, **kwargs)
+                self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
             else:  # add to upload documents
                 upload_documents[doc[index]] = doc
         print("Inserting ", len(upload_documents), "documents")
@@ -239,7 +244,7 @@ class upload(parse):
         else:
             print("No documents need to be updated in ", self.database + "." + table)
 
-    def update_document_meta(self, db_doc, doc, overwrite, **kwargs):
+    def update_document_meta(self, db_doc, doc, overwrite, output=True, **kwargs):
         '''
         update overwritable fields at the base level of the document
         Updates the db_doc to fields of doc based on rules below
@@ -263,7 +268,8 @@ class upload(parse):
                     updated = True
                 #update db_doc information if doc info is different, or if overwrite is false update db_doc information only if doc info is different and not null
                 elif doc[field] is not None and (overwrite and db_doc[field] != doc[field]) or (not overwrite and db_doc[field] is None and db_doc[field] != doc[field]):
-                    print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
+                    if output:
+                        print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
                     db_doc[field] = doc[field]
                     updated = True
         return updated

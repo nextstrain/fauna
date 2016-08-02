@@ -1,1783 +1,2178 @@
-label	country	location
-Afghanistan	Afghanistan	Afghanistan
-Aichi	Japan	Aichi
-Akita	Japan	Akita
-Alabama	USA	Alabama
-Alaska	USA	Alaska
-Albania	Albania	Albania
-Alberta	Canada	Alberta
-Algeria	Algeria	Algeria
-AliceSprings	Australia	NorthernTerritory
-AmericanSamoa	AmericanSamoa	AmericanSamoa
-Andaman	India	India
-Anguilla	Anguilla	Anguilla
-Aomori	Japan	Aomori
-Aragon	Spain	Spain
-Argentina	Argentina	Argentina
-Arizona	USA	Arizona
-Arkansas	USA	Arkansas
-Astrakhan	Russia	Russia
-Athens	Greece	Greece
-Auckland	NewZealand	NewZealand
-BadenWurttemberg	Germany	Germany
-Bahamas	Bahamas	Bahamas
-Baleares	Spain	Spain
-Bangkok	Thailand	Thailand
-Bangladesh	Bangladesh	Bangladesh
-Barbados	Barbados	Barbados
-Barcelona	Spain	Spain
-Bayern	Germany	Germany
-Beijing	China	Beijing
-Belgium	Belgium	Belgium
-Berlin	Germany	Germany
-Bhutan	Bhutan	Bhutan
-Bolivia	Bolivia	Bolivia
-Bordeaux	France	France
-Brandenburg	Germany	Germany
-Bratislava	Slovakia	Slovakia
-Brazil	Brazil	Brazil
-Bremen	Germany	Germany
-Bretagne	France	France
-Brisbane	Australia	Queensland
-BritishColumbia	Canada	BritishColumbia
-Brussels	Belgium	Belgium
-Bucuresti	Romania	Romania
-Bulgaria	Bulgaria	Bulgaria
-Busan	SouthKorea	SouthKorea
-California	USA	California
-Cambodia	Cambodia	Cambodia
-Cameroon	Cameroon	Cameroon
-Canberra	Australia	Canberra
-CapeTown	SouthAfrica	SouthAfrica
-Caracas	Venezuela	Venezuela
-CaymanIslands	CaymanIslands	CaymanIslands
-Ceara	Brazil	Brazil
-Chachoengsao	Thailand	Thailand
-Chanthaburi	Thailand	Thailand
-Cheju	SouthKorea	SouthKorea
-Chennai	India	India
-Cheonbuk	SouthKorea	SouthKorea
-Cheonnam	SouthKorea	SouthKorea
-Chiba	Japan	Chiba
-Chile	Chile	Chile
-Chita	Russia	Russia
-Choibalsan	Mongolia	Mongolia
-Chongqing	China	Chongqing
-Christchurch	NewZealand	NewZealand
-Chungbuk	SouthKorea	SouthKorea
-Chungnam	SouthKorea	SouthKorea
-Chuuk	Micronesia	Micronesia
-Cluj	Romania	Romania
-Colombia	Colombia	Colombia
-Colorado	USA	Colorado
-Connecticut	USA	Connecticut
-Cordoba	Spain	Spain
-CostaRica	CostaRica	CostaRica
-Cuba	Cuba	Cuba
-Cyprus	Cyprus	Cyprus
-Daegu	SouthKorea	SouthKorea
-Daejeon	SouthKorea	SouthKorea
-Dakar	Senegal	Senegal
-Darwin	Australia	NorthernTerritory
-Deajeon	SouthKorea	SouthKorea
-Delaware	USA	Delaware
-Delhi	India	India
-Denmark	Denmark	Denmark
-Dibrugarh	India	India
-DistrictOfColumbia	USA	DistrictOfColumbia
-Dnipropetrovsk	Ukraine	Ukraine
-DominicanRepublic	DominicanRepublic	DominicanRepublic
-Donetsk	Ukraine	Ukraine
-Dornogobi	Mongolia	Mongolia
-Dunedin	NewZealand	NewZealand
-Ecuador	Ecuador	Ecuador
-Egypt	Egypt	Egypt
-Ehime	Japan	Ehime
-Ekaterinburg	Russia	Russia
-ElSalvador	ElSalvador	ElSalvador
-England	UnitedKingdom	UnitedKingdom
-Inverness	UnitedKingdom	UnitedKingdom
-Erzurum	Turkey	Turkey
-Esfahan	Iran	Iran
-Estonia	Estonia	Estonia
-Ethiopia	Ethiopia	Ethiopia
-Euskadi	Spain	Spain
-Fes	Morocco	Morocco
-Fiji	Fiji	Fiji
-Finland	Finland	Finland
-Firenze	Italy	Italy
-Florida	USA	Florida
-Guiana	FrenchGuiana	FrenchGuiana
-Fujian	China	Fujian
-Fukui	Japan	Fukui
-Fukuoka	Japan	Fukuoka
-Fukushima	Japan	Fukushima
-Galati	Romania	Romania
-Gangwon	SouthKorea	SouthKorea
-Gansu	China	Gansu
-Geneva	Switzerland	Switzerland
-Genoa	Italy	Italy
-Georgia	USA	Georgia
-Germany	Germany	Germany
-Ghana	Ghana	Ghana
-Ghazivin	Iran	Iran
-Gibraltar	Gibraltar	Gibraltar
-Gifu	Japan	Gifu
-Greece	Greece	Greece
-Grenoble	France	France
-Guadeloupe	Guadeloupe	Guadeloupe
-Guam	Guam	Guam
-Guangdong	China	Guangdong
-Guangxi	China	Guangxi
-Guangzhou	China	Guangdong
-Guatemala	Guatemala	Guatemala
-Guizhou	China	Guizhou
-Gunma	Japan	Gunma
-Gyeonggi	SouthKorea	SouthKorea
-Gyeongnam	SouthKorea	SouthKorea
-Haiti	Haiti	Haiti
-Hannover	Germany	Germany
-Harbin	China	Heilongjiang
-Hawaii	USA	Hawaii
-Heilongjiang	China	Heilongjiang
-Henan	China	Henan
-Hessen	Germany	Germany
-Hiroshima	Japan	Hiroshima
-Hmelnizk	Ukraine	Ukraine
-Hokkaido	Japan	Hokkaido
-Honduras	Honduras	Honduras
-HongKong	HongKong	HongKong
-Hubei	China	Hubei
-Hyogo	Japan	Hyogo
-Ibaraki	Japan	Ibaraki
-Iceland	Iceland	Iceland
-Idaho	USA	Idaho
-Illinois	USA	Illinois
-Incheon	SouthKorea	SouthKorea
-Indiana	USA	Indiana
-Indonesia	Indonesia	Indonesia
-Iowa	USA	Iowa
-Ireland	Ireland	Ireland
-Ishikawa	Japan	Ishikawa
-Israel	Israel	Israel
-Italy	Italy	Italy
-Ivacevichi	Belarus	Belarus
-IvoryCoast	IvoryCoast	IvoryCoast
-Iwate	Japan	Iwate
-Jamaica	Jamaica	Jamaica
-Japan	Japan	Japan
-Jaroslavl	Russia	Russia
-Jeju	SouthKorea	SouthKorea
-Jeonbuk	SouthKorea	SouthKorea
-Jiangsu	China	Jiangsu
-Jiangxi	China	Jiangxi
-Jilin	China	Jilin
-Johannesburg	SouthAfrica	SouthAfrica
-Kagawa	Japan	Kagawa
-Kagoshima	Japan	Kagoshima
-Kaliningrad	Russia	Russia
-Kamphaengphet	Thailand	Thailand
-Kanagawa	Japan	Kanagawa
-Kawasaki	Japan	Kanagawa
-Kemerovo	Russia	Russia
-Kentucky	USA	Kentucky
-Kenya	Kenya	Kenya
-Khabarovsk	Russia	Russia
-Khmelnitsky	Ukraine	Ukraine
-Kiev	Ukraine	Ukraine
-Kiribati	Kiribati	Kiribati
-Kitakyushu	Japan	Fukuoka
-Kobe	Japan	Hyogo
-Kochi	Japan	Kochi
-Kolkutta	India	India
-Kumamoto	Japan	Kumamoto
-Kuwait	Kuwait	Kuwait
-Kwangju	SouthKorea	SouthKorea
-Kyongbuk	SouthKorea	SouthKorea
-Kyoto	Japan	Kyoto
-Kyunggi	SouthKorea	SouthKorea
-Kyungnam	SouthKorea	SouthKorea
-Labrador	Canada	Labrador
-Laos	Laos	Laos
-Latur	India	India
-Latvia	Latvia	Latvia
-Leon	Spain	Spain
-Liaoning	China	Liaoning
-Limoges	France	France
-Lipetsk	Russia	Russia
-Lisboa	Portugal	Portugal
-LopBuri	Thailand	Thailand
-Louisiana	USA	Louisiana
-Luxembourg	Luxembourg	Luxembourg
-Lyon	France	France
-Macau	Macau	Macau
-Madagascar	Madagascar	Madagascar
-MaeHongSon	Thailand	Thailand
-Maine	USA	Maine
-Malaysia	Malaysia	Malaysia
-Manitoba	Canada	Manitoba
-Marseille	France	France
-Martinique	Martinique	Martinique
-Maryland	USA	Maryland
-Massachusetts	USA	Massachusetts
-Mauritius	Mauritius	Mauritius
-Memphis	USA	Tennessee
-Mexico	Mexico	Mexico
-Michigan	USA	Michigan
-Mie	Japan	Mie
-Minnesota	USA	Minnesota
-Minsk	Belarus	Belarus
-Mississippi	USA	Mississippi
-Missouri	USA	Missouri
-Miyagi	Japan	Miyagi
-Miyazaki	Japan	Miyazaki
-Moldova	Moldova	Moldova
-Montana	USA	Montana
-Montevideo	Uruguay	Uruguay
-Morobe	PapuaNewGuinea	PapuaNewGuinea
-Moscow	Russia	Russia
-Murcia	Spain	Spain
-Nagano	Japan	Nagano
-Nagasaki	Japan	Nagasaki
-Nagoya	Japan	Aichi
-Nakhonratchasima	Thailand	Thailand
-Nanded	India	India
-Nara	Japan	Nara
-Nashik	India	India
-Nebraska	USA	Nebraska
-NeiMongol	China	Neimenggu
-Nepal	Nepal	Nepal
-Netherlands	Netherlands	Netherlands
-Nevada	USA	Nevada
-NewBrunswick	Canada	NewBrunswick
-NewCaledonia	NewCaledonia	NewCaledonia
-Newcastle	Australia	NewSouthWales
-Newfoundland	Canada	Newfoundland
-NewHampshire	USA	NewHampshire
-NewJersey	USA	NewJersey
-NewMexico	USA	NewMexico
-NewSouthWales	Australia	NewSouthWales
-NewYork	USA	NewYork
-Nicaragua	Nicaragua	Nicaragua
-Nice	France	France
-Nigeria	Nigeria	Nigeria
-Niigata	Japan	Niigata
-Ningbo	China	Zhejiang
-Ningxia	China	Ningxia
-NongKhai	Thailand	Thailand
-Nonthaburi	Thailand	Thailand
-NordrheinWestfalen	Germany	Germany
-NorthCarolina	USA	NorthCarolina
-NorthDakota	USA	NorthDakota
-NorthernMarianasIslands	NorthernMarianaIslands	NorthernMarianaIslands
-NorthernTerritory	Australia	NorthernTerritory
-Norway	Norway	Norway
-NovaScotia	Canada	NovaScotia
-Novosibirsk	Russia	Russia
-Ohio	USA	Ohio
-Oita	Japan	Oita
-Okayama	Japan	Okayama
-Okinawa	Japan	Okinawa
-Oklahoma	USA	Oklahoma
-Omsk	Russia	Russia
-Ontario	Canada	Ontario
-Oregon	USA	Oregon
-Osaka	Japan	Osaka
-Oslo	Norway	Norway
-Otago	NewZealand	NewZealand
-Padova	Italy	Italy
-Panama	Panama	Panama
-Paraguay	Paraguay	Paraguay
-Paris	France	France
-Parma	Italy	Italy
-Peloponnese	Greece	Greece
-Pennsylvania	USA	Pennsylvania
-Perth	Australia	WesternAustralia
-Perugia	Italy	Italy
-Philippines	Philippines	Philippines
-Poitiers	France	France
-Prague	CzechRepublic	CzechRepublic
-PrinceEdwardIsland	Canada	PrinceEdwardIsland
-PuertoRico	PuertoRico	PuertoRico
-Pune	India	India
-Pusan	SouthKorea	SouthKorea
-Qinghai	China	Qinghai
-Quebec	Canada	Quebec
-Queensland	Australia	Queensland
-Ratnagiri	India	India
-RheinlandPfalz	Germany	Germany
-RhodeIsland	USA	RhodeIsland
-Romania	Romania	Romania
-Rosario	Argentina	Argentina
-Sabac	Serbia	Serbia
-Saga	Japan	Saga
-Sainshand	Mongolia	Mongolia
-Saitama	Japan	Saitama
-Sakai	Japan	Osaka
-Salamanca	Spain	Spain
-Sangali	Philippines	Philippines
-Santiago	Chile	Chile
-Sapporo	Japan	Hokkaido
-Saraburi	Thailand	Thailand
-Saskatchewan	Canada	Saskatchewan
-Scotland	UnitedKingdom	UnitedKingdom
-Sendai	Japan	Miyagi
-Seoul	SouthKorea	SouthKorea
-Shaanxi	China	Shaanxi
-Shandong	China	Shandong
-Shanghai	China	Shanghai
-Shantou	China	Guangdong
-Shanxi	China	Shanxi
-Shenzhen	China	Guangdong
-Shimane	Japan	Shimane
-Shizuoka	Japan	Shizuoka
-Sichuan	China	Sichuan
-Singapore	Singapore	Singapore
-Slovenia	Slovenia	Slovenia
-Sofia	Bulgaria	Bulgaria
-SolomonIslands	SolomonIslands	SolomonIslands
-Songkhla	Thailand	Thailand
-SouthAuckland	NewZealand	NewZealand
-SouthAustralia	Australia	SouthAustralia
-SouthCarolina	USA	SouthCarolina
-SouthDakota	USA	SouthDakota
-SouthKorea	SouthKorea	SouthKorea
-Spain	Spain	Spain
-SriLanka	SriLanka	SriLanka
-Stockholm	Sweden	Sweden
-StPetersburg	Russia	Russia
-Sukhbaatar	Mongolia	Mongolia
-SuratThani	Thailand	Thailand
-Suriname	Suriname	Suriname
-Sweden	Sweden	Sweden
-Switzerland	Switzerland	Switzerland
-Sydney	Australia	NewSouthWales
-Syria	Syria	Syria
-Taiwan	Taiwan	Taiwan
-Tanger	Morocco	Morocco
-Tanzania	Tanzania	Tanzania
-Tasmania	Australia	Tasmania
-Tehran	Iran	Iran
-Tennessee	USA	Tennessee
-Texas	USA	Texas
-Thailand	Thailand	Thailand
-Thessaloniki	Greece	Greece
-Thuringen	Germany	Germany
-Tianjin	China	Tianjin
-Tochigi	Japan	Tochigi
-Tokushima	Japan	Tokushima
-Tokyo	Japan	Tokyo
-Torino	Italy	Italy
-Tottori	Japan	Tottori
-Toulon	France	France
-Townsville	Australia	Queensland
-Toyama	Japan	Toyama
-Trieste	Italy	Italy
-Tunisia	Tunisia	Tunisia
-Turkey	Turkey	Turkey
-Uganda	Uganda	Uganda
-Ukraine	Ukraine	Ukraine
-Ulaanbaatar	Mongolia	Mongolia
-UlanUde	Russia	Russia
-Ulsan	SouthKorea	SouthKorea
-Umea	Sweden	Sweden
-UnitedKingdom	UnitedKingdom	UnitedKingdom
-Uruguay	Uruguay	Uruguay
-Ushuaia	Argentina	Argentina
-Utah	USA	Utah
-Uvurkhangai	Mongolia	Mongolia
-Vellore	India	India
-Venezuela	Venezuela	Venezuela
-Vermont	USA	Vermont
-Victoria	Australia	Victoria
-Vietnam	Vietnam	Vietnam
-VirginIslands	USA	VirginIslands
-Vladimir	Russia	Russia
-Volos	Greece	Greece
-Voronezh	Russia	Russia
-Waikato	NewZealand	NewZealand
-Wakayama	Japan	Wakayama
-Wallonia	Belgium	Belgium
-Washington	USA	Washington
-Wellington	NewZealand	NewZealand
-WesternAustralia	Australia	WesternAustralia
-WesternSepik	PapuaNewGuinea	PapuaNewGuinea
-WestVirginia	USA	WestVirginia
-Wisconsin	USA	Wisconsin
-Wuhan	China	Hubei
-Wuzhou	China	Guangxi
-Wyoming	USA	Wyoming
-Xiamen	China	Fujian
-Xinjiang	China	Xinjiang
-Yamagata	Japan	Yamagata
-Yamaguchi	Japan	Yamaguchi
-Yamanashi	Japan	Yamanashi
-Yaroslavl	Russia	Russia
-Yokohama	Japan	Kanagawa
-Yunnan	China	Yunnan
-Zagreb	Croatia	Croatia
-Zhejiang	China	Zhejiang
-Zrenjanin	Serbia	Serbia
-CotedIvoire	IvoryCoast	IvoryCoast
-Guyane	FrenchGuiana	FrenchGuiana
-Nothaburi	Thailand	Thailand
-Hunan	China	Hunan
-Beijng	China	Beijing
-BadenWuerttemburg	Germany	Germany
-Korea	SouthKorea	SouthKorea
-Managua	Nicaragua	Nicaragua
-Xinjing	China	Xinjiang
-Macedonia	Macedonia	Macedonia
-Vladivostok	Russia	Russia
-Iraq	Iraq	Iraq
-Canterbury	NewZealand	NewZealand
-Hamedan	Iran	Iran
-Valparaiso	Chile	Chile
-Montserrat	Montserrat	Montserrat
-Kazakhstan	Kazakhstan	Kazakhstan
-Lisbon	Portugal	Portugal
-Suphanburi	Thailand	Thailand
-Hungary	Hungary	Hungary
-Naghpur	India	India
-Krasnoyarsk	Russia	Russia
-Massachussetts	USA	Massachusetts
-Boston	USA	Massachusetts
-Kisii	Kenya	Kenya
-Tula	Russia	Russia
-Orkhon	Mongolia	Mongolia
-Azarbayejan	Azerbaijan	Azerbaijan
-Qatar	Qatar	Qatar
-Toulouse	France	France
-Kisumu	Kenya	Kenya
-Mongolia	Mongolia	Mongolia
-Prachinburi	Thailand	Thailand
-Constanta	Romania	Romania
-Isiolo	Kenya	Kenya
-Birjand	Iran	Iran
-Kursk	Russia	Russia
-Coyhaique	Chile	Chile
-Khorasan	Iran	Iran
-Cherkasy	Ukraine	Ukraine
-Leiden	Netherlands	Netherlands
-Kyrgyzstan	Kyrgyzstan	Kyrgyzstan
-Heilongijang	China	Heilongjiang
-Neimenggu	China	Neimenggu
-Kericho	Kenya	Kenya
-Daejeion	SouthKorea	SouthKorea
-Sakaew	Thailand	Thailand
-Chelyabinsk	Russia	Russia
-Arkhangelsk	Russia	Russia
-Khozestan	Iran	Iran
-Yuelu	China	Hunan
-Belem	Brazil	Brazil
-Mazandaran	Iran	Iran
-Iasi	Romania	Romania
-Kangwon	SouthKorea	SouthKorea
-Gholestan	Iran	Iran
-Yazd	Iran	Iran
-Ayutthaya	Thailand	Thailand
-Ratchaburi	Thailand	Thailand
-Ostrava	CzechRepublic	CzechRepublic
-Mbagathi	Kenya	Kenya
-Samara	Russia	Russia
-Tabriz	Iran	Iran
-Luhansk	Ukraine	Ukraine
-Myanmar	Myanmar	Myanmar
-Piura	Peru	Peru
-Tumbes	Peru	Peru
-Maldonado	Uruguay	Uruguay
-Houston	USA	Texas
-Cusco	Peru	Peru
-RioDeJaneiro	Brazil	Brazil
-Guayas	Ecuador	Ecuador
-Genova	Italy	Italy
-Slovakia	Slovakia	Slovakia
-Milan	Italy	Italy
-Kharkov	Ukraine	Ukraine
-Sullana	Peru	Peru
-Juliaca	Peru	Peru
-PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea
-Concepcion	Chile	Chile
-Temple	USA	Pennsylvania
-Yurimaguas	Peru	Peru
-Chanchamayo	Peru	Peru
-Guayaquil	Ecuador	Ecuador
-Pucallpa	Peru	Peru
-StLucia	SaintLucia	SaintLucia
-Ancon	Peru	Peru
-Arequipa	Peru	Peru
-Puno	Peru	Peru
-Belgrade	Serbia	Serbia
-Talcahuano	Chile	Chile
-CookIslands	CookIslands	CookIslands
-Siena	Italy	Italy
-Jordan	Jordan	Jordan
-Canarias	CanaryIslands	CanaryIslands
-Iquitos	Peru	Peru
-LosAngeles	USA	California
-Odessa	Ukraine	Ukraine
-Nairobi	Kenya	Kenya
-Iquique	Chile	Chile
-Phitsanulok	Thailand	Thailand
-Dniprodzerzinsk	Ukraine	Ukraine
-Cochabamba	Bolivia	Bolivia
-Uzbekistan	Uzbekistan	Uzbekistan
-Khmelnytskyi	Ukraine	Ukraine
-Trinidad	TrinidadTobago	TrinidadTobago
-Rivne	Ukraine	Ukraine
-Antofagasta	Chile	Chile
-Novgorod	Russia	Russia
-Goroka	PapuaNewGuinea	PapuaNewGuinea
-Junin	Peru	Peru
-Zamora	Spain	Spain
-Wulumuqi	China	Xinjiang
-Shiraz	Iran	Iran
-Austria	Austria	Austria
-Babol	Iran	Iran
-Bahia	Brazil	Brazil
-Bogota	Colombia	Colombia
-Casablanca	Morocco	Morocco
-Corsica	France	France
-Cheongju	SouthKorea	SouthKorea
-Andalucia	Spain	Spain
-Ashburton	NewZealand	NewZealand
-CastillaLaMancha	Spain	Spain
-Extremadura	Spain	Spain
-Galicia	Spain	Spain
-Evros	Greece	Greece
-Boshehr	Iran	Iran
-Hanoi	Vietnam	Vietnam
-Alexandroupolis	Greece	Greece
-Acre	Brazil	Brazil
-Alupe	Kenya	Kenya
-Assam	India	India
-BacNinh	Vietnam	Vietnam
-BacGiang	Vietnam	Vietnam
-DaNang	Vietnam	Vietnam
-Istanbul	Turkey	Turkey
-Gwangju	SouthKorea	SouthKorea
-Gyeongbuk	SouthKorea	SouthKorea
-Madrid	Spain	Spain
-Malindi	Kenya	Kenya
-Lebanon	Lebanon	Lebanon
-Lipezk	Russia	Russia
-Qingdao	China	Shandong
-Petrozavodsk	Russia	Russia
-Penza	Russia	Russia
-Navarra	Spain	Spain
-Nanjing	China	Jiangsu
-NamDinh	Vietnam	Vietnam
-Morioka	Japan	Iwate
-Zhuhai	China	Guangdong
-Yucatan	Mexico	Mexico
-Whanganui	NewZealand	NewZealand
-Toronto	Canada	Ontario
-Tilburg	Netherlands	Netherlands
-Tbilisi	GeorgiaCountry	GeorgiaCountry
-TayNguyen	Vietnam	Vietnam
-Tairawhiti	NewZealand	NewZealand
-Tahiti	FrenchPolynesia	FrenchPolynesia
-Hamamatu	Japan	Shizuoka
-Khovd	Mongolia	Mongolia
-Cnic	China	China
-Sergipe	Brazil	Brazil
-Southland	NewZealand	NewZealand
-Prajianburi	Thailand	Thailand
-PaisVasco	Spain	Spain
-Pandharpur	India	India
-Parana	Brazil	Brazil
-LangSon	Vietnam	Vietnam
-Manhean	Ghana	Ghana
-Kunming	China	Yunnan
-Kilkis	Greece	Greece
-KhanhHoa	Vietnam	Vietnam
-HoaBinh	Vietnam	Vietnam
-Kolkata	India	India
-Kermanshah	Iran	Iran
-Kastoria	Greece	Greece
-Jochiwon	SouthKorea	SouthKorea
-Mombasa	Kenya	Kenya
-Catalonia	Spain	Spain
-Budapest	Hungary	Hungary
-Brownsville	USA	Texas
-Warsaw	Poland	Poland
-Wurzburg	Germany	Germany
-Yakutsk	Russia	Russia
-Zavkhan	Mongolia	Mongolia
-Zhoushan	China	Zhejiang
-Weidu	China	Henan
-Weidong	China	Henan
-Ulyanovsk	Russia	Russia
-Utsunomiya	Japan	Tochigi
-Vienna	Austria	Austria
-Turin	Italy	Italy
-Trujillo	Peru	Peru
-Tessenderlo	Belgium	Belgium
-Terrassa	Spain	Spain
-Tallinn	Estonia	Estonia
-Taipei	Taiwan	Taiwan
-ThaiBinh	Vietnam	Vietnam
-Tambov	Russia	Russia
-Shahriar	Iran	Iran
-Strasbourg	France	France
-Russia	Russia	Russia
-Pernambuco	Brazil	Brazil
-Pensacola	USA	Florida
-Pavia	Italy	Italy
-Newark	USA	NewJersey
-Neamt	Romania	Romania
-Nanchang	China	Jiangxi
-Murmansk	Russia	Russia
-Munich	Germany	Germany
-Montreal	Canada	Quebec
-Melbourne	Australia	Victoria
-Maramures	Romania	Romania
-Maracay	Venezuela	Venezuela
-Magadan	Russia	Russia
-Lorestan	Iran	Iran
-Karaj	Iran	Iran
-Katerini	Greece	Greece
-Kaluga	Russia	Russia
-Jakarta	Indonesia	Indonesia
-Ivanovo	Russia	Russia
-Ilfov	Romania	Romania
-Hvidovre	Denmark	Denmark
-HoChiMinh	Vietnam	Vietnam
-Helsinki	Finland	Finland
-Habana	Cuba	Cuba
-Goias	Brazil	Brazil
-Frankfurt	Germany	Germany
-Dongcheng	China	Beijing
-Djibouti	Djibouti	Djibouti
-Dambovita	Romania	Romania
-Copenhagen	Denmark	Denmark
-Chicago	USA	Illinois
-Cologne	Germany	Germany
-Chengdu	China	Sichuan
-Cheboksary	Russia	Russia
-Buzau	Romania	Romania
-Brawley	USA	California
-Botosani	Romania	Romania
-Braila	Romania	Romania
-Bishkek	Kyrgyzstan	Kyrgyzstan
-Bethlehem	Palestine	Palestine
-Bethesda	USA	Maryland
-Belgorod	Russia	Russia
-Bayanulgii	Mongolia	Mongolia
-Baofeng	China	Henan
-Astana	Kazakhstan	Kazakhstan
-Ashgabat	Turkmenistan	Turkmenistan
-Archangelsk	Russia	Russia
-Antwerp	Belgium	Belgium
-Ankara	Turkey	Turkey
-Amman	Jordan	Jordan
-Alagoas	Brazil	Brazil
-Aarhus	Denmark	Denmark
-Aalborg	Denmark	Denmark
-Wroclaw	Poland	Poland
-Volgograd	Russia	Russia
-Vladivistok	Russia	Russia
-Trabzon	Turkey	Turkey
-TayNinh	Vietnam	Vietnam
-Taizhou	China	Zhejiang
-Sulaimani	Iraq	Iraq
-Suceava	Romania	Romania
-StEtienne	France	France
-Stavropol	Russia	Russia
-Serres	Greece	Greece
-Salaj	Romania	Romania
-Rennes	France	France
-Rabat	Morocco	Morocco
-Prahova	Romania	Romania
-Poland	Poland	Poland
-Piaui	Brazil	Brazil
-Palermo	Italy	Italy
-Orenburg	Russia	Russia
-Odense	Denmark	Denmark
-Monterrey	Mexico	Mexico
-Merida	Mexico	Mexico
-Medellin	Colombia	Colombia
-Lishui	China	Zhejiang
-Larisa	Greece	Greece
-Korlebu	Ghana	Ghana
-Kavala	Greece	Greece
-Karasuk	Russia	Russia
-Jinhua	China	Zhejiang
-Jiangyin	China	Jiangsu
-Jeonnam	SouthKorea	SouthKorea
-Izhevsk	Russia	Russia
-Harghita	Romania	Romania
-Hamburg	Germany	Germany
-Haishu	China	Zhejiang
-Giannitsa	Greece	Greece
-Gdansk	Poland	Poland
-Covasna	Romania	Romania
-Changchun	China	Jilin
-Xuchang	China	Henan
-Xigong	China	Henan
-Valencia	Spain	Spain
-Saratov	Russia	Russia
-Ptolemaida	Greece	Greece
-Anadyr	Russia	Russia
-Bryansk	Russia	Russia
-Brasov	Romania	Romania
-Bochum	Germany	Germany
-Bamako	Mali	Mali
-Bihor	Romania	Romania
-Blagovechensk	Russia	Russia
-Zhongyuan	China	Henan
-Almaty	Kazakhstan	Kazakhstan
-Selenge	Mongolia	Mongolia
-Riyadh	SaudiArabia	SaudiArabia
-Chantaburi	Thailand	Thailand
-Arvaikheer	Mongolia	Mongolia
-France	France	France
-Kenitra	Morocco	Morocco
-Lithuania	Lithuania	Lithuania
-Marrakech	Morocco	Morocco
-EspiritoSanto	Brazil	Brazil
-Charlottesville	USA	Virginia
-Astrahan	Russia	Russia
-Belize	Belize	Belize
-Brunei	Brunei	Brunei
-Chambery	France	France
-Changwon	SouthKorea	SouthKorea
-Kyounggi	SouthKorea	SouthKorea
-Kyongnam	SouthKorea	SouthKorea
-Inchon	SouthKorea	SouthKorea
-Madang	PapuaNewGuinea	PapuaNewGuinea
-Mangua	Nicaragua	Nicaragua
-Middleburg	SouthAfrica	SouthAfrica
-Bucharest	Romania	Romania
-Calarasi	Romania	Romania
-Granada	Spain	Spain
-Mendoza	Argentina	Argentina
-Tucuman	Argentina	Argentina
-Surabaya	Indonesia	Indonesia
-Shijiazhuang	China	Hebei
-Thueringen	Germany	Germany
-Pretoria	SouthAfrica	SouthAfrica
-Neuquen	Argentina	Argentina
-RioGdoSul	Brazil	Brazil
-Niedersachsen	Germany	Germany
-Ucayali	Peru	Peru
-Misiones	Argentina	Argentina
-MadreDeDios	Peru	Peru
-Pachgani	India	India
-Kadoma	Zimbabwe	Zimbabwe
-Craiova	Romania	Romania
-Soligorsk	Belarus	Belarus
-Lazio	Italy	Italy
-Mogilev	Belarus	Belarus
-Vologda	Russia	Russia
-Rochester	USA	NewYork
-Nashville	USA	Tennessee
-Zarumilla	Peru	Peru
-Valdivia	Chile	Chile
-Lusaka	Zambia	Zambia
-Hunedoara	Romania	Romania
-Zaporizza	Ukraine	Ukraine
-Thessalonika	Greece	Greece
-Misawa	Japan	Aomori
-Kamata	Japan	Tokyo
-Yangon	Myanmar	Myanmar
-Nyiregyhaza	Hungary	Hungary
-Naypyitaw	Myanmar	Myanmar
-Lesvos	Greece	Greece
-Podgorica	Montenegro	Montenegro
-Morocco	Morocco	Morocco
-Coted'Ivoire	IvoryCoast	IvoryCoast
-Cote_d_Ivoire	IvoryCoast	IvoryCoast
-Cote-dIvoire	IvoryCoast	IvoryCoast
-Cote-d'Ivoire	IvoryCoast	IvoryCoast
-Cote_d'Ivoire	IvoryCoast	IvoryCoast
-Hong_Kong	HongKong	HongKong
-New_York	USA	NewYork
-New-York	USA	NewYork
-Sri_Lanka	SriLanka	SriLanka
-El_Salvador	ElSalvador	ElSalvador
-Rhode_Island	USA	RhodeIsland
-District_of_Columbia	USA	DistrictOfColumbia
-District-of-Columbia	USA	DistrictOfColumbia
-South_Australia	Australia	SouthAustralia
-South-Australia	Australia	SouthAustralia
-Hong-Kong	HongKong	HongKong
-Surat_Thani	Thailand	Thailand
-Western_Sepik	PapuaNewGuinea	PapuaNewGuinea
-Western-Sepik	PapuaNewGuinea	PapuaNewGuinea
-Port-Moresby	PapuaNewGuinea	PapuaNewGuinea
-Costa_Rica	CostaRica	CostaRica
-New_Jersey	USA	NewJersey
-New-Jersey	USA	NewJersey
-North_Dakota	USA	NorthDakota
-North-Dakota	USA	NorthDakota
-British_Columbia	Canada	BritishColumbia
-South_Carolina	USA	SouthCarolina
-South-Carolina	USA	SouthCarolina
-North_Carolina	USA	NorthCarolina
-North-Carolina	USA	NorthCarolina
-Puerto_Rico	PuertoRico	PuertoRico
-Puerto-Rico	PuertoRico	PuertoRico
-St._Petersburg	Russia	Russia
-St.-Petersburg	Russia	Russia
-St_Petersburg	Russia	Russia
-St-Petersburg	Russia	Russia
-St.Petersburg	Russia	Russia
-Saint_Petersburg	Russia	Russia
-Saint-Petersburg	Russia	Russia
-Cayman_Islands	CaymanIslands	CaymanIslands
-New_Hampshire	USA	NewHampshire
-New-Hampshire	USA	NewHampshire
-South_Dakota	USA	SouthDakota
-South-Dakota	USA	SouthDakota
-Ulan_Ude	Russia	Russia
-Ulan-Ude	Russia	Russia
-Rheinland-Pfalz	Germany	Germany
-Baden-Wuerttemburg	Germany	Germany
-Baden_Wurttemberg	Germany	Germany
-Baden_Wuerttemberg	Germany	Germany
-Baden-Wuerttemberg	Germany	Germany
-Nong_Khai	Thailand	Thailand
-New-Caledonia	NewCaledonia	NewCaledonia
-New_Caledonia	NewCaledonia	NewCaledonia
-Cape_Town	SouthAfrica	SouthAfrica
-Cape-Town	SouthAfrica	SouthAfrica
-Nordrhein-Westfalen	Germany	Germany
-Nong-Khai	Thailand	Thailand
-Costa-Rica	CostaRica	CostaRica
-Mae-Hong-Son	Thailand	Thailand
-Alice-Springs	Australia	NorthernTerritory
-Baden-Wurttemberg	Germany	Germany
-Lop-Buri	Thailand	Thailand
-Dominican-Republic	DominicanRepublic	DominicanRepublic
-Solomon-Islands	SolomonIslands	SolomonIslands
-Solomon_Islands	SolomonIslands	SolomonIslands
-West-Virginia	USA	WestVirginia
-West_Virginia	USA	WestVirginia
-El-Salvador	ElSalvador	ElSalvador
-Sri-Lanka	SriLanka	SriLanka
-Northern-Marianas-Islands	NorthernMarianaIslands	NorthernMarianaIslands
-Northern-Mariana-Islands	NorthernMarianaIslands	NorthernMarianaIslands
-Northern_Mariana_Islands	NorthernMarianaIslands	NorthernMarianaIslands
-Western-Australia	Australia	WesternAustralia
-Rhode-Island	USA	RhodeIsland
-British-Columbia	Canada	BritishColumbia
-Ribeirao-Preto	Brazil	Brazil
-Kwazulu-Natal	SouthAfrica	SouthAfrica
-Chiang-Rai	Thailand	Thailand
-Nei-Mongol	China	Neimenggu
-Surat-Thani	Thailand	Thailand
-Bay_of_Plenty	NewZealand	NewZealand
-Rio_de_Janeiro	Brazil	Brazil
-San_Salvador	ElSalvador	ElSalvador
-Santo_Domingo	DominicanRepublic	DominicanRepublic
-West_Coast	NewZealand	NewZealand
-United_Kingdom	UnitedKingdom	UnitedKingdom
-South_Africa	SouthAfrica	SouthAfrica
-Minas_Gerais	Brazil	Brazil
-Nakhon_Ratachasima	Thailand	Thailand
-Nelson_Marlborough	NewZealand	NewZealand
-Silver_Spring	USA	Maryland
-Sao_Paulo	Brazil	Brazil
-San_Diego	USA	California
-Santa_Catarina	Brazil	Brazil
-San_Antonio	USA	Texas
-Rio_Grande_do_Sul	Brazil	Brazil
-North_Fitzroy	Australia	Victoria
-Los_Angeles	USA	California
-Mato_Grosso	Brazil	Brazil
-Distrito_Federal	Brazil	Brazil
-Ft_Carson	USA	Colorado
-Czech_Republic	CzechRepublic	CzechRepublic
-Cherry_Point	USA	NorthCarolina
-Central_African_Republic	CentralAfricanRepublic	CentralAfricanRepublic
-Castilla_La_Mancha	Spain	Spain
-Caras_Severin	Romania	Romania
-Bandar_Abbas	Iran	Iran
-Addis_Ababa	Ethiopia	Ethiopia
-Santa_Cruz	Bolivia	Bolivia
-Sachsen_Anhalt	Germany	Germany
-Ruzhou	China	Henan
-Rostov_oblast	Russia	Russia
-Puerto_Montt	Chile	Chile
-Port_Au_Prince	Haiti	Haiti
-Pais_Vasco	Spain	Spain
-La_Paz	Bolivia	Bolivia
-Khon_Kaen	Thailand	Thailand
-Joshkar_Ola	Russia	Russia
-Ft.Benning	USA	Georgia
-Bistrita_Nasaud	Romania	Romania
-Cape_May	USA	NewJersey
-Canada_SK	Canada	Saskatchewan
-Canada_QC	Canada	Quebec
-Canada_ON	Canada	Ontario
-Canada_NWT	Canada	NorthwestTerritories
-Canada_NFL	Canada	NewfoundlandAndLabrador
-Canada_NB	Canada	NewBrunswick
-Canada_PQ	Canada	Quebec
-Canada_MB	Canada	Manitoba
-Canada_BC	Canada	BritishColumbia
-Canada_AB	Canada	Alberta
-Canada_NS	Canada	NovaScotia
-Espirito_Santo	Brazil	Brazil
-Buenos_Aires	Brazil	Brazil
-Cayman-Islands	CaymanIslands	CaymanIslands
-New_South_Wales	Australia	NewSouthWales
-New-South-Wales	Australia	NewSouthWales
-Western_Australia	Australia	WesternAustralia
-Mecklenburg_Vorpommern	Germany	Germany
-Mar_del_Plata	Argentina	Argentina
-Santa_Fe	USA	NewMexico
-La_Plata	Argentina	Argentina
-Nordrhein_Westfalen	Germany	Germany
-Hung_Yen	Vietnam	Vietnam
-Tay_Nguyen	Vietnam	Vietnam
-Madre_de_Dios	Peru	Peru
-Cook_Islands	CookIslands	CookIslands
-Saudi_Arabia	SaudiArabia	SaudiArabia
-Saudi-Arabia	SaudiArabia	SaudiArabia
-Petropavlovsk-Kamchatski	Russia	Russia
-St_Lucia	SaintLucia	SaintLucia
-Chan_Thaburi	Thailand	Thailand
-St.Louis	USA	Missouri
-/Dolj/	Romania	Romania
-Orchon	Mongolia	Mongolia
-/Awb/	India	India
-/Hnl/	India	India
-/Blore/	India	India
-/Castro/	Chile	Chile
-/Ngp/	India	India
-/Olt/	Romania	Romania
-/Ghom/	Iran	Iran
-/Kol/	India	India
-/Lagos/	Nigeria	Nigeria
-/Mures/	Romania	Romania
-/Nsk/	India	India
-/Orel/	Russia	Russia
-/Arad/	Romania	Romania
-/Bari/	Italy	Italy
-/Bonn/	Germany	Germany
-Iran	Iran	Iran
-Lima	Peru	Peru
-/Lur/	India	India
-/Mum/	India	India
-/Perm/	Russia	Russia
-Rome	Italy	Italy
-/Timis/	Romania	Romania
-/Vadu/	India	India
-/Ufa/	Russia	Russia
-/Tver/	Russia	Russia
-/Ulgii/	Mongolia	Mongolia
-USA	USA	USA
-/Hutt/	NewZealand	NewZealand
-Hue	Vietnam	Vietnam
-/HaNam/	Vietnam	Vietnam
-/Australia/	Australia	Australia
-/Che/	India	India
-/Rtng/	India	India
-/Bcm/	USA	Texas
-/Casa/	Morocco	Morocco
-/Chaco/	Argentina	Argentina
-/Caen/	France	France
-/Malmo/	Sweden	Sweden
-/Salta/	Argentina	Argentina
-/HungYen/	Vietnam	Vietnam
-/Wuxi/	China	Jiangsu
-/Daeku/	SouthKorea	SouthKorea
-/Trento/	Italy	Italy
-/Durban/	SouthAfrica	SouthAfrica
-/Chonnam/	SouthKorea	SouthKorea
-CHAMCHAMAYO	Peru	Peru
-NNOVGOROD	Russia	Russia
-Chachamayo	Peru	Peru
-Surinami	Suriname	Suriname
-Shannxi	China	Shaanxi
-TAIWN	Taiwan	Taiwan
-STACATARINA	Brazil	Brazil
-BRUSSEL	Belgium	Belgium
-KYONGGI	SouthKorea	SouthKorea
-PHILLIPPNES	Philippines	Philippines
-NEIMENG	China	Neimenggu
-Uvurkhagai	Mongolia	Mongolia
-Singpaore	Singapore	Singapore
-Salehard	Russia	Russia
-New_Mexcio	USA	NewMexico
-/Kouchi/	Japan	Kochi
-Delware	USA	Delaware
-Shangdong	China	Shandong
-RioGdeSul	Brazil	Brazil
-Guanxi	China	Guangxi
-NEWsYORK	USA	NewYork
-Jinlin	China	Jilin
-Kalingrad	Russia	Russia
-A/CN/17/96	Canada	Canada
-A/CN/27/96	Canada	Canada
-A/CN/61/96	Canada	Canada
-A/TX/9/96	USA	Texas
-A/KO/671/97	SouthKorea	SouthKorea
-A/KO/679/97	SouthKorea	SouthKorea
-A/CA/13/96	USA	California
-A/TH/78/97	Thailand	Thailand
-A/TH/79/97	Thailand	Thailand
-A/MN/1/97	USA	Minnesota
-A/MN/1/96	USA	Minnesota
-A/JA/416/97	Japan	Japan
-A/MO/10/96	USA	Missouri
-A/MO/11/96	USA	Missouri
-A/AG/39/96	Argentina	Argentina
-A/AG/201/96	Argentina	Argentina
-A/AG/607/96	Argentina	Argentina
-A/NY/55/96	USA	NewYork
-A/NY/50/96	USA	NewYork
-A/NJ/8/96	USA	NewJersey
-A/HK/387/97	HongKong	HongKong
-A/BR/43/97	Brazil	Brazil
-CHU/2-524/2005	SouthKorea	SouthKorea
-DC-AHERN-L	USA	DistrictOfColumbia
-UK/1861-CDC-20030709-ROW-12/2003	UnitedKingdom	UnitedKingdom
-A/GUANGER/227/2000	China	China
-A/MO/6/96	USA	Missouri
-A/JA/99/96	Japan	Japan
-A/RI/7/97	USA	RhodeIsland
-A/NL/365/2007	Netherlands	Netherlands
-A/West-Coast/31/2001	NewZealand	NewZealand
-A/West-Coast/33/2001	NewZealand	NewZealand
-A/PA/2/97	USA	Pennsylvania
-A/BR/87/96	Brazil	Brazil
-A/CO/11/96	USA	Colorado
-B/M/09882/2008	India	India
-B/M/09883/2008	India	India
-B/M/09883/201008	India	India
-B/M/09882/180908	India	India
-HK/120/2009	HongKong	HongKong
-A/WA/5/96	USA	Washington
-A/TX/11/96	USA	Texas
-A/VN/1249/2001	Vietnam	Vietnam
-A/VN/1293/2001	Vietnam	Vietnam
-A/DE/4/97	USA	Delaware
-^DO-	DominicanRepublic	DominicanRepublic
-^CS-	CostaRica	CostaRica
-^ET-	Ethiopia	Ethiopia
-^TD-	TrinidadTobago	TrinidadTobago
-^TX-	USA	Texas
-^NJ-	USA	NewJersey
-^WI-	USA	Wisconsin
-^VA-	USA	Virginia
-^AZ-	USA	Arizona
-^CL-	Colombia	Colombia
-^AG-	Argentina	Argentina
-^NY-	USA	NewYork
-^KS-	USA	Kansas
-^TW-	Taiwan	Taiwan
-^IA-	USA	Iowa
-^EG-	Egypt	Egypt
-^GE-	Germany	Germany
-^UA-	Ukraine	Ukraine
-^NC-	USA	NorthCarolina
-^BA-	Bangladesh	Bangladesh
-^HI-	USA	Hawaii
-^TH-	Thailand	Thailand
-^KO-	SouthKorea	SouthKorea
-^PE-	Peru	Peru
-^CN-	Canada	Canada
-^WY-	USA	Wyoming
-^WV-	USA	WestVirginia
-^II-	India	India
-^UY-	Uruguay	Uruguay
-^LA-	USA	Louisiana
-^FG-	FrenchGuiana	FrenchGuiana
-^CI-	Chile	Chile
-^NE-	USA	Nebraska
-^MX-	Mexico	Mexico
-^JA-	Japan	Japan
-^NH-	USA	NewHampshire
-^BR-	Brazil	Brazil
-^IN-	USA	Indiana
-^FL-	USA	Florida
-^BL-	Bolivia	Bolivia
-^CT-	USA	Connecticut
-^SD-	USA	SouthDakota
-^RI-	USA	RhodeIsland
-^NP-	Nepal	Nepal
-^VE-	Venezuela	Venezuela
-^AK-	USA	Alaska
-^GA-	USA	Georgia
-^MI-	USA	Michigan
-^SR-	SaudiArabia	SaudiArabia
-^WA-	USA	Washington
-^PA-	USA	Pennsylvania
-^SC-	USA	SouthCarolina
-^ID-	USA	Idaho
-^MN-	USA	Minnesota
-^OK-	USA	Oklahoma
-^TN-	USA	Tennessee
-^MT-	USA	Montana
-^CO-	USA	Colorado
-^RO-	Romania	Romania
-^MO-	USA	Missouri
-^TU-	Turkey	Turkey
-^IT-	Italy	Italy
-^MD-	USA	Maryland
-^OH-	USA	Ohio
-^UT-	USA	Utah
-^NV-	USA	Nevada
-^AR-	USA	Arkansas
-^ME-	USA	Maine
-^PY-	Paraguay	Paraguay
-^HK-	HongKong	HongKong
-^GQ-	Guam	Guam
-^MA-	USA	Massachusetts
-^NM-	USA	NewMexico
-^CA-	USA	California
-^VT-	USA	Vermont
-^OR-	USA	Oregon
-^MS-	USA	Mississippi
-^KY-	USA	Kentucky
-^ND-	USA	NorthDakota
-^JM-	Jamaica	Jamaica
-^HO-	Honduras	Honduras
-^AL-	USA	Alabama
-^PR-	PuertoRico	PuertoRico
-^GT-	Guatemala	Guatemala
-^LO-	Laos	Laos
-^CB-	Cambodia	Cambodia
-^VN-	Vietnam	Vietnam
-^KR-	Kyrgyzstan	Kyrgyzstan
-^DR-	DominicanRepublic	DominicanRepublic
-^KN-	Kenya	Kenya
-^OM-	Oman	Oman
-^BT-	Bhutan	Bhutan
-^PH-	Philippines	Philippines
-^ES-	ElSalvador	ElSalvador
-^SU-	Suriname	Suriname
-^EC-	Ecuador	Ecuador
-^NU-	Nicaragua	Nicaragua
-^DE-	USA	Delaware
-^UG-	Uganda	Uganda
-^IL-	USA	Illinois
-^HA-	Haiti	Haiti
-^SA-	SouthAfrica	SouthAfrica
-^NI-	Nigeria	Nigeria
-^PI-	Micronesia	Micronesia
-China	China	China
-HK	HongKong	HongKong
-/NY/	USA	NewYork
-/Pach/	India	India
-/VD/	India	India
-/KL/	India	India
-/TW/	Taiwan	Taiwan
-Caen	France	France
-Malmo	Sweden	Sweden
-Hebei	China	Hebei
-Dominica	DominicanRepublic	DominicanRepublic
-India	India	India
-Virginia	USA	Virginia
-Anhui	China	Anhui
-Kansas	USA	Kansas
-Xian	China	Shaanxi
-Changsha	China	Hunan
-Oman	Oman	Oman
-Roma	Italy	Italy
-Peru	Peru	Peru
-Quito	Ecuador	Ecuador
-Sachsen	Germany	Germany
-Tak	Thailand	Thailand
-LongAn	Vietnam	Vietnam
-Shiga	Japan	Shiga
-Hangzhou	China	Zhejiang
-Fuzhou	China	Fujian
-Hainan	China	Hainan
-Viet_Nam	Vietnam	Vietnam
-Bavaria	Germany	Germany
-Craven	UnitedKingdom	UnitedKingdom
-Palau	Palau	Palau
-Cote_Divoire	IvoryCoast	IvoryCoast
-New_Zealand	NewZealand	NewZealand
-Malta	Malta	Malta
-Montenegro	Montenegro	Montenegro
-Pakistan	Pakistan	Pakistan
-Bermuda	Bermuda	Bermuda
-Port_Moresby	PapuaNewGuinea	PapuaNewGuinea
-Reunion	Reunion	Reunion
-British_Virgin_Islands	BritishVirginIslands	BritishVirginIslands
-American_Samoa	AmericanSamoa	AmericanSamoa
-Tajikistan	Tajikistan	Tajikistan
-Serbia	Serbia	Serbia
-Senegal	Senegal	Senegal
-Yokosuka	Japan	Kanagawa
-Phuket	Thailand	Thailand
-SouthAfrica	SouthAfrica	SouthAfrica
-NewZealand	NewZealand	NewZealand
-Bahrain	Bahrain	Bahrain
-Kazakstan	Kazakhstan	Kazakhstan
-BurkinaFaso	BurkinaFaso	BurkinaFaso
-Uppsala	Sweden	Sweden
-Gainesville	USA	Florida
-BayOfPlenty	NewZealand	NewZealand
-Prievidza	Slovakia	Slovakia
-Sibiu	Romania	Romania
-Sukhothai	Thailand	Thailand
-Irkutsk	Russia	Russia
-Kragujevac	Serbia	Serbia
-Kosice	Slovakia	Slovakia
-Lorraine	France	France
-Niakhar	Senegal	Senegal
-Togo	Togo	Togo
-Gambia	Gambia	Gambia
-Prachuapkhirikhan	Thailand	Thailand
-Asturias	Spain	Spain
-Curico	Chile	Chile
-Bulgan	Mongolia	Mongolia
-Trencin	Slovakia	Slovakia
-Burkina_Faso	BurkinaFaso	BurkinaFaso
-Arkadia.GR	Greece	Greece
-Lamia.GR	Greece	Greece
-Astros.GR	Greece	Greece
-Indore	India	India
-Matagalpa	Nicaragua	Nicaragua
-Saipan	NorthernMarianaIslands	NorthernMarianaIslands
-Vaslui	Romania	Romania
-Segovia	Spain	Spain
-Syktyvkar	Russia	Russia
-Akhaltsikhe	GeorgiaCountry	GeorgiaCountry
-Kirov	Russia	Russia
-Plzen	CzechRepublic	CzechRepublic
-Tubas	Palestine	Palestine
-Majkop	Russia	Russia
-Hebron	Palestine	Palestine
-Kazan	Russia	Russia
-Burgos	Spain	Spain
-Sarajevo	BosniaHerzegovina	BosniaHerzegovina
-Para	Brazil	Brazil
-Ramallah	Palestine	Palestine
-Qalqilia	Palestine	Palestine
-Tulkarm	Palestine	Palestine
-Jericho	Palestine	Palestine
-Hormozgan	Iran	Iran
-Westmead	Australia	NewSouthWales
-Darlinghurst	Australia	NewSouthWales
-Brooklyn	USA	NewYork
-Freiburg	Germany	Germany
-Ho_Chi_Minh	Vietnam	Vietnam
-Kowloon	HongKong	HongKong
-Srinigar	India	India
-Thesssaloniki	Greece	Greece
-Yaounde	Cameroon	Cameroon
-Bronx	USA	NewYork
-Hevecam	Cameroon	Cameroon
-Micronesia	Micronesia	Micronesia
-Gothenburg	Sweden	Sweden
-Klaipeda	Lithuania	Lithuania
-Kordestan	Iran	Iran
-Telsiai	Lithuania	Lithuania
-Palencia	Spain	Spain
-Ioannina	Greece	Greece
-Jeddah	SaudiArabia	SaudiArabia
-Burdur	Turkey	Turkey
-Colombo	SriLanka	SriLanka
-Dundgobi	Mongolia	Mongolia
-Linares	Spain	Spain
-Santa_Clara	USA	California
-Nauru	Micronesia	Micronesia
-Nablus	Palestine	Palestine
-Jenin	Palestine	Palestine
-Yopougon	IvoryCoast	IvoryCoast
-Minneapolis	USA	Minnesota
-Skopje	Macedonia	Macedonia
-Dmanisi	GeorgiaCountry	GeorgiaCountry
-Khobi	GeorgiaCountry	GeorgiaCountry
-Corrientes	Argentina	Argentina
-Rio_Grande_do_Norte	Brazil	Brazil
-Kastamonu	Turkey	Turkey
-Samoa	AmericanSamoa	AmericanSamoa
-Headington	UnitedKingdom	UnitedKingdom
-Croatia	Croatia	Croatia
-Armenia	Armenia	Armenia
-Mahajanga	Madagascar	Madagascar
-Larissa	Greece	Greece
-Giessen	Germany	Germany
-Nunavut	Canada	Nunavut
-Canada_NU	Canada	Nunavut
-Saint_Lucia	SaintLucia	SaintLucia
-Turks_And_Caicos_Islands	TurksCaicosIslands	TurksCaicosIslands
-Bosnia_And_Herzegovina	BosniaHerzegovina	BosniaHerzegovina
-Barnaul	Russia	Russia
-Vanimo	PapuaNewGuinea	PapuaNewGuinea
-Karapitiya	SriLanka	SriLanka
-Trikala	Greece	Greece
-Tokat	Turkey	Turkey
-Jabalpur	India	India
-Ruyang	China	Henan
-Pohnpei	Micronesia	Micronesia
-Modra	Slovakia	Slovakia
-Kosrae	Micronesia	Micronesia
-Tumen	China	Jilin
-Matara	SriLanka	SriLanka
-Malatya	Turkey	Turkey
-Kirklareli	Turkey	Turkey
-Tekirdag	Turkey	Turkey
-Kaunas	Lithuania	Lithuania
-Marivan	Iran	Iran
-Ardebil	Iran	Iran
-Veria	Greece	Greece
-Sanandaj	Iran	Iran
-Alborz	Iran	Iran
-Pays_De_La_Loire	France	France
-Douala	Cameroon	Cameroon
-Tocantins	Brazil	Brazil
-Formosa	Argentina	Argentina
-Nord_Pas-De-Calais	France	France
-NoveZamky	Slovakia	Slovakia
-HuttValley	NewZealand	NewZealand
-HauteNormandie	France	France
-Catamarca	Argentina	Argentina
-Chiang_Rai	Thailand	Thailand
-Annaba	Algeria	Algeria
-Blida	Algeria	Algeria
-Salfit	Palestine	Palestine
-Cheb	CzechRepublic	CzechRepublic
-Ohrid	Macedonia	Macedonia
-Zanjan	Iran	Iran
-Tetovo	Macedonia	Macedonia
-Gostivar	Macedonia	Macedonia
-Strumica	Macedonia	Macedonia
-Aveiro	Portugal	Portugal
-Chiatura	GeorgiaCountry	GeorgiaCountry
-Coimbra	Portugal	Portugal
-Levice	Slovakia	Slovakia
-Portalegre	Portugal	Portugal
-Tsqaltubo	GeorgiaCountry	GeorgiaCountry
-Castelo_Branco	Portugal	Portugal
-Rathnapura	SriLanka	SriLanka
-PaysDeLoire	France	France
-Kobuleti	GeorgiaCountry	GeorgiaCountry
-Hradec_Kralove	CzechRepublic	CzechRepublic
-Adjame	IvoryCoast	IvoryCoast
-Soria	Spain	Spain
-Antalya	Turkey	Turkey
-Canada	Canada	Canada
-Glasgow	UnitedKingdom	UnitedKingdom
-Cairo	Egypt	Egypt
-USA	USA	USA
-Athens.GR	Greece	Greece
-Melilla	Spain	Spain
-Ceuta	Spain	Spain
-NorthernMarianaIslands	NorthernMarianaIslands	NorthernMarianaIslands
-Gomel	Belarus	Belarus
-RhodesIsland.GR	Greece	Greece
-Flanders	Belgium	Belgium
-Kitakyusyu	Japan	Fukuoka
-SaoPaulo	Brazil	Brazil
-Dnipro	Ukraine	Ukraine
-Milano	Italy	Italy
-Mures	Romania	Romania
-Kosovo	Kosovo	Kosovo
-Osorno	Chile	Chile
-Talca	Chile	Chile
-Melipilla	Chile	Chile
-IslaPascua	EasterIsland	EasterIsland
-Coquimbo	Chile	Chile
-Ioannina.GR	Greece	Greece
-Alicante	Spain	Spain
-LaSerena	Chile	Chile
-MinasGerais	Brazil	Brazil
-S?oPaulo	Brazil	Brazil
-NordPasdeCalais	France	France
-Malmoe	Sweden	Sweden
-Skovde	Sweden	Sweden
-FrancheComte	France	France
-Mumbai	India	India
-Picardie	France	France
-SaintPetersburg	Russia	Russia
-NorthwestAuckland	NewZealand	NewZealand
-Tuvalu	Tuvalu	Tuvalu
-Bourgogne	France	France
-HawkesBay	NewZealand	NewZealand
-NelsonMarlborough	NewZealand	NewZealand
-Tonga	Tonga	Tonga
-Orebro	Sweden	Sweden
-BuenosAires	Argentina	Argentina
-FrenchGuiana	FrenchGuiana	FrenchGuiana
-MatoGrossodoSul	Brazil	Brazil
-MatoGrosso	Brazil	Brazil
-Zambia	Zambia	Zambia
-Rwanda	Rwanda	Rwanda
-Zhitomir	Ukraine	Ukraine
-Bushehr	Iran	Iran
-Samsun	Turkey	Turkey
-Adana	Turkey	Turkey
-SyrosIsland.GR	Greece	Greece
-Volos.GR	Greece	Greece
-AthensGR	Greece	Greece
-MecklenburgVorpommern	Germany	Germany
-Madeira	Madeira	Madeira
-Algiers	Algeria	Algeria
-Annecy	France	France
-Attecoube	IvoryCoast	IvoryCoast
-Agnibilekrou	IvoryCoast	IvoryCoast
-Ostersund	Sweden	Sweden
-Pancevo	Serbia	Serbia
-Beograd	Serbia	Serbia
-PuntaArenas	Chile	Chile
-Eng	UnitedKingdom	UnitedKingdom
-Izmir	Turkey	Turkey
-Rancagua	Chile	Chile
-Chaco	Paraguay	Paraguay
-NorthernIreland	UnitedKingdom	UnitedKingdom
-Sassari	Italy	Italy
-ChiangRai	Thailand	Thailand
-Bursa	Turkey	Turkey
-Maevatanana	Madagascar	Madagascar
-Nitra	Slovakia	Slovakia
-Smolensk	Russia	Russia
-Kmelnitsk	Ukraine	Ukraine
-Galanta	Slovakia	Slovakia
-Australia	Australia	Australia
-Philippinese	Philippines	Philippines
-MexicoCity	Mexico	Mexico
-Vaxjo	Sweden	Sweden
-CzechRepublic	CzechRepublic	CzechRepublic
-Goa	India	India
-Yekaterinburg	Russia	Russia
-Cankiri	Turkey	Turkey
-Haute_Normandie	France	France
-LaReunion	Reunion	Reunion
-Meknes	Morocco	Morocco
-IoanninaGR	Greece	Greece
-Tirane	Albania	Albania
-Molodechno	Belarus	Belarus
-Nis	Serbia	Serbia
-Taraz	Kazakhstan	Kazakhstan
-Antananarivo	Madagascar	Madagascar
-Tsiroanomandidy	Madagascar	Madagascar
-Tulkarem	Palestine	Palestine
-TrikalaGR	Greece	Greece
-Pays_de_Loire	France	France
-SaopPaulo	Brazil	Brazil
-Franche_Comte	France	France
-SantaClara	USA	California
-Chios_Island.GR	Greece	Greece
-Coronel	Chile	Chile
-Copiapo	Chile	Chile
-Sari	Iran	Iran
-Mecklenburg-Vorpommern	Germany	Germany
-Karlstad	Sweden	Sweden
-Agadir	Morocco	Morocco
-Reims	France	France
-Saarland	Germany	Germany
-Ilam	Iran	Iran
-Finlnad	Finland	Finland
-Schleswig-Holstein	Germany	Germany
-Tomsk	Russia	Russia
-Clermont-Ferrand	France	France
-Corte	France	France
-Chubut	Argentina	Argentina
-Valjevo	Serbia	Serbia
-Pozarevac	Serbia	Serbia
-Gavle	Sweden	Sweden
-Vrancea	Romania	Romania
-Yalova	Turkey	Turkey
-NosyBe	Madagascar	Madagascar
-Diyarbakir	Turkey	Turkey
-Provence-Alpes-C?tedAzur	France	France
-Aix-en-Provence	France	France
-Esteli	Nicaragua	Nicaragua
-Moramanga	Madagascar	Madagascar
-Aktobe	Kazakhstan	Kazakhstan
-Arges	Romania	Romania
-ChiosIsland.GR	Greece	Greece
-LefkadaIsland.GR	Greece	Greece
-Argolida.GR	Greece	Greece
-Cocody	IvoryCoast	IvoryCoast
-Abobo	IvoryCoast	IvoryCoast
-Rondonia	Brazil	Brazil
-SchleswigHolstein	Germany	Germany
-VinaDelMar	Chile	Chile
-Cuprija	Serbia	Serbia
-Alsace	France	France
-Trollhattan	Sweden	Sweden
-Leskovac	Serbia	Serbia
-Khmelnytsky	Ukraine	Ukraine
-SierraLeone	SierraLeone	SierraLeone
-Cuprija	Serbia	Serbia
-Tyumen	Russia	Russia
-Jujuy	Argentina	Argentina
-Nimes	France	France
-RioGrandedoSul	Brazil	Brazil
-Hatay	Turkey	Turkey
-DistrictofColombia	USA	USA
-Sagamihara	Japan	Kanagawa
-Bacau	Romania	Romania
-Chonburi	Thailand	Thailand
-SantaFe	USA	NewMexico
-Nord_Pas_de_Calais	France	France
-SantoDomingo	DominicanRepublic	DominicanRepublic
-Sardasht	Iran	Iran
-SouthAustrallia	Australia	SouthAustralia
-Rouen	France	France
-SanSalvador	ElSalvador	ElSalvador
-BasseNormandie	France	France
-Voroneg	Russia	Russia
-Durban	SouthAfrica	SouthAfrica
-jiangxidonghu	China	Jiangxi
-jilinchaoyang	China	Jilin
-yunnananning	China	Yunnan
-gansuchengguan	China	Gansu
-beijingxicheng	China	Beijing
-hubeiwujiagang	China	Hubei
-hubeiwuchang	China	Hubei
-jilinnanguan	China	Jilin
-Huzhou	China	Zhejiang
-SanAntonio	USA	Texas
-Centre	France	France
-DistritoFederal	Brazil	Brazil
-Gumushane	Turkey	Turkey
-S.Mitrovica	Serbia	Serbia
-V.Novgorod	Russia	Russia
-Chillan	Chile	Chile
-Porto	Portugal	Portugal
-Tiznit	Morocco	Morocco
-Minab	Iran	Iran
-Ghom	Iran	Iran
-Suzhou	China	Jiangsu
-Linkoping	Sweden	Swden
-Sastin	Slovakia	Slovakia
-Madeira_PT	Madeira	Madeira
-PuertoMontt	Chile	Chile
-Rostov-on-Don	Russia	Russia
-Beithlehem	Palestine	Palestine
-Moscowoblast	Russia	Russia
-Finlad	Finland	Finland
-Myanmer	Myanmar	Myanmar
-ChampagneArdenne	France	France
-Portugal	Portugal	Portugal
-Patra.GR	Greece	Greece
-Irakleio	Greece	Greece
-Lund	Sweden	Sweden
-Phiippines	Philippines	Philippines
-Veitnam	Vietnam	Vietnam
-Salfeet	Palestine	Palestine
-Vonitsa.GR	Greece	Greece
-StVincentAndGrenadines	StVincentAndGrenadines	StVincentAndGrenadines
-St.VincentAndGrenadines	StVincentAndGrenadines	StVincentAndGrenadines
-Salta	Argentina	Argentina
-Irakleio.GR	Greece	Greece
-Goteborg	Sweden	Sweden
-Vonitsa.GR	Greece	Greece
-Praha	CzechRepublic	CzechRepublic
-NizhniiNovgorod	Russia	Russia
-Rethymno.GR	Greece	Greece
-Halmstad	Sweden	Sweden
-Dnepropetrovsk	Ukraine	Ukraine
-Kalmar	Sweden	Sweden
-BritishVirginIslands	BritishVirginIslands	BritishVirginIslands
-Coimbra_PT	Portugal	Portugal
-Acores_PT	Azores	Azores
-Vimmerby	Sweden	Sweden
-Lisboa_PT	Portugal	Portugal
-Aveiro_PT	Portugal	Portugal
-Lasithi.GR	Greece	Greece
-Zaporizhzhya	Ukraine	Ukraine
-Rethymno.GR	Greece	Greece
-Sundsvall	Sweden	Sweden
-Chernihiv	Ukraine	Ukraine
-Porto_PT	Portugal	Portugal
-Leiria_PT	Portugal	Portugal
-Beja_PT	Portugal	Portugal
-Belarus	Belarus	Belarus
-Tajikstan	Tajikistan	Tajikistan
-Lviv	Ukraine	Ukraine
-Mauritania	Mauritania	Mauritania
-Pirgos	Greece	Greece
-Aswan	Egypt	Egypt
-FtCarson	USA	Colorado
-Kakamega	Kenya	Kenya
-KenyaCP	Kenya	Kenya
-Tianjinnankai	China	Tianjin
-Kosova	Kosovo	Kosovo
-CherryPoint	USA	NorthCarolina
-Portalegre_PT	Portugal	Portugal
-HunanChangsha	China	Hunan
-Gyeonggibuk	SouthKorea	SouthKorea
-Ancona	Italy	Italy
-InnerMongolia	Mongolia	Mongolia
-Orel	Russia	Russia
-Eldoret	Kenya	Kenya
-Jinshui	China	Henan
-Ternopil	Ukraine	Ukraine
-CotedIvorie	IvoryCoast	IvoryCoast
-Dolj	Romania	Romania
-Kijabe	Kenya	Kenya
-Nizhny-Novgorod	Russia	Russia
-Santarem_PT	Portugal	Portugal
-MarDelPlata	Argentina	Argentina
-Amazonas	Brazil	Brazil
-Nakuru	Kenya	Kenya
-Rostovoblast	Russia	Russia
-Keiyo	Kenya	Kenya
-SanDiego	USA	California
-KathmanduBGN	Nepal	Nepal
-Guarda_PT	Portugal	Portugal
-Mauritus	Mauritius	Mauritius
-Poltava	Ukraine	Ukraine
-AddisAbaba	Ethiopia	Ethiopia
-Kitale	Kenya	Kenya
-PortMoresby	PapuaNewGuinea	PapuaNewGuinea
-Falun	Sweden	Sweden
-SaudiArabia	SaudiArabia	SaudiArabia
-Lesvos.GR	Greece	Greece
-CasteloBranco_PT	Portugal	Portugal
-Preveza.GR	Greece	Greece
-Argos	Greece	Greece
-Himeji	Japan	Hyogo
-NizhnyNovgorod	Russia	Russia
-AbuDhabi	UnitedArabEmirates	UnitedArabEmirates
-SaintKitts	SaintKitts	SaintKitts
-CasteloBranco_PT	Portugal	Portugal
-Chernivtsi	Ukraine	Ukraine
-Blagoveshensk	Russia	Russia
-Dijon	France	France
-Mcensk	Russia	Russia
-Acores	Azores	Azores
-Korinthos.GR	Greece	Greece
-DominicanRep	DominicanRepublic	DominicanRepublic
-Livadia.GR	Greece	Greece
-Kherlen	Mongolia	Mongolia
-Komarno	Slovakia	Slovakia
-Tskaltubo	GeorgiaCountry	GeorgiaCountry
-LaRioja	Spain	Spain
-Baden-W?rttemberg	Germany	Germany
-Concepci?n	Chile	Chile
-Khentii	Mongolia	Mongolia
-Stockolm	Sweden	Sweden
-CreteGR	Greece	Greece
-Kutaisi	GeorgiaCountry	GeorgiaCountry
-CameroonLEID	Cameroon	Cameroon
-Mrrakech	Morocco	Morocco
-Vilnius	Lithuania	Lithuania
-Kyrgyztan	Kyrgyzstan	Kyrgyzstan
-SachsenAnhalt	Germany	Germany
-Valladolid	Spain	Spain
-Ozirgeti	GeorgiaCountry	GeorgiaCountry
-Vitebsk	Belarus	Belarus
-Doneck	Ukraine	Ukraine
-LefkadaGR	Greece	Greece
-Skuodas	Lithuania	Lithuania
-Dernmark	Denmark	Denmark
-Sivas	Turkey	Turkey
-Trnava	Slovakia	Slovakia
-Safi	Morocco	Morocco
-Antsirabe	Madagascar	Madagascar
-Kraljevo	Serbia	Serbia
-Crimea	Ukraine	Ukraine
-Natal	Brazil	Brazil
-Temuco	Chile	Chile
-Zahedan	Iran	Iran
-Villarrica	Chile	Chile
-Isla_de_Pascua	EasterIsland	EasterIsland
-Toamasina	Madagascar	Madagascar
-Sakaeo	Thailand	Thailand
-Karaganda	Kazakhstan	Kazakhstan
-Oujda	Morocco	Morocco
-Morroco	Morocco	Morocco
-Boumerdes	Algeria	Algeria
-Braga_PT	Portugal	Portugal
-Isfahan	Iran	Iran
-Konya	Turkey	Turkey
-Tver	Russia	Russia
-NongKhai	Thailand	Thailand
-St.Vincent&TheGrenadines	StVincentAndGrenadines	StVincentAndGrenadines
-St.Lucia	SaintLucia	SaintLucia
-Poprad	Slovakia	Slovakia
-Capital&Coast	NewZealand	NewZealand
-VelikyNovgorod	Russia	Russia
-Mananjary	Madagascar	Madagascar
-Isparta	Turkey	Turkey
-Tauranga	NewZealand	NewZealand
-VilaReal_PT	Portugal	Portugal
-Sale	Morocco	Morocco
-Pirot	Serbia	Serbia
-CzechRep	CzechRepublic	CzechRepublic
-Astrahkan	Russia	Russia
-Jambyl	Kazakhstan	Kazakhstan
-Setif	Algeria	Algeria
-Congo	Congo	Congo
-Macon	GeorgiaCountry	GeorgiaCountry
-Lille	France	France
-Bilthoven	Netherlands	Netherlands
-Olt	Romania	Romania
-Lota	Chile	Chile
-Haryana	India	India
-Behoririka	Madagascar	Madagascar
-Manjakaray	Madagascar	Madagascar
-Semey	Kazakhstan	Kazakhstan
-Kostroma	Russia	Russia
-Joshkar-Ola	Russia	Russia
-Timis	Romania	Romania
-Amasya	Turkey	Turkey
-Giresun	Turkey	Turkey
-Bartin	Turkey	Turkey
-Ordu	Turkey	Turkey
-Semey	Kazakhstan	Kazakhstan
-Maranhao	Brazil	Brazil
-Nevsehir	Turkey	Turkey
-Kocaeli	Turkey	Turkey
-Arad	Romania	Romania
-Vladikavkaz	Russia	Russia
-Partizanske	Slovakia	Slovakia
-IIV-Moscow	Russia	Russia
-Bari	Italy	Italy
-Iraklio.GR	Greece	Greece
-Michalovce	Slovakia	Slovakia
-Gorj	Romania	Romania
-Teleorman	Romania	Romania
-Itaosy	Madagascar	Madagascar
-Uralsk	Russia	Russia
-Petropavlovsk	Russia	Russia
-Tsaralalana	Madagascar	Madagascar
-Tulcea	Romania	Romania
-Ufa	Russia	Russia
-Blagoveshchensk	Russia	Russia
-Buryatia	Russia	Russia
-Komi	Russia	Russia
-Brest	France	France
-Ryazan	Russia	Russia
-Bangalore	India	India
-Punjab	India	India
-KhonKaen	Thailand	Thailand
-Pathumthani	Thailand	Thailand
-Sobotiste	Slovakia	Slovakia
-Malacky	Slovakia	Slovakia
-Kurgan	Russia	Russia
-Beijingdongcheng	China	Beijing
-Beijingchongwen	China	Beijing
-Beijinghuairou	China	Beijing
-Beijingfangshan	China	Beijing
-Beijinghuairou	China	Beijing
-Beijingshijingshan	China	Beijing
-Beijingchaoyang	China	Beijing
-Beijinghaidian	China	Beijing
-Beijingdaxing	China	Beijing
-Beijignshijingshan	China	Beijing
-Beijingmiyun	China	Beijing
-Beijingmentougou	China	Beijing
-Mozambique	Mozambique	Mozambique
-Rajasthan	India	India
-Isahaya	Japan	Nagasaki
-Dubai	UnitedArabEmirates	UnitedArabEmirates
-NizhniNovgorod	Russia	Russia
-LongYan	China	Fujian
-ZhangZhou	China	Fujian
-SanMing	China	Fujian
-Nakhonratchaisma	Thailand	Thailand
-Maynmar	Myanmar	Myanmar
-N.Novgorod	Russia	Russia
-Mali	Mali	Mali
-Gorbea	Spain	Spain
-Urengoy	Russia	Russia
-Sistan	Iran	Iran
-Kerman	Iran	Iran
-Desgenettes	France	France
-Bolzano	Italy	Italy
-Jonkoping	Sweden	Sweden
-Alania	Russia	Russia
+label	country	division	location		
+					
+# Afghanistan					
+Afghanistan	Afghanistan	Afghanistan	Afghanistan		
+					
+# Albania					
+Albania	Albania	Albania	Albania	
+Tirane	Albania	Tirane	Tirane
+					
+# Algeria					
+Algeria	Algeria	Algeria	Algeria	
+Algiers	Algeria	Algiers	Algiers
+Annaba	Algeria	Annaba	Annaba
+Blida	Algeria	Blida	Blida
+Boumerdes	Algeria	Boumerdes	Boumerdes
+Setif	Algeria	Setif	Setif
+					
+# AmericanSamoa					
+AmericanSamoa	AmericanSamoa	AmericanSamoa	AmericanSamoa		
+					
+# Anguilla					
+Anguilla	Anguilla	Anguilla	Anguilla		
+					
+# Argentina					
+Argentina	Argentina	Argentina	Argentina
+BuenosAires	Argentina	BuenosAires	BuenosAires
+Catamarca	Argentina	Catamarca	Catamarca
+Chaco	Argentina	Chaco	Chaco
+Chubut	Argentina	Chubut	Chubut
+Cordoba	Argentina	Cordoba	Cordoba
+Corrientes	Argentina	Corrientes	Corrientes
+EntreRios	Argentina	EntreRios	EntreRios
+Formosa	Argentina	Formosa	Formosa
+Jujuy	Argentina	Jujuy	Jujuy
+LaPampa	Argentina	LaPampa	LaPampa
+LaPlata	Argentina	BuenosAires	LaPlata
+MarDelPlata	Argentina	BuenosAires	MarDelPlata
+Mendoza	Argentina	Mendoza	Mendoza
+Misiones	Argentina	Misiones	Misiones
+Neuquen	Argentina	Neuquen	Neuquen
+RioNegro	Argentina	RioNegro	RioNegro
+Salta	Argentina	Salta	Salta
+SanLuis	Argentina	SanLuis	SanLuis
+SantaCruz	Argentina	SantaCruz	SantaCruz
+SantiagoDelEstero	Argentina	SantiagoDelEstero	SantiagoDelEstero
+TierraDelFuego	Argentina	TierraDelFuego	TierraDelFuego
+Tucuman	Argentina	Tucuman	Tucuman
+Ushuaia	Argentina	TierraDelFuego	Ushuaia
+					
+# Armenia					
+Armenia	Armenia	Armenia	Armenia		
+					
+# Australia					
+Australia	Australia	Australia	Australia		
+AliceSprings	Australia	NorthernTerritory	AliceSprings		
+Brisbane	Australia	Queensland	Brisbane		
+Cairns	Australia	Queensland	Cairns		
+Canberra	Australia	Canberra	Canberra		
+Darwin	Australia	NorthernTerritory	Darwin		
+Grafton	Australia	NewSouthWales	Grafton		
+Newcastle	Australia	NewSouthWales	Newcastle		
+NewSouthWales	Australia	NewSouthWales	NewSouthWales		
+NorthFitzroy	Australia	Victoria	NorthFitzroy		
+NorthernTerritory	Australia	NorthernTerritory	NorthernTerritory		
+Perth	Australia	WesternAustralia	Perth		
+Queensland	Australia	Queensland	Queensland		
+SouthAustralia	Australia	SouthAustralia	SouthAustralia		
+Sydney	Australia	NewSouthWales	Sydney		
+Tasmania	Australia	Tasmania	Tasmania		
+Townsville	Australia	Queensland	Townsville		
+Victoria	Australia	Victoria	Victoria		
+WesternAustralia	Australia	WesternAustralia	WesternAustralia		
+Melbourne	Australia	Victoria	Melbourne		
+Westmead	Australia	NewSouthWales	Westmead		
+Darlinghurst	Australia	NewSouthWales	Darlinghurst		
+					
+# Austria					
+Austria	Austria	Austria	Austria
+Vienna	Austria	Vienna	Vienna		
+					
+# Azerbaijan					
+Azerbaijan	Azerbaijan	Azerbaijan	Azerbaijan		
+					
+# Bahamas					
+Bahamas	Bahamas	Bahamas	Bahamas		
+					
+# Bahrain					
+Bahrain	Bahrain	Bahrain	Bahrain		
+					
+# Bangladesh					
+Bangladesh	Bangladesh	Bangladesh	Bangladesh	
+Dnipro	Bangladesh	Bangladesh	Bangladesh
+					
+# Barbados					
+Barbados	Barbados	Barbados	Barbados		
+					
+# Belarus					
+Belarus	Belarus	Belarus	Belarus
+Brest	Belarus	Brest	Brest
+Gomel	Belarus	Gomel	Gomel
+Ivacevichi	Belarus	Brest	Ivacevichi
+Minsk	Belarus	Minsk	Minsk
+Mogilev	Belarus	Mogilev	Mogilev
+Molodechno	Belarus	Minsk	Molodechno
+Soligorsk	Belarus	Minsk	Soligorsk
+Vitebsk	Belarus	Vitebsk	Vitebsk
+					
+# Belgium					
+Belgium	Belgium	Belgium	Belgium		
+Antwerp	Belgium	Antwerp	Antwerp
+Brussels	Belgium	Brussels	Brussels
+Flanders	Belgium	Flanders	Flanders
+Tessenderlo	Belgium	Limburg	Tessenderlo
+Wallonia	Belgium	Wallonia	Wallonia
+					
+# Belize					
+Belize	Belize	Belize	Belize		
+					
+# Bermuda					
+Bermuda	Bermuda	Bermuda	Bermuda		
+					
+# Bhutan					
+Bhutan	Bhutan	Bhutan	Bhutan		
+					
+# Bolivia					
+Bolivia	Bolivia	Bolivia	Bolivia	
+Cochabamba	Bolivia	Cochabamba	Cochabamba
+LaPaz	Bolivia	LaPaz	LaPaz
+					
+# BosniaHerzegovina					
+BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina		
+Sarajevo	BosniaHerzegovina	FederationOfBosniaAndHerzegovina	Sarajevo		
+					
+# Botswana					
+Botswana	Botswana	Botswana	Botswana		
+					
+# Brazil					
+Brazil	Brazil	Brazil	Brazil		
+Acre	Brazil	Acre	Acre		
+Alagoas	Brazil	Alagoas	Alagoas		
+Amazonas	Brazil	Amazonas	Amazonas		
+Amapa	Brazil	Amapa	Amapa		
+Bahia	Brazil	Bahia	Bahia		
+Belem	Brazil	Para	Belem		
+Ceara	Brazil	Ceara	Ceara		
+DistritoFederal	Brazil	DistritoFederal	DistritoFederal		
+EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto		
+Goias	Brazil	Goias	Goias		
+Maranhao	Brazil	Maranhao	Maranhao		
+MinasGerais	Brazil	MinasGerais	MinasGerais		
+Macapa	Brazil	Amapa	Macapa		
+MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul		
+MatoGrosso	Brazil	Mato Grosso	Mato Grosso 		
+Natal	Brazil	RioGrandeDoNorte	Natal		
+Para	Brazil	Para	Para		
+Paraiba	Brazil	Paraiba	Paraiba		
+Pernambuco	Brazil	Pernambuco	Pernambuco		
+Piaui	Brazil	Piaui	Piaui		
+Parana	Brazil	Parana	Parana		
+Recife	Brazil	Pernambuco	Recife		
+RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
+RioDeJaneiro	Brazil	RioDeJaneiro	RioDeJaneiro		
+RioGrandeDoNorte	Brazil	RioGrandeDoNorte	RioGrandeDoNorte		
+Rondonia	Brazil	Rondonia	Rondonia		
+Roraima	Brazil	Roraima	Roraima	
+RioDoSul	Brazil	SantaCatarina	RioDoSul
+RioGrandeDoSul	Brazil	RioGrandeDoSul	RioGrandeDoSul		
+SantaCatarina	Brazil	SantaCatarina	SantaCatarina		
+Sergipe	Brazil	Brazil	Sergipe		
+Salvador	Brazil	Bahia	Salvador		
+Tocantins	Brazil	Brazil	Tocantins
+Uberlandia	Brazil	MinasGerais	Uberlandia
+
+Estado de Sao Paulo	Brazil	SaoPaulo	SaoPaulo
+Alto Alegre	Brazil	SaoPaulo	AltoAlegre
+Andradina	Brazil	SaoPaulo	Andradina
+Aracatuba	Brazil	SaoPaulo	Aracatuba
+Araras	Brazil	SaoPaulo	Araras
+Artur Nogueira	Brazil	SaoPaulo	Artur Nogueira
+Assis	Brazil	SaoPaulo	Assis
+Avare	Brazil	SaoPaulo	Avare
+Barueri	Brazil	SaoPaulo	Barueri
+Bauru	Brazil	SaoPaulo	Bauru
+Boituva	Brazil	SaoPaulo	Boituva
+Caieiras	Brazil	SaoPaulo	Caieiras
+Campinas	Brazil	SaoPaulo	Campinas
+Pregnant	Brazil	SaoPaulo	Campinas
+Capivari	Brazil	SaoPaulo	Capivari
+Carapicuiba	Brazil	SaoPaulo	Carapicuiba
+Catanduva	Brazil	SaoPaulo	Catanduva
+Cotia	Brazil	SaoPaulo	Cotia
+Estado de Goias	Brazil	SaoPaulo	EstadoDeGoias
+Guararema	Brazil	SaoPaulo	Guararema
+Guariba	Brazil	SaoPaulo	Guariba
+Guaruja	Brazil	SaoPaulo	Guaruja
+Guarulhos	Brazil	SaoPaulo	Guarulhos
+Ibiuna	Brazil	SaoPaulo	Ibiuna
+Itapira	Brazil	SaoPaulo	Itapira
+Ituverava	Brazil	SaoPaulo	Ituverava
+Jaboticabal	Brazil	SaoPaulo	Jaboticabal
+Jau	Brazil	SaoPaulo	Jau
+Leme	Brazil	SaoPaulo	Leme
+Limeira	Brazil	SaoPaulo	Limeira
+Lins	Brazil	SaoPaulo	Lins
+Louveira	Brazil	SaoPaulo	Louveira
+Marilia	Brazil	SaoPaulo	Marilia
+Matao	Brazil	SaoPaulo	Matao
+Maua	Brazil	SaoPaulo	Maua
+Moji Das Cruzes	Brazil	SaoPaulo	MojiDas
+Moji-Guacu	Brazil	SaoPaulo	MojiGuacu
+Moji-Mirim	Brazil	SaoPaulo	MojiMirim
+Monte Alto	Brazil	SaoPaulo	MonteAlto
+Osasco	Brazil	SaoPaulo	Osasco
+Paulinia	Brazil	SaoPaulo	Paulinia
+Piracicaba	Brazil	SaoPaulo	Piracicaba
+Presidente Prudente	Brazil	SaoPaulo	PresidentePrudente
+Ribeirao Preto	Brazil	SaoPaulo	Ribeirao
+Rio Claro	Brazil	SaoPaulo	Rio Claro
+Salto	Brazil	SaoPaulo	Salto
+Santana De Parnaiba	Brazil	SaoPaulo	Santana
+Santo	Brazil	SaoPaulo	Santo
+Santo Andre	Brazil	SaoPaulo	SantoAndre
+Sao Bernardo Do Campo	Brazil	SaoPaulo	SaoBernardoDoCampo
+Sao Carlos	Brazil	SaoPaulo	SaoCarlos
+Sao Jose Do Rio Preto	Brazil	SaoPaulo	SaoJoseDoRioPreto
+Sao Jose Dos Campos	Brazil	SaoPaulo	SaoJoseDosCampos
+Sao Paulo	Brazil	SaoPaulo	SaoPaulo
+SaoPaulo	Brazil	SaoPaulo	SaoPaulo
+Sao Vicente	Brazil	SaoPaulo	SaoVicente
+Sorocaba	Brazil	SaoPaulo	Sorocaba
+Sumare	Brazil	SaoPaulo	Sumare
+Taubate	Brazil	SaoPaulo	Taubate
+Valinhos	Brazil	SaoPaulo	Valinhos
+Votuporanga	Brazil	SaoPaulo	Votuporanga
+								
+# BritishVirginIslands					
+BritishVirginIslands	BritishVirginIslands	BritishVirginIslands	BritishVirginIslands		
+					
+# Brunei					
+Brunei	Brunei	Brunei	Brunei		
+					
+# Bulgaria					
+Bulgaria	Bulgaria	Bulgaria	Bulgaria		
+Sofia	Bulgaria	Sofia	Sofia		
+
+# BurkinaFaso
+BurkinaFaso	BurkinaFaso	BurkinaFaso	BurkinaFaso
+					
+# Cambodia					
+Cambodia	Cambodia	Cambodia	Cambodia		
+					
+# Cameroon					
+Cameroon	Cameroon	Cameroon	Cameroon
+AbongMbang	Cameroon	East	AbongMbang
+Douala	Cameroon		Littoral	Douala
+Hevecam	Cameroon	South	Hevecam
+Yaounde	Cameroon	Mfoundi	Yaounde
+					
+# Canada					
+Canada	Canada	Canada	Canada		
+Alberta	Canada	Alberta	Alberta		
+BritishColumbia	Canada	BritishColumbia	BritishColumbia		
+Labrador	Canada	Labrador	Labrador		
+Manitoba	Canada	Manitoba	Manitoba		
+NewBrunswick	Canada	NewBrunswick	NewBrunswick		
+Newfoundland	Canada	Newfoundland	Newfoundland		
+NorthWestTerritories	Canada	NorthWestTerritories	NorthWestTerritories
+NovaScotia	Canada	NovaScotia	NovaScotia		
+Ontario	Canada	Ontario	Ontario		
+PrinceEdwardIsland	Canada	PrinceEdwardIsland	PrinceEdwardIsland		
+Quebec	Canada	Quebec	Quebec		
+Saskatchewan	Canada	Saskatchewan	Saskatchewan		
+Toronto	Canada	Ontario	Toronto		
+Montreal	Canada	Quebec	Montreal	
+Vancouver	Canada	BritishColumbia	Vancouver
+
+# CaymanIslands
+CaymanIslands	CaymanIslands	CaymanIslands	CaymanIslands
+
+# CentralAfricanRepublic
+CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic
+					
+# Chile					
+Chile	Chile	Chile	Chile	
+AltoHospicio	Chile	Tarapaca	AltoHospicio
+Antofagasta	Chile	Antofagasta	Antofagasta		
+Arauco	Chile	Arauco	Arauco		
+Arica	Chile	Arica	Arica	
+Castro	Chile	LosLagos	Castro
+Chillan	Chile	BioBio	Chillan
+Concepcion	Chile	BioBio	Concepcion
+Copiapo	Chile	Atacama	Copiapo
+Coquimbo	Chile	Coquimbo	Coquimbo
+Coronel	Chile	Biobio	Coronel
+Coyhaique	Chile	Aisen	Coyhaique
+Curico	Chile	Maule	Curico
+Gorbea	Chile	Araucania	Gorbea
+Iquique	Chile	Tarapaca	Iquique
+IslaDePascua	Chile	Valparaiso	IslaDePascua
+LaSerena	Chile	Coquimbo	LaSerena
+Lautaro	Chile	Araucania	Lautaro
+Linares	Chile	Maule	Linares
+Lota	Chile	BioBio	Lota
+Melipilla	Chile	Santiago	Melipilla
+NuevaImperial	Chile	Araucania	NuevaImperial
+Osorno	Chile	LosLagos	Osorno
+Pucon	Chile	Araucania	Pucon
+PuertoMontt	Chile	LosLagos	PuertoMontt
+PuntaArenas	Chile	Magallanes	PuntaArenas
+Quillota	Chile	Valparaiso	Quillota
+Rancagua	Chile	OHiggins	Rancagua
+Santiago	Chile	Santiago	Santiago
+Talca	Chile	Maule	Talca
+Talcahuano	Chile	BioBio	Talcahuano
+Temuco	Chile	Araucania	Temuco
+Valdivia	Chile	LosRios	Valdivia
+Valparaiso	Chile	Valparaiso	Valparaiso
+VinaDelMar	Chile	Valparaiso	VinaDelMar
+Villarrica	Chile	Araucania	Villarrica
+VinaDelMar	Chile	Valparaiso	VinaDelMar
+					
+# China					
+China	China	China	China		
+Anhui	China	Anhui	Anhui		
+AnhuiDangtu	China	Anhui	Dangtu		
+Anshan	China	Liaoning	Anshan		
+Baofeng	China	Henan	Baofeng		
+Beijing	China	Beijing	Beijing		
+BeijingShijingshan	China	Beijing	Shijingshan		
+BeijingChaoyang	China	Beijing	Chaoyang		
+BeijingChongwen	China	Beijing	Dongcheng		
+BeijingDaxing	China	Beijing	Daxing		
+BeijingDongcheng	China	Beijing	Dongcheng		
+BeijingFangshan	China	Beijing	Fangshan		
+BeijingHaidian	China	Beijing	Haidian		
+BeijingHuairou	China	Beijing	Huairou		
+BeijingMentougou	China	Beijing	Mentougou		
+BeijingMiyun	China	Beijing	Miyun		
+BeijingXicheng	China	Beijing	Xicheng		
+BeijingXuanwu	China	Beijing	Xicheng		
+Changchun	China	Jilin	Changchun		
+Changzhou	China	Jiangsu	Changzhou		
+Chaoyang	China	Liaoning	Chaoyang		
+Changsha	China	Hunan	Changsha		
+Chengdu	China	Sichuan	Chengdu		
+ChengMei	China	Fujian	ChengMei		
+ChongqingYuzhong	China	Chongqing	Yuzhong		
+Chongqing	China	Chongqing	Chongqing		
+Chongwen	China	Beijing	Chongwen		
+Cnic	China	China	Cnic		
+Dalian	China	Liaoning	Dalian		
+Dandong	China	Liaoning	Dandong		
+Dianxin	China	Neimenggu	Dianxin	
+Dongcheng	China	Beijing	Dongcheng
+Du	China	China	Du
+Eryansuo	China	China	Eryansuo
+Fujian	China	Fujian	Fujian		
+FujianGulou	China	Fujian	Gulou		
+Fuzhou	China	Fujian	Fuzhou		
+Gansu	China	Gansu	Gansu		
+GansuChengguan	China	Gansu	Chengguan		
+Guangdong	China	Guangdong	Guangdong		
+GuangdongFutian	China	Guangdong	Futian		
+GuangdongHaizhu	China	Guangdong	Haizhu		
+GuangdonGluohu	China	Guangdon	Gluohu
+Guanger	China	China	Guanger		
+Guangxi	China	Guangxi	Guangxi		
+GuangxiLongzhou	China	Guangxi	Longzhou		
+GuangxiQingxiu	China	Guangxi	Qingxiu		
+GuangxiXixiangtang	China	Guangxi	Xixiangtang		
+Guangzhou	China	Guangdong	Guangzhou	
+Guansu	China	Guansu	Guansu		
+Guizhou	China	Guizhou	Guizhou		
+Hainan	China	Hainan	Hainan		
+Haishu	China	Zhejiang	Haishu		
+Hanfang	China	China	Hanfang
+Hangzhou	China	Zhejiang	Hangzhou		
+Harbin	China	Heilongjiang	Harbin		
+Hebei	China	Hebei	Hebei		
+Heilongjiang	China	Heilongjiang	Heilongjiang		
+HeilongjiangXiAn	China	Heilongjiang	XiAn
+HeilongjiangJianhua	China	Heilongjiang	Jianhua
+Henan	China	Henan	Henan		
+HenanJinshui	China	Henan	Jinshui		
+HenanShenqiu	China	Henan	Shenqiu		
+HenanXigong	China	Henan	Xigong		
+Huaian	China	Jiangsu	Huaian		
+HuaianQingpu	China	Jiangsu	Qingpu		
+Hualong	China	Henan	Hualong		
+Hubei	China	Hubei	Hubei		
+HubeiJiangan	China	Hubei	Jiangan		
+HubeiMaojian	China	Hubei	Maojian		
+HubeiQiaokou	China	Hubei	Qiaokou		
+HubeiWuchang	China	Hubei	Wuchang		
+HubeiWujiagang	China	Hubei	Wujiagang		
+HuZhou	China	Zhejiang	HuZhou		
+Hunan	China	Hunan	Hunan		
+HunanWuling	China	Hunan	Wuling		
+HunanYuhua	China	Hunan	Yuhua		
+InnerMongolia	China	Neimenggu	Neimenggu
+Jinlinnanguan	China	China	Jinlinnanguan	
+Jiangsu	China	Jiangsu	Jiangsu					
+JiangsuBeitang	China	Jiangsu	Beitang		
+JiangsuDanyang	China	Jiangsu	Danyang		
+JiangsuGaoyou	China	Jiangsu	Gaoyou		
+JiangsuGusu	China	Jiangsu	Gusu		
+JiangsuHailing	China	Jiangsu	Hailing		
+JiangsuNanchang	China	Jiangsu	Nanchang		
+JiangsuNanjing	China	Jiangsu	Nanjing
+JiangsuNanjinGulou	China	Jiangsu	Nanjing	
+JiangsuPizhou	China	Jiangsu	Pizhou		
+JiangsuQingpu	China	Jiangsu	Qingpu		
+JiangsuQinhuai	China	Jiangsu	Qinhuai		
+JiangsuQuanshan	China	Jiangsu	Quanshan		
+JiangsuSucheng	China	Jiangsu	Sucheng		
+JiangsuTinghu	China	Jiangsu	Tinghu	
+Jiangxi	China	Jiangxi	Jiangxi			
+JiangxiDonghu	China	Jiangxi	Donghu		
+JiangxiGuix	China	Jiangxi	Guix		
+Jiangyin	China	Jiangsu	Jiangyin		
+Jiaxing	China	Zhejiang	Jiaxing	
+Jilin	China	Jilin	Jilin			
+JilinChaoyang	China	Jilin	Chaoyang			
+JilinNanguan	China	Jilin	Nanguan			
+JinagsuQuanshan	China	Jinagsu	Quanshan	
+Jinfang	China	Yunnan	Jinfang	
+Jinhua	China	Zhejiang	Jinhua		
+Jinshui	China	Henan	Jinshui
+Jitie	China	China	Jitie
+Kunke	China	Shanghai	Kunke
+Kunming	China	Yunnan	Kunming	
+Kuntie	China	China	Kuntie	
+Liaoning	China	Liaoning	Liaoning		
+LiaoningHuanggu	China	Liaoning	Huanggu
+LiaoShen	China	China	LiaoShen
+Lishui	China	Zhejiang	Lishui		
+LongYan	China	Fujian	Longyan
+Macau	China	Macau	Macau
+Nanchang	China	Jiangxi	Nanchang		
+Nanjing	China	Jiangsu	Nanjing	
+Nanping	China	Fujian Nanping
+NeiMongolHohhotHuimin	China	Neimenggu	Hohhot
+NeiMongol	China	Neimenggu	Neimenggu		
+Neimenggu	China	Neimenggu	Neimenggu		
+Ningbo	China	Zhejiang	Ningbo	
+Ningfang	China	China	Ningfang	
+Ningde	China	Fujian	Ningde
+Ningxia	China	Ningxia	Ningxia		
+Putian	China	Fujian	Putian
+Qingdao	China	Shandong	Qingdao	
+Qingfeng	China	Henan	Qingfeng	
+Qinghai	China	Qinghai	Qinghai	
+Qitie	China	Heilongjiang	Qitie
+Quanzhou	China	Fujian	Quanzhou
+Quzhou	China	Zhejiang	Quzhou
+Sanming	China	Fujian	Sanming
+Ruzhou	China	Henan	Ruzhou		
+Ruyang	China	Henan	Ruyang		
+Shaanxi	China	Shaanxi	Shaanxi		
+Shandong	China	Shandong	Shandong		
+Shanghai	China	Shanghai	Shanghai
+ShanghaiNanhui	China	Shanghai	Nanhui
+ShanghaiPudongxin	China	Shanghai	Pudongxin
+Shantou	China	Guangdong	Shantou		
+Shanxi	China	Shanxi	Shanxi
+ShanxiWeicheng	China	Shanxi	Weicheng		
+Shaanxi	China	Shaanxi	Shaanxi
+ShaanxiBeilin	China	Shaanxi	Beilin
+Shaoguan	China	Guangdong	Shaoguan
+Shaoxing	China	Zhejiang	Shaoxing
+Shenfang	China	China	Shenfang
+Shenzhen	China	Guangdong	Shenzhen		
+Shijiazhuang	China	Hebei	Shijiazhuang
+Shitie	China	China	Shitie
+Sichuan	China	Sichuan	Sichuan	
+SichuanWenjiang	China	Sichuan	Wenjiang
+Suzhou	China	Jiangsu	Suzhou
+Taizhou	China	Zhejiang	Taizhou		
+Tianjin	China	Tianjin	Tianjin
+TianjinHedong	China	Tianjin	Hedong
+TianjinHeping	China	Tianjin	Heping
+TianjinHongqiao	China	Tianjin	Hongqiao
+TianjinJinnan	China	Tianjin	Jinnan
+TianjinNankai	China	Tianjin	Nankai
+TianjinNinghe	China	Tianjin	Ninghe
+TianjinTanggu	China	Tianjin	Tanggu
+Tientsin	China	Tianjin	Tianjin
+Tumen	China	Jilin	Tumen		
+Weidu	China	Henan	Weidu		
+Weidong	China	Henan	Weidong
+Wenzhou	China	Zhejiang	Wenzhou
+Wulumuqi	China	Xinjiang	Urumqi		
+Wuhan	China	Hubei	Wuhan
+Wuxi	China	Jiangsu	Wuxi
+Wuzhou	China	Guangxi	Wuzhou		
+Xiamen	China	Fujian	Xiamen		
+Xian	China	Shaanxi	Xian
+Xianfeng	China	Hubei	Xianfeng
+Xigong	China	Henan	Xigong	
+Xining	China	Qinghai	Xining
+XinjiangTulufan	China	Xinjiang	Tulufan
+XinjiangTianshan	China	Xinjiang	Tianshan
+Xinjiang	China	Xinjiang	Xinjiang
+Xizang	China	Xizang	Xizang
+Xuanwu	China	Beijing	Xuanwu
+Xuchang	China	Henan	Xuchang
+Xutie	China	Jiangxia	Xutie
+Xuzhou	China	Jiangsu	Xuzhou
+Yantai	China	Shandong	Yantai
+Yunan	China	Guangdong	Yunan
+YunnanAnning	China	Yunnan	Anning
+Yuelu	China	Hunan	Yuelu		
+Yunnan	China	Yunnan	Yunnan	
+Zhangzhou	China	Fujian	Zhangzhou
+ZhejiangHaishu	China	Zhejiang	Haishu
+Zhenjiang	China	Jiangsu	Zhenjiang
+Zhongshan	China	Guangdong	Zhongshan
+Zhejiang	China	Zhejiang	Zhejiang		
+Zhoushan	China	Zhejiang	Zhoushan		
+Zhuhai	China	Guangdong	Zhuhai		
+Zhongyuan	China	Henan	Zhongyuan			
+					
+# Colombia					
+Colombia	Colombia	Colombia	Colombia	
+Bogota	Colombia	CapitalDistrict	Bogota
+Medellin	Colombia	Antioquia	Medellin
+
+# CookIslands
+CookIslands	CookIslands	CookIslands	CookIslands
+					
+# CostaRica
+CostaRica
+
+# CoteDIvoire					
+CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire		
+Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou	
+Adjame	CoteDIvoire	Abidjan	Adjame		
+Yopougon	CoteDIvoire	Abidjan	Yopougon		
+Abobo	CoteDIvoire	Abidjan	Abobo		
+Bouafle	CoteDIvoire	SassandraMarahoue	Bouafle		
+Agnibilekrou	CoteDIvoire		Comoe		
+Cocody	CoteDIvoire	Abidjan	Cocody		
+Plateau	CoteDIvoire	Abidjan	Plateau		
+					
+# Croatia					
+Croatia	Croatia	Croatia	Croatia		
+Zagreb	Croatia	Zagreb	Zagreb		
+					
+# Cuba					
+Cuba	Cuba	Cuba	Cuba		
+Habana	Cuba	Habana	Habana		
+Camaguey	Cuba	Camaguey	Camaguey		
+Holguin	Cuba	Holguin	Holguin		
+Guantanamo	Cuba	Guantanamo	Guantanamo		
+Matanzas	Cuba	Matanzas	Matanzas		
+Cienfuegos	Cuba	Cienfuegos	Cienfuegos		
+					
+# Cyprus					
+Cyprus	Cyprus	Cyprus	Cyprus		
+					
+# CzechRepublic					
+CzechRepublic	CzechRepublic	CzechRepublic	CzechRepublic		
+Brno	CzechRepublic	SouthMoravian	Brno
+Czechoslovakia	CzechRepublic	CzechRepublic	CzechRepublic
+HradecKralove	China	HradecKralove	HradecKralove		
+Praha	CzechRepublic	Bohemia	Prague		
+Prague	CzechRepublic	Bohemia	Prague		
+Ostrava	CzechRepublic	MoravianSilesian	Ostrava		
+Plzen	CzechRepublic	Plzen	Plzen		
+Jihlava	CzechRepublic	Vysocina	Jihlava		
+Cheb	CzechRepublic	KarlovyVary	Cheb
+Usti	CzechRepublic	Usti	Usti		
+					
+# Congo					
+Congo	Congo	Congo	Congo		
+					
+# Denmark					
+Denmark	Denmark	Denmark	Denmark		
+Hvidovre	Denmark	Hovedstaden	Hvidovre		
+Copenhagen	Denmark	Hovedstaden	Copenhagen		
+Aarhus	Denmark	Midtjylland	Aarhus		
+Aalborg	Denmark	Nordjylland	Aalborg		
+Odense	Denmark	Syddanmark	Odense		
+					
+# Djibouti					
+Djibouti	Djibouti	Djibouti	Djibouti		
+					
+# Dominica					
+Dominica	Dominica	Dominica	Dominica	
+
+# DominicanRepublic
+DominicanRepublic	DominicanRepublic	DominicanRepublic	DominicanRepublic	
+					
+# Ecuador					
+Ecuador	Ecuador	Ecuador	Ecuador		
+Guayas	Ecuador	Guayas	Guayas		
+Guayaquil	Ecuador	Guayas	Guayaquil		
+Quito	Ecuador	Pichincha	Quito		
+					
+# Egypt					
+Egypt	Egypt	Egypt	Egypt		
+Cairo	Egypt	Cairo	Cairo		
+Menya	Egypt	Minya	Minya		
+Sohag	Egypt	Sohag	Sohag		
+Faiyum	Egypt	Faiyum	Faiyum		
+Suez	Egypt	Suez	Suez		
+Asyut	Egypt	Asyut	Asyut		
+Alexandria	Egypt	Alexandria	Alexandria		
+Damietta	Egypt	Damietta	Damietta		
+Dakahlia	Egypt	Dakahlia	Dakahlia		
+Aswan	Egypt	Aswan	Aswan	
+Helwan	Egypt	Cairo	Helwan	
+					
+# ElSalvador	
+ElSalvador	ElSalvador	ElSalvador	ElSalvador				
+Metapan	ElSalvador	SantaAna	Metapan		
+SanSalvador	ElSalvador	SanSalvador	SanSalvador	
+					
+# Estonia					
+Estonia	Estonia	Estonia	Estonia		
+Tallinn	Estonia	Harju	Tallinn		
+					
+# Ethiopia					
+Ethiopia	Ethiopia	Ethiopia	Ethiopia	
+AddisAbaba	Ethiopia	AddisAbaba	AddisAbaba	
+					
+# Fiji					
+Fiji	Fiji	Fiji	Fiji		
+Valelevu	Fiji	CentralDivision	Valelevu		
+Samabula	Fiji	CentralDivision	Samabula		
+Lautoka	Fiji	WesternDivision Lautoka			
+Nadi	Fiji	WesternDivision	Nadi		
+					
+# Finland					
+Finland	Finland	Finland	Finland		
+Helsinki	Finland	Uusimaa	Helsinki		
+					
+# France					
+France	France	France	France		
+AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
+Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
+Annecy	France	AuvergneRhoneAlpes	Annecy
+BasseNormandie	France	Normandy	BasseNormandie
+Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux		
+Bourgogne	France	BourgogneFrancheComte	Bourgogne
+Bretagne	France	Bretagne	Bretagne
+Caen	France	Normandy	Caen
+Centre	France	Centre	Centre
+ChampagneArdenne	France	AlsaceChampagneArdenneLorraine	ChampagneArdenne
+ClermontFerrand	France	AuvergneRhoneAlpes	ClermontFerrand
+Corsica	France	Corsica	Corsica
+Corte	France	Corsica	Corte
+Chambery	France	AuvergneRhoneAlpes	Chambery		
+Desgenettes	France	AuvergneRhoneAlpes	Lyon
+Dijon	France	BourgogneFrancheComte	Dijon
+FrancheComte	France	FrancheComte	FrancheComte
+Grenoble	France	AuvergneRhoneAlpes	Grenoble		
+HauteNormandie	France	Normandy	HauteNormandie
+LaReunion	France	SaintDenis	LaReunion
+LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
+Lille	France	NordPasDeCalais	Lille
+Limoges	France	AquitaineLimousinPoitouCharentes	Limoges		
+Lorraine	France	AlsaceChampagneArdenneLorraine	Lorraine		
+Lyon	France	AuvergneRhoneAlpes	Lyon		
+Macon	France	BourgogneFrancheComte	Macon
+Marseille	France	ProvenceAlpesCoteDAzur	Marseille		
+Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
+Nice	France	ProvenceAlpesCoteDAzur	Nice		
+Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
+NordPasDeCalais	France	NordPasdeCalaisPicardie	NordPasDeCalais
+Oms	France	LanguedocRoussillonMidiPyrenees	Oms
+Paris	France	IleDeFrance	Paris		
+PaysDeLoire	France	PaysDeLaLoire	PaysDeLaLoire	
+Picardie	France	NordPasdeCalaisPicardie	Picardie
+Poitiers	France	AquitaineLimousinPoitouCharentes	Poitiers		
+PoitouCharentes	France	AquitaineLimousinPoitouCharentes	PoitouCharentes
+ProvenceAlpesCoteDAzur	France	ProvenceAlpesCoteDAzur	ProvenceAlpesCoteDAzur
+Reims	France	AlsaceChampagneArdenneLorraine	Reims
+Rennes	France	Bretagne	Rennes
+Reunion	France	SaintDenis	Reunion
+Rouen	France	Normandy	Rouen
+StEtienne	France	AuvergneRhoneAlpes	SaintEtienne		
+Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg		
+Toulon	France	ProvenceAlpesCoteDAzur	Toulon		
+Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse		
+					
+# FrenchGuiana					
+FrenchGuiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
+Guiana	FrenchGuiana	FrenchGuiana	FrenchGuiana		
+Guyane	FrenchGuiana	FrenchGuiana	FrenchGuiana		
+Gyeonggi	FrenchGuiana	FrenchGuiana	Gyeonggi		
+					
+# FrenchPolynesia					
+FrenchPolynesia	FrenchPolynesia	FrenchPolynesia	FrenchPolynesia
+Tahiti	FrenchPolynesia	FrenchPolynesia	Tahiti
+Papeete	FrenchPolynesia	FrenchPolynesia	Papeete
+					
+# Gambia					
+Gambia	Gambia	Gambia	Gambia		
+					
+# GeorgiaCountry	
+Akhaltsikhe	GeorgiaCountry	SamtskheJavakheti	Akhaltsikhe
+Chiatura	GeorgiaCountry	Imereti	Chiatura
+Dmanisi	GeorgiaCountry	KvemoKartli	Dmanisi
+Khobi	GeorgiaCountry	SamegreloZemoSvaneti	Khobi
+Kobuleti	GeorgiaCountry	Ajaria	Kobuleti
+Kutaisi	GeorgiaCountry	Imereti	Kutaisi
+Ozirgeti	GeorgiaCountry	Guria	Ozirgeti
+Tbilisi	GeorgiaCountry	Tbilisi	Tbilisi
+Tskaltubo	GeorgiaCountry	Imereti	Tskaltubo	
+					
+# Germany					
+Germany	Germany	Germany	Germany		
+BadenWurttemberg	Germany	BadenWurttemberg	BadenWurttemberg		
+Bayern	Germany	Bayern	Bayern		
+Berlin	Germany	Berlin	Berlin
+Bochum	Germany	NordrheinWestfalen	Bochum		
+Bonn	Germany	NordrheinWestfalen	Bonn
+Brandenburg	Germany	Brandenburg	Brandenburg		
+Bremen	Germany	Bremen	Bremen	
+Cologne	Germany	NordrheinWestfalen	Cologne		
+Cottbus	Germany	Brandenburg	Cottbus
+Frankfurt	Germany	Hessen	Frankfurt		
+Freiburg	Germany	BadenWurttemberg	Freiburg		
+Giessen	Germany	Hessen	Giessen		
+Hamburg	Germany	Hamburg	Hamburg		
+Hannover	Germany	Niedersachsen	Hannover		
+Hessen	Germany	Hessen	Hessen	
+Jena	Germany	Thuringia	Jena
+Marburg	Germany	Hesse	Marburg
+MecklenburgVorpommern	Germany	MecklenburgVorpommern	MecklenburgVorpommern
+Munich	Germany	Bayern	Munich		
+Niedersachsen	Germany	Niedersachsen	Niedersachsen		
+NordrheinWestfalen	Germany	NordrheinWestfalen	NordrheinWestfalen
+Regensburg	Germany	Bavaria	Regensburg
+RheinlandPfalz	Germany	RheinlandPfalz	RheinlandPfalz		
+Thuringen	Germany	Thuringen	Thuringen	
+Saarland	Germany	Saarland	Saarland
+SachenAnhalt	Germany	SachenAnhalt	SachenAnhalt
+Sachsen	Germany	Sachsen	Sachsen		
+SchleswigHolstein	Germany	SchleswigHolstein	SchleswigHolstein
+Wurzburg	Germany	Bayern	Wurzburg		
+					
+# Ghana					
+Ghana	Ghana	Ghana	Ghana		
+Manhean	Ghana	Accra	Manhean		
+Korlebu	Ghana	Accra	Korlebu		
+					
+# Greece					
+Greece	Greece	Greece	Greece		
+Alexandroupolis	Greece	Greece	Alexandroupolis		
+Argolida	Greece	Peloponnese	Argolida
+Argos	Greece	Peloponnese	Argos
+Arkadia	Greece	Peloponnese	Arkadia
+Arta	Greece	Epirus	Arta
+Astros	Greece	Peloponnese	Astros
+Athens	Greece	CentralGreece	Athens		
+Chalkida	Greece	CentralGreece	Chalkida
+Chania	Greece	Crete	Chania
+Chios	Greece	NorthAegean	Chios
+Crete	Greece	Crete	Crete
+Drama	Greece	EasternMacedoniaAndThrace	Drama
+Edessa	Greece	CentralMacedonia	Edessa
+Evros	Greece	EasternMacedoniaAndThrace	Evros		
+Florina	Greece	WesternMacedonia	Florina
+Giannitsa	Greece	CentralMacedonia	Giannitsa
+Grevena	Greece	WesternMacedonia	Grevena	
+Herakleion	Greece	Crete	Herakleion
+Irakleio	Greece	Crete	Irakleio
+Ioannina	Greece	Epirus	Ioannina
+Kalamata	Greece	Peloponnese	Kalamata	
+Kastoria	Greece	WesternMacedonia	Kastoria		
+Katerini	Greece	CentralMacedonia	Katerini		
+Kavala	Greece	EasternMacedoniaAndThrace	Kavala
+Kerkira	Greece	IonianIslands	Kerkira
+Kilkis	Greece	CentralMacedonia	Kilkis
+Komotini	Greece	EasternMacedoniaAndThrace	Komotini
+Korinthos	Greece	Peloponnese	Korinthos
+Kozani	Greece	WesternMacedonia	Kozani
+Lamia	Greece	CentralGreece	Lamia
+Larissa	Greece	Thessaly	Larissa	
+Lasithi	Greece	Crete	Lasithi
+Lefkada	Greece	IonianIslands	Lefkada
+Lesvos	Greece	NorthAegean	Lesvos
+Livadia	Greece	CentralGreece	Livadia
+Naousa	Greece	CentralMacedonia	Naousa
+Patra	Greece	CentralGreece	Patra
+Peloponnese	Greece	Peloponnese	Peloponnese	
+Preveza	Greece	Epirus	Preveza
+Ptolemaida	Greece	WesternMacedonia	Ptolemaida
+Pyrgos	Greece	WesternGreece	Pyrgos	
+Rethymno	Greece	Crete	Rethymno
+Rhodes	Greece	SouthAegean	Rhodes	
+Samos	Greece	NorthAegean	Samos
+Serres	Greece	CentralMacedonia	Serres		
+Sparti	Greece	Peloponnese	Sparti
+Syros	Greece	SouthAegean	Syros
+Thessaloniki	Greece	CentralMacedonia	Thessaloniki	
+Tinos	Greece	SouthAegean	Tinos	
+Trikala	Greece	Thessaly	Trikala	
+Veria	Greece	CentralMacedonia	Veria	
+Viotia	Greece	CentralGreece	Viotia	
+Volos	Greece	Thessaly	Volos	
+Vonitsa	Greece	WesternGreece	Vonitsa	
+Xanthi	Greece	EasternMacedoniaAndThrace	Xanthi
+Zakynthos	Greece	IonianIslands	Zakynthos
+					
+# Grenada					
+Grenada	Grenada	Grenada	Grenada
+Granada	Grenada	Grenada	Grenada
+					
+# Guadeloupe
+Guadeloupe	Guadeloupe	Guadeloupe	Guadeloupe
+
+# Guam					
+Guam	Guam	Guam	Guam		
+Barrigada	Guam	Barrigada	Barrigada		
+Mangilao	Guam	Mangilao	Mangilao		
+					
+# Guatemala					
+Guatemala	Guatemala	Guatemala	Guatemala		
+					
+# Guyana					
+Guyana	Guyana	Guyana	Guyana		
+					
+# Haiti					
+Haiti	Haiti	Haiti	Haiti
+PortAuPrince	Haiti	Ouest	PortAuPrince
+					
+# Honduras					
+Honduras	Honduras	Honduras	Honduras
+Tegucigalpa	Honduras	FranciscoMorazan	Tegucigalpa	
+					
+# HongKong					
+HongKong	HongKong	HongKong	HongKong
+Kowloon	HongKong	HongKong	Kowloon		
+					
+# Hungary					
+Hungary	Hungary	Hungary	Hungary		
+Nyiregyhaza	Hungary	NorthernHungary	Nyiregyhaza			
+Budapest	Hungary	CentralHungary	Budapest		
+					
+# Iceland					
+Iceland	Iceland	Iceland	Iceland		
+					
+# India					
+India	India	India	India		
+Alirajpur	India	MadhyaPradesh	Alirajpur
+Andaman	India	AndamanAndNicobarIslands	Andaman	
+Assam	India	Assam	Assam		
+Aurangabad	India	Maharashtra	Aurangabad	
+Bangalore	India	Karnataka	Bangalore
+Barwani	India	MadhyaPradesh	Barwani
+Betul	India	MadhyaPradesh	Betul
+Bhopal	India	MadhyaPradesh	Bhopal
+Bihar	India	Bihar	Bihar
+Chattisgarh	India	Chattisgarh	Chattisgarh
+Chennai	India	TamilNadu	Chennai		
+Delhi	India	Delhi	Delhi	
+Dewas	India	MadhyaPradesh	Dewas	
+Dhar	India	MadhyaPradesh	Dhar
+Dhule	India	Maharashtra	Dhule
+Dibrugarh	India	Assam	Dibrugarh
+EasternIndia	India	EasternIndia	EasternIndia
+Goa	India	Goa	Goa
+Gujarat	India	Gujarat	Gujarat
+Harda	India	MadhyaPradesh	Harda
+Haryana	India	Haryana	Haryana	
+Hnl	India	India	India
+Hyderabad	India	Telangana	Hyderabad
+Indore	India	MadhyaPradesh	Indore		
+Itarsi	India	MadhyaPradesh	Itarsi
+Jabalpur	India	MadhyaPradesh	Jabalpur		
+Jalna	India	Maharashtra	Jalna
+JammuKashmir	India	JammuKashmir	JammuKashmir
+Jhabua	India	MadhyaPradesh	Jhabua
+Karnataka	India	Karnataka	Karnataka
+Kasauli	India	Himachal Pradesh	Kasauli
+Kerala	India	Kerala	Kerala
+Khandwa	India	MadhyaPradesh	Khandwa
+Khargone	India	MadhyaPradesh	Khargone
+Kol	India	India	Kol
+Kolkata	India	WestBengal	Kolkata		
+Latur	India	Maharashtra	Latur	
+MadhyaPradesh	India	MadhyaPradesh	MadhyaPradesh
+Manipur	India	Manipur	Manipur
+Meghalaya	India	Meghalaya	Meghalaya
+Mumbai	India	Maharashtra	Mumbai
+Nagda	India	MadhyaPradesh	Nagda
+Nagpur	India	Maharashtra	Nagpur
+Nanded	India	Maharashtra	Nanded		
+Nashik	India	Maharashtra	Nashik	
+Pachpadra	India	Rajasthan	Pachpadra
+Panchgani	India	Maharashtra	Panchgani		
+Pandharpur	India	Maharashtra	Pandharpur	
+Patna	India	Bihar	Patna
+Pondicherry	India	Pondicherry	Pondicherry	
+Pune	India	Maharashtra	Pune	
+Punjab	India	Punjab	Punjab
+Raisen	India	MadhyaPradesh	Raisen	
+Rajasthan	India	Rajasthan	Rajasthan
+Ratlam	India	MadhyaPradesh	Ratlam
+Ratnagiri	India	Maharashtra	Ratnagiri	
+Rewa	India	MadhyaPradesh	Rewa
+Rtng	India	India	India
+Satna	India	MadhyaPradesh	Satna	
+Shajapur	India	MadhyaPradesh	Shajapur
+Srinigar	India	JammuAndKashmir	Srinagar	
+TamilNaidu	India	TamilNaidu	TamilNaidu
+Ujjain	India	MadhyaPradesh	Ujjain	
+UttarPradesh	India	UttarPradesh	UttarPradesh
+Uttarakhand	India	Uttarakhand	Uttarakhand
+Vadodara	India	Gujarat	Vadodara
+Vadu	India	Maharashtra	Vadu
+Vellore	India	TamilNadu	Vellore	
+WestBengal	India	WestBengal	WestBengal
+Yavatmal	India	Maharashtra	Yavatmal	
+					
+# Indonesia					
+Indonesia	Indonesia	Indonesia	Indonesia		
+Jakarta	Indonesia	Jakarta	Jakarta		
+Surabaya	Indonesia	Jawa Timur	Surabaya		
+Serpong	Indonesia	Banten	Serpong		
+Surakarta	Indonesia	Jateng	Surakarta		
+Bali	Indonesia	Bali	Bali		
+Bengkulu	Indonesia	Bengkulu	Bengkulu		
+Banten	Indonesia	Banten	Banten		
+					
+# Iran					
+Iran	Iran	Iran	Iran		
+Alborz	Iran	Alborz	Alborz		
+Ardebil	Iran	Ardebil	Ardebil	
+AzarbayejanSharghi	Iran	AzarbayejanSharghi	AzarbayejanSharghi
+Babol	Iran	Mazandaran	Babol		
+BandarAbbas	Iran	Hormozgan	BandarAbbas		
+Birjand	Iran	SouthKhorasan	Birjand		
+Boshehr	Iran	Boshehr	Boshehr	
+Bushehr	Iran	Bushehr	Bushehr	
+Esfahan	Iran	Esfahan	Esfahan		
+Golestan	Iran	Golestan	Golestan		
+Hamedan	Iran	Hamedan	Hamedan		
+Hormozgan	Iran	Hormozgan	Hormozgan
+Ilam	Iran	Ilam	Ilam
+Isfahan	Iran	Isfahan	Isfahan		
+Karaj	Iran	Alborz	Karaj
+Kerman	Iran	Kerman	Kerman		
+Kermanshah	Iran	Kermanshah	Kermanshah		
+Kordestan	Iran	Kurdistan	Kurdistan		
+Khorasan	Iran	Khorasan	Khorasan		
+Khozestan	Iran	Khuzestan	Khuzestan		
+Lorestan	Iran	Lorestan	Lorestan
+Mashad	Iran	RazaviKhorasan	Mashad		
+Marivan	Iran	Kurdistan	Marivan		
+Mazandaran	Iran	Mazandaran	Mazandaran	
+Minab	Iran	Hormozgan	Minab	
+Qazvin	Iran	Qazvin	Qazvin	
+Qom	Iran	Qom	Qom	
+Sanandaj	Iran	Kurdistan	Sanandaj		
+Sardasht	Iran	WestAzerbaijan	Sardasht
+Sari	Iran	Mazandaran	Sari
+Shiraz	Iran	Fars	Shiraz		
+Shahriar	Iran	Tehran	Shahriar	
+Sistan	Iran	SistanAndBaluchestan	Sistan	
+Tabriz	Iran	EastAzerbaijan	Tabriz		
+Tehran	Iran	Tehran	Tehran		
+Yazd	Iran	Yazd	Yazd
+Zahedan	Iran	SistanAndBaluchestan	Zahedan		
+Zanjan	Iran	Zanjan	Zanjan		
+					
+# Iraq					
+Iraq	Iraq	Iraq	Iraq		
+Baghdad	Iraq	Baghdad	Baghdad	
+Sulaimani	Iraq	Kurdistan	Sulaimani
+					
+# Ireland					
+Ireland	Ireland	Ireland	Ireland		
+Dublin	Ireland	Leinster	Dublin		
+					
+# Israel					
+Israel	Israel	Israel	Israel		
+					
+# Italy					
+Italy	Italy	Italy	Italy	
+Ancona	Italy	Marche	Ancona	
+Bari	Italy	Apulia	Bari
+Bolzano	Italy	TrentinoAltoAdige	Bolzano
+Enna	Italy	Sicily	Enna
+Florence	Italy	Tuscany	Florence
+FriuliVeneziaGiulia	Italy	FriuliVeneziaGiulia	FriuliVeneziaGiulia		
+Genoa	Italy	Liguria	Genoa		
+Lazio	Italy	Lazio	Lazio		
+Messina	Italy	Sicily	Messina
+Milan	Italy	Lombardy	Milan		
+Padova	Italy	Veneto	Padova		
+Palermo	Italy	Sicily	Palermo		
+Parma	Italy	EmiliaRomagna	Parma		
+Pavia	Italy	Lombardy	Pavia		
+Perugia	Italy	Umbria	Perugia		
+Rome	Italy	Lazio	Rome	
+Sassari	Italy	Sardinia	Sassari	
+Siena	Italy	Tuscany	Siena		
+Torino	Italy	Piedmont	Torino	
+Trento	Italy	TrentinoAltoAdige	Trento
+Trieste	Italy	FriuliVeneziaGiulia	Trieste		
+Turin	Italy	Piedmont	Turin	
+Verona	Italy	Veneto	Verona
+Vicenza	Italy	Veneto	Vicenza
+					
+# Jamaica					
+Jamaica	Jamaica	Jamaica	Jamaica		
+					
+# Japan					
+Japan	Japan	Japan	Japan		
+Aichi	Japan	Aichi	Aichi		
+Akita	Japan	Akita	Akita		
+Aomori	Japan	Aomori	Aomori		
+Chiba	Japan	Chiba	Chiba		
+Ehime	Japan	Ehime	Ehime		
+Fukui	Japan	Fukui	Fukui		
+Fukuoka	Japan	Fukuoka	Fukuoka		
+Fukushima	Japan	Fukushima	Fukushima		
+Gifu	Japan	Gifu	Gifu		
+Gunma	Japan	Gunma	Gunma		
+Hamamatu	Japan	Shizuoka	Shizuoka	
+Himeji	Japan	Hyogo	Himeji	
+Hiroshima	Japan	Hiroshima	Hiroshima		
+Hokkaido	Japan	Hokkaido	Hokkaido		
+Hyogo	Japan	Hyogo	Hyogo		
+Ibaraki	Japan	Ibaraki	Ibaraki		
+Isahaya	Japan	Nagasaki	Isahaya
+Ishikawa	Japan	Ishikawa	Ishikawa		
+Iwate	Japan	Iwate	Iwate
+Kadoma	Japan	Osaka	Kadoma		
+Kagawa	Japan	Kagawa	Kagawa		
+Kagoshima	Japan	Kagoshima	Kagoshima		
+Kamata	Japan	Tokyo	Kamata		
+Kanagawa	Japan	Kanagawa	Kanagawa		
+Kawasaki	Japan	Kanagawa	Kawasaki		
+Kitakyushu	Japan	Fukuoka	Kitakyushu		
+Kobe	Japan	Hyogo	Kobe		
+Kochi	Japan	Kochi	Kochi		
+Kumamoto	Japan	Kumamoto	Kumamoto
+Kurashiki	Japan	Okayama	Kurashiki		
+Kyoto	Japan	Kyoto	Kyoto		
+Morioka	Japan	Iwate	Morioka		
+Mie	Japan	Mie	Mie		
+Misawa	Japan	Aomori	Misawa		
+Miyagi	Japan	Miyagi	Miyagi		
+Miyazaki	Japan	Miyazaki	Miyazaki		
+Nagano	Japan	Nagano	Nagano		
+Nagasaki	Japan	Nagasaki	Nagasaki		
+Nagoya	Japan	Aichi	Nagoya		
+Nara	Japan	Nara	Nara	
+Narita	Japan	Chiba	Narita	
+Niigata	Japan	Niigata	Niigata		
+Oita	Japan	Oita	Oita		
+Okayama	Japan	Okayama	Okayama		
+Okinawa	Japan	Okinawa	Okinawa		
+Osaka	Japan	Osaka	Osaka		
+Saga	Japan	Saga	Saga
+Sagamihara	Japan	Kanagawa	Sagamihara		
+Saitama	Japan	Saitama	Saitama		
+Sakai	Japan	Osaka	Sakai		
+Sapporo	Japan	Hokkaido	Sapporo		
+Sendai	Japan	Miyagi	Sendai		
+Shiga	Japan	Shiga	Shiga		
+Shimane	Japan	Shimane	Shimane		
+Shizuoka	Japan	Shizuoka	Shizuoka
+Suita	Japan	Osaka	Suita		
+Tochigi	Japan	Tochigi	Tochigi		
+Tokushima	Japan	Tokushima	Tokushima		
+Tokyo	Japan	Tokyo	Tokyo		
+Tottori	Japan	Tottori	Tottori		
+Toyama	Japan	Toyama	Toyama		
+Utsunomiya	Japan	Tochigi	Utsunomiya		
+Wakayama	Japan	Wakayama	Wakayama		
+Yamagata	Japan	Yamagata	Yamagata		
+Yamaguchi	Japan	Yamaguchi	Yamaguchi		
+Yamanashi	Japan	Yamanashi	Yamanashi		
+Yokohama	Japan	Kanagawa	Yokohama		
+Yokosuka	Japan	Kanagawa	Yokosuka		
+					
+# Jordan					
+Jordan	Jordan	Jordan	Jordan	
+Amman	Jordan	CapitalGovernorate	Amman	
+					
+# Kazakhstan					
+Kazakhstan	Kazakhstan	Kazakhstan	Kazakhstan		
+Aktobe	Kazakhstan	Aktobe	Aktobe
+Almaty	Kazakhstan	Almaty	Almaty		
+Astana	Kazakhstan	Astana	Astana		
+Gvardeyskiy	Kazakhstan	Almaty	Gvardeyskiy		
+Jambyl	Kazakhstan	Jambyl	Jambyl		
+Karaganda	Kazakhstan	Karaganda	Karaganda
+Petropavlovsk	Kazakhstan	NorthKazakhstan	Petropavlovsk
+Semey	Kazakhstan	EastKazakhstan	Semey		
+Taraz	Kazakhstan	Jambyl	Taraz	
+Uralsk	Kazakhstan	WestKazakhstan	Uralsk	
+					
+# Kenya					
+Kenya	Kenya	Kenya	Kenya		
+Alupe	Kenya	Nairobi	Alupe		
+Eldoret	Kenya	UasinGishu	Eldoret
+Embu	Kenya	Embu	Embu
+Garissa	Kenya	Garissa	Garissa
+Isiolo	Kenya	Eastern	Isiolo
+Kakamega	Kenya	Kakamega	Kakamega
+Kapenguria	Kenya	WestPokot Kapenguria
+Keiyo	Kenya	ElgeyoMarakwet	Keiyo
+Kericho	Kenya	Kericho	Kericho
+Kijabe	Kenya	Kiambu	Kijabe
+Kikuyu	Kenya	Kiambu	Kikuyu		
+Kisii	Kenya	Kisii	Kisii		
+Kisumu	Kenya	Kisumu	Kisumu
+Kitale	Kenya	TransNzoia	Kitale
+Kwanza	Kenya	TransNzoia	Kwanza		
+Malindi	Kenya	Nairobi	Malindi		
+Mbagathi	Kenya	Nairobi	Nairobi
+Meru	Kenya	Meru	Meru		
+Mombasa	Kenya	Mombasa	Mombasa		
+Nairobi	Kenya	Nairobi	Nairobi
+Nakuru	Kenya	Nakuru	Nakuru
+Nyeri	Kenya	Nyeri	Nyeri
+TransNzoia	Kenya	TransNzoia	TransNzoia		
+					
+# Kiribati					
+Kiribati	Kiribati	Kiribati	Kiribati		
+					
+# Kosovo					
+Kosovo	Kosovo	Kosovo	Kosovo		
+					
+# Kuwait					
+Kuwait	Kuwait	Kuwait	Kuwait		
+					
+# Kyrgyzstan					
+Kyrgyzstan	Kyrgyzstan	Kyrgyzstan	Kyrgyzstan	
+Bishkek	Kyrgyzstan	Chuy	Bishkek	
+					
+# Laos					
+Laos	Laos	Laos	Laos		
+					
+# Latvia					
+Latvia	Latvia	Latvia	Latvia		
+					
+# Lebanon					
+Lebanon	Lebanon	Lebanon	Lebanon		
+					
+# Lithuania					
+Lithuania	Lithuania	Lithuania	Lithuania		
+Klaipeda	Lithuania	Klaipeda	Klaipeda		
+Telsiai	Lithuania	Telsiai	Telsiai		
+Kaunas	Lithuania	Kaunas	Kaunas		
+Vilnius	Lithuania	Vilnius	Vilnius		
+Skuodas	Lithuania	Klaipeda	Skuodas		
+					
+# Luxembourg					
+Luxembourg	Luxembourg	Luxembourg	Luxembourg		
+					
+# Macedonia					
+Macedonia	Macedonia	Macedonia	Macedonia		
+Skopje	Macedonia	Skopje	Skopje		
+Ohrid	Macedonia	Ohrid	Ohrid		
+Tetovo	Macedonia	Tetovo	Tetovo		
+Gostivar	Macedonia	Gostivar	Gostivar		
+Strumica	Macedonia	Strumica	Strumica		
+Kocani	Macedonia	Kocani	Kocani		
+					
+# Madagascar					
+Madagascar	Madagascar	Madagascar	Madagascar		
+Antsirabe	Madagascar	Vakinankaratra	Antsirabe		
+Antananarivo	Madagascar	Antananarivo	Antananarivo
+Behoririka	Madagascar	Antananarivo	Behoririka		
+Itaosy	Madagascar	Antananarivo	Itaosy
+Maevatanana	Madagascar	Betsiboka	Maevatanana		
+Mahajanga	Madagascar	Mahajanga	Mahajanga	
+Mananjary	Madagascar	VatovavyFitovinany	Mananjary
+Manjakaray	Madagascar	Antananarivo	Manjakaray
+Moramanga	Madagascar	AlaotraMangoro	Moramanga		
+NosyBe	Madagascar	Diana	NosyBe		
+Tsaralalana	Madagascar	Antananarivo	Tsaralalana
+Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy		
+Toamasina	Madagascar	Atsinanana	Toamasina		
+					
+# Malaysia					
+Malaysia	Malaysia	Malaysia	Malaysia		
+					
+# Mali					
+Mali	Mali	Mali	Mali		
+Bamako	Mali	Bamako	Bamako		
+					
+# Malta					
+Malta	Malta	Malta	Malta		
+					
+# Martinique					
+Martinique	Martinique	Martinique	Martinique		
+					
+# Mauritania					
+Mauritania	Mauritania	Mauritania	Mauritania		
+Nouakchott	Mauritanian	Nouakchott	Nouakchott	
+					
+# Mauritius					
+Mauritius	Mauritius	Mauritius	Mauritius		
+Candos	Mauritius	QuatreBornes	Candos		
+					
+# Mexico					
+Mexico	Mexico	Mexico	Mexico		
+Yucatan	Mexico	Mexico	Yucatan		
+Monterrey	Mexico	Mexico	Monterrey		
+Merida	Mexico	Mexico	Merida		
+Puebla	Mexico	Puebla	Puebla		
+QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo		
+Sonora	Mexico	Sonora	Sonora		
+MexicoCity	Mexico	Distrito Federal	MexicoCity		
+					
+# Micronesia					
+Micronesia	Micronesia	Micronesia	Micronesia		
+Chuuk	Micronesia	Chuuk	Chuuk		
+Nauru	Micronesia	Nauru	Nauru		
+Pohnpei	Micronesia	Pohnpei	Pohnpei		
+Kosrae	Micronesia	Kosrae	Kosrae		
+Yap	Micronesia	Yap	Yap		
+					
+# Moldova					
+Moldova	Moldova	Moldova	Moldova		
+					
+# Mongolia					
+Mongolia	Mongolia	Mongolia	Mongolia		
+Arvaikheer	Mongolia	Arvaikheer	Arvaikheer		
+BayanUlgii	Mongolia	BayanUlgii	BayanUlgii		
+Bulgan	Mongolia	Bulgan	Bulgan		
+Choibalsan	Mongolia	Dornod	Choibalsan
+Darkhan	Mongolia	DarkhanUul	Darkhan	
+DarkhanUul	Mongolia	DarkhanUul	DarkhanUul	
+Dornogobi	Mongolia	Dornogobi	Dornogobi		
+Dundgobi	Mongolia	Dundgobi	Dundgobi	
+Gobisumber	Mongolia	Gobisumber	Gobisumber
+Khentii	Mongolia	Khentii	Khentii	
+Kherlen	Mongolia	Dornod	Kherlen	
+Khovd	Mongolia	Khovd	Khovd		
+Orkhon	Mongolia	Orkhon	Orkhon		
+Sainshand	Mongolia	Dornogobi	Sainshand		
+Selenge	Mongolia	Selenge	Selenge		
+Sukhbaatar	Mongolia	Sukhbaatar	Sukhbaatar	
+Tuv	Mongolia	Tuv	Tuv	
+Ulaanbaatar	Mongolia	Ulaanbaatar	Ulaanbaatar	
+Ulaangom	Mongolia	Uvs	Ulaangom
+Ulgii	Mongolia	BayanUlgii	Ulgii	
+Unmugobi	Mongolia	Unmugobi	Unmugobi
+Uvurkhangai	Mongolia	Uvurkhangai	Uvurkhangai		
+Zavkhan	Mongolia	Zavkhan	Zavkhan		
+					
+# Montenegro					
+Montenegro	Montenegro	Montenegro	Montenegro		
+Podgorica	Montenegro	Podgorica	Podgorica		
+
+# Montserrat
+Montserrat	Montserrat	BritishOverseasTerritory	Montserrat
+					
+# Morocco					
+Morocco	Morocco	Morocco	Morocco		
+Agadir	Morocco	SoussMassa	Agadir
+BeniMellal	Morocco	BeniMellalKhenifra	BeniMellal
+Casablanca	Morocco	Casablanca	Casablanca		
+Fes	Morocco	FesMeknes	Fes		
+Kenitra	Morocco	RabatSaleKenitra	Kenitra		
+Marrakech	Morocco	MarrakechSafi	Marrakech	
+Meknes	Morocco	FesMeknes	Meknes
+Oujda	Morocco	Rif	Oujda
+Rabat	Morocco	RabatSaleKenitra	Rabat
+Safi	Morocco	MarrakechSafi	Safi		
+Sale	Morocco	RabatSaleKenitra	Sale
+Tanger	Morocco	TangerTetouan	Tanger	
+Temara	Morocco	RabatSaleKenitra	Temara	
+Tiznit	Morocco	SoussMassa	Tiznit
+					
+# Mozambique					
+Mozambique	Mozambique	Mozambique	Mozambique		
+Maputo	Mozambique	Maputo	Maputo		
+					
+# Myanmar 					
+Myanmar	Myanmar	Myanmar	Myanmar		
+Yangon	Myanmar	Yangon	Yangon
+Naypyitaw	Myanmar	Naypyitaw	Naypyitaw		
+					
+# Nauru					
+Nauru	Nauru	Nauru	Nauru		
+					
+# Nepal					
+Nepal	Nepal	Nepal	Nepal		
+KathmanduBGN	Nepal	Central	Kathmandu		
+					
+# Netherlands	
+Netherlands	Netherlands	Netherlands	Netherlands	
+Amsterdam	Netherlands	NorthHolland	Amsterdam
+Bilthoven	Netherlands	Utrecht	Bilthoven	
+Eindhoven	Netherlands	NorthBrabant	Eindhoven
+Enschede	Netherlands	Overijssel	Enschede	
+Groningen	Netherlands	Groningen	Groningen
+Leiden	Netherlands	SouthHolland	Leiden	
+Nijmegen	Netherlands	Gelderland	Nijmegen	
+Rotterdam	Netherlands	SouthHolland	Rotterdam
+Tilburg	Netherlands	NorthBrabant	Tilburg		
+					
+# NewCaledonia					
+NewCaledonia	NewCaledonia	NewCaledonia	NewCaledonia		
+					
+# NewZealand					
+NewZealand	NewZealand	NewZealand	NewZealand		
+Ashburton	NewZealand	Canterbury	Ashburton		
+Auckland	NewZealand	Auckland	Auckland		
+BayOfPlenty	NewZealand	BayOfPlenty	BayOfPlenty		
+CapitalCoast	NewZealand	Wellington	Wellington	
+Canterbury	NewZealand	Canterbury	Canterbury		
+Christchurch	NewZealand	Canterbury	Christchurch		
+Dunedin	NewZealand	Otago	Dunedin		
+HawkesBay	NewZealand	HawkesBay	HawkesBay
+Hutt	NewZealand	Wellington	Hutt
+HuttValley	NewZealand	Wellington	HuttValley
+Midcentral	NewZealand	NewZealand	Midcentral		
+NelsonMarlborough	NewZealand	Nelson	NelsonMarlborough
+Northland	NewZealand	Northland	Northland
+NorthWestAuckland	NewZealand	Auckland	Auckland			
+Otago	NewZealand	Otago	Otago		
+PortChalmers	NewZealand	Otago	PortChalmers
+SouthAuckland	NewZealand	Auckland	SouthAuckland
+SouthCanterbury	NewZealand	Canterbury	SouthCanterbury		
+Southland	NewZealand	Southland	Southland		
+Tairawhiti	NewZealand	Gisborne	Tairawhiti
+Tauranga	NewZealand	NorthIsland	Tauranga		
+Waikato	NewZealand	Waikato	Waikato		
+Wellington	NewZealand	Wellington	Wellington
+WestCoast	NewZealand	WestCoast	WestCoast		
+Whanganui	NewZealand	ManawatuWanganui	Whanganui		
+					
+# Nicaragua					
+Nicaragua	Nicaragua	Nicaragua	Nicaragua		
+Andalucia	Nicaragua	Nicaragua	Andalucia
+Esteli	Nicaragua	Esteli	Esteli
+Managua	Nicaragua	Managua	Managua	
+Matagalpa	Nicaragua	Matagalpa	Matagalpa	
+					
+# Niger					
+Niger	Niger	Niger	Niger
+					
+# Nigeria					
+Nigeria	Nigeria	Nigeria	Nigeria		
+Lagos	Nigeria	Lagos	Lagos
+
+# NorthernMarianaIslands
+NorthernMarianaIslands	NorthernMarianaIslands	NorthernMarianaIslands	NorthernMarianaIslands		
+Saipan	NorthernMarianaIslands	Saipan	Saipan
+				
+# Norway					
+Norway	Norway	Norway	Norway		
+Oslo	Norway	Ostlandet	Oslo		
+					
+# Oman					
+Oman	Oman	Oman	Oman
+Sur	Oman	AshSharqiyah	Sur	
+Sohar	Oman	AlBatinah	Sohar
+					
+# Pakistan					
+Pakistan	Pakistan	Pakistan	Pakistan
+
+# Palau		
+Palau	Palau	Palau	Palau
+
+# Palestine
+Bethlehem	Palestine	Bethlehem	Bethlehem
+Hebron	Palestine	Hebron	Hebron	
+Jenin	Palestine	Jenin	Jenin
+Jericho	Palestine	Jericho	Jericho
+Nablus	Palestine	Nablus	Nablus
+Qalqilia	Palestine	Qalqilia	Qalqilia
+Ramallah	Palestine	RamallahAndAlBireh	Ramallah
+Salfeet	Palestine	Salfit	Salfeet
+Tubas	Palestine	Tubas	Tubas
+Tulkarem	Palestine	Tulkarm	Tulkarem
+				
+# Panama					
+Panama	Panama	Panama	Panama		
+					
+# PapuaNewGuinea					
+PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea		
+Goroka	PapuaNewGuinea	Eastern Highlands	Goroka		
+PortMoresby	PapuaNewGuinea	NationalCapitalDistrict	PortMoresby		
+Morobe	PapuaNewGuinea	Morobe	Morobe		
+WesternSepik	PapuaNewGuinea	Sandaun	WesternSepik		
+Vanimo	PapuaNewGuinea	Sandaun	Vanimo		
+Simbu	PapuaNewGuinea	Simbu	Simbu		
+EastSepik	PapuaNewGuinea	EastSepik	EastSepik		
+					
+# Paraguay					
+Paraguay	Paraguay	Paraguay	Paraguay		
+Asuncion	Paraguay	Asuncion	Asuncion		
+					
+# Peru					
+Peru	Peru	Peru	Peru		
+Ancon	Peru	Lima	Ancon		
+Arequipa	Peru	Arequipa	Arequipa		
+Chanchamayo	Peru	Junin	Chanchamayo
+Chorrillos	Peru	Lima	Chorrillos		
+Cusco	Peru	Cusco	Cusco		
+Iquitos	Peru	Loreto	Iquitos		
+Juliaca	Peru	Puno	Juliaca		
+Junin	Peru	Junin	Junin		
+MadreDeDios	Peru	MadreDeDios	MadreDeDios		
+Maldonado	Peru	MadreDeDios	Maldonado
+Lima	Peru	Lima	Lima
+Piura	Peru	Piura	Piura		
+Pucallpa	Peru	Ucayali	Pucallpa		
+Puno	Peru	Puno	Puno		
+Sullana	Peru	Piura	Sullana		
+Trujillo	Peru	LaLibertad	Trujillo		
+Tumbes	Peru	Tumbes	Tumbes		
+Ucayali	Peru	Ucayali	Ucayali		
+Yurimaguas	Peru	Loreto	Yurimaguas		
+Zarumilla	Peru	Tumbes	Zarumilla		
+					
+# Philippines					
+Philippines	Philippines	Philippines	Philippines		
+					
+# Poland					
+Poland	Poland	Poland	Poland		
+Olsztyn	Poland	WarmianMasurian	Olsztyn		
+Warsaw	Poland	Masovian	Warsaw		
+Gdansk	Poland	Pomeranian	Gdansk		
+Wroclaw	Poland	LowerSilesian	Wroclaw		
+					
+# Portugal					
+Portugal	Portugal	Portugal	Portugal		
+Acores	Portugal	Acores	Acores	
+Aveiro	Portugal	Aveiro	Aveiro		
+Beja	Portugal	Beja	Beja
+Braga	Portugal	Braga	Braga	
+CasteloBranco	Portugal	CasteloBranco	CasteloBranco
+Coimbra	Portugal	Coimbra	Coimbra		
+Evora	Portugal	Evora	Evora	
+Guarda	Portugal	Guarda	Guarda
+Leiria	Portugal	Leiria	Leiria	
+Lisbon	Portugal	Lisbon	Lisbon		
+Madeira	Portugal	Madeira	Madeira		
+Portalegre	Portugal	Portalegre	Portalegre		
+Porto	Portugal	Porto	Porto		
+Santarem	Portugal	Santarem	Santarem
+VilaReal	Portugal	VilaReal	VilaReal		
+					
+# PuertoRico					
+PuertoRico	PuertoRico	PuertoRico	PuertoRico		
+					
+# Qatar					
+Qatar	Qatar	Qatar	Qatar		
+					
+# Romania					
+Romania	Romania	Romania	Romania		
+Alba	Romania	Alba	Alba
+Arad	Romania	Arad	Arad
+Arges	Romania	Arges	Arges		
+Bacau	Romania	Bacau	Bacau
+Bihor	Romania	Bihor	Bihor		
+BistritaNasaud	Romania	BistritaNasaud	BistritaNasaud		
+Botosani	Romania	Botosani	Botosani		
+Braila	Romania	Braila	Braila	
+Brasov	Romania	Brasov	Brasov	
+Bucharest	Romania	Romania	Bucharest		
+Buzau	Romania	Buzau	Buzau		
+Calarasi	Romania	Calarasi	Calarasi
+CarasSeverin	Romania	CarasSeverin	CarasSeverin		
+Constanta	Romania	Constanta	Constanta		
+Covasna	Romania	Covasna	Covasna
+Cluj	Romania	Cluj	Cluj		
+Craiova	Romania	Dolj	Craiova		
+Dambovita	Romania	Dambovita	Dambovita		
+Dolj	Romania	Dolj	Dolj
+Galati	Romania	Galati	Galati		
+Giurgiu	Romania	Giurgiu	Giurgiu
+Gorj	Romania	Gorj	Gorj
+Harghita	Romania	Harghita	Harghita		
+Hunedoara	Romania	Hunedoara	Hunedoara		
+Ialomita	Romania	Ialomita	Ialomita
+Iasi	Romania	Iasi	Iasi		
+Ilfov	Romania	Ilfov	Ilfov		
+Maramures	Romania	Maramures	Maramures	
+Mures	Romania	Mures	Mures	
+Neamt	Romania	Neamt	Neamt		
+Olt	Romania	Olt	Olt		
+Prahova	Romania	Prahova	Prahova
+Salaj	Romania	Salaj	Salaj		
+Sibiu	Romania	Sibiu	Sibiu
+Suceava	Romania	Suceava	Suceava		
+Teleorman	Romania	Teleorman	Teleorman
+Timis	Romania	Timis	Timis
+Tulcea	Romania	Tulcea	Tulcea	
+Vaslui	Romania	Vaslui	Vaslui
+Vrancea	Romania	Vrancea	Vrancea	
+					
+# Russia					
+Russia	Russia	Russia	Russia	
+Alania	Russia	OssetiaAlania	Alania	
+Anadyr	Russia	Chukotka	Anadyr		
+Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk		
+Astrakhan	Russia	Astrakhan	Astrakhan		
+Barnaul	Russia	AltaiKrai	Barnaul		
+Belgorod	Russia	Belgorod	Belgorod
+Birobidzhan	Russia	JewishOblast	Birobidzhan
+Blagoveshchensk	Russia	Amur	Blagoveshchensk		
+Bryansk	Russia	Bryansk	Bryansk		
+Buryatia	Russia	Buryatia	Buryatia
+Cheboksary	Russia	Chuvash	Cheboksary		
+Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk		
+Chita	Russia	ZabaykalskyKrai	Chita		
+Dagestan	Russia	Dagestan	Dagestan
+Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg		
+Irkutsk	Russia	Irkutsk	Irkutsk		
+Ivanovo	Russia	Ivanovo	Ivanovo	
+Izhevsk	Russia	Udmurt	Izhevsk		
+Kaliningrad	Russia	Kaliningrad	Kaliningrad		
+Kalingrad	Russia	Kaliningrad	Kaliningrad		
+Kaluga	Russia	Kaluga	Kaluga		
+Karasuk	Russia	Novosibirsk	Karasuk		
+Kazan	Russia	Tatarstan	Kazan		
+Kemerovo	Russia	Kemerovo	Kemerovo		
+Khabarovsk	Russia	Khabarovsk	Khabarovsk		
+Kirov	Russia	Kirov	Kirov
+KhantyMansia	Russia	KhantyMansia	KhantyMansia	
+Komi	Russia	Komi	Komi
+Kostroma	Russia	Kostroma	Kostroma	
+Krasnodar	Russia	Krasnodar	Krasnodar
+Krasnoyarsk	Russia	Krasnoyarsk	Krasnoyarsk
+Kurgan	Russia	Kurgan	Kurgan		
+Kursk	Russia	Kursk	Kursk
+Leningrad	Russia	Leningrad	Leningrad		
+Lipeztsk	Russia	Lipeztsk	Lipeztsk		
+Magadan	Russia	Magadan	Magadan		
+Majkop	Russia	Adygeya	Majkop	
+Mcensk	Russia	Oryol	Mcensk		
+Moscow	Russia	Moscow	Moscow		
+Murmansk	Russia	Murmansk	Murmansk		
+NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod		
+Novosibirsk	Russia	Novosibirsk	Novosibirsk	
+Noyabrsk	Russia	Yamalia	Noyabrsk	
+Omsk	Russia	Omsk	Omsk		
+Orel	Russia	Oryol	Orel
+Orenburg	Russia	Orenburg	Orenburg		
+Penza	Russia	Penza	Penza		
+Perm	Russia	Perm	Perm
+Petrozavodsk	Russia	Karelia	Petrozavodsk
+RostovOnDon	Russia	Rostov	RostovOnDon
+Rostov	Russia	Rostov	Rostov
+Ryazan	Russia	Ryazan	Ryazan		
+StPetersburg	Russia	StPetersburg	StPetersburg	
+Salekhard	Russia	Yamalia	Salekhard		
+Samara	Russia	Samara	Samara		
+Saratov	Russia	Saratov	Saratov		
+Stavropol	Russia	Stavropol	Stavropol		
+Smolensk	Russia	Smolensk	Smolensk	
+Syktyvkar	Russia	Komi	Syktyvkar		
+Tambov	Russia	Tambov	Tambov
+Tomsk	Russia	Tomsk	Tomsk		
+Tula	Russia	Tula	Tula
+Tver	Russia	Tver	Tver
+Tyumen	Russia	Tyumen	Tyumen
+Ufa	Russia	Bashkortostan	Ufa		
+UlanUde	Russia	Buryatia	UlanUde		
+Ulyanovsk	Russia	Ulyanovsk	Ulyanovsk
+Urengoy	Russia	Yamalia	Urengoy		
+USSR	Russia	Russia	Russia
+VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
+Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
+Vladimir	Russia	Vladimir	Vladimir		
+Vladivostok	Russia	Primorsky	Vladivostok		
+Voronezh	Russia	Voronezh	Voronezh		
+Volgograd	Russia	Volgograd	Volgograd		
+Vologda	Russia	Vologda	Vologda
+Yakutsk	Russia	Sakha	Yakutsk		
+Yaroslavl	Russia	Yaroslavl	Yaroslavl
+Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg		
+YoshkarOla	Russia	MariElRepublic	YoshkarOla
+					
+# Rwanda					
+Rwanda	Rwanda	Rwanda	Rwanda	
+
+# SaintKitts
+SaintKitts	SaintKitts	SaintKitts	SaintKitts
+
+# StLucia
+StLucia	StLucia	StLucia	StLucia	
+		
+# Samoa					
+Samoa	Samoa	Samoa	Samoa		
+					
+# SaudiArabia					
+SaudiArabia	SaudiArabia	SaudiArabia	SaudiArabia		
+Jeddah	SaudiArabia	Makkah	Jeddah		
+Riyadh	SaudiArabia	Riyadh	Riyadh		
+					
+# Senegal					
+Senegal	Senegal	Senegal	Senegal		
+Dakar	Senegal	Dakar	Dakar
+Fatick	Senegal	Fatick	Fatick
+Niakhar	Senegal	Fatick	Niakhar		
+					
+# Serbia					
+Serbia	Serbia	Serbia	Serbia		
+Belgrade	Serbia	Belgrade	Belgrade		
+Cuprija	Serbia	Pomoravlje	Cuprija		
+Kragujevac	Serbia	Sumadija	Kragujevac		
+Kraljevo	Serbia	Raska	Kraljevo
+Leskovac	Serbia	Jablanica	Leskovac		
+Mitrovica	Serbia	Mitrovica	Mitrovica		
+Nis	Serbia	Nisava	Nis		
+NoviSad	Serbia	Vojvodina	NoviSad		
+Pancevo	Serbia	Vojvodina	Pancevo		
+Pirot	Serbia	Pirot	Pirot
+Pozarevac	Serbia	Branicevo	Pozarevac
+Sabac	Serbia	Macva	Macva		
+Valjevo	Serbia	Kolubara	Valjevo
+Zrenjanin	Serbia	Vojvodina	Zrenjanin		
+					
+# Seychelles					
+Seychelles	Seychelles	Seychelles	Seychelles		
+					
+# SierraLeone					
+SierraLeone	SierraLeone	SierraLeone	SierraLeone		
+					
+# Singapore					
+Singapore	Singapore	Singapore	Singapore		
+					
+# Slovakia					
+Slovakia	Slovakia	Slovakia	Slovakia
+BanskaBystrica	Slovakia	Banskobystricky	BanskaBystrica		
+Bratislava	Slovakia	Bratislava	Bratislava		
+Galanta	Slovakia	Trnava	Galanta		
+Komarno	Slovakia	Nitra	Komarno		
+Kosice	Slovakia	Kosice	Kosice		
+Levice	Slovakia	Nitriansky	Levice
+Lubica	Slovakia	Presov	Lubica		
+Malacky	Slovakia	Bratislava	Malacky		
+Michalovce	Slovakia	Kosice	Michalovce		
+Modra	Slovakia	Bratislava	Modra		
+Nitra	Slovakia	Nitra	Nitra		
+NoveZamky	Slovakia	Nitra	NoveZamky
+Partizanske	Slovakia	Trencin	Partizanske	
+Piestany	Slovakia	Trnava	Piestany	
+Poprad	Slovakia	Presov	Poprad	
+PovazskaBystrica	Slovakia	Trencin	PovazskaBystrica	
+Prievidza	Slovakia	Trencin	Prievidza	
+Topolcany	Slovakia	Nitra	Topolcany	
+Trencin	Slovakia	Trencin	Trencin		
+Trnava	Slovakia	Trnava	Trnava		
+Sastin	Slovakia	Trnava	Sastin		
+SastinStraze	Slovakia	Trnava	SastinStraze		
+Sobotiste	Slovakia	Trnava	Sobotiste		
+					
+# Slovenia					
+Slovenia	Slovenia	Slovenia	Slovenia		
+					
+# SolomonIslands					
+SolomonIslands	SolomonIslands	SolomonIslands	SolomonIslands		
+					
+# SouthAfrica					
+SouthAfrica	SouthAfrica	SouthAfrica	SouthAfrica		
+Johannesburg	SouthAfrica	Gauteng	Johannesburg		
+Durban	SouthAfrica	KwaZuluNatal	Durban		
+Pretoria	SouthAfrica	Gauteng	Pretoria		
+CapeTown	SouthAfrica	WesternCape	CapeTown		
+KwaZuluNatal	SouthAfrica	KwaZuluNatal	KwaZuluNatal	
+Middleburg	SouthAfrica	Mpumalanga	Middleburg
+					
+# SouthKorea					
+SouthKorea	SouthKorea	SouthKorea	SouthKorea		
+Busan	SouthKorea	Busan	Busan		
+Changwon	SouthKorea	Gyeongsangnam	Changwon
+Cheonbuk	SouthKorea	Jeollabuk	Jeonbuk	
+Cheongju	SouthKorea	Chungcheongnam	Cheongju
+Cheonnam	SouthKorea	Jeollanam	Jeollanam
+Chu	SouthKorea	SouthKorea	Chu
+Chungbuk	SouthKorea	Chungcheongbuk	Chungbuk
+Chungnam	SouthKorea	Chungcheongnam	Chungnam
+Daegu	SouthKorea	Daegu	Daegu
+Daejeon	SouthKorea	Daejeon	Daejeon
+Gangwon	SouthKorea	Gangwon	Gangwon		
+Gwangju	SouthKorea	Gwangju	Gwangju		
+Gyeonggi	SouthKorea	Gyeonggi	Gyeonggi
+Gyeongbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
+Gyeongnam	SouthKorea	Gyeongsangnam	Gyeongnam
+Incheon	SouthKorea	Seoul	Incheon		
+Jeju	SouthKorea	Jeju	Jeju		
+Jeonbuk	SouthKorea	Seoul	Gongnam
+Jeonnam	SouthKorea	Jeollanam	Jeonnam
+Jochiwon	SouthKorea	Daejeon	Jochiwon		
+Korea	SouthKorea	SouthKorea	SouthKorea	
+Kwangju	SouthKorea	Honam	Kwangju		
+Kyongbuk	SouthKorea	Gyeongsang	Kyongbuk
+Kyonggi	SouthKorea	Gyeonggi	Kyonggi
+Kyongnam	SouthKorea	Gyeongsangnam	Kyongnam
+Kyungbuk	SouthKorea	Gyeongsangbuk	Kyungbuk
+Kyunggi	SouthKorea	Gyeonggi	Kyunggi
+Kyungnam	SouthKorea	Gyeongsangnam	Kyongnam
+Seoul	SouthKorea	Seoul	Seoul	
+Ulsan	SouthKorea	Ulsan	Ulsan	
+					
+# Spain					
+Spain	Spain	Spain	Spain		
+Alicante	Spain	Valencia	Alicante		
+Aragon	Spain	Aragon	Aragon
+Asturias	Spain	Asturias	Asturias
+Baleares	Spain	BalearicIslands	Baleares
+Barcelona	Spain	Catalonia	Barcelona
+Burgos	Spain	CastillaLaMancha	Burgos
+Canarias	Spain	CanaryIslands	Canarias		
+CastillaLaMancha	Spain	CastillaLaMancha	CastillaLaMancha		
+CastileAndLeon	Spain	CastileAndLeon	CastileAndLeon		
+Catalonia	Spain	Catalonia	Catalonia		
+Ceuta	Spain	Ceuta	Ceuta
+Euskadi	Spain	BasqueCountry	Euskadi	
+Extremadura	Spain	Extremadura	Extremadura	
+Galicia	Spain	Galicia	Galicia
+LaRioja	Spain	LaRioja	LaRioja	
+Leon	Spain	CastileAndLeon	Leon	
+Madrid	Spain	Madrid	Madrid
+Melilla	Spain	Melilla	Melilla	
+Murcia	Spain	Murcia	Murcia
+Navarra	Spain	Navarra	Navarra
+Oviedo	Spain	Asturias	Oviedo	
+PaisVasco	Spain	BasqueCountry	PaisVasco
+Palencia	Spain	CastileAndLeon	Palencia	
+Salamanca	Spain	CastileAndLeon	Salamanca
+SanSebastian	Spain	BasqueCountry	SanSebastian
+Segovia	Spain	CastileAndLeon	Segovia	
+Soria	Spain	CastileAndLeon	Soria	
+Terrassa	Spain	Catalonia	Terrassa
+Valencia	Spain	Valencia	Valencia
+Valladolid	Spain	CastileAndLeon	Valladolid	
+Zamora	Spain	CastileAndLeon	Zamora	
+Zaragoza	Spain	Aragon	Zaragoza
+					
+# SriLanka					
+SriLanka	SriLanka	SriLanka	SriLanka		
+Colombo	SriLanka	WesternProvince	SriLanka	
+Karapitiya	SriLanka	SouthernProvince	Karapitiya
+Matara	SriLanka	SouthernProvince	Matara
+Ratnapura	SriLanka	Sabaragamuwa	Ratnapura
+
+# StVincentAndTheGrenadines
+StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
+					
+# Sudan					
+Sudan	Sudan	Sudan	Sudan		
+					
+# Suriname					
+Suriname	Suriname	Suriname	Suriname		
+					
+# Sweden					
+Sweden	Sweden	Sweden	Sweden
+Alingsas	Sweden	VastraGotaland	Alingsas		
+Boras	Sweden	VastraGotaland	Boras	
+Falun	Sweden	Dalarna	Falun	
+Gavle	Sweden	Gavleborgs	Gavle
+Gothenburg	Sweden	VastraGotaland	Gothenburg		
+Halmstad	Sweden	Halland Halmstad			
+Jonkoping	Sweden	Jonkoping	Jonkoping		
+Kalmar	Sweden	Kalmar	Kalmar
+Karlstad	Sweden	Varmland	Karlstad
+Kungalv	Sweden	VastraGotaland	Kungalv			
+Linkoping	Sweden	Ostergotland	Linkoping
+Lund	Sweden	Skane	Lund		
+Malmo	Sweden	Skane	Malmo		
+Orebro	Sweden	Orebro	Orebro	
+Ostersund	Sweden	Jamtland	Ostersund	
+Skovde	Sweden	VastraGotaland	Skovde
+Stockholm	Sweden	Stockholm	Stockholm	
+Sundsvall	Sweden	Vasternorrland 	Sundsvall	
+Trollhattan	Sweden	VastraGotaland	Trollhattan		
+Umea	Sweden	Vasterbottens	Umea		
+Uppsala	Sweden	Uppsala	Uppsala		
+Vaxjo	Sweden	Kronoberg	Vaxjo	
+Vimmerby	Sweden	Kalmar	Vimmerby
+Visby	Sweden	Gotland	Visby	
+					
+# Switzerland					
+Switzerland	Switzerland	Switzerland	Switzerland		
+Geneva	Switzerland	Geneva	Geneva		
+					
+# Syria					
+Syria	Syria	Syria	Syria		
+					
+# Taiwan					
+Taiwan	Taiwan	Taiwan	Taiwan		
+Kinmen	Taiwan	Kinmen	Kinmen
+Pingtung	Taiwan	Pingtung	Pingtung
+Taipei	Taiwan	Taipei	Taipei		
+Taoyuan	Taiwan	Taoyuan	Taoyuan
+Yilan	Taiwan	Yilan	Yilan		
+					
+# Tajikistan					
+Tajikistan	Tajikistan	Tajikistan	Tajikistan		
+					
+# Tanzania					
+Tanzania	Tanzania	Tanzania	Tanzania		
+					
+# Thailand					
+Thailand	Thailand	Thailand	Thailand		
+Ayutthaya	Thailand	Ayutthaya	Ayutthaya		
+Bangkok	Thailand	Bangkok	Bangkok		
+Chachoengsao	Thailand	Chachoengsao	Chachoengsao		
+Chanthaburi	Thailand	Chanthaburi	Chanthaburi		
+ChiangRai	Thailand	ChiangRai	ChiangRai
+Chonburi	Thailand	Chonburi	Chonburi
+CuTha	Thailand	Thailand	CuTha
+KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet		
+KhonKaen	Thailand	KhonKaen	KhonKaen
+Krabi	Thailand	Krabi	Krabi
+LopBuri	Thailand	LopBuri	LopBuri		
+MaeHongSon	Thailand	MaeHongSon	MaeHongSon		
+NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima		
+NongKhai	Thailand	NongKhai	NongKhai		
+Nonthaburi	Thailand	Nonthaburi	Nonthaburi		
+PathumThani	Thailand	PathumThani	PathumThani
+Phitsanulok	Thailand	Phitsanulok	Phitsanulok		
+Phuket	Thailand	Phuket	Phuket
+PrachinBuri	Thailand	PrachinBuri	PrachinBuri
+PrachuapKhiriKhan	Thailand	PrachuapKhiriKhan	PrachuapKhiriKhan		
+Ratchaburi	Thailand	Ratchaburi	Ratchaburi		
+Rayong	Thailand	Rayong	Rayong
+SaKaeo	Thailand	SaKaeo	SaKaeo		
+SamutPrakan	Thailand	SamutPrakan	SamutPrakan
+Saraburi	Thailand	Saraburi	Saraburi
+Siriraj_ICRC_NKS_1	Thailand	Bangkok	Siriraj	
+Songkhla	Thailand	Songkhla	Songkhla
+Sukhothai	Thailand	Sukhothai	Sukhothai		
+Suphanburi	Thailand	Suphanburi	Suphanburi
+SuratThani	Thailand	SuratThani	SuratThani		
+Tak	Thailand	Tak	Tak		
+Udorn	Thailand	Udon Thani	Udorn		
+
+# Togo					
+Togo	Togo	Togo	Togo		
+					
+# Tonga					
+Tonga	Tonga	Tonga	Tonga		
+					
+# TrinidadAndTobago					
+Trinidad	TrinidadAndTobago	Trinidad	Trinidad		
+					
+# Tunisia					
+Tunisia	Tunisia	Tunisia	Tunisia		
+					
+# Turkey					
+Turkey	Turkey	Turkey	Turkey		
+Adana	Turkey	Adana	Adana		
+Afyon	Turkey	Afyon	Afyon
+Agri	Turkey	Agri	Agri	
+Aksaray	Turkey	Aksaray	Aksaray	
+Amasya	Turkey	Amasya	Amasya
+Ankara	Turkey	Ankara	Ankara		
+Antalya	Turkey	Antalya	Antalya	
+Bartin	Turkey	Bartin	Bartin
+Batman	Turkey	Batman	Batman
+Bayburt	Turkey	Bayburt	Bayburt
+Bitlis	Turkey	Bitlis	Bitlis
+Burdur	Turkey	Burdur	Burdur	
+Bursa	Turkey	Bursa	Bursa		
+Cankiri	Turkey	Cankiri	Cankiri		
+Denizli	Turkey	Denizli	Denizli
+Diyarbakir	Turkey	Diyarbakir	Diyarbakir
+Erzurum	Turkey	Erzurum	Erzurum		
+Eskisehir	Turkey	Eskisehir	Eskisehir
+Gaziantep	Turkey	Gaziantep	Gaziantep
+Giresun	Turkey	Giresun	Giresun
+Gumushane	Turkey	Gumushane	Gumushane
+Hatay	Turkey	Hatay	Hatay
+Kocaeli	Turkey	Kocaeli	Kocaeli
+Kutahya	Turkey	Kutahya	Kutahya		
+Isparta	Turkey	Isparta	Isparta		
+Istanbul	Turkey	Istanbul	Istanbul			
+Izmir	Turkey	Izmir	Izmir		
+Konya	Turkey	Konya	Konya		
+Kastamonu	Turkey	Kastamonu	Kastamonu		
+Kibris	Turkey	Cyprus	Cyprus		
+Kirklareli	Turkey	Kirklareli	Kirklareli		
+Kirikkale	Turkey	Kirikkale	Kirikkale		
+Malatya	Turkey	Malatya	Malatya		
+Manisa	Turkey 	Manisa	Manisa
+Mardin	Turkey	Mardin	Mardin
+Mersin	Turkey	Mersin	Mersin
+Nevsehir	Turkey	Nevsehir	Nevsehir
+Nigde	Turkey	Nigde	Nigde
+Ordu	Turkey	Ordu	Ordu
+Samsun	Turkey	Samsun	Samsun		
+Sivas	Turkey	Sivas	Sivas
+Sanliurfa	Turkey	Sanliurfa	Sanliurfa
+Siirt	Turkey	Siirt	Siirt
+Tekirdag	Turkey	Tekirdag	Tekirdag		
+Tokat	Turkey	Tokat	Tokat		
+Trabzon	Turkey	Trabzon	Trabzon		
+Van	Turkey	Van	Van		
+Yalova	Turkey	Yalova	Yalova
+					
+# Turkmenistan					
+Turkmenistan	Turkmenistan	Turkmenistan	Turkmenistan		
+Ashgabat	Turkmenistan		Ashgabat	
+
+# TurksAndCaicos
+TurksAndCaicos	TurksAndCaicos	BritishOverseasTerritory	TurksAndCaicos	
+
+# Tuvalu
+Tuvalu	Tuvalu	Tuvalu	Tuvalu
+					
+# Uganda					
+Uganda	Uganda	Uganda	Uganda	Kharkiv	
+					
+# Ukraine					
+Ukraine	Ukraine	Ukraine	Ukraine		
+Cherkasy	Ukraine	Cherkasy	Cherkasy		
+Chernihiv	Ukraine	Chernihiv	Chernihiv		
+Chernivtsi	Ukraine	Chernivtsi	Chernivtsi
+Crimea	Ukraine	Crimea	Crimea		
+Dnipropetrovsk	Ukraine	Dnipropetrovsk	Dnipropetrovsk		
+Dniprodzerzhynsk	Ukraine	Dnipropetrovsk	Kamianske
+Donetsk	Ukraine	Donetsk	Donetsk		
+IvanoFrankivsk	Ukraine	IvanoFrankivsk	IvanoFrankivsk		
+Kharkiv	Ukraine	Kharkiv			
+Khmelnitsky	Ukraine	Khmelnitsky	Khmelnitsky		
+Khmilnyk	Ukraine	Khmilnyk	Khmilnyk		
+Kiev	Ukraine	Kiev	Kiev
+Kirovohrad	Ukraine	Kirovohrad	Kirovohrad
+Kyiv	Ukraine	Kyiv	Kyiv		
+Luhansk	Ukraine	Luhansk	Luhansk		
+Lviv	Ukraine	Lviv	Lviv		
+Odessa	Ukraine	Odessa	Odessa	
+Poltava	Ukraine	Poltava	Poltava	
+Rivne	Ukraine	Rivne	Rivne		
+Ternopil	Ukraine	Ternopil	Ternopil		
+Sumy	Ukraine	Sumy	Sumy		
+Volyn	Ukraine	Volyn	Volyn		
+Zaporizhia	Ukraine	Zaporizhia	Zaporizhia
+Zakarpattia	Ukraine	Zakarpattia	Zakarpattia	
+Zakarpattia	Ukraine	Zakarpattia	Zakarpattia
+Zhytomyr	Ukraine	Zhytomyr	Zhytomyr 		
+					
+# UnitedArabEmirates					
+UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates		
+Dubai	UnitedArabEmirates	Dubai	Dubai		
+AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi		
+					
+# UnitedKingdom					
+UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom		
+Aldershot	UnitedKingdom	England	Aldershot
+Aylesbury	UnitedKingdom	England	Aylesbury
+Bedford	UnitedKingdom	England	Bedford
+Belfast	UnitedKingdom	NorthernIreland	Belfast
+Berks	UnitedKingdom	England	Berkshire
+Birmingham	UnitedKingdom	England	Birmingham
+Brighton	UnitedKingdom	England	Brighton
+Bristol	UnitedKingdom	England	Bristol
+Buckinghamshire	UnitedKingdom	England	Buckinghamshire
+Cambridge	UnitedKingdom	England	Cambridge
+Cambridgeshire	UnitedKingdom	England	Cambridgeshire
+Cardiff	UnitedKingdom	Wales	Cardiff
+ChristsHospital	UnitedKingdom	England	Horsham	
+Cheshire	UnitedKingdom	England	Cheshire	
+Cirencester	UnitedKingdom	England	Cirencester
+City of London	UnitedKingdom	England	London
+City of Southampton	UnitedKingdom	England	Southampton
+Co. Durham	UnitedKingdom	England	CountyDurham
+Colchester	UnitedKingdom	England	Colchester
+Cornwall	UnitedKingdom	England	Cornwall
+Craven	UnitedKingdom	England	Craven
+Croydon	UnitedKingdom	England	Croydon
+Cumbria	UnitedKingdom	England	Cumbria
+Derbyshire	UnitedKingdom	England	Derbyshire
+Dundee	UnitedKingdom	England	Dundee
+Edinburgh	UnitedKingdom	Scotland
+England	UnitedKingdom	England	England	
+Exeter	UnitedKingdom	England
+Feltham	UnitedKingdom	England
+Gerrards Cross	UnitedKingdom	England	GerrardsCross
+Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
+Glasgow	UnitedKingdom	Scotland	Glasgow
+Gloucester	UnitedKingdom	England	Gloucester
+Guildford	UnitedKingdom	England	Guildford
+Hampshire	UnitedKingdom	England	Hampshire
+Headington	UnitedKingdom	England	Headington
+HERTS.	UnitedKingdom	England	Hertfordshire
+Hexham	UnitedKingdom	England	Hexham
+Huntingdon	UnitedKingdom	England	Huntingdon
+HUNTINGDON. CAMBS.	UnitedKingdom	England	Huntingdon
+Inverness	UnitedKingdom	Scotland	Inverness		
+Kent	UnitedKingdom	England	Kent
+Lambeth	UnitedKingdom	England	Lambeth
+Leeds	UnitedKingdom	England	Leeds
+Leicester	UnitedKingdom	England	Leicester
+LINCS	UnitedKingdom	England	Lincolnshire
+Liverpool	UnitedKingdom	England	Liverpool
+London	UnitedKingdom	England	London
+Luton	UnitedKingdom	England	Luton
+Manchester	UnitedKingdom	England	Manchester
+Middlesex	UnitedKingdom	England	Middlesex
+Middx	UnitedKingdom	England	Middlesex
+Minehead	UnitedKingdom	England	Minehead
+Newcastle upon Tyne	UnitedKingdom	England	Newcastle
+Ni	UnitedKingdom	NorthernIreland	Belfast
+Nib	UnitedKingdom	UnitedKingdom	UnitedKingdom
+NorthernIreland	UnitedKingdom	NorthernIreland	NorthernIreland	
+Norwich	UnitedKingdom	England	Norwich
+Nottingham	UnitedKingdom	England	Nottingham
+Oxford	UnitedKingdom	England	Oxford
+Oxon	UnitedKingdom	England	Oxfordshire
+Oxfordshire	UnitedKingdom	England	Oxfordshire
+Peterborough	UnitedKingdom	England	Peterborough
+Plymouth	UnitedKingdom	England	Plymouth
+Poole	UnitedKingdom	England	Poole
+Portsmouth	UnitedKingdom	England	Portsmouth
+Reading	UnitedKingdom	England	Reading
+Scotland	UnitedKingdom	Scotland	Scotland	
+Scunthorpe	UnitedKingdom	England	Scunthorpe
+Sheffield	UnitedKingdom	England	Sheffield
+Somerset	UnitedKingdom	England	Somerset
+Southampton	UnitedKingdom	England	Southampton
+Stevenage	UnitedKingdom	England	Stevenage
+Steyning	UnitedKingdom	England	Steyning
+Surrey	UnitedKingdom	England	Surrey
+Swansea	UnitedKingdom	Wales	Swansea
+Telford	UnitedKingdom	England	Telford
+Tetbury	UnitedKingdom	England	Tetbury
+Ware	UnitedKingdom	England	Ware
+Whitechapel	UnitedKingdom	England	London
+Wirral	UnitedKingdom	England	Wirral
+Wythenshawe	UnitedKingdom	England	Wythenshawe
+Wales	UnitedKingdom	Wales	Wales
+York	UnitedKingdom	England	York
+					
+# USA					
+Alabama	USA	Alabama	Alabama		
+Alaska	USA	Alaska	Alaska		
+Arizona	USA	Arizona	Arizona		
+Arkansas	USA	Arkansas	Arkansas		
+California	USA	California	California		
+Colorado	USA	Colorado	Colorado		
+Connecticut	USA	Connecticut	Connecticut		
+Delaware	USA	Delaware	Delaware		
+DistrictOfColumbia	USA	DistrictOfColumbia	DistrictOfColumbia		
+Florida	USA	Florida	Florida		
+Georgia	USA	Georgia	Georgia		
+Hawaii	USA	Hawaii	Hawaii		
+Idaho	USA	Idaho	Idaho		
+Illinois	USA	Illinois	Illinois		
+Indiana	USA	Indiana	Indiana		
+Iowa	USA	Iowa	Iowa		
+Kentucky	USA	Kentucky	Kentucky		
+Louisiana	USA	Louisiana	Louisiana		
+Maine	USA	Maine	Maine		
+Maryland	USA	Maryland	Maryland		
+Massachusetts	USA	Massachusetts	Massachusetts		
+Memphis	USA	Tennessee	Memphis		
+Michigan	USA	Michigan	Michigan		
+Minnesota	USA	Minnesota	Minnesota		
+Mississippi	USA	Mississippi	Mississippi		
+Missouri	USA	Missouri	Missouri		
+Montana	USA	Montana	Montana		
+Nebraska	USA	Nebraska	Nebraska		
+Nevada	USA	Nevada	Nevada		
+NewHampshire	USA	NewHampshire	NewHampshire		
+NewJersey	USA	NewJersey	NewJersey		
+NewMexico	USA	NewMexico	NewMexico		
+NewYork	USA	NewYork	NewYork		
+NorthCarolina	USA	NorthCarolina	NorthCarolina		
+NorthDakota	USA	NorthDakota	NorthDakota		
+Ohio	USA	Ohio	Ohio		
+Oklahoma	USA	Oklahoma	Oklahoma		
+Oregon	USA	Oregon	Oregon		
+Pennsylvania	USA	Pennsylvania	Pennsylvania		
+RhodeIsland	USA	RhodeIsland	RhodeIsland		
+SouthCarolina	USA	SouthCarolina	SouthCarolina		
+SouthDakota	USA	SouthDakota	SouthDakota		
+Tennessee	USA	Tennessee	Tennessee		
+Texas	USA	Texas	Texas		
+Utah	USA	Utah	Utah		
+Vermont	USA	Vermont	Vermont		
+Virginia	USA	Virginia	Virginia		
+VirginIslands	USA	VirginIslands	VirginIslands		
+Washington	USA	Washington	Washington		
+WestVirginia	USA	WestVirginia	WestVirginia		
+Wisconsin	USA	Wisconsin	Wisconsin		
+Wyoming	USA	Wyoming	Wyoming		
+					
+UnitedStates	USA	USA	USA
+Albany	USA	NewYork	Albany		
+AnnArbor	USA	Michigan	AnnArbor		
+Atlanta	USA	Georgia	Atlanta		
+Baylor	USA	Texas	Baylor		
+Bcm	USA	Texas	Baylor		
+Berkeley	USA	California	Berkeley		
+Bethesda	USA	Maryland	Bethesda		
+Boston	USA	Massachusetts	Massachusetts		
+Brawley	USA	California	Brawley		
+Brooklyn	USA	NewYork	Brooklyn		
+Bronx	USA	NewYork	Bronx		
+Brownsville	USA	Texas	Brownsville	
+Cambridge	USA	Massachusetts	Cambridge	
+CapeMay	USA	NewJersey	CapeMay		
+Charlottesville	USA	Virginia	Charlottesville		
+CherryPoint	USA	NorthCarolina	CherryPoint		
+Chicago	USA	Illinois	Chicago		
+Cornell	USA	NewYork	Cornell		
+Dayton	USA	Ohio	Dayton		
+Durham	USA	NorthCarolina	Durham		
+FtBenning	USA	Georgia	FortBenning		
+FtCarson	USA	Colorado	FtCarson		
+Gainesville	USA	Florida	Gainesville		
+GeorgiaNHRC	USA	Georgia	FortBenning
+Gilroy	USA	California	Gilroy		
+GreatLakes	USA	Michigan	GreatLakes		
+Houston	USA	Texas	Houston		
+Kansas	USA	Kansas	Kansas		
+Lackland	USA	Texas	Lackland		
+LosAngeles	USA	California	LosAngeles		
+Mayoclinic	USA	Minnesota	Mayoclinic		
+Minneapolis	USA	Minnesota	Minneapolis		
+Memphis	USA	Tennessee	Memphis		
+Nashville	USA	Tennessee	Nashville		
+Newark	USA	NewJersey	Newark		
+NewBern	USA	NorthCarolina	NewBern
+Pendleton	USA	Oregon	Pendleton
+Pensacola	USA	Florida	Pensacola		
+Rochester	USA	NewYork	Rochester		
+Temple	USA	Pennsylvania	Temple		
+SanAntonio	USA	Texas	SanAntonio		
+SanDiego	USA	California	SanDiego			
+SanFrancisco	USA	California	SanFrancisco	
+SantaClara	USA	California	SantaClara		
+SantaFe	USA	NewMexico	SantaFe		
+SilverSpring	USA	Maryland	SilverSpring
+SL	USA	USA	USA
+Springfield	USA	Illinois	Springfield		
+Sophia	USA	WestVirginia	Sophia		
+StLouis	USA	Missouri	StLouis	
+	
+					
+# Uruguay					
+Uruguay	Uruguay	Uruguay	Uruguay		
+Montevideo	Uruguay	Montevideo	Montevideo
+Maldonando	Uruguay	Maldonando	Maldonando		
+					
+# Uzbekistan					
+Uzbekistan	Uzbekistan	Uzbekistan	Uzbekistan		
+Tashkent	Uzbekistan	Tashkent	Tashkent		
+					
+# Venezuela					
+Venezuela	Venezuela	Venezuela	Venezuela		
+Caracas	Venezuela	FederalCapital	Caracas		
+Maracay	Venezuela	Aragua	Maracay		
+					
+# Vietnam					
+Vietnam	Vietnam	Vietnam	Vietnam	
+BacGiang	Vietnam	BacGiang	BacGiang
+BacNinh	Vietnam	BacNinh	BacNinh
+DaNang	Vietnam	DaNang	DaNang	
+HaNam	Vietnam	HaNam	HaNam	
+Hanoi	Vietnam	Hanoi	Hanoi	
+HoaBinh	Vietnam	HoaBinh	HoaBinh	
+HoChiMinh	Vietnam	HoChiMinh	HoChiMinh		
+Hue	Vietnam	ThuaThienHue	Hue		
+HungYen	Vietnam	HungYen	HungYen		
+KhanhHoa	Vietnam	KhanhHoa	KhanhHoa
+LangSon	Vietnam	LangSon	LangSon		
+LongAn	Vietnam	LongAn	LongAn
+TayNguyen	Vietnam	DakLak	TayNguyen
+TayNinh	Vietnam	TayNinh	TayNinh		
+ThaiBinh	Vietnam	ThaiBinh	ThaiBinh	
+
+# WallisAndFutuna
+WallisAndFutuna	WallisAndFutuna	 FrenchOverseasCollectivity	WallisAndFutuna	
+					
+# Zambia					
+Zambia	Zambia	Zambia	Zambia		
+Lusaka	Zambia	Lusaka	Lusaka		
