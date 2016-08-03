@@ -1,4 +1,4 @@
-import os, re, time, datetime, csv, sys
+import os, re, time, datetime, csv, sys, json
 import numpy as np
 import rethinkdb as r
 from Bio import SeqIO
@@ -48,11 +48,6 @@ class flu_upload(upload):
                                   'Vic': ('b', 'undetermined', 'seasonal_vic'),
                                   'Yam': ('b', 'undetermined', 'seasonal_yam')}
         self.virus_to_sequence_transfer_fields = ['submission_date']
-        self.groups = set()
-        self.groups_unknown = 0
-        self.ages = set()
-        self.originating_labs = set()
-        self.submitting_labs = set()
 
     def parse(self, path, fname, upload_directory, **kwargs):
         '''
@@ -118,7 +113,7 @@ class flu_upload(upload):
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
         return viruses
 
-    def format(self, documents, **kwargs):
+    def format(self, documents, exclude_virus_methods=False, **kwargs):
         '''
         format virus information in preparation to upload to database table
         Flu needs to also format country
@@ -138,17 +133,27 @@ class flu_upload(upload):
             self.fix_age(doc)
             self.determine_group_fields(doc, **kwargs)
             self.format_date(doc)
-            self.format_country(doc)
+            if not exclude_virus_methods:
+                self.format_country(doc)
             self.format_place(doc)
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
+        if not exclude_virus_methods:
+            print("Determining latitudes and longitudes")
+            self.determine_latitude_longitude(documents)
 
     def filter(self, documents, **kwargs):
+        '''
+        remove certain documents from gisaid files that were not actually isolated from humans
+        '''
         remove_labels = ['duck', 'environment', 'Environment', 'shoveler']
         result_documents = [doc for doc in documents if all(label not in doc['strain'] for label in remove_labels)]
         return result_documents
 
     def fix_casing(self, doc):
+        '''
+        fix gisaid specific fields casing
+        '''
         for field in ['originating_lab', 'submitting_lab']:
             if field in doc and doc[field] is not None:
                 doc[field] = doc[field].replace(' ', '_').replace('-', '_').lower()
@@ -159,6 +164,9 @@ class flu_upload(upload):
             doc['accession'] = 'EPI' + doc['accession']
 
     def fix_age(self, doc):
+        '''
+        Combine gisaid age information into one age field
+        '''
         if 'Host_Age' in doc:
             doc['age'] = None
             if doc['Host_Age'] is not None:
@@ -174,19 +182,23 @@ class flu_upload(upload):
 
     def define_strain_fixes(self):
         '''
-
+        Open strain name fixing files and define corresponding dictionaries
         '''
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/strain_name_fix.tsv")), delimiter='\t')
         self.label_to_fix = {}
         for line in reader:
             self.label_to_fix[line['label'].decode('unicode-escape').replace(' ', '').lower()] = line['fix']
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/whole_strain_name_fix.tsv")), delimiter='\t')
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/strain_name_fix_whole.tsv")), delimiter='\t')
         self.fix_whole_name = {}
         for line in reader:
             self.fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
 
     def fix_name(self, original_name, location):
+        '''
+        Fix strain names
+        '''
         original_name = original_name.encode('ascii', 'replace')
+        # Replace whole strain names
         for gisaid_name, fixed_name in self.fix_whole_name.items():
             if original_name == gisaid_name:
                 original_name = fixed_name
@@ -213,11 +225,12 @@ class flu_upload(upload):
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
             .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
             .replace('\'', '').replace('(', '').replace(')', '')
-
         split_name = name.split('/')
+        # check location labels in strain names for fixing
         for index, label in enumerate(split_name):
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
+        # Change two digit years to four digit
         if len(split_name[len(split_name) - 1]) == 2:  # B/Florida/1/96 -> B/Florida/1/1996
             try:
                 year = int(split_name[len(split_name) - 1])
@@ -229,6 +242,7 @@ class flu_upload(upload):
                     split_name[len(split_name) - 1] = "19" + str(year)
             except:
                 pass
+        # Strip leading zeroes, change all capitalization location field to title case
         if len(split_name) == 4:
             if split_name[1].isupper():
                 split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
@@ -241,7 +255,7 @@ class flu_upload(upload):
         open synonym to country dictionary
         Location is to the level of country of administrative division when available
         '''
-        file = open("source-data/geo_synonyms3.tsv")
+        file = open("source-data/geo_synonyms.tsv")
 
         reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
         self.label_to_country = {}
@@ -256,47 +270,43 @@ class flu_upload(upload):
         '''
         Label viruses with country based on strain name
         '''
-        if 'gisaid_location' in v:  # just run for virus documents
-            strain_name = v['strain']
-            original_name = v['gisaid_strain']
-            if '/' in strain_name:
-                name = strain_name.split('/')[1]
-                if any(place.lower() == name.lower() for place in ['SaoPaulo', 'SantaCatarina', 'Calarasi', 'England', 'Sc']):
-                    name = v['gisaid_location'].split('/')[len(v['gisaid_location'].split('/'))-1].strip()
-                    result = self.determine_location(name)
-                    if result is None:
-                        result = self.determine_location(strain_name.split('/')[1])
-                else:
-                    result = self.determine_location(name)
+        strain_name = v['strain']
+        original_name = v['gisaid_strain']
+        if 'gisaid_location' not in v or v['gisaid_location'] is None:
+            v['gisaid_location'] = ''
+        if '/' in strain_name:
+            name = strain_name.split('/')[1]
+            if any(place.lower() == name.lower() for place in ['SaoPaulo', 'SantaCatarina', 'Calarasi', 'England', 'Sc']):
+                name = v['gisaid_location'].split('/')[len(v['gisaid_location'].split('/'))-1].strip()
+                result = self.determine_location(name)
+                if result is None:
+                    result = self.determine_location(strain_name.split('/')[1])
             else:
-                result = None
-            if result is not None:
-                v['country'], v['division'], v['location'] = result
-            else:
-                print("couldn't parse country for ", strain_name, "gisaid location", v['gisaid_location'], original_name)
-            if 'BuenosAires' in v['strain']:
-                if 'Brazil' in 'gisaid_location':
-                    v['country'] = 'Brazil'
-                    v['division'] = 'Pernambuco'
-            if 'SantaCruz' in v['strain']:
-                if 'Bolivia' in 'gisaid_location':
-                    v['country'] = 'Bolivia'
-                    v['division'] = 'SantaCruz'
-            if 'ChristChurch' in v['strain']:
-                if 'Barbados' in 'gisaid_location':
-                    v['country'] = 'Barbados'
-                    v['division'] = 'ChristChurch'
-            if 'SaintPetersburg' in v['strain']:
-                if 'United States' in 'gisaid_location':
-                    v['country'] = 'USA'
-                    v['division'] = 'Florida'
-            if 'Georgia' in v['strain']:
-                if 'Asia' in 'gisaid_location':
-                    v['country'] = 'Georgia'
-                    v['division'] = 'Georgia'
-                    v['lcoation'] = 'Georgia'
+                result = self.determine_location(name)
+        else:
+            result = None
+        if result is not None:
+            v['country'], v['division'], v['location'] = result
+        else:
+            v['country'], v['division'], v['location'] = None, None, None
+            print("couldn't parse country for ", strain_name, "gisaid location", v['gisaid_location'], original_name)
+
+        # Repeat location name, Use gisaid Location to assign name
+        repeat_location = {'BuenosAires': ('Brazil', 'Pernambuco', 'BuenosAires'), 'SantaCruz': ('Bolivia', 'SantaCruz', 'SantaCruz'),
+                           'ChristChurch': ('Barbados', 'ChristChurch', 'ChristChurch'), 'SaintPetersburg': ('USA', 'Florida', 'SaintPetersburg'),
+                            'GeorgiaCountry': ('GeorgiaCountry', 'GeorgiaCountry', 'GeorgiaCountry')}
+        for repeat, assignment in repeat_location.items():
+            if repeat in v['strain']:
+                if 'gisaid_location' in v and assignment[0] in v['gisaid_location']:
+                    v['country'] = assignment[0]
+                    v['division'] = assignment[1]
+                    v['lcoation'] = assignment[2]
 
     def determine_location(self, name):
+        '''
+        Try to determine country, division and location information from name
+        Return tuple of country, division, location if found, otherwise return None
+        '''
         try:
             label = re.match(r'^([^/]+)', name).group(1).lower()						# check first for whole geo match
             if label in self.label_to_country:
@@ -309,6 +319,8 @@ class flu_upload(upload):
                 label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', name).group(1).lower()			# check for partial geo match
             if label in self.label_to_country:
                 return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+            else:
+                return None
         except:
             return None
 
@@ -336,9 +348,6 @@ class flu_upload(upload):
                 v['vtype'] = match[0].lower()
                 v['subtype'] = match[1].lower()
                 v['lineage'] = match[2].lower()
-            else:
-                self.groups.add(str(temp_subtype) + ':' + str(temp_lineage))
-                self.groups_unknown += 1
             return v
 
 if __name__=="__main__":
