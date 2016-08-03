@@ -22,11 +22,16 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 ## Install
 
-To install Python bindings need to run upload/download scripts, run:
+Clone the repo and load submodules:
+
+    git clone https://github.com/blab/nextstrain-db.git
+    git submodule update --init --recursive
+
+Install Python bindings needed to run upload/download scripts:
 
     pip install rethinkdb==2.2.0.post2
 
-To install Chateau Web UI, run:
+Install Chateau Web UI:
 
     npm install
 
