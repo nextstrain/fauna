@@ -98,7 +98,7 @@ Upload flu sequences from GISAID:
 
 Upload Zika sequences from VIPR:
 
-    python vdb/zika_upload.py -db test_vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta
+    python vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta
     
 Upload via accession file:
 
@@ -143,9 +143,9 @@ Resolve duplicate sequences for the same locus with these arguments
 
 Download sequences for `Zika_process.py`:
 
-    python vdb/download.py -db vdb -v zika --fstem zika
-    
-    python vdb/download.py -db vdb -v zika --ftype json --countries brazil haiti --public_only
+    python vdb/zika_download.py -db vdb -v zika --fstem zika
+
+    python vdb/zika_download.py -db vdb -v zika --fstem zika --countries brazil haiti --public_only
     
 Download sequences from `flu_download.py`:
 
@@ -166,8 +166,8 @@ Sequences in vdb can be automatically updated.
 
 ### Examples
 
-	python vdb/update.py -db test_vdb -v zika
-	
+	python vdb/zika_update.py -db vdb -v zika
+
 	python vdb/update.py -db test_vdb -v zika --accessions KU501216,KU501217
 	
 ## Backup and Restore
