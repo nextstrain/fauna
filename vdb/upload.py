@@ -57,7 +57,7 @@ class upload(parse):
         viruses = self.filter(viruses, **kwargs)
         sequences = self.filter(sequences, **kwargs)
         self.format(viruses, **kwargs)
-        self.format(sequences, **kwargs)
+        self.format(sequences, exclude_virus_methods=True, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
@@ -74,7 +74,7 @@ class upload(parse):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-    def format(self, documents, **kwargs):
+    def format(self, documents, exclude_virus_methods=False, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
@@ -87,6 +87,9 @@ class upload(parse):
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
+        if not exclude_virus_methods:
+            print("Determining latitudes and longitudes")
+            self.determine_latitude_longitude(documents, ['country'])
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
@@ -135,6 +138,11 @@ class upload(parse):
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
+    def snakecase_to_camelcase(self, name):
+        split_name = name.split('_')
+        split_name = [x.title() for x in split_name]
+        return "".join(split_name)
+
     def define_regions(self):
         '''
         open country to region dictionary
@@ -175,6 +183,80 @@ class upload(parse):
     def filter(self, documents, **kwargs):
         return documents
 
+    def determine_latitude_longitude(self, documents, location_fields=['location', 'division', 'country']):
+        '''
+        Assign latitude, longitude for as specific of a location as possible
+        Location fields should be defined in order prioritized to determine latitude and longitude from
+        Start by looking first for location, then division then country
+
+        '''
+        # get the latitude and longitudes that were already determined
+        file = open("source-data/geo_lat_long.tsv", 'r')
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
+        self.location_to_lat_long = {}
+        for line in reader:
+            self.location_to_lat_long[line['location'] + ":" + line['country_code']] = (float(line['latitude']), float(line['longitude']))
+        file.close()
+
+        # Mapping from country to ISO 3166-1 Alpha-2 code
+        file = open("source-data/geo_ISO_code.tsv", 'r')
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')
+        self.country_to_code = {}
+        for line in reader:
+            self.country_to_code[line['country']] =line['code']
+        file.close()
+
+        # file to write the new latitudes and longitudes that will be determined
+        file = open("source-data/geo_lat_long.tsv", 'a')
+        for doc in documents:
+            if 'country' in doc:
+                if doc['country'] in self.country_to_code:
+                    country_code = self.country_to_code[doc['country']]
+                    locations = [doc[field] for field in location_fields]
+                    determined_location = False
+                    for loc in locations:
+                        if loc + ":" + country_code in self.location_to_lat_long:  # already determined location
+                            doc['latitude'], doc['longitude'], doc['lat_long_location'] = self.location_to_lat_long[loc + ":" + country_code] + (loc,)
+                            determined_location = True
+                        else:
+                            try:
+                                result = self.get_latitude_longitude(country_code, loc)
+                            except:
+                                print(doc['strain'], locations, loc)
+                                file.close()
+                                raise Exception("Geopy query failed")
+                            if result is not None:  # found location
+                                if loc not in self.location_to_lat_long:
+                                    file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
+                                    self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
+                                doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
+                                determined_location = True
+                        if determined_location:
+                            break
+                    if not determined_location:
+                        print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
+                        doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
+                else:
+                    print("Couldn't find alpha-2 country code for ", doc['country'])
+            else:
+                print("Country not defined document, can't determine latitude and longitude", doc['strain'])
+
+    def get_latitude_longitude(self, country_code, location):
+        '''
+        Use geopy package to determine latitude and longitude for location
+        Bias results to country_code
+        Return tuple of latitude, longitude if result found, otherwise returns None
+        '''
+        from geopy.geocoders import Nominatim
+        geolocator = Nominatim(country_bias=country_code)
+        result = geolocator.geocode(location.replace("_", " "))
+        if result is not None:
+            print("Found latitude and longitude for ", location)
+            return (result.latitude, result.longitude)
+        else:
+            print("Couldn't find latitude and longitude for ", location)
+            return result
+
     def link_viruses_to_sequences(self, viruses, sequences):
         '''
         Link the sequence information virus isolate information via the strain name
@@ -210,13 +292,14 @@ class upload(parse):
         db_key_to_documents = {dd[index]: dd for dd in db_documents}
         update_documents = {}
         upload_documents = {}
-
+        print("Classifying documents to upload or update")
         # Determine whether documents need to be updated or uploaded
         for doc in documents:
             # match to relaxed strain name if available
             db_key = doc[index]
             if self.relax_name(doc[index]) in db_relaxed_keys:
                 db_key = db_relaxed_keys[self.relax_name(doc[index])]
+
             if db_key in db_key_to_documents.keys():  # add to update documents
                 update_documents[db_key] = doc
             elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
@@ -228,10 +311,17 @@ class upload(parse):
         self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
 
     def upload_to_rethinkdb(self, database, table, documents, conflict_resolution):
-        try:
-            r.table(table).insert(documents, conflict=conflict_resolution).run()
-        except:
-            raise Exception("Couldn't insert new documents into database", database + "." + table)
+        optimal_upload = 200
+        if len(documents) > optimal_upload:
+            list_documents = [documents[x:x+optimal_upload] for x in range(0, len(documents), optimal_upload)]
+        else:
+            list_documents = [documents]
+        print("Uploading to rethinkdb in " + str(len(list_documents)) + " batches")
+        for list_docs in list_documents:
+            try:
+                r.table(table).insert(list_docs, conflict=conflict_resolution).run()
+            except:
+                raise Exception("Couldn't insert new documents into database", database + "." + table)
 
     def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
         print("Checking for updates to ", len(update_documents), "documents")

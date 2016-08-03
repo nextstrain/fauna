@@ -1,0 +1,706 @@
+label	fix
+
+# Argentina
+Buenosaires	BuenosAires
+SantiagodelEstero	SantiagoDelEstero
+TierradelFuego	TierraDelFuego
+Tucum?n	Tucuman
+
+# Australia
+NorthernTerritories	NorthernTerritory
+29c	/
+NT	NorthernTerritory
+SouthAustalia	SouthAustralia
+SouthAustrallia	SouthAustralia
+SouthAustalia	SouthAustralia
+SouthAustralai	SouthAustralia
+South_Australia	SouthAustralia
+SouthAustrallia	SouthAustralia
+Victoira	Victoria
+CairnsNorth	Cairns
+
+# Barbados
+Christ_Church	ChristChurch
+
+# Belgium
+Brussel	Brussels
+
+# BosniaAndHerzegovina
+Bosnia-Herzegovina	BosniaHerzegovina
+
+# Brazil
+Espirito_Santo	EspiritoSanto
+Minas_Gerais	MinasGerais
+Rio_de_Janeiro	RioDeJaneiro
+RioGdeSul	RioGrandeDoSul
+RioGdoSul	RioGrandeDoSul
+Rio_Grande_do_Sul	RioGrandeDoSul
+Santa_Catarina	SantaCatarina
+SaopPaulo	SaoPaulo
+S?oPaulo	SaoPaulo
+StaCatarina	SantaCatarina
+
+# Canada
+NorthwestTerritories	NorthWestTerritories
+Canada_SK	Saskatchewan
+Canada_QC	Quebec
+Canada_ON	Ontario
+Canada_NWT	NorthwestTerritories
+Canada_NFL	NewfoundlandAndLabrador
+Canada_NB	NewBrunswick
+Canada_PQ	Quebec
+Canada_MB	Manitoba
+Canada_BC	BritishColumbia
+Canada_AB	Alberta
+Canada_NS	NovaScotia
+Canada-SK	Saskatchewan
+Canada-QC	Quebec
+Canada-ON	Ontario
+Canada-NWT	NorthwestTerritories
+Canada-NFL	NewfoundlandAndLabrador
+Canada-NB	NewBrunswick
+Canada-PQ	Quebec
+Canada-MB	Manitoba
+Canada-BC	BritishColumbia
+Canada-AB	Alberta
+Canada-NS	NovaScotia
+
+# Chile
+Alto_Hospicio	AltoHospicio
+Concepci?n	Concepcion
+Isla_de_Pascua	IslaDePascua
+IslaPascua	IslaDePascua
+La_Serena	LaSerena
+Nueva_Imperial	NuevaImperial
+PtoMontt	PuertoMontt
+Puerto_Montt	PuertoMontt
+Punta_Arenas	PuntaArenas
+Valpara?so	Valparaiso
+Vi?a_del_Mar	VinaDelMar
+
+# China
+Anhuidangtu	AnhuiDangtu
+Beijng	Beijing
+Beijin	Beijing
+Beijignshijingshan	BeijingShijingshan
+Beijingchaoyang	BeijingChaoyang
+Beijingchongwen	BeijingChongwen
+Beijingdaxing	BeijingDaxing
+Beijingdongcheng	BeijingDongcheng
+Beijingfangshan	BeijingFangshan
+Beijinghaidian	BeijingHaidian
+Beijinghuairou	BeijingHuairou
+Beijingmentougou	BeijingMentougou
+Beijingmiyun	BeijingMiyun
+Beijingxicheng	BeijingXicheng
+Beijng-Xicheng	BeijingXicheng
+Beijingxuanwu	BeijingXuanwu
+Beijinxuanwu	BeijingXuanwu
+Cheng-mei	ChengMei
+Chongqingyuzhong	ChongqingYuzhong
+Guandong	Guangdong
+Fujiangulou	FujianGulou
+Gansuchengguan	GansuChengguan
+Guanxi	Guangxi
+Guang-Xi-Xixiang-Tang	GuangxiXixiangtang
+Guang-Xiqing-Xiu	GuangxiQingxiu
+Guangdongfutian	GuangdongFutian
+Guangdonghaizhu	GuangdongHaizhu
+Guangdongluohu	GuangdonGluohu
+Guangxilongzhou	GuangxiLongzhou
+hanfang	Hanfang
+Heilongijang	Heilongjiang
+heilongJiangxi-An	HeilongjiangXiAn
+Heilongijang-Jianhua	HeilongjiangJianhua
+HeilongijangJianhua	HeilongjiangJianhua
+Hebeiwuchang	HubeiWuchang
+Henanhuojia	HenanHuojia
+Henanjinshui	HenanJinshui
+Henansheqiu	HenanShenqiu
+Henanxigong	HenanXigong
+Huaian-Qingpu	HuaianQingpu
+Hubeijiangan	HubeiJiangan
+Hubeimaojian	HubeiMaojian
+Hubeiqiaokou	HubeiQiaokou
+Hubeiwuchang	HubeiWuchang
+Hubei-Wujiagang	HubeiWujiagang
+Hubeiwujiagang	HubeiWujiagang
+Huizhou	HuZhou
+Huzhou	HuZhou
+Hunanwuling	HunanWuling
+Hunanyuhua	HunanYuhua
+Jiangsubeitang	JiangsuBeitang
+Jiangsudanyang	JiangsuDanyang
+Jiangsugaoyou	JiangsuGaoyou
+Jiangsugusu	JiangsuGusu
+Jiangsuhailing	JiangsuHailing
+Jiangsunanchang	JiangsuNanchang
+Jiangsunanjing	JiangsuNanjing
+jiangsunanjinggulou	JiangsuNanjinGulou
+Jiangsupizhou	JiangsuPizhou
+Jiangsuqingpu	JiangsuQingpu
+Jiangsuqinhuai	JiangsuQinhuai
+Jiangsuquanshan	JiangsuQuanshan
+Jiangsusucheng	JiangsuSucheng
+Jiangsutinghu	JiangsuTinghu
+Jiangxidonghu	JiangxiDonghu
+Jiangxiguix1	JiangxiGuix
+jinfang	Jinfang
+jingfang	Jinfang
+Jinlin	Jilin
+Jilinchaoyang	JilinChaoyang
+Jilinnanguan	JilinNanguan
+Jinagsuquanshan	JinagsuQuanshan
+kunke	Kunke
+Liaoninghuanggu	LiaoningHuanggu
+LongYan	Longyan
+NanPing	Nanping
+Nangchang	Nanchang
+Neimeng	Neimenggu
+NingDe	Ningde
+PuTian	Putian
+Qingfang	Qingfeng
+QuanZhou	Quanzhou
+SanMing	Sanming
+Shangdong	Shandong
+Shanghainanhui	ShanghaiNanhui
+Shanghaipudongxin	ShanghaiPudongxin
+Shanxiweicheng	ShanxiWeicheng
+Shannxi	Shaanxi
+Shannxi-Beilin	ShaanxiBeilin
+ShannxiBeilin	ShaanxiBeilin
+shenfang	Shenfang
+Shengzhen	Shenzhen
+Shichuan	Sichuan
+Sichuanwenjiang	SichuanWenjiang
+Tianjing	Tianjin
+Tianjinhedong	TianjinHedong
+Tianjinheping	TianjinHeping
+Tianjinhongqiao	TianjinHongqiao
+Tianjinjinnan	TianjinJinnan
+Tianjinnankai	TianjinNankai
+Tianjinninghe	TianjinNinghe
+Tianjintanggu	TianjinTanggu
+Xinjing	Xinjiang
+XinjingTulufan	XinjiangTulufan
+Xin-Jiang-Tianshan	XinjiangTianshan
+Yunnananning	YunnanAnning
+ZhangZhou	Zhangzhou
+Zhejianghaishu	ZhejiangHaishu
+
+# CoteDIvoire
+CotedIvoire	CoteDIvoire
+Cote d\'Ivorie	CoteDIvoire
+Cote d'Ivorie	CoteDIvoire
+CoteDIvorie	CoteDIvoire
+YopougonGR926	Yopougon/GR926
+
+# CzechRepublic
+CzechRep	CzechRepublic
+Brno216	Brno/216
+CzechRepublic75	CzechRepublic/75
+
+# DominicanRepublic
+DominicanRep	DominicanRepublic
+
+# Denmark
+Dernmark	Denmark
+
+# Ecuador
+Equador	Ecuador
+
+# Egypt
+Helwan746	Helwan/746
+
+# Finland
+Finlad	Finland
+
+# France
+Aix-en-Provence	AixEnProvence
+Provence-Alpes-C?tedAzur	ProvenceAlpesCoteDAzur
+Champagne-Ardenne	ChampagneArdenne
+Champagne_Ardenne	ChampagneArdenne
+Clermont-Ferrand	ClermontFerrand
+Franche_Comte	FrancheComte
+Haute_Normandie	HauteNormandie
+Pays_de_Loire	PaysDeLoire
+Nord_Pas_de_Calais	NordPasDeCalais
+NordpasdeCalais	NordPasDeCalais
+
+# Germany
+Baden-W?rttemberg	BadenWurttemberg
+Baden-Wuerrtemberg	BadenWurttemberg
+Baden-Wuerttemburg	BadenWurttemberg
+Baden-Wuerttemberg	BadenWurttemberg
+Baden-Wurttemberg	BadenWurttemberg
+BadenWuerttemberg	BadenWurttemberg
+BadenWuerttemberg	BadenWurttemberg
+BadenWuerttemburg	BadenWurttemberg
+Basse_Normandie	BasseNormandie
+Bavaria	Bayern
+BLN	Berlin
+Cologne/Germany	Cologne
+Mecklenburg-Vorpommern	MecklenburgVorpommern
+Neidersachsen	Niedersachsen
+Nordrhein-Westfalen	NordrheinWestfalen
+Nordrhein-Wesrfalen	NordrheinWestfalen
+Regensburg/Germany	Regensburg
+RheinlandPfalz	RheinlandPfalz
+Rheinland-Pfalz	RheinlandPfalz
+RPF	RheinlandPfalz
+Th?ringen	Thuringen
+Thueringen	Thuringen
+Schleswig-Holstein	SchleswigHolstein
+
+# Greece
+ArgolidaGR	Argolida
+ArgosGR	Argos
+ArkadiaGR	Arkadia
+AstrosGR	Astros
+ChalkidaGR	Chalkida
+ChaniaGR	Chania
+ChiosIslandGR	Chios
+Chios_IslandGR	Chios
+CreteGR	Crete
+Crete_IslandGR	Crete
+HerakleionGR	Irakleio
+IraklioGR	Irakleio
+IrakleioGR	Irakleio
+KalamataGR	Kalamata
+KorinthosGR	Korinthos
+LamiaGR	Lamia
+Larisa	Larissa
+Larisa GR	Larissa
+LarisaGR	Larissa
+Larisa.GR	Larissa
+LasithiGR	Lasithi
+LefkadaGR	Lefkada
+LefkadaIslandGR	Lefkada
+Lesvos_IslandGR	Lesvos
+LivadeiaGR	Livadia
+LivadiaGR	Livadia
+PatraGR	Patra
+PatrasGR	Patra
+Pirgos	Pyrgos
+PirgosGR	Pyrgos
+PrevezaGR	Preveza
+RethymnoGR	Rethymno
+RhodesIslandGR	Rhodes
+Rhodes_IslandGR	Rhodes
+Rhodos_IslandGR	Rhodes
+SamosIslandGR	Samos
+SyrosIslandGR	Syros
+Thessalonika	Thessaloniki
+Thesssaloniki	Thessaloniki
+TinosGR	Tinos
+ViotiaGR	Viotia
+VonitsaGR	Vonitsa
+Zakynthos_IslandGR	Zakynthos
+
+# Guatemala
+Gutemala	Guatemala
+
+# HongKong
+HK	HongKong
+Hong_Kong	HongKong
+Hongkong	HongKong
+HongKong2180	HongKong/2180
+
+# Hungary
+Budapestfovaros	Budapest
+
+# India
+Awb	Aurangabad
+Blore	Bangalore
+Che	Chennai
+Chhattisgarh	Chattisgarh
+Hyd	Hyderabad
+Ind	India
+Kol	Kolkata
+Kolkutta	Kolkata
+Lur	Latur
+Mum	Mumbai
+Naghpur	Nagpur
+Ngp	Nagpur
+Nsk	Nashik
+Pach	Pachpadra
+Pachgani	Panchgani
+Patna-India	Patna
+Ujain	Ujjain
+Uttrakhand	Uttarakhand
+Ytml	Yavatmal
+
+# Iran
+Bandar_Abbas	BandarAbbas
+Azarbayejan-Sharghi	AzarbayejanSharghi
+Azarbayejan_Sharghi	AzarbayejanSharghi
+Ghazivin	Qazvin
+Ghazvin Qazvin
+Ghom	Qom
+Gholestan	Golestan
+
+# Italy
+Firenze	Florence
+Friuli-VeneziaGiulia	FriuliVeneziaGiulia
+Genova	Genoa
+MIlano	Milan
+Milano	Milan
+Roma	Rome
+Roma-ISS	Rome
+Verona-Italy	Verona
+Vicenza-Italy	Vicenza
+
+# Japan
+Guma	Gunma
+Gumma	Gunma
+Japane	Japan
+KITAKYUSYU	Kitakyushu
+Kitakyusyu	Kitakyushu
+Kouchi	Kochi
+SAITAMAC	Saitama
+Sapporro	Sapporo
+Tokoshima	Tokushima
+Yamaneshi	Yamanashi
+kadoma	Kadoma
+
+# Kazakhstan
+AlmaAta	Almaty
+Kazakstan	Kazakhstan
+
+# Kenya
+KENYA CP	Kenya
+Trans-Nzoia	TransNzoia
+
+# Kosovo
+SMitrovica	Mitrovica
+Kosova	Kosovo
+
+# Kyrgyzstan
+Kyrgyztan	Kyrgyzstan
+
+# Lao
+Laos	Lao
+
+# Lithuania
+Vilnus	Vilnius
+
+# Macedonia
+Kochani	Kocani
+
+# Mauritania
+Nouackchott	Nouakchott
+
+# Mauritius
+Mauritus	Mauritius
+
+# Micronesia
+FederatedStatesOfMicronesia	Micronesia
+
+# Mexico
+Mexicocity	MexicoCity
+
+# Mongolia
+Bayan-ulgii	BayanUlgii
+Bayanulgii	BayanUlgii
+Chiobalsan	Choibalsan
+Darkhan-uul	DarkhanUul
+Orchon	Orkhon
+Uvurkhagai	Uvurkhangai
+
+# Morocco
+Benimellal	BeniMellal
+Casa	Casablanca
+MORROCO	Morocco
+Mrrakech	Marrakech
+RABT	Rabat
+
+# Myanmar
+Myanmer	Myanmar
+
+# Netherlands
+Netherland	Netherlands
+NL	Netherlands
+
+# NewZealand
+Nelson_Marlborough	NelsonMarlborough
+Bop	BayOfPlenty
+Capitalcoast	CapitalCoast
+Christhcurch	Christchurch
+CHR	Christchurch
+Nelsonmarlborough	NelsonMarlborough
+
+# Nicaragua
+Mangua	Managua
+
+# Palestine
+Beithlehem	Bethlehem
+
+# PapuaNewGuinea
+EAST SEPIK PROVINCE	EastSepik
+Eastsepikprovince	EastSepik
+Portmoresby	PortMoresby
+
+# Peru
+Chachamayo	Chanchamayo
+Chamchamayo	Chanchamayo
+PuertoMaldonado	Maldonado
+
+# Philippines
+Phiippines	Philippines
+Philippinese	Philippines
+Phillipines	Philippines
+Phillippnes	Philippines
+
+# Poland
+Olsztyn-PL	Olsztyn
+
+# Portugal
+A?ores_PT	Acores
+Acores_PT	Acores
+Aveiro_PT	Aveiro
+Azores	Acores
+Beja_PT	Beja
+Braga_PT	Braga
+CasteloBranco_PT	CasteloBranco
+Coimbra_PT	Coimbra
+?vora_PT	Evora
+Guarda_PT	Guarda
+Leiria_PT	Leiria
+Lisboa	Lisbon
+Lisboa134 Lisbon/134
+Lisboa_PT	Lisbon
+Lissabon	Lisbon
+Madeira_PT	Madeira
+Portalegre_PT	Portalegre
+Porto_PT	Porto
+Santar?m_PT	Santarem
+Santarem_PT	Santarem
+ViaReal	VilaReal
+VilaReal_PT	VilaReal
+
+# PuertoRico
+Puerto_Rico	PuertoRico
+
+# Romania
+Bucuresti	Bucharest
+
+# Russia
+Archangelsk	Arkhangelsk
+Astrahan	Astrakhan
+Astrahkan	Astrakhan
+Blagovechensk	Blagoveshchensk
+Blagoveshensk	Blagoveshchensk
+IIV-Anadyr	Anadyr
+IIV-Birobidzhan	Birobidzhan	
+IIV-Cheboksary	Cheboksary
+IIV-Moscow	Moscow	
+IIV-Orenburg	Orenburg	
+IIV-Penza	Penza	
+IIV-Ryazan	Ryazan	
+IIV-Tomsk	Tomsk
+Irkursk	Irkutsk	
+Joshkar-Ola	YoshkarOla
+KMAO	KhantyMansia
+Kmao	KhantyMansia
+Krasnojarsk	Krasnoyarsk
+LIPETSK	Lipeztsk
+Lipetsk	Lipeztsk
+Lipezk	Lipeztsk
+Moscowoblast	Moscow
+Moscowv	Moscow
+Novgorod	NizhnyNovgorod
+NNovgorod	NizhnyNovgorod
+Nizhni Novgorod	NizhnyNovgorod
+NizhniiNovgorod	NizhnyNovgorod
+NizhniyNovgorod	NizhnyNovgorod
+Nizhny-Novgorod	NizhnyNovgorod
+NizhnyNovgorod	NizhnyNovgorod
+NorthNovgorod	NizhnyNovgorod
+Rostov-On-Don	RostovOnDon
+Rostov-on-Don	RostovOnDon
+Rostovoblast	Rostov
+Salehard	Salekhard
+SaintPetersburg	StPetersburg
+Stpetersburg	StPetersburg
+Saint-Petersburg	StPetersburg
+Stpetersburg	StPetersburg
+St-Petersburg	StPetersburg
+StPetersburgoblast	StPetersburg
+Ulan-Ude	UlanUde
+Ulan_Ude	UlanUde
+Ussr	USSR
+Vladivistok	Vladivostok
+VNovgorod	VelikyNovgorod
+Voroneg	Voronezh
+Yaryslavl	Yaroslavl
+
+# Slovakia
+Sastin-Straze	SastinStraze
+Sastin-Sraze	SastinStraze
+
+# Serbia
+Beograd	Belgrade
+Serbia-NS	Serbia
+
+# Singapore
+Singpaore	Singapore
+Singpore	Singapore
+
+# SouthKorea
+Chonnam	Cheonnam
+Cheju	Jeju
+CHEJU	Jeju
+Daeku	Daegu
+Daejeion	Daejeon
+Deajeon	Daejeon
+Gyeonggibuk	Gyeongbuk
+Gyongbuk	Gyeongbuk
+Inchon	Incheon
+Kangwon	Gangwon
+Kyounggi	Gyeonggi
+Pusan	BusanCheju	Jeju
+
+# SouthAfrica
+Capetown	CapeTown
+
+# Spain
+Baleares100	Baleares/100
+Cataluna	Catalonia
+Castilla-LaMancha	CastillaLaMancha
+CastillayLeon	CastileAndLeon
+
+# SriLanka
+Rathnapura	Ratnapura
+
+# StLucia
+SaintLucia	StLucia
+
+# StVincentAndTheGrenadines
+StVincentAndGrenadines	StVincentAndTheGrenadines
+StVincentTheGrenadines	StVincentAndTheGrenadines
+StVincentandGrenadines	StVincentAndTheGrenadines
+
+# Suriname
+Surinami	Suriname
+Surinam	Suriname
+
+# Sweden
+Malmoe	Malmo
+Goteborg	Gothenburg
+Karlmar	Kalmar
+Stockolm	Stockholm
+Stocholm	Stockholm
+
+# Taiwan
+Tainan	Taiwan
+Taiwn	Taiwan
+TW	Taiwan
+
+# Tajikistan
+Tajikstan	Tajikistan
+
+# Thailand
+Ayatthaya	Ayutthaya
+Bankgok	Bangkok
+Chantaburi	Chanthaburi
+CU-THA	CuTha
+Cu-Tha	CuTha
+Kamphaengphet	KamphaengPhet
+MaeHongSorn	MaeHongSon
+Nakhonratchasima	NakhonRatachasima
+Nakhonratchaisma	NakhonRatachasima
+NONG KAI	NongKhai
+Nongkai	NongKhai
+NONTHANURI	Nonthaburi
+NOTHABURI	Nonthaburi
+Nonthanuri	Nonthaburi
+Nothaburi	Nonthaburi
+Pathumthani	PathumThani
+Prachuapkhirikhan	PrachuapKhiriKhan
+Prachinburi	PrachinBuri
+Prajianburi	PrachinBuri
+Sakaew	SaKaeo
+Samutprakan	SamutPrakan
+SongKhlai	Songkhla
+Suratthani	SuratThani
+thailand	Thailand
+
+# TrinidadAndTobago
+Trinidad-Tobago	Trinidad
+
+# Turkey
+SUrfa	Sanliurfa
+
+# TurksAndCaicos
+TurksandCaicos	TurksAndCaicos
+
+# Ukraine
+Dnepropetrovsk	Dnipropetrovsk
+Dniprodzerdzinsk	Dniprodzerzhynsk
+Dniprodzerzinsk	Dniprodzerzhynsk
+Doneck	Donetsk
+Kharkov	Kharkiv
+Khmelnytsky	Khmelnitsky
+Kirovograd	Kirovohrad
+Kmelnitsk	Khmelnitsky
+Khmelnytskyi	Khmelnitsky
+Zaporizza	Zaporizhia
+Ivano-Frankivsk	IvanoFrankivsk
+Volin	Volyn
+Zakarpatska	Zakarpattia
+Hmelnizk	Khmilnyk
+Khazkov	Kharkiv
+Zaporizhzhya	Zaporizhia
+Zaporizzya	Zaporizhia
+Zhitomir	Zhytomyr
+
+# UnitedKingdom
+NIreland	NorthernIreland
+ChristHospital	ChristsHospital
+United_Kingdom	UnitedKingdom
+ENG	England
+Eng	England
+
+# USA
+Ann_Arbor	AnnArbor
+Delware	Delaware
+DictrictofColumbia	DistrictOfColumbia
+DistrictofColombia	DistrictOfColumbia
+DC	DistrictOfColumbia
+Ft.Benning	FtBenning
+Georgia_NHRC	GeorgiaNHRC
+New_Jersey	NewJersey
+Massachussetts	Massachusetts
+Mem	Memphis
+ID	Idaho
+GA	Georgia
+VI	VirginIslands
+North_Carolina	NorthCarolina
+WI	Wisconsin
+MD	Maryland
+WV	WestVirginia
+Md	Maryland
+NEW-YORK	NewYork
+New_York	NewYork
+West_Virginia	WestVirginia
+Los_Angeles	LosAngeles
+New_Mexico	NewMexico
+NewMexcio	NewMexico
+New-York	NewYork
+Pennsalvanya	Pennsylvania
+South_Carolina	SouthCarolina
+South_Dakota	SouthDakota
+West_Virginia	WestVirginia
+
+# Uruguay
+Puertomaldonado	Maldonando
+
+# Venezuela
+Venezuala	Venezuela
+
+# Vietnam
+VietNam	Vietnam
+HaNoi	Hanoi
+
+# WallisAndFutuna
+WALLIS-FUTUNA	WallisAndFutuna
