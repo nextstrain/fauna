@@ -12,7 +12,7 @@ class zika_upload(upload):
         tmp_name = name
         tmp_name = tmp_name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
         tmp_name = tmp_name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
-        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
+        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zikavirus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
         tmp_name = tmp_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
         tmp_name = re.sub('^/', '', tmp_name)
         try:
@@ -28,10 +28,10 @@ class zika_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    virus_fasta_fields = {2:'strain', 4:'collection_date', 5: 'host', 6:'country'}
-    sequence_fasta_fields = {0:'accession', 2:'strain'}
-    # 0        1          2      3  4          5     6
-    #>KU501216|Zika_virus|103344|NA|2015_12_01|Human|Guatemala
+    virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country'}
+    sequence_fasta_fields = {0:'accession', 1:'strain'}
+    # 0        1      2  3          4     5         6  7
+    #>KU501216|103344|NA|2015_12_01|Human|Guatemala|NA|Zika_virus
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = zika_upload(**args.__dict__)
