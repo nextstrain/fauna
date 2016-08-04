@@ -16,7 +16,7 @@ class update(upload):
         gi = self.get_GIs(accessions)
         viruses, sequences = self.get_entrez_viruses(gi, **kwargs)
         self.format(viruses, **kwargs)
-        self.format(sequences, **kwargs)
+        self.format(sequences, exclude_virus_methods=True, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Updating viruses in " + self.database + "." + self.viruses_table)

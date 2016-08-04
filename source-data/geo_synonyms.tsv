@@ -253,7 +253,7 @@ Cambodia	Cambodia	Cambodia	Cambodia
 Cameroon	Cameroon	Cameroon	Cameroon
 AbongMbang	Cameroon	East	AbongMbang
 Douala	Cameroon		Littoral	Douala
-Hevecam	Cameroon	South	Hevecam
+Hevecam	Cameroon	South	South
 Yaounde	Cameroon	Mfoundi	Yaounde
 					
 # Canada					
@@ -353,7 +353,7 @@ Dandong	China	Liaoning	Dandong
 Dianxin	China	Neimenggu	Dianxin	
 Dongcheng	China	Beijing	Dongcheng
 Du	China	China	Du
-Eryansuo	China	China	Eryansuo
+Eryansuo	China	China	China
 Fujian	China	Fujian	Fujian		
 FujianGulou	China	Fujian	Gulou		
 Fuzhou	China	Fujian	Fuzhou		
@@ -362,14 +362,14 @@ GansuChengguan	China	Gansu	Chengguan
 Guangdong	China	Guangdong	Guangdong		
 GuangdongFutian	China	Guangdong	Futian		
 GuangdongHaizhu	China	Guangdong	Haizhu		
-GuangdonGluohu	China	Guangdon	Gluohu
-Guanger	China	China	Guanger		
+GuangdongLuohu	China	Guangdong	Luohu
+Guanger	China	China	China		
 Guangxi	China	Guangxi	Guangxi		
 GuangxiLongzhou	China	Guangxi	Longzhou		
 GuangxiQingxiu	China	Guangxi	Qingxiu		
 GuangxiXixiangtang	China	Guangxi	Xixiangtang		
 Guangzhou	China	Guangdong	Guangzhou	
-Guansu	China	Guansu	Guansu		
+Gansu	China	Gansu	Gansu		
 Guizhou	China	Guizhou	Guizhou		
 Hainan	China	Hainan	Hainan		
 Haishu	China	Zhejiang	Haishu		
@@ -398,7 +398,7 @@ Hunan	China	Hunan	Hunan
 HunanWuling	China	Hunan	Wuling		
 HunanYuhua	China	Hunan	Yuhua		
 InnerMongolia	China	Neimenggu	Neimenggu
-Jinlinnanguan	China	China	Jinlinnanguan	
+Jinlinnanguan	China	China	China	
 Jiangsu	China	Jiangsu	Jiangsu					
 JiangsuBeitang	China	Jiangsu	Beitang		
 JiangsuDanyang	China	Jiangsu	Danyang		
@@ -423,11 +423,11 @@ Jilin	China	Jilin	Jilin
 JilinChaoyang	China	Jilin	Chaoyang			
 JilinNanguan	China	Jilin	Nanguan			
 JinagsuQuanshan	China	Jinagsu	Quanshan	
-Jinfang	China	Yunnan	Jinfang	
+Jinfang	China	Yunnan	Anning	
 Jinhua	China	Zhejiang	Jinhua		
 Jinshui	China	Henan	Jinshui
-Jitie	China	China	Jitie
-Kunke	China	Shanghai	Kunke
+Jitie	China	China	China
+Kunke	China	Shanghai	Shanghai
 Kunming	China	Yunnan	Kunming	
 Kuntie	China	China	Kuntie	
 Liaoning	China	Liaoning	Liaoning		
@@ -438,19 +438,19 @@ LongYan	China	Fujian	Longyan
 Macau	China	Macau	Macau
 Nanchang	China	Jiangxi	Nanchang		
 Nanjing	China	Jiangsu	Nanjing	
-Nanping	China	Fujian Nanping
+Nanping	China	Fujian	Nanping
 NeiMongolHohhotHuimin	China	Neimenggu	Hohhot
 NeiMongol	China	Neimenggu	Neimenggu		
 Neimenggu	China	Neimenggu	Neimenggu		
 Ningbo	China	Zhejiang	Ningbo	
-Ningfang	China	China	Ningfang	
+Ningfang	China	China	China	
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia		
 Putian	China	Fujian	Putian
 Qingdao	China	Shandong	Qingdao	
 Qingfeng	China	Henan	Qingfeng	
 Qinghai	China	Qinghai	Qinghai	
-Qitie	China	Heilongjiang	Qitie
+Qitie	China	Heilongjiang	Heilongjiang
 Quanzhou	China	Fujian	Quanzhou
 Quzhou	China	Zhejiang	Quzhou
 Sanming	China	Fujian	Sanming
@@ -460,7 +460,7 @@ Shaanxi	China	Shaanxi	Shaanxi
 Shandong	China	Shandong	Shandong		
 Shanghai	China	Shanghai	Shanghai
 ShanghaiNanhui	China	Shanghai	Nanhui
-ShanghaiPudongxin	China	Shanghai	Pudongxin
+ShanghaiPudongxin	China	Shanghai	Pudong
 Shantou	China	Guangdong	Shantou		
 Shanxi	China	Shanxi	Shanxi
 ShanxiWeicheng	China	Shanxi	Weicheng		
@@ -468,7 +468,7 @@ Shaanxi	China	Shaanxi	Shaanxi
 ShaanxiBeilin	China	Shaanxi	Beilin
 Shaoguan	China	Guangdong	Shaoguan
 Shaoxing	China	Zhejiang	Shaoxing
-Shenfang	China	China	Shenfang
+Shenfang	China	China	China
 Shenzhen	China	Guangdong	Shenzhen		
 Shijiazhuang	China	Hebei	Shijiazhuang
 Shitie	China	China	Shitie
@@ -529,7 +529,7 @@ Medellin	Colombia	Antioquia	Medellin
 CookIslands	CookIslands	CookIslands	CookIslands
 					
 # CostaRica
-CostaRica
+CostaRica	CostaRica	CostaRica	CostaRica
 
 # CoteDIvoire					
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire		
@@ -562,7 +562,7 @@ Cyprus	Cyprus	Cyprus	Cyprus
 CzechRepublic	CzechRepublic	CzechRepublic	CzechRepublic		
 Brno	CzechRepublic	SouthMoravian	Brno
 Czechoslovakia	CzechRepublic	CzechRepublic	CzechRepublic
-HradecKralove	China	HradecKralove	HradecKralove		
+HradecKralove	CzechRepublic	HradecKralove	HradecKralove		
 Praha	CzechRepublic	Bohemia	Prague		
 Prague	CzechRepublic	Bohemia	Prague		
 Ostrava	CzechRepublic	MoravianSilesian	Ostrava		
@@ -705,7 +705,7 @@ Dmanisi	GeorgiaCountry	KvemoKartli	Dmanisi
 Khobi	GeorgiaCountry	SamegreloZemoSvaneti	Khobi
 Kobuleti	GeorgiaCountry	Ajaria	Kobuleti
 Kutaisi	GeorgiaCountry	Imereti	Kutaisi
-Ozirgeti	GeorgiaCountry	Guria	Ozirgeti
+Ozurgeti	GeorgiaCountry	Guria	Ozurgeti
 Tbilisi	GeorgiaCountry	Tbilisi	Tbilisi
 Tskaltubo	GeorgiaCountry	Imereti	Tskaltubo	
 					
@@ -736,7 +736,7 @@ Regensburg	Germany	Bavaria	Regensburg
 RheinlandPfalz	Germany	RheinlandPfalz	RheinlandPfalz		
 Thuringen	Germany	Thuringen	Thuringen	
 Saarland	Germany	Saarland	Saarland
-SachenAnhalt	Germany	SachenAnhalt	SachenAnhalt
+SachsenAnhalt	Germany	SachsenAnhalt	SachsenAnhalt
 Sachsen	Germany	Sachsen	Sachsen		
 SchleswigHolstein	Germany	SchleswigHolstein	SchleswigHolstein
 Wurzburg	Germany	Bayern	Wurzburg		
@@ -744,7 +744,7 @@ Wurzburg	Germany	Bayern	Wurzburg
 # Ghana					
 Ghana	Ghana	Ghana	Ghana		
 Manhean	Ghana	Accra	Manhean		
-Korlebu	Ghana	Accra	Korlebu		
+Korlebu	Ghana	Accra	Accra		
 					
 # Greece					
 Greece	Greece	Greece	Greece		
@@ -1105,7 +1105,7 @@ Embu	Kenya	Embu	Embu
 Garissa	Kenya	Garissa	Garissa
 Isiolo	Kenya	Eastern	Isiolo
 Kakamega	Kenya	Kakamega	Kakamega
-Kapenguria	Kenya	WestPokot Kapenguria
+Kapenguria	Kenya	WestPokot	Kapenguria
 Keiyo	Kenya	ElgeyoMarakwet	Keiyo
 Kericho	Kenya	Kericho	Kericho
 Kijabe	Kenya	Kiambu	Kijabe
@@ -1174,7 +1174,7 @@ Itaosy	Madagascar	Antananarivo	Itaosy
 Maevatanana	Madagascar	Betsiboka	Maevatanana		
 Mahajanga	Madagascar	Mahajanga	Mahajanga	
 Mananjary	Madagascar	VatovavyFitovinany	Mananjary
-Manjakaray	Madagascar	Antananarivo	Manjakaray
+Manjakaray	Madagascar	Antananarivo	Antananarivo
 Moramanga	Madagascar	AlaotraMangoro	Moramanga		
 NosyBe	Madagascar	Diana	NosyBe		
 Tsaralalana	Madagascar	Antananarivo	Tsaralalana
@@ -1196,7 +1196,7 @@ Martinique	Martinique	Martinique	Martinique
 					
 # Mauritania					
 Mauritania	Mauritania	Mauritania	Mauritania		
-Nouakchott	Mauritanian	Nouakchott	Nouakchott	
+Nouakchott	Mauritania	Nouakchott	Nouakchott	
 					
 # Mauritius					
 Mauritius	Mauritius	Mauritius	Mauritius		
@@ -1226,17 +1226,19 @@ Moldova	Moldova	Moldova	Moldova
 # Mongolia					
 Mongolia	Mongolia	Mongolia	Mongolia		
 Arvaikheer	Mongolia	Arvaikheer	Arvaikheer		
-BayanUlgii	Mongolia	BayanUlgii	BayanUlgii		
+BayanOlgii	Mongolia	BayanOlgii	BayanOlgii		
 Bulgan	Mongolia	Bulgan	Bulgan		
 Choibalsan	Mongolia	Dornod	Choibalsan
 Darkhan	Mongolia	DarkhanUul	Darkhan	
 DarkhanUul	Mongolia	DarkhanUul	DarkhanUul	
-Dornogobi	Mongolia	Dornogobi	Dornogobi		
-Dundgobi	Mongolia	Dundgobi	Dundgobi	
-Gobisumber	Mongolia	Gobisumber	Gobisumber
+Dornogovi	Mongolia	Dornogovi	Dornogovi		
+Dundgovi	Mongolia	Dundgovi	Dundgovi	
+Govisumber	Mongolia	Govisumber	Govisumber
 Khentii	Mongolia	Khentii	Khentii	
 Kherlen	Mongolia	Dornod	Kherlen	
 Khovd	Mongolia	Khovd	Khovd		
+Olgii	Mongolia	BayanOlgii	Olgii	
+Omnogovi	Mongolia	Omnogovi	Omnogovi
 Orkhon	Mongolia	Orkhon	Orkhon		
 Sainshand	Mongolia	Dornogobi	Sainshand		
 Selenge	Mongolia	Selenge	Selenge		
@@ -1244,8 +1246,6 @@ Sukhbaatar	Mongolia	Sukhbaatar	Sukhbaatar
 Tuv	Mongolia	Tuv	Tuv	
 Ulaanbaatar	Mongolia	Ulaanbaatar	Ulaanbaatar	
 Ulaangom	Mongolia	Uvs	Ulaangom
-Ulgii	Mongolia	BayanUlgii	Ulgii	
-Unmugobi	Mongolia	Unmugobi	Unmugobi
 Uvurkhangai	Mongolia	Uvurkhangai	Uvurkhangai		
 Zavkhan	Mongolia	Zavkhan	Zavkhan		
 					
@@ -1316,8 +1316,8 @@ Dunedin	NewZealand	Otago	Dunedin
 HawkesBay	NewZealand	HawkesBay	HawkesBay
 Hutt	NewZealand	Wellington	Hutt
 HuttValley	NewZealand	Wellington	HuttValley
-Midcentral	NewZealand	NewZealand	Midcentral		
-NelsonMarlborough	NewZealand	Nelson	NelsonMarlborough
+Midcentral	NewZealand	NewZealand	PalmerstonNorth		
+NelsonMarlborough	NewZealand	Nelson	Nelson
 Northland	NewZealand	Northland	Northland
 NorthWestAuckland	NewZealand	Auckland	Auckland			
 Otago	NewZealand	Otago	Otago		
@@ -1325,7 +1325,7 @@ PortChalmers	NewZealand	Otago	PortChalmers
 SouthAuckland	NewZealand	Auckland	SouthAuckland
 SouthCanterbury	NewZealand	Canterbury	SouthCanterbury		
 Southland	NewZealand	Southland	Southland		
-Tairawhiti	NewZealand	Gisborne	Tairawhiti
+Tairawhiti	NewZealand	Gisborne	Gisborne
 Tauranga	NewZealand	NorthIsland	Tauranga		
 Waikato	NewZealand	Waikato	Waikato		
 Wellington	NewZealand	Wellington	Wellington
@@ -1371,7 +1371,7 @@ Hebron	Palestine	Hebron	Hebron
 Jenin	Palestine	Jenin	Jenin
 Jericho	Palestine	Jericho	Jericho
 Nablus	Palestine	Nablus	Nablus
-Qalqilia	Palestine	Qalqilia	Qalqilia
+Qalqilya	Palestine	Qalqilya	Qalqilya
 Ramallah	Palestine	RamallahAndAlBireh	Ramallah
 Salfeet	Palestine	Salfit	Salfeet
 Tubas	Palestine	Tubas	Tubas
@@ -1530,7 +1530,7 @@ Krasnoyarsk	Russia	Krasnoyarsk	Krasnoyarsk
 Kurgan	Russia	Kurgan	Kurgan		
 Kursk	Russia	Kursk	Kursk
 Leningrad	Russia	Leningrad	Leningrad		
-Lipeztsk	Russia	Lipeztsk	Lipeztsk		
+Lipetsk	Russia	Lipetsk	Lipetsk		
 Magadan	Russia	Magadan	Magadan		
 Majkop	Russia	Adygeya	Majkop	
 Mcensk	Russia	Oryol	Mcensk		
@@ -1583,8 +1583,8 @@ Rwanda	Rwanda	Rwanda	Rwanda
 # SaintKitts
 SaintKitts	SaintKitts	SaintKitts	SaintKitts
 
-# StLucia
-StLucia	StLucia	StLucia	StLucia	
+# SaintLucia
+SaintLucia	SaintLucia	SaintLucia	SaintLucia	
 		
 # Samoa					
 Samoa	Samoa	Samoa	Samoa		
@@ -1686,17 +1686,17 @@ Gyeongbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
 Gyeongnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Incheon	SouthKorea	Seoul	Incheon		
 Jeju	SouthKorea	Jeju	Jeju		
-Jeonbuk	SouthKorea	Seoul	Gongnam
+Jeonbuk	SouthKorea	Seoul	Gangnam
 Jeonnam	SouthKorea	Jeollanam	Jeonnam
 Jochiwon	SouthKorea	Daejeon	Jochiwon		
 Korea	SouthKorea	SouthKorea	SouthKorea	
 Kwangju	SouthKorea	Honam	Kwangju		
-Kyongbuk	SouthKorea	Gyeongsang	Kyongbuk
-Kyonggi	SouthKorea	Gyeonggi	Kyonggi
-Kyongnam	SouthKorea	Gyeongsangnam	Kyongnam
-Kyungbuk	SouthKorea	Gyeongsangbuk	Kyungbuk
-Kyunggi	SouthKorea	Gyeonggi	Kyunggi
-Kyungnam	SouthKorea	Gyeongsangnam	Kyongnam
+Kyongbuk	SouthKorea	Gyeongsang	Gyeongbuk
+Kyonggi	SouthKorea	Gyeonggi	Gyeonggi
+Kyongnam	SouthKorea	Gyeongsangnam	Gyeongnam
+Kyungbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
+Kyunggi	SouthKorea	Gyeonggi	Gyeonggi
+Kyungnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Seoul	SouthKorea	Seoul	Seoul	
 Ulsan	SouthKorea	Ulsan	Ulsan	
 					
@@ -1826,13 +1826,13 @@ Rayong	Thailand	Rayong	Rayong
 SaKaeo	Thailand	SaKaeo	SaKaeo		
 SamutPrakan	Thailand	SamutPrakan	SamutPrakan
 Saraburi	Thailand	Saraburi	Saraburi
-Siriraj_ICRC_NKS_1	Thailand	Bangkok	Siriraj	
+Siriraj_ICRC_NKS_1	Thailand	Bangkok	Bangkok	
 Songkhla	Thailand	Songkhla	Songkhla
 Sukhothai	Thailand	Sukhothai	Sukhothai		
-Suphanburi	Thailand	Suphanburi	Suphanburi
+SuphanBuri	Thailand	SuphanBuri	SuphanBuri
 SuratThani	Thailand	SuratThani	SuratThani		
 Tak	Thailand	Tak	Tak		
-Udorn	Thailand	Udon Thani	Udorn		
+Udorn	Thailand	NakhonRatachasima	NongPhaiLom		
 
 # Togo					
 Togo	Togo	Togo	Togo		
@@ -1908,7 +1908,7 @@ TurksAndCaicos	TurksAndCaicos	BritishOverseasTerritory	TurksAndCaicos
 Tuvalu	Tuvalu	Tuvalu	Tuvalu
 					
 # Uganda					
-Uganda	Uganda	Uganda	Uganda	Kharkiv	
+Uganda	Uganda	Uganda	Uganda	
 					
 # Ukraine					
 Ukraine	Ukraine	Ukraine	Ukraine		
@@ -1920,7 +1920,7 @@ Dnipropetrovsk	Ukraine	Dnipropetrovsk	Dnipropetrovsk
 Dniprodzerzhynsk	Ukraine	Dnipropetrovsk	Kamianske
 Donetsk	Ukraine	Donetsk	Donetsk		
 IvanoFrankivsk	Ukraine	IvanoFrankivsk	IvanoFrankivsk		
-Kharkiv	Ukraine	Kharkiv			
+Kharkiv	Ukraine	Kharkiv	Kharkiv
 Khmelnitsky	Ukraine	Khmelnitsky	Khmelnitsky		
 Khmilnyk	Ukraine	Khmilnyk	Khmilnyk		
 Kiev	Ukraine	Kiev	Kiev
@@ -1971,10 +1971,10 @@ Croydon	UnitedKingdom	England	Croydon
 Cumbria	UnitedKingdom	England	Cumbria
 Derbyshire	UnitedKingdom	England	Derbyshire
 Dundee	UnitedKingdom	England	Dundee
-Edinburgh	UnitedKingdom	Scotland
+Edinburgh	UnitedKingdom	Scotland	Edinburgh
 England	UnitedKingdom	England	England	
-Exeter	UnitedKingdom	England
-Feltham	UnitedKingdom	England
+Exeter	UnitedKingdom	England	Exeter
+Feltham	UnitedKingdom	England	Feltham
 Gerrards Cross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
 Glasgow	UnitedKingdom	Scotland	Glasgow
@@ -2107,7 +2107,7 @@ Cornell	USA	NewYork	Cornell
 Dayton	USA	Ohio	Dayton		
 Durham	USA	NorthCarolina	Durham		
 FtBenning	USA	Georgia	FortBenning		
-FtCarson	USA	Colorado	FtCarson		
+FtCarson	USA	Colorado	FortCarson		
 Gainesville	USA	Florida	Gainesville		
 GeorgiaNHRC	USA	Georgia	FortBenning
 Gilroy	USA	California	Gilroy		

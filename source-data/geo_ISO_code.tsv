@@ -27,10 +27,11 @@ benin	BJ
 bermuda	BM
 bhutan	BT
 bolivia	BO
-bosnia_and_herzegovina	BA
+bosnia_herzegovina	BA
 botswana	BW
 bouvet_island	BV
 brazil	BR
+british_virgin_islands	VG
 brunei	BN
 bulgaria	BG
 burkina_faso	BF
@@ -78,7 +79,7 @@ french_polynesia	PF
 french_southern_territories	TF
 gabon	GA
 gambia	GM
-georgia	GE
+georgia_country	GE
 germany	DE
 ghana	GH
 gibraltar	GI
@@ -113,6 +114,7 @@ jordan	JO
 kazakhstan	KZ
 kenya	KE
 kiribati	KI
+kosovo	KV
 south_korea	KR
 kuwait	KW
 kyrgyzstan	KG
@@ -181,11 +183,11 @@ rwanda	RW
 réunion	RE
 saint_barthélemy	BL
 saint_helena,_ascensionand_tristanda_cunha	SH
-saint_kittsand_nevis	KN
+saint_kitts	KN
 saint_lucia	LC
 saint_martin(_frenchpart)	MF
 saint_pierreand_miquelon	PM
-saint_vincentandthe_grenadines	VC
+st_vincent_and_the_grenadines	VC
 samoa	WS
 san_marino	SM
 sao_tomeand_principe	ST
@@ -211,7 +213,7 @@ svalbardand_jan_mayen	SJ
 swaziland	SZ
 sweden	SE
 switzerland	CH
-syrian_arab_republic	SY
+syria	SY
 taiwan	TW
 tajikistan	TJ
 tanzania	TZ
@@ -224,7 +226,7 @@ trinidad_and_tobago	TT
 tunisia	TN
 turkey	TR
 turkmenistan	TM
-turksand_caicos_islands	TC
+turks_and_caicos	TC
 tuvalu	TV
 uganda	UG
 ukraine	UA
@@ -237,7 +239,7 @@ vanuatu	VU
 venezuela	VE
 vietnam	VN
 virgin_islands	VI
-wallisand_futuna	WF
+wallis_and_futuna	WF
 western_sahara	EH
 yemen	YE
 zambia	ZM

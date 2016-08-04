@@ -106,8 +106,9 @@ Guang-Xi-Xixiang-Tang	GuangxiXixiangtang
 Guang-Xiqing-Xiu	GuangxiQingxiu
 Guangdongfutian	GuangdongFutian
 Guangdonghaizhu	GuangdongHaizhu
-Guangdongluohu	GuangdonGluohu
+Guangdongluohu	GuangdongLuohu
 Guangxilongzhou	GuangxiLongzhou
+Guansu	Gansu
 hanfang	Hanfang
 Heilongijang	Heilongjiang
 heilongJiangxi-An	HeilongjiangXiAn
@@ -227,6 +228,9 @@ Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
 
+# GeorgiaCountry
+Ozirgeti	Ozurgeti
+
 # Germany
 Baden-W?rttemberg	BadenWurttemberg
 Baden-Wuerrtemberg	BadenWurttemberg
@@ -250,6 +254,7 @@ Rheinland-Pfalz	RheinlandPfalz
 RPF	RheinlandPfalz
 Th?ringen	Thuringen
 Thueringen	Thuringen
+SachenAnhalt	SachsenAnhalt
 Schleswig-Holstein	SchleswigHolstein
 
 # Greece
@@ -400,11 +405,16 @@ FederatedStatesOfMicronesia	Micronesia
 Mexicocity	MexicoCity
 
 # Mongolia
-Bayan-ulgii	BayanUlgii
-Bayanulgii	BayanUlgii
+Bayan-ulgii	BayanOlgii
+Bayanulgii	BayanOlgii
 Chiobalsan	Choibalsan
 Darkhan-uul	DarkhanUul
+Dornogobi	Dornogovi
+Dundgobi	Dundgovi
+Gobisumber	Govisumber
 Orchon	Orkhon
+Ulgii	Olgii
+unmugobi	Omnogovi
 Uvurkhagai	Uvurkhangai
 
 # Morocco
@@ -434,6 +444,7 @@ Mangua	Managua
 
 # Palestine
 Beithlehem	Bethlehem
+Qalqilia	Qalqilya
 
 # PapuaNewGuinea
 EAST SEPIK PROVINCE	EastSepik
@@ -503,9 +514,9 @@ Joshkar-Ola	YoshkarOla
 KMAO	KhantyMansia
 Kmao	KhantyMansia
 Krasnojarsk	Krasnoyarsk
-LIPETSK	Lipeztsk
-Lipetsk	Lipeztsk
-Lipezk	Lipeztsk
+LIPETSK	Lipetsk
+Lipetsk	Lipetsk
+Lipezk	Lipetsk
 Moscowoblast	Moscow
 Moscowv	Moscow
 Novgorod	NizhnyNovgorod
@@ -572,8 +583,8 @@ CastillayLeon	CastileAndLeon
 # SriLanka
 Rathnapura	Ratnapura
 
-# StLucia
-SaintLucia	StLucia
+# SaintLucia
+StLucia	SaintLucia
 
 # StVincentAndTheGrenadines
 StVincentAndGrenadines	StVincentAndTheGrenadines

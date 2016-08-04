@@ -227,17 +227,20 @@ class upload(parse):
                                 raise Exception("Geopy query failed")
                             if result is not None:  # found location
                                 if loc not in self.location_to_lat_long:
+                                    print("Found latitude and longitude for ", loc, doc['country'])
                                     file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
                                     self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
                                 doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
                                 determined_location = True
+                            else:
+                                print("Couldn't find latitude and longitude for ", loc, doc['country'])
                         if determined_location:
                             break
                     if not determined_location:
                         print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
                         doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
                 else:
-                    print("Couldn't find alpha-2 country code for ", doc['country'])
+                    print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
             else:
                 print("Country not defined document, can't determine latitude and longitude", doc['strain'])
 
@@ -249,12 +252,12 @@ class upload(parse):
         '''
         from geopy.geocoders import Nominatim
         geolocator = Nominatim(country_bias=country_code)
+        #from geopy.geocoders import GeoNames
+        #geolocator = GeoNames(country_bias=country_code, username='')
         result = geolocator.geocode(location.replace("_", " "))
         if result is not None:
-            print("Found latitude and longitude for ", location)
             return (result.latitude, result.longitude)
         else:
-            print("Couldn't find latitude and longitude for ", location)
             return result
 
     def link_viruses_to_sequences(self, viruses, sequences):
