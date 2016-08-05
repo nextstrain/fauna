@@ -31,6 +31,7 @@ Install Python modules needed to run upload/download scripts:
 
     pip install rethinkdb==2.2.0.post2
     pip install geopy==1.11.0
+    pip install biopython==1.64
 
 Install Chateau Web UI:
 
@@ -54,6 +55,20 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 3. Go to `http://localhost:3001/`.
 
 Chateau configurations are stored in [`config.js`](config.js) for remote server and [`config_local.js`](config_local.js) for local server.
+
+## Docker
+
+Build a Docker image for nextstrain-db:
+
+    docker build -t blab/nextstrain-db:latest .
+
+Push image to the Docker Hub:
+
+    docker push blab/nextstrain-db:latest
+
+Run a shell from within the container:
+
+    docker run --env-file environment_docker.env -t -i blab/nextstrain-db /bin/bash
 
 ## License and copyright
 
