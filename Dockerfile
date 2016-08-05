@@ -15,8 +15,10 @@ RUN apt-get install -y python python-dev python-pip python-virtualenv
 RUN apt-get install -y python-numpy python-scipy 
 RUN apt-get install -y libpng-dev libfreetype6-dev pkg-config 
 
-# rethinkdb
+# python dependencies
 RUN pip install rethinkdb==2.2.0.post2
+RUN pip install biopython==1.64
+RUN pip install geopy==1.11.0
 
 # nextstrain-db
 RUN git clone https://github.com/blab/nextstrain-db.git /db
