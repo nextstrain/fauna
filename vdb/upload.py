@@ -335,29 +335,28 @@ class upload(parse):
         if replace:
             print("Deleting documents in database:" + self.database + "." + table)
             r.table(table).delete().run()
-        else:
-            db_documents = list(r.db(self.database).table(table).run())
-            db_relaxed_keys = self.relaxed_keys(db_documents, index)
-            db_key_to_documents = {dd[index]: dd for dd in db_documents}
-            update_documents = {}
-            upload_documents = {}
-            print("Classifying documents to upload or update")
-            # Determine whether documents need to be updated or uploaded
-            for doc in documents:
-                # match to relaxed strain name if available
-                db_key = doc[index]
-                if self.relax_name(doc[index]) in db_relaxed_keys:
-                    db_key = db_relaxed_keys[self.relax_name(doc[index])]
+        db_documents = list(r.db(self.database).table(table).run())
+        db_relaxed_keys = self.relaxed_keys(db_documents, index)
+        db_key_to_documents = {dd[index]: dd for dd in db_documents}
+        update_documents = {}
+        upload_documents = {}
+        print("Classifying documents to upload or update")
+        # Determine whether documents need to be updated or uploaded
+        for doc in documents:
+            # match to relaxed strain name if available
+            db_key = doc[index]
+            if self.relax_name(doc[index]) in db_relaxed_keys:
+                db_key = db_relaxed_keys[self.relax_name(doc[index])]
 
-                if db_key in db_key_to_documents.keys():  # add to update documents
-                    update_documents[db_key] = doc
-                elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
-                    self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
-                else:  # add to upload documents
-                    upload_documents[doc[index]] = doc
-            print("Inserting ", len(upload_documents), "documents")
-            self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
-            self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
+            if db_key in db_key_to_documents.keys():  # add to update documents
+                update_documents[db_key] = doc
+            elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
+                self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
+            else:  # add to upload documents
+                upload_documents[doc[index]] = doc
+        print("Inserting ", len(upload_documents), "documents")
+        self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
+        self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
 
     def upload_to_rethinkdb(self, database, table, documents, conflict_resolution):
         optimal_upload = 200
