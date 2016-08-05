@@ -54,8 +54,8 @@ class upload(parse):
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
-        viruses = self.filter(viruses, **kwargs)
-        sequences = self.filter(sequences, **kwargs)
+        viruses = self.filter(viruses, 'strain', **kwargs)
+        sequences = self.filter(sequences, 'accession', **kwargs)
         self.format(viruses, **kwargs)
         self.format(sequences, exclude_virus_methods=True, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
@@ -68,9 +68,9 @@ class upload(parse):
             self.upload_documents(self.sequences_table, sequences, 'accession', **kwargs)
         else:
             print("Viruses:")
-            print(json.dumps(viruses[0:2], indent=1))
+            print(json.dumps(viruses[0], indent=1))
             print("Sequences:")
-            print(json.dumps(sequences[0:2], indent=1))
+            print(json.dumps(sequences[0], indent=1))
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
@@ -78,7 +78,7 @@ class upload(parse):
         '''
         format virus information in preparation to upload to database table
         '''
-        self.define_regions()
+        self.define_regions("source-data/geo_regions.tsv")
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'] = self.fix_name(doc['strain'])
@@ -111,7 +111,7 @@ class upload(parse):
                 date_fields.append(f)
 
         for field in date_fields:
-            if virus[field] is not None:
+            if virus[field] is not None and virus[field].strip() != '':
                 virus[field] = re.sub(r'_', r'-', virus[field])
                 # ex. 2002 (Month and day unknown)
                 if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
@@ -128,6 +128,8 @@ class upload(parse):
                 else:
                     print("Couldn't reformat this date: " + virus[field] + ", setting to None")
                     virus[field] = None
+            else:
+                virus[field] = None
 
     def camelcase_to_snakecase(self, name):
         '''
@@ -135,25 +137,63 @@ class upload(parse):
         :param name:
         :return:
         '''
-        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+        if name is not None:
+            s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+            return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
     def snakecase_to_camelcase(self, name):
-        split_name = name.split('_')
-        split_name = [x.title() for x in split_name]
-        return "".join(split_name)
+        if name is not None:
+            split_name = name.split('_')
+            split_name = [x.title() for x in split_name]
+            return "".join(split_name)
 
-    def define_regions(self):
+    def define_countries(self, fname):
+        '''
+        open synonym to country dictionary
+        Location is to the level of country of administrative division when available
+        '''
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')		# list of dicts
+        self.label_to_country = {}
+        self.label_to_division = {}
+        self.label_to_location = {}
+        for line in reader:
+            self.label_to_country[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['country'])
+            self.label_to_division[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['division'])
+            self.label_to_location[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['location'])
+
+    def define_regions(self, fname):
         '''
         open country to region dictionary
         '''
         try:
-            reader = csv.DictReader(open("source-data/geo_regions.tsv"), delimiter='\t')		# list of dicts
+            reader = csv.DictReader(open(fname), delimiter='\t')		# list of dicts
         except:
             raise Exception("Couldn't find geo regions file")
         self.country_to_region = {}
         for line in reader:
             self.country_to_region[line['country']] = line['region']
+
+    def determine_location(self, name):
+        '''
+        Try to determine country, division and location information from name
+        Return tuple of country, division, location if found, otherwise return None
+        '''
+        try:
+            label = re.match(r'^([^/]+)', name).group(1).lower()						# check first for whole geo match
+            if label in self.label_to_country:
+                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+            else:
+                label = re.match(r'^([^\-^\/]+)', name).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
+            if label in self.label_to_country:
+                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+            else:
+                label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', name).group(1).lower()			# check for partial geo match
+            if label in self.label_to_country:
+                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+            else:
+                return None
+        except:
+            return None
 
     def format_region(self, virus):
         '''
@@ -180,7 +220,7 @@ class upload(parse):
                     virus[field] = "_".join(virus[field].split("_")).lower()
                 virus[field] = self.camelcase_to_snakecase(virus[field])
 
-    def filter(self, documents, **kwargs):
+    def filter(self, documents, index, **kwargs):
         return documents
 
     def determine_latitude_longitude(self, documents, location_fields=['location', 'division', 'country']):
@@ -195,7 +235,11 @@ class upload(parse):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
         self.location_to_lat_long = {}
         for line in reader:
-            self.location_to_lat_long[line['location'] + ":" + line['country_code']] = (float(line['latitude']), float(line['longitude']))
+            try:
+                self.location_to_lat_long[line['location'] + ":" + line['country_code']] = (float(line['latitude']), float(line['longitude']))
+            except:
+                print("Line failed ", line)
+                raise Exception("Failed to read ", file, "please check the line that failed")
         file.close()
 
         # Mapping from country to ISO 3166-1 Alpha-2 code
@@ -209,7 +253,7 @@ class upload(parse):
         # file to write the new latitudes and longitudes that will be determined
         file = open("source-data/geo_lat_long.tsv", 'a')
         for doc in documents:
-            if 'country' in doc:
+            if 'country' in doc and doc['country'] is not None:
                 if doc['country'] in self.country_to_code:
                     country_code = self.country_to_code[doc['country']]
                     locations = [doc[field] for field in location_fields]
@@ -242,7 +286,8 @@ class upload(parse):
                 else:
                     print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
             else:
-                print("Country not defined document, can't determine latitude and longitude", doc['strain'])
+                #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
+                pass
 
     def get_latitude_longitude(self, country_code, location):
         '''
@@ -290,28 +335,29 @@ class upload(parse):
         if replace:
             print("Deleting documents in database:" + self.database + "." + table)
             r.table(table).delete().run()
-        db_documents = list(r.db(self.database).table(table).run())
-        db_relaxed_keys = self.relaxed_keys(db_documents)
-        db_key_to_documents = {dd[index]: dd for dd in db_documents}
-        update_documents = {}
-        upload_documents = {}
-        print("Classifying documents to upload or update")
-        # Determine whether documents need to be updated or uploaded
-        for doc in documents:
-            # match to relaxed strain name if available
-            db_key = doc[index]
-            if self.relax_name(doc[index]) in db_relaxed_keys:
-                db_key = db_relaxed_keys[self.relax_name(doc[index])]
+        else:
+            db_documents = list(r.db(self.database).table(table).run())
+            db_relaxed_keys = self.relaxed_keys(db_documents, index)
+            db_key_to_documents = {dd[index]: dd for dd in db_documents}
+            update_documents = {}
+            upload_documents = {}
+            print("Classifying documents to upload or update")
+            # Determine whether documents need to be updated or uploaded
+            for doc in documents:
+                # match to relaxed strain name if available
+                db_key = doc[index]
+                if self.relax_name(doc[index]) in db_relaxed_keys:
+                    db_key = db_relaxed_keys[self.relax_name(doc[index])]
 
-            if db_key in db_key_to_documents.keys():  # add to update documents
-                update_documents[db_key] = doc
-            elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
-                self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
-            else:  # add to upload documents
-                upload_documents[doc[index]] = doc
-        print("Inserting ", len(upload_documents), "documents")
-        self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
-        self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
+                if db_key in db_key_to_documents.keys():  # add to update documents
+                    update_documents[db_key] = doc
+                elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
+                    self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
+                else:  # add to upload documents
+                    upload_documents[doc[index]] = doc
+            print("Inserting ", len(upload_documents), "documents")
+            self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
+            self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
 
     def upload_to_rethinkdb(self, database, table, documents, conflict_resolution):
         optimal_upload = 200
@@ -343,13 +389,17 @@ class upload(parse):
         Updates the db_doc to fields of doc based on rules below
         '''
         updated = False
-        for field in doc:
+        keys = doc.keys()
+        keys.append('timestamp')
+        for field in keys:
             if field == 'timestamp':
-                pass
+                if updated:
+                    db_doc['timestamp'] = self.rethink_io.get_upload_timestamp()
             elif field == 'sequences':
                 # add new accessions to sequences
                 for accession in doc[field]:
                     if accession not in db_doc[field]:
+                        updated = True
                         db_doc[field].append(accession)
                         db_doc['number_sequences'] += 1
             else:
@@ -367,13 +417,13 @@ class upload(parse):
                     updated = True
         return updated
 
-    def relaxed_keys(self, documents):
+    def relaxed_keys(self, documents, index):
         '''
         Create dictionary from relaxed vdb strain names to actual vdb strain names.
         '''
         strains = {}
         for doc in documents:
-            strains[self.relax_name(doc['strain'])] = doc['strain']
+            strains[self.relax_name(doc[index])] = doc[index]
         return strains
 
     def relax_name(self, name):

@@ -118,8 +118,8 @@ class flu_upload(upload):
         format virus information in preparation to upload to database table
         Flu needs to also format country
         '''
-        self.define_countries()
-        self.define_regions()
+        self.define_countries("source-data/geo_synonyms.tsv")
+        self.define_regions("source-data/geo_regions.tsv")
         self.define_strain_fixes()
         for doc in documents:
             if 'strain' in doc:
@@ -142,7 +142,7 @@ class flu_upload(upload):
             print("Determining latitudes and longitudes")
             self.determine_latitude_longitude(documents)
 
-    def filter(self, documents, **kwargs):
+    def filter(self, documents, index, **kwargs):
         '''
         remove certain documents from gisaid files that were not actually isolated from humans
         '''
@@ -250,22 +250,6 @@ class flu_upload(upload):
         result_name = '/'.join(split_name)
         return result_name, original_name
 
-    def define_countries(self):
-        '''
-        open synonym to country dictionary
-        Location is to the level of country of administrative division when available
-        '''
-        file = open("source-data/geo_synonyms.tsv")
-
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
-        self.label_to_country = {}
-        self.label_to_division = {}
-        self.label_to_location = {}
-        for line in reader:
-            self.label_to_country[line['label'].decode('unicode-escape').lower()] = line['country']
-            self.label_to_division[line['label'].decode('unicode-escape').lower()] = line['division']
-            self.label_to_location[line['label'].decode('unicode-escape').lower()] = line['location']
-
     def format_country(self, v):
         '''
         Label viruses with country based on strain name
@@ -301,28 +285,6 @@ class flu_upload(upload):
                     v['country'] = assignment[0]
                     v['division'] = assignment[1]
                     v['lcoation'] = assignment[2]
-
-    def determine_location(self, name):
-        '''
-        Try to determine country, division and location information from name
-        Return tuple of country, division, location if found, otherwise return None
-        '''
-        try:
-            label = re.match(r'^([^/]+)', name).group(1).lower()						# check first for whole geo match
-            if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
-            else:
-                label = re.match(r'^([^\-^\/]+)', name).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
-            if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
-            else:
-                label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', name).group(1).lower()			# check for partial geo match
-            if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
-            else:
-                return None
-        except:
-            return None
 
     def determine_group_fields(self, v, **kwargs):
         '''

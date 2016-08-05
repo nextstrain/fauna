@@ -57,6 +57,7 @@ class download(object):
         viruses = list(r.table(self.viruses_table).run())
         print("Downloading all viruses from the table: " + self.sequences_table)
         sequences = list(r.table(self.sequences_table).run())
+        print("Linking viruses to sequences")
         sequences = self.link_viruses_to_sequences(viruses, sequences)
         sequences = self.subset(sequences, **kwargs)
         sequences = self.resolve_duplicates(sequences, **kwargs)
@@ -166,6 +167,7 @@ class download(object):
     def resolve_duplicates(self, sequences, pick_longest, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
         if pick_longest:
+            print("Resolving duplicate strains and locus by picking the longest sequence")
             for doc in sequences:
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:
                     if self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
