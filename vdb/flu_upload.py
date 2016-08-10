@@ -19,35 +19,36 @@ class flu_upload(upload):
 
         # patterns from the subtype and lineage fields in the GISAID fasta file
         self.patterns = {('a / h1n1', 'pdm09'): ('a', 'h1n1', 'seasonal_h1n1pdm'),
-                    ('a / h1n2', ''): ('a', 'h1n2', 'seasonal_h1n2'),
+                    ('a / h1n2', ''): ('a', 'h1n2', None),
                     ('a / h1n2', 'seasonal'): ('a', 'h1n2', 'seasonal_h1n2'),
-                    ('a / h2n2', ''): ('a', 'h2n2', 'undetermined'),
+                    ('a / h2n2', ''): ('a', 'h2n2', None),
                     ('a / h3n2', ''): ('a', 'h3n2', 'seasonal_h3n2'),
                     ('a / h3n2', 'seasonal'): ('a', 'h3n2', 'seasonal_h3n2'),
-                    ('a / h3n3', ''): ('a', 'h3n3', 'undetermined'),
-                    ('a / h5n1', ''): ('a', 'h5n1', 'undetermined'),
-                    ('a / h5n6', ''): ('a', 'h5n6', 'undetermined'),
-                    ('a / h6n1', ''): ('a', 'h6n1', 'undetermined'),
-                    ('a / h7n1', ''): ('a', 'h7n1', 'undetermined'),
-                    ('a / h7n2', ''): ('a', 'h7n2', 'undetermined'),
-                    ('a / h7n3', ''): ('a', 'h7n3', 'undetermined'),
-                    ('a / h7n7', ''): ('a', 'h7n7', 'undetermined'),
-                    ('a / h7n9', ''): ('a', 'h7n9', 'undetermined'),
-                    ('a / h9n2', ''): ('a', 'h9n2', 'undetermined'),
-                    ('a / h10n7', ''): ('a', 'h10n7', 'undetermined'),
-                    ('a / h10n8', ''): ('a', 'h10n8', 'undetermined'),
-                    ('a / h11', ''): ('a', 'h11', 'undetermined'),
-                    ('b / h0n0', 'victoria'): ('b', 'undetermined', 'seasonal_vic'),
-                    ('b / h0n0', 'yamagata'): ('b', 'undetermined', 'seasonal_yam'),
-                    ('b', 'victoria'): ('b', 'undetermined', 'seasonal_vic'),
-                    ('b', 'yamagata'): ('b', 'undetermined', 'seasonal_yam')}
+                    ('a / h3n3', ''): ('a', 'h3n3', None),
+                    ('a / h5n1', ''): ('a', 'h5n1', None),
+                    ('a / h5n6', ''): ('a', 'h5n6', None),
+                    ('a / h6n1', ''): ('a', 'h6n1', None),
+                    ('a / h7n1', ''): ('a', 'h7n1', None),
+                    ('a / h7n2', ''): ('a', 'h7n2', None),
+                    ('a / h7n3', ''): ('a', 'h7n3', None),
+                    ('a / h7n7', ''): ('a', 'h7n7', None),
+                    ('a / h7n9', ''): ('a', 'h7n9', None),
+                    ('a / h9n2', ''): ('a', 'h9n2', None),
+                    ('a / h10n7', ''): ('a', 'h10n7', None),
+                    ('a / h10n8', ''): ('a', 'h10n8', None),
+                    ('a / h11', ''): ('a', 'h11', None),
+                    ('b / h0n0', 'victoria'): ('b', None, 'seasonal_vic'),
+                    ('b / h0n0', 'yamagata'): ('b', None, 'seasonal_yam'),
+                    ('b', 'victoria'): ('b', None, 'seasonal_vic'),
+                    ('b', 'yamagata'): ('b', None, 'seasonal_yam')}
         self.outgroups = {lineage: SeqIO.read('source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
         self.outgroup_patterns = {'H3N2': ('a', 'h3n2', 'seasonal_h3n2'),
                                   'H1N1': ('a', 'h1n1', 'seasonal_h1n1'),
                                   'H1N1pdm': ('a', 'h1n1', 'seasonal_h1n1pdm'),
-                                  'Vic': ('b', 'undetermined', 'seasonal_vic'),
-                                  'Yam': ('b', 'undetermined', 'seasonal_yam')}
+                                  'Vic': ('b', None, 'seasonal_vic'),
+                                  'Yam': ('b', None, 'seasonal_yam')}
         self.virus_to_sequence_transfer_fields = ['submission_date']
+        self.passages = set()
 
     def parse(self, path, fname, upload_directory, **kwargs):
         '''
@@ -120,6 +121,7 @@ class flu_upload(upload):
         '''
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
+        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         self.define_strain_fixes()
         for doc in documents:
             if 'strain' in doc:
@@ -135,12 +137,13 @@ class flu_upload(upload):
             self.format_date(doc)
             if not exclude_virus_methods:
                 self.format_country(doc)
-            self.format_place(doc)
-            self.format_region(doc)
+                self.format_place(doc, determine_location=False)
+                self.format_region(doc)
+                self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
-        if not exclude_virus_methods:
-            print("Determining latitudes and longitudes")
-            self.determine_latitude_longitude(documents)
+            if 'passage' in doc:
+                self.passages.add(doc['passage'])
+        print(self.passages)
 
     def filter(self, documents, index, **kwargs):
         '''
@@ -270,21 +273,21 @@ class flu_upload(upload):
         else:
             result = None
         if result is not None:
-            v['country'], v['division'], v['location'] = result
+            v['location'], v['division'], v['country'] = result
         else:
-            v['country'], v['division'], v['location'] = None, None, None
+            v['location'], v['division'], v['country'] = None, None, None
             print("couldn't parse country for ", strain_name, "gisaid location", v['gisaid_location'], original_name)
 
         # Repeat location name, Use gisaid Location to assign name
-        repeat_location = {'BuenosAires': ('Brazil', 'Pernambuco', 'BuenosAires'), 'SantaCruz': ('Bolivia', 'SantaCruz', 'SantaCruz'),
-                           'ChristChurch': ('Barbados', 'ChristChurch', 'ChristChurch'), 'SaintPetersburg': ('USA', 'Florida', 'SaintPetersburg'),
+        repeat_location = {'BuenosAires': ('BuenosAires', 'Pernambuco', 'Brazil'), 'SantaCruz': ('SantaCruz', 'SantaCruz', 'Bolivia'),
+                           'ChristChurch': ('ChristChurch', 'ChristChurch', 'Barbados'), 'SaintPetersburg': ('SaintPetersburg', 'Florida', 'USA'),
                             'GeorgiaCountry': ('GeorgiaCountry', 'GeorgiaCountry', 'GeorgiaCountry')}
         for repeat, assignment in repeat_location.items():
             if repeat in v['strain']:
                 if 'gisaid_location' in v and assignment[0] in v['gisaid_location']:
-                    v['country'] = assignment[0]
+                    v['location'] = assignment[0]
                     v['division'] = assignment[1]
-                    v['lcoation'] = assignment[2]
+                    v['country'] = assignment[2]
 
     def determine_group_fields(self, v, **kwargs):
         '''
@@ -302,15 +305,42 @@ class flu_upload(upload):
             else:
                 temp_lineage = ''
             del v['Lineage']
-            v['vtype'] = 'tbd'
-            v['subtype'] = 'tbd'
-            v['lineage'] = 'tbd'
+            v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
             if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
                 match = self.patterns[(temp_subtype, temp_lineage)]
-                v['vtype'] = match[0].lower()
-                v['subtype'] = match[1].lower()
-                v['lineage'] = match[2].lower()
+                v['vtype'], v['subtype'], v['lineage'] = match[0].lower(), match[1].lower(), match[2].lower()
             return v
+
+    def align_flu(self, doc, **kwargs):
+        '''
+        align with sequence from outgroup to determine subtype and lineage
+        :return: True if determined grouping, False otherwise
+        '''
+        try:
+            scores = []
+            from Bio.Seq import Seq
+            from Bio.SeqRecord import SeqRecord
+            from Bio.Alphabet import IUPAC
+            from Bio import AlignIO
+            record = SeqRecord(Seq(doc['sequence'],
+                               IUPAC.ambiguous_dna),
+                               id=doc['strain'])
+            for olineage, oseq in self.outgroups.items():
+                SeqIO.write([oseq, record], "temp_in.fasta", "fasta")
+                os.system("mafft --auto temp_in.fasta > temp_out.fasta 2>tmp")
+                tmp_aln = np.array(AlignIO.read('temp_out.fasta', 'fasta'))
+                scores.append((olineage, (tmp_aln[0]==tmp_aln[1]).sum()))
+            scores.sort(key = lambda x:x[1], reverse=True)
+            if scores[0][1]>0.85*len(record.seq):
+                print("Lineage based on similarity:", scores[0][0], doc['strain'], len(record.seq), scores)
+                match = self.outgroup_patterns[scores[0][0]]
+                return match[0].lower(), match[1].lower(), match[2].lower()
+            else:
+                print("Couldn't parse virus subtype and lineage from aligning sequence: ", doc['strain'], len(record.seq), scores)
+                return None
+        except:
+            print("Couldn't parse virus subtype and lineage from aligning sequence: " + doc['strain'])
+            return None
 
 if __name__=="__main__":
     args = parser.parse_args()

@@ -79,17 +79,18 @@ class upload(parse):
         format virus information in preparation to upload to database table
         '''
         self.define_regions("source-data/geo_regions.tsv")
+        self.define_countries("source-data/geo_synonyms.tsv")
+        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'] = self.fix_name(doc['strain'])
-            self.format_date(doc)
-            self.format_place(doc)
-            self.format_region(doc)
+            if not exclude_virus_methods:
+                self.format_date(doc)
+                self.format_place(doc)
+                self.format_region(doc)
+                self.determine_latitude_longitude(doc, ['country'])
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
-        if not exclude_virus_methods:
-            print("Determining latitudes and longitudes")
-            self.determine_latitude_longitude(documents, ['country'])
 
     def fix_name(self, name):
         tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
@@ -139,7 +140,7 @@ class upload(parse):
         '''
         if name is not None:
             s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-            return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+            return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower().replace(" ", "")
 
     def snakecase_to_camelcase(self, name):
         if name is not None:
@@ -153,13 +154,14 @@ class upload(parse):
         Location is to the level of country of administrative division when available
         '''
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')		# list of dicts
-        self.label_to_country = {}
-        self.label_to_division = {}
         self.label_to_location = {}
+        self.label_to_division = {}
+        self.label_to_country = {}
+
         for line in reader:
-            self.label_to_country[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['country'])
-            self.label_to_division[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['division'])
             self.label_to_location[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['location'])
+            self.label_to_division[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['division'])
+            self.label_to_country[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['country'])
 
     def define_regions(self, fname):
         '''
@@ -173,23 +175,50 @@ class upload(parse):
         for line in reader:
             self.country_to_region[line['country']] = line['region']
 
+    def format_place(self, doc, determine_location=True):
+        '''
+        Try to determine location information from location fields
+        Ensure snakecase formatting after assigning location fields
+        '''
+        location_fields = ['location', 'division', 'country']
+        for field in location_fields:
+            if determine_location:
+                if field in doc and doc[field] is not None:
+                    result = self.determine_location(self.snakecase_to_camelcase(doc[field]))
+                    if result is not None:
+                        doc['location'], doc['division'], doc['country'] = result
+                        break
+                    else:
+                        print("couldn't parse location for ", doc['strain'], self.snakecase_to_camelcase(doc[field]))
+                        if "_" in doc[field]:  # French_Polynesia -> french_polynesia
+                            doc[field] = "_".join(doc[field].split("_")).lower()
+                        doc[field] = self.camelcase_to_snakecase(doc[field])
+            else:
+                if field in doc and doc[field] is not None:
+                    if "_" in doc[field]:  # French_Polynesia -> french_polynesia
+                        doc[field] = "_".join(doc[field].split("_")).lower()
+                    doc[field] = self.camelcase_to_snakecase(doc[field])
+
     def determine_location(self, name):
         '''
         Try to determine country, division and location information from name
         Return tuple of country, division, location if found, otherwise return None
         '''
         try:
-            label = re.match(r'^([^/]+)', name).group(1).lower()						# check first for whole geo match
+            if name in self.label_to_country:
+                return (self.label_to_location[name], self.label_to_division[name], self.label_to_country[name])
+            else:
+                label = re.match(r'^([^/]+)', name).group(1).lower()						# check first for whole geo match
             if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+                return ( self.label_to_location[label], self.label_to_division[label], self.label_to_country[label])
             else:
                 label = re.match(r'^([^\-^\/]+)', name).group(1).lower()			# check for partial geo match A/CHIBA-C/61/2014
             if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+                return ( self.label_to_location[label], self.label_to_division[label], self.label_to_country[label])
             else:
                 label = re.match(r'^([A-Z][a-z]+)[A-Z0-9]', name).group(1).lower()			# check for partial geo match
             if label in self.label_to_country:
-                return (self.label_to_country[label], self.label_to_division[label], self.label_to_location[label])
+                return ( self.label_to_location[label], self.label_to_division[label], self.label_to_country[label])
             else:
                 return None
         except:
@@ -209,29 +238,12 @@ class upload(parse):
                     virus['region'] = None
                     print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
 
-    def format_place(self, virus):
-        '''
-        Ensure snakecaase formatting after assigning these fields
-        '''
-        location_fields = ['country', 'division', 'location']
-        for field in location_fields:
-            if field in virus and virus[field] is not None:
-                if "_" in virus[field]:  # French_Polynesia -> french_polynesia
-                    virus[field] = "_".join(virus[field].split("_")).lower()
-                virus[field] = self.camelcase_to_snakecase(virus[field])
-
     def filter(self, documents, index, **kwargs):
         return documents
 
-    def determine_latitude_longitude(self, documents, location_fields=['location', 'division', 'country']):
-        '''
-        Assign latitude, longitude for as specific of a location as possible
-        Location fields should be defined in order prioritized to determine latitude and longitude from
-        Start by looking first for location, then division then country
-
-        '''
+    def define_latitude_longitude(self, lat_long_fname, code_fname):
         # get the latitude and longitudes that were already determined
-        file = open("source-data/geo_lat_long.tsv", 'r')
+        file = open(lat_long_fname, 'r')
         reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
         self.location_to_lat_long = {}
         for line in reader:
@@ -243,7 +255,7 @@ class upload(parse):
         file.close()
 
         # Mapping from country to ISO 3166-1 Alpha-2 code
-        file = open("source-data/geo_ISO_code.tsv", 'r')
+        file = open(code_fname, 'r')
         reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')
         self.country_to_code = {}
         for line in reader:
@@ -251,43 +263,47 @@ class upload(parse):
         file.close()
 
         # file to write the new latitudes and longitudes that will be determined
-        file = open("source-data/geo_lat_long.tsv", 'a')
-        for doc in documents:
-            if 'country' in doc and doc['country'] is not None:
-                if doc['country'] in self.country_to_code:
-                    country_code = self.country_to_code[doc['country']]
-                    locations = [doc[field] for field in location_fields]
-                    determined_location = False
-                    for loc in locations:
-                        if loc + ":" + country_code in self.location_to_lat_long:  # already determined location
-                            doc['latitude'], doc['longitude'], doc['lat_long_location'] = self.location_to_lat_long[loc + ":" + country_code] + (loc,)
-                            determined_location = True
+        self.new_lat_long_file = open(lat_long_fname, 'a')
+
+    def determine_latitude_longitude(self, doc, location_fields=['location', 'division', 'country']):
+        '''
+        Assign latitude, longitude for as specific of a location as possible
+        Location fields should be defined in order prioritized to determine latitude and longitude from
+        Start by looking first for location, then division then country
+
+        '''
+        if 'country' in doc and doc['country'] is not None:
+            if doc['country'] in self.country_to_code:
+                country_code = self.country_to_code[doc['country']]
+                locations = [doc[field] for field in location_fields if field in doc and doc[field] is not None]
+                for loc in locations:
+                    if loc + ":" + country_code in self.location_to_lat_long:  # already determined location
+                        doc['latitude'], doc['longitude'], doc['lat_long_location'] = self.location_to_lat_long[loc + ":" + country_code] + (loc,)
+                        return doc['latitude'], doc['longitude'], doc['lat_long_location']
+                    else:
+                        try:
+                            result = self.get_latitude_longitude(country_code, loc)
+                        except:
+                            print(doc['strain'], locations, loc)
+                            self.new_lat_long_file.close()
+                            raise Exception("Geopy query failed")
+                        if result is not None:  # found location
+                            if loc not in self.location_to_lat_long:
+                                print("Found latitude and longitude for ", loc, doc['country'])
+                                self.new_lat_long_file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
+                                self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
+                            doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
+                            return doc['latitude'], doc['longitude'], doc['lat_long_location']
                         else:
-                            try:
-                                result = self.get_latitude_longitude(country_code, loc)
-                            except:
-                                print(doc['strain'], locations, loc)
-                                file.close()
-                                raise Exception("Geopy query failed")
-                            if result is not None:  # found location
-                                if loc not in self.location_to_lat_long:
-                                    print("Found latitude and longitude for ", loc, doc['country'])
-                                    file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
-                                    self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
-                                doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
-                                determined_location = True
-                            else:
-                                print("Couldn't find latitude and longitude for ", loc, doc['country'])
-                        if determined_location:
-                            break
-                    if not determined_location:
-                        print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
-                        doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
-                else:
-                    print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
+                            print("Couldn't find latitude and longitude for ", loc, doc['country'])
+                print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
+                doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
+                return None, None, None
             else:
-                #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
-                pass
+                print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
+        else:
+            #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
+            pass
 
     def get_latitude_longitude(self, country_code, location):
         '''
@@ -347,7 +363,7 @@ class upload(parse):
             if db_key in db_key_to_documents.keys():  # add to update documents
                 update_documents[db_key] = doc
             elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
-                self.update_document_meta(upload_documents[db_key], doc, output=True, **kwargs)
+                self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
             else:  # add to upload documents
                 upload_documents[db_key] = doc
         print("Inserting ", len(upload_documents), "documents")
