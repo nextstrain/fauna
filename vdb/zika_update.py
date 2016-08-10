@@ -1,6 +1,6 @@
 from update import update
 from zika_upload import zika_upload
-from upload import parser
+from update import parser
 
 class zika_update(update, zika_upload):
     def __init__(self, **kwargs):
