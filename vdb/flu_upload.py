@@ -308,7 +308,7 @@ class flu_upload(upload):
             v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
             if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
                 match = self.patterns[(temp_subtype, temp_lineage)]
-                v['vtype'], v['subtype'], v['lineage'] = match[0].lower(), match[1].lower(), match[2].lower()
+                v['vtype'], v['subtype'], v['lineage'] = match[0], match[1], match[2]
             return v
 
     def align_flu(self, doc, **kwargs):
