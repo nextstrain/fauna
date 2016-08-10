@@ -26,6 +26,8 @@ class update(upload):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
         self.format(sequences, **kwargs)
+        citation_keys = ['authors', 'title', 'url']
+        sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + self.database + "." + self.viruses_table)
             self.upload_to_rethinkdb(self.database, self.sequences_table, sequences, 'update')
