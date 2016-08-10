@@ -56,8 +56,8 @@ class upload(parse):
         print('Formatting documents for upload')
         viruses = self.filter(viruses, 'strain', **kwargs)
         sequences = self.filter(sequences, 'accession', **kwargs)
-        self.format(viruses, **kwargs)
-        self.format(sequences, exclude_virus_methods=True, **kwargs)
+        self.format_viruses(viruses, **kwargs)
+        self.format_sequences(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
@@ -74,7 +74,7 @@ class upload(parse):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-    def format(self, documents, exclude_virus_methods=False, **kwargs):
+    def format_viruses(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
@@ -84,11 +84,21 @@ class upload(parse):
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'] = self.fix_name(doc['strain'])
-            if not exclude_virus_methods:
-                self.format_date(doc)
-                self.format_place(doc)
-                self.format_region(doc)
-                self.determine_latitude_longitude(doc, ['country'])
+            self.format_date(doc)
+            self.format_place(doc)
+            self.format_region(doc)
+            self.determine_latitude_longitude(doc, ['country'])
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
+
+    def format_sequences(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        for doc in documents:
+            if 'strain' in doc:
+                doc['strain'] = self.fix_name(doc['strain'])
+            self.format_date(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 

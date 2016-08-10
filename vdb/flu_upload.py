@@ -114,10 +114,9 @@ class flu_upload(upload):
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
         return viruses
 
-    def format(self, documents, exclude_virus_methods=False, **kwargs):
+    def format_viruses(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
-        Flu needs to also format country
         '''
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
@@ -133,17 +132,28 @@ class flu_upload(upload):
                 print("Missing strain name!")
             self.fix_casing(doc)
             self.fix_age(doc)
-            self.determine_group_fields(doc, **kwargs)
             self.format_date(doc)
-            if not exclude_virus_methods:
-                self.format_country(doc)
-                self.format_place(doc, determine_location=False)
-                self.format_region(doc)
-                self.determine_latitude_longitude(doc)
+            self.format_country(doc)
+            self.format_place(doc, determine_location=False)
+            self.format_region(doc)
+            self.determine_latitude_longitude(doc, ['country'])
             self.rethink_io.check_optional_attributes(doc, [])
-            if 'passage' in doc:
-                self.passages.add(doc['passage'])
-        print(self.passages)
+
+    def format_sequences(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        for doc in documents:
+            if 'strain' in doc:
+                if 'gisaid_location' in doc:
+                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], doc['gisaid_location'])
+                else:
+                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], None)
+            else:
+                print("Missing strain name!")
+            self.format_date(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
 
     def filter(self, documents, index, **kwargs):
         '''
