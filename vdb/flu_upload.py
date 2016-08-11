@@ -136,7 +136,7 @@ class flu_upload(upload):
             self.format_country(doc)
             self.format_place(doc, determine_location=False)
             self.format_region(doc)
-            self.determine_latitude_longitude(doc, ['country'])
+            self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
 
     def format_sequences(self, documents, **kwargs):
@@ -155,7 +155,6 @@ class flu_upload(upload):
             self.format_passage(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
-        print(self.passages)
 
     def filter(self, documents, index, **kwargs):
         '''
@@ -199,11 +198,11 @@ class flu_upload(upload):
         '''
         Open strain name fixing files and define corresponding dictionaries
         '''
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/strain_name_fix.tsv")), delimiter='\t')
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/flu_fix_location_label.tsv")), delimiter='\t')
         self.label_to_fix = {}
         for line in reader:
             self.label_to_fix[line['label'].decode('unicode-escape').replace(' ', '').lower()] = line['fix']
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/strain_name_fix_whole.tsv")), delimiter='\t')
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/flu_strain_name_fix.tsv")), delimiter='\t')
         self.fix_whole_name = {}
         for line in reader:
             self.fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
@@ -212,54 +211,48 @@ class flu_upload(upload):
         '''
         Fix strain names
         '''
+        # replace all accents with ? mark
         original_name = original_name.encode('ascii', 'replace')
         # Replace whole strain names
         for gisaid_name, fixed_name in self.fix_whole_name.items():
             if original_name == gisaid_name:
                 original_name = fixed_name
-
         name = original_name
-        if '(' in name and ')' in name:  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
-            name = re.match(r'^([^(]+)', name).group(1)
-        if 'clinical isolate' in name:  #B/clinical isolate SA116 Philippines/2002 -> B/Philippines/SA116/2002
-            split_slash = name.split('/')
-            split_space = split_slash[1].split(' ')
-            name = "/".join([split_slash[0], split_space[3], split_space[2], split_slash[2]])
-        if 'IRL' in name and '/' not in name: # 12IRL26168 -> A/Ireland/26168/2012  (All sequences with same pattern are H3N2)
-            split_irl = name.split('IRL')
-            name = "/".join(['A', 'Ireland', split_irl[1], "20" + split_irl[0]])
-        if 'B/Victoria/2/87' in name:  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
-            result = name.split("B/Victoria/2/87")
-            result = [x for x in result if x != '']  # Don't want to remove original B/Victoria/2/1987 strain
-            if len(result) == 1:
-                name = result[0]
-        if '/USA/' in name and location is not None:    # A/Usa/AF1036/2007 , North America / United States / Colorado -> A/Colarado/AF1036/2007
-            split_name = name.split('/')
-            split_name[1] = location.split('/')[len(location.split('/')) - 1].strip()
-            name = "/".join(split_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
             .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
-            .replace('\'', '').replace('(', '').replace(')', '')
+            .replace('\'', '').replace('(', '').replace(')', '').replace('>', '')
         split_name = name.split('/')
         # check location labels in strain names for fixing
         for index, label in enumerate(split_name):
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
-        # Change two digit years to four digit
-        if len(split_name[len(split_name) - 1]) == 2:  # B/Florida/1/96 -> B/Florida/1/1996
-            try:
-                year = int(split_name[len(split_name) - 1])
-                if year < 10:
-                    split_name[len(split_name) - 1] = "200" + str(year)
-                elif year < 66:
-                    split_name[len(split_name) - 1] = "20" + str(year)
-                else:
-                    split_name[len(split_name) - 1] = "19" + str(year)
-            except:
-                pass
+        name = '/'.join(split_name)
+        # various name patterns that need to be fixed
+        if re.match(r'([a|b])([\w\s/]+)', name):  #b/sydney/508/2008    B/sydney/508/2008
+            name = re.match(r'([a|b])([\w\s/]+)', name).group(1).upper() + re.match(r'([a|b])([\w\s/]+)', name).group(2)
+        if re.match(r'([\w\s/]+)\([0-9A-Za-z]+\)$', name):  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
+            name = re.match(r'([\w\s/]+)\([0-9A-Za-z]+\)$', name).group(1).strip()
+        if re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]+)', name):  #B/clinicalisolateSA116Philippines/2002 -> B/Philippines/SA116/2002
+            match = re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]+)', name)
+            name = match.group(1) + match.group(3) + "/" + match.group(2) + match.group(4)
+        if re.match(r'([1-2]+)IRL([0-9]+)$', name):  # 12IRL26168 -> A/Ireland/26168/2012  (All sequences with same pattern are H3N2)
+            name = "A/Ireland/" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(2) + "/20" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(1)
+        if re.match(r'([\w\s/]+)(B/Victoria/2/87|B/Victoria/2/1987)$', name):  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
+            name = re.match(r'([\w\s/]+)(B/Victoria/2/87|B/Victoria/2/1987)$', name).group(1)
+        if re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name) and location is not None and len(location.split('/'))>2:  # A/Usa/AF1036/2007 , North America / United States / Colorado -> A/Colarado/AF1036/2007
+            name = re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name).group(1) + location.split('/')[len(location.split('/')) - 1].replace(' ', '') + re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name).group(3)
+
+        # Change two digit years to four digit  B/Florida/1/96 -> B/Florida/1/1996
+        if re.match(r'([\w\s/]+)/([0-9][0-9])$', name):
+            year = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(2)
+            if int(year) < 66:
+                name = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(1) + "/20" + year
+            else:
+                name = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
         # Strip leading zeroes, change all capitalization location field to title case
+        split_name = name.split('/')
         if len(split_name) == 4:
-            if split_name[1].isupper():
+            if split_name[1].isupper() or split_name[1].islower():
                 split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
             split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
         result_name = '/'.join(split_name)

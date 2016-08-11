@@ -16,6 +16,7 @@ SouthAustalia	SouthAustralia
 SouthAustralai	SouthAustralia
 South_Australia	SouthAustralia
 SouthAustrallia	SouthAustralia
+sydney	Sydney
 Victoira	Victoria
 CairnsNorth	Cairns
 
@@ -421,6 +422,7 @@ Uvurkhagai	Uvurkhangai
 Benimellal	BeniMellal
 Casa	Casablanca
 MORROCO	Morocco
+morocco	Morocco
 Mrrakech	Marrakech
 RABT	Rabat
 
@@ -569,7 +571,9 @@ Gyongbuk	Gyeongbuk
 Inchon	Incheon
 Kangwon	Gangwon
 Kyounggi	Gyeonggi
-Pusan	BusanCheju	Jeju
+Pusan	Busan
+Cheju	Jeju
+seoul	Seoul
 
 # SouthAfrica
 Capetown	CapeTown
