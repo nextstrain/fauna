@@ -211,6 +211,7 @@ salfit	PS	32.0847248	35.1823059
 cote_d_ivoire	CI	7.9897371	-5.5679457
 hong_kong	HK	22.3964	114.1095
 georgia	GE	41.6809707	44.0287382
+georgia_country	GE	41.6809707	44.0287382
 guadeloupe	GP	16.2650	-61.5510
 new_caledonia	NC	-20.9043	165.6180
 south_australia	AU	-30.5343664	135.6301212
@@ -1730,3 +1731,6 @@ zhytomyr 	UA	50.2598298	28.6692345
 mato_grosso	BR	-12.2115008	-55.5716546
 rio_claro	BR	-22.4108329	-47.5608329
 artur_nogueira	BR	-22.5594999	-47.1324463286
+trinidad_and_tobago	TT	10.8677845	-60.9821066
+united_arab_emirates	AE	24.0002488	53.9994829
+turkmenistan	TM	39.3763807	59.3924609
