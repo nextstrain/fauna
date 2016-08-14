@@ -25,7 +25,7 @@ class update(upload):
     def update_citations(self, preview, **kwargs):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
-        self.format(sequences, **kwargs)
+        self.format_sequences(sequences, **kwargs)
         citation_keys = ['authors', 'title', 'url']
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
@@ -97,8 +97,8 @@ class update(upload):
         '''
         print("Updating all fields from genbank")
         viruses, sequences = self.get_genbank_sequences(**kwargs)
-        self.format(viruses, **kwargs)
-        self.format(sequences, exclude_virus_methods=True, **kwargs)
+        self.format_viruses(viruses, **kwargs)
+        self.format_sequences(sequences, exclude_virus_methods=True, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         if not preview:

@@ -47,8 +47,10 @@ class flu_upload(upload):
                                   'H1N1pdm': ('a', 'h1n1', 'seasonal_h1n1pdm'),
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
+        self.strain_fix_fname = "source-data/flu_strain_name_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
-        self.passages = set()
+        self.fix = set()
+
 
     def parse(self, path, fname, upload_directory, **kwargs):
         '''
@@ -118,16 +120,15 @@ class flu_upload(upload):
         '''
         format virus information in preparation to upload to database table
         '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
-        self.define_strain_fixes()
+        self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
             if 'strain' in doc:
-                if 'gisaid_location' in doc:
-                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], doc['gisaid_location'])
-                else:
-                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], None)
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc)
             else:
                 print("Missing strain name!")
             self.fix_casing(doc)
@@ -145,24 +146,36 @@ class flu_upload(upload):
         '''
         for doc in documents:
             if 'strain' in doc:
-                if 'gisaid_location' in doc:
-                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], doc['gisaid_location'])
-                else:
-                    doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'], None)
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc)
             else:
                 print("Missing strain name!")
             self.format_date(doc)
             self.format_passage(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
+        print("Names that need to be fixed")
+        for name in sorted(self.fix):
+            print(name)
 
     def filter(self, documents, index, **kwargs):
         '''
         remove certain documents from gisaid files that were not actually isolated from humans
         '''
+        print(str(len(documents)) + " documents before filtering")
         remove_labels = ['duck', 'environment', 'Environment', 'shoveler']
         result_documents = [doc for doc in documents if all(label not in doc['strain'] for label in remove_labels)]
+        result_documents = [doc for doc in result_documents if self.correct_strain_format(doc)]
+        print(str(len(result_documents)) + " documents after filtering")
         return result_documents
+
+    def correct_strain_format(self, doc):
+        # Okay Patterns: B/Brisbane/46/2015, A/HongKong/1968, A/Zambia/13/176/2013 or A/Cologne/Germany/12/2009 or A/Algeria/G0164/15/2015 or A/India/Delhi/DB106/2009, A/Cameroon/LEID/01/11/1387/2011, A/India/M/Enc/1/2003
+        if re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/)*[0-9]{4}$', doc['strain']) or re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/){2}[0-9]{4}$', doc['strain'])\
+                or re.match(r'[A|B]/([A-Za-z-]+/){2}([0-9]+/){3}[0-9]{4}$', doc['strain']):
+            return True
+        else:
+            print("This strain name was not in the correct format and will be filtered out", doc['strain'], doc['gisaid_strain'])
+            self.fix.add(doc['strain'])
 
     def fix_casing(self, doc):
         '''
@@ -194,69 +207,84 @@ class flu_upload(upload):
                 doc['age'] += 'y'
         return doc
 
-    def define_strain_fixes(self):
-        '''
-        Open strain name fixing files and define corresponding dictionaries
-        '''
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/flu_fix_location_label.tsv")), delimiter='\t')
+    def define_location_fixes(self, fname):
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         self.label_to_fix = {}
         for line in reader:
             self.label_to_fix[line['label'].decode('unicode-escape').replace(' ', '').lower()] = line['fix']
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', open("source-data/flu_strain_name_fix.tsv")), delimiter='\t')
-        self.fix_whole_name = {}
-        for line in reader:
-            self.fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
 
-    def fix_name(self, original_name, location):
+    def fix_name(self, doc):
         '''
         Fix strain names
         '''
         # replace all accents with ? mark
-        original_name = original_name.encode('ascii', 'replace')
+        original_name = doc['strain'].encode('ascii', 'replace')
         # Replace whole strain names
-        for gisaid_name, fixed_name in self.fix_whole_name.items():
-            if original_name == gisaid_name:
-                original_name = fixed_name
-        name = original_name
+        name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
             .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
-            .replace('\'', '').replace('(', '').replace(')', '').replace('>', '')
+            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')
         split_name = name.split('/')
         # check location labels in strain names for fixing
         for index, label in enumerate(split_name):
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
         name = '/'.join(split_name)
-        # various name patterns that need to be fixed
-        if re.match(r'([a|b])([\w\s/]+)', name):  #b/sydney/508/2008    B/sydney/508/2008
-            name = re.match(r'([a|b])([\w\s/]+)', name).group(1).upper() + re.match(r'([a|b])([\w\s/]+)', name).group(2)
-        if re.match(r'([\w\s/]+)\([0-9A-Za-z]+\)$', name):  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
-            name = re.match(r'([\w\s/]+)\([0-9A-Za-z]+\)$', name).group(1).strip()
-        if re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]+)', name):  #B/clinicalisolateSA116Philippines/2002 -> B/Philippines/SA116/2002
-            match = re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]+)', name)
-            name = match.group(1) + match.group(3) + "/" + match.group(2) + match.group(4)
-        if re.match(r'([1-2]+)IRL([0-9]+)$', name):  # 12IRL26168 -> A/Ireland/26168/2012  (All sequences with same pattern are H3N2)
-            name = "A/Ireland/" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(2) + "/20" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(1)
-        if re.match(r'([\w\s/]+)(B/Victoria/2/87|B/Victoria/2/1987)$', name):  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
-            name = re.match(r'([\w\s/]+)(B/Victoria/2/87|B/Victoria/2/1987)$', name).group(1)
-        if re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name) and location is not None and len(location.split('/'))>2:  # A/Usa/AF1036/2007 , North America / United States / Colorado -> A/Colarado/AF1036/2007
-            name = re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name).group(1) + location.split('/')[len(location.split('/')) - 1].replace(' ', '') + re.match(r'(A/|B/)(USA|Usa)([\w\s/]+)', name).group(3)
+        name = self.flu_fix_patterns(name)
 
-        # Change two digit years to four digit  B/Florida/1/96 -> B/Florida/1/1996
-        if re.match(r'([\w\s/]+)/([0-9][0-9])$', name):
-            year = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(2)
-            if int(year) < 66:
-                name = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(1) + "/20" + year
-            else:
-                name = re.match(r'([\w\s/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
         # Strip leading zeroes, change all capitalization location field to title case
         split_name = name.split('/')
         if len(split_name) == 4:
             if split_name[1].isupper() or split_name[1].islower():
                 split_name[1] = split_name[1].title()  # B/WAKAYAMA-C/2/2016 becomes B/Wakayama-C/2/2016
             split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
-        result_name = '/'.join(split_name)
+            split_name[3] = split_name[3].lstrip('0')  # A/Cologne/Germany/01/2009 becomes A/Cologne/Germany/1/2009
+        result_name = '/'.join(split_name).strip()
         return result_name, original_name
+
+    def flu_fix_patterns(self, name):
+        # various name patterns that need to be fixed
+        # capitalization of virus type
+        if re.match(r'([a|b])([\w\s\-/]+)', name):  #b/sydney/508/2008    B/sydney/508/2008
+            name = re.match(r'([a|b])([\w\s\-/]+)', name).group(1).upper() + re.match(r'([a|b])([\w\s\-/]+)', name).group(2)
+        # remove inner parentheses and their contents
+        if re.match(r'([^(]+)[^)]+\)(.+)', name):  # A/Egypt/51(S)/2006
+            name = re.match(r'([^(]+)[^)]+\)(.+)', name).group(1) + re.match(r'([^(]+)[^)]+\)(.+)', name).group(2)
+        # remove ending parentheses and their contents
+        if re.match(r'([^(]+)[^)]+\)$', name):  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
+            name = re.match(r'([^(]+)[^)]+\)$', name).group(1)
+        # Add year info to these Hongkong sequences
+        if re.match(r'A/HongKong/H090-[0-9]{3}-V[0-9]$', name):  # A/HongKong/H090-750-V1 All confirmed from 2009
+            name = name + "/2009"
+        # Add year info to these Sendai sequences
+        if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
+            name = name + "/2010"
+        # reformat names with clinical isolate in names, Philippines and Thailand
+        if re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]{4})', name):  #B/clinicalisolateSA116Philippines/2002 -> B/Philippines/SA116/2002
+            match = re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]{4})', name)
+            name = match.group(1) + match.group(3) + "/" + match.group(2) + match.group(4)
+        # reformat Ireland strain names
+        if re.match(r'([1-2]+)IRL([0-9]+)$', name):  # 12IRL26168 -> A/Ireland/26168/2012  (All sequences with same pattern are H3N2)
+            name = "A/Ireland/" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(2) + "/20" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(1)
+        # Remove info B/Vic strain info from name
+        if re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name):  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
+            name = re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name).group(1)
+        # Separate location info from ID info in strain name
+        if re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name):  #A/Iceland183/2009  A/Baylor4A/1983  A/Beijing262/41/1994
+            name = re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name).group(1) + "/" + re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name).group(2)
+        # Remove characters after year info, associated with passage info but can parse that from passage field later
+        if re.match(r'([A|B]/[A-Za-z-]+/[A-Za-z0-9_-]+/[0-9]{4})(.)+$', name):  # B/California/12/2015BX59B A/Shanghai/11/1987/X99/highyieldingreassortant
+            name = re.match(r'([A|B]/[A-Za-z-]+/[A-Za-z0-9_-]+/[0-9]{4})(.)+$', name).group(1)
+        # Strip trailing slashes
+        name = name.rstrip('/')  # A/NorthernTerritory/60/68//  A/Paris/455/2015/
+        # Change two digit years to four digit years
+        if re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name):  #B/Florida/1/96 -> B/Florida/1/1996
+            year = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(2)
+            if int(year) < 66:
+                name = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(1) + "/20" + year
+            else:
+                name = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
+        return name
 
     def format_country(self, v):
         '''
@@ -322,8 +350,6 @@ class flu_upload(upload):
                 passage_category = "cell"
             elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', gisaid_passage):
                 pass
-            else:
-                self.passages.add(gisaid_passage)
             doc['passage'] = passage_category
         else:
             doc['gisaid_passage'] = None

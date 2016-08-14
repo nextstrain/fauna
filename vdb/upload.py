@@ -44,7 +44,7 @@ class upload(parse):
         self.rethink_io.check_table_exists(self.database, self.viruses_table)
         self.rethink_io.check_table_exists(self.database, self.sequences_table)
         self.strains = {}
-
+        self.strain_fix_fname = None
         self.virus_to_sequence_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
@@ -54,10 +54,12 @@ class upload(parse):
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
-        viruses = self.filter(viruses, 'strain', **kwargs)
-        sequences = self.filter(sequences, 'accession', **kwargs)
         self.format_viruses(viruses, **kwargs)
         self.format_sequences(sequences, **kwargs)
+        print("Filtering out viruses")
+        viruses = self.filter(viruses, 'strain', **kwargs)
+        print("Filtering out sequences")
+        sequences = self.filter(sequences, 'accession', **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("Upload Step")
@@ -78,12 +80,13 @@ class upload(parse):
         '''
         format virus information in preparation to upload to database table
         '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
-            if 'strain' in doc:
-                doc['strain'] = self.fix_name(doc['strain'])
+            doc['strain'], doc['original_strain'] = self.fix_name(doc)
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
@@ -96,19 +99,38 @@ class upload(parse):
         format virus information in preparation to upload to database table
         '''
         for doc in documents:
-            if 'strain' in doc:
-                doc['strain'] = self.fix_name(doc['strain'])
+            doc['strain'], doc['original_strain'] = self.fix_name(doc)
             self.format_date(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
-    def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
+    def define_strain_fixes(self, fname):
+        '''
+        Open strain name fixing files and define corresponding dictionaries
+        '''
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
+        fix_whole_name = {}
+        for line in reader:
+            fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
+        return fix_whole_name
+
+    def replace_strain_name(self, original_name, fixes={}):
+        '''
+        return the new strain name that will replace the original
+        '''
+        if original_name in fixes:
+            return fixes[original_name]
+        else:
+            return original_name
+
+    def fix_name(self, doc):
+        original_name = doc['strain']
+        tmp_name = original_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
         try:
             tmp_name = 'V' + str(int(tmp_name))
         except:
             pass
-        return tmp_name
+        return tmp_name, original_name
 
     def format_date(self, virus):
         '''
@@ -249,6 +271,8 @@ class upload(parse):
                     print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
 
     def filter(self, documents, index, **kwargs):
+        print(str(len(documents)) + " documents before filtering")
+        print(str(len(documents)) + " documents after filtering")
         return documents
 
     def define_latitude_longitude(self, lat_long_fname, code_fname):
@@ -335,12 +359,17 @@ class upload(parse):
         '''
         Link the sequence information virus isolate information via the strain name
         '''
-        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
+        strain_name_to_virus_doc = {}
+        for virus in viruses:
+            if virus['strain'] not in strain_name_to_virus_doc:
+                strain_name_to_virus_doc[virus['strain']] = [virus]
+            else:
+                strain_name_to_virus_doc[virus['strain']].append(virus)
         for sequence_doc in sequences:
             if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
-                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
-                virus_doc['sequences'].append(sequence_doc['accession'])
-                virus_doc['number_sequences'] += 1
+                for virus_doc in strain_name_to_virus_doc[sequence_doc['strain']]:
+                    virus_doc['sequences'].append(sequence_doc['accession'])
+                    virus_doc['number_sequences'] += 1
 
     def transfer_fields(self, docs_from, docs_to, fields=[]):
         '''
@@ -362,7 +391,7 @@ class upload(parse):
             print("Deleting documents in database:" + self.database + "." + table)
             r.table(table).delete().run()
         db_documents = list(r.db(self.database).table(table).run())
-        db_key_to_documents = {dd[index]: dd for dd in db_documents}
+        db_key_to_documents = {self.relax_name(dd[index]): dd for dd in db_documents}
         update_documents = {}
         upload_documents = {}
         print("Classifying documents to upload or update")
@@ -392,7 +421,6 @@ class upload(parse):
                 r.table(table).insert(list_docs, conflict=conflict_resolution).run()
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
-
     def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
         print("Checking for updates to ", len(update_documents), "documents")
         # determine which documents need to be updated and update them
@@ -403,7 +431,6 @@ class upload(parse):
             self.upload_to_rethinkdb(self.database, table, updated, 'replace')
         else:
             print("No documents need to be updated in ", self.database + "." + table)
-
     def update_document_meta(self, db_doc, doc, overwrite, output=True, **kwargs):
         '''
         update overwritable fields at the base level of the document

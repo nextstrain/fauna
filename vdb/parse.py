@@ -80,8 +80,6 @@ class parse(object):
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in virus_fasta_fields.items()}
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
                 s['sequence'] = str(record.seq).lower()
-                v['strain'] = self.fix_name(v['strain'])
-                s['strain'] = self.fix_name(v['strain'])
                 v = self.add_virus_fields(v, **kwargs)
                 s = self.add_sequence_fields(s, **kwargs)
                 sequences.append(s)
@@ -107,7 +105,7 @@ class parse(object):
                 header = {i: element for i, element in enumerate(next(table_reader), 0)}
                 for row in table_reader:
                     v = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
-                    self.add_other_attributes(v, **kwargs)
+                    self.add_virus_fields(v, **kwargs)
                     self.fix_casing(v)
                     self.fix_boolean(v)
                     viruses.append(v)
