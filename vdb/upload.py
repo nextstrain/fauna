@@ -536,9 +536,9 @@ if __name__=="__main__":
 
 def rethinkdb_updater(id, old_doc, new_doc):
     return (new_doc.keys().set_union(old_doc.keys()).map(lambda key:
-        r.branch(old_doc.hasFields(key).and_(new_doc.hasFields(key).not_()),
+        r.branch(old_doc.keys().contains(key).and_(new_doc.keys().contains(key).not_()),
             [key, old_doc[key]],
-            new_doc.hasFields(key).and_(old_doc.hasFields(key).not_()),
+            new_doc.keys().contains(key).and_(old_doc.keys().contains(key).not_()),
             [key, new_doc[key]],
             r.branch(key.eq('sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
