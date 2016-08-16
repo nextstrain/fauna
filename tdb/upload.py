@@ -26,6 +26,7 @@ class upload(parse, flu_upload):
         parse.__init__(self, **kwargs)
         flu_upload.__init__(self, database=database, virus=virus)
         self.virus = virus.lower()
+        self.table = self.virus
         self.subtype = subtype.lower()
         self.database = database.lower()
         self.uploadable_databases = ['tdb', 'test_tdb', 'test']
@@ -70,7 +71,7 @@ class upload(parse, flu_upload):
         measurements = self.create_index(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
-            self.upload_documents(measurements, **kwargs)
+            self.upload_documents(self.table, measurements, **kwargs)
         else:
             print("Titer Measurements:")
             print(json.dumps(measurements[0], indent=1))
@@ -354,91 +355,6 @@ class upload(parse, flu_upload):
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
         print(len(measurements), " measurements after filtering")
         return measurements
-
-    def upload_documents(self, measurements, replace=False, exclusive=True, **kwargs):
-        '''
-        Insert viruses into collection
-        '''
-        if replace:
-            print("Deleting documents in database:", self.database, "table:", self.virus)
-            r.table(self.virus).delete().run()
-        if exclusive:
-            db_measurements = list(r.db(self.database).table(self.virus).run())
-            uploaded_indexes = {" ".join([str(i) for i in db_meas['index']]): db_meas for db_meas in db_measurements}
-            check_update_measurements = []
-            upload_measurements = []
-            added_to_upload_measurements = set()
-            for meas in measurements:
-                index_test = " ".join([str(i) for i in meas['index']])
-                if index_test not in uploaded_indexes.keys() and index_test not in added_to_upload_measurements:
-                    upload_measurements.append(meas)
-                    added_to_upload_measurements.add(index_test)
-                elif index_test in uploaded_indexes.keys():
-                    check_update_measurements.append(meas)
-            print("Inserting ", len(upload_measurements), "measurements into database", self.virus)
-            r.table(self.virus).insert(upload_measurements).run()
-            print("Checking for updates to ", len(check_update_measurements), "measurements in database", self.virus)
-            for meas in check_update_measurements:
-                self.updated = False
-                index_test = " ".join([str(i) for i in meas['index']])
-                self.update_document_meta(uploaded_indexes[index_test], meas)
-        else:
-            print("Uploading " + str(len(measurements)) + " measurements to the table")
-            for meas in measurements:
-                try:
-                    document = r.table(self.virus).get(meas['index']).run()
-                except:
-                    print(meas)
-                    raise Exception("Couldn't retrieve this measurement")
-                # Virus doesn't exist in table yet so add it
-                if document is None:
-                    #print("Inserting " + meas['index'] + " into database")
-                    try:
-                        r.table(self.virus).insert(meas).run()
-                    except:
-                        print(meas)
-                        raise Exception("Couldn't insert this measurement")
-                # Virus exists in table so just add sequence information and update meta data if needed
-                else:
-                    self.updated = False
-                    self.update_document_meta(document, meas, **kwargs)
-
-    def upload_to_rethinkdb(self, database, table, documents, conflict_resolution, **kwargs):
-        optimal_upload = 200
-        if len(documents) > optimal_upload:
-            list_documents = [documents[x:x+optimal_upload] for x in range(0, len(documents), optimal_upload)]
-        else:
-            list_documents = [documents]
-        print("Uploading to rethinkdb in " + str(len(list_documents)) + " batches")
-        for list_docs in list_documents:
-            try:
-                r.table(table).insert(list_docs, conflict=conflict_resolution).run()
-            except:
-                raise Exception("Couldn't insert new documents into database", database + "." + table)
-
-    def update_document_meta(self, document, meas, overwrite=False, **kwargs):
-        '''
-        if overwrite is false update doc_virus information only if virus info is different and not null
-        if overwrite is true update doc_virus information if virus info is different
-        '''
-        for field in self.overwritable_fields:
-            # update if overwrite and anything
-            # update if !overwrite only if document[field] is not none
-            if field not in document:
-                if field in meas:
-                    print("Creating measurement field ", field, " assigned to ", meas[field])
-                    r.table(self.virus).get(meas['index']).update({field: meas[field]}).run()
-                    document[field] = meas[field]
-                    self.updated = True
-            elif (overwrite and document[field] != meas[field]) or (not overwrite and document[field] is None and document[field] != meas[field]):
-                if field in meas:
-                    print("Updating measurement field " + str(field) + ", from \"" + str(document[field]) + "\" to \"" + meas[field]) + "\""
-                    r.table(self.virus).get(meas['index']).update({field: meas[field]}).run()
-                    document[field] = meas[field]
-                    self.updated = True
-        if self.updated:
-            r.table(self.virus).get(meas['index']).update({'timestamp': meas['timestamp']}).run()
-            document['timestamp'] = meas['timestamp']
 
     def relaxed_keys(self, indexes):
         '''

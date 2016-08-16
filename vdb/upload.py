@@ -59,9 +59,9 @@ class upload(parse):
         print("Upload Step")
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.viruses_table, viruses, 'strain', **kwargs)
+            self.upload_documents(self.viruses_table, viruses, **kwargs)
             print("Uploading sequences to " + self.database + "." + self.sequences_table)
-            self.upload_documents(self.sequences_table, sequences, 'accession', **kwargs)
+            self.upload_documents(self.sequences_table, sequences, **kwargs)
         else:
             print("Viruses:")
             print(json.dumps(viruses[0], indent=1))
@@ -101,6 +101,8 @@ class upload(parse):
         '''
         format virus information in preparation to upload to database table
         '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         for doc in documents:
             doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
@@ -389,103 +391,45 @@ class upload(parse):
             for field in fields:
                 del doc_from[field]
 
-    def upload_documents(self, table, documents, index, replace, **kwargs):
+    def upload_documents(self, table, documents, replace=False, **kwargs):
         if replace:
             print("Deleting documents in database:" + self.database + "." + table)
             r.table(table).delete().run()
-        db_documents = list(r.db(self.database).table(table).run())
-        db_key_to_documents = {self.relax_name(dd[index]): dd for dd in db_documents}
-        update_documents = {}
-        upload_documents = {}
-        print("Classifying documents to upload or update")
-        # Determine whether documents need to be updated or uploaded
-        for doc in documents:
-            # match to relaxed strain name if available
-            db_key = self.relax_name(doc[index])
-            if db_key in db_key_to_documents.keys():  # add to update documents
-                update_documents[db_key] = doc
-            elif db_key in upload_documents.keys():  # document already in list to be uploaded, check for updates
-                self.update_document_meta(upload_documents[db_key], doc, output=False, **kwargs)
-            else:  # add to upload documents
-                upload_documents[db_key] = doc
-        print("Inserting ", len(upload_documents), "documents")
-        self.upload_to_rethinkdb(self.database, table, upload_documents.values(), 'error')
-        self.check_for_updates(table, update_documents, db_key_to_documents, **kwargs)
+        print("Inserting ", len(documents), "documents")
+        self.upload_to_rethinkdb(self.database, table, documents)
 
-    def upload_to_rethinkdb(self, database, table, documents, conflict_resolution, **kwargs):
+    def upload_to_rethinkdb(self, database, table, documents, **kwargs):
         optimal_upload = 200
         if len(documents) > optimal_upload:
             list_documents = [documents[x:x+optimal_upload] for x in range(0, len(documents), optimal_upload)]
         else:
             list_documents = [documents]
-        print("Uploading to rethinkdb in " + str(len(list_documents)) + " batches")
+        print("Uploading to rethinkdb in " + str(len(list_documents)) + " batches of " + str(optimal_upload) + " documents at a time")
+        inserted = 0
+        replaced = 0
         for list_docs in list_documents:
             try:
-                r.table(table).insert(list_docs, conflict=conflict_resolution).run()
+                document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
+                self.update_timestamp(table, document_changes)
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
-
-    def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
-        print("Checking for updates to ", len(update_documents), "documents")
-        # determine which documents need to be updated and update them
-        updated = [db_key_to_documents[db_key] for db_key, doc in update_documents.items() if self.update_document_meta(db_key_to_documents[db_key], doc, **kwargs)]
-        # then insert the updated documents
-        if len(updated) > 0:
-            print("Found updates to ", len(updated), "documents")
-            self.upload_to_rethinkdb(self.database, table, updated, 'replace')
-        else:
-            print("No documents need to be updated in ", self.database + "." + table)
-
-    def update_document_meta(self, db_doc, doc, overwrite, output=True, **kwargs):
-        '''
-        update overwritable fields at the base level of the document
-        Updates the db_doc to fields of doc based on rules below
-        '''
-        updated = False
-        keys = doc.keys()
-        keys.append('timestamp')
-        for field in keys:
-            if field == 'timestamp':
-                if updated:
-                    db_doc['timestamp'] = self.rethink_io.get_upload_timestamp()
-            elif field == 'sequences':
-                # add new accessions to sequences
-                for accession in doc[field]:
-                    if accession not in db_doc[field]:
-                        updated = True
-                        db_doc[field].append(accession)
-                        db_doc['number_sequences'] += 1
             else:
-                # update if field not present in db_doc
-                if field not in db_doc:
-                    if doc[field] is not None:
-                        print("Creating field ", field, " assigned to ", doc[field])
-                    db_doc[field] = doc[field]
-                    updated = True
-                #update db_doc information if doc info is different, or if overwrite is false update db_doc information only if doc info is different and not null
-                elif doc[field] is not None and (overwrite and db_doc[field] != doc[field]) or (not overwrite and db_doc[field] is None and db_doc[field] != doc[field]):
-                    if output:
-                        print("Updating field " + str(field) + ", from \"" + str(db_doc[field]) + "\" to \"" + str(doc[field])) + "\""
-                    db_doc[field] = doc[field]
-                    updated = True
-        return updated
+                inserted += document_changes['inserted']
+                replaced += document_changes['replaced']
+        print("Inserted " + str(inserted) + " documents into " + database + "." + table)
+        print("Updated " + str(replaced) + " documents in " + database + "." + table)
 
-    def updater(self, id, old_doc, new_doc):
-        combined_doc = {}
-        for key in list(set(old_doc.keys()+new_doc.keys())):
-            if key in old_doc and key not in new_doc:
-                combined_doc[key] = old_doc[key]
-            elif key in new_doc and key not in old_doc:
-                combined_doc[key] = new_doc[key]
-            else:  # key in both sequences
-                if key == 'sequences':
-                    combined_doc[key] = list(set(old_doc[key]+new_doc[key]))
-                else:
-                    if old_doc[key] is None and new_doc[key] is not None:
-                        combined_doc[key] = new_doc[key]
-                    else:
-                        combined_doc[key] = old_doc[key]
-
+    def update_timestamp(self, table, document_changes):
+        '''
+        Update the timestamp field in the rethink table if changes have been made to the documents
+        '''
+        updated_documents = []
+        if 'changes' in document_changes:
+            for doc in document_changes['changes']:
+                if doc['new_val'] is not None:
+                    updated_documents.append({'strain': doc['new_val']['strain'], 'timestamp': self.rethink_io.get_upload_timestamp()})
+        if len(updated_documents) > 0:
+            r.table(table).insert(updated_documents, conflict='update')
 
     def relaxed_keys(self, documents, index):
         '''
@@ -513,3 +457,20 @@ if __name__=="__main__":
         os.makedirs(args.path)
     connVDB = upload(**args.__dict__)
     connVDB.upload(**args.__dict__)
+
+def rethinkdb_updater(id, old_doc, new_doc):
+    return (new_doc.keys().set_union(old_doc.keys()).map(lambda key:
+        r.branch(old_doc.has_fields(key).and_(new_doc.has_fields(key).not_()),
+            [key, old_doc[key]],
+            new_doc.has_fields(key).and_(old_doc.has_fields(key).not_()),
+            [key, new_doc[key]],
+            r.branch(key.eq('sequences'),
+                [key, old_doc['sequences'].set_union(new_doc['sequences'])],
+                key.eq('number_sequences'),
+                [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
+                r.branch(old_doc[key].eq(None).and_(new_doc[key].eq(None).not_()),
+                    [key, new_doc[key]],
+                    [key, old_doc[key]])
+            )
+        )
+    )).coerce_to('object')

@@ -23,15 +23,15 @@ class update(upload):
         else:
             self.update_genbank_documents(**kwargs)
 
-    def update_citations(self, preview, **kwargs):
+    def update_citations(self, preview, index='accession', **kwargs):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
         self.format_sequences(sequences, **kwargs)
-        citation_keys = ['authors', 'title', 'url']
+        citation_keys = ['authors', 'title', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + self.database + "." + self.viruses_table)
-            self.upload_to_rethinkdb(self.database, self.sequences_table, sequences, 'update')
+            self.upload_documents(self.sequences_table, sequences, **kwargs)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
@@ -62,7 +62,7 @@ class update(upload):
         viruses = self.reassign_new_locations(viruses, self.location_fields, **kwargs)
         if not preview:
             print("Updating " + str(len(viruses)) + " virus locations in " + self.database + "." + self.viruses_table)
-            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, 'update')
+            self.upload_documents(self.viruses_table, viruses, **kwargs)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
@@ -104,9 +104,9 @@ class update(upload):
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         if not preview:
             print("Updating viruses in " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.viruses_table, viruses, 'strain', **kwargs)
+            self.upload_documents(self.viruses_table, viruses, **kwargs)
             print("Updating sequences in " + self.database + "." + self.sequences_table)
-            self.upload_documents(self.sequences_table, sequences, 'accession', **kwargs)
+            self.upload_documents(self.sequences_table, sequences, **kwargs)
         else:
             print("Viruses:")
             print(json.dumps(viruses[0], indent=1))

@@ -157,7 +157,7 @@ class flu_upload(upload):
         for name in sorted(self.fix):
             print(name)
 
-    def filter(self, documents, index, **kwargs):
+    def filter(self, documents, **kwargs):
         '''
         remove certain documents from gisaid files that were not actually isolated from humans
         '''

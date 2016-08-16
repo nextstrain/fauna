@@ -239,12 +239,13 @@ class parse(object):
                 s['title'] = None
             if reference.authors is not None:
                 first_author = re.match(r'^([^,]*)', reference.authors).group(0)
+                s['authors'] = first_author + " et al"
             else:
                 print("Couldn't parse authors for " + s['accession'])
+                s['authors'] = None
                 first_author = None
             url = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
             s['url'] = self.get_gb_url(url, s['title'], first_author)
-            s['authors'] = first_author + " et al"
 
             record_features = record.features
             for feat in record_features:
