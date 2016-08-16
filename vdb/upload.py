@@ -410,7 +410,6 @@ class upload(parse):
         for list_docs in list_documents:
             try:
                 document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
-                self.update_timestamp(table, document_changes)
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
             else:
@@ -418,18 +417,6 @@ class upload(parse):
                 replaced += document_changes['replaced']
         print("Inserted " + str(inserted) + " documents into " + database + "." + table)
         print("Updated " + str(replaced) + " documents in " + database + "." + table)
-
-    def update_timestamp(self, table, document_changes):
-        '''
-        Update the timestamp field in the rethink table if changes have been made to the documents
-        '''
-        updated_documents = []
-        if 'changes' in document_changes:
-            for doc in document_changes['changes']:
-                if doc['new_val'] is not None:
-                    updated_documents.append({'strain': doc['new_val']['strain'], 'timestamp': self.rethink_io.get_upload_timestamp()})
-        if len(updated_documents) > 0:
-            r.table(table).insert(updated_documents, conflict='update')
 
     def relaxed_keys(self, documents, index):
         '''
@@ -468,6 +455,8 @@ def rethinkdb_updater(id, old_doc, new_doc):
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
                 key.eq('number_sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
+                key.eq('timestamp'),
+                [key, new_doc[key]],
                 r.branch(old_doc[key].eq(None).and_(new_doc[key].eq(None).not_()),
                     [key, new_doc[key]],
                     [key, old_doc[key]])
