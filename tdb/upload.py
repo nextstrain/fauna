@@ -21,6 +21,7 @@ parser.add_argument('--auth_key', default=None, help="auth_key for rethink datab
 parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
 parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
 
+
 class upload(parse, flu_upload):
     def __init__(self, database, virus, subtype, **kwargs):
         parse.__init__(self, **kwargs)
@@ -69,6 +70,7 @@ class upload(parse, flu_upload):
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
+        self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, **kwargs)
@@ -78,7 +80,7 @@ class upload(parse, flu_upload):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-    def format_measurements(self, measurements, vdb_database='test_vdb', vdb_table='flu_viruses', **kwargs):
+    def format_measurements(self, measurements, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
@@ -87,19 +89,9 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev =self.define_strain_fixes(self.HI_ref_name_abbrev_fname)
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
-        print("Using " + vdb_database + "." + vdb_table + " to adjust strain names to sequence strains")
-        vdb_strains = self.relaxed_keys(set(list(r.db(vdb_database).table(vdb_table).get_field('strain').run())))
-        '''
-        self.unknown_strains = 0
-        self.adjusted_strains = 0
-        self.adjusted = set()
-        self.known_strains = 0
-        '''
         for meas in measurements:
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
-            meas['virus_strain'] = self.adjust_strain_name(meas['virus_strain'], vdb_strains)
-            meas['serum_strain'] = self.adjust_strain_name(meas['serum_strain'], vdb_strains)
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
@@ -118,29 +110,34 @@ class upload(parse, flu_upload):
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
-        '''
-        print("No sequence for these virus strains", self.unknown_strains)
-        print("Strain name matched vdb strain initially", self.known_strains)
-        print("Adjusted strain names to match vdb strain", self.adjusted_strains)
-        print("Titer measurement strain name : Sequence strain name")
-        for item in sorted(self.adjusted):
-            print(item)
-        '''
         return measurements
 
-    def adjust_strain_name(self, name, vdb_strains):
+    def adjust_tdb_strain_names(self, measurements, database='vdb'):
+        '''
+        Compare measurement strain names to vdb strain names to ensure downstream matching between measurements and sequences
+        '''
+        table = self.virus + "_viruses"
+        print("Using " + database + "." + table + " to adjust strain names to sequence strains")
+        vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('strain').run())))
+        matched_virus_strains = 0
+        matched_serum_strains = 0
+        for meas in measurements:
+            meas['virus_strain'], matched_virus_strains = self.adjust_strain_name(meas['virus_strain'], vdb_strains, matched_virus_strains)
+            meas['serum_strain'], matched_serum_strains = self.adjust_strain_name(meas['serum_strain'], vdb_strains, matched_serum_strains)
+        print(str(matched_virus_strains) + " out of " + str(len(measurements)) + " virus strains were matched to a sequence in " + database + "." + table)
+        print(str(matched_serum_strains) + " out of " + str(len(measurements)) + " serum strains were matched to a sequence in " + database + "." + table)
+
+    def adjust_strain_name(self, name, vdb_strains, number_matched):
+        '''
+        Change strain name if matched to a relaxed strain name in vdb strains
+        Return adjusted strain name and total count of matched measurements
+        '''
         relax_strain = self.relax_name(name)
-        if relax_strain not in vdb_strains:  # no sequence for this strain
-            #self.unknown_strains += 1
-            pass
-        elif vdb_strains[relax_strain] != name:  # sequence, but strain name needs to be adjusted
-            #self.adjusted.add(name + " : " + vdb_strains[relax_strain])
-            name = vdb_strains[relax_strain]
-            #self.adjusted_strains += 1
-        else:  # sequence known for this strain name
-            #self.known_strains += 1
-            pass
-        return name
+        if relax_strain in vdb_strains:
+            number_matched += 1
+            if vdb_strains[relax_strain] != name:
+                return vdb_strains[relax_strain], number_matched
+        return name, number_matched
 
     def HI_fix_name(self, name, serum):
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
@@ -355,29 +352,6 @@ class upload(parse, flu_upload):
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
         print(len(measurements), " measurements after filtering")
         return measurements
-
-    def relaxed_keys(self, indexes):
-        '''
-        Create dictionary from relaxed vdb strain names to actual vdb strain names.
-        '''
-        strains = {}
-        for index in indexes:
-            strains[self.relax_name(index)] = index
-        return strains
-
-    def relax_name(self, name):
-        '''
-        Return the relaxed strain name to compare with
-        '''
-        split_name = name.split('/')
-        for index, split in enumerate(split_name):  # A/Guangdong-Yuexiu/SWL1651/2013 -> A/Guangdong-Yuexiu/1651/2013
-            if index >= 2:
-                split_name[index] = filter(lambda x: x.isdigit(), split)
-        name = "/".join(split_name)
-        name = re.sub(r"-", '', name)
-        name = re.sub(r"_", '', name)
-        name = re.sub(r"/", '', name)
-        return name
 
 if __name__=="__main__":
     args = parser.parse_args()

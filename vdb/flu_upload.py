@@ -409,6 +409,21 @@ class flu_upload(upload):
             print("Couldn't parse virus subtype and lineage from aligning sequence: " + doc['strain'])
             return None
 
+    def relax_name(self, name):
+        '''
+        Return the relaxed strain name to compare with
+        '''
+        split_name = name.split('/')
+        for index, split in enumerate(split_name):  # A/Guangdong-Yuexiu/SWL1651/2013 -> A/Guangdong-Yuexiu/1651/2013
+            if index >= 2:
+                split_name[index] = filter(lambda x: x.isdigit(), split)
+        name = "/".join(split_name)
+        name = re.sub(r"-", '', name)
+        name = re.sub(r"_", '', name)
+        name = re.sub(r"/", '', name)
+        return name
+
+
 if __name__=="__main__":
     args = parser.parse_args()
     sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}

@@ -418,13 +418,13 @@ class upload(parse):
         print("Inserted " + str(inserted) + " documents into " + database + "." + table)
         print("Updated " + str(replaced) + " documents in " + database + "." + table)
 
-    def relaxed_keys(self, documents, index):
+    def relaxed_keys(self, indexes):
         '''
         Create dictionary from relaxed vdb strain names to actual vdb strain names.
         '''
         strains = {}
-        for doc in documents:
-            strains[self.relax_name(doc[index])] = doc[index]
+        for index in indexes:
+            strains[self.relax_name(index)] = index
         return strains
 
     def relax_name(self, name):
