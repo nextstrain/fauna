@@ -87,30 +87,23 @@ class upload(parse, flu_upload):
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         print("Using " + vdb_database + "." + vdb_table + " to adjust strain names to sequence strains")
-        self.vdb_strains = self.relaxed_keys(set(list(r.db(vdb_database).table(vdb_table).get_field('strain').run())))
+        vdb_strains = self.relaxed_keys(set(list(r.db(vdb_database).table(vdb_table).get_field('strain').run())))
+        '''
         self.unknown_strains = 0
         self.adjusted_strains = 0
         self.adjusted = set()
         self.known_strains = 0
+        '''
         for meas in measurements:
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
-            self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain'])
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
-            self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain'])
-            relax_strain = self.relax_name(meas['virus_strain'])
-            if relax_strain not in self.vdb_strains:  # no sequence for this strain
-                self.unknown_strains += 1
-            elif self.vdb_strains[relax_strain] != meas['virus_strain']:  # sequence, but strain name needs to be adjusted
-                self.adjusted.add(meas['virus_strain'] + " : " + self.vdb_strains[relax_strain])
-                meas['virus_strain'] = self.vdb_strains[relax_strain]
-                self.adjusted_strains += 1
-            else:  # sequence known for this strain name
-                self.known_strains += 1
+            meas['virus_strain'] = self.adjust_strain_name(meas['virus_strain'], vdb_strains)
+            meas['serum_strain'] = self.adjust_strain_name(meas['serum_strain'], vdb_strains)
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            self.format_passage(meas)
+            self.format_passage(meas, 'passage', 'passage_category')
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
@@ -124,13 +117,29 @@ class upload(parse, flu_upload):
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
+        '''
         print("No sequence for these virus strains", self.unknown_strains)
         print("Strain name matched vdb strain initially", self.known_strains)
         print("Adjusted strain names to match vdb strain", self.adjusted_strains)
         print("Titer measurement strain name : Sequence strain name")
         for item in sorted(self.adjusted):
             print(item)
+        '''
         return measurements
+
+    def adjust_strain_name(self, name, vdb_strains):
+        relax_strain = self.relax_name(name)
+        if relax_strain not in vdb_strains:  # no sequence for this strain
+            #self.unknown_strains += 1
+            pass
+        elif vdb_strains[relax_strain] != name:  # sequence, but strain name needs to be adjusted
+            #self.adjusted.add(name + " : " + vdb_strains[relax_strain])
+            name = vdb_strains[relax_strain]
+            #self.adjusted_strains += 1
+        else:  # sequence known for this strain name
+            #self.known_strains += 1
+            pass
+        return name
 
     def HI_fix_name(self, name, serum):
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
@@ -292,11 +301,6 @@ class upload(parse, flu_upload):
             print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain'])
             meas['date'] = None
 
-    def format_passage(self, meas):
-        '''
-        Format passage attribute
-        '''
-
     def format_id(self, meas):
         '''
         Format ferret id attribute
@@ -346,6 +350,8 @@ class upload(parse, flu_upload):
         measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
         measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields), measurements)
+        print("Filtering out measurements with virus or serum strain names not formatted correctly")
+        measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
         print(len(measurements), " measurements after filtering")
         return measurements
 

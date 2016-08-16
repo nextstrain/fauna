@@ -150,7 +150,7 @@ class flu_upload(upload):
             else:
                 print("Missing strain name!")
             self.format_date(doc)
-            self.format_passage(doc)
+            self.format_passage(doc, 'passage', 'passage_category')
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
         print("Names that need to be fixed")
@@ -322,38 +322,38 @@ class flu_upload(upload):
                     v['division'] = assignment[1]
                     v['country'] = assignment[2]
 
-    def format_passage(self, doc, **kwargs):
+    def format_passage(self, doc, initial_field, new_field, **kwargs):
         '''
 
         Regex borrowed from McWhite et al. 2016
         '''
-        if 'gisaid_passage' in doc and doc['gisaid_passage'] is not None:
-            gisaid_passage = doc['gisaid_passage'].upper()
+        if initial_field in doc and doc[initial_field] is not None:
+            passage = doc[initial_field].upper()
             passage_category = "undetermined"
-            if re.search(r'AM[1-9]|E[1-9]|AMNIOTIC|EGG|EX|AM_[1-9]', gisaid_passage):   # McWhite
+            if re.search(r'AM[1-9]|E[1-9]|AMNIOTIC|EGG|EX|AM_[1-9]', passage):   # McWhite
                 passage_category = "egg"
-            elif re.search(r'AM-[1-9]|EMBRYO|E$', gisaid_passage):
+            elif re.search(r'AM-[1-9]|EMBRYO|E$', passage):
                 passage_category = "egg"
-            elif re.search(r'LUNG|P0|OR_|ORIGINAL|CLINICAL|DIRECT', gisaid_passage):    # McWhite
+            elif re.search(r'LUNG|P0|OR_|ORIGINAL|CLINICAL|DIRECT', passage):    # McWhite
                 passage_category = "unpassaged"
-            elif re.search(r'ORGINAL|ORIGNAL|CLINCAL|THROAT|PRIMARY|NASO|AUTOPSY|BRONCHIAL|INITIAL|NASAL|NOSE|ORIG|SWAB', gisaid_passage):
+            elif re.search(r'ORGINAL|ORIGNAL|CLINCAL|THROAT|PRIMARY|NASO|AUTOPSY|BRONCHIAL|INITIAL|NASAL|NOSE|ORIG|SWAB', passage):
                 passage_category = "unpassaged"
-            elif re.search(r'TMK|RMK|RHMK|RII|PMK|R[1-9]|RX', gisaid_passage):    # McWhite
+            elif re.search(r'TMK|RMK|RHMK|RII|PMK|R[1-9]|RX', passage):    # McWhite
                 passage_category = "cell"
-            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MCDK|C[1-9]|CX|M[1-9]|MX|X[1-9]|^X_$', gisaid_passage):  # McWhite
+            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MCDK|C[1-9]|CX|M[1-9]|MX|X[1-9]|^X_$', passage):  # McWhite
                 passage_category = "cell"
-            elif re.search(r'C_[1-9]|C [1-9]|MD[1-9]|MK[1-9]|MEK[1-9]', gisaid_passage):
+            elif re.search(r'C_[1-9]|C [1-9]|MD[1-9]|MK[1-9]|MEK[1-9]', passage):
                 passage_category = "cell"
-            elif re.search(r'^S[1-9]_$| ^SX_$|SIAT2_SIAT1|SIAT3_SIAT1', gisaid_passage):    # McWhite
+            elif re.search(r'^S[1-9]_$| ^SX_$|SIAT2_SIAT1|SIAT3_SIAT1', passage):    # McWhite
                 passage_category = "cell"
-            elif re.search(r'not SIAT|SX|S[1-9]', gisaid_passage):  # McWhite
+            elif re.search(r'not SIAT|SX|S[1-9]', passage):  # McWhite
                 passage_category = "cell"
-            elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', gisaid_passage):
+            elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', passage):
                 pass
-            doc['passage'] = passage_category
+            doc[new_field] = passage_category
         else:
-            doc['gisaid_passage'] = None
-            doc['passage'] = None
+            doc[initial_field] = None
+            doc[new_field] = None
 
 
     def determine_group_fields(self, v, **kwargs):
@@ -411,7 +411,7 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'gisaid_passage', 5: 'submitting_lab'}
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
     #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
     setattr(args, 'fasta_fields', sequence_fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
