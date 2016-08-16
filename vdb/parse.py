@@ -242,7 +242,7 @@ class parse(object):
             else:
                 print("Couldn't parse authors for " + s['accession'])
                 first_author = None
-            url = "http://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
+            url = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
             s['url'] = self.get_gb_url(url, s['title'], first_author)
             s['authors'] = first_author + " et al"
 

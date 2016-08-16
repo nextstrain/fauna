@@ -13,6 +13,7 @@ class update(upload):
         self.location_fields = ['location', 'division', 'country']
 
     def update(self, update_citations, update_locations, update_groupings, **kwargs):
+        self.connect(**kwargs)
         if update_citations:
             self.update_citations(**kwargs)
         elif update_locations:
