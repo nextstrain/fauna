@@ -15,7 +15,7 @@ class update(upload):
     def update(self, update_citations, update_locations, update_groupings, **kwargs):
         self.connect(**kwargs)
         if update_citations:
-            self.update_citations(**kwargs)
+            self.update_citations(table=self.sequences_table, **kwargs)
         elif update_locations:
             self.update_locations(**kwargs)
         elif update_groupings:
@@ -23,19 +23,17 @@ class update(upload):
         else:
             self.update_genbank_documents(**kwargs)
 
-    def update_citations(self, preview, index='accession', **kwargs):
+    def update_citations(self, database, table, preview, index='accession', **kwargs):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
         self.format_sequences(sequences, **kwargs)
         self.match_duplicate_accessions(sequences, **kwargs)
-        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=self.database)
+        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
         citation_keys = ['authors', 'title', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
-        for doc in sequences:
-            print(doc)
         if not preview:
-            print("Updating " + str(len(sequences)) + " sequence citations in " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.sequences_table, sequences, **kwargs)
+            print("Updating " + str(len(sequences)) + " sequence citations in " + database + "." + table)
+            self.upload_documents(database, table, sequences, **kwargs)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 

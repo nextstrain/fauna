@@ -474,12 +474,12 @@ class upload(parse):
             for field in fields:
                 del doc_from[field]
 
-    def upload_documents(self, table, documents, replace=False, **kwargs):
+    def upload_documents(self, database, table, documents, replace=False, **kwargs):
         if replace:
-            print("Deleting documents in database:" + self.database + "." + table)
+            print("Deleting documents in database:" + database + "." + table)
             r.table(table).delete().run()
         print("Inserting ", len(documents), "documents")
-        self.upload_to_rethinkdb(self.database, table, documents)
+        self.upload_to_rethinkdb(database, table, documents, **kwargs)
 
     def upload_to_rethinkdb(self, database, table, documents, overwrite=False, **kwargs):
         optimal_upload = 200
@@ -495,7 +495,7 @@ class upload(parse):
                 if not overwrite:
                     document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
                 else:
-                    document_changes = r.table(table).insert(list_docs, conflict='update').run()
+                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater_overwrite(id, old_doc, new_doc)).run()
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
             else:
@@ -503,8 +503,8 @@ class upload(parse):
                     print("Errors were made when inserting the documents", document_changes['errors'])
                 inserted += document_changes['inserted']
                 replaced += document_changes['replaced']
-        print("Inserted " + str(inserted) + " documents into " + database + "." + table)
-        print("Updated " + str(replaced) + " documents in " + database + "." + table)
+        print("Ended up inserting " + str(inserted) + " documents into " + database + "." + table)
+        print("Ended up updating " + str(replaced) + " documents in " + database + "." + table)
 
     def relaxed_keys(self, indexes, relax_name_method):
         '''
@@ -549,6 +549,21 @@ def rethinkdb_updater(id, old_doc, new_doc):
                 r.branch(old_doc[key].eq(None).and_(new_doc[key].eq(None).not_()),
                     [key, new_doc[key]],
                     [key, old_doc[key]])
+            )
+        )
+    )).coerce_to('object')
+
+def rethinkdb_updater_overwrite(id, old_doc, new_doc):
+    return (new_doc.keys().set_union(old_doc.keys()).map(lambda key:
+        r.branch(old_doc.keys().contains(key).and_(new_doc.keys().contains(key).not_()),
+            [key, old_doc[key]],
+            new_doc.keys().contains(key).and_(old_doc.keys().contains(key).not_()),
+            [key, new_doc[key]],
+            r.branch(key.eq('sequences'),
+                [key, old_doc['sequences'].set_union(new_doc['sequences'])],
+                key.eq('number_sequences'),
+                [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
+                [key, new_doc[key]]
             )
         )
     )).coerce_to('object')
