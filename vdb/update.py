@@ -27,8 +27,12 @@ class update(upload):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
         self.format_sequences(sequences, **kwargs)
+        self.match_duplicate_accessions(sequences, **kwargs)
+        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=self.database)
         citation_keys = ['authors', 'title', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
+        for doc in sequences:
+            print(doc)
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + self.database + "." + self.viruses_table)
             self.upload_documents(self.sequences_table, sequences, **kwargs)
@@ -100,6 +104,10 @@ class update(upload):
         viruses, sequences = self.get_genbank_sequences(**kwargs)
         self.format_viruses(viruses, **kwargs)
         self.format_sequences(sequences, exclude_virus_methods=True, **kwargs)
+        self.match_duplicate_strains(viruses, sequences, **kwargs)
+        self.match_database_duplicate_strains(viruses, sequences, virus=self.virus, database=self.database, **kwargs)
+        self.match_duplicate_accessions(sequences, **kwargs)
+        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=self.database)
         self.link_viruses_to_sequences(viruses, sequences)
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         if not preview:

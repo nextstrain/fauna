@@ -16,7 +16,6 @@ class flu_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
         self.grouping_upload_fields = ['vtype', 'subtype', 'lineage']
-
         # patterns from the subtype and lineage fields in the GISAID fasta file
         self.patterns = {('a / h1n1', 'pdm09'): ('a', 'h1n1', 'seasonal_h1n1pdm'),
                     ('a / h1n2', ''): ('a', 'h1n2', None),
@@ -50,7 +49,6 @@ class flu_upload(upload):
         self.strain_fix_fname = "source-data/flu_strain_name_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
         self.fix = set()
-
 
     def parse(self, path, fname, upload_directory, **kwargs):
         '''
@@ -157,12 +155,14 @@ class flu_upload(upload):
         for name in sorted(self.fix):
             print(name)
 
-    def filter(self, documents, **kwargs):
+    def filter(self, documents, index, **kwargs):
         '''
-        remove certain documents from gisaid files that were not actually isolated from humans
+        filter out certain documents
         '''
         print(str(len(documents)) + " documents before filtering")
+        documents = filter(lambda doc: index in doc, documents)
         remove_labels = ['duck', 'environment', 'Environment', 'shoveler']
+        # remove certain documents from gisaid files that were not actually isolated from humans
         result_documents = [doc for doc in documents if all(label not in doc['strain'] for label in remove_labels)]
         result_documents = [doc for doc in result_documents if self.correct_strain_format(doc['strain'], doc['gisaid_strain'])]
         print(str(len(result_documents)) + " documents after filtering")
@@ -324,7 +324,7 @@ class flu_upload(upload):
 
     def format_passage(self, doc, initial_field, new_field, **kwargs):
         '''
-
+        Separate passage into general categories
         Regex borrowed from McWhite et al. 2016
         '''
         if initial_field in doc and doc[initial_field] is not None:
@@ -354,7 +354,6 @@ class flu_upload(upload):
         else:
             doc[initial_field] = None
             doc[new_field] = None
-
 
     def determine_group_fields(self, v, **kwargs):
         '''
@@ -408,21 +407,6 @@ class flu_upload(upload):
         except:
             print("Couldn't parse virus subtype and lineage from aligning sequence: " + doc['strain'])
             return None
-
-    def relax_name(self, name):
-        '''
-        Return the relaxed strain name to compare with
-        '''
-        split_name = name.split('/')
-        for index, split in enumerate(split_name):  # A/Guangdong-Yuexiu/SWL1651/2013 -> A/Guangdong-Yuexiu/1651/2013
-            if index >= 2:
-                split_name[index] = filter(lambda x: x.isdigit(), split)
-        name = "/".join(split_name)
-        name = re.sub(r"-", '', name)
-        name = re.sub(r"_", '', name)
-        name = re.sub(r"/", '', name)
-        return name
-
 
 if __name__=="__main__":
     args = parser.parse_args()

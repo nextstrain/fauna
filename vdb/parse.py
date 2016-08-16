@@ -201,9 +201,12 @@ class parse(object):
         batchSize = 100
 
         # post NCBI query
-        search_handle = Entrez.epost(db=self.gbdb, id=",".join(giList))
-        search_results = Entrez.read(search_handle)
-        webenv, query_key = search_results["WebEnv"], search_results["QueryKey"]
+        try:
+            search_handle = Entrez.epost(db=self.gbdb, id=",".join(giList))
+            search_results = Entrez.read(search_handle)
+            webenv, query_key = search_results["WebEnv"], search_results["QueryKey"]
+        except:
+            print("Couldn't connect with entrez, please run again")
 
         viruses = []
         sequences = []
@@ -213,7 +216,7 @@ class parse(object):
             try:
                 handle = Entrez.efetch(db=self.gbdb, rettype="gb", retstart=start, retmax=batchSize, webenv=webenv, query_key=query_key)
             except IOError:
-                print("Couldn't connect with entrez")
+                print("Couldn't connect with entrez, please run again")
             else:
                 result = self.parse_gb_entries(handle, **kwargs)
                 viruses.extend(result[0])
@@ -225,7 +228,8 @@ class parse(object):
         Go through genbank records to get relevant virus information
         '''
         viruses, sequences = [], []
-        for record in SeqIO.parse(handle, "genbank"):
+        SeqIO_records = SeqIO.parse(handle, "genbank")
+        for record in SeqIO_records:
             v = {}
             s = {}
             s['source'] = 'genbank'

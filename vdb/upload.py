@@ -50,12 +50,19 @@ class upload(parse):
         print('Formatting documents for upload')
         self.format_viruses(viruses, **kwargs)
         self.format_sequences(sequences, **kwargs)
+        print("")
         print("Filtering out viruses")
         viruses = self.filter(viruses, 'strain', **kwargs)
         print("Filtering out sequences")
         sequences = self.filter(sequences, 'accession', **kwargs)
+        print("")
+        self.match_duplicate_strains(viruses, sequences, **kwargs)
+        self.match_database_duplicate_strains(viruses, sequences, **kwargs)
+        self.match_duplicate_accessions(sequences, **kwargs)
+        self.match_database_duplicate_accessions(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
+        print("")
         print("Upload Step")
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
@@ -276,7 +283,11 @@ class upload(parse):
                     print("couldn't parse region for " + virus['strain'] + ", country: " + str(virus["country"]))
 
     def filter(self, documents, index, **kwargs):
+        '''
+        filter out certain documents
+        '''
         print(str(len(documents)) + " documents before filtering")
+        documents = filter(lambda doc: index in doc, documents)
         print(str(len(documents)) + " documents after filtering")
         return documents
 
@@ -360,6 +371,78 @@ class upload(parse):
         else:
             return result
 
+    def match_duplicate_strains(self, viruses, sequences, **kwargs):
+        '''
+        Compare strain names to other documents in the current upload to adjust their strain names to be the same
+        Adjust the sequence strain name as well
+        '''
+        print("Adjusting strain names to match identical strains in documents to be uploaded")
+        indexes = [doc['strain'] for doc in viruses]
+        relaxed_strains = self.relaxed_keys(indexes, self.relax_name)
+        adjusted_virus_strains = 0
+        adjusted_sequence_strains = 0
+        for doc in viruses:
+            doc['strain'], adjusted_virus_strains = self.adjust_name(doc['strain'], relaxed_strains, adjusted_virus_strains)
+        for doc in sequences:
+            doc['strain'], adjusted_sequence_strains = self.adjust_name(doc['strain'], relaxed_strains, adjusted_sequence_strains)
+        if adjusted_virus_strains > 0 or adjusted_sequence_strains > 0:
+            print(str(adjusted_virus_strains) + " out of " + str(len(viruses)) + " virus strains were adjusted to match a virus in current upload documents")
+            print(str(adjusted_sequence_strains) + " out of " + str(len(sequences)) + " sequence strains were adjusted to match a virus in current upload documents")
+
+    def match_duplicate_accessions(self, sequences, **kwargs):
+        '''
+        Compare accessions to other documents in the current upload to adjust their accessions to be the same
+        '''
+        print("Adjusting accessions to match identical sequences in documents to be uploaded")
+        indexes = [doc['accession'] for doc in sequences]
+        relaxed_accessions = self.relaxed_keys(indexes, self.relax_name)
+        adjusted_sequence_accessions = 0
+        for doc in sequences:
+            doc['accession'], adjusted_sequence_strains = self.adjust_name(doc['accession'], relaxed_accessions, adjusted_sequence_accessions)
+        if adjusted_sequence_accessions > 0:
+            print(str(adjusted_sequence_accessions) + " out of " + str(len(sequences)) + " sequence accessions were adjusted to match a sequence in current upload documents")
+
+    def match_database_duplicate_strains(self, viruses, sequences, virus, database='vdb', **kwargs):
+        '''
+        Compare measurement strain names to database strain names to matching to existing viruses sequences
+        '''
+        table = virus + "_viruses"
+        print("Using " + database + "." + table + " to adjust strain names to match strains already in" + database + "." + table)
+        vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('strain').run())), self.relax_name)
+        adjusted_virus_strains = 0
+        adjusted_sequence_strains = 0
+        for doc in viruses:
+            doc['strain'], adjusted_virus_strains = self.adjust_name(doc['strain'], vdb_strains, adjusted_virus_strains)
+        for doc in sequences:
+            doc['strain'], adjusted_sequence_strains = self.adjust_name(doc['strain'], vdb_strains, adjusted_sequence_strains)
+        if adjusted_virus_strains > 0 or adjusted_sequence_strains > 0:
+            print(str(adjusted_virus_strains) + " out of " + str(len(viruses)) + " virus strains were adjusted to match a virus in " + database + "." + table)
+            print(str(adjusted_sequence_strains) + " out of " + str(len(sequences)) + " sequence strains were adjusted to match a virus in " + database + "." + table)
+
+    def match_database_duplicate_accessions(self, sequences, virus, database='vdb', **kwargs):
+        '''
+        Compare measurement strain names to database strain names to matching to existing viruses sequences
+        '''
+        table = virus + "_sequences"
+        print("Using " + database + "." + table + " to adjust accessions to match sequences already in" + database + "." + table)
+        vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('accession').run())), self.relax_name)
+        adjusted_sequence_accessions = 0
+        for doc in sequences:
+            doc['accession'], adjusted_sequence_accessions = self.adjust_name(doc['accession'], vdb_strains, adjusted_sequence_accessions)
+        if adjusted_sequence_accessions > 0:
+            print(str(adjusted_sequence_accessions) + " out of " + str(len(sequences)) + " sequence accessions were adjusted to a match a sequence in " + database + "." + table)
+
+    def adjust_name(self, name, vdb_strains, number_matched):
+        '''
+        Change strain name if matched to a relaxed strain name in vdb strains
+        Return adjusted strain name and total count of matched measurements
+        '''
+        relax_strain = self.relax_name(name)
+        if relax_strain in vdb_strains and vdb_strains[relax_strain] != name:
+            number_matched += 1
+            return vdb_strains[relax_strain], number_matched
+        return name, number_matched
+
     def link_viruses_to_sequences(self, viruses, sequences):
         '''
         Link the sequence information virus isolate information via the strain name
@@ -398,7 +481,7 @@ class upload(parse):
         print("Inserting ", len(documents), "documents")
         self.upload_to_rethinkdb(self.database, table, documents)
 
-    def upload_to_rethinkdb(self, database, table, documents, **kwargs):
+    def upload_to_rethinkdb(self, database, table, documents, overwrite=False, **kwargs):
         optimal_upload = 200
         if len(documents) > optimal_upload:
             list_documents = [documents[x:x+optimal_upload] for x in range(0, len(documents), optimal_upload)]
@@ -409,22 +492,28 @@ class upload(parse):
         replaced = 0
         for list_docs in list_documents:
             try:
-                document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
+                if not overwrite:
+                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
+                else:
+                    document_changes = r.table(table).insert(list_docs, conflict='update').run()
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
             else:
+                if document_changes['errors']>0:
+                    print("Errors were made when inserting the documents", document_changes['errors'])
                 inserted += document_changes['inserted']
                 replaced += document_changes['replaced']
         print("Inserted " + str(inserted) + " documents into " + database + "." + table)
         print("Updated " + str(replaced) + " documents in " + database + "." + table)
 
-    def relaxed_keys(self, indexes):
+    def relaxed_keys(self, indexes, relax_name_method):
         '''
+        Use list of indexes
         Create dictionary from relaxed vdb strain names to actual vdb strain names.
         '''
         strains = {}
         for index in indexes:
-            strains[self.relax_name(index)] = index
+            strains[relax_name_method(index)] = index
         return strains
 
     def relax_name(self, name):
@@ -447,9 +536,9 @@ if __name__=="__main__":
 
 def rethinkdb_updater(id, old_doc, new_doc):
     return (new_doc.keys().set_union(old_doc.keys()).map(lambda key:
-        r.branch(old_doc.has_fields(key).and_(new_doc.has_fields(key).not_()),
+        r.branch(old_doc.hasFields(key).and_(new_doc.hasFields(key).not_()),
             [key, old_doc[key]],
-            new_doc.has_fields(key).and_(old_doc.has_fields(key).not_()),
+            new_doc.hasFields(key).and_(old_doc.hasFields(key).not_()),
             [key, new_doc[key]],
             r.branch(key.eq('sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
