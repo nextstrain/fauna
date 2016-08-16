@@ -5,6 +5,7 @@ Afghanistan	Afghanistan	Afghanistan	Afghanistan
 					
 # Albania					
 Albania	Albania	Albania	Albania	
+Shkoder	Albania	Shkoder	Shkoder
 Tirane	Albania	Tirane	Tirane
 					
 # Algeria					
@@ -535,6 +536,7 @@ CostaRica	CostaRica	CostaRica	CostaRica
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire		
 Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou	
 Adjame	CoteDIvoire	Abidjan	Adjame		
+Korhogo	CoteDIvoire	Savanes	Korhogo
 Yopougon	CoteDIvoire	Abidjan	Yopougon		
 Abobo	CoteDIvoire	Abidjan	Abobo		
 Bouafle	CoteDIvoire	SassandraMarahoue	Bouafle		
@@ -561,15 +563,22 @@ Cyprus	Cyprus	Cyprus	Cyprus
 # CzechRepublic					
 CzechRepublic	CzechRepublic	CzechRepublic	CzechRepublic		
 Brno	CzechRepublic	SouthMoravian	Brno
-Czechoslovakia	CzechRepublic	CzechRepublic	CzechRepublic
-HradecKralove	CzechRepublic	HradecKralove	HradecKralove		
-Praha	CzechRepublic	Bohemia	Prague		
-Prague	CzechRepublic	Bohemia	Prague		
-Ostrava	CzechRepublic	MoravianSilesian	Ostrava		
-Plzen	CzechRepublic	Plzen	Plzen		
-Jihlava	CzechRepublic	Vysocina	Jihlava		
+CeskaLipa	CzechRepublic	Liberecky	CeskaLipa
+Cercany	CzechRepublic	CentralBohemia	Cercany
 Cheb	CzechRepublic	KarlovyVary	Cheb
-Usti	CzechRepublic	Usti	Usti		
+Czechoslovakia	CzechRepublic	CzechRepublic	CzechRepublic
+Decin	CzechRepublic	UstiNadLabem	Decin
+HradecKralove	CzechRepublic	HradecKralove	HradecKralove		
+Jihlava	CzechRepublic	Vysocina	Jihlava		
+KarlovyVary	CzechRepublic	KarlovyVary	KarlovyVary
+Pardubice	CzechRepublic	Pardubice	Pardubice
+Praha	CzechRepublic	Bohemia	Prague		
+Prague	CzechRepublic	Bohemia	Prague	
+Prerov	CzechRepublic	Olomouc	Prerov
+Plzen	CzechRepublic	Plzen	Plzen
+Ostrava	CzechRepublic	MoravianSilesian	Ostrava				
+Usti	CzechRepublic	Usti	Usti	
+Vsetin	CzechRepublic	Zlin	Vsetin	
 					
 # Congo					
 Congo	Congo	Congo	Congo		
@@ -700,14 +709,18 @@ Gambia	Gambia	Gambia	Gambia
 					
 # GeorgiaCountry	
 Akhaltsikhe	GeorgiaCountry	SamtskheJavakheti	Akhaltsikhe
+Batumi	GeorgiaCountry	Adjara	Batumi
 Chiatura	GeorgiaCountry	Imereti	Chiatura
 Dmanisi	GeorgiaCountry	KvemoKartli	Dmanisi
+Gardabani	GeorgiaCountry	KvemoKartli	Gardabani
+Keda	GeorgiaCountry	Adjara	Keda
 Khobi	GeorgiaCountry	SamegreloZemoSvaneti	Khobi
-Kobuleti	GeorgiaCountry	Ajaria	Kobuleti
+Kobuleti	GeorgiaCountry	Adjara	Kobuleti
 Kutaisi	GeorgiaCountry	Imereti	Kutaisi
 Ozurgeti	GeorgiaCountry	Guria	Ozurgeti
 Tbilisi	GeorgiaCountry	Tbilisi	Tbilisi
 Tskaltubo	GeorgiaCountry	Imereti	Tskaltubo	
+Zugdidi	GeorgiaCountry	SamegreloZemoSvaneti	Zugdidi
 					
 # Germany					
 Germany	Germany	Germany	Germany		
@@ -977,7 +990,8 @@ Ireland	Ireland	Ireland	Ireland
 Dublin	Ireland	Leinster	Dublin		
 					
 # Israel					
-Israel	Israel	Israel	Israel		
+Israel	Israel	Israel	Israel	
+Jerusalem	Israel	Jerusalem	Jerusalem	
 					
 # Italy					
 Italy	Italy	Italy	Italy	
@@ -1167,8 +1181,9 @@ Kocani	Macedonia	Kocani	Kocani
 					
 # Madagascar					
 Madagascar	Madagascar	Madagascar	Madagascar		
-Antsirabe	Madagascar	Vakinankaratra	Antsirabe		
 Antananarivo	Madagascar	Antananarivo	Antananarivo
+Antsirabe	Madagascar	Vakinankaratra	Antsirabe		
+Antsohihy	Madagascar	Sofia	Antsohihy
 Behoririka	Madagascar	Antananarivo	Behoririka		
 Itaosy	Madagascar	Antananarivo	Itaosy
 Maevatanana	Madagascar	Betsiboka	Maevatanana		
@@ -1177,9 +1192,10 @@ Mananjary	Madagascar	VatovavyFitovinany	Mananjary
 Manjakaray	Madagascar	Antananarivo	Antananarivo
 Moramanga	Madagascar	AlaotraMangoro	Moramanga		
 NosyBe	Madagascar	Diana	NosyBe		
+Toamasina	Madagascar	Atsinanana	Toamasina		
+Tolagnaro	Madagascar	Anosy	Tolagnaro
 Tsaralalana	Madagascar	Antananarivo	Tsaralalana
 Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy		
-Toamasina	Madagascar	Atsinanana	Toamasina		
 					
 # Malaysia					
 Malaysia	Malaysia	Malaysia	Malaysia		
@@ -1260,7 +1276,7 @@ Montserrat	Montserrat	BritishOverseasTerritory	Montserrat
 Morocco	Morocco	Morocco	Morocco		
 Agadir	Morocco	SoussMassa	Agadir
 BeniMellal	Morocco	BeniMellalKhenifra	BeniMellal
-Casablanca	Morocco	Casablanca	Casablanca		
+Casablanca	Morocco	CasablancaSettat	Casablanca		
 Fes	Morocco	FesMeknes	Fes		
 Kenitra	Morocco	RabatSaleKenitra	Kenitra		
 Marrakech	Morocco	MarrakechSafi	Marrakech	
@@ -1269,6 +1285,7 @@ Oujda	Morocco	Rif	Oujda
 Rabat	Morocco	RabatSaleKenitra	Rabat
 Safi	Morocco	MarrakechSafi	Safi		
 Sale	Morocco	RabatSaleKenitra	Sale
+Settat	Morocco	CasablancaSettat	Settat
 Tanger	Morocco	TangerTetouan	Tanger	
 Temara	Morocco	RabatSaleKenitra	Temara	
 Tiznit	Morocco	SoussMassa	Tiznit
@@ -1480,6 +1497,7 @@ Hunedoara	Romania	Hunedoara	Hunedoara
 Ialomita	Romania	Ialomita	Ialomita
 Iasi	Romania	Iasi	Iasi		
 Ilfov	Romania	Ilfov	Ilfov		
+Lasi	Romania	Lasi	Lasi
 Maramures	Romania	Maramures	Maramures	
 Mures	Romania	Mures	Mures	
 Neamt	Romania	Neamt	Neamt		
@@ -1848,7 +1866,8 @@ Tunisia	Tunisia	Tunisia	Tunisia
 					
 # Turkey					
 Turkey	Turkey	Turkey	Turkey		
-Adana	Turkey	Adana	Adana		
+Adana	Turkey	Adana	Adana	
+Adiyaman	Turkey	Adiyaman	Adiyaman	
 Afyon	Turkey	Afyon	Afyon
 Agri	Turkey	Agri	Agri	
 Aksaray	Turkey	Aksaray	Aksaray	
@@ -1870,6 +1889,7 @@ Gaziantep	Turkey	Gaziantep	Gaziantep
 Giresun	Turkey	Giresun	Giresun
 Gumushane	Turkey	Gumushane	Gumushane
 Hatay	Turkey	Hatay	Hatay
+Karaman	Turkey	Karaman	Karaman
 Kocaeli	Turkey	Kocaeli	Kocaeli
 Kutahya	Turkey	Kutahya	Kutahya		
 Isparta	Turkey	Isparta	Isparta		

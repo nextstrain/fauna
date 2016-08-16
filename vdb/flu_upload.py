@@ -128,7 +128,7 @@ class flu_upload(upload):
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
             if 'strain' in doc:
-                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc)
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
             else:
                 print("Missing strain name!")
             self.fix_casing(doc)
@@ -146,7 +146,7 @@ class flu_upload(upload):
         '''
         for doc in documents:
             if 'strain' in doc:
-                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc)
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
             else:
                 print("Missing strain name!")
             self.format_date(doc)
@@ -164,18 +164,18 @@ class flu_upload(upload):
         print(str(len(documents)) + " documents before filtering")
         remove_labels = ['duck', 'environment', 'Environment', 'shoveler']
         result_documents = [doc for doc in documents if all(label not in doc['strain'] for label in remove_labels)]
-        result_documents = [doc for doc in result_documents if self.correct_strain_format(doc)]
+        result_documents = [doc for doc in result_documents if self.correct_strain_format(doc['strain'], doc['gisaid_strain'])]
         print(str(len(result_documents)) + " documents after filtering")
         return result_documents
 
-    def correct_strain_format(self, doc):
+    def correct_strain_format(self, strain, original_strain):
         # Okay Patterns: B/Brisbane/46/2015, A/HongKong/1968, A/Zambia/13/176/2013 or A/Cologne/Germany/12/2009 or A/Algeria/G0164/15/2015 or A/India/Delhi/DB106/2009, A/Cameroon/LEID/01/11/1387/2011, A/India/M/Enc/1/2003
-        if re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/)*[0-9]{4}$', doc['strain']) or re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/){2}[0-9]{4}$', doc['strain'])\
-                or re.match(r'[A|B]/([A-Za-z-]+/){2}([0-9]+/){3}[0-9]{4}$', doc['strain']):
+        if re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/)*[0-9]{4}$', strain) or re.match(r'[A|B]/[A-Za-z-]+/([A-Za-z0-9_-]+/){2}[0-9]{4}$', strain)\
+                or re.match(r'[A|B]/([A-Za-z-]+/){2}([0-9]+/){3}[0-9]{4}$', strain):
             return True
         else:
-            print("This strain name was not in the correct format and will be filtered out", doc['strain'], doc['gisaid_strain'])
-            self.fix.add(doc['strain'])
+            print("This strain name was not in the correct format and will be filtered out", strain, original_strain)
+            self.fix.add(strain)
 
     def fix_casing(self, doc):
         '''
@@ -213,12 +213,12 @@ class flu_upload(upload):
         for line in reader:
             self.label_to_fix[line['label'].decode('unicode-escape').replace(' ', '').lower()] = line['fix']
 
-    def fix_name(self, doc):
+    def fix_name(self, name):
         '''
         Fix strain names
         '''
         # replace all accents with ? mark
-        original_name = doc['strain'].encode('ascii', 'replace')
+        original_name = name.encode('ascii', 'replace')
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\

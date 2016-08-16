@@ -76,7 +76,7 @@ class rethink_io(object):
             if atr not in doc:
                 doc[atr] = None
 
-    def check_required_attributes(self, doc, required_fields, index_fields):
+    def check_required_attributes(self, doc, required_fields, index_fields, output=False):
         '''
         Checks that required upload attributes are present and not equal to None for given virus
         :return: returns true if it has all required upload attributes, else returns false and prints missing attributes
@@ -88,9 +88,10 @@ class rethink_io(object):
             else:
                 missing_attributes.append(atr)
         if len(missing_attributes) > 0:
-            print("This document is missing a required attribute and will be removed from upload sequences")
-            print([doc[index] for index in index_fields if index in doc])
-            print("Missing attributes: " + str(missing_attributes))
+            if output:
+                print("This document is missing a required attribute and will be removed from upload sequences")
+                print([doc[index] for index in index_fields if index in doc])
+                print("Missing attributes: " + str(missing_attributes))
             return False
         else:
             return True

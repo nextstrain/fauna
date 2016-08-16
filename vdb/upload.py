@@ -36,13 +36,6 @@ class upload(parse):
         self.sequences_table = virus + "_sequences"
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
-        if self.database not in self.uploadable_databases:
-            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
-        self.rethink_io = rethink_io()
-        self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
-        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
-        self.rethink_io.check_table_exists(self.database, self.viruses_table)
-        self.rethink_io.check_table_exists(self.database, self.sequences_table)
         self.strains = {}
         self.strain_fix_fname = None
         self.virus_to_sequence_transfer_fields = []
@@ -51,6 +44,7 @@ class upload(parse):
         '''
         format virus information, then upload to database
         '''
+        self.connect(**kwargs)
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
@@ -76,6 +70,15 @@ class upload(parse):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
+    def connect(self, **kwargs):
+        if self.database not in self.uploadable_databases:
+            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
+        self.rethink_io = rethink_io()
+        self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
+        self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
+        self.rethink_io.check_table_exists(self.database, self.viruses_table)
+        self.rethink_io.check_table_exists(self.database, self.sequences_table)
+
     def format_viruses(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
@@ -86,7 +89,7 @@ class upload(parse):
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
-            doc['strain'], doc['original_strain'] = self.fix_name(doc)
+            doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
@@ -99,7 +102,7 @@ class upload(parse):
         format virus information in preparation to upload to database table
         '''
         for doc in documents:
-            doc['strain'], doc['original_strain'] = self.fix_name(doc)
+            doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
@@ -123,14 +126,14 @@ class upload(parse):
         else:
             return original_name
 
-    def fix_name(self, doc):
-        original_name = doc['strain']
-        tmp_name = original_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
+    def fix_name(self, name):
+        original_name = name
+        name = original_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('duck', '').replace('environment', '')
         try:
-            tmp_name = 'V' + str(int(tmp_name))
+            name = 'V' + str(int(name))
         except:
             pass
-        return tmp_name, original_name
+        return name, original_name
 
     def format_date(self, virus):
         '''
@@ -421,6 +424,7 @@ class upload(parse):
                 r.table(table).insert(list_docs, conflict=conflict_resolution).run()
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
+
     def check_for_updates(self, table, update_documents, db_key_to_documents, **kwargs):
         print("Checking for updates to ", len(update_documents), "documents")
         # determine which documents need to be updated and update them
@@ -431,6 +435,7 @@ class upload(parse):
             self.upload_to_rethinkdb(self.database, table, updated, 'replace')
         else:
             print("No documents need to be updated in ", self.database + "." + table)
+
     def update_document_meta(self, db_doc, doc, overwrite, output=True, **kwargs):
         '''
         update overwritable fields at the base level of the document
@@ -464,6 +469,23 @@ class upload(parse):
                     db_doc[field] = doc[field]
                     updated = True
         return updated
+
+    def updater(self, id, old_doc, new_doc):
+        combined_doc = {}
+        for key in list(set(old_doc.keys()+new_doc.keys())):
+            if key in old_doc and key not in new_doc:
+                combined_doc[key] = old_doc[key]
+            elif key in new_doc and key not in old_doc:
+                combined_doc[key] = new_doc[key]
+            else:  # key in both sequences
+                if key == 'sequences':
+                    combined_doc[key] = list(set(old_doc[key]+new_doc[key]))
+                else:
+                    if old_doc[key] is None and new_doc[key] is not None:
+                        combined_doc[key] = new_doc[key]
+                    else:
+                        combined_doc[key] = old_doc[key]
+
 
     def relaxed_keys(self, documents, index):
         '''

@@ -19,13 +19,7 @@ class parse(object):
         Parse HI data files to create list of measurement documents
         '''
         HI_titers = self.read_tables(**kwargs)
-        self.measurements = self.table_to_flat(HI_titers)
-
-    def get_upload_date(self):
-        '''
-        return current date
-        '''
-        return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
+        return self.table_to_flat(HI_titers)
 
     def read_tables(self, path, **kwargs):
         '''
@@ -49,7 +43,7 @@ class parse(object):
                 sub_set_passage = HI_table['passage'][~np.isnan(HI_table[ref_serum])]
                 sub_set_ref = HI_table['ref/test'][~np.isnan(HI_table[ref_serum])]
                 for virus, val, src_id, date, passage, ref in zip(sub_set_vals.index, sub_set_vals, sub_set_source, sub_set_date, sub_set_passage, sub_set_ref):
-                    flat_measurements.append({'virus': virus.upper(), 'serum': ref_serum[0].upper(), 'ferret_id': ref_serum[1].upper(), 'source': src_id.upper(), 'titer': val, 'date': date, 'passage': passage.upper(), 'ref': ref.upper()})
+                    flat_measurements.append({'virus_strain': virus, 'serum_strain': ref_serum[0], 'ferret_id': ref_serum[1], 'source': src_id, 'titer': val, 'date': date, 'passage': passage, 'ref': ref})
             except:
                 print("Couldn't parse this serum's measurements", ref_serum)
                 print("Check fields at top left of file")
@@ -63,15 +57,6 @@ class parse(object):
         '''
         from string import strip
         import csv
-        name_abbrev = {'HK':"HONGKONG", 'SWITZ':"SWITZERLAND", 'VIC':"VICTORIA", 'STOCK':"STOCKHOLM", 'DR':'DOMINICANREPUBLIC', 'NJ': 'NEWJERSEY',
-                        'STHAFR':"SOUTHAFRICA", 'SAFRICA':"SOUTHAFRICA", "ENG":"ENGLAND", "NIB-85":"A/ALMATY/2958/2013", 'X-243':'A/SOUTHAFRICA/3626/2013', 'NOR':'NORWAY',
-                        'NTHCAROL':"NORTHCAROLINA",'ALA':"ALABAMA", 'NY':"NEWYORK", "GLAS":"GLASGOW", "AL":"ALABAMA",
-                        "NETH":"NETHERLANDS", "FIN":"FINLAND", "BRIS":"BRISBANE", "MARY":"MARYLAND", "BRIS1,": "BRISBANE", "MAD": "MADAGASCAR", "SAUSTRALIA": "SOUTHAUSTRALIA", "SHAN" : "SHANDONG",
-                        "ST.P'BURG":"ST.PETERSBURG", 'CAL':'CALIFORNIA', 'CA':'CALIFORNIA', 'AUCK':'AUCKLAND', "C'CHURCH":'CHRISTCHURCH', "CCHURCH":'CHRISTCHURCH', 'CC': 'CHRISTCHURCH',
-                        'CHCH':'CHRISTCHURCH', 'ASTR':'ASTRAKHAN', 'ASTRAK':'ASTRAKHAN', 'ST.P':"ST.PETERSBURG",'ST P':"ST.PETERSBURG",'STP':"ST.PETERSBURG", 'ST.PBURG': "ST.PETERSBURG", 'STPBURG':'ST.PETERSBURG',
-                        'JHB':'JOHANNESBURG', 'FOR':'FORMOSA','MAL':'MALAYSIA', 'STHAUS':'SOUTHAUSTRALIA', 'BAY':'BAYERN', "BAN": "BANGLADESH", "VALL": "VALLADOLID", "NIEDER":"NIEDERSACHSEN",
-                        'FL':'FLORIDA', 'MASS':'MASSACHUSETTS','NOVO':'NOVOSIBIRSK','WIS':'WISCONSIN','BANG':'BANGLADESH','EG':'EGYPT', 'SLOV':'SLOVENIA',
-                        "H-X": "Heilongjiang-Xiangfang", "VORO": "Voronezh"}
         src_id = fname.split('/')[-1]
         with self.myopen(fname) as infile:
             csv_reader = csv.reader(infile)
@@ -93,26 +78,7 @@ class parse(object):
             except:
                 print("couldn't remove viruses field", fields, src_id)
             row3 = [re.match(r'^([^\*]*)', id).group(0).upper() for id in row3]  # get everything before the '*'?
-            ref_sera = [[self.HI_fix_name(e1+'/'+e2), e3.replace(' ', '')] for e1, e2, e3 in zip(row1, row2, row3)[ref_sera_start:]]
-            for ri in xrange(len(ref_sera)):
-                # replace abbreviations
-                abbr = ref_sera[ri][0].split('/')[1].rstrip('01234566789')
-                if abbr in name_abbrev:
-                    ref_sera[ri][0] = self.HI_fix_name(ref_sera[ri][0].replace(abbr, name_abbrev[abbr]))
-                else:
-                    ref_sera[ri][0] = self.HI_fix_name(ref_sera[ri][0])
-                # strip numbers
-                tmp = ref_sera[ri][0].split('/')
-                ref_sera[ri][0] = '/'.join([tmp[0], tmp[1].rstrip('0123456789')]+tmp[2:])
-                try:
-                    y = int(ref_sera[ri][0].split('/')[-1])
-                    if y<100:
-                        if y<20:
-                            ref_sera[ri][0] = '/'.join(ref_sera[ri][0].split('/')[:-1])+'/'+str(2000+y)
-                        else:
-                            ref_sera[ri][0] = '/'.join(ref_sera[ri][0].split('/')[:-1])+'/'+str(1900+y)
-                except:
-                    print("Couldn't parse this reference name", ref_sera[ri], src_id)
+            ref_sera = [[(e1+'/'+e2), e3.replace(' ', '')] for e1, e2, e3 in zip(row1, row2, row3)[ref_sera_start:]]
             fields = ['source','ref/test'] + fields + map(tuple, ref_sera)
             #print fields
             for row in csv_reader: # advance until the reference virus
@@ -124,7 +90,7 @@ class parse(object):
                 if row[0].startswith('TEST'):
                     break
                 else: # load matrices until the test virus section starts
-                    ref_strains.append(self.HI_fix_name(row[0].strip()))
+                    ref_strains.append(row[0].strip())
                     ref_matrix.append([src_id,'ref']+map(strip, row[1:ref_sera_start])+map(self.titer_to_number, row[ref_sera_start:]))
 
             test_strains = []
@@ -132,7 +98,7 @@ class parse(object):
             for row in csv_reader:
                 try:
                     name = unidecode(row[0].strip().decode('utf-8'))
-                    test_strains.append(self.HI_fix_name(name))
+                    test_strains.append(name)
                     test_matrix.append([src_id,'test']+map(strip,row[1:ref_sera_start])+map(self.titer_to_number, row[ref_sera_start:]))
                     self.check_titer_values(map(self.titer_to_number, row[ref_sera_start:]), src_id)
                 except:
@@ -200,81 +166,3 @@ class parse(object):
             return gzip.open(fname, mode)
         else:
             return open(fname, mode)
-
-    def HI_fix_name(self, name):
-        if name.split() == ["NIB-85/"]:
-            tmp_name = self.fix_name("A/Almaty/2958/2013")
-        elif name.split() == ["A/Texas/50/2012","(6&7)"]:
-            tmp_name = self.fix_name("A/Texas/50/2012")
-        elif name.split() == ["X-243/"]:
-            tmp_name = self.fix_name("X-243A/SOUTHAFRICA/3626/2013")
-        else:
-            tmp_name = self.fix_name(name)
-
-        fields = tmp_name.split('/')
-        lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
-                            'Jul': '7', 'Aug': '8', 'Sep': '9', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
-        try:
-            if len(fields) ==4:
-                fields[2] = fields[2].lstrip('0')
-                tmp_name = '/'.join(fields)
-        except:
-            pass
-        if re.match(r'(\d+)-(\D+)',fields[-1]):  # A/CALIFORNIA/9-APR
-            try:
-                month = lookup_month[re.match(r'(\d+)-(\D+)',fields[-1]).group(2).title()]
-                year = re.match(r'(\d+)-(\D+)',fields[-1]).group(1)
-                if len(year) == 1:
-                    y = '200' + year
-                elif len(year) == 2:
-                    y = int(year)
-                    if y>16:
-                        y=1900+y
-                    else:
-                        y=2000+y
-                result = '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
-            except:
-                result =  tmp_name
-        elif re.match(r'(\D+)-(\d+)',fields[-1]):  # B/SHANDONG/JUL-97
-            try:
-                month = lookup_month[re.match(r'(\D+)-(\d+)',fields[-1]).group(1).title()]
-                year = re.match(r'(\D+)-(\d+)',fields[-1]).group(2)
-                if len(year) == 1:
-                    y = '200' + year
-                elif len(year) == 2:
-                    y = int(year)
-                    if y>16:
-                        y=1900+y
-                    else:
-                        y=2000+y
-                result = '/'.join(fields[:-1]) + '/' + month + '/' + str(y)
-            except:
-                result = tmp_name
-        elif len(fields[-1])==2:
-            try:
-                y = int(fields[-1])
-                if y>16:
-                    y=1900+y
-                else:
-                    y=2000+y
-                result = '/'.join(fields[:-1])+'/'+str(y)
-            except:
-                result = tmp_name
-        elif re.match(r'[\d,\*\D\-]+([AB]$)', fields[0]): # 1,3B/FLORIDA/4/2006  #NYMCX-263BA/HK/4801/2014
-            try:
-                result = re.match(r'[\d,\*\D\-]+([AB]$)', fields[0]).group(1)
-                result = result + '/' + '/'.join(fields[1:])
-            except:
-                result = tmp_name
-        elif re.match(r"[\s\w\-]+\(([/\w]+)\)", tmp_name): # IVR-159 (A/Victoria/502/2010)
-            try:
-                result = re.match(r"[\s\w\-]+\(([/\w]+)\)", tmp_name).group(1)
-            except:
-                result = tmp_name
-        else:
-            result = tmp_name
-        return result.upper().lstrip('*')
-
-    def fix_name(self, name):
-        tmp_name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('H3N2', '').replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '')
-        return tmp_name

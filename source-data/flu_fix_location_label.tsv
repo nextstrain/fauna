@@ -24,10 +24,12 @@ CairnsNorth	Cairns
 Christ_Church	ChristChurch
 
 # Belgium
+Belguim	Belgium
 Brussel	Brussels
 
 # BosniaAndHerzegovina
 Bosnia-Herzegovina	BosniaHerzegovina
+Bosnia	BosniaHerzegovina
 
 # Brazil
 Espirito_Santo	EspiritoSanto
@@ -196,6 +198,7 @@ Cote d\'Ivorie	CoteDIvoire
 Cote d'Ivorie	CoteDIvoire
 CoteDIvorie	CoteDIvoire
 YopougonGR926	Yopougon/GR926
+Korogho	Korhogo
 
 # CzechRepublic
 CzechRep	CzechRepublic
@@ -220,6 +223,7 @@ Finlad	Finland
 # France
 Aix-en-Provence	AixEnProvence
 Provence-Alpes-C?tedAzur	ProvenceAlpesCoteDAzur
+Provence-Alpes-CotedAzur	ProvenceAlpesCoteDAzur
 Champagne-Ardenne	ChampagneArdenne
 Champagne_Ardenne	ChampagneArdenne
 Clermont-Ferrand	ClermontFerrand
@@ -238,14 +242,17 @@ Baden-Wuerrtemberg	BadenWurttemberg
 Baden-Wuerttemburg	BadenWurttemberg
 Baden-Wuerttemberg	BadenWurttemberg
 Baden-Wurttemberg	BadenWurttemberg
+Baden-Wuttermberg	BadenWurttemberg
 BadenWuerttemberg	BadenWurttemberg
 BadenWuerttemberg	BadenWurttemberg
 BadenWuerttemburg	BadenWurttemberg
 Basse_Normandie	BasseNormandie
+Basse-Normandie	BasseNormandie
 Bavaria	Bayern
 BLN	Berlin
 Cologne/Germany	Cologne
 Mecklenburg-Vorpommern	MecklenburgVorpommern
+Mecklenburg-Vorp	MecklenburgVorpommern
 Neidersachsen	Niedersachsen
 Nordrhein-Westfalen	NordrheinWestfalen
 Nordrhein-Wesrfalen	NordrheinWestfalen
@@ -283,6 +290,7 @@ LasithiGR	Lasithi
 LefkadaGR	Lefkada
 LefkadaIslandGR	Lefkada
 Lesvos_IslandGR	Lesvos
+Leivadeia	Livadia
 LivadeiaGR	Livadia
 LivadiaGR	Livadia
 PatraGR	Patra
@@ -365,6 +373,7 @@ Kitakyusyu	Kitakyushu
 Kouchi	Kochi
 SAITAMAC	Saitama
 Sapporro	Sapporo
+Tochiga	Tochigi
 Tokoshima	Tokushima
 Yamaneshi	Yamanashi
 kadoma	Kadoma
@@ -392,6 +401,9 @@ Vilnus	Vilnius
 
 # Macedonia
 Kochani	Kocani
+
+# Madagascar
+Taolagnaro	Tolagnaro
 
 # Mauritania
 Nouackchott	Nouakchott
@@ -475,6 +487,7 @@ Azores	Acores
 Beja_PT	Beja
 Braga_PT	Braga
 CasteloBranco_PT	CasteloBranco
+CasteloBrancoPT	CasteloBranco
 Coimbra_PT	Coimbra
 ?vora_PT	Evora
 Guarda_PT	Guarda
@@ -482,6 +495,7 @@ Leiria_PT	Leiria
 Lisboa	Lisbon
 Lisboa134 Lisbon/134
 Lisboa_PT	Lisbon
+LisboaPT	Lisbon
 Lissabon	Lisbon
 Madeira_PT	Madeira
 Portalegre_PT	Portalegre
@@ -527,6 +541,7 @@ Nizhni Novgorod	NizhnyNovgorod
 NizhniiNovgorod	NizhnyNovgorod
 NizhniyNovgorod	NizhnyNovgorod
 Nizhny-Novgorod	NizhnyNovgorod
+Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
 NorthNovgorod	NizhnyNovgorod
 Rostov-On-Don	RostovOnDon
@@ -544,6 +559,7 @@ Ulan_Ude	UlanUde
 Ussr	USSR
 Vladivistok	Vladivostok
 VNovgorod	VelikyNovgorod
+Volgda	Vologda
 Voroneg	Voronezh
 Yaryslavl	Yaroslavl
 
@@ -577,6 +593,7 @@ seoul	Seoul
 
 # SouthAfrica
 Capetown	CapeTown
+Ohannesburg	Johannesburg
 
 # Spain
 Baleares100	Baleares/100

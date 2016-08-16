@@ -9,20 +9,20 @@ class zika_upload(upload):
         upload.__init__(self, **kwargs)
         self.strain_fix_fname = "source-data/zika_strain_name_fix.tsv"
 
-    def fix_name(self, doc):
-        original_name = doc['strain']
-        tmp_name = self.replace_strain_name(original_name, self.fix_whole_name)
-        tmp_name = tmp_name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
-        tmp_name = tmp_name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
-        tmp_name = tmp_name.replace('Zika_virus', '').replace('Zikavirus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
-        tmp_name = tmp_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
-        tmp_name = re.sub('^/', '', tmp_name)
+    def fix_name(self, name):
+        original_name = name
+        name = self.replace_strain_name(original_name, self.fix_whole_name)
+        name = name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
+        name = name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
+        name = name.replace('Zika_virus', '').replace('Zikavirus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
+        name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
+        name = re.sub('^/', '', name)
         try:
-            tmp_name = 'V' + str(int(tmp_name))
+            name = 'V' + str(int(name))
         except:
             pass
-        tmp_name = self.replace_strain_name(tmp_name, self.fix_whole_name)
-        return tmp_name, original_name
+        name = self.replace_strain_name(name, self.fix_whole_name)
+        return name, original_name
 
     def fix_casing(self, document):
         for field in ['host']:
