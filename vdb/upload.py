@@ -407,7 +407,7 @@ class upload(parse):
         Compare measurement strain names to database strain names to matching to existing viruses sequences
         '''
         table = virus + "_viruses"
-        print("Using " + database + "." + table + " to adjust strain names to match strains already in" + database + "." + table)
+        print("Using " + database + "." + table + " to adjust strain names to match strains already in " + database + "." + table)
         vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('strain').run())), self.relax_name)
         adjusted_virus_strains = 0
         adjusted_sequence_strains = 0
@@ -424,7 +424,7 @@ class upload(parse):
         Compare measurement strain names to database strain names to matching to existing viruses sequences
         '''
         table = virus + "_sequences"
-        print("Using " + database + "." + table + " to adjust accessions to match sequences already in" + database + "." + table)
+        print("Using " + database + "." + table + " to adjust accessions to match sequences already in " + database + "." + table)
         vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('accession').run())), self.relax_name)
         adjusted_sequence_accessions = 0
         for doc in sequences:

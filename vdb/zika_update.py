@@ -6,7 +6,6 @@ class zika_update(update, zika_upload):
     def __init__(self, **kwargs):
         update.__init__(self, **kwargs)
         zika_upload.__init__(self, **kwargs)
-        print(self.strain_fix_fname)
 
 if __name__=="__main__":
     args = parser.parse_args()

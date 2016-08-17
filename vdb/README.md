@@ -29,7 +29,7 @@ Information about the virus is stored in one table (ie. flu\_viruses) with infor
 sequence information stored in another table (ie. flu\_sequences). They are linked together by the `sequences`
 field in the viruses table that stores a list of accession numbers of corresponding sequences. 
 
-Virus Table:
+Flu Virus Table:
 
 * `strain`: primary key. The canonical strain name. For flu this would be something like `A/Perth/16/2009`.
 * `isolate_id`: used for some viruses, like those from gisaid. `EPI_ISL_221430`.
@@ -48,7 +48,7 @@ Virus Table:
 * `number_of_sequences`: number of sequences for this virus
 * `timestamp`: last modification date and time for virus document in `YYYY-MM-DD` format.
 
-Sequences Table:
+Flu Sequences Table:
 
 * `accession`: primary key. The accession number. Assigned a unique random accession number if the sequence doesn't have one.
 * `strain`: the canonical strain name to link back to the viruses table. For flu this would be something like `A/Perth/16/2009`.
@@ -157,12 +157,23 @@ Download sequences from `flu_download.py`:
 
 ## Updating
 
-Sequences in vdb can be automatically updated.
-
-* Only sequences whose source is Genbank
-* Uses entrez to check for updates to certain fields
-* Updates the fields: `authors`, `title`, `url`, `sequence` 
-* Must specify database, virus and email.
+Sequences and Viruses in vdb can be updated.
+* Default update
+  * Finds all sequences in current database whose source is `genbank` or `vipr`
+  * Uses [entrez](http://www.ncbi.nlm.nih.gov/books/NBK25501/) to update virus and sequence documents
+  * `python vdb/zika_update.py -db vdb -v zika`
+* `--update_citations`
+  * updates `authors`, `title`, `url` fields from genbank files
+  * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
+  * `python vdb/zika_update.py -db vdb -v zika --update_citations`
+* `--update_locations`
+  * First manually edit most detailed location field (ie `location`) with [chateau](https://github.com/blab/chateau)
+  * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
+  * `python vdb/zika_update.py -db vdb -v zika --update_locations`
+* `--update_groupings`
+  * Updates genetic grouping fields like `vtype`, `subtype`, `lineage
+  * Only implemented currently for [flu_update.py](vdb/flu_update.py)
+  * `python vdb/flu_update.py -db vdb -v flu --update_groupings`
 
 ### Examples
 
@@ -172,29 +183,30 @@ Sequences in vdb can be automatically updated.
 	
 ## Backup and Restore
 
-VDB tables can be backed up to S3 or to a local source.
+VDB tables can be backed up to S3 or locally.
 
-* Can be run manually or continuously everyday
-* Deletes old backups after a certain length (default is 50 days)
-* Restoration keeps current documents in database
+* Backups can be run manually or continuously everyday
+* Backs up all tables in database
+* Restoration keeps current documents in database but overwrites conflicting documents with the same primary key
+
 
 ### Examples
 
 Backup `test_vdb.zika` to s3 backup file
 	
-	python vdb/backup.py -db test_vdb --backup --backup_s3
+	python vdb/backup.py -db test_vdb --backup_s3
 
-Restore `test_vdb.zika` to 2016-05-25 from s3 backup file
+Restore to local instance of `vdb.zika` to 2016-05-25 from s3 backup file
 	
-	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --backup_s3
-
+	python vdb/restore.py -db vdb -v zika --backup_s3 --restore_date 2016-08-17 --local
+	
 Backup `test_vdb.zika` to local backup file
 	
-	python vdb/backup.py -db test_vdb --backup --backup_local
+	python vdb/backup.py -db test_vdb --backup_local
 
-Restore `test_vdb.zika` to 2016-05-25 from local backup file
+Restore `vdb.zika` to 2016-05-25 from local backup file
 	
-	python vdb/backup.py -db test_vdb --restore --restore_table zika --restore_date 2016-05-25 --backup_local
+	python vdb/restore.py -db vdb -v zika --backup_local --restore_date 2016-08-17
 
 Backup `test_vdb.zika` to s3 backup file everyday	
 	
@@ -206,10 +218,11 @@ VDB documents can be appended to other tables.
 
 ### Examples
 	
-Append `vdb.zika` documents to `test_vdb.zika`:
+Append `vdb` zika documents to `test_vdb` zika tables:
 
-	python vdb/append.py --from_table vdb.zika --to_table test_vdb.zika
-
+	python vdb/append.py -v zika --from_database vdb --to_database test_vdb
+	
+	
 ## Sync
 
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance.

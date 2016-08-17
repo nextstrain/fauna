@@ -101,6 +101,32 @@ Command line arguments to run `download.py`:
 Download all H1N1pdm titers:
 
     python tdb/download.py -db tdb -v h1n1pdm
+    
+## Backup and Restore
+
+TDB tables can be backed up to S3 or locally.
+
+* Backups can be run manually or continuously everyday
+* Backs up all tables in database
+* Restoration keeps current documents in database but overwrites conflicting documents with the same primary key
+
+### Examples
+
+Backup `tdb.flu` to s3 backup file
+	
+	python tdb/backup.py -db tdb --backup_s3
+
+Backup `tdb` to local backup file
+	
+	python tdb/backup.py -db tdb --backup_local
+
+Backup `tdb` to s3 backup file everyday	
+	
+	python tdb/backup.py -db tdb --continuous_backup --backup_s3
+	
+Restore `tdb.flu` from s3 backup file `2016-08-17_tdb_flu.tar.gz`
+	
+	python tdb/restore.py -db tdb -v flu --backup_s3 --restore_date 2016-08-17
 
 ## Accessing the Database
 
