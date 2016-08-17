@@ -16,7 +16,7 @@ class zika_upload(upload):
         name = name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
         name = name.replace('Zika_virus', '').replace('Zikavirus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
         name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
-        name = re.sub('^/', '', name)
+        name = re.sub('^[\/\_\-]', '', name)
         try:
             name = 'V' + str(int(name))
         except:
