@@ -159,12 +159,12 @@ class rethink_interact(object):
 
         conn = self.rethink_io.connect_rethink(export_database, rethink_host, auth_key)
         self.rethink_io.check_table_exists(export_database, export_table)
-        self.export_json(directory, json_file, export_database, export_table)
+        self.export_json(directory, json_file, export_database, export_table, **kwargs)
         conn.close()
 
         conn = self.rethink_io.connect_rethink(import_database, rethink_host, auth_key)
         self.rethink_io.check_table_exists(import_database, import_table)
-        self.import_json(directory, json_file, import_database, import_table)
+        self.import_json(directory, json_file, import_database, import_table, **kwargs)
         conn.close()
 
     def parse_database_table(self, database_table):
@@ -195,20 +195,19 @@ class rethink_interact(object):
         import the exported table into self.import_database from self.backup_file
         '''
         print("Importing into database: " + import_database + ", table: " + import_table + ", from file: " + json_file)
-
         try:
             documents = read_json(json_file)
-            self.sync_via_timestamp(import_table, documents)
-            #r.table(import_table).insert(documents, conflict=lambda strain, old_doc, new_doc: new_doc if new_doc['timestamp'] > old_doc['timestamp'] else old_doc).run()
+            self.sync_via_timestamp(import_table, documents, **kwargs)
             shutil.rmtree(directory)
         except:
             raise Exception("Couldn't import into " + import_database + '.' + import_table + " from " + json_file)
 
-    def sync_via_timestamp(self, table, documents):
+    def sync_via_timestamp(self, table, documents, key='strain', **kwargs):
         '''
         '''
+        print(key)
         for document in documents:
-            result = r.table(table).get(document['strain']).run()
+            result = r.table(table).get(document[key]).run()
             if result is None:
                 r.table(table).insert(document).run()
             else:

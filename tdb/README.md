@@ -128,6 +128,17 @@ Restore `tdb.flu` from s3 backup file `2016-08-17_tdb_flu.tar.gz`
 	
 	python tdb/restore.py -db tdb -v flu --backup_s3 --restore_date 2016-08-17
 
+## Append
+
+Append documents to other tables in different databases. Useful for testing outcomes in a test database.table 
+
+### Examples
+	
+Append `tdb` flu documents to `test_tdb.flu`:
+
+	python vdb/append.py -v flu --from_database tdb --to_database test_tdb
+	
+
 ## Accessing the Database
 
 All titer measurements are stored using [Rethinkdb deployed on AWS](https://www.rethinkdb.com/docs/paas/#deploying-on-aws). To access tdb you need an authorization key. This can be passed as a command line argument (see above) or set as an environment variable with a bash script, by running `source environment_rethink.sh`:
