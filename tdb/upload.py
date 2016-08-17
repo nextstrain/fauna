@@ -118,7 +118,7 @@ class upload(parse, flu_upload):
         '''
         table = self.virus + "_viruses"
         print("Using " + database + "." + table + " to adjust strain names to sequence strains")
-        vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('strain').run())))
+        vdb_strains = self.relaxed_keys(set(list(r.db(database).table(table).get_field('strain').run())), self.relax_name)
         matched_virus_strains = 0
         matched_serum_strains = 0
         for meas in measurements:
