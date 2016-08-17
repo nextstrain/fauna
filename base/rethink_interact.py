@@ -26,7 +26,7 @@ class rethink_interact(object):
         except:
             raise Exception("Couldn't connect to s3 bucket " + s3_bucket_name)
 
-    def backup_s3(self, database, **kwargs):
+    def backup_s3(self, database, delete_expired=False, **kwargs):
         '''
         make backup of every table in database, upload to s3 bucket
         '''
@@ -42,9 +42,10 @@ class rethink_interact(object):
             bucket.upload_file(fname, dump_file)
         shutil.rmtree('temp')
         print("Successfully backed up")
-        self.delete_expired_s3_backups(bucket, **kwargs)
+        if delete_expired:
+            self.delete_expired_s3_backups(bucket, **kwargs)
 
-    def backup_local(self, database, path='', **kwargs):
+    def backup_local(self, database, path='', delete_expired=False, **kwargs):
         '''
         make backup of every table in database, store locally
         '''
@@ -57,7 +58,8 @@ class rethink_interact(object):
             self.dump(database=database, dump_table=table, dump_file=dump_file, **kwargs)
             shutil.move(dump_file, path+'/'+dump_file)
             print("Successfully backed up " + table)
-        self.delete_expired__local_backups(path=path, **kwargs)
+        if delete_expired:
+            self.delete_expired_local_backups(path=path, **kwargs)
 
     def dump(self, database, dump_table, dump_file, rethink_host='localhost', auth_key=None, **kwargs):
         '''
@@ -76,22 +78,24 @@ class rethink_interact(object):
 
     def restore(self, database, restore_table, restore_date, rethink_host='localhost', auth_key=None, **kwargs):
         '''
+        Database is database to restore to
+        Backup_database is database from which the backup file was created
         '''
         if restore_table is not None and restore_date is not None:
-            print("Restoring database " + database + " and table " + restore_table + " to date " + restore_date)
-            restore_location = database+'.'+restore_table
             restore_file = restore_date + "_" + database + "_" + restore_table + '.tar.gz'
+            restore_to_location = database+'.'+restore_table
+            print("Restoring database " + database + "." + restore_table + " to date " + restore_date + " from file " + restore_file)
             self.get_file(fname=restore_file, **kwargs)
             if rethink_host != 'localhost' and auth_key is not None:
-                command = ['rethinkdb', 'restore', restore_file, '-i', restore_location, '-c', rethink_host, '-a', auth_key, '--force']
+                command = ['rethinkdb', 'restore', restore_file, '-i', restore_to_location, '-c', rethink_host, '-a', auth_key, '--force']
             else:
-                command = ['rethinkdb', 'restore', restore_file, '-i', restore_location, '--force']
+                command = ['rethinkdb', 'restore', restore_file, '-i', restore_to_location, '--force']
             try:
                 with open(os.devnull, 'wb') as devnull:
                     subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
                 os.remove(restore_file)
             except:
-                raise Exception("Couldn't restore " + str(restore_location) + " with file " + str(restore_file))
+                raise Exception("Couldn't restore " + str(restore_to_location) + " with file " + str(restore_file))
         else:
             raise Exception("define arguments \'--restore_table\' and \'--restore_date\'")
 
@@ -107,7 +111,7 @@ class rethink_interact(object):
             else:
                 raise Exception("Specified file could not be found in s3 bucket", fname)
         elif backup_local:
-            shutil.copy(path+'/'+fname, fname, )
+            shutil.copy(path+'/'+fname, fname)
             if not os.path.isfile(path+'/'+fname):
                 raise Exception("Couldn't find backup file at specified location", fname)
         else:
@@ -125,7 +129,7 @@ class rethink_interact(object):
                 bucket.delete_objects(Delete={'Objects': [{'Key': fname}]})
                 print("Deleting " + fname)
 
-    def delete_expired__local_backups(self, path, days_to_expiration, **kwargs):
+    def delete_expired_local_backups(self, path, days_to_expiration, **kwargs):
         '''
         delete backup files stored locally that are more than some amount of days old
         '''
