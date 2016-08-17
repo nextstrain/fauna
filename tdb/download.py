@@ -81,7 +81,7 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_text(self, measurements, fname, text_fields=['virus', 'serum', 'ferret_id', 'source', 'titer']):
+    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'ferret_id', 'source', 'titer']):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -127,10 +127,10 @@ class download(object):
     def count(self):
         HI_titer_count = {}
         for meas in self.measurements:
-            if meas['serum'] in HI_titer_count.keys():
-                HI_titer_count[meas['serum']] = HI_titer_count[meas['serum']] + 1
+            if meas['serum_strain'] in HI_titer_count.keys():
+                HI_titer_count[meas['serum_strain']] = HI_titer_count[meas['serum_strain']] + 1
             else:
-                HI_titer_count[meas['serum']] = 1
+                HI_titer_count[meas['serum_strain']] = 1
         return HI_titer_count
 
 if __name__=="__main__":
