@@ -33,7 +33,7 @@ class update(upload):
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + database + "." + table)
-            self.upload_documents(database, table, sequences, **kwargs)
+            self.upload_to_rethinkdb(database, table, sequences, overwrite=True)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
@@ -64,13 +64,14 @@ class update(upload):
         viruses = self.reassign_new_locations(viruses, self.location_fields, **kwargs)
         if not preview:
             print("Updating " + str(len(viruses)) + " virus locations in " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.viruses_table, viruses, **kwargs)
+            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, overwrite=True)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
     def reassign_new_locations(self, documents, location_fields, **kwargs):
         '''
         Use location fields to find location information that needs to be updated
+        Uses the first location field that returns location information from self.determine_location
         Update location information, region, latitude and longitude
         '''
         updated_documents = []
@@ -92,7 +93,7 @@ class update(upload):
         return updated_documents
 
     def update_groupings(self, **kwargs):
-        print("No default grouping method defined, please create one")
+        print("No default grouping method defined, please use the specific virus update script, ie flu_update.py")
 
     def update_genbank_documents(self, preview, **kwargs):
         '''
@@ -110,9 +111,9 @@ class update(upload):
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         if not preview:
             print("Updating viruses in " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.viruses_table, viruses, **kwargs)
+            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, overwrite=True)
             print("Updating sequences in " + self.database + "." + self.sequences_table)
-            self.upload_documents(self.sequences_table, sequences, **kwargs)
+            self.upload_to_rethinkdb(self.database, self.sequences_table, sequences, overwrite=True)
         else:
             print("Viruses:")
             print(json.dumps(viruses[0], indent=1))

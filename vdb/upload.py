@@ -481,8 +481,7 @@ class upload(parse):
         print("Inserting ", len(documents), "documents")
         self.upload_to_rethinkdb(database, table, documents, **kwargs)
 
-    def upload_to_rethinkdb(self, database, table, documents, overwrite=False, **kwargs):
-        optimal_upload = 200
+    def upload_to_rethinkdb(self, database, table, documents, overwrite=False, optimal_upload=200, **kwargs):
         if len(documents) > optimal_upload:
             list_documents = [documents[x:x+optimal_upload] for x in range(0, len(documents), optimal_upload)]
         else:

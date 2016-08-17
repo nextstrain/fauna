@@ -206,7 +206,7 @@ class parse(object):
             search_results = Entrez.read(search_handle)
             webenv, query_key = search_results["WebEnv"], search_results["QueryKey"]
         except:
-            print("Couldn't connect with entrez, please run again")
+            print("ERROR: Couldn't connect with entrez, please run again")
 
         viruses = []
         sequences = []
@@ -216,7 +216,7 @@ class parse(object):
             try:
                 handle = Entrez.efetch(db=self.gbdb, rettype="gb", retstart=start, retmax=batchSize, webenv=webenv, query_key=query_key)
             except IOError:
-                print("Couldn't connect with entrez, please run again")
+                print("ERROR: Couldn't connect with entrez, please run again")
             else:
                 result = self.parse_gb_entries(handle, **kwargs)
                 viruses.extend(result[0])
