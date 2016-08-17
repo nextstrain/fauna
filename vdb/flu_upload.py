@@ -382,7 +382,7 @@ class flu_upload(upload):
                 v['vtype'], v['subtype'], v['lineage'] = match[0], match[1], match[2]
         return v
 
-    def align_flu(self, doc, **kwargs):
+    def align_flu(self, doc, min_score_percentage=0.85, **kwargs):
         '''
         align with sequence from outgroup to determine subtype and lineage
         :return: True if determined grouping, False otherwise
@@ -402,15 +402,14 @@ class flu_upload(upload):
                 tmp_aln = np.array(AlignIO.read('temp_out.fasta', 'fasta'))
                 scores.append((olineage, (tmp_aln[0]==tmp_aln[1]).sum()))
             scores.sort(key = lambda x:x[1], reverse=True)
-            if scores[0][1]>0.85*len(record.seq):
+            if scores[0][1]>min_score_percentage*len(record.seq):
                 print("Lineage based on similarity:", scores[0][0], doc['strain'], len(record.seq), scores)
-                match = self.outgroup_patterns[scores[0][0]]
-                return match[0].lower(), match[1].lower(), match[2].lower()
+                return self.outgroup_patterns[scores[0][0]]
             else:
                 print("Couldn't parse virus subtype and lineage from aligning sequence: ", doc['strain'], len(record.seq), scores)
                 return None
         except:
-            print("Couldn't parse virus subtype and lineage from aligning sequence: " + doc['strain'])
+            print("Alignment failed: " + doc['strain'])
             return None
 
 if __name__=="__main__":

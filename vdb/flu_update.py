@@ -17,21 +17,25 @@ class flu_update(update, flu_upload):
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
 
-    def update_groupings(self, viruses_table, sequences_table, database, preview=False, **kwargs):
+    def update_groupings(self, viruses_table, sequences_table, database, update_keyword='tbd', preview=False, optimal_upload=50, **kwargs):
+        '''
+        Get viruses that have not had virus groupings determined, signaled by update_keyword
+        Align HA sequences to outgroups to determine the closest grouping
+        '''
         print("Updating grouping fields")
-        viruses = list(r.db(database).table(viruses_table).filter((r.row["vtype"] == 'tbd') | (r.row["subtype"] == 'tbd') | (r.row["lineage"] == 'tbd')).run())
+        print("Getting viruses from " + database + "." + viruses_table + " with grouping fields equal to ", update_keyword)
+        viruses = list(r.db(database).table(viruses_table).filter((r.row["vtype"] == update_keyword) | (r.row["subtype"] == update_keyword) | (r.row["lineage"] == update_keyword)).run())
         ha_sequences = list(r.db(database).table(sequences_table).filter((r.row["locus"] == 'ha')).run())
         accession_to_sequence_doc = {doc['accession']:doc for doc in ha_sequences}
         # split updating of groups into groups of 50 viruses
-        optimal_upload = 50
         if len(viruses) > optimal_upload:
             list_viruses = [viruses[x:x+optimal_upload] for x in range(0, len(viruses), optimal_upload)]
         else:
             list_viruses = [viruses]
-        print("Determining groupings for " + str(len(viruses)) + " viruses in " + str(len(list_viruses)) + " batches")
-        for group in list_viruses:
-            print("Determining groupings for " + str(len(group)) + " viruses")
-            for virus in group:
+        print("Determining groupings for " + str(len(viruses)) + " viruses in " + str(len(list_viruses)) + " batches of " + str(optimal_upload) + " viruses at a time")
+        for group_num, virus_group in enumerate(list_viruses):
+            print("Group " + str(group_num+1)) + " out of " + str(len(list_viruses)) + " groupings"
+            for virus in virus_group:
                 for acc in virus['sequences']:
                     if acc in accession_to_sequence_doc:
                         # try determining grouping information from one HA sequence
@@ -42,8 +46,8 @@ class flu_update(update, flu_upload):
                             virus['vtype'], virus['subtype'], virus['lineage'] = "undetermined", "undetermined", "undetermined"
                         break
             if not preview:
-                print("Updating " + str(len(group)) + " virus groupings in " + self.database + "." + self.viruses_table)
-                self.upload_to_rethinkdb(self.database, self.viruses_table, group, overwrite=True)
+                print("Updating " + str(len(virus_group)) + " virus groupings in " + self.database + "." + self.viruses_table)
+                self.upload_to_rethinkdb(self.database, self.viruses_table, virus_group, overwrite=True, optimal_upload=optimal_upload)
             else:
                 print("Preview of updates to be made, remove --preview to make updates to database")
 
