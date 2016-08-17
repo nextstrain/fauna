@@ -131,6 +131,7 @@ class flu_upload(upload):
                 print("Missing strain name!")
             self.fix_casing(doc)
             self.fix_age(doc)
+            self.determine_group_fields(doc, self.patterns)
             self.format_date(doc)
             self.format_country(doc)
             self.format_place(doc, determine_location=False)
@@ -194,17 +195,22 @@ class flu_upload(upload):
         '''
         Combine gisaid age information into one age field
         '''
+        temp_age, temp_age_unit = None, None
+        doc['age'] = None
         if 'Host_Age' in doc:
-            doc['age'] = None
-            if doc['Host_Age'] is not None:
-                doc['age'] = str(int(doc['Host_Age']))
+            try:
+                temp_age = str(int(float(doc['Host_Age'])))
+            except:
+                pass
             del doc['Host_Age']
-            if 'Host_Age_Unit' in doc:
-                if doc['Host_Age_Unit'] is not None and doc['age'] is not None:
-                    doc['age'] = doc['age'] + doc['Host_Age_Unit'].strip().lower()
-                del doc['Host_Age_Unit']
-            elif doc['age'] is not None:
-                doc['age'] += 'y'
+        if 'Host_Age_Unit' in doc:
+            if isinstance(doc['Host_Age_Unit'], basestring):
+                temp_age_unit = doc['Host_Age_Unit'].lower()
+            else:
+                temp_age_unit = 'y'
+            del doc['Host_Age_Unit']
+        if isinstance(temp_age, basestring) and isinstance(temp_age_unit, basestring):
+            doc['age'] = temp_age + temp_age_unit
         return doc
 
     def define_location_fixes(self, fname):
@@ -355,27 +361,26 @@ class flu_upload(upload):
             doc[initial_field] = None
             doc[new_field] = None
 
-    def determine_group_fields(self, v, **kwargs):
+    def determine_group_fields(self, v, patterns, **kwargs):
         '''
         Determine and assign genetic group fields
         '''
         # determine virus type from strain name
-        if 'Subtype' in v and 'Lineage' in v:
+        v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
+        temp_subtype = ''
+        temp_lineage = ''
+        if 'Subtype' in v:
             if v['Subtype'] is not None:
                 temp_subtype = v['Subtype'].lower()
-            else:
-                temp_subtype = ''
             del v['Subtype']
+        if 'Lineage' in v:
             if v['Lineage'] is not None:
                 temp_lineage = v['Lineage'].lower()
-            else:
-                temp_lineage = ''
             del v['Lineage']
-            v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
-            if (temp_subtype, temp_lineage) in self.patterns:  #look for pattern from GISAID fasta file
-                match = self.patterns[(temp_subtype, temp_lineage)]
+        if (temp_subtype, temp_lineage) in patterns:  #look for pattern from GISAID fasta file
+                match = patterns[(temp_subtype, temp_lineage)]
                 v['vtype'], v['subtype'], v['lineage'] = match[0], match[1], match[2]
-            return v
+        return v
 
     def align_flu(self, doc, **kwargs):
         '''

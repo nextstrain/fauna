@@ -17,7 +17,7 @@ class flu_update(update, flu_upload):
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
 
-    def update_groupings(self, viruses_table, sequences_table, database, preview, **kwargs):
+    def update_groupings(self, viruses_table, sequences_table, database, preview=False, **kwargs):
         print("Updating grouping fields")
         viruses = list(r.db(database).table(viruses_table).filter((r.row["vtype"] == 'tbd') | (r.row["subtype"] == 'tbd') | (r.row["lineage"] == 'tbd')).run())
         ha_sequences = list(r.db(database).table(sequences_table).filter((r.row["locus"] == 'ha')).run())
@@ -43,7 +43,7 @@ class flu_update(update, flu_upload):
                         break
             if not preview:
                 print("Updating " + str(len(group)) + " virus groupings in " + self.database + "." + self.viruses_table)
-                self.upload_to_rethinkdb(self.database, self.viruses_table, group, 'update')
+                self.upload_to_rethinkdb(self.database, self.viruses_table, group, overwrite=True)
             else:
                 print("Preview of updates to be made, remove --preview to make updates to database")
 

@@ -474,7 +474,7 @@ class upload(parse):
             for field in fields:
                 del doc_from[field]
 
-    def upload_documents(self, database, table, documents, replace=False, **kwargs):
+    def upload_documents(self, table, documents, database, replace=False, **kwargs):
         if replace:
             print("Deleting documents in database:" + database + "." + table)
             r.table(table).delete().run()
