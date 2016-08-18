@@ -4,7 +4,7 @@
 
 ### Upload documents to VDB
 
-1. Download sequences and meta information from [GISAID](platform.gisaid.org/)
+1. Download sequences and meta information from [GISAID](http://platform.gisaid.org/)
   * In EPIFLU, select host as `human`, select `HA` as required segment, select Submission Date >= last upload date to vdb
   * Ideally download about 5000 isolates at a time, may have to split downloads by submission date
   * Download Isolates as XLS with YYYY-MM-DD date format
@@ -17,7 +17,7 @@
 3. Upload to vdb database
   * `python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_2002-2004`
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
-  	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv), [flu_strain_name_fix file](flu_strain_name_fix.tsv) and [flu_fix_location_label file](flu_fix_location_label.tsv) to fix some of the formatting.
+  	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv), [flu_strain_name_fix file](source-data/flu_strain_name_fix.tsv) and [flu_fix_location_label file](source-data/flu_fix_location_label.tsv) to fix some of the formatting.
 
 ### Update documents in VDB
 
@@ -41,7 +41,7 @@
 3. Upload to tdb database
   * `python tdb/upload.py -db tdb -v flu --subtype h1n1pdm`
   * Recommend running with `--preview` to confirm strain names are correctly parsed before uploading
-  	* Can add to [HI_ref_name_abbreviations file](HI_ref_name_abbreviations.tsv) and [HI_flu_strain_name_fix file](HI_flu_strain_name_fix.tsv) to fix some strain names.
+  	* Can add to [HI_ref_name_abbreviations file](source-data/HI_ref_name_abbreviations.tsv) and [HI_flu_strain_name_fix file](source-data/HI_flu_strain_name_fix.tsv) to fix some strain names.
 
 ### Download documents from TDB
 
