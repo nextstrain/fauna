@@ -35,8 +35,8 @@ class download(object):
         self.viruses_table = virus + "_viruses"
         self.sequences_table = virus + "_sequences"
         self.database = database.lower()
-        if self.database not in ['vdb', 'test_vdb']:
-            raise Exception("Cant download from this database: " + self.database)
+        if self.database not in ['vdb', 'test_vdb', 'test']:
+            raise Exception("Can't download from this database: " + self.database)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
@@ -53,18 +53,22 @@ class download(object):
         '''
         download documents from table
         '''
-        print("Downloading all viruses from the table: " + self.viruses_table)
+        import time
+        start_time = time.time()
+        print("Downloading all virus documents from the table: " + self.viruses_table)
         viruses = list(r.table(self.viruses_table).run())
-        print("Downloading all viruses from the table: " + self.sequences_table)
-        sequences = list(r.table(self.sequences_table).run())
+        print("Downloading all sequence documents from the table initially without sequence field: " + self.sequences_table)
+        sequences = list(r.table(self.sequences_table).without('sequence').run())
         print("Linking viruses to sequences")
-        sequences = self.link_viruses_to_sequences(viruses, sequences)
+        sequences = self.link_viruses_to_sequences(viruses, sequences, **kwargs)
         sequences = self.subset(sequences, **kwargs)
+        sequences = self.download_sequence(self.sequences_table, sequences, **kwargs)
         sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
+        print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
 
-    def link_viruses_to_sequences(self, viruses, sequences):
+    def link_viruses_to_sequences(self, viruses, sequences, **kwargs):
         '''
         copy the virus doc to the sequence doc
         '''
@@ -164,7 +168,26 @@ class download(object):
                     return False
         return True
 
-    def resolve_duplicates(self, sequences, pick_longest, **kwargs):
+    def download_sequence(self, table, documents, **kwargs):
+        '''
+
+        '''
+        print("Downloading sequences for documents left after subsetting")
+        accessions = [doc['accession'] for doc in documents]
+        optimal_download = 200
+        if len(accessions) > optimal_download:
+            list_accessions = [accessions[x:x+optimal_download] for x in range(0, len(accessions), optimal_download)]
+        else:
+            list_accessions = [accessions]
+        sequences = []
+        for acc in list_accessions:
+            sequences.extend(list(r.table(table).get_all(r.args(acc)).pluck('accession', 'sequence').run()))
+        accession_to_sequence = {doc['accession']: doc['sequence'] for doc in sequences}
+        for doc in documents:
+            doc['sequence'] = accession_to_sequence[doc['accession']]
+        return documents
+
+    def resolve_duplicates(self, sequences, pick_longest=True, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
         if pick_longest:
             print("Resolving duplicate strains and locus by picking the longest sequence")
@@ -223,7 +246,6 @@ class download(object):
                           for field in fasta_fields]
                 handle.write(sep.join(fields)+'\n')
             handle.close()
-
 
     def output(self, documents, path, fstem, ftype, **kwargs):
         fname = path + '/' + fstem + '.' + ftype
