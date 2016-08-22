@@ -27,10 +27,10 @@
   
 ### Download documents from VDB
 
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA,lineage:seasonal_h3n2 --fstem h3n2`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA,lineage:seasonal_h1n1pdm --fstem h1n1pdm`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA,lineage:seasonal_vic --fstem vic`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA,lineage:seasonal_yam --fstem yam`
+* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`
+* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h1n1pdm --fstem h1n1pdm`
+* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_vic --fstem vic`
+* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_yam --fstem yam`
 
 ## TDB
 
