@@ -11,11 +11,9 @@
   * Download Isolates as "Sequences (DNA) as FASTA"
     * Select all DNA
     * Fasta Header as 0: DNA Accession no., 1: Isolate name, 2: Isolate ID, 3: Segment, 4: Passage details/history, 5: Submitting lab
-2. Rename files to same name with `.xls` and `.fasta` and move to `nextstrain-db/vdb/data`
-  * ie. `gisaid_2002-2004.xls` and `gisaid_2002-2004.fasta`
-  * `--fname` for upload will be the base name ie. `gisaid_2002-2004`
+2. Move files to `nextstrain-db/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
 3. Upload to vdb database
-  * `python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_2002-2004`
+  * `python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_epiflu`
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
   	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv), [flu_strain_name_fix file](source-data/flu_strain_name_fix.tsv) and [flu_fix_location_label file](source-data/flu_fix_location_label.tsv) to fix some of the formatting.
 

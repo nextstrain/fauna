@@ -423,7 +423,7 @@ if __name__=="__main__":
                              ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
-        args.path = "vdb/data/" + args.virus + "/"
+        args.path = "data/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connVDB = flu_upload(**args.__dict__)

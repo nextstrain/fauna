@@ -294,12 +294,14 @@ Copiapo	Chile	Atacama	Copiapo
 Coquimbo	Chile	Coquimbo	Coquimbo
 Coronel	Chile	Biobio	Coronel
 Coyhaique	Chile	Aisen	Coyhaique
+Cunco	Chile	Araucania	Cunco
 Curico	Chile	Maule	Curico
 Gorbea	Chile	Araucania	Gorbea
 Iquique	Chile	Tarapaca	Iquique
 IslaDePascua	Chile	Valparaiso	IslaDePascua
 LaSerena	Chile	Coquimbo	LaSerena
 Lautaro	Chile	Araucania	Lautaro
+Lebu	Chile	BioBio	Lebu
 Linares	Chile	Maule	Linares
 Lota	Chile	BioBio	Lota
 Melipilla	Chile	Santiago	Melipilla
@@ -1600,6 +1602,7 @@ Rwanda	Rwanda	Rwanda	Rwanda
 
 # SaintKitts
 SaintKitts	SaintKitts	SaintKitts	SaintKitts
+StKitts	SaintKitts	SaintKitts	SaintKitts
 
 # SaintLucia
 SaintLucia	SaintLucia	SaintLucia	SaintLucia	
@@ -1823,6 +1826,7 @@ Ayutthaya	Thailand	Ayutthaya	Ayutthaya
 Bangkok	Thailand	Bangkok	Bangkok		
 Chachoengsao	Thailand	Chachoengsao	Chachoengsao		
 Chanthaburi	Thailand	Chanthaburi	Chanthaburi		
+ChiangMai	Thailand	ChiangMai	ChiangMai
 ChiangRai	Thailand	ChiangRai	ChiangRai
 Chonburi	Thailand	Chonburi	Chonburi
 CuTha	Thailand	Thailand	CuTha
@@ -1831,10 +1835,12 @@ KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
 LopBuri	Thailand	LopBuri	LopBuri		
 MaeHongSon	Thailand	MaeHongSon	MaeHongSon		
+Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom
 NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima		
 NongKhai	Thailand	NongKhai	NongKhai		
 Nonthaburi	Thailand	Nonthaburi	Nonthaburi		
 PathumThani	Thailand	PathumThani	PathumThani
+Phetchaburi	Thailand	Phetchaburi	Phetchaburi
 Phitsanulok	Thailand	Phitsanulok	Phitsanulok		
 Phuket	Thailand	Phuket	Phuket
 PrachinBuri	Thailand	PrachinBuri	PrachinBuri
@@ -1865,15 +1871,16 @@ Trinidad	TrinidadAndTobago	Trinidad	Trinidad
 Tunisia	Tunisia	Tunisia	Tunisia		
 					
 # Turkey					
-Turkey	Turkey	Turkey	Turkey		
-Adana	Turkey	Adana	Adana	
-Adiyaman	Turkey	Adiyaman	Adiyaman	
+Turkey	Turkey	Turkey	Turkey
+Adana	Turkey	Adana	Adana
+Adiyaman	Turkey	Adiyaman	Adiyaman
 Afyon	Turkey	Afyon	Afyon
-Agri	Turkey	Agri	Agri	
-Aksaray	Turkey	Aksaray	Aksaray	
+Agri	Turkey	Agri	Agri
+Aksaray	Turkey	Aksaray	Aksaray
 Amasya	Turkey	Amasya	Amasya
-Ankara	Turkey	Ankara	Ankara		
-Antalya	Turkey	Antalya	Antalya	
+Ankara	Turkey	Ankara	Ankara
+Antalya	Turkey	Antalya	Antalya
+Aydin	Turkey	Aydin	Aydin
 Bartin	Turkey	Bartin	Bartin
 Batman	Turkey	Batman	Batman
 Bayburt	Turkey	Bayburt	Bayburt
@@ -1889,6 +1896,7 @@ Gaziantep	Turkey	Gaziantep	Gaziantep
 Giresun	Turkey	Giresun	Giresun
 Gumushane	Turkey	Gumushane	Gumushane
 Hatay	Turkey	Hatay	Hatay
+Karabuk	Turkey	Karabuk	Karabuk
 Karaman	Turkey	Karaman	Karaman
 Kocaeli	Turkey	Kocaeli	Kocaeli
 Kutahya	Turkey	Kutahya	Kutahya		
