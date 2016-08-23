@@ -43,5 +43,7 @@
 
 ### Download documents from TDB
 
-* `python tdb/download.py -db tdb -v flu --subtype h1n1pdm`
-* Downloads all titer measurements and counts of HI_strains
+* `python tdb/download.py -db tdb -v flu --ftype augur --subtype h3n2`
+* `python tdb/download.py -db tdb -v flu --ftype augur --subtype h1n1pdm`
+* `python tdb/download.py -db tdb -v flu --ftype augur --subtype vic`
+* `python tdb/download.py -db tdb -v flu --ftype augur --subtype yam`

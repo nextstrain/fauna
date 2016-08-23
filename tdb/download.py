@@ -104,13 +104,13 @@ class download(object):
         elif ftype == 'txt':
             self.write_text(self.measurements, fname)
         elif ftype == 'augur':
-            fname = path + '/' + subtype + "_HI_titers.txt"
+            fname = path + '/' + subtype + "_hi_titers.txt"
             self.write_text(self.measurements, fname)
         else:
             raise Exception("Can't output to that file type, only json or text allowed")
 
     def write_count(self, path, subtype, **kwargs):
-        fname = path + '/' + subtype + '_HI_strains.txt'
+        fname = path + '/' + subtype + '_hi_strains.txt'
         print("Counting HI_strains and printing to " + fname)
         HI_titer_count = self.count()
         try:
@@ -131,6 +131,10 @@ class download(object):
                 HI_titer_count[meas['serum_strain']] = HI_titer_count[meas['serum_strain']] + 1
             else:
                 HI_titer_count[meas['serum_strain']] = 1
+            if meas['virus_strain'] in HI_titer_count.keys():
+                HI_titer_count[meas['virus_strain']] = HI_titer_count[meas['virus_strain']] + 1
+            else:
+                HI_titer_count[meas['virus_strain']] = 1                
         return HI_titer_count
 
 if __name__=="__main__":
