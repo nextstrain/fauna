@@ -31,8 +31,8 @@ class rethink_interact(object):
         make backup of every table in database, upload to s3 bucket
         '''
         print("Backing up " + database + " on " + self.rethink_io.get_upload_date())
-        if not os.path.isdir('temp'):
-            os.makedirs('temp')
+        if not os.path.isdir(args.path):
+            os.makedirs(args.path)
         tables = r.db(database).table_list().run()
         bucket = self.connect_S3(**kwargs)
         for table in tables:

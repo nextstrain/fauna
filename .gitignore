@@ -1,6 +1,7 @@
 # For vdb repo #
 environment*
 data/
+backups/
 lacen/
 
 # Compiled intermediates

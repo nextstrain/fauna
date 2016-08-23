@@ -12,7 +12,7 @@ parser.add_argument('--continuous_backup', default=False, action="store_true",  
 parser.add_argument('--backup_s3', default=False, action="store_true", help="backup database to s3")
 parser.add_argument('--s3_bucket_name', default='vdb-backups', help="name of s3 bucket where backups stored")
 parser.add_argument('--backup_local', default=False, action="store_true", help="backup database locally")
-parser.add_argument('--path', default='tdb/backups', help="path to store backup of database locally")
+parser.add_argument('--path', default='backups', help="path to store backup of database locally")
 parser.add_argument('--days_to_expiration', default=50, help="number of days before deleting backup files")
 
 if __name__=="__main__":

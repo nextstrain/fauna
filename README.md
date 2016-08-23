@@ -34,6 +34,7 @@ Install Python modules needed to run upload/download scripts:
     pip install biopython==1.64
     pip install unidecode==0.4.19
     pip install xlrd==1.0.0
+	pip install boto3==1.4.0
 
 Install Chateau Web UI:
 

@@ -20,6 +20,8 @@ RUN pip install rethinkdb==2.2.0.post2
 RUN pip install biopython==1.64
 RUN pip install geopy==1.11.0
 
+# NEED TO INSTALL RETHINKDB COMMAND
+
 # nextstrain-db
 RUN git clone https://github.com/blab/nextstrain-db.git /db
 WORKDIR /db/
