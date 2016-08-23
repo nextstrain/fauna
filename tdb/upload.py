@@ -13,6 +13,8 @@ parser.add_argument('-v', '--virus', default='flu', help="virus table to interac
 parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
 parser.add_argument('--host', default='human', help="host of virus, ie human, swine")
 parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--fstem', help="input file stem")
+parser.add_argument('--ftype', default='flat', help="input file format, default \"flat\", other is \"tables\"")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
 parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
 parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
@@ -20,7 +22,6 @@ parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
 parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
 parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
-
 
 class upload(parse, flu_upload):
     def __init__(self, database, virus, subtype, **kwargs):
@@ -43,8 +44,7 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'passage', 'subtype',
-                              'host'] #index too but assign after checking
+        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
         self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
@@ -60,12 +60,12 @@ class upload(parse, flu_upload):
         self.new_different_date_format = set()
         self.fix = set()
 
-    def upload(self, preview=False, **kwargs):
+    def upload(self, ftype='flat', preview=False, **kwargs):
         '''
         format virus information, then upload to database
         '''
         print("Uploading Viruses to TDB")
-        measurements = self.parse(**kwargs)
+        measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
@@ -90,6 +90,7 @@ class upload(parse, flu_upload):
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         for meas in measurements:
+            print meas
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
             self.test_location(meas['virus_strain'])
@@ -344,8 +345,8 @@ class upload(parse, flu_upload):
         Check  optional and upload attributes
         '''
         print(len(measurements), " measurements before filtering")
-        print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
-        measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
+#       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
+#       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
         measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields), measurements)
         print("Filtering out measurements with virus or serum strain names not formatted correctly")
@@ -356,7 +357,7 @@ class upload(parse, flu_upload):
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
-        args.path = "tdb/data/" + args.subtype + "/"
+        args.path = "data/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connTDB = upload(**args.__dict__)

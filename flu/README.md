@@ -37,7 +37,7 @@
 1. Convert [NIMR report](https://www.crick.ac.uk/research/worldwide-influenza-centre/annual-and-interim-reports/) pdfs to csv files
 2. Move csv files to subtype directory in `nextstrain-db/tdb/data/`
 3. Upload to tdb database
-  * `python tdb/upload.py -db tdb -v flu --subtype h1n1pdm`
+  * `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem h3n2_nimr_titers`
   * Recommend running with `--preview` to confirm strain names are correctly parsed before uploading
   	* Can add to [HI_ref_name_abbreviations file](source-data/HI_ref_name_abbreviations.tsv) and [HI_flu_strain_name_fix file](source-data/HI_flu_strain_name_fix.tsv) to fix some strain names.
 

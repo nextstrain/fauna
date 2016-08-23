@@ -38,7 +38,7 @@ Command line arguments to run tdb_upload:
 * `-v --virus`: virus table to interact with, eg. `h1n1pdm`, `h3n2`, `vic`, `yam`
 * `--overwrite`: overwrite existing non-null fields
 * `--exclusive`: downloads all documents in database to see if measurements present, include `--exclusive` to get each document on its own (takes longer, but better if others updating database at same time)
-* `--upload`: allows parsing of HI tables to be tested, include `--upload` to actually upload measurements
+* `--preview`: if included, preview a virus document to be uploaded
 * `--replace` if included, delete all documents in table
 * `--path`: path to fasta file, default is `data/virus/`
 * `--auth\_key`: authorization key for rethink database
@@ -48,15 +48,15 @@ Command line arguments to run tdb_upload:
 
 Test parsing of HI tables without actually uploading to database:
 
-    python tdb/upload.py -db tdb -v h1n1pdm
+    python tdb/upload.py -db tdb -v h1n1pdm --preview
 
 Upload measurements to database:
 
-    python tdb/upload.py -db tdb -v h1n1pdm --upload
+    python tdb/upload.py -db tdb -v h1n1pdm
 
 Replace all measurements in table before uploading:
 
-    python tdb/upload.py -db tdb -v h1n1pdm --upload --replace
+    python tdb/upload.py -db tdb -v h1n1pdm --replace
 
 ### HI Table Troubleshooting
 

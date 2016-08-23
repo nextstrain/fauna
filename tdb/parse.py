@@ -14,12 +14,46 @@ class parse(object):
         self.table_column_names = ['viruses', 'other', 'collection', 'passage', '']
         self.titer_values = ['10.0', '20.0', '40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']
 
-    def parse(self, **kwargs):
+    def parse(self, ftype='flat', **kwargs):
         '''
         Parse HI data files to create list of measurement documents
         '''
-        HI_titers = self.read_tables(**kwargs)
-        return self.table_to_flat(HI_titers)
+        flat_measurements = list()
+        if ftype == "flat":
+            flat_measurements = self.read_flat(**kwargs)
+        elif ftype == "tables":
+            HI_titers = self.read_tables(**kwargs)  
+            flat_measurements = self.table_to_flat(HI_titers)
+        return flat_measurements
+        
+    def read_flat(self, path, fstem, **kwargs):
+        '''
+        Read flat titer table, assumes file ends with .tsv
+        Example line:
+        A/SYDNEY/5/1997	A/NETHERLANDS/22/2003	NL/22/03	Smith2004	320.0
+        '''
+        import csv
+        file = path + fstem + ".tsv"
+        flat_measurements = list()
+        try:
+            os.path.isfile(file)
+        except IOError:
+            raise Exception(file, "not found")
+        else:
+            with open(file) as infile:
+                table_reader = csv.reader(infile, delimiter="\t")
+                header = {
+                    0: 'virus_strain',
+                    1: 'serum_strain',
+                    2: 'ferret_id',
+                    3: 'source',
+                    4: 'titer'
+                }
+                for row in table_reader:
+                    m = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
+                    m['passage'] = 'unknown'  # TODO FIX TOTAL HACK
+                    flat_measurements.append(m)
+        return flat_measurements        
 
     def read_tables(self, path, **kwargs):
         '''
