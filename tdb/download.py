@@ -11,7 +11,7 @@ parser.add_argument('-v', '--virus', default='flu', help="virus table to interac
 parser.add_argument('--subtype', default=None, help="subtype to be include in download")
 parser.add_argument('--host', nargs='+', type=str, default=None, help="hosts to be include in download")
 parser.add_argument('--path', default='data', help="path to dump output files to")
-parser.add_argument('--ftype', default='txt', help="output file format, default \"txt\", other is \"json\"")
+parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", other is \"json\"")
 parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
 parser.add_argument('--rethink_host', default=None, help="rethink host url")
 parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
@@ -101,16 +101,16 @@ class download(object):
         fname = path + '/' + fstem + '.' + ftype
         if ftype == 'json':
             self.write_json(self.measurements,fname)
-        elif ftype == 'txt':
+        elif ftype == 'tsv':
             self.write_text(self.measurements, fname)
         elif ftype == 'augur':
-            fname = path + '/' + subtype + "_hi_titers.txt"
+            fname = path + '/' + subtype + "_hi_titers.tsv"
             self.write_text(self.measurements, fname)
         else:
             raise Exception("Can't output to that file type, only json or text allowed")
 
     def write_count(self, path, subtype, **kwargs):
-        fname = path + '/' + subtype + '_hi_strains.txt'
+        fname = path + '/' + subtype + '_hi_strains.tsv'
         print("Counting HI_strains and printing to " + fname)
         HI_titer_count = self.count()
         try:

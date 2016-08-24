@@ -37,10 +37,9 @@ class rethink_interact(object):
         bucket = self.connect_S3(**kwargs)
         for table in tables:
             dump_file = self.rethink_io.get_upload_date() + '_' + database + '_' + table + '.tar.gz'
-            fname = 'temp/' + dump_file
-            self.dump(database, table, fname, **kwargs)
-            bucket.upload_file(fname, dump_file)
-        shutil.rmtree('temp')
+            self.dump(database=database, dump_table=table, dump_file=dump_file, **kwargs)
+            shutil.move(dump_file, path+'/'+dump_file)            
+            bucket.upload_file(path+'/'+dump_file, dump_file)            
         print("Successfully backed up")
         if delete_expired:
             self.delete_expired_s3_backups(bucket, **kwargs)
