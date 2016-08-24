@@ -227,8 +227,10 @@ Provence-Alpes-CotedAzur	ProvenceAlpesCoteDAzur
 Champagne-Ardenne	ChampagneArdenne
 Champagne_Ardenne	ChampagneArdenne
 Clermont-Ferrand	ClermontFerrand
+Clermont	ClermontFerrand
 Franche_Comte	FrancheComte
 Haute_Normandie	HauteNormandie
+Lyonchu	Lyon
 Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
@@ -237,6 +239,7 @@ NordpasdeCalais	NordPasDeCalais
 Ozirgeti	Ozurgeti
 
 # Germany
+Badenwurttemburg	BadenWurttemberg
 Baden-W?rttemberg	BadenWurttemberg
 Baden-Wuerrtemberg	BadenWurttemberg
 Baden-Wuerttemburg	BadenWurttemberg
@@ -262,6 +265,7 @@ Rheinland-Pfalz	RheinlandPfalz
 RPF	RheinlandPfalz
 Th?ringen	Thuringen
 Thueringen	Thuringen
+Thu_Ringen	Thuringen
 SachenAnhalt	SachsenAnhalt
 Schleswig-Holstein	SchleswigHolstein
 
@@ -270,6 +274,7 @@ ArgolidaGR	Argolida
 ArgosGR	Argos
 ArkadiaGR	Arkadia
 AstrosGR	Astros
+Athensgr	Athens
 ChalkidaGR	Chalkida
 ChaniaGR	Chania
 ChiosIslandGR	Chios
@@ -303,6 +308,7 @@ RhodesIslandGR	Rhodes
 Rhodes_IslandGR	Rhodes
 Rhodos_IslandGR	Rhodes
 SamosIslandGR	Samos
+Samosisland	Samos
 SyrosIslandGR	Syros
 Thessalonika	Thessaloniki
 Thesssaloniki	Thessaloniki
@@ -363,8 +369,10 @@ Roma	Rome
 Roma-ISS	Rome
 Verona-Italy	Verona
 Vicenza-Italy	Vicenza
+Vincenza	Vicenza
 
 # Japan
+Fukouka	Fukuoka
 Guma	Gunma
 Gumma	Gunma
 Japane	Japan
@@ -401,9 +409,11 @@ Vilnus	Vilnius
 
 # Macedonia
 Kochani	Kocani
+Skopjeno	Skopje
 
 # Madagascar
 Taolagnaro	Tolagnaro
+Madagacar	Madagascar
 
 # Mauritania
 Nouackchott	Nouakchott
@@ -482,26 +492,34 @@ Olsztyn-PL	Olsztyn
 # Portugal
 A?ores_PT	Acores
 Acores_PT	Acores
+Acorespt	Acores
 Aveiro_PT	Aveiro
+Aveiropt	Aveiro
 Azores	Acores
 Beja_PT	Beja
 Braga_PT	Braga
+Bragapt	Braga
 CasteloBranco_PT	CasteloBranco
 CasteloBrancoPT	CasteloBranco
 Coimbra_PT	Coimbra
+Coimbrapt	Coimbra
 ?vora_PT	Evora
 Guarda_PT	Guarda
 Leiria_PT	Leiria
+Leiriapt	Leiria
 Lisboa	Lisbon
 Lisboa134 Lisbon/134
 Lisboa_PT	Lisbon
 LisboaPT	Lisbon
 Lissabon	Lisbon
 Madeira_PT	Madeira
+Madeirapt	Madeira
 Portalegre_PT	Portalegre
+Portalegrept	Portalegre
 Porto_PT	Porto
 Santar?m_PT	Santarem
 Santarem_PT	Santarem
+Santarempt	Santarem
 ViaReal	VilaReal
 VilaReal_PT	VilaReal
 

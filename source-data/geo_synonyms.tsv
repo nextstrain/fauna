@@ -1000,6 +1000,7 @@ Italy	Italy	Italy	Italy
 Ancona	Italy	Marche	Ancona	
 Bari	Italy	Apulia	Bari
 Bolzano	Italy	TrentinoAltoAdige	Bolzano
+Caserta	Italy	Caserta	Caserta
 Enna	Italy	Sicily	Enna
 Florence	Italy	Tuscany	Florence
 FriuliVeneziaGiulia	Italy	FriuliVeneziaGiulia	FriuliVeneziaGiulia		
@@ -1182,7 +1183,7 @@ Strumica	Macedonia	Strumica	Strumica
 Kocani	Macedonia	Kocani	Kocani		
 					
 # Madagascar					
-Madagascar	Madagascar	Madagascar	Madagascar		
+Madagascar	Madagascar	Madagascar	Madagascar	
 Antananarivo	Madagascar	Antananarivo	Antananarivo
 Antsirabe	Madagascar	Vakinankaratra	Antsirabe		
 Antsohihy	Madagascar	Sofia	Antsohihy
@@ -1443,9 +1444,10 @@ Philippines	Philippines	Philippines	Philippines
 Poland	Poland	Poland	Poland		
 Olsztyn	Poland	WarmianMasurian	Olsztyn		
 Warsaw	Poland	Masovian	Warsaw		
-Gdansk	Poland	Pomeranian	Gdansk		
-Wroclaw	Poland	LowerSilesian	Wroclaw		
-					
+Gdansk	Poland	Pomeranian	Gdansk
+Rzeszow	Poland	Subcarpathia	Rzeszow
+Wroclaw	Poland	LowerSilesian	Wroclaw
+
 # Portugal					
 Portugal	Portugal	Portugal	Portugal		
 Acores	Portugal	Acores	Acores	
@@ -1512,6 +1514,7 @@ Teleorman	Romania	Teleorman	Teleorman
 Timis	Romania	Timis	Timis
 Tulcea	Romania	Tulcea	Tulcea	
 Vaslui	Romania	Vaslui	Vaslui
+Valcea	Romania	Valcea	Valcea
 Vrancea	Romania	Vrancea	Vrancea	
 					
 # Russia					
@@ -1887,7 +1890,8 @@ Bayburt	Turkey	Bayburt	Bayburt
 Bitlis	Turkey	Bitlis	Bitlis
 Burdur	Turkey	Burdur	Burdur	
 Bursa	Turkey	Bursa	Bursa		
-Cankiri	Turkey	Cankiri	Cankiri		
+Cankiri	Turkey	Cankiri	Cankiri
+Corum	Turkey	Corum	Corum
 Denizli	Turkey	Denizli	Denizli
 Diyarbakir	Turkey	Diyarbakir	Diyarbakir
 Erzurum	Turkey	Erzurum	Erzurum		

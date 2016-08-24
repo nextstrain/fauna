@@ -34,12 +34,19 @@
 
 ### Upload documents to TDB
 
+#### Raw tables from NIMR reports
+
 1. Convert [NIMR report](https://www.crick.ac.uk/research/worldwide-influenza-centre/annual-and-interim-reports/) pdfs to csv files
-2. Move csv files to subtype directory in `nextstrain-db/tdb/data/`
+2. Move csv files to subtype directory in `nextstrain-db/data/`
 3. Upload to tdb database
   * `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem h3n2_nimr_titers`
   * Recommend running with `--preview` to confirm strain names are correctly parsed before uploading
   	* Can add to [HI_ref_name_abbreviations file](source-data/HI_ref_name_abbreviations.tsv) and [HI_flu_strain_name_fix file](source-data/HI_flu_strain_name_fix.tsv) to fix some strain names.
+
+#### Flat files
+
+1. Move line-list tsv files to `nextstrain-db/data/`
+2. Upload to tdb database with `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem H3N2_HI_titers_upload`
 
 ### Download documents from TDB
 

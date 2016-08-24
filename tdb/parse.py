@@ -51,7 +51,10 @@ class parse(object):
                 }
                 for row in table_reader:
                     m = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
-                    m['passage'] = 'unknown'  # TODO FIX TOTAL HACK
+                    if re.search(r'[Ee][Gg][Gg]', m['ferret_id']):  # TODO FIX THIS FOR LATER IMPORTS
+                        m['passage'] = 'egg'
+                    else:
+                        m['passage'] = 'cell'
                     flat_measurements.append(m)
         return flat_measurements        
 
