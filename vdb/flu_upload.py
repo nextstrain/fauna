@@ -354,8 +354,6 @@ class flu_upload(upload):
                 passage_category = "cell"                
             elif re.search(r'^S[1-9]_$| ^SX_$|SIAT2_SIAT1|SIAT3_SIAT1', passage):    # McWhite
                 passage_category = "cell"
-            elif re.search(r'not SIAT|SX|S[1-9]', passage):  # McWhite
-                passage_category = "cell"
             elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', passage):
                 pass
             doc[new_field] = passage_category
