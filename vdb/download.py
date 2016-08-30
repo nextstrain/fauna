@@ -22,9 +22,8 @@ def get_parser():
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
+    parser.add_argument('--years_back', type=str, default=None, help='number of past years to sample sequences from \'--years_back field:value\'')
     parser.add_argument('--relaxed_interval', default=False, action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
-
-    parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
     return parser
 
 class download(object):
@@ -63,6 +62,7 @@ class download(object):
         print(virus_count, "viruses in table:", self.viruses_table)
         print("Downloading documents from the sequence table: " + self.sequences_table, " and virus table: ", self.viruses_table)
         sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, present, select, public_only, **kwargs)
+        print("Downloaded " + str(len(sequences)) + " sequences")
         sequences = self.subset(sequences, **kwargs)
         sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
@@ -115,7 +115,7 @@ class download(object):
         sequences = list(command.run())
         return list(sequences)
 
-    def subset(self, sequences, interval=[], **kwargs):
+    def subset(self, sequences, interval=[], years_back=None, **kwargs):
         '''
         Filter out sequences that are not in the date interval specified
         '''
@@ -126,6 +126,14 @@ class download(object):
                     older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
                     sequences = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date, **kwargs), sequences)
                     print('Removed documents that were not in the interval specified (' + ' - '.join([older_date, newer_date]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(sequences)))
+        elif years_back is not None:
+            field = years_back.split(':')[0]
+            years = int(years_back.split(':')[1])
+            date_now = datetime.datetime.utcnow()
+            newer_date = str(datetime.datetime.strftime(date_now,'%Y-%m-%d'))
+            older_date = str(datetime.datetime.strftime(date_now.replace(year=date_now.year-years),'%Y-%m-%d'))
+            sequences = filter(lambda doc: self.in_date_interval(doc[field], older_date, newer_date, **kwargs), sequences)
+            print('Removed documents that were not in the interval (' + ' - '.join([older_date, newer_date]) + ') for field \'' + field + '\', remaining documents: ' + str(len(sequences)))
         return sequences
 
     def check_date_format(self, older_date, newer_date):
