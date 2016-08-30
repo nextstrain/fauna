@@ -21,7 +21,7 @@ def get_parser():
     parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
-    parser.add_argument('--interval', nargs='+', type=str, default=None, help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
+    parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
 
     parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
     return parser
@@ -55,85 +55,77 @@ class download(object):
         '''
         import time
         start_time = time.time()
-        print("Downloading all virus documents from the table: " + self.viruses_table)
-        viruses = list(r.table(self.viruses_table).run())
-        print("Downloading all sequence documents from the table initially without sequence field: " + self.sequences_table)
-        sequences = list(r.table(self.sequences_table).without('sequence').run())
-        print("Linking viruses to sequences")
-        sequences = self.link_viruses_to_sequences(viruses, sequences, **kwargs)
+        select, present, public_only = self.parse_subset_arguments(**kwargs)
+        sequence_count = r.table(self.sequences_table).count().run()
+        print(sequence_count, "sequences in table:", self.sequences_table)
+        virus_count = r.table(self.viruses_table).count().run()
+        print(virus_count, "viruses in table:", self.viruses_table)
+        print("Downloading documents from the sequence table: " + self.sequences_table, " and virus table: ", self.viruses_table)
+        sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, present, select, public_only, **kwargs)
         sequences = self.subset(sequences, **kwargs)
-        sequences = self.download_sequence(self.sequences_table, sequences, **kwargs)
         sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
 
-    def link_viruses_to_sequences(self, viruses, sequences, **kwargs):
+    def parse_subset_arguments(self, select=[], present=[], public_only=False, **kwargs):
         '''
-        copy the virus doc to the sequence doc
+        Parse arguments needed for subsetting on the server side
+        Return a tuple of the arguments
         '''
-        linked_sequences = []
-        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
-        for sequence_doc in sequences:
-            if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
-                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
-                sequence_doc.update(virus_doc)
-                linked_sequences.append(sequence_doc)
-        return linked_sequences
 
-    def subset(self, sequences, public_only=False, select=[], present=[], interval=[], **kwargs):
         selections = self.parse_select_argument(select)
-        if public_only:
-            selections.append(('public', True))
-        intervals = self.parse_select_argument(interval)
+        return selections, present, public_only
 
-        print("Documents from " + self.database + '.' + self.sequences_table + " before subsetting: " + str(len(sequences)))
-        sequences = self.subsetting(sequences, selections, present, intervals, **kwargs)
-        print("Documents from " + self.database + '.' + self.sequences_table + " after subsetting: " + str(len(sequences)))
-        return sequences
-
-    def subsetting(self, cursor, selections=[], presents=[], intervals=[], **kwargs):
+    def parse_select_argument(self, groupings=[]):
         '''
-        filter through documents in vdb to return subsets of sequence
-        '''
-        # determine fields in all documents that can be filtered by
-        list_of_fields = [set(doc.keys()) for doc in cursor]
-        fields = set.intersection(*list_of_fields)
-        if len(selections) > 0:
-            for sel in selections:
-                if sel[0] in fields:
-                    cursor = filter(lambda doc: doc[sel[0]] in sel[1], cursor)
-                    print('Removed documents that were not in values specified (' + ','.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel[0] + " is not in all documents, can't subset by that field")
-        if len(presents) > 0:
-            for sel in presents:
-                if sel in fields:
-                    cursor = filter(lambda doc: doc[sel] is not None, cursor)
-                    print('Removed documents that were null for field \'' + sel + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel + " is not in all documents, can't subset by that field")
-        if len(intervals) > 0:
-            for sel in intervals:
-                if sel[0] == 'collection_date' or sel[0] == 'submission_date':
-                    older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
-                    cursor = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date), cursor)
-                    print('Removed documents that were not in the interval specified (' + ' - '.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel[0] + " is not in all documents, can't subset by that field")
-        return cursor
-
-    def parse_select_argument(self, grouping):
-        '''
+        :arg groupings like country:brazil,argentina
         parse the 'select' parameter to determine which field name to filter and for what values
-        :return: (grouping name, group values))
+        :return: [(grouping name, [group values])] ex. [(country, [brazil, argentina)]
         '''
         selections = []
-        if grouping is not None:
-            for group in grouping:
+        if groupings is not None and len(groupings)>0:
+            for group in groupings:
                 result = group.split(':')
                 selections.append((result[0].lower(), result[1].lower().split(',')))
         return selections
+
+    def rethinkdb_download(self, sequence_table, virus_table, presents=[], selections=[], public=False, index='strain', **kwargs):
+        '''
+        Default command merges documents from the sequence table and virus table
+        Chain rethinkdb filter and has_fields commands to the default command
+        Return documents from the database that are left after filtering
+        '''
+        # take each sequence and merge with corresponding virus document
+        command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index]))
+        # Check if documents have fields in `present`
+        if len(presents)>0:
+            print("Only downloading documents with fields: ", presents)
+            command = command.has_fields(r.args(presents))
+        # Check if documents have the correct value for certain fields
+        if len(selections)>0:
+            for sel in selections:
+                print("Only downloading documents with field ", sel[0], "equal to", sel[1])
+                command = command.filter(lambda doc: r.expr(sel[1]).contains(doc[sel[0]]))
+        # Check if documents are public
+        if public:
+            print("Only downloading public sequences")
+            command.filter({'public': True})
+        sequences = list(command.run())
+        return list(sequences)
+
+    def subset(self, sequences, interval=[], **kwargs):
+        '''
+        Filter out sequences that are not in the date interval specified
+        '''
+        intervals = self.parse_select_argument(interval)
+        if len(intervals) > 0:
+            for sel in intervals:
+                if sel[0] in ['collection_date', 'date', 'submission_date'] or sel[0] == 'submission_date':
+                    older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
+                    sequences = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date), sequences)
+                    print('Removed documents that were not in the interval specified (' + ' - '.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(sequences)))
+        return sequences
 
     def check_date_format(self, older_date, newer_date):
         if newer_date == 'now' or newer_date == 'present':
@@ -155,7 +147,6 @@ class download(object):
         :return: true if greater_date > comparison_date
         '''
         # compare year
-
         if greater_date[0] < comparison_date[0]:
             return False
         elif greater_date[0] == comparison_date[0]:
@@ -167,25 +158,6 @@ class download(object):
                 if greater_date != 'XX' and comparison_date != 'XX' and greater_date[2] < comparison_date[2]:
                     return False
         return True
-
-    def download_sequence(self, table, documents, **kwargs):
-        '''
-
-        '''
-        print("Downloading sequences for documents left after subsetting")
-        accessions = [doc['accession'] for doc in documents]
-        optimal_download = 200
-        if len(accessions) > optimal_download:
-            list_accessions = [accessions[x:x+optimal_download] for x in range(0, len(accessions), optimal_download)]
-        else:
-            list_accessions = [accessions]
-        sequences = []
-        for acc in list_accessions:
-            sequences.extend(list(r.table(table).get_all(r.args(acc)).pluck('accession', 'sequence').run()))
-        accession_to_sequence = {doc['accession']: doc['sequence'] for doc in sequences}
-        for doc in documents:
-            doc['sequence'] = accession_to_sequence[doc['accession']]
-        return documents
 
     def resolve_duplicates(self, sequences, pick_longest=True, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
