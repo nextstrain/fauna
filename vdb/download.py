@@ -22,6 +22,7 @@ def get_parser():
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
+    parser.add_argument('--relaxed_interval', default=False, action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
 
     parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
     return parser
@@ -123,39 +124,49 @@ class download(object):
             for sel in intervals:
                 if sel[0] in ['collection_date', 'date', 'submission_date'] or sel[0] == 'submission_date':
                     older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
-                    sequences = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date), sequences)
-                    print('Removed documents that were not in the interval specified (' + ' - '.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(sequences)))
+                    sequences = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date, **kwargs), sequences)
+                    print('Removed documents that were not in the interval specified (' + ' - '.join([older_date, newer_date]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(sequences)))
         return sequences
 
     def check_date_format(self, older_date, newer_date):
-        if newer_date == 'now' or newer_date == 'present':
+        one_sided_symbols = ['', 'XXXX-XX-XX']
+        if newer_date in one_sided_symbols:
             newer_date = str(datetime.datetime.strftime(datetime.datetime.utcnow(),'%Y-%m-%d'))
+        if older_date in one_sided_symbols:
+            older_date = '0000-00-00'
         if older_date > newer_date:
             raise Exception("Date interval must list the earlier date first")
-        if not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', older_date) or not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', newer_date):
-            raise Exception("Date interval must be in YYYY-MM-DD format with all values defined")
-        return(older_date, newer_date)
+        if not re.match(r'\d\d\d\d-(\d\d)-(\d\d)$', older_date) or not re.match(r'\d\d\d\d-(\d\d)-(\d\d)$', newer_date):
+            raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
+        return(older_date.upper(), newer_date.upper())
 
-    def in_date_interval(self, date, older_date, newer_date):
+    def in_date_interval(self, virus_date, older_date, newer_date, **kwargs):
         '''
-        :return: true if the date is in the interval older_date - newer_date, otherwise False
+        :return: true if the date is in the interval older_date:newer_date, otherwise False
         '''
-        return self.date_greater(date.split('-'), older_date.split('-')) and self.date_greater(newer_date.split('-'), date.split('-'))
+        virus_gt_old_date = self.date_greater(virus_date.split('-'), older_date.split('-'), **kwargs)
+        new_date_gt_virus = self.date_greater(newer_date.split('-'), virus_date.split('-'), **kwargs)
+        return virus_gt_old_date and new_date_gt_virus
 
-    def date_greater(self, greater_date, comparison_date):
+    def date_greater(self, greater_date, comparison_date, relaxed_interval=False, **kwargs):
         '''
-        :return: true if greater_date > comparison_date
+        Dates in YYYY-MM-DD format
+        :return: true if greater_date >= comparison_date
         '''
         # compare year
         if greater_date[0] < comparison_date[0]:
             return False
         elif greater_date[0] == comparison_date[0]:
             # compare month
-            if greater_date != 'XX' and comparison_date != 'XX' and greater_date[1] < comparison_date[1]:
+            if greater_date[1] == 'XX' or comparison_date[1] == 'XX':
+                return relaxed_interval
+            elif greater_date[1] < comparison_date[1]:
                 return False
             elif greater_date[1] == comparison_date[1]:
                 # compare day
-                if greater_date != 'XX' and comparison_date != 'XX' and greater_date[2] < comparison_date[2]:
+                if greater_date[2] == 'XX' or comparison_date[2] == 'XX':
+                    return relaxed_interval
+                elif greater_date[2] < comparison_date[2]:
                     return False
         return True
 
