@@ -21,9 +21,9 @@ def get_parser():
     parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
-    parser.add_argument('--interval', nargs='+', type=str, default=None, help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
-
-    parser.add_argument('--pick_longest', default=False, action="store_true",  help ="For duplicate strains, only includes the longest sequence for each locus")
+    parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
+    parser.add_argument('--years_back', type=str, default=None, help='number of past years to sample sequences from \'--years_back field:value\'')
+    parser.add_argument('--relaxed_interval', default=False, action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
     return parser
 
 class download(object):
@@ -35,6 +35,8 @@ class download(object):
         self.viruses_table = virus + "_viruses"
         self.sequences_table = virus + "_sequences"
         self.database = database.lower()
+
+    def connect_rethink(self, **kwargs):
         if self.database not in ['vdb', 'test_vdb', 'test']:
             raise Exception("Can't download from this database: " + self.database)
         self.rethink_io = rethink_io()
@@ -53,139 +55,127 @@ class download(object):
         '''
         download documents from table
         '''
+
         import time
         start_time = time.time()
-        print("Downloading all virus documents from the table: " + self.viruses_table)
-        viruses = list(r.table(self.viruses_table).run())
-        print("Downloading all sequence documents from the table initially without sequence field: " + self.sequences_table)
-        sequences = list(r.table(self.sequences_table).without('sequence').run())
-        print("Linking viruses to sequences")
-        sequences = self.link_viruses_to_sequences(viruses, sequences, **kwargs)
-        sequences = self.subset(sequences, **kwargs)
-        sequences = self.download_sequence(self.sequences_table, sequences, **kwargs)
+        self.connect_rethink(**kwargs)
+        select, present, interval= self.parse_subset_arguments(**kwargs)
+        sequence_count = r.table(self.sequences_table).count().run()
+        print(sequence_count, "sequences in table:", self.sequences_table)
+        virus_count = r.table(self.viruses_table).count().run()
+        print(virus_count, "viruses in table:", self.viruses_table)
+        print("Downloading documents from the sequence table: " + self.sequences_table, " and virus table: ", self.viruses_table)
+        sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, presents=present, selections=select, intervals=interval, **kwargs)
+        print("Downloaded " + str(len(sequences)) + " sequences")
         sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
 
-    def link_viruses_to_sequences(self, viruses, sequences, **kwargs):
+    def parse_subset_arguments(self, select=[], present=[], interval=[], years_back=None, **kwargs):
         '''
-        copy the virus doc to the sequence doc
+        Parse arguments needed for subsetting on the server side
+        Return a tuple of the arguments
         '''
-        linked_sequences = []
-        strain_name_to_virus_doc = {virus['strain']: virus for virus in viruses}
-        for sequence_doc in sequences:
-            if sequence_doc['strain'] in strain_name_to_virus_doc:  # determine if sequence has a corresponding virus to link to
-                virus_doc = strain_name_to_virus_doc[sequence_doc['strain']]
-                sequence_doc.update(virus_doc)
-                linked_sequences.append(sequence_doc)
-        return linked_sequences
-
-    def subset(self, sequences, public_only=False, select=[], present=[], interval=[], **kwargs):
         selections = self.parse_select_argument(select)
-        if public_only:
-            selections.append(('public', True))
         intervals = self.parse_select_argument(interval)
+        if years_back is not None and len(intervals)==0:
+            intervals = self.parse_years_back_argument(years_back)
+        return selections, present, intervals,
 
-        print("Documents from " + self.database + '.' + self.sequences_table + " before subsetting: " + str(len(sequences)))
-        sequences = self.subsetting(sequences, selections, present, intervals, **kwargs)
-        print("Documents from " + self.database + '.' + self.sequences_table + " after subsetting: " + str(len(sequences)))
-        return sequences
-
-    def subsetting(self, cursor, selections=[], presents=[], intervals=[], **kwargs):
+    def parse_select_argument(self, groupings=[]):
         '''
-        filter through documents in vdb to return subsets of sequence
-        '''
-        # determine fields in all documents that can be filtered by
-        list_of_fields = [set(doc.keys()) for doc in cursor]
-        fields = set.intersection(*list_of_fields)
-        if len(selections) > 0:
-            for sel in selections:
-                if sel[0] in fields:
-                    cursor = filter(lambda doc: doc[sel[0]] in sel[1], cursor)
-                    print('Removed documents that were not in values specified (' + ','.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel[0] + " is not in all documents, can't subset by that field")
-        if len(presents) > 0:
-            for sel in presents:
-                if sel in fields:
-                    cursor = filter(lambda doc: doc[sel] is not None, cursor)
-                    print('Removed documents that were null for field \'' + sel + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel + " is not in all documents, can't subset by that field")
-        if len(intervals) > 0:
-            for sel in intervals:
-                if sel[0] == 'collection_date' or sel[0] == 'submission_date':
-                    older_date, newer_date = self.check_date_format(sel[1][0], sel[1][1])
-                    cursor = filter(lambda doc: self.in_date_interval(doc[sel[0]], older_date, newer_date), cursor)
-                    print('Removed documents that were not in the interval specified (' + ' - '.join(sel[1]) + ') for field \'' + sel[0] + '\', remaining documents: ' + str(len(cursor)))
-                else:
-                    print(sel[0] + " is not in all documents, can't subset by that field")
-        return cursor
-
-    def parse_select_argument(self, grouping):
-        '''
+        :arg groupings like country:brazil,argentina
         parse the 'select' parameter to determine which field name to filter and for what values
-        :return: (grouping name, group values))
+        :return: [(grouping name, [group values])] ex. [(country, [brazil, argentina)]
         '''
         selections = []
-        if grouping is not None:
-            for group in grouping:
+        if groupings is not None and len(groupings)>0:
+            for group in groupings:
                 result = group.split(':')
                 selections.append((result[0].lower(), result[1].lower().split(',')))
         return selections
 
+    def parse_years_back_argument(self, argument):
+        field = argument.split(':')[0].lower()
+        years = int(argument.split(':')[1])
+        date_now = datetime.datetime.utcnow()
+        older_date = str(datetime.datetime.strftime(date_now.replace(year=date_now.year-years),'%Y-%m-%d'))
+        newer_date = str(datetime.datetime.strftime(date_now,'%Y-%m-%d'))
+        return [(field, [older_date, newer_date])]
+
+    def rethinkdb_download(self, sequence_table, virus_table, index='strain', **kwargs):
+        '''
+        Default command merges documents from the sequence table and virus table
+        Chain rethinkdb filter and has_fields commands to the default command
+        Return documents from the database that are left after filtering
+        '''
+        # take each sequence and merge with corresponding virus document
+        command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index]))
+        command = self.add_present_command(command, **kwargs)
+        command = self.add_selections_command(command, **kwargs)
+        command = self.add_intervals_command(command, **kwargs)
+        command = self.add_public_command(command, **kwargs)
+        sequences = list(command.run())
+        return list(sequences)
+
+    def add_present_command(self, command, presents=[], **kwargs):
+        '''
+        Add present fields check to command
+        '''
+        if len(presents)>0:
+            print("Only downloading documents with fields: " + str(presents))
+            command = command.has_fields(r.args(presents))
+        return command
+
+    def add_selections_command(self, command, selections=[], **kwargs):
+        '''
+        Add selections filter to command
+        '''
+        if len(selections)>0:
+            for sel in selections:
+                field = sel[0]
+                values = sel[1]
+                print("Only downloading documents with field \'" + field + "\' equal to one of " + str(values))
+                command = command.filter(lambda doc: r.expr(values).contains(doc[field]))
+        return command
+
+    def add_intervals_command(self, command, intervals=[], relaxed_interval=False, **kwargs):
+        '''
+        Add intervals filter to command
+        '''
+        if len(intervals) > 0:
+            for sel in intervals:
+                field = sel[0]
+                values = sel[1]
+                older_date, newer_date = self.check_date_format(values[0], values[1])
+                command = command.filter(lambda doc: rethinkdb_date_greater(doc[field].split('-'), older_date.split('-'), relaxed_interval))
+                command = command.filter(lambda doc: rethinkdb_date_greater(newer_date.split('-'), doc[field].split('-'), relaxed_interval))
+                print('Only downloading documents in the interval specified (' + ' - '.join([older_date, newer_date]) + ') for field \'' + field + '\'')
+                if relaxed_interval:
+                    print("Using relaxed interval comparison")
+        return command
+
+    def add_public_command(self, command, public_only, **kwargs):
+        '''
+        Add public filter to command
+        '''
+        if public_only:
+            print("Only downloading public sequences")
+            command = command.filter({'public': True})
+        return command
+
     def check_date_format(self, older_date, newer_date):
-        if newer_date == 'now' or newer_date == 'present':
+        one_sided_symbols = ['', 'XXXX-XX-XX']
+        if newer_date in one_sided_symbols:
             newer_date = str(datetime.datetime.strftime(datetime.datetime.utcnow(),'%Y-%m-%d'))
+        if older_date in one_sided_symbols:
+            older_date = '0000-00-00'
         if older_date > newer_date:
             raise Exception("Date interval must list the earlier date first")
-        if not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', older_date) or not re.match(r'\d\d\d\d-(\d\d)-(\d\d)', newer_date):
-            raise Exception("Date interval must be in YYYY-MM-DD format with all values defined")
-        return(older_date, newer_date)
-
-    def in_date_interval(self, date, older_date, newer_date):
-        '''
-        :return: true if the date is in the interval older_date - newer_date, otherwise False
-        '''
-        return self.date_greater(date.split('-'), older_date.split('-')) and self.date_greater(newer_date.split('-'), date.split('-'))
-
-    def date_greater(self, greater_date, comparison_date):
-        '''
-        :return: true if greater_date > comparison_date
-        '''
-        # compare year
-
-        if greater_date[0] < comparison_date[0]:
-            return False
-        elif greater_date[0] == comparison_date[0]:
-            # compare month
-            if greater_date != 'XX' and comparison_date != 'XX' and greater_date[1] < comparison_date[1]:
-                return False
-            elif greater_date[1] == comparison_date[1]:
-                # compare day
-                if greater_date != 'XX' and comparison_date != 'XX' and greater_date[2] < comparison_date[2]:
-                    return False
-        return True
-
-    def download_sequence(self, table, documents, **kwargs):
-        '''
-
-        '''
-        print("Downloading sequences for documents left after subsetting")
-        accessions = [doc['accession'] for doc in documents]
-        optimal_download = 200
-        if len(accessions) > optimal_download:
-            list_accessions = [accessions[x:x+optimal_download] for x in range(0, len(accessions), optimal_download)]
-        else:
-            list_accessions = [accessions]
-        sequences = []
-        for acc in list_accessions:
-            sequences.extend(list(r.table(table).get_all(r.args(acc)).pluck('accession', 'sequence').run()))
-        accession_to_sequence = {doc['accession']: doc['sequence'] for doc in sequences}
-        for doc in documents:
-            doc['sequence'] = accession_to_sequence[doc['accession']]
-        return documents
+        if not re.match(r'\d\d\d\d-(\d\d)-(\d\d)$', older_date) or not re.match(r'\d\d\d\d-(\d\d)-(\d\d)$', newer_date):
+            raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
+        return(older_date.upper(), newer_date.upper())
 
     def resolve_duplicates(self, sequences, pick_longest=True, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
@@ -270,3 +260,20 @@ if __name__=="__main__":
         os.makedirs(args.path)
     connVDB = download(**args.__dict__)
     connVDB.download(**args.__dict__)
+
+def rethinkdb_date_greater(greater_date, comparison_date, relaxed_interval):
+    return r.branch(r.lt(greater_date[0], comparison_date[0]),
+        False,
+        r.eq(greater_date[0], comparison_date[0]),
+        r.branch(r.eq(greater_date[1], 'XX').or_(r.eq(comparison_date[1],'XX')),
+            relaxed_interval,
+            r.lt(greater_date[1], comparison_date[1]),
+            False,
+            r.eq(greater_date[1], comparison_date[1]),
+            r.branch(r.eq(greater_date[2], 'XX').or_(r.eq(comparison_date[2],'XX')),
+                relaxed_interval,
+                r.lt(greater_date[2], comparison_date[2]),
+                False,
+                True),
+            True),
+        True)
