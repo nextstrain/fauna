@@ -35,6 +35,8 @@ class download(object):
         self.viruses_table = virus + "_viruses"
         self.sequences_table = virus + "_sequences"
         self.database = database.lower()
+
+    def connect_rethink(self, **kwargs):
         if self.database not in ['vdb', 'test_vdb', 'test']:
             raise Exception("Can't download from this database: " + self.database)
         self.rethink_io = rethink_io()
@@ -53,22 +55,24 @@ class download(object):
         '''
         download documents from table
         '''
+
         import time
         start_time = time.time()
-        select, present, interval, public_only = self.parse_subset_arguments(**kwargs)
+        self.connect_rethink(**kwargs)
+        select, present, interval= self.parse_subset_arguments(**kwargs)
         sequence_count = r.table(self.sequences_table).count().run()
         print(sequence_count, "sequences in table:", self.sequences_table)
         virus_count = r.table(self.viruses_table).count().run()
         print(virus_count, "viruses in table:", self.viruses_table)
         print("Downloading documents from the sequence table: " + self.sequences_table, " and virus table: ", self.viruses_table)
-        sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, present, select, interval, public_only, **kwargs)
+        sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, presents=present, selections=select, intervals=interval, **kwargs)
         print("Downloaded " + str(len(sequences)) + " sequences")
         sequences = self.resolve_duplicates(sequences, **kwargs)
         if output:
             self.output(sequences, **kwargs)
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
 
-    def parse_subset_arguments(self, select=[], present=[], interval=[], years_back=None, public_only=False, **kwargs):
+    def parse_subset_arguments(self, select=[], present=[], interval=[], years_back=None, **kwargs):
         '''
         Parse arguments needed for subsetting on the server side
         Return a tuple of the arguments
@@ -77,7 +81,7 @@ class download(object):
         intervals = self.parse_select_argument(interval)
         if years_back is not None and len(intervals)==0:
             intervals = self.parse_years_back_argument(years_back)
-        return selections, present, intervals, public_only
+        return selections, present, intervals,
 
     def parse_select_argument(self, groupings=[]):
         '''
@@ -100,7 +104,7 @@ class download(object):
         newer_date = str(datetime.datetime.strftime(date_now,'%Y-%m-%d'))
         return [(field, [older_date, newer_date])]
 
-    def rethinkdb_download(self, sequence_table, virus_table, presents=[], selections=[], intervals=[], public=False, relaxed_interval=False, index='strain',  **kwargs):
+    def rethinkdb_download(self, sequence_table, virus_table, index='strain', **kwargs):
         '''
         Default command merges documents from the sequence table and virus table
         Chain rethinkdb filter and has_fields commands to the default command
@@ -108,18 +112,38 @@ class download(object):
         '''
         # take each sequence and merge with corresponding virus document
         command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index]))
-        # Check if documents have fields in `present`
+        command = self.add_present_command(command, **kwargs)
+        command = self.add_selections_command(command, **kwargs)
+        command = self.add_intervals_command(command, **kwargs)
+        command = self.add_public_command(command, **kwargs)
+        sequences = list(command.run())
+        return list(sequences)
+
+    def add_present_command(self, command, presents=[], **kwargs):
+        '''
+        Add present fields check to command
+        '''
         if len(presents)>0:
             print("Only downloading documents with fields: " + str(presents))
             command = command.has_fields(r.args(presents))
-        # Check if documents have the correct value for certain fields
+        return command
+
+    def add_selections_command(self, command, selections=[], **kwargs):
+        '''
+        Add selections filter to command
+        '''
         if len(selections)>0:
             for sel in selections:
                 field = sel[0]
                 values = sel[1]
-                print("Only downloading documents with field " + field + " equal to one of " + str(values))
+                print("Only downloading documents with field \'" + field + "\' equal to one of " + str(values))
                 command = command.filter(lambda doc: r.expr(values).contains(doc[field]))
-        # Check if documents are in the correct interval
+        return command
+
+    def add_intervals_command(self, command, intervals=[], relaxed_interval=False, **kwargs):
+        '''
+        Add intervals filter to command
+        '''
         if len(intervals) > 0:
             for sel in intervals:
                 field = sel[0]
@@ -128,12 +152,18 @@ class download(object):
                 command = command.filter(lambda doc: rethinkdb_date_greater(doc[field].split('-'), older_date.split('-'), relaxed_interval))
                 command = command.filter(lambda doc: rethinkdb_date_greater(newer_date.split('-'), doc[field].split('-'), relaxed_interval))
                 print('Only downloading documents in the interval specified (' + ' - '.join([older_date, newer_date]) + ') for field \'' + field + '\'')
-        # Check if documents are public
-        if public:
+                if relaxed_interval:
+                    print("Using relaxed interval comparison")
+        return command
+
+    def add_public_command(self, command, public_only, **kwargs):
+        '''
+        Add public filter to command
+        '''
+        if public_only:
             print("Only downloading public sequences")
-            command.filter({'public': True})
-        sequences = list(command.run())
-        return list(sequences)
+            command = command.filter({'public': True})
+        return command
 
     def check_date_format(self, older_date, newer_date):
         one_sided_symbols = ['', 'XXXX-XX-XX']
