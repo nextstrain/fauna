@@ -17,8 +17,8 @@
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
 * Update location fields
   * After hand editing `location` in [chateau](https://github.com/blab/chateau)
-  * `python vdb/zika_update.py -db test_vdb -v zika --update_locations`
+  * `python vdb/zika_update.py -db vdb -v zika --update_locations`
   * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
   
 ## Download documents from VDB
-* `python vdb/zika_download.py -db vdb -v zika`
+* `python vdb/zika_download.py -db vdb -v zika --fstem zika`
