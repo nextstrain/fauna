@@ -17,7 +17,7 @@ RUN apt-get install -y libpng-dev libfreetype6-dev pkg-config
 
 # python dependencies
 RUN pip install rethinkdb==2.2.0.post2
-RUN pip install biopython==1.64
+RUN pip install biopython==1.68
 RUN pip install geopy==1.11.0
 
 # NEED TO INSTALL RETHINKDB COMMAND
