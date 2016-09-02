@@ -29,12 +29,7 @@ Clone the repo and load submodules:
 
 Install Python modules needed to run upload/download scripts:
 
-    pip install rethinkdb==2.2.0.post2
-    pip install geopy==1.11.0
-    pip install biopython==1.68
-    pip install unidecode==0.4.19
-    pip install xlrd==1.0.0
-	pip install boto3==1.4.0
+    pip install -r requirements.txt
 
 Install Chateau Web UI:
 
