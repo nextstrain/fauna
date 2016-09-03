@@ -196,6 +196,7 @@ class upload(parse, flu_upload):
         meas['subtype'] = self.subtype.lower()
         meas['host'] = host.lower()
         meas['timestamp'] = self.rethink_io.get_upload_timestamp()
+        meas['inclusion_date'] = self.rethink_io.get_upload_date()
 
     def check_strain_names(self, measurements):
         '''
