@@ -66,9 +66,9 @@ class upload(parse):
         print("Upload Step")
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
-            self.upload_documents(self.viruses_table, viruses, **kwargs)
+            self.upload_documents(self.viruses_table, viruses, index='strain', **kwargs)
             print("Uploading sequences to " + self.database + "." + self.sequences_table)
-            self.upload_documents(self.sequences_table, sequences, **kwargs)
+            self.upload_documents(self.sequences_table, sequences, index='accession', **kwargs)
         else:
             print("Viruses:")
             print(json.dumps(viruses[0], indent=1))
@@ -492,18 +492,32 @@ class upload(parse):
         for list_docs in list_documents:
             try:
                 if not overwrite:
-                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc)).run()
+                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc), return_changes=True).run()
                 else:
-                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater_overwrite(id, old_doc, new_doc)).run()
+                    document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater_overwrite(id, old_doc, new_doc), return_changes=True).run()
+                self.update_timestamp(table, document_changes, **kwargs)
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
             else:
                 if document_changes['errors']>0:
                     print("Errors were made when inserting the documents", document_changes['errors'])
+                    print(document_changes['errors'])
                 inserted += document_changes['inserted']
                 replaced += document_changes['replaced']
         print("Ended up inserting " + str(inserted) + " documents into " + database + "." + table)
         print("Ended up updating " + str(replaced) + " documents in " + database + "." + table)
+
+    def update_timestamp(self, table, document_changes, index, **kwargs):
+        '''
+        Update the timestamp field in the rethink table if changes have been made to the documents
+        '''
+        updated_documents = []
+        if 'changes' in document_changes:
+            for doc in document_changes['changes']:
+                if doc['new_val'] is not None:
+                    updated_documents.append({index: doc['new_val'][index], 'timestamp': self.rethink_io.get_upload_timestamp()})
+        if len(updated_documents) > 0:
+            r.table(table).insert(updated_documents, conflict='update').run()
 
     def relaxed_keys(self, indexes, relax_name_method):
         '''
@@ -544,7 +558,7 @@ def rethinkdb_updater(id, old_doc, new_doc):
                 key.eq('number_sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
                 key.eq('timestamp'),
-                [key, new_doc[key]],
+                [key, old_doc[key]],
                 r.branch(old_doc[key].eq(None).and_(new_doc[key].eq(None).not_()),
                     [key, new_doc[key]],
                     [key, old_doc[key]])
@@ -562,6 +576,8 @@ def rethinkdb_updater_overwrite(id, old_doc, new_doc):
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
                 key.eq('number_sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
+                key.eq('timestamp'),
+                [key, old_doc[key]],
                 [key, new_doc[key]]
             )
         )
