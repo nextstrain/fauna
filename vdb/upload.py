@@ -557,7 +557,7 @@ def rethinkdb_updater(id, old_doc, new_doc):
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
                 key.eq('number_sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
-                key.eq('timestamp'),
+                key.eq('timestamp').or_(key.eq('virus_inclusion_date')).or_(key.eq('sequence_inclusion_date')),
                 [key, old_doc[key]],
                 r.branch(old_doc[key].eq(None).and_(new_doc[key].eq(None).not_()),
                     [key, new_doc[key]],
@@ -576,7 +576,7 @@ def rethinkdb_updater_overwrite(id, old_doc, new_doc):
                 [key, old_doc['sequences'].set_union(new_doc['sequences'])],
                 key.eq('number_sequences'),
                 [key, old_doc['sequences'].set_union(new_doc['sequences']).count()],
-                key.eq('timestamp'),
+                key.eq('timestamp').or_(key.eq('virus_inclusion_date')).or_(key.eq('sequence_inclusion_date')),
                 [key, old_doc[key]],
                 [key, new_doc[key]]
             )

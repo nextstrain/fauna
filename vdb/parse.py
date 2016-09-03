@@ -32,7 +32,7 @@ class parse(object):
                 accessions = self.parse_accession_file(path + fname, **kwargs)
                 self.entrez_email(email)
                 gi = self.get_GIs(accessions)
-                viruses, sequences = self.get_entrez_viruses(gi **kwargs)
+                viruses, sequences = self.get_entrez_viruses(gi, **kwargs)
             elif ftype == 'fasta':
                 viruses, sequences = self.parse_fasta_file(path + fname, **kwargs)
             elif ftype == 'tsv':
@@ -154,6 +154,7 @@ class parse(object):
                 v['country'] = country
         v['virus'] = self.virus
         v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        v['virus_inclusion_date'] = self.rethink_io.get_upload_timestamp()
         v['sequences'] = []
         v['number_sequences'] = 0
         return v
@@ -181,6 +182,7 @@ class parse(object):
             v['public'] = public
         v['virus'] = self.virus
         v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        v['sequence_inclusion_date'] = self.rethink_io.get_upload_timestamp()
         return v
 
     def get_GIs(self, accessions, **kwargs):
@@ -249,7 +251,7 @@ class parse(object):
                 s['authors'] = None
                 first_author = None
             url = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
-            s['url'] = self.get_gb_url(url, s['title'], first_author)
+            s['url'] = self.get_doi_url(url, s['title'], first_author)
 
             record_features = record.features
             for feat in record_features:
@@ -275,7 +277,7 @@ class parse(object):
         print("There were " + str(len(viruses)) + " viruses in the parsed file")
         return (viruses, sequences)
 
-    def get_gb_url(self, url, title, author):
+    def get_doi_url(self, url, title, author):
         '''
         Use crossref api to look for matching title and author name to link to DOI"
         '''
