@@ -16,7 +16,7 @@ def get_parser():
     parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
-    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
+    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
     parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
@@ -216,12 +216,9 @@ class download(object):
             pass
         else:
             for virus in viruses:
-            	if 'sequence' in virus:
-            	    if virus['sequence']:
-                        fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?'
-                                  for field in fasta_fields]
-                        handle.write(">"+sep.join(fields)+'\n')
-                        handle.write(virus['sequence'] + "\n")
+                fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?' for field in fasta_fields]
+                handle.write(">"+sep.join(fields)+'\n')
+                handle.write(virus['sequence'] + "\n")
             handle.close()
 
     def write_tsv(self, viruses, fname, sep='\t', fasta_fields=['strain', 'virus', 'accession'], **kwargs):
@@ -241,7 +238,7 @@ class download(object):
         fname = path + '/' + fstem + '.' + ftype
         print("Outputing", len(documents), "documents to ", fname)
         if ftype == 'json':
-            self.write_json(documents,fname)
+            self.write_json(documents, fname)
         elif ftype == 'fasta':
             self.write_fasta(documents, fname, **kwargs)
         elif ftype == 'tsv':
