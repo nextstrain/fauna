@@ -23,7 +23,7 @@ class flu_update(update, flu_upload):
         Align HA sequences to outgroups to determine the closest grouping
         '''
         print("Updating grouping fields")
-        print("Getting viruses from " + database + "." + viruses_table + " with grouping fields equal to ", update_keyword)
+        print("Getting viruses from " + database + "." + viruses_table + " with grouping fields (vtype, subtype, or lineage) equal to ", update_keyword)
         viruses = list(r.db(database).table(viruses_table).filter((r.row["vtype"] == update_keyword) | (r.row["subtype"] == update_keyword) | (r.row["lineage"] == update_keyword)).run())
         ha_sequences = list(r.db(database).table(sequences_table).filter((r.row["locus"] == 'ha')).run())
         accession_to_sequence_doc = {doc['accession']:doc for doc in ha_sequences}
@@ -47,7 +47,7 @@ class flu_update(update, flu_upload):
                         break
             if not preview:
                 print("Updating " + str(len(virus_group)) + " virus groupings in " + self.database + "." + self.viruses_table)
-                self.upload_to_rethinkdb(self.database, self.viruses_table, virus_group, overwrite=True, optimal_upload=optimal_upload)
+                self.upload_to_rethinkdb(self.database, self.viruses_table, virus_group, overwrite=True, optimal_upload=optimal_upload, index='strain')
             else:
                 print("Preview of updates to be made, remove --preview to make updates to database")
 
