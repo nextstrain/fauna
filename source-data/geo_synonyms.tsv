@@ -22,6 +22,9 @@ AmericanSamoa	AmericanSamoa	AmericanSamoa	AmericanSamoa
 # Anguilla
 Anguilla	Anguilla	Anguilla	Anguilla
 
+# Antarctica
+Antarctica	Antarctica	Antarctica	Antarctica
+
 # Argentina
 Argentina	Argentina	Argentina	Argentina
 Balcarce	Argentina	Balcarce	Balcarce
@@ -100,6 +103,7 @@ Barbados	Barbados	Barbados	Barbados
 
 # Belarus
 Belarus	Belarus	Belarus	Belarus
+Borisov	Belarus	Minsk	Barysaw
 Brest	Belarus	Brest	Brest
 Gomel	Belarus	Gomel	Gomel
 Ivacevichi	Belarus	Brest	Ivacevichi
@@ -154,7 +158,7 @@ Maranhao	Brazil	Maranhao	Maranhao
 MinasGerais	Brazil	MinasGerais	MinasGerais
 Macapa	Brazil	Amapa	Macapa
 MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul
-MatoGrosso	Brazil	Mato Grosso	Mato Grosso
+MatoGrosso	Brazil	MatoGrosso	MatoGrosso
 Natal	Brazil	RioGrandeDoNorte	Natal
 Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
@@ -175,12 +179,12 @@ Salvador	Brazil	Bahia	Salvador
 Tocantins	Brazil	Brazil	Tocantins
 Uberlandia	Brazil	MinasGerais	Uberlandia
 
-Estado de Sao Paulo	Brazil	SaoPaulo	SaoPaulo
-Alto Alegre	Brazil	SaoPaulo	AltoAlegre
+EstadoDeSaoPaulo	Brazil	SaoPaulo	SaoPaulo
+AltoAlegre	Brazil	SaoPaulo	AltoAlegre
 Andradina	Brazil	SaoPaulo	Andradina
 Aracatuba	Brazil	SaoPaulo	Aracatuba
 Araras	Brazil	SaoPaulo	Araras
-Artur Nogueira	Brazil	SaoPaulo	Artur Nogueira
+ArturNogueira	Brazil	SaoPaulo	ArturNogueira
 Assis	Brazil	SaoPaulo	Assis
 Avare	Brazil	SaoPaulo	Avare
 Barueri	Brazil	SaoPaulo	Barueri
@@ -193,7 +197,7 @@ Capivari	Brazil	SaoPaulo	Capivari
 Carapicuiba	Brazil	SaoPaulo	Carapicuiba
 Catanduva	Brazil	SaoPaulo	Catanduva
 Cotia	Brazil	SaoPaulo	Cotia
-Estado de Goias	Brazil	SaoPaulo	EstadoDeGoias
+EstadoDeGoias	Brazil	SaoPaulo	EstadoDeGoias
 Guararema	Brazil	SaoPaulo	Guararema
 Guariba	Brazil	SaoPaulo	Guariba
 Guaruja	Brazil	SaoPaulo	Guaruja
@@ -210,27 +214,27 @@ Louveira	Brazil	SaoPaulo	Louveira
 Marilia	Brazil	SaoPaulo	Marilia
 Matao	Brazil	SaoPaulo	Matao
 Maua	Brazil	SaoPaulo	Maua
-Moji Das Cruzes	Brazil	SaoPaulo	MojiDas
+MojiDasCruzes	Brazil	SaoPaulo	MojiDas
 Moji-Guacu	Brazil	SaoPaulo	MojiGuacu
 Moji-Mirim	Brazil	SaoPaulo	MojiMirim
-Monte Alto	Brazil	SaoPaulo	MonteAlto
+MonteAlto	Brazil	SaoPaulo	MonteAlto
 Osasco	Brazil	SaoPaulo	Osasco
 Paulinia	Brazil	SaoPaulo	Paulinia
 Piracicaba	Brazil	SaoPaulo	Piracicaba
-Presidente Prudente	Brazil	SaoPaulo	PresidentePrudente
-Ribeirao Preto	Brazil	SaoPaulo	Ribeirao
-Rio Claro	Brazil	SaoPaulo	Rio Claro
+PresidentePrudente	Brazil	SaoPaulo	PresidentePrudente
+RibeiraoPreto	Brazil	SaoPaulo	Ribeirao
+RioClaro	Brazil	SaoPaulo	RioClaro
 Salto	Brazil	SaoPaulo	Salto
-Santana De Parnaiba	Brazil	SaoPaulo	Santana
+SantanaDeParnaiba	Brazil	SaoPaulo	Santana
 Santo	Brazil	SaoPaulo	Santo
-Santo Andre	Brazil	SaoPaulo	SantoAndre
-Sao Bernardo Do Campo	Brazil	SaoPaulo	SaoBernardoDoCampo
-Sao Carlos	Brazil	SaoPaulo	SaoCarlos
-Sao Jose Do Rio Preto	Brazil	SaoPaulo	SaoJoseDoRioPreto
-Sao Jose Dos Campos	Brazil	SaoPaulo	SaoJoseDosCampos
-Sao Paulo	Brazil	SaoPaulo	SaoPaulo
+SantoAndre	Brazil	SaoPaulo	SantoAndre
+SaoBernardoDoCampo	Brazil	SaoPaulo	SaoBernardoDoCampo
+SaoCarlos	Brazil	SaoPaulo	SaoCarlos
+SaoJoseDoRioPreto	Brazil	SaoPaulo	SaoJoseDoRioPreto
+SaoJoseDosCampos	Brazil	SaoPaulo	SaoJoseDosCampos
 SaoPaulo	Brazil	SaoPaulo	SaoPaulo
-Sao Vicente	Brazil	SaoPaulo	SaoVicente
+SaoPaulo	Brazil	SaoPaulo	SaoPaulo
+SaoVicente	Brazil	SaoPaulo	SaoVicente
 Sorocaba	Brazil	SaoPaulo	Sorocaba
 Sumare	Brazil	SaoPaulo	Sumare
 Taubate	Brazil	SaoPaulo	Taubate
@@ -643,7 +647,7 @@ AddisAbaba	Ethiopia	AddisAbaba	AddisAbaba
 Fiji	Fiji	Fiji	Fiji
 Valelevu	Fiji	CentralDivision	Valelevu
 Samabula	Fiji	CentralDivision	Samabula
-Lautoka	Fiji	WesternDivision Lautoka
+Lautoka	Fiji	WesternDivisionLautoka
 Nadi	Fiji	WesternDivision	Nadi
 
 # Finland
@@ -894,7 +898,7 @@ Jalna	India	Maharashtra	Jalna
 JammuKashmir	India	JammuKashmir	JammuKashmir
 Jhabua	India	MadhyaPradesh	Jhabua
 Karnataka	India	Karnataka	Karnataka
-Kasauli	India	Himachal Pradesh	Kasauli
+Kasauli	India	HimachalPradesh	Kasauli
 Kerala	India	Kerala	Kerala
 Khandwa	India	MadhyaPradesh	Khandwa
 Khargone	India	MadhyaPradesh	Khargone
@@ -938,7 +942,7 @@ Yavatmal	India	Maharashtra	Yavatmal
 # Indonesia
 Indonesia	Indonesia	Indonesia	Indonesia
 Jakarta	Indonesia	Jakarta	Jakarta
-Surabaya	Indonesia	Jawa Timur	Surabaya
+Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
 Surakarta	Indonesia	Jateng	Surakarta
 Bali	Indonesia	Bali	Bali
@@ -1234,7 +1238,7 @@ Merida	Mexico	Mexico	Merida
 Puebla	Mexico	Puebla	Puebla
 QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
-MexicoCity	Mexico	Distrito Federal	MexicoCity
+MexicoCity	Mexico	DistritoFederal	MexicoCity
 
 # Micronesia
 Micronesia	Micronesia	Micronesia	Micronesia
@@ -1407,7 +1411,7 @@ Panama	Panama	Panama	Panama
 
 # PapuaNewGuinea
 PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea
-Goroka	PapuaNewGuinea	Eastern Highlands	Goroka
+Goroka	PapuaNewGuinea	EasternHighlands	Goroka
 PortMoresby	PapuaNewGuinea	NationalCapitalDistrict	PortMoresby
 Morobe	PapuaNewGuinea	Morobe	Morobe
 WesternSepik	PapuaNewGuinea	Sandaun	WesternSepik
@@ -1564,6 +1568,7 @@ Majkop	Russia	Adygeya	Majkop
 Mcensk	Russia	Oryol	Mcensk
 Moscow	Russia	Moscow	Moscow
 Murmansk	Russia	Murmansk	Murmansk
+Naryan-Mar	Russia	Naryan-Mar	Naryan-Mar
 NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod
 Novosibirsk	Russia	Novosibirsk	Novosibirsk
 Noyabrsk	Russia	Yamalia	Noyabrsk
@@ -1579,11 +1584,13 @@ Ryazan	Russia	Ryazan	Ryazan
 StPetersburg	Russia	StPetersburg	StPetersburg
 Salekhard	Russia	Yamalia	Salekhard
 Samara	Russia	Samara	Samara
+Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 Syktyvkar	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
+Tatarstan	Russia	Tatarstan	Tatarstan
 Tomsk	Russia	Tomsk	Tomsk
 Tula	Russia	Tula	Tula
 Tver	Russia	Tver	Tver
@@ -1746,8 +1753,10 @@ Ceuta	Spain	Ceuta	Ceuta
 Euskadi	Spain	BasqueCountry	Euskadi
 Extremadura	Spain	Extremadura	Extremadura
 Galicia	Spain	Galicia	Galicia
+Girona	Spain	Catalonia	Girona
 LaRioja	Spain	LaRioja	LaRioja
 Leon	Spain	CastileAndLeon	Leon
+Lleida	Spain	Catalonia	Lleida
 Madrid	Spain	Madrid	Madrid
 Melilla	Spain	Melilla	Melilla
 Murcia	Spain	Murcia	Murcia
@@ -1760,6 +1769,7 @@ SanSebastian	Spain	BasqueCountry	SanSebastian
 Segovia	Spain	CastileAndLeon	Segovia
 Soria	Spain	CastileAndLeon	Soria
 Terrassa	Spain	Catalonia	Terrassa
+Tarragona	Spain	Catalonia	Tarragona
 Valencia	Spain	Valencia	Valencia
 Valladolid	Spain	CastileAndLeon	Valladolid
 Zamora	Spain	CastileAndLeon	Zamora
@@ -1800,7 +1810,7 @@ Orebro	Sweden	Orebro	Orebro
 Ostersund	Sweden	Jamtland	Ostersund
 Skovde	Sweden	VastraGotaland	Skovde
 Stockholm	Sweden	Stockholm	Stockholm
-Sundsvall	Sweden	Vasternorrland 	Sundsvall
+Sundsvall	Sweden	Vasternorrland	Sundsvall
 Trollhattan	Sweden	VastraGotaland	Trollhattan
 Umea	Sweden	Vasterbottens	Umea
 Uppsala	Sweden	Uppsala	Uppsala
@@ -1847,6 +1857,7 @@ MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
 Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom
 NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima
+Nan	Thailand	Nan	Nan
 NongKhai	Thailand	NongKhai	NongKhai
 Nonthaburi	Thailand	Nonthaburi	Nonthaburi
 PathumThani	Thailand	PathumThani	PathumThani
@@ -1896,6 +1907,7 @@ Bartin	Turkey	Bartin	Bartin
 Batman	Turkey	Batman	Batman
 Bayburt	Turkey	Bayburt	Bayburt
 Bitlis	Turkey	Bitlis	Bitlis
+Bolu	Turkey	Bolu	Bolu
 Burdur	Turkey	Burdur	Burdur
 Bursa	Turkey	Bursa	Bursa
 Cankiri	Turkey	Cankiri	Cankiri
@@ -1921,7 +1933,7 @@ Kibris	Turkey	Cyprus	Cyprus
 Kirklareli	Turkey	Kirklareli	Kirklareli
 Kirikkale	Turkey	Kirikkale	Kirikkale
 Malatya	Turkey	Malatya	Malatya
-Manisa	Turkey 	Manisa	Manisa
+Manisa	Turkey	Manisa	Manisa
 Mardin	Turkey	Mardin	Mardin
 Mersin	Turkey	Mersin	Mersin
 Nevsehir	Turkey	Nevsehir	Nevsehir
@@ -1936,6 +1948,7 @@ Tokat	Turkey	Tokat	Tokat
 Trabzon	Turkey	Trabzon	Trabzon
 Van	Turkey	Van	Van
 Yalova	Turkey	Yalova	Yalova
+Zonguldak	Turkey	Zonguldak	Zonguldak
 
 # Turkmenistan
 Turkmenistan	Turkmenistan	Turkmenistan	Turkmenistan
@@ -2001,9 +2014,9 @@ Cardiff	UnitedKingdom	Wales	Cardiff
 ChristsHospital	UnitedKingdom	England	Horsham
 Cheshire	UnitedKingdom	England	Cheshire
 Cirencester	UnitedKingdom	England	Cirencester
-City of London	UnitedKingdom	England	London
-City of Southampton	UnitedKingdom	England	Southampton
-Co. Durham	UnitedKingdom	England	CountyDurham
+CityofLondon	UnitedKingdom	England	London
+CityofSouthampton	UnitedKingdom	England	Southampton
+Co.Durham	UnitedKingdom	England	CountyDurham
 Colchester	UnitedKingdom	England	Colchester
 Cornwall	UnitedKingdom	England	Cornwall
 Craven	UnitedKingdom	England	Craven
@@ -2015,7 +2028,7 @@ Edinburgh	UnitedKingdom	Scotland	Edinburgh
 England	UnitedKingdom	England	England
 Exeter	UnitedKingdom	England	Exeter
 Feltham	UnitedKingdom	England	Feltham
-Gerrards Cross	UnitedKingdom	England	GerrardsCross
+GerrardsCross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
 Glasgow	UnitedKingdom	Scotland	Glasgow
 Gloucester	UnitedKingdom	England	Gloucester
@@ -2039,7 +2052,7 @@ Manchester	UnitedKingdom	England	Manchester
 Middlesex	UnitedKingdom	England	Middlesex
 Middx	UnitedKingdom	England	Middlesex
 Minehead	UnitedKingdom	England	Minehead
-Newcastle upon Tyne	UnitedKingdom	England	Newcastle
+NewcastleuponTyne	UnitedKingdom	England	Newcastle
 Ni	UnitedKingdom	NorthernIreland	Belfast
 Nib	UnitedKingdom	UnitedKingdom	UnitedKingdom
 NorthernIreland	UnitedKingdom	NorthernIreland	NorthernIreland
@@ -2213,7 +2226,7 @@ TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh
 
 # WallisAndFutuna
-WallisAndFutuna	WallisAndFutuna	 FrenchOverseasCollectivity	WallisAndFutuna
+WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
 
 # Zambia
 Zambia	Zambia	Zambia	Zambia
