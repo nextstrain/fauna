@@ -33,7 +33,7 @@ class update(upload):
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + database + "." + table)
-            self.upload_to_rethinkdb(database, table, sequences, overwrite=True)
+            self.upload_to_rethinkdb(database, table, sequences, overwrite=True, index='accession')
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
@@ -65,7 +65,7 @@ class update(upload):
         if not preview:
             print("Updating " + str(len(viruses)) + " virus locations in " + self.database + "." + self.viruses_table)
             del kwargs['overwrite']
-            self.upload_to_rethinkdb(database, table, viruses, overwrite=True, index='strain', **kwargs)
+            self.upload_to_rethinkdb(database, table, viruses, overwrite=True, index='strain')
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
@@ -112,9 +112,9 @@ class update(upload):
         self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         if not preview:
             print("Updating viruses in " + self.database + "." + self.viruses_table)
-            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, overwrite=True)
+            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, overwrite=True, index='strain')
             print("Updating sequences in " + self.database + "." + self.sequences_table)
-            self.upload_to_rethinkdb(self.database, self.sequences_table, sequences, overwrite=True)
+            self.upload_to_rethinkdb(self.database, self.sequences_table, sequences, overwrite=True, index='accession')
         else:
             print("Viruses:")
             print(json.dumps(viruses[0], indent=1))
