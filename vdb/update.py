@@ -17,7 +17,7 @@ class update(upload):
         if update_citations:
             self.update_citations(table=self.sequences_table, **kwargs)
         elif update_locations:
-            self.update_locations(**kwargs)
+            self.update_locations(table=self.viruses_table, **kwargs)
         elif update_groupings:
             self.update_groupings(self.viruses_table, self.sequences_table, **kwargs)
         else:
@@ -55,16 +55,17 @@ class update(upload):
         accessions = list(r.db(database).table(table).filter((r.row["source"] == 'genbank') | (r.row["source"] == 'vipr')).get_field('accession').run())
         return accessions
 
-    def update_locations(self, preview, **kwargs):
+    def update_locations(self, database, table, preview, **kwargs):
         print("Updating location fields")
-        viruses = list(r.table(self.viruses_table).run())
+        viruses = list(r.table(table).run())
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         viruses = self.reassign_new_locations(viruses, self.location_fields, **kwargs)
         if not preview:
             print("Updating " + str(len(viruses)) + " virus locations in " + self.database + "." + self.viruses_table)
-            self.upload_to_rethinkdb(self.database, self.viruses_table, viruses, overwrite=True)
+            del kwargs['overwrite']
+            self.upload_to_rethinkdb(database, table, viruses, overwrite=True, index='strain', **kwargs)
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
