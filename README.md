@@ -4,13 +4,15 @@ The nextstrain project is an attempt to make flexible informatic pipelines and v
 
 nextstrain is comprised of three components:
 
-* [db](https://github.com/blab/nextstrain-db): database and IO scripts for sequence and serological data
-* [augur](https://github.com/blab/nextstrain-augur): informatic pipelines to conduct inferences from raw data
-* [auspice](https://github.com/blab/nextstrain-auspice): web app to visualize resulting inferences
+* [fauna](https://github.com/nextstrain/fauna): database and IO scripts for sequence and serological data
+* [augur](https://github.com/nextstrain/augur): informatic pipelines to conduct inferences from raw data
+* [auspice](https://github.com/nextstrain/auspice): web app to visualize resulting inferences
 
-## db
+## fauna
 
-The nextstrain db stores viral sequences and serological data in a [rethink database](RETHINKDB.md). The current database and scripts is designed around influenza and Zika viruses.
+*Definition: The animals of a given region or period considered as a whole. Also, prophetic Roman deity.*
+
+The fauna database stores viral sequences and serological data in [rethinkdb](RETHINKDB.md). The current database and scripts is designed around influenza and Zika viruses.
 
 ### vdb
 
@@ -24,7 +26,7 @@ The [titer database (tdb)](tdb/) is used to store titer measurements in an organ
 
 Clone the repo and load submodules:
 
-    git clone https://github.com/blab/nextstrain-db.git
+    git clone https://github.com/nextstrain/fauna.git
     git submodule update --init --recursive
 
 Install Python modules needed to run upload/download scripts:
@@ -39,34 +41,34 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 
 ## Chateau
 
-[Chateau](https://github.com/blab/chateau/) allows easy web access to the database. To run, do the following:
+[Chateau](https://github.com/nextstrain/chateau/) allows easy web access to the database. To run, do the following:
 
 #### For remote rethink instance
 
 1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
-2. Run with `npm run chateau` from directory `nextstrain-db/`.
+2. Run with `npm run chateau` from directory `fauna/`.
 3. Go to `http://localhost:3000/`.
 
 #### For local rethink instance
 
-2. Run with `npm run chateau-local` from directory `nextstrain-db/`.
+2. Run with `npm run chateau-local` from directory `fauna/`.
 3. Go to `http://localhost:3001/`.
 
 Chateau configurations are stored in [`config.js`](config.js) for remote server and [`config_local.js`](config_local.js) for local server.
 
 ## Docker
 
-Build a Docker image for nextstrain-db:
+Build a Docker image for fauna:
 
-    docker build -t blab/nextstrain-db:latest .
+    docker build -t nextstrain/fauna:latest .
 
 Push image to the Docker Hub:
 
-    docker push blab/nextstrain-db:latest
+    docker push nextstrain/fauna:latest
 
 Run a shell from within the container:
 
-    docker run --env-file environment_docker.env -t -i blab/nextstrain-db /bin/bash
+    docker run --env-file environment_docker.env -t -i nextstrain/fauna /bin/bash
 
 ## License and copyright
 
