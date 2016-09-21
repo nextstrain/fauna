@@ -495,10 +495,10 @@ class upload(parse):
                     document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater(id, old_doc, new_doc), return_changes=True).run()
                 else:
                     document_changes = r.table(table).insert(list_docs, conflict=lambda id, old_doc, new_doc: rethinkdb_updater_overwrite(id, old_doc, new_doc), return_changes=True).run()
-                self.update_timestamp(table, document_changes, **kwargs)
             except:
                 raise Exception("Couldn't insert new documents into database", database + "." + table)
             else:
+                self.update_timestamp(table, document_changes, **kwargs)
                 if document_changes['errors']>0:
                     print("Errors were made when inserting the documents", document_changes['errors'])
                     print(document_changes['errors'])
