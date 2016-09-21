@@ -8,7 +8,7 @@
 2. Move downloaded sequences to `nextstrain-db/data`
 3. Upload to vdb database
   * `python vdb/zika_upload.py -db vdb -v zika --source vipr --locus genome --fname GenomeFastaResults.fasta`
-  
+
 
 ## Update documents in VDB
 * Update citation fields
@@ -19,6 +19,13 @@
   * After hand editing `location` in [chateau](https://github.com/blab/chateau)
   * `python vdb/zika_update.py -db vdb -v zika --update_locations`
   * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
-  
+
 ## Download documents from VDB
 * `python vdb/zika_download.py -db vdb -v zika --fstem zika`
+
+# ZIBRA sequences
+
+## Upload documents to VDB
+Regex replace: `^>([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|(\d\d\d\d)-(\S+) .+`
+With: `>Brazil/\1/\5|Brazil/\1/\5|\5-\6|brazil|\4|\3`
+Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --fname zibra_good.fasta`
