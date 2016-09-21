@@ -26,7 +26,8 @@ parser.add_argument('--locus', default=None, help="gene or genomic region for se
 parser.add_argument('--host', default='human', help="host virus isolated from")
 parser.add_argument('--country', default=None, help="country virus isolated from")
 parser.add_argument('--authors', default=None, help="authors of source of sequences")
-parser.add_argument('--private', default=False, action="store_true",  help ="sequences classified as not public")
+parser.add_argument('--public', default=True, dest='public', action="store_true",  help ="sequences classified as public")
+parser.add_argument('--private', default=False, dest='public', action="store_false",  help ="sequences classified as private")
 
 class upload(parse):
     def __init__(self, database, virus, **kwargs):
