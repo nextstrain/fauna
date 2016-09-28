@@ -237,6 +237,7 @@ class parse(object):
             s['source'] = 'genbank'
             s['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
             s['sequence'] = str(record.seq).lower()
+            print("Processing " + s['accession'])            
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
                 s['title'] = reference.title
