@@ -26,6 +26,16 @@
 # ZIBRA sequences
 
 ## Upload documents to VDB
-Regex replace: `^>([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|(\d\d\d\d)-(\S+) .+`
-With: `>Brazil/\1/\5|Brazil/\1/\5|\5-\6|brazil|\4|\3`
-Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --fname zibra_good.fasta`
+Regex replace: `^>([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|(\S+) .+`
+With: `>\1|\1|\5|brazil|\4|\3`
+then
+Regex replace: `^>([^|]+)\|\d.+`
+With: `>\1|\1|XXXX-XX-XX|brazil`
+Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Good.fasta`
+
+# Andersen sequences
+
+## Upload documents to VDB
+Regex replace: `^>([^|]+)\|XX\|`
+With: `>\1|\1|`
+Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source andersen --locus genome --authors "Grubaugh et al" --fname andersen.fasta`

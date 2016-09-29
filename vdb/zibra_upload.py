@@ -32,7 +32,7 @@ class zibra_upload(upload):
 if __name__=="__main__":
     args = parser.parse_args()
     virus_fasta_fields = {0:'strain', 2:'collection_date', 3:'country', 4: 'division', 5:'location'}
-    sequence_fasta_fields = {0:'accession', 1:'strain'}
+    sequence_fasta_fields = {0:'strain', 1:'accession'}
     # 0                   1                   2          3      4       5
     #>Brazil/ZBRD116/2015|Brazil/ZBRD116/2015|2015-08-28|brazil|alagoas|arapiraca
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
