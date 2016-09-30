@@ -32,6 +32,7 @@ then
 Regex replace: `^>([^|]+)\|\d.+`
 With: `>\1|\1|XXXX-XX-XX|brazil`
 Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Good.fasta`
+And: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Partial.fasta`
 
 # Andersen sequences
 
