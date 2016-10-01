@@ -5,7 +5,7 @@
   * Select year >= 2013 and genome length >= 5000
   * Download as Genome Fasta
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
-2. Move downloaded sequences to `nextstrain-db/data`
+2. Move downloaded sequences to `fauna/data`
 3. Upload to vdb database
   * `python vdb/zika_upload.py -db vdb -v zika --source vipr --locus genome --fname GenomeFastaResults.fasta`
 

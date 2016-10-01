@@ -37,7 +37,9 @@ Install Chateau Web UI:
 
     npm install
 
-Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/).
+Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/). With Homebrew, you can just do:
+
+    brew install rethinkdb
 
 ## Chateau
 

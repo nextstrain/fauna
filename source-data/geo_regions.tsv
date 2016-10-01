@@ -1,6 +1,5 @@
 country	region
 algeria	africa
-sierra_leone	africa
 rwanda	africa
 reunion	africa
 burkina_faso	africa
@@ -17,6 +16,7 @@ ethiopia	africa
 gabon	africa
 gambia	africa
 ghana	africa
+guinea	africa
 ivory_coast	africa
 kenya	africa
 liberia	africa
@@ -28,6 +28,7 @@ morocco	africa
 mozambique	africa
 niger	africa
 nigeria	africa
+sierra_leone	africa
 senegal	africa
 seychelles	africa
 south_africa	africa

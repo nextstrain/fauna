@@ -12,22 +12,22 @@ Sequences can be uploaded from a fasta file, genbank file or file of genbank acc
 	* Genbank
 		* Can include multiple genbank entries
 		* Parses information from entries
-	* Accession 
+	* Accession
 		* One accession number on each line in file
 		* Uses entrez to get genbank entries from accession numbers
 * Uploads from command line argument `--accessions`
 	* comma separated list of accession numbers
 	* Uses entrez to get genbank entries from accession numbers
-* Formats information to fit with vdb schema. 
+* Formats information to fit with vdb schema.
 * Uploads information to virus table
 	* Appends to list of sequences if new accession number. If no accession number, appends if new sequence.
 	* If strain already in database, default is to update attributes with new information only if current attribute is null. Can overwrite existing non-null data with `--overwrite` option.
 
 ## Schema
 
-Information about the virus is stored in one table (ie. flu\_viruses) with information about corresponding 
+Information about the virus is stored in one table (ie. flu\_viruses) with information about corresponding
 sequence information stored in another table (ie. flu\_sequences). They are linked together by the `sequences`
-field in the viruses table that stores a list of accession numbers of corresponding sequences. 
+field in the viruses table that stores a list of accession numbers of corresponding sequences.
 
 Flu Virus Table:
 
@@ -36,7 +36,7 @@ Flu Virus Table:
 * `virus`: virus type in CamelCase format. Loose term for like viruses (viruses that you'd want to include in a single tree). Examples include `flu`, `ebola`, `zika`.
 * `subtype`: virus subtype in lowercase, where available, Null otherwise. `h3n2`, `h1n1pdm`, `vic`, `yam`
 * `collection_date`: collection date in `YYYY-MM-DD` format, for example, `2016-02-28` or `2016-02-XX` if day ambiguous.
-* `region`: collection region where virus was isolated in snakecase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples. 
+* `region`: collection region where virus was isolated in snakecase format.  See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_regions.tsv) for examples.
 * `country`: collection country where virus was isolated in snakecase format. See [here](https://github.com/blab/nextflu/blob/master/augur/source-data/geo_synonyms.tsv) for examples.
 * `division`: administrative division where virus was isolated in snakecase format. Where available, Null otherwise.
 * `location`: specific location where virus was isolated in snakecase format. Where available, Null otherwise.
@@ -54,7 +54,7 @@ Flu Sequences Table:
 * `strain`: the canonical strain name to link back to the viruses table. For flu this would be something like `A/Perth/16/2009`.
 * `source`: database source for the sequence`genbank`, `gisaid`, etc...
 * `passage`: passage history
-* `locus`: gene or genomic region, `ha`, `na`, `genome`, etc... 
+* `locus`: gene or genomic region, `ha`, `na`, `genome`, etc...
 * `sequence`: actual sequence. Lower case.
 * `authors`: authors to attribute credit to `Azevedo et al`
 * `title`: title of reference. `Discovery of a persistent Zika virus lineage in Bahia, Brazil`
@@ -80,11 +80,11 @@ Command line arguments to run `upload.py`:
 * `--email`: to upload viruses via accession must include email to use entrez
 * `--overwrite`: overwrite existing non-null fields
 * `--preview`: include to preview documents without uploading
-* `--replace`: include to replace all documents in database, 
+* `--replace`: include to replace all documents in database,
 
 Assign attribute to all viruses and sequences being uploaded with these arguments
 * `--source`: database source for the sequence`genbank`, `gisaid`, etc...
-* `--locus`: gene or genomic region, `ha`, `na`, `genome`, etc... 
+* `--locus`: gene or genomic region, `ha`, `na`, `genome`, etc...
 * `--authors`: authors of source of sequences
 * `--country`: country where virus was isolated
 * `--private`: to designate sequences being uploaded as not `public`
@@ -99,7 +99,7 @@ Upload flu sequences from GISAID:
 Upload Zika sequences from VIPR:
 
     python vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta
-    
+
 Upload via accession file:
 
 	python vdb/zika\_upload.py -db test\_vdb -v zika --ftype accession --source genbank --locus genome --virus zika --fname entrez_test.txt
@@ -114,7 +114,7 @@ Sequences can be downloaded from vdb.
 
 * Downloads all documents in database
 * Each sequence has associated virus meta data paired with it
-* Prints result to designated fasta or json file. 
+* Prints result to designated fasta or json file.
 	* Writes null attributes as '?'
 	* Writes fasta description in this order by default(0:`strain`, 1:`virus`, 2:`accession`, 3:`date`, 4:`region`, 5:`country`, 6:`division`, 7:`location`, 8:`source`, 9:`locus`, 10:`authors`, 11:`subtype`)
 
@@ -139,6 +139,7 @@ Subset documents with these commands
 
 Resolve duplicate sequences for the same locus with these arguments
 * `--pick_longest`: pick the longest sequence
+
 ### Examples
 
 Download sequences for `Zika_process.py`:
@@ -146,13 +147,13 @@ Download sequences for `Zika_process.py`:
     python vdb/zika_download.py -db vdb -v zika --fstem zika
 
     python vdb/zika_download.py -db vdb -v zika --fstem zika --countries brazil haiti --public_only
-    
+
 Download sequences from `flu_download.py`:
 
     python vdb/download.py -db vdb -v zika --fstem zika
-    
+
     python vdb/download.py -db vdb -v zika --ftype json --countries brazil haiti --public_only
-    
+
     python vdb/flu_download.py -db test_vdb -v flu --select locus:HA --present age --interval collection_date:2016-01-01,2016-01-15 --pick_longest
 
 ## Updating
@@ -180,7 +181,7 @@ Sequences and Viruses in vdb can be updated.
 	python vdb/zika_update.py -db vdb -v zika
 
 	python vdb/update.py -db test_vdb -v zika --accessions KU501216,KU501217
-	
+
 ## Backup and Restore
 
 VDB tables can be backed up to S3 or locally.
@@ -192,44 +193,44 @@ VDB tables can be backed up to S3 or locally.
 
 ### Examples
 
-Backup `test_vdb.zika` to s3 backup file
-	
-	python vdb/backup.py -db test_vdb --backup_s3
+Backup every `vdb` table to s3 backup file
 
-Restore to local instance of `vdb.zika` to 2016-05-25 from s3 backup file
-	
-	python vdb/restore.py -db vdb -v zika --backup_s3 --restore_date 2016-08-17 --local
-	
-Backup `test_vdb.zika` to local backup file
-	
-	python vdb/backup.py -db test_vdb --backup_local
+	python vdb/backup.py -db vdb --backup_s3
 
-Restore `vdb.zika` to 2016-05-25 from local backup file
-	
-	python vdb/restore.py -db vdb -v zika --backup_local --restore_date 2016-08-17
+Restore `vdb.zika` to 2016-05-25 version from s3 backup file
 
-Backup `test_vdb.zika` to s3 backup file everyday	
-	
-	python vdb/backup.py -db test_vdb --continuous_backup --backup_s3
-	
+	python vdb/restore.py -db vdb -v zika --backup_s3 --restore_date 2016-05-25
+
+Backup every `vdb` table to local backup file
+
+	python vdb/backup.py -db vdb --backup_local
+
+Restore `vdb.zika` to 2016-05-25 version from local backup file
+
+	python vdb/restore.py -db vdb -v zika --backup_local --restore_date 2016-05-25
+
+Backup `vdb` to s3 backup file everyday
+
+	python vdb/backup.py -db vdb --continuous_backup --backup_s3
+
 ## Append
 
 VDB documents can be appended to other tables.
 
 ### Examples
-	
+
 Append `vdb` zika documents to `test_vdb` zika tables:
 
 	python vdb/append.py -v zika --from_database vdb --to_database test_vdb
-	
-	
+
+
 ## Sync
 
 VDB tables can be synced between a local rethinkdb instance and external rethinkdb instance.
 
 Push local rethinkdb `test_vdb.zika` documents to remote `vdb.zika` rethinkdb table:
-	
-	python vdb/sync.py --push --local_table test_vdb.zika --remote_table test_vdb.zika	
+
+	python vdb/sync.py --push --local_table test_vdb.zika --remote_table test_vdb.zika
 
 Pull remote rethinkdb `test_vdb.zika` documents to local `test_vdb.zika` rethinkdb table:
 
@@ -245,4 +246,3 @@ export RETHINK_AUTH_KEY=EXAMPLE_KEY
 export RETHINK_HOST=EXAMPLE_HOST
 export NCBI_EMAIL=example\@email.org
 ```
-
