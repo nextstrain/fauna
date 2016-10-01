@@ -3,6 +3,8 @@ environment*
 data/
 backups/
 lacen/
+tmp*
+temp*
 
 # Compiled intermediates
 *.pyc
