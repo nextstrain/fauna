@@ -9,7 +9,9 @@ class zika_download(download):
 if __name__=="__main__":
     parser = get_parser()
     args = parser.parse_args()
-    fasta_fields = ['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors']
+    fasta_fields = ['strain', 'virus', 'accession', 'collection_date', 'region',
+                    'country', 'division', 'location', 'source', 'locus',
+                    'authors', 'latitude', 'longitude']
     args.fasta_fields = fasta_fields
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
     if args.fstem is None:
