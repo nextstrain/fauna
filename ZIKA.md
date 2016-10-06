@@ -40,3 +40,15 @@ And: `python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome -
 Regex replace: `^>([^|]+)\|XX\|`
 With: `>\1|\1|`
 Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source andersen --locus genome --authors "Grubaugh et al" --fname andersen.fasta`
+
+# Broad sequences
+
+## Upload documents to VDB
+Upload with: `python vdb/zika_upload.py -db vdb -v zika --source broad --locus genome --authors "Broad Viral Genomics Group" --fname ZIKV_BROAD_2016-10.fasta`
+
+# USAMRIID sequences
+
+## Upload documents to VDB
+Regex replace: `^>([^_]+)_USA_USA_(\S+)`
+With: `>\1|\1|\2|human|usa|florida|florida`
+Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source usamriid --locus genome --authors "Ladner et al" --fname RIID_ZIKV_FL_10-02-16.fasta`
