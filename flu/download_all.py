@@ -1,20 +1,12 @@
-# simple script to run required operations to
-# 1. Upload GISAID XLS and FASTA to database
-# 2. Update genetic groupings
-# 3. Download FASTAs from database
-# 4. Copy FASTAs to nextflu directory
-# 5. Download titer tables from database
-# 6. Copy titer tables to nextflu directory
-# Run from base nextstrain-db directory with python flu/pipeline.py
+# Simple script to run required operations to
+# 1. Download FASTAs from database
+# 2. Copy FASTAs to nextflu directory
+# 3. Download titer tables from database
+# 4. Copy titer tables to nextflu directory
+# Run from base fauna directory with python flu/download_all.py
 # Requires files gisaid_epiflu.xls and gisaid_epiflu.fasta in data/
 
 import os
-
-# Upload GISAID XLS and FASTA to database
-os.system("python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_epiflu")
-
-# Update genetic groupings
-os.system("python vdb/flu_update.py -db vdb -v flu --update_groupings")
 
 # Download FASTAs from database
 os.system("python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2")
