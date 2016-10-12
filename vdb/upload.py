@@ -107,11 +107,6 @@ class upload(parse):
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
-        for v in documents:
-            if type(v) != dict:
-                print "at f'n format_viruses in upload, type(doc) is", type(v)
-
-
     def format_sequences(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table
@@ -353,12 +348,12 @@ class upload(parse):
                                 self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
                             doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
                             return doc['latitude'], doc['longitude'], doc['lat_long_location']
-                        # else:
+                        else:
                             print("Couldn't find latitude and longitude for ", loc, doc['country'])
                 print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
                 doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
                 return None, None, None
-            # else:
+            else:
                 print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
         else:
             print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
