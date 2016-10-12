@@ -1,14 +1,14 @@
 label	country	division	location
 
-# Afghanistan
+#	Afghanistan
 Afghanistan	Afghanistan	Afghanistan	Afghanistan
 
-# Albania
+#	Albania
 Albania	Albania	Albania	Albania
 Shkoder	Albania	Shkoder	Shkoder
 Tirane	Albania	Tirane	Tirane
 
-# Algeria
+#	Algeria
 Algeria	Algeria	Algeria	Algeria
 Algiers	Algeria	Algiers	Algiers
 Annaba	Algeria	Annaba	Annaba
@@ -16,16 +16,23 @@ Blida	Algeria	Blida	Blida
 Boumerdes	Algeria	Boumerdes	Boumerdes
 Setif	Algeria	Setif	Setif
 
-# AmericanSamoa
+#	AmericanSamoa
 AmericanSamoa	AmericanSamoa	AmericanSamoa	AmericanSamoa
 
-# Anguilla
+#	Angola
+Angola	Angola	Angola	Angola
+
+#	Anguilla
 Anguilla	Anguilla	Anguilla	Anguilla
 
-# Antarctica
+#	Antarctica
 Antarctica	Antarctica	Antarctica	Antarctica
 
-# Argentina
+#	Antigua
+antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
+AntiguaAndBarbuda		antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
+
+#	Argentina
 Argentina	Argentina	Argentina	Argentina
 Balcarce	Argentina	Balcarce	Balcarce
 BuenosAires	Argentina	BuenosAires	BuenosAires
@@ -54,10 +61,13 @@ TierraDelFuego	Argentina	TierraDelFuego	TierraDelFuego
 Tucuman	Argentina	Tucuman	Tucuman
 Ushuaia	Argentina	TierraDelFuego	Ushuaia
 
-# Armenia
+#	Armenia
 Armenia	Armenia	Armenia	Armenia
 
-# Australia
+#	Aruba
+Aruba	Aruba	Aruba	Aruba
+
+#	Australia
 Australia	Australia	Australia	Australia
 AliceSprings	Australia	NorthernTerritory	AliceSprings
 Brisbane	Australia	Queensland	Brisbane
@@ -81,27 +91,27 @@ Melbourne	Australia	Victoria	Melbourne
 Westmead	Australia	NewSouthWales	Westmead
 Darlinghurst	Australia	NewSouthWales	Darlinghurst
 
-# Austria
+#	Austria
 Austria	Austria	Austria	Austria
 Vienna	Austria	Vienna	Vienna
 
-# Azerbaijan
+#	Azerbaijan
 Azerbaijan	Azerbaijan	Azerbaijan	Azerbaijan
 
-# Bahamas
+#	Bahamas
 Bahamas	Bahamas	Bahamas	Bahamas
 
-# Bahrain
+#	Bahrain
 Bahrain	Bahrain	Bahrain	Bahrain
 
-# Bangladesh
+#	Bangladesh
 Bangladesh	Bangladesh	Bangladesh	Bangladesh
 Dnipro	Bangladesh	Bangladesh	Bangladesh
 
-# Barbados
+#	Barbados
 Barbados	Barbados	Barbados	Barbados
 
-# Belarus
+#	Belarus
 Belarus	Belarus	Belarus	Belarus
 Borisov	Belarus	Minsk	Barysaw
 Brest	Belarus	Brest	Brest
@@ -113,7 +123,7 @@ Molodechno	Belarus	Minsk	Molodechno
 Soligorsk	Belarus	Minsk	Soligorsk
 Vitebsk	Belarus	Vitebsk	Vitebsk
 
-# Belgium
+#	Belgium
 Belgium	Belgium	Belgium	Belgium
 Antwerp	Belgium	Antwerp	Antwerp
 Brussels	Belgium	Brussels	Brussels
@@ -121,28 +131,31 @@ Flanders	Belgium	Flanders	Flanders
 Tessenderlo	Belgium	Limburg	Tessenderlo
 Wallonia	Belgium	Wallonia	Wallonia
 
-# Belize
+#	Belize
 Belize	Belize	Belize	Belize
 
-# Bermuda
+#	Bermuda
 Bermuda	Bermuda	Bermuda	Bermuda
 
-# Bhutan
+#	Bhutan
 Bhutan	Bhutan	Bhutan	Bhutan
 
-# Bolivia
+#	Bolivia
 Bolivia	Bolivia	Bolivia	Bolivia
 Cochabamba	Bolivia	Cochabamba	Cochabamba
 LaPaz	Bolivia	LaPaz	LaPaz
 
-# BosniaHerzegovina
+#	Borneo
+Borneo	Indonesia	Borneo	Borneo
+
+#	BosniaHerzegovina
 BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina
 Sarajevo	BosniaHerzegovina	FederationOfBosniaAndHerzegovina	Sarajevo
 
-# Botswana
+#	Botswana
 Botswana	Botswana	Botswana	Botswana
 
-# Brazil
+#	Brazil
 Brazil	Brazil	Brazil	Brazil
 Acre	Brazil	Acre	Acre
 Alagoas	Brazil	Alagoas	Alagoas
@@ -241,30 +254,30 @@ Taubate	Brazil	SaoPaulo	Taubate
 Valinhos	Brazil	SaoPaulo	Valinhos
 Votuporanga	Brazil	SaoPaulo	Votuporanga
 
-# BritishVirginIslands
+#	BritishVirginIslands
 BritishVirginIslands	BritishVirginIslands	BritishVirginIslands	BritishVirginIslands
 
-# Brunei
+#	Brunei
 Brunei	Brunei	Brunei	Brunei
 
-# Bulgaria
+#	Bulgaria
 Bulgaria	Bulgaria	Bulgaria	Bulgaria
 Sofia	Bulgaria	Sofia	Sofia
 
-# BurkinaFaso
+#	BurkinaFaso
 BurkinaFaso	BurkinaFaso	BurkinaFaso	BurkinaFaso
 
-# Cambodia
+#	Cambodia
 Cambodia	Cambodia	Cambodia	Cambodia
 
-# Cameroon
+#	Cameroon
 Cameroon	Cameroon	Cameroon	Cameroon
 AbongMbang	Cameroon	East	AbongMbang
 Douala	Cameroon		Littoral	Douala
 Hevecam	Cameroon	South	South
 Yaounde	Cameroon	Mfoundi	Yaounde
 
-# Canada
+#	Canada
 Canada	Canada	Canada	Canada
 Alberta	Canada	Alberta	Alberta
 BritishColumbia	Canada	BritishColumbia	BritishColumbia
@@ -282,13 +295,13 @@ Toronto	Canada	Ontario	Toronto
 Montreal	Canada	Quebec	Montreal
 Vancouver	Canada	BritishColumbia	Vancouver
 
-# CaymanIslands
+#	CaymanIslands
 CaymanIslands	CaymanIslands	CaymanIslands	CaymanIslands
 
-# CentralAfricanRepublic
+#	CentralAfricanRepublic
 CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic
 
-# Chile
+#	Chile
 Chile	Chile	Chile	Chile
 AltoHospicio	Chile	Tarapaca	AltoHospicio
 Antofagasta	Chile	Antofagasta	Antofagasta
@@ -330,7 +343,7 @@ Villarrica	Chile	Araucania	Villarrica
 VinaDelMar	Chile	Valparaiso	VinaDelMar
 Vina	Chile	Valparaiso	VinaDelMar
 
-# China
+#	China
 China	China	China	China
 Anhui	China	Anhui	Anhui
 AnhuiDangtu	China	Anhui	Dangtu
@@ -531,18 +544,21 @@ Zhoushan	China	Zhejiang	Zhoushan
 Zhuhai	China	Guangdong	Zhuhai
 Zhongyuan	China	Henan	Zhongyuan
 
-# Colombia
+#	Colombia
 Colombia	Colombia	Colombia	Colombia
 Bogota	Colombia	CapitalDistrict	Bogota
 Medellin	Colombia	Antioquia	Medellin
 
-# CookIslands
+#	Comoros
+Comoros	Comoros	Comoros	Comoros
+
+#	CookIslands
 CookIslands	CookIslands	CookIslands	CookIslands
 
-# CostaRica
+#	CostaRica
 CostaRica	CostaRica	CostaRica	CostaRica
 
-# CoteDIvoire
+#	CoteDIvoire
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
 Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou
 Adjame	CoteDIvoire	Abidjan	Adjame
@@ -554,11 +570,11 @@ Agnibilekrou	CoteDIvoire		Comoe
 Cocody	CoteDIvoire	Abidjan	Cocody
 Plateau	CoteDIvoire	Abidjan	Plateau
 
-# Croatia
+#	Croatia
 Croatia	Croatia	Croatia	Croatia
 Zagreb	Croatia	Zagreb	Zagreb
 
-# Cuba
+#	Cuba
 Cuba	Cuba	Cuba	Cuba
 Habana	Cuba	Habana	Habana
 Camaguey	Cuba	Camaguey	Camaguey
@@ -567,10 +583,10 @@ Guantanamo	Cuba	Guantanamo	Guantanamo
 Matanzas	Cuba	Matanzas	Matanzas
 Cienfuegos	Cuba	Cienfuegos	Cienfuegos
 
-# Cyprus
+#	Cyprus
 Cyprus	Cyprus	Cyprus	Cyprus
 
-# CzechRepublic
+#	CzechRepublic
 CzechRepublic	CzechRepublic	CzechRepublic	CzechRepublic
 Brno	CzechRepublic	SouthMoravian	Brno
 CeskaLipa	CzechRepublic	Liberecky	CeskaLipa
@@ -590,10 +606,10 @@ Ostrava	CzechRepublic	MoravianSilesian	Ostrava
 Usti	CzechRepublic	Usti	Usti
 Vsetin	CzechRepublic	Zlin	Vsetin
 
-# Congo
+#	Congo
 Congo	Congo	Congo	Congo
 
-# Denmark
+#	Denmark
 Denmark	Denmark	Denmark	Denmark
 Hvidovre	Denmark	Hovedstaden	Hvidovre
 Copenhagen	Denmark	Hovedstaden	Copenhagen
@@ -601,23 +617,28 @@ Aarhus	Denmark	Midtjylland	Aarhus
 Aalborg	Denmark	Nordjylland	Aalborg
 Odense	Denmark	Syddanmark	Odense
 
-# Djibouti
+#	Djibouti
 Djibouti	Djibouti	Djibouti	Djibouti
 
-# Dominica
+#	Dominica
 Dominica	Dominica	Dominica	Dominica
 
-# DominicanRepublic
+#	DominicanRepublic
 DominicanRepublic	DominicanRepublic	DominicanRepublic	DominicanRepublic
 
-# Ecuador
+#	EastTimor
+east_timor	EastTimor	EastTimor	EastTimor
+timor-_leste	EastTimor	EastTimor	EastTimor
+EastTimor	EastTimor	EastTimor	EastTimor
+
+#	Ecuador
 Ecuador	Ecuador	Ecuador	Ecuador
 Esmereldas	Ecuador	Esmereldas	Esmereldas
 Guayas	Ecuador	Guayas	Guayas
 Guayaquil	Ecuador	Guayas	Guayaquil
 Quito	Ecuador	Pichincha	Quito
 
-# Egypt
+#	Egypt
 Egypt	Egypt	Egypt	Egypt
 Cairo	Egypt	Cairo	Cairo
 Menya	Egypt	Minya	Minya
@@ -631,31 +652,31 @@ Dakahlia	Egypt	Dakahlia	Dakahlia
 Aswan	Egypt	Aswan	Aswan
 Helwan	Egypt	Cairo	Helwan
 
-# ElSalvador
+#	ElSalvador
 ElSalvador	ElSalvador	ElSalvador	ElSalvador
 Metapan	ElSalvador	SantaAna	Metapan
 SanSalvador	ElSalvador	SanSalvador	SanSalvador
 
-# Estonia
+#	Estonia
 Estonia	Estonia	Estonia	Estonia
 Tallinn	Estonia	Harju	Tallinn
 
-# Ethiopia
+#	Ethiopia
 Ethiopia	Ethiopia	Ethiopia	Ethiopia
 AddisAbaba	Ethiopia	AddisAbaba	AddisAbaba
 
-# Fiji
+#	Fiji
 Fiji	Fiji	Fiji	Fiji
 Valelevu	Fiji	CentralDivision	Valelevu
 Samabula	Fiji	CentralDivision	Samabula
 Lautoka	Fiji	WesternDivisionLautoka
 Nadi	Fiji	WesternDivision	Nadi
 
-# Finland
+#	Finland
 Finland	Finland	Finland	Finland
 Helsinki	Finland	Uusimaa	Helsinki
 
-# France
+#	France
 France	France	France	France
 AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
@@ -704,21 +725,24 @@ Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
 
-# FrenchGuiana
+#	FrenchGuiana
 FrenchGuiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
 Guiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
 Guyane	FrenchGuiana	FrenchGuiana	FrenchGuiana
 Gyeonggi	FrenchGuiana	FrenchGuiana	Gyeonggi
 
-# FrenchPolynesia
+#	FrenchPolynesia
 FrenchPolynesia	FrenchPolynesia	FrenchPolynesia	FrenchPolynesia
 Tahiti	FrenchPolynesia	FrenchPolynesia	Tahiti
 Papeete	FrenchPolynesia	FrenchPolynesia	Papeete
 
-# Gambia
+#	Gabon
+Gabon	Gabon	Gabon	Gabon
+
+#	Gambia
 Gambia	Gambia	Gambia	Gambia
 
-# GeorgiaCountry
+#	GeorgiaCountry
 Akhaltsikhe	GeorgiaCountry	SamtskheJavakheti	Akhaltsikhe
 Batumi	GeorgiaCountry	Adjara	Batumi
 Chiatura	GeorgiaCountry	Imereti	Chiatura
@@ -733,7 +757,7 @@ Tbilisi	GeorgiaCountry	Tbilisi	Tbilisi
 Tskaltubo	GeorgiaCountry	Imereti	Tskaltubo
 Zugdidi	GeorgiaCountry	SamegreloZemoSvaneti	Zugdidi
 
-# Germany
+#	Germany
 Germany	Germany	Germany	Germany
 BadenWurttemberg	Germany	BadenWurttemberg	BadenWurttemberg
 Bayern	Germany	Bayern	Bayern
@@ -765,12 +789,12 @@ Sachsen	Germany	Sachsen	Sachsen
 SchleswigHolstein	Germany	SchleswigHolstein	SchleswigHolstein
 Wurzburg	Germany	Bayern	Wurzburg
 
-# Ghana
+#	Ghana
 Ghana	Ghana	Ghana	Ghana
 Manhean	Ghana	Accra	Manhean
 Korlebu	Ghana	Accra	Accra
 
-# Greece
+#	Greece
 Greece	Greece	Greece	Greece
 Alexandroupolis	Greece	Greece	Alexandroupolis
 Argolida	Greece	Peloponnese	Argolida
@@ -829,22 +853,22 @@ Vonitsa	Greece	WesternGreece	Vonitsa
 Xanthi	Greece	EasternMacedoniaAndThrace	Xanthi
 Zakynthos	Greece	IonianIslands	Zakynthos
 
-# Grenada
+#	Grenada
 Grenada	Grenada	Grenada	Grenada
 Granada	Grenada	Grenada	Grenada
 
-# Guadeloupe
+#	Guadeloupe
 Guadeloupe	Guadeloupe	Guadeloupe	Guadeloupe
 
-# Guam
+#	Guam
 Guam	Guam	Guam	Guam
 Barrigada	Guam	Barrigada	Barrigada
 Mangilao	Guam	Mangilao	Mangilao
 
-# Guatemala
+#	Guatemala
 Guatemala	Guatemala	Guatemala	Guatemala
 
-# Guinea
+#	Guinea
 Guinea	Guinea	Guinea	Guinea
 Beyla	Guinea	Beyla	Beyla
 Boke	Guinea	Boke	Boke
@@ -866,30 +890,30 @@ Macenta	Guinea	Macenta	Macenta
 Nzerekore	Guinea	Nzerekore	Nzerekore
 Siguiri	Guinea	Siguiri	Siguiri
 
-# Guyana
+#	Guyana
 Guyana	Guyana	Guyana	Guyana
 
-# Haiti
+#	Haiti
 Haiti	Haiti	Haiti	Haiti
 PortAuPrince	Haiti	Ouest	PortAuPrince
 
-# Honduras
+#	Honduras
 Honduras	Honduras	Honduras	Honduras
 Tegucigalpa	Honduras	FranciscoMorazan	Tegucigalpa
 
-# HongKong
+#	HongKong
 HongKong	HongKong	HongKong	HongKong
 Kowloon	HongKong	HongKong	Kowloon
 
-# Hungary
+#	Hungary
 Hungary	Hungary	Hungary	Hungary
 Nyiregyhaza	Hungary	NorthernHungary	Nyiregyhaza
 Budapest	Hungary	CentralHungary	Budapest
 
-# Iceland
+#	Iceland
 Iceland	Iceland	Iceland	Iceland
 
-# India
+#	India
 India	India	India	India
 Alirajpur	India	MadhyaPradesh	Alirajpur
 Andaman	India	AndamanAndNicobarIslands	Andaman
@@ -962,7 +986,7 @@ Vellore	India	TamilNadu	Vellore
 WestBengal	India	WestBengal	WestBengal
 Yavatmal	India	Maharashtra	Yavatmal
 
-# Indonesia
+#	Indonesia
 Indonesia	Indonesia	Indonesia	Indonesia
 Jakarta	Indonesia	Jakarta	Jakarta
 Surabaya	Indonesia	JawaTimur	Surabaya
@@ -972,7 +996,7 @@ Bali	Indonesia	Bali	Bali
 Bengkulu	Indonesia	Bengkulu	Bengkulu
 Banten	Indonesia	Banten	Banten
 
-# Iran
+#	Iran
 Iran	Iran	Iran	Iran
 Alborz	Iran	Alborz	Alborz
 Ardebil	Iran	Ardebil	Ardebil
@@ -1013,20 +1037,20 @@ Yazd	Iran	Yazd	Yazd
 Zahedan	Iran	SistanAndBaluchestan	Zahedan
 Zanjan	Iran	Zanjan	Zanjan
 
-# Iraq
+#	Iraq
 Iraq	Iraq	Iraq	Iraq
 Baghdad	Iraq	Baghdad	Baghdad
 Sulaimani	Iraq	Kurdistan	Sulaimani
 
-# Ireland
+#	Ireland
 Ireland	Ireland	Ireland	Ireland
 Dublin	Ireland	Leinster	Dublin
 
-# Israel
+#	Israel
 Israel	Israel	Israel	Israel
 Jerusalem	Israel	Jerusalem	Jerusalem
 
-# Italy
+#	Italy
 Italy	Italy	Italy	Italy
 Ancona	Italy	Marche	Ancona
 Bari	Italy	Apulia	Bari
@@ -1054,10 +1078,10 @@ Turin	Italy	Piedmont	Turin
 Verona	Italy	Veneto	Verona
 Vicenza	Italy	Veneto	Vicenza
 
-# Jamaica
+#	Jamaica
 Jamaica	Jamaica	Jamaica	Jamaica
 
-# Japan
+#	Japan
 Japan	Japan	Japan	Japan
 Aichi	Japan	Aichi	Aichi
 Akita	Japan	Akita	Akita
@@ -1128,11 +1152,11 @@ Yamanashi	Japan	Yamanashi	Yamanashi
 Yokohama	Japan	Kanagawa	Yokohama
 Yokosuka	Japan	Kanagawa	Yokosuka
 
-# Jordan
+#	Jordan
 Jordan	Jordan	Jordan	Jordan
 Amman	Jordan	CapitalGovernorate	Amman
 
-# Kazakhstan
+#	Kazakhstan
 Kazakhstan	Kazakhstan	Kazakhstan	Kazakhstan
 Aktobe	Kazakhstan	Aktobe	Aktobe
 Almaty	Kazakhstan	Almaty	Almaty
@@ -1145,7 +1169,7 @@ Semey	Kazakhstan	EastKazakhstan	Semey
 Taraz	Kazakhstan	Jambyl	Taraz
 Uralsk	Kazakhstan	WestKazakhstan	Uralsk
 
-# Kenya
+#	Kenya
 Kenya	Kenya	Kenya	Kenya
 Alupe	Kenya	Nairobi	Alupe
 Eldoret	Kenya	UasinGishu	Eldoret
@@ -1171,29 +1195,30 @@ Nakuru	Kenya	Nakuru	Nakuru
 Nyeri	Kenya	Nyeri	Nyeri
 TransNzoia	Kenya	TransNzoia	TransNzoia
 
-# Kiribati
+#	Kiribati
 Kiribati	Kiribati	Kiribati	Kiribati
 
-# Kosovo
+#	Kosovo
 Kosovo	Kosovo	Kosovo	Kosovo
 
-# Kuwait
+#	Kuwait
 Kuwait	Kuwait	Kuwait	Kuwait
 
-# Kyrgyzstan
+#	Kyrgyzstan
 Kyrgyzstan	Kyrgyzstan	Kyrgyzstan	Kyrgyzstan
 Bishkek	Kyrgyzstan	Chuy	Bishkek
 
-# Lao
+#	Lao
 Lao	Lao	Lao	Lao
+Laos	Lao	Lao	Lao
 
-# Latvia
+#	Latvia
 Latvia	Latvia	Latvia	Latvia
 
-# Lebanon
+#	Lebanon
 Lebanon	Lebanon	Lebanon	Lebanon
 
-# Liberia
+#	Liberia
 Liberia	Liberia	Liberia	Liberia
 Bomi	Liberia	Bomi	Bomi
 Bong	Liberia	Bong	Bong
@@ -1209,7 +1234,7 @@ Rivercess	Liberia	Rivercess	Rivercess
 RiverGee	Liberia	RiverGee	RiverGee
 Sinoe	Liberia	Sinoe	Sinoe
 
-# Lithuania
+#	Lithuania
 Lithuania	Lithuania	Lithuania	Lithuania
 Klaipeda	Lithuania	Klaipeda	Klaipeda
 Telsiai	Lithuania	Telsiai	Telsiai
@@ -1217,10 +1242,10 @@ Kaunas	Lithuania	Kaunas	Kaunas
 Vilnius	Lithuania	Vilnius	Vilnius
 Skuodas	Lithuania	Klaipeda	Skuodas
 
-# Luxembourg
+#	Luxembourg
 Luxembourg	Luxembourg	Luxembourg	Luxembourg
 
-# Macedonia
+#	Macedonia
 Macedonia	Macedonia	Macedonia	Macedonia
 Skopje	Macedonia	Skopje	Skopje
 Ohrid	Macedonia	Ohrid	Ohrid
@@ -1229,7 +1254,7 @@ Gostivar	Macedonia	Gostivar	Gostivar
 Strumica	Macedonia	Strumica	Strumica
 Kocani	Macedonia	Kocani	Kocani
 
-# Madagascar
+#	Madagascar
 Madagascar	Madagascar	Madagascar	Madagascar
 Anjeva	Madagascar	Antananarivo	Anjeva
 Antananarivo	Madagascar	Antananarivo	Antananarivo
@@ -1248,28 +1273,31 @@ Tolagnaro	Madagascar	Anosy	Tolagnaro
 Tsaralalana	Madagascar	Antananarivo	Tsaralalana
 Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
 
-# Malaysia
+#	Malaysia
 Malaysia	Malaysia	Malaysia	Malaysia
 
-# Mali
+#	Mali
 Mali	Mali	Mali	Mali
 Bamako	Mali	Bamako	Bamako
 
-# Malta
+#	Malta
 Malta	Malta	Malta	Malta
 
-# Martinique
+#	Marshall	Islands
+MarshallIslands	MarshallIslands	MarshallIslands	MarshallIslands
+
+#	Martinique
 Martinique	Martinique	Martinique	Martinique
 
-# Mauritania
+#	Mauritania
 Mauritania	Mauritania	Mauritania	Mauritania
 Nouakchott	Mauritania	Nouakchott	Nouakchott
 
-# Mauritius
+#	Mauritius
 Mauritius	Mauritius	Mauritius	Mauritius
 Candos	Mauritius	QuatreBornes	Candos
 
-# Mexico
+#	Mexico
 Mexico	Mexico	Mexico	Mexico
 Yucatan	Mexico	Mexico	Yucatan
 Monterrey	Mexico	Mexico	Monterrey
@@ -1279,7 +1307,7 @@ QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
 MexicoCity	Mexico	DistritoFederal	MexicoCity
 
-# Micronesia
+#	Micronesia
 Micronesia	Micronesia	Micronesia	Micronesia
 Chuuk	Micronesia	Chuuk	Chuuk
 Nauru	Micronesia	Nauru	Nauru
@@ -1287,10 +1315,10 @@ Pohnpei	Micronesia	Pohnpei	Pohnpei
 Kosrae	Micronesia	Kosrae	Kosrae
 Yap	Micronesia	Yap	Yap
 
-# Moldova
+#	Moldova
 Moldova	Moldova	Moldova	Moldova
 
-# Mongolia
+#	Mongolia
 Mongolia	Mongolia	Mongolia	Mongolia
 Arvaikheer	Mongolia	Arvaikheer	Arvaikheer
 BayanOlgii	Mongolia	BayanOlgii	BayanOlgii
@@ -1316,14 +1344,14 @@ Ulaangom	Mongolia	Uvs	Ulaangom
 Uvurkhangai	Mongolia	Uvurkhangai	Uvurkhangai
 Zavkhan	Mongolia	Zavkhan	Zavkhan
 
-# Montenegro
+#	Montenegro
 Montenegro	Montenegro	Montenegro	Montenegro
 Podgorica	Montenegro	Podgorica	Podgorica
 
-# Montserrat
+#	Montserrat
 Montserrat	Montserrat	BritishOverseasTerritory	Montserrat
 
-# Morocco
+#	Morocco
 Morocco	Morocco	Morocco	Morocco
 Agadir	Morocco	SoussMassa	Agadir
 BeniMellal	Morocco	BeniMellalKhenifra	BeniMellal
@@ -1341,23 +1369,23 @@ Tanger	Morocco	TangerTetouan	Tanger
 Temara	Morocco	RabatSaleKenitra	Temara
 Tiznit	Morocco	SoussMassa	Tiznit
 
-# Mozambique
+#	Mozambique
 Mozambique	Mozambique	Mozambique	Mozambique
 Maputo	Mozambique	Maputo	Maputo
 
-# Myanmar
+#	Myanmar
 Myanmar	Myanmar	Myanmar	Myanmar
 Yangon	Myanmar	Yangon	Yangon
 Naypyitaw	Myanmar	Naypyitaw	Naypyitaw
 
-# Nauru
+#	Nauru
 Nauru	Nauru	Nauru	Nauru
 
-# Nepal
+#	Nepal
 Nepal	Nepal	Nepal	Nepal
 KathmanduBGN	Nepal	Central	Kathmandu
 
-# Netherlands
+#	Netherlands
 Netherlands	Netherlands	Netherlands	Netherlands
 Amsterdam	Netherlands	NorthHolland	Amsterdam
 Bilthoven	Netherlands	Utrecht	Bilthoven
@@ -1369,10 +1397,10 @@ Nijmegen	Netherlands	Gelderland	Nijmegen
 Rotterdam	Netherlands	SouthHolland	Rotterdam
 Tilburg	Netherlands	NorthBrabant	Tilburg
 
-# NewCaledonia
+#	NewCaledonia
 NewCaledonia	NewCaledonia	NewCaledonia	NewCaledonia
 
-# NewZealand
+#	NewZealand
 NewZealand	NewZealand	NewZealand	NewZealand
 Ashburton	NewZealand	Canterbury	Ashburton
 Auckland	NewZealand	Auckland	Auckland
@@ -1400,40 +1428,43 @@ Wellington	NewZealand	Wellington	Wellington
 WestCoast	NewZealand	WestCoast	WestCoast
 Whanganui	NewZealand	ManawatuWanganui	Whanganui
 
-# Nicaragua
+#	Nicaragua
 Nicaragua	Nicaragua	Nicaragua	Nicaragua
 Andalucia	Nicaragua	Nicaragua	Andalucia
 Esteli	Nicaragua	Esteli	Esteli
 Managua	Nicaragua	Managua	Managua
 Matagalpa	Nicaragua	Matagalpa	Matagalpa
 
-# Niger
+#	Niger
 Niger	Niger	Niger	Niger
 
-# Nigeria
+#	Nigeria
 Nigeria	Nigeria	Nigeria	Nigeria
 Lagos	Nigeria	Lagos	Lagos
 
-# NorthernMarianaIslands
+#	Niue
+Niue	Niue	Niue	Niue
+
+#	NorthernMarianaIslands
 NorthernMarianaIslands	NorthernMarianaIslands	NorthernMarianaIslands	NorthernMarianaIslands
 Saipan	NorthernMarianaIslands	Saipan	Saipan
 
-# Norway
+#	Norway
 Norway	Norway	Norway	Norway
 Oslo	Norway	Ostlandet	Oslo
 
-# Oman
+#	Oman
 Oman	Oman	Oman	Oman
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
 
-# Pakistan
+#	Pakistan
 Pakistan	Pakistan	Pakistan	Pakistan
 
-# Palau
+#	Palau
 Palau	Palau	Palau	Palau
 
-# Palestine
+#	Palestine
 Bethlehem	Palestine	Bethlehem	Bethlehem
 Hebron	Palestine	Hebron	Hebron
 Jenin	Palestine	Jenin	Jenin
@@ -1445,10 +1476,10 @@ Salfeet	Palestine	Salfit	Salfeet
 Tubas	Palestine	Tubas	Tubas
 Tulkarem	Palestine	Tulkarm	Tulkarem
 
-# Panama
+#	Panama
 Panama	Panama	Panama	Panama
 
-# PapuaNewGuinea
+#	PapuaNewGuinea
 PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea	PapuaNewGuinea
 Goroka	PapuaNewGuinea	EasternHighlands	Goroka
 PortMoresby	PapuaNewGuinea	NationalCapitalDistrict	PortMoresby
@@ -1458,11 +1489,11 @@ Vanimo	PapuaNewGuinea	Sandaun	Vanimo
 Simbu	PapuaNewGuinea	Simbu	Simbu
 EastSepik	PapuaNewGuinea	EastSepik	EastSepik
 
-# Paraguay
+#	Paraguay
 Paraguay	Paraguay	Paraguay	Paraguay
 Asuncion	Paraguay	Asuncion	Asuncion
 
-# Peru
+#	Peru
 Peru	Peru	Peru	Peru
 Ancon	Peru	Lima	Ancon
 Arequipa	Peru	Arequipa	Arequipa
@@ -1485,10 +1516,10 @@ Ucayali	Peru	Ucayali	Ucayali
 Yurimaguas	Peru	Loreto	Yurimaguas
 Zarumilla	Peru	Tumbes	Zarumilla
 
-# Philippines
+#	Philippines
 Philippines	Philippines	Philippines	Philippines
 
-# Poland
+#	Poland
 Poland	Poland	Poland	Poland
 Olsztyn	Poland	WarmianMasurian	Olsztyn
 Warsaw	Poland	Masovian	Warsaw
@@ -1496,7 +1527,7 @@ Gdansk	Poland	Pomeranian	Gdansk
 Rzeszow	Poland	Subcarpathia	Rzeszow
 Wroclaw	Poland	LowerSilesian	Wroclaw
 
-# Portugal
+#	Portugal
 Portugal	Portugal	Portugal	Portugal
 Acores	Portugal	Acores	Acores
 Aveiro	Portugal	Aveiro	Aveiro
@@ -1514,13 +1545,13 @@ Porto	Portugal	Porto	Porto
 Santarem	Portugal	Santarem	Santarem
 VilaReal	Portugal	VilaReal	VilaReal
 
-# PuertoRico
+#	PuertoRico
 PuertoRico	PuertoRico	PuertoRico	PuertoRico
 
-# Qatar
+#	Qatar
 Qatar	Qatar	Qatar	Qatar
 
-# Romania
+#	Romania
 Romania	Romania	Romania	Romania
 Alba	Romania	Alba	Alba
 Arad	Romania	Arad	Arad
@@ -1565,7 +1596,7 @@ Vaslui	Romania	Vaslui	Vaslui
 Valcea	Romania	Valcea	Valcea
 Vrancea	Romania	Vrancea	Vrancea
 
-# Russia
+#	Russia
 Russia	Russia	Russia	Russia
 Alania	Russia	OssetiaAlania	Alania
 Anadyr	Russia	Chukotka	Anadyr
@@ -1651,31 +1682,33 @@ Yaroslavl	Russia	Yaroslavl	Yaroslavl
 Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
 
-# Rwanda
+#	Rwanda
 Rwanda	Rwanda	Rwanda	Rwanda
 
-# SaintKitts
+#	SaintKitts
 SaintKitts	SaintKitts	SaintKitts	SaintKitts
 StKitts	SaintKitts	SaintKitts	SaintKitts
+saint_kitts_and_nevis	SaintKitts	SaintKitts	SaintKitts
+SaintKittsAndNevis	SaintKitts	SaintKitts	SaintKitts
 
-# SaintLucia
+#	SaintLucia
 SaintLucia	SaintLucia	SaintLucia	SaintLucia
 
-# Samoa
+#	Samoa
 Samoa	Samoa	Samoa	Samoa
 
-# SaudiArabia
+#	SaudiArabia
 SaudiArabia	SaudiArabia	SaudiArabia	SaudiArabia
 Jeddah	SaudiArabia	Makkah	Jeddah
 Riyadh	SaudiArabia	Riyadh	Riyadh
 
-# Senegal
+#	Senegal
 Senegal	Senegal	Senegal	Senegal
 Dakar	Senegal	Dakar	Dakar
 Fatick	Senegal	Fatick	Fatick
 Niakhar	Senegal	Fatick	Niakhar
 
-# Serbia
+#	Serbia
 Serbia	Serbia	Serbia	Serbia
 Belgrade	Serbia	Belgrade	Belgrade
 Cuprija	Serbia	Pomoravlje	Cuprija
@@ -1692,10 +1725,10 @@ Sabac	Serbia	Macva	Macva
 Valjevo	Serbia	Kolubara	Valjevo
 Zrenjanin	Serbia	Vojvodina	Zrenjanin
 
-# Seychelles
+#	Seychelles
 Seychelles	Seychelles	Seychelles	Seychelles
 
-# SierraLeone
+#	SierraLeone
 SierraLeone	SierraLeone	SierraLeone	SierraLeone
 Bo	SierraLeone	Bo	Bo
 Bombali	SierraLeone	Bombali	Bombali
@@ -1714,10 +1747,10 @@ WesternRural	SierraLeone	WesternRural	WesternRural
 WesternUrban	SierraLeone	WesternUrban	WesternUrban
 
 
-# Singapore
+#	Singapore
 Singapore	Singapore	Singapore	Singapore
 
-# Slovakia
+#	Slovakia
 Slovakia	Slovakia	Slovakia	Slovakia
 BanskaBystrica	Slovakia	Banskobystricky	BanskaBystrica
 Bratislava	Slovakia	Bratislava	Bratislava
@@ -1743,13 +1776,16 @@ Sastin	Slovakia	Trnava	Sastin
 SastinStraze	Slovakia	Trnava	SastinStraze
 Sobotiste	Slovakia	Trnava	Sobotiste
 
-# Slovenia
+#	Slovenia
 Slovenia	Slovenia	Slovenia	Slovenia
 
-# SolomonIslands
+#	SolomonIslands
 SolomonIslands	SolomonIslands	SolomonIslands	SolomonIslands
 
-# SouthAfrica
+#	Somalia
+Somalia	Somalia	Somalia	Somalia
+
+#	SouthAfrica
 SouthAfrica	SouthAfrica	SouthAfrica	SouthAfrica
 South-Africa	SouthAfrica	SouthAfrica	SouthAfrica
 Johannesburg	SouthAfrica	Gauteng	Johannesburg
@@ -1759,7 +1795,7 @@ CapeTown	SouthAfrica	WesternCape	CapeTown
 KwaZuluNatal	SouthAfrica	KwaZuluNatal	KwaZuluNatal
 Middleburg	SouthAfrica	Mpumalanga	Middleburg
 
-# SouthKorea
+#	SouthKorea
 SouthKorea	SouthKorea	SouthKorea	SouthKorea
 Busan	SouthKorea	Busan	Busan
 Changwon	SouthKorea	Gyeongsangnam	Changwon
@@ -1792,7 +1828,7 @@ Kyungnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Seoul	SouthKorea	Seoul	Seoul
 Ulsan	SouthKorea	Ulsan	Ulsan
 
-# Spain
+#	Spain
 Spain	Spain	Spain	Spain
 Alicante	Spain	Valencia	Alicante
 Aragon	Spain	Aragon	Aragon
@@ -1830,23 +1866,25 @@ Valladolid	Spain	CastileAndLeon	Valladolid
 Zamora	Spain	CastileAndLeon	Zamora
 Zaragoza	Spain	Aragon	Zaragoza
 
-# SriLanka
+#	SriLanka
 SriLanka	SriLanka	SriLanka	SriLanka
 Colombo	SriLanka	WesternProvince	SriLanka
 Karapitiya	SriLanka	SouthernProvince	Karapitiya
 Matara	SriLanka	SouthernProvince	Matara
 Ratnapura	SriLanka	Sabaragamuwa	Ratnapura
 
-# StVincentAndTheGrenadines
+#	StVincentAndTheGrenadines
 StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
+saint_vincent_and_the_grenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
+SaintVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
 
-# Sudan
+#	Sudan
 Sudan	Sudan	Sudan	Sudan
 
-# Suriname
+#	Suriname
 Suriname	Suriname	Suriname	Suriname
 
-# Sweden
+#	Sweden
 Sweden	Sweden	Sweden	Sweden
 Alingsas	Sweden	VastraGotaland	Alingsas
 Boras	Sweden	VastraGotaland	Boras
@@ -1873,14 +1911,14 @@ Vaxjo	Sweden	Kronoberg	Vaxjo
 Vimmerby	Sweden	Kalmar	Vimmerby
 Visby	Sweden	Gotland	Visby
 
-# Switzerland
+#	Switzerland
 Switzerland	Switzerland	Switzerland	Switzerland
 Geneva	Switzerland	Geneva	Geneva
 
-# Syria
+#	Syria
 Syria	Syria	Syria	Syria
 
-# Taiwan
+#	Taiwan
 Taiwan	Taiwan	Taiwan	Taiwan
 Kinmen	Taiwan	Kinmen	Kinmen
 Pingtung	Taiwan	Pingtung	Pingtung
@@ -1888,13 +1926,13 @@ Taipei	Taiwan	Taipei	Taipei
 Taoyuan	Taiwan	Taoyuan	Taoyuan
 Yilan	Taiwan	Yilan	Yilan
 
-# Tajikistan
+#	Tajikistan
 Tajikistan	Tajikistan	Tajikistan	Tajikistan
 
-# Tanzania
+#	Tanzania
 Tanzania	Tanzania	Tanzania	Tanzania
 
-# Thailand
+#	Thailand
 Thailand	Thailand	Thailand	Thailand
 Ayutthaya	Thailand	Ayutthaya	Ayutthaya
 Bangkok	Thailand	Bangkok	Bangkok
@@ -1935,19 +1973,19 @@ SuratThani	Thailand	SuratThani	SuratThani
 Tak	Thailand	Tak	Tak
 Udorn	Thailand	NakhonRatachasima	NongPhaiLom
 
-# Togo
+#	Togo
 Togo	Togo	Togo	Togo
 
-# Tonga
+#	Tonga
 Tonga	Tonga	Tonga	Tonga
 
-# TrinidadAndTobago
+#	TrinidadAndTobago
 Trinidad	TrinidadAndTobago	Trinidad	Trinidad
 
-# Tunisia
+#	Tunisia
 Tunisia	Tunisia	Tunisia	Tunisia
 
-# Turkey
+#	Turkey
 Turkey	Turkey	Turkey	Turkey
 Adana	Turkey	Adana	Adana
 Adiyaman	Turkey	Adiyaman	Adiyaman
@@ -2005,20 +2043,20 @@ Van	Turkey	Van	Van
 Yalova	Turkey	Yalova	Yalova
 Zonguldak	Turkey	Zonguldak	Zonguldak
 
-# Turkmenistan
+#	Turkmenistan
 Turkmenistan	Turkmenistan	Turkmenistan	Turkmenistan
 Ashgabat	Turkmenistan		Ashgabat
 
-# TurksAndCaicos
+#	TurksAndCaicos
 TurksAndCaicos	TurksAndCaicos	BritishOverseasTerritory	TurksAndCaicos
 
-# Tuvalu
+#	Tuvalu
 Tuvalu	Tuvalu	Tuvalu	Tuvalu
 
-# Uganda
+#	Uganda
 Uganda	Uganda	Uganda	Uganda
 
-# Ukraine
+#	Ukraine
 Ukraine	Ukraine	Ukraine	Ukraine
 Cherkasy	Ukraine	Cherkasy	Cherkasy
 Chernihiv	Ukraine	Chernihiv	Chernihiv
@@ -2047,12 +2085,12 @@ Zakarpattia	Ukraine	Zakarpattia	Zakarpattia
 Zakarpattia	Ukraine	Zakarpattia	Zakarpattia
 Zhytomyr	Ukraine	Zhytomyr	Zhytomyr
 
-# UnitedArabEmirates
+#	UnitedArabEmirates
 UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 Dubai	UnitedArabEmirates	Dubai	Dubai
 AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
 
-# UnitedKingdom
+#	UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
 Aldershot	UnitedKingdom	England	Aldershot
 Aylesbury	UnitedKingdom	England	Aylesbury
@@ -2093,7 +2131,7 @@ Headington	UnitedKingdom	England	Headington
 HERTS.	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
 Huntingdon	UnitedKingdom	England	Huntingdon
-HUNTINGDON. CAMBS.	UnitedKingdom	England	Huntingdon
+HUNTINGDON.	CAMBS.	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
 Kent	UnitedKingdom	England	Kent
 Lambeth	UnitedKingdom	England	Lambeth
@@ -2139,7 +2177,7 @@ Wythenshawe	UnitedKingdom	England	Wythenshawe
 Wales	UnitedKingdom	Wales	Wales
 York	UnitedKingdom	England	York
 
-# USA
+#	USA
 Alabama	USA	Alabama	Alabama
 Alaska	USA	Alaska	Alaska
 Arizona	USA	Arizona	Arizona
@@ -2248,21 +2286,27 @@ Sophia	USA	WestVirginia	Sophia
 StLouis	USA	Missouri	StLouis
 
 
-# Uruguay
+#	Uruguay
 Uruguay	Uruguay	Uruguay	Uruguay
 Montevideo	Uruguay	Montevideo	Montevideo
 Maldonando	Uruguay	Maldonando	Maldonando
 
-# Uzbekistan
+#	Uzbekistan
 Uzbekistan	Uzbekistan	Uzbekistan	Uzbekistan
 Tashkent	Uzbekistan	Tashkent	Tashkent
 
-# Venezuela
+#	Vanuatu
+Vanuatu	Vanuatu	Vanuatu	Vanuatu
+
+#	Yemen
+Yemen	Yemen	Yemen	Yemen
+
+#	Venezuela
 Venezuela	Venezuela	Venezuela	Venezuela
 Caracas	Venezuela	FederalCapital	Caracas
 Maracay	Venezuela	Aragua	Maracay
 
-# Vietnam
+#	Vietnam
 Vietnam	Vietnam	Vietnam	Vietnam
 BacGiang	Vietnam	BacGiang	BacGiang
 BacNinh	Vietnam	BacNinh	BacNinh
@@ -2280,9 +2324,9 @@ TayNguyen	Vietnam	DakLak	TayNguyen
 TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh
 
-# WallisAndFutuna
+#	WallisAndFutuna
 WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
 
-# Zambia
+#	Zambia
 Zambia	Zambia	Zambia	Zambia
 Lusaka	Zambia	Lusaka	Lusaka
