@@ -161,7 +161,7 @@ class parse(object):
 
     def add_sequence_fields(self, v, locus, authors, source, public=True, **kwargs):
         '''
-        add fields to the sequences defined aat the commandline
+        add fields to the sequences defined at the commandline
         '''
         if 'locus' not in v and locus is not None:
             if locus == 'null' or locus == 'none' or locus == 'None':
@@ -237,7 +237,7 @@ class parse(object):
             s['source'] = 'genbank'
             s['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
             s['sequence'] = str(record.seq).lower()
-            print("Processing " + s['accession'])            
+            print("Processing " + s['accession'])
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
                 s['title'] = reference.title
