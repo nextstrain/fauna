@@ -12,6 +12,38 @@ class denv_upload(upload):
 
         self.strain_fix_fname = "source-data/denv_strain_name_fix.tsv" # tsv with label\tfix names
 
+    def format_viruses(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        self.define_regions("source-data/geo_regions.tsv")
+        self.define_countries("source-data/geo_synonyms.tsv")
+        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
+        for doc in documents:
+            self.format_date(doc)
+            self.format_place(doc)
+            self.format_region(doc)
+            self.determine_latitude_longitude(doc, ['country'])
+            doc['strain'], doc['original_strain'] = self.fix_name(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
+
+    def format_sequences(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        for doc in documents:
+            self.format_place(doc)
+            self.format_date(doc)
+            doc['strain'], doc['original_strain'] = self.fix_name(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
+
+
     def fix_name(self, doc): # this finally gets called in the last line, which calls upload (method in upload.py), which calls format_viruses.
         original_name = doc['strain'] # keep copy of original name
 

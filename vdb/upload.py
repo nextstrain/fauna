@@ -38,7 +38,7 @@ class upload(parse):
         self.database = database.lower()
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         self.strains = {}
-        self.strain_fix_fname = None # tsv file with specific strain name replacements
+        self.strain_fix_fname = None
         self.virus_to_sequence_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
@@ -47,13 +47,12 @@ class upload(parse):
         '''
         self.connect(**kwargs)
         print("Uploading Viruses to VDB")
-        viruses, sequences = self.parse(**kwargs) # fasta fields designated in denv_upload.py, flu_upload.py, etc.
-
+        viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
-        self.format_viruses(viruses, **kwargs) # formats country/region/location/strain/dates included in virus_fasta_fields; must be run first, also parses the dictionaries of country -> region translation, etc.
-        self.format_sequences(sequences, **kwargs) # does the same for the fields included in sequence_fasta_fields
+        self.format_viruses(viruses, **kwargs)
+        self.format_sequences(sequences, **kwargs)
         print("")
-        print("Filtering out viruses") # I don't know what the filter functions do exactly.
+        print("Filtering out viruses")
         viruses = self.filter(viruses, 'strain', **kwargs)
         print("Filtering out sequences")
         sequences = self.filter(sequences, 'accession', **kwargs)
@@ -79,7 +78,6 @@ class upload(parse):
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
 
-
     def connect(self, **kwargs):
         if self.database not in self.uploadable_databases:
             raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
@@ -99,11 +97,11 @@ class upload(parse):
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
+            doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
             self.determine_latitude_longitude(doc, ['country'])
-            doc['strain'], doc['original_strain'] = self.fix_name(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
@@ -114,9 +112,8 @@ class upload(parse):
         if self.strain_fix_fname is not None:
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         for doc in documents:
-            self.format_place(doc)
+            doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
-            doc['strain'], doc['original_strain'] = self.fix_name(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
@@ -356,7 +353,7 @@ class upload(parse):
             else:
                 print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
         else:
-            print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
+            #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
             pass
 
     def get_latitude_longitude(self, country_code, location):
@@ -451,7 +448,7 @@ class upload(parse):
         '''
         Link the sequence information virus isolate information via the strain name
         '''
-        strain_name_to_virus_doc = {} # { strain_name1: { virus_object1: {sequences: [accessions], number_sequences = 1}, virus_object2: {...}, ...}, ....}
+        strain_name_to_virus_doc = {}
         for virus in viruses:
             if virus['strain'] not in strain_name_to_virus_doc:
                 strain_name_to_virus_doc[virus['strain']] = [virus]
