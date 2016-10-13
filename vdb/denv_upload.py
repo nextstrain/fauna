@@ -89,7 +89,7 @@ class denv_upload(upload):
 if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
     virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country', 7:'serotype'} # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
-    sequence_fasta_fields = {0:'accession', 1:'strain', 7: 'serotype', 3: 'collection_date', 5: 'country'}
+    sequence_fasta_fields = {0:'accession', 1:'strain', 2: 'locus', 3: 'collection_date', 5: 'country', 7: 'serotype'}
     # 0         1   2   3       4       5   6   7
     #>KP780172|#39|NA|2014_09_30|Human|China|NA|Dengue_virus_1234
 
