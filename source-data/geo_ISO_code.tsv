@@ -1,6 +1,15 @@
 country	code
 # Initially adapted from https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
 # Country names edited to match geo_regions.tsv
+africa	XX
+south_america	XX
+north_america	XX
+europe	XX
+south_asia	XX
+west_asia	XX
+japan_korea	XX
+southeast_asia	XX
+oceania	XX
 afghanistan	AF
 albania	AL
 algeria	DZ
