@@ -1,5 +1,6 @@
 country	region
 algeria	africa
+angola	africa
 rwanda	africa
 reunion	africa
 burkina_faso	africa
@@ -10,10 +11,12 @@ congo	africa
 cote_d_ivoire	africa
 democratic_republic_of_congo	africa
 djibouti	africa
+east_timor	southeast_asia
 equatorial_guinea	africa
 egypt	africa
 ethiopia	africa
 gabon	africa
+saint_kitts_and_nevis	north_america
 gambia	africa
 ghana	africa
 guinea	africa
@@ -22,6 +25,11 @@ kenya	africa
 liberia	africa
 madagascar	africa
 mali	africa
+marshall_islands	oceania
+somalia	africa
+vanuatu	oceania
+yemen	west_asia
+niue	oceania
 mauritanian	africa
 mauritius	africa
 morocco	africa
@@ -165,6 +173,8 @@ suriname	south_america
 trinidad_and_tobago	south_america
 uruguay	south_america
 venezuela	south_america
+aruba	south_america
+comoros	africa
 brunei	southeast_asia
 cambodia	southeast_asia
 indonesia	southeast_asia
