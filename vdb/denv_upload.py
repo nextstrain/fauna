@@ -44,42 +44,68 @@ class denv_upload(upload):
             self.fix_casing(doc)
 
 
-    def fix_name(self, doc): # this finally gets called in the last line, which calls upload (method in upload.py), which calls format_viruses.
+    def fix_name(self, doc):
+        '''
+        Given metadata annotations in doc, make new strain names like
+        DENV1234/country/ID/year
+        where ID is derived from the original strain ID with metadata redundancies removed
+        '''
+
         original_name = doc['strain'] # keep copy of original name
 
-        if self.replace_strain_name(original_name, self.fix_whole_name) != original_name:
-            name = (self.replace_strain_name(original_name, self.fix_whole_name)).lower() # if we've manually edited this specific name, leave that alone.
-        else: # Otherwise, make a new standard name.
-            s = None # First try and identify serotype from direct annotation or from the strain name.
-            if len(doc['serotype'].split('_'))==3: # dengue_virus_1234 --> 1234
-                s = doc['serotype'].split('_')[2]
+        try: # try to parse the year from the collection date
+            yr = str(int(doc['collection_date'][:4])) # Year is usually first 4 digits of collection date
+        except:
+            yr = 'NA'
 
-            else: # some version of D1/DENV1/DEN1 annotation in name
-                patterns = ['[\/\\_-]?DEN[1-4]{1}[\/\\_-]?', '[\/\\_-]?DENV[1-4]{1}[\/\\_-]?', '[\/\\_-]?D[1-4]{1}[\/\\_-]?']
-                for p in patterns: # Try each pattern, break if we find one that matches.
+        try:
+            s = 'DENV'+str(int(doc['serotype'].split('_')[2])) # Check for vipr serotype annotation like 'dengue_virus_1234'
+        except:
+            s = 'DENV'
+
+        country, division, region = doc['country'], doc['division'], doc['region']
+        try:
+            country_code = self.country_to_code[country]
+        except:
+            country_code='NA'
+
+        not_metadata = [] # Pull the parts of the original name that are not metadata redundancies.
+
+        split_name = re.split('[\W^_]+', original_name) # Split on any punctuation, look at each element individually.
+
+        for element in split_name: # Check each element to see if it looks like common kinds of metadata.
+            is_metadata = False
+
+            year_patterns = ['^%s$'%yr, '^%s$'%yr[-2:]]
+            geo_patterns = [country, division, region, '^%s$'%country_code ] ## Do the same thing we did for year, but with the country, region, city, and country code.
+            strain_patterns = ['DEN[1-4]{1}', 'DENV[1-4]{1}', 'D[1-4]{1}']
+
+            for p in year_patterns+geo_patterns: # Once we identify an element as metadata, we can chuck it.
+                if re.search(p, element, re.IGNORECASE):
+                    is_metadata = True
+                    break
+
+            if s == 'DENV' or is_metadata==False: # We still want to look for serotype annotations that got missed by vipr.
+                for p in strain_patterns:
                     try:
-                        s = re.search(p, original_name).group(0) # /DENV1/
-                        s = re.search('[1-4]{1}', s).group(0) # isolate the serotype number
+                        s = re.search(p, element).group(0) # DENV1
+                        s = 'DENV'+re.search('[1-4]{1}', s, re.IGNORECASE).group(0) # Reformat --> 'DENV1234'
+                        is_metadata = True # flag the element as metadata
                         break
                     except:
                         continue
-            try:
-                sero = 'd'+str(int(s)) # check if we isolated an integer, return as string
-            except: #
-                # print "Strain %s has apparent serotype %s, cannot parse; setting to `d`"%(original_name, doc['serotype'])
-                sero = 'd'
+            if is_metadata == False:
+                not_metadata.append(element)
 
-            try: # try to parse the year from the collection date
-                yr = str(int(doc['collection_date'][:4])) # Year is usually first 4 digits of collection date
-                assert yr[:2] == '19' or yr[:2]=='20'
-                name = '/'.join([sero, doc['country'], yr]).lower() # New name: d1234/country/year
-            except:
-                # print 'No year found for strain %s, setting to None'%original_name
-                # print 'Collection date annotation:', doc['collection_date']
-                yr = None
-                name = ('%s/%s/None'%(sero, doc['country'])).lower()
-        return name, original_name
+        if not_metadata == []:
+            new_id = 'NA' # figure out what to make the new id when they don't give one...
+        else:
+            new_id = '_'.join(not_metadata)
 
+        name = '%s/%s/%s/%s'%(s, doc['country'], new_id, yr)
+
+        print original_name, new_id
+        return original_name, name
 
     def fix_casing(self, document):
         for field in ['host']:
