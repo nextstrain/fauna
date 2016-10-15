@@ -101,7 +101,7 @@ class upload(parse):
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
-            self.determine_latitude_longitude(doc, ['country'])
+            self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
