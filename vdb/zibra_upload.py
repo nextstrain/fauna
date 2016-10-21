@@ -12,9 +12,10 @@ class zibra_upload(upload):
     def fix_name(self, name):
         original_name = name
         name = self.replace_strain_name(original_name, self.fix_whole_name)
-        name = name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
-        name = name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
         name = name.replace('Zika_virus', '').replace('Zikavirus', '').replace('Zika virus', '').replace('Zika', '').replace('ZIKV', '')
+        name = name.replace('Human', '').replace('human', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
+        name = name.replace('/Hu/', '')
+        name = name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
         name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
         name = re.sub('^[\/\_\-]', '', name)
         try:
