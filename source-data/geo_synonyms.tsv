@@ -30,7 +30,8 @@ Antarctica	Antarctica	Antarctica	Antarctica
 
 # Antigua
 antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
-AntiguaAndBarbuda		antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
+AntiguaAndBarbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
+Saintjohn	antigua_and_barbuda	antigua_and_barbuda	SaintJohn
 
 # Argentina
 Argentina	Argentina	Argentina	Argentina
@@ -162,24 +163,41 @@ Alagoas	Brazil	Alagoas	Alagoas
 Amazonas	Brazil	Amazonas	Amazonas
 Amapa	Brazil	Amapa	Amapa
 Bahia	Brazil	Bahia	Bahia
+Bahiaba	Brazil	Bahia	Bahia
 Belem	Brazil	Para	Belem
+Belempa	Brazil	Para	Belem
+Boavistaroraima	Brazil	Roraima	BoaVista
+Boavistarr	Brazil	Roraima	BoaVista
+Boavistaroraimastate	Brazil	Roraima	BoaVista
+Bragancapara	Brazil	Para	Braganca
+BrasiliaDf	Brazil	Brasilia	Brasilia
+Cambepr	Brazil	Parana	Cambe
 Ceara	Brazil	Ceara	Ceara
+Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
+Cuiabamt	Brazil	MatoGrosso	Cuiaba
 DistritoFederal	Brazil	DistritoFederal	DistritoFederal
 EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto
 Goias	Brazil	Goias	Goias
+Manausam	Brazil	Amazonas	Manaus
+Manausamazonasstate	Brazil	Amazonas	Manaus
 Maranhao	Brazil	Maranhao	Maranhao
+Maritubapara	Brazil	Para	Marituba
 MinasGerais	Brazil	MinasGerais	MinasGerais
 Macapa	Brazil	Amapa	Macapa
 MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul
 MatoGrosso	Brazil	MatoGrosso	MatoGrosso
 Natal	Brazil	RioGrandeDoNorte	Natal
+Nossasenhoradolivramentomt	Brazil	MatoGrosso	NossaSenhoraDoLivramento
 Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
 Pernambuco	Brazil	Pernambuco	Pernambuco
 Piaui	Brazil	Piaui	Piaui
 Parana	Brazil	Parana	Parana
+Poconemt	Brazil	MatoGrosso	Pocone
+Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Recife	Brazil	Pernambuco	Recife
 RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
+Ribeiraopretosaopaulo	Brazil	SaoPaulo	RibeiraoPreto
 RioDeJaneiro	Brazil	RioDeJaneiro	RioDeJaneiro
 RioGrandeDoNorte	Brazil	RioGrandeDoNorte	RioGrandeDoNorte
 Rondonia	Brazil	Rondonia	Rondonia
@@ -187,10 +205,15 @@ Roraima	Brazil	Roraima	Roraima
 RioDoSul	Brazil	SantaCatarina	RioDoSul
 RioGrandeDoSul	Brazil	RioGrandeDoSul	RioGrandeDoSul
 SantaCatarina	Brazil	SantaCatarina	SantaCatarina
+Santarempa	Brazil	Para	Santarem
+Saoluismaranhao	Brazil	Maranhao	SaoLuis
+Santossaopaulo	Brazil	SaoPaulo	Santos
+Spsaojosedoriopreto	Brazil	SaoJoseDoRioPreto	SaoJoseDoRioPreto
 Sergipe	Brazil	Brazil	Sergipe
 Salvador	Brazil	Bahia	Salvador
 Tocantins	Brazil	Brazil	Tocantins
 Uberlandia	Brazil	MinasGerais	Uberlandia
+Varzeagrandemt	Brazil	MatoGrosso	VarzeaGrande
 
 EstadoDeSaoPaulo	Brazil	SaoPaulo	SaoPaulo
 AltoAlegre	Brazil	SaoPaulo	AltoAlegre
@@ -259,6 +282,7 @@ BritishVirginIslands	BritishVirginIslands	BritishVirginIslands	BritishVirginIsla
 
 # Brunei
 Brunei	Brunei	Brunei	Brunei
+BruneiDarussalam	Brunei	Brunei	Brunei
 
 # Bulgaria
 Bulgaria	Bulgaria	Bulgaria	Bulgaria
@@ -269,6 +293,7 @@ BurkinaFaso	BurkinaFaso	BurkinaFaso	BurkinaFaso
 
 # Cambodia
 Cambodia	Cambodia	Cambodia	Cambodia
+Kampongchamhospital	Cambodia	KampongCham	KampongCham
 
 # Cameroon
 Cameroon	Cameroon	Cameroon	Cameroon
@@ -317,6 +342,7 @@ Coyhaique	Chile	Aisen	Coyhaique
 Cunco	Chile	Araucania	Cunco
 Curico	Chile	Maule	Curico
 Gorbea	Chile	Araucania	Gorbea
+Easterisland	Chile	EasterIsland	EasterIsland
 Iquique	Chile	Tarapaca	Iquique
 IslaDePascua	Chile	Valparaiso	IslaDePascua
 LaSerena	Chile	Coquimbo	LaSerena
@@ -348,6 +374,7 @@ China	China	China	China
 Anhui	China	Anhui	Anhui
 AnhuiDangtu	China	Anhui	Dangtu
 Anshan	China	Liaoning	Anshan
+Cixi	China	China	Cixi
 Baofeng	China	Henan	Baofeng
 Beijing	China	Beijing	Beijing
 BeijingShijingshan	China	Beijing	Shijingshan
@@ -376,19 +403,25 @@ Dalian	China	Liaoning	Dalian
 Dandong	China	Liaoning	Dandong
 Dianxin	China	Neimenggu	Dianxin
 Dongcheng	China	Beijing	Dongcheng
+Dongguan	China	Dongguan	Dongguan
 Du	China	China	Du
 Eryansuo	China	China	China
+Foshanguangdongprovince	China	Guangdong	Foshan
 Fujian	China	Fujian	Fujian
+Fujianprovince	China	Fujian	Fujian
 FujianGulou	China	Fujian	Gulou
 Fuzhou	China	Fujian	Fuzhou
 Gansu	China	Gansu	Gansu
 GansuChengguan	China	Gansu	Chengguan
 Guangdong	China	Guangdong	Guangdong
+Guangdongprovince	China	Guangdong	Guangdong
+Guangzhouguangdongprovince	China	Guangdong	Guangzhou
 GuangdongFutian	China	Guangdong	Futian
 GuangdongHaizhu	China	Guangdong	Haizhu
 GuangdongLuohu	China	Guangdong	Luohu
 Guanger	China	China	China
 Guangxi	China	Guangxi	Guangxi
+Guangxiprovince	China	Guangxi	Guangxi
 GuangxiLongzhou	China	Guangxi	Longzhou
 GuangxiQingxiu	China	Guangxi	Qingxiu
 GuangxiXixiangtang	China	Guangxi	Xixiangtang
@@ -396,6 +429,7 @@ Guangzhou	China	Guangdong	Guangzhou
 Gansu	China	Gansu	Gansu
 Guizhou	China	Guizhou	Guizhou
 Hainan	China	Hainan	Hainan
+Hainanprovince	China	Hainan	Hainan
 Haishu	China	Zhejiang	Haishu
 Hanfang	China	China	Hanfang
 Hangzhou	China	Zhejiang	Hangzhou
@@ -423,6 +457,7 @@ HunanWuling	China	Hunan	Wuling
 HunanYuhua	China	Hunan	Yuhua
 InnerMongolia	China	Neimenggu	Neimenggu
 Jinlinnanguan	China	China	China
+Jiangmenguangdongprovince	China	Guangdong	Jiangmen
 Jiangsu	China	Jiangsu	Jiangsu
 JiangsuBeitang	China	Jiangsu	Beitang
 JiangsuDanyang	China	Jiangsu	Danyang
@@ -461,6 +496,7 @@ Lishui	China	Zhejiang	Lishui
 LongYan	China	Fujian	Longyan
 Macau	China	Macau	Macau
 Nanchang	China	Jiangxi	Nanchang
+Nanhaiguangdongprovince	China	Guangdong	Nanhai
 Nanjing	China	Jiangsu	Nanjing
 Nanping	China	Fujian	Nanping
 NeiMongolHohhotHuimin	China	Neimenggu	Hohhot
@@ -468,6 +504,7 @@ NeiMongol	China	Neimenggu	Neimenggu
 Neimenggu	China	Neimenggu	Neimenggu
 Ningbo	China	Zhejiang	Ningbo
 Ningfang	China	China	China
+Ningbodiseasepreventionandcontrolcenterzhejiangprovince	China	Zhejiang	Ningbo
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia
 Putian	China	Fujian	Putian
@@ -537,6 +574,7 @@ Yuelu	China	Hunan	Yuelu
 Yunnan	China	Yunnan	Yunnan
 Zhangzhou	China	Fujian	Zhangzhou
 ZhejiangHaishu	China	Zhejiang	Haishu
+Zhejiangyiwu	China	Zhejiang	Yiwu
 Zhenjiang	China	Jiangsu	Zhenjiang
 Zhongshan	China	Guangdong	Zhongshan
 Zhejiang	China	Zhejiang	Zhejiang
@@ -546,8 +584,11 @@ Zhongyuan	China	Henan	Zhongyuan
 
 # Colombia
 Colombia	Colombia	Colombia	Colombia
+Antioquia	Colombia	Antioquia	Antioquia
+Guaviare	Colombia	Guaviare	Guaviare
 Bogota	Colombia	CapitalDistrict	Bogota
 Medellin	Colombia	Antioquia	Medellin
+Nortedesantander	Colombia	Nortedesantander	NorteDeSantander
 
 # Comoros
 Comoros	Comoros	Comoros	Comoros
@@ -560,6 +601,9 @@ CostaRica	CostaRica	CostaRica	CostaRica
 
 # CoteDIvoire
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
+Ctedivoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
+cÔtedivoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
+Abidjan	CoteDIvoire	Abidjan	Abidjan
 Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou
 Adjame	CoteDIvoire	Abidjan	Adjame
 Korhogo	CoteDIvoire	Savanes	Korhogo
@@ -625,10 +669,12 @@ Dominica	Dominica	Dominica	Dominica
 
 # DominicanRepublic
 DominicanRepublic	DominicanRepublic	DominicanRepublic	DominicanRepublic
+Riosanjuan	DominicanRepublic	RioSanJuan	RioSanJuan
 
 # EastTimor
 east_timor	EastTimor	EastTimor	EastTimor
 timor-_leste	EastTimor	EastTimor	EastTimor
+Timorleste	EastTimor	EastTimor	EastTimor
 EastTimor	EastTimor	EastTimor	EastTimor
 
 # Ecuador
@@ -733,8 +779,13 @@ Gyeonggi	FrenchGuiana	FrenchGuiana	Gyeonggi
 
 # FrenchPolynesia
 FrenchPolynesia	FrenchPolynesia	FrenchPolynesia	FrenchPolynesia
-Tahiti	FrenchPolynesia	FrenchPolynesia	Tahiti
+Borabora	FrenchPolynesia	FrenchPolynesia	BoraBora
 Papeete	FrenchPolynesia	FrenchPolynesia	Papeete
+Raiatea	FrenchPolynesia	FrenchPolynesia	Raiatea
+Tahaa	FrenchPolynesia	FrenchPolynesia	Tahaa
+Tahiti	FrenchPolynesia	FrenchPolynesia	Tahiti
+Tubuai	FrenchPolynesia	FrenchPolynesia	Tubuai
+Moorea	FrenchPolynesia	FrenchPolynesia	Moorea
 
 # Gabon
 Gabon	Gabon	Gabon	Gabon
@@ -867,6 +918,7 @@ Mangilao	Guam	Mangilao	Mangilao
 
 # Guatemala
 Guatemala	Guatemala	Guatemala	Guatemala
+Guatemalacity	Guatemala	Guatemala	GuatemalaCity
 
 # Guinea
 Guinea	Guinea	Guinea	Guinea
@@ -930,17 +982,21 @@ Delhi	India	Delhi	Delhi
 Dewas	India	MadhyaPradesh	Dewas
 Dhar	India	MadhyaPradesh	Dhar
 Dhule	India	Maharashtra	Dhule
+Dhulemaharashtra	India	Maharashtra	Dhule
 Dibrugarh	India	Assam	Dibrugarh
 EasternIndia	India	EasternIndia	EasternIndia
 Goa	India	Goa	Goa
 Gujarat	India	Gujarat	Gujarat
+Gwalior	India	MadhyaPradesh	Gwalior
 Harda	India	MadhyaPradesh	Harda
 Haryana	India	Haryana	Haryana
 Hnl	India	India	India
+Hyderaad	India	Telangana	Hyderabad
 Hyderabad	India	Telangana	Hyderabad
 Indore	India	MadhyaPradesh	Indore
 Itarsi	India	MadhyaPradesh	Itarsi
 Jabalpur	India	MadhyaPradesh	Jabalpur
+Jaipurrajasthan	India	Rajasthan	Jaipur
 Jalna	India	Maharashtra	Jalna
 JammuKashmir	India	JammuKashmir	JammuKashmir
 Jhabua	India	MadhyaPradesh	Jhabua
@@ -951,6 +1007,7 @@ Khandwa	India	MadhyaPradesh	Khandwa
 Khargone	India	MadhyaPradesh	Khargone
 Kol	India	India	Kol
 Kolkata	India	WestBengal	Kolkata
+Kolkatawestbengol	India	WestBengal	Kolkata
 Latur	India	Maharashtra	Latur
 MadhyaPradesh	India	MadhyaPradesh	MadhyaPradesh
 Manipur	India	Manipur	Manipur
@@ -960,12 +1017,14 @@ Nagda	India	MadhyaPradesh	Nagda
 Nagpur	India	Maharashtra	Nagpur
 Nanded	India	Maharashtra	Nanded
 Nashik	India	Maharashtra	Nashik
+Odisha	India	Odisha	Odisha
 Pachpadra	India	Rajasthan	Pachpadra
 Panchgani	India	Maharashtra	Panchgani
 Pandharpur	India	Maharashtra	Pandharpur
 Patna	India	Bihar	Patna
 Pondicherry	India	Pondicherry	Pondicherry
 Pune	India	Maharashtra	Pune
+Punemaharashtra	India	Maharashtra	Pune
 Punjab	India	Punjab	Punjab
 Raisen	India	MadhyaPradesh	Raisen
 Rajasthan	India	Rajasthan	Rajasthan
@@ -983,18 +1042,23 @@ Uttarakhand	India	Uttarakhand	Uttarakhand
 Vadodara	India	Gujarat	Vadodara
 Vadu	India	Maharashtra	Vadu
 Vellore	India	TamilNadu	Vellore
+Velloretamilnadu	India	TamilNadu	Vellore
 WestBengal	India	WestBengal	WestBengal
 Yavatmal	India	Maharashtra	Yavatmal
 
 # Indonesia
 Indonesia	Indonesia	Indonesia	Indonesia
+Bali	Indonesia	Bali	Bali
+Banten	Indonesia	Banten	Banten
+Bengkulu	Indonesia	Bengkulu	Bengkulu
+Bogorwestjava	Indonesia	WestJava	Bogor
 Jakarta	Indonesia	Jakarta	Jakarta
+Makassar	Indonesia	Makassar	Makassar
+Raas	Indonesia	EastJava	Raas
+Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
 Surakarta	Indonesia	Jateng	Surakarta
-Bali	Indonesia	Bali	Bali
-Bengkulu	Indonesia	Bengkulu	Bengkulu
-Banten	Indonesia	Banten	Banten
 
 # Iran
 Iran	Iran	Iran	Iran
@@ -1098,6 +1162,7 @@ Himeji	Japan	Hyogo	Himeji
 Hiroshima	Japan	Hiroshima	Hiroshima
 Hokkaido	Japan	Hokkaido	Hokkaido
 Hyogo	Japan	Hyogo	Hyogo
+Hyogonishinomiya	Japan	Hyogo	Nishinomiya
 Ibaraki	Japan	Ibaraki	Ibaraki
 Isahaya	Japan	Nagasaki	Isahaya
 Ishikawa	Japan	Ishikawa	Ishikawa
@@ -1142,6 +1207,9 @@ Suita	Japan	Osaka	Suita
 Tochigi	Japan	Tochigi	Tochigi
 Tokushima	Japan	Tokushima	Tokushima
 Tokyo	Japan	Tokyo	Tokyo
+Tokyoshibuyayoyogipark	Japan	Tokyo	Tokyo
+Tokyoshibuya	Japan	Tokyo	Tokyo
+Tokyoshinjuku	Japan	Tokyo	Tokyo
 Tottori	Japan	Tottori	Tottori
 Toyama	Japan	Toyama	Toyama
 Utsunomiya	Japan	Tochigi	Utsunomiya
@@ -1275,6 +1343,8 @@ Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
 
 # Malaysia
 Malaysia	Malaysia	Malaysia	Malaysia
+Johorbahru	Malaysia	Johor	JohorBahru
+Kualalumpur	Malaysia	Malaysia	KualaLumpur
 
 # Mali
 Mali	Mali	Mali	Mali
@@ -1301,13 +1371,20 @@ Candos	Mauritius	QuatreBornes	Candos
 Mexico	Mexico	Mexico	Mexico
 Yucatan	Mexico	Mexico	Yucatan
 Monterrey	Mexico	Mexico	Monterrey
+Morelos	Mexico	Morelos	Morelos
 Merida	Mexico	Mexico	Merida
 Puebla	Mexico	Puebla	Puebla
 QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
+Nayarit	Mexico	Nayarit	Nayarit
+Chiapas	Mexico	Chiapas	Chiapas
 MexicoCity	Mexico	DistritoFederal	MexicoCity
+Oaxaca	Mexico	Oaxaca	Oaxaca
+Hidalgo	Mexico	Hidalgo	Hidalgo
+Tapachula	Mexico	Chiapas	Tapachula
 
 # Micronesia
+MicronesiaFederatedStatesOf	Micronesia	Micronesia	Micronesia
 Micronesia	Micronesia	Micronesia	Micronesia
 Chuuk	Micronesia	Chuuk	Chuuk
 Nauru	Micronesia	Nauru	Nauru
@@ -1399,6 +1476,8 @@ Tilburg	Netherlands	NorthBrabant	Tilburg
 
 # NewCaledonia
 NewCaledonia	NewCaledonia	NewCaledonia	NewCaledonia
+Noumea	NewCaledonia	NewCaledonia	Noumea
+Dumbea	NewCaledonia	NewCaledonia	Dumbea
 
 # NewZealand
 NewZealand	NewZealand	NewZealand	NewZealand
@@ -1431,9 +1510,16 @@ Whanganui	NewZealand	ManawatuWanganui	Whanganui
 # Nicaragua
 Nicaragua	Nicaragua	Nicaragua	Nicaragua
 Andalucia	Nicaragua	Nicaragua	Andalucia
+Carazo	Nicaragua	Carazo	Carazo
+Chinandega	Nicaragua	Chinandega	Chinandega
 Esteli	Nicaragua	Esteli	Esteli
 Managua	Nicaragua	Managua	Managua
 Matagalpa	Nicaragua	Matagalpa	Matagalpa
+Rivas	Nicaragua	Rivas	Rivas
+Ciudadsandino	Nicaragua	Managua	CiudadSandino
+Nuevasegovia	Nicaragua	NuevaSegovia	NuevaSegovia
+Boaco	Nicaragua	Boaco	Boaco
+Masaya	Nicaragua	Masaya	Masaya
 
 # Niger
 Niger	Niger	Niger	Niger
@@ -1462,6 +1548,9 @@ Salalah	Oman	Dhofar	Salalah
 
 # Pakistan
 Pakistan	Pakistan	Pakistan	Pakistan
+Lahore	Pakistan	Punjab	Lahore
+Muridke	Pakistan	Punjab	Muridke
+Karachi	Pakistan	Sindh	Karachi
 
 # Palau
 Palau	Palau	Palau	Palau
@@ -1494,6 +1583,8 @@ EastSepik	PapuaNewGuinea	EastSepik	EastSepik
 # Paraguay
 Paraguay	Paraguay	Paraguay	Paraguay
 Asuncion	Paraguay	Asuncion	Asuncion
+Asuncioncentral	Paraguay	Asuncion	Asuncion
+Pedrojuancaballeroamambay	Paraguay	Amambay	PedroJuanCaballero
 
 # Peru
 Peru	Peru	Peru	Peru
@@ -1510,6 +1601,7 @@ Maldonado	Peru	MadreDeDios	Maldonado
 Lima	Peru	Lima	Lima
 Piura	Peru	Piura	Piura
 Pucallpa	Peru	Ucayali	Pucallpa
+Puertomaldonado	Peru	MadreDeDios	PuertoMaldonado
 Puno	Peru	Puno	Puno
 Sullana	Peru	Piura	Sullana
 Trujillo	Peru	LaLibertad	Trujillo
@@ -1799,6 +1891,7 @@ Middleburg	SouthAfrica	Mpumalanga	Middleburg
 
 # SouthKorea
 SouthKorea	SouthKorea	SouthKorea	SouthKorea
+Korearepublicof	SouthKorea	SouthKorea	SouthKorea
 Busan	SouthKorea	Busan	Busan
 Changwon	SouthKorea	Gyeongsangnam	Changwon
 Cheonbuk	SouthKorea	Jeollabuk	Jeonbuk
@@ -1857,6 +1950,7 @@ Navarra	Spain	Navarra	Navarra
 Oviedo	Spain	Asturias	Oviedo
 PaisVasco	Spain	BasqueCountry	PaisVasco
 Palencia	Spain	CastileAndLeon	Palencia
+Santander	Spain	Cantabria	Santander
 Salamanca	Spain	CastileAndLeon	Salamanca
 SanSebastian	Spain	BasqueCountry	SanSebastian
 Segovia	Spain	CastileAndLeon	Segovia
@@ -1923,6 +2017,8 @@ Syria	Syria	Syria	Syria
 
 # Taiwan
 Taiwan	Taiwan	Taiwan	Taiwan
+TaiwanProvinceOfChina	Taiwan	Taiwan	Taiwan
+Hsiaoliuchiuisletpingtong	Taiwan	Pingtung	Pingtung
 Kinmen	Taiwan	Kinmen	Kinmen
 Pingtung	Taiwan	Pingtung	Pingtung
 Taipei	Taiwan	Taipei	Taipei
@@ -1945,6 +2041,8 @@ ChiangMai	Thailand	ChiangMai	ChiangMai
 ChiangRai	Thailand	ChiangRai	ChiangRai
 Chonburi	Thailand	Chonburi	Chonburi
 CuTha	Thailand	Thailand	CuTha
+Kampheangphet	Thailand	KamphaengPhet	KamphaengPhet
+Kampheangephet	Thailand	KamphaengPhet	KamphaengPhet
 KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet
 KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
@@ -1984,6 +2082,7 @@ Tonga	Tonga	Tonga	Tonga
 
 # TrinidadAndTobago
 Trinidad	TrinidadAndTobago	Trinidad	Trinidad
+Trinidadandtobago	TrinidadAndTobago	Trinidad	Trinidad
 
 # Tunisia
 Tunisia	Tunisia	Tunisia	Tunisia
@@ -2229,6 +2328,8 @@ Utah	USA	Utah	Utah
 Vermont	USA	Vermont	Vermont
 Virginia	USA	Virginia	Virginia
 VirginIslands	USA	VirginIslands	VirginIslands
+Usvirginislandssaintthomas	USA	VirginIslands	StThomas
+usvirginislandssaintcroix	USA	VirginIslands	StCroix
 Washington	USA	Washington	Washington
 WestVirginia	USA	WestVirginia	WestVirginia
 Wisconsin	USA	Wisconsin	Wisconsin
@@ -2267,6 +2368,7 @@ Houston	USA	Texas	Houston
 Kansas	USA	Kansas	Kansas
 Lackland	USA	Texas	Lackland
 LosAngeles	USA	California	LosAngeles
+Keywestfl	USA	Florida	KeyWest
 Mayoclinic	USA	Minnesota	Mayoclinic
 Minneapolis	USA	Minnesota	Minneapolis
 Memphis	USA	Tennessee	Memphis
@@ -2306,8 +2408,11 @@ Yemen	Yemen	Yemen	Yemen
 
 # Venezuela
 Venezuela	Venezuela	Venezuela	Venezuela
+Districtfederalcaracas	Venezuela	FederalCapital	Caracas
+Dfcaracas	Venezuela	FederalCapital	Caracas
 Caracas	Venezuela	FederalCapital	Caracas
 Maracay	Venezuela	Aragua	Maracay
+Aragua	Venezuela	Aragua	Aragua
 
 # Vietnam
 Vietnam	Vietnam	Vietnam	Vietnam
