@@ -1,5 +1,14 @@
 location	country_code	latitude	longitude
+africa	XX	4.070194	21.824559
+south_america	XX	-13.083583	-58.470721
+north_america	XX	37.497671	-99.429941
+europe	XX	49.646237	10.799454
+south_asia	XX	24.485438	76.513158
+west_asia	XX	34.000094	48.732280
+southeast_asia	XX	3.020567	112.390683
+oceania	XX	-27.886992	141.921933
 aruba	AW	12.5211	69.9683
+japan_korea	XX	35.845119	136.736386
 sapporo	JP	43.044768	141.337215
 hokkaido	JP	43.4519831	142.8197834
 kanagawa	JP	35.3149965	139.357853197
@@ -305,7 +314,7 @@ chaoyang	CN	41.5754767	120.4390738
 jilin	CN	42.9995032	125.9816054
 almaty	KZ	43.21984255	76.9183518875
 gifu	JP	35.7867449	137.0460777
-udon _thani	TH	17.45708785	102.83647597
+udon_thani	TH	17.45708785	102.83647597
 yamanashi	JP	35.6399328	138.6380495
 memphis	US	35.1490215	-90.0516284
 athens	GR	37.9841493	23.7279843
@@ -931,7 +940,7 @@ macedonia	MK	41.66667	21.75
 ethiopia	ET	9.0	39.5
 castile_and_leon	ES	41.65518	-4.72372
 bermuda	BM	32.2949	-64.78303
-mato _grosso	BR	-13.0	-56.0
+mato_grosso	BR	-13.0	-56.0
 wallonia	BE	50.63373	5.56749
 new_bern	US	35.10849	-77.04411
 la_paz	BO	-16.5	-68.15
@@ -1423,7 +1432,7 @@ qinhuai	CN	32.00497	118.80064
 zanjan	IR	36.6736	48.4787
 aveiro	PT	40.64427	-8.64554
 santarem	PT	39.23333	-8.68333
-rio _claro	BR	-22.4311	-47.5642
+rio_claro	BR	-22.4311	-47.5642
 estado_de_goias	BR	-16.67861	-49.25389
 ribeirao	BR	-21.1775	-47.81028
 madeira	PT	32.63333	-16.9
@@ -1675,7 +1684,7 @@ lautaro	CL	-38.53066	-72.43652
 arica	CL	-18.4746	-70.29792
 arauco	CL	-37.21717	-73.23439
 khanty_mansia	RU	61.00417	69.00194
-artur _nogueira	BR	-22.57306	-47.1725
+artur_nogueira	BR	-22.57306	-47.1725
 catanduva	BR	-21.13778	-48.97278
 jau	BR	-22.29639	-48.55778
 itapira	BR	-22.43611	-46.82167
@@ -1727,8 +1736,8 @@ liberia	LR	5.7499721	-9.3658523
 equatorial_guinea	GQ	1.613172	10.5170357
 democratic_republic_of_congo	CD	-2.9814343	23.8222636
 congo	CG	-0.7264326	15.6419155
-mato _grosso 	BR	-12.2115008	-55.5716546
-zhytomyr 	UA	50.2598298	28.6692345
+mato_grosso	BR	-12.2115008	-55.5716546
+zhytomyr	UA	50.2598298	28.6692345
 mato_grosso	BR	-12.2115008	-55.5716546
 rio_claro	BR	-22.4108329	-47.5608329
 artur_nogueira	BR	-22.5594999	-47.1324463286
@@ -1761,18 +1770,7 @@ barysaw	BY	54.2240493	28.5117661
 zonguldak	TR	41.250324	31.8389738
 tarragona	ES	41.1172364	1.2546057
 lleida	ES	41.6147605	0.6267842
-naryan-_mar	RU	67.6379965	53.0068636
+naryan_mar	RU	67.6379965	53.0068636
 guinea	GN	10.7226226	-10.7083586
 angola	AO	-11.8775767	17.5691241
-comoros	KM	-12.2045175	44.2832964
-niue	NU	-19.0536413	-169.861341
-marshall_islands	MH	6.9518742	170.9985095
-somalia	SO	8.3676771	49.083416
-vanuatu	VU	-16.5255068	168.1069154
-yemen	YE	16.3471243	47.8915271
-laos	LA	20.0171109	103.378253
-borneo	ID	1.429514	114.740731732
-saint_vincent_and_the_grenadines	VC	12.90447	-61.2765568
-east_timor	TL	-8.5151978	125.8375756
-antigua_and_barbuda	AG	17.079128	-61.8222515
-saint_kitts_and_nevis	KN	17.3462278	-62.7687276
+port_loko	SL	8.7638892	-12.7799026

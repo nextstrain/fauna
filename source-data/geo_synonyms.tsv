@@ -1455,8 +1455,10 @@ Oslo	Norway	Ostlandet	Oslo
 
 # Oman
 Oman	Oman	Oman	Oman
+Buraimi	Oman	AlBuraimi	Buraimi
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
+Salalah	Oman	Dhofar	Salalah
 
 # Pakistan
 Pakistan	Pakistan	Pakistan	Pakistan
@@ -1895,6 +1897,7 @@ Halmstad	Sweden	Halland	Halmstad
 Jonkoping	Sweden	Jonkoping	Jonkoping
 Kalmar	Sweden	Kalmar	Kalmar
 Karlstad	Sweden	Varmland	Karlstad
+Kristianstad	Sweden	Skane	Kristianstad
 Kungalv	Sweden	VastraGotaland	Kungalv
 Linkoping	Sweden	Ostergotland	Linkoping
 Lund	Sweden	Skane	Lund
