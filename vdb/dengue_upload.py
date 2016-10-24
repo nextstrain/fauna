@@ -155,20 +155,21 @@ class dengue_upload(upload):
         # date_patterns = [r'%s[\W^_]?%s[\W^_]?%s'%(day, month, year), r'%s[\W^_]?%s[\W^_]?%s'%(day, month, year[-2:]), # Full dates
         # r'%s[\W^_]?%s[\W^_]?%s'%(month, day, year), r'%s[\W^_]?%s[\W^_]?%s'%(month, day, year[-2:]),
         # r'%s[\W^_]?%s'%(month, year), r'%s[\W^_]?%s'%(month, year[-2:]), # month-year
-        date_patterns = [r'%s'%year, r'Y%s(\b|_)'%year[-2:], r'(\b|_)Y%s'%year[-2:], r'(\b|_)%s(\b|_)'%year[-2:], #r'(\b|_)%s(\b|_)'%month,  Just month or just year (offset by punctuation)
+        date_patterns = [r'%s'%year, r'Y%s(\b|_)'%year[-2:], r'(\b|_)Y%s'%year[-2:], r'(\b|_)%s'%year[-2:], r'%s(\b|_)'%year[-2:], #r'(\b|_)%s(\b|_)'%month,  Just month or just year (offset by punctuation)
         r'(\b|_)%s%s(\b|_)'%(year[-2:], country_code), r'(\b|_)%s%s(\b|_)'%(country_code, year[-2:]) # country code + year
         ]
+        disease_patterns = ['DF', 'DHF', 'AS', 'DSS', 'U', 'UD']
         geo_patterns = [r'(\b|_)%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}(\b|_)'%country_code,
         r'(\b|_)[\w]{1}%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}%s(\b|_)'%(country_code[0], country_code[1]),] # 2 or 3-letter country code (alone)
         host_patterns = [r'human', r'unknown', r'mosquito']
         strain_patterns = [r'(\b|_)DF(\b|_)', r'DEN[\W^_]?[1-4]{1}', r'DENV[\W^_]?[1-4]{1}', r'D[\W^_]?[1-4]{1}'] # Check for serotype annotation in the metadata.
-        all_patterns = date_patterns+geo_patterns+host_patterns+strain_patterns
+        all_patterns = disease_patterns+date_patterns+strain_patterns+geo_patterns+host_patterns
 
         for p in all_patterns:
             strain = re.sub(p, '', strain, re.IGNORECASE)
         strain = re.sub(r'[\W^_]', '', strain)                     # Remove punctuation and whitespace
-        strain = re.sub(country, '', strain, re.IGNORECASE)       # Last sweep for multi-word countries (e.g. East_Timor)
-        strain = re.sub(location, '', strain, re.IGNORECASE)       # Last sweep for multi-word cities
+        strain = strain.upper().replace(country.upper(), '')       # Last sweep for multi-word countries (e.g. East_Timor)
+        strain = strain.upper().replace(location.upper(), '')       # Last sweep for multi-word cities
 
         if strain == '':
             strain = ''
