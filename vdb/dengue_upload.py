@@ -10,7 +10,7 @@ class dengue_upload(upload):
         upload.__init__(self, **kwargs) # sets virus, viruses_table, sequences_table, database, uploadable_databases;
                                         # initiates empty objects for strains, strain_fix_fname, virus_to_sequence_transfer_fields
                                         # also calls parse.py __init__ --> set gbdb, checks for accession-type data in kwargs.
-        self.strain_fix_fname = "source-data/dengue_strain_name_fix.tsv" # tsv with label\tfix names
+        # self.strain_fix_fname = "source-data/dengue_strain_name_fix.tsv" # tsv with label\tfix names
 
     def upload(self, preview=False, **kwargs):
         '''
@@ -69,11 +69,12 @@ class dengue_upload(upload):
             if determine_location: # Check against geo source data?
                 if field in doc and doc[field] is not None:
 
-                    field.replace('cÔtedivoire', 'CoteDIvoire') # Cleanups specific to LANL formatting of dengue metadata
+                    # Cleanups specific to LANL formatting of dengue metadata
                     field.replace('Ningbodiseasepreventionandcontrolcenterzhejiangprovince', 'Ningbo')
-                    if field.endsin('province'):
+                    if field.endswith('province'):
                         field.replace('province', '')
-                    re.sub(r'[\s\W]','', doc[field])
+
+                    doc[field] = re.sub(r'[\s\W]','', doc[field])
                     if field in ['country', 'location'] and doc[field].lower() in ['south', 'northern', 'centralwest', 'westernprovince', 'northeast']:
                         doc[field] = None
                         continue
@@ -106,9 +107,14 @@ class dengue_upload(upload):
             self.format_region(doc)
             self.determine_latitude_longitude(doc, ['location', 'country'])
             self.fix_strain(doc)
-            self.fix_locus(doc)
+            # self.fix_locus(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
+            doc['locus'] = 'genome'
+            try:
+                doc['authors'] = doc['authors'].split(',')[0].split(' ')[-1]+' et al.'
+            except:
+                pass
 
     def fix_locus(self, doc, **kwargs):
         reference_loci = {'C': (95, 436), 'prM': (437, 934), 'E': (935, 2413), 'NS1': (2414, 3469), 'NS2A': (3470, 4123), 'NS2B': (4124, 4513), 'NS3': (4514, 6370), 'NS4A': (6371, 6820), 'NS4B': (6821, 7564), 'NS5': (7565, 10264)}
@@ -144,10 +150,10 @@ class dengue_upload(upload):
         '''
         original_strain = doc['strain'] # Keep copy of original name
 
-        if self.replace_strain_name(original_strain, self.fix_whole_name) != original_strain: # If we've manually edited this specific name, leave that alone.
-            doc['strain'], doc['original_strain'] = (self.replace_strain_name(original_strain, self.fix_whole_name)).upper(), original_strain
-            return
-        elif doc['isolate_name']!=None and doc['isolate_name']!=original_strain: # Check for alternate ID
+        # if self.replace_strain_name(original_strain, self.fix_whole_name) != original_strain: # If we've manually edited this specific name, leave that alone.
+        #     doc['strain'], doc['original_strain'] = (self.replace_strain_name(original_strain, self.fix_whole_name)).upper(), original_strain
+        #     return
+        if doc['isolate_name']!=None and doc['isolate_name']!=original_strain: # Check for alternate ID
             strain = doc['isolate_name']
             print 'Accession %s has isolate name %s and strain name %s. Using isolate name.'%(doc['accession'], doc['isolate_name'], original_strain)
         else:
@@ -216,8 +222,8 @@ class dengue_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
-    virus_attribs = ['strain', 'original_strain', 'virus', 'serotype','collection_date', 'region', 'country', 'location','authors', 'PMID'] # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
-    sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'collection_date', 'sequence']
+    virus_attribs = ['strain', 'original_strain', 'virus', 'serotype','collection_date', 'region', 'country', 'division', 'location'] # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
+    sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'sequence', 'authors', 'PMID', 'source']
 
     setattr(args, 'virus_attribs', virus_attribs)
     setattr(args, 'sequence_attribs', sequence_attribs)
