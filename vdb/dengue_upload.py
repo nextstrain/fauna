@@ -58,6 +58,42 @@ class dengue_upload(upload):
         data = data.to_dict(orient='index').values() # dataframe --> [ {column_name: value_row_0, ...}, ... {column_name: value_row_nsequences, ...} ]
         return data, ''
 
+    def format_place(self, doc, determine_location=True):
+        '''
+        Try to determine location information from location fields
+        Ensure snakecase formatting after assigning location fields
+        '''
+        location_fields = ['location', 'division', 'country']
+
+        for field in location_fields:
+            if determine_location: # Check against geo source data?
+                if field in doc and doc[field] is not None:
+
+                    field.replace('cÔtedivoire', 'CoteDIvoire') # Cleanups specific to LANL formatting of dengue metadata
+                    field.replace('Ningbodiseasepreventionandcontrolcenterzhejiangprovince', 'Ningbo')
+                    if field.endsin('province'):
+                        field.replace('province', '')
+                    re.sub(r'[\s\W]','', doc[field])
+                    if field in ['country', 'location'] and doc[field].lower() in ['south', 'northern', 'centralwest', 'westernprovince', 'northeast']:
+                        doc[field] = None
+                        continue
+
+                    result = self.determine_location(self.snakecase_to_camelcase(doc[field])) # check against synonymns in geo source data
+                    if result is not None:
+                        doc['location'], doc['division'], doc['country'] = result
+                        break
+                    else:
+                        print("couldn't parse location for ", doc['strain'], self.snakecase_to_camelcase(doc[field]))
+                        if "_" in doc[field]:  # French_Polynesia -> french_polynesia
+                            doc[field] = "_".join(doc[field].split("_")).lower()
+                        doc[field] = self.camelcase_to_snakecase(doc[field])
+            else:
+                if field in doc and doc[field] is not None:
+                    if "_" in doc[field]:  # French_Polynesia -> french_polynesia
+                        doc[field] = "_".join(doc[field].split("_")).lower()
+                    doc[field] = self.camelcase_to_snakecase(doc[field])
+
+
     def format_metadata(self, documents, **kwargs):
         if self.strain_fix_fname is not None:
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
@@ -66,14 +102,6 @@ class dengue_upload(upload):
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
             self.format_date(doc)
-            if doc['location'] != None:
-                doc['location'] = re.sub(r'[\s\W]','', doc['location'])
-                if doc['location'].lower() in ['south', 'northern', 'centralwest', 'westernprovince', 'northeast']:
-                    doc['location'] = None
-            if doc['country'] != None:
-                doc['country'] = re.sub(r'[\s\W]','', doc['country'])
-                if doc['country'].lower() in ['south', 'northern', 'centralwest', 'westernprovince']:
-                    doc['country'] = None
             self.format_place(doc)
             self.format_region(doc)
             self.determine_latitude_longitude(doc, ['location', 'country'])
