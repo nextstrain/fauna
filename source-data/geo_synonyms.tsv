@@ -406,22 +406,22 @@ Dongcheng	China	Beijing	Dongcheng
 Dongguan	China	Dongguan	Dongguan
 Du	China	China	Du
 Eryansuo	China	China	China
-Foshanguangdongprovince	China	Guangdong	Foshan
+Foshanguangdong	China	Guangdong	Foshan
 Fujian	China	Fujian	Fujian
-Fujianprovince	China	Fujian	Fujian
+Fujian	China	Fujian	Fujian
 FujianGulou	China	Fujian	Gulou
 Fuzhou	China	Fujian	Fuzhou
 Gansu	China	Gansu	Gansu
 GansuChengguan	China	Gansu	Chengguan
 Guangdong	China	Guangdong	Guangdong
-Guangdongprovince	China	Guangdong	Guangdong
-Guangzhouguangdongprovince	China	Guangdong	Guangzhou
+Guangdong	China	Guangdong	Guangdong
+Guangzhouguangdong	China	Guangdong	Guangzhou
 GuangdongFutian	China	Guangdong	Futian
 GuangdongHaizhu	China	Guangdong	Haizhu
 GuangdongLuohu	China	Guangdong	Luohu
 Guanger	China	China	China
 Guangxi	China	Guangxi	Guangxi
-Guangxiprovince	China	Guangxi	Guangxi
+Guangxi	China	Guangxi	Guangxi
 GuangxiLongzhou	China	Guangxi	Longzhou
 GuangxiQingxiu	China	Guangxi	Qingxiu
 GuangxiXixiangtang	China	Guangxi	Xixiangtang
@@ -429,7 +429,7 @@ Guangzhou	China	Guangdong	Guangzhou
 Gansu	China	Gansu	Gansu
 Guizhou	China	Guizhou	Guizhou
 Hainan	China	Hainan	Hainan
-Hainanprovince	China	Hainan	Hainan
+Hainan	China	Hainan	Hainan
 Haishu	China	Zhejiang	Haishu
 Hanfang	China	China	Hanfang
 Hangzhou	China	Zhejiang	Hangzhou
@@ -457,7 +457,7 @@ HunanWuling	China	Hunan	Wuling
 HunanYuhua	China	Hunan	Yuhua
 InnerMongolia	China	Neimenggu	Neimenggu
 Jinlinnanguan	China	China	China
-Jiangmenguangdongprovince	China	Guangdong	Jiangmen
+Jiangmenguangdong	China	Guangdong	Jiangmen
 Jiangsu	China	Jiangsu	Jiangsu
 JiangsuBeitang	China	Jiangsu	Beitang
 JiangsuDanyang	China	Jiangsu	Danyang
@@ -496,7 +496,7 @@ Lishui	China	Zhejiang	Lishui
 LongYan	China	Fujian	Longyan
 Macau	China	Macau	Macau
 Nanchang	China	Jiangxi	Nanchang
-Nanhaiguangdongprovince	China	Guangdong	Nanhai
+Nanhaiguangdong	China	Guangdong	Nanhai
 Nanjing	China	Jiangsu	Nanjing
 Nanping	China	Fujian	Nanping
 NeiMongolHohhotHuimin	China	Neimenggu	Hohhot
@@ -504,7 +504,6 @@ NeiMongol	China	Neimenggu	Neimenggu
 Neimenggu	China	Neimenggu	Neimenggu
 Ningbo	China	Zhejiang	Ningbo
 Ningfang	China	China	China
-Ningbodiseasepreventionandcontrolcenterzhejiangprovince	China	Zhejiang	Ningbo
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia
 Putian	China	Fujian	Putian
@@ -602,7 +601,6 @@ CostaRica	CostaRica	CostaRica	CostaRica
 # CoteDIvoire
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
 Ctedivoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
-cÔtedivoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
 Abidjan	CoteDIvoire	Abidjan	Abidjan
 Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou
 Adjame	CoteDIvoire	Abidjan	Adjame
