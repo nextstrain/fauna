@@ -6,8 +6,7 @@
   * Set the rest of the parameters as shown:  
 ![Parameters](./download_instructions.png)  
   * Hit "Search"  
-  * Select "Save Background Info" and check the box for "Click here to include the sequence."
-  ![Save](./download_instructions2.png)  
+  * Select "Save Background Info" and check the box for "Click here to include the sequence."  
 2. Move downloaded file to `fauna/data`
 3. Upload to vdb database
   * `python vdb/dengue_upload.py -db vdb -v dengue --fname results.tbl --ftype tsv`
