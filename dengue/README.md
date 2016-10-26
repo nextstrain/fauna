@@ -10,4 +10,4 @@
   ![Save](./download_instructions2.png)  
 2. Move downloaded file to `fauna/data`
 3. Upload to vdb database
-  * `python vdb/zika_upload.py -db vdb -v zika --source vipr --locus genome --fname results.tbl`
+  * `python vdb/dengue_upload.py -db vdb -v dengue --fname results.tbl --ftype tsv`
