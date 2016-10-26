@@ -173,7 +173,7 @@ class dengue_upload(upload):
         try:
             sero = 'DENV'+str(int(doc['serotype'][-1])) # Check for serotype annotation like 'dengue virus 1234'
         except ValueError:
-            sero = 'NA'
+            sero = 'DENV'
         try:
             country_code = self.country_to_code[country]
         except KeyError:
@@ -200,13 +200,13 @@ class dengue_upload(upload):
         strain = strain.upper().replace(location.upper(), '')       # Last sweep for multi-word cities
 
         if strain == '':
-            strain = ''
+            strain = 'NA'
         doc['original_strain'] = original_strain
         doc['strain'] = ('%s/%s/%s/%s'%(sero, country, strain, year)).strip().upper() # New strain name = DENV1234/COUNTRY/STRAIN_ID/YEAR
         doc['serotype'] = sero                                             # Update serotype in standard format
 
-        print original_strain
-        print doc['strain'], '\n\n'
+        # print original_strain
+        # print doc['strain'], '\n\n'
 
 
     def fix_casing(self, document):
