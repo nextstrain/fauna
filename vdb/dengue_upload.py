@@ -18,6 +18,7 @@ class dengue_upload(upload):
         self.connect(**kwargs)
         print("Uploading Viruses to VDB")
         data = self.parse(**kwargs)[0]                      # Calls parse_tsv_file below
+        self.remove_duplicate_sequences(data)               # Keeps oldest record of identical accession/sequence pairs. Also sorts by accession number.
         print('Formatting documents for upload')
         self.format_metadata(data, **kwargs)                # Pull source data, format place, date, strain, and citation metadata
         viruses, sequences = self.separate_viruses_sequences(data, **kwargs) # Split into separate virus and sequence objects,
@@ -59,6 +60,26 @@ class dengue_upload(upload):
         data = data.where((pd.notnull(data)), None) # Fill np.nan floats with nonetype objects to maintain compatibility
         data = data.to_dict(orient='index').values() # dataframe --> [ {column_name: value_row_0, ...}, ... {column_name: value_row_nsequences, ...} ]
         return data, '' # extra '' purely for syntactical reasons; ignored later.
+
+    def remove_duplicate_sequences(self, documents, **kwargs):
+        accessions = list(set([ doc['accession'] for doc in documents ])) # all accessions in data
+        accessions_to_documents = { a:[doc for doc in documents if doc['accession'] == a] for a in accessions}
+        # { accession:[record_dictionary1, record_dictionary2, ...]}
+        number_duplicates = 0
+        for a, docs in accessions_to_documents.iteritems():
+            sequences = set([ doc['sequence'].lower() for doc in docs ]) # check all the sequences for this accession are identical
+            if len(sequences) > 0 or len(docs)<2:
+                continue
+
+            docs.sort(key=lambda doc: doc['collection_date']) # sort records by collection date
+            oldest = docs[0]                                  # keep the oldest, delete the rest
+            duplicates = docs[1:]
+            for d in duplicates:
+                documents.remove(d)
+                number_duplicates += 1
+        documents.sort(key=lambda doc: doc['accession']) # sort by accession number to make strain name debugging easier later
+        if number_duplicates > 0:
+            print 'Removed %d duplicate accessions with the same sequence, kept the oldest record.'%number_duplicates
 
     def format_metadata(self, documents, **kwargs):
         self.define_regions("source-data/geo_regions.tsv")
@@ -113,7 +134,6 @@ class dengue_upload(upload):
                         doc[field] = "_".join(doc[field].split("_")).lower()
                     doc[field] = self.camelcase_to_snakecase(doc[field])
 
-
     def fix_locus(self, doc, **kwargs):
         reference_loci = {'C': (95, 436), 'prM': (437, 934), 'E': (935, 2413), 'NS1': (2414, 3469), 'NS2A': (3470, 4123), 'NS2B': (4124, 4513), 'NS3': (4514, 6370), 'NS4A': (6371, 6820), 'NS4B': (6821, 7564), 'NS5': (7565, 10264)}
         seq_loci = []
@@ -136,7 +156,7 @@ class dengue_upload(upload):
         ## Pull data, try the obvious first
         strain_id = doc['strain']
         doc['original_strain'] = doc['strain'] # Keep copy of original name
-        country_code, country, location, sero, year = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
+        country_code, country, division, location, sero, year = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
 
         if doc['isolate_name']!=None and doc['isolate_name']!=strain_id:    # Check for alternate ID field
             strain_id = doc['isolate_name']
@@ -150,45 +170,39 @@ class dengue_upload(upload):
             pass
 
         ### Remove metadata redundancies from the strain ID
-        disease_patterns = ['DF', 'DHF', 'AS', 'DSS', 'UD', 'EHI']
+        disease_patterns = ['DF', 'DHF', 'AS', 'DSS', 'UD', 'EHI',r'(\b|_)NA(\b|_)']
         date_patterns = [r'%s'%year, r'M?Y%s(\b|_)'%year[-2:], r'(\b|_)M?Y%s'%year[-2:], r'(\b|_)%s'%year[-2:], r'%s(\b|_)'%year[-2:], # just year (offset by punctuation)
         r'(\b|_)%s%s(\b|_)'%(year[-2:], country_code), r'(\b|_)%s%s(\b|_)'%(country_code, year[-2:])] # country code + year
-        geo_patterns = [r'(\b|_)%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}(\b|_)'%country_code, # 2 or 3-letter country code (alone)
+        geo_patterns = [r'(\b|_)%s'%country_code, r'%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}(\b|_)'%country_code, # 2 or 3-letter country code (alone)
         r'(\b|_)[\w]{1}%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}%s(\b|_)'%(country_code[0], country_code[1])]
-        host_patterns = [r'human', r'unknown', r'mosquito', r'(\b|_)h(\b|_)', r'(\b|_)hu(\b|_)', r'homosapien', r'homosapiens']
-        strain_patterns = [r'DEN[\W^_]?[1-4]{1}', r'DENV[\W^_]?[1-4]{1}', r'DV?[\W^_]?[1-4]{1}'] # serotype annotations
+        host_patterns = [r'human', r'unknown', r'mosquito', r'(\b|_)h(\b|_)', r'hu(\b|_)', r'(\b|_)hu', r'homosapien', r'homosapiens']
+        strain_patterns = [r'DEN[\W^_]?[1-4]{1}', r'DENV[\W^_]?[1-4]{1}', r'(\b|_)DV?[\W^_]?[1-4]{1}'] # serotype annotations
         punctuation_and_whitespace = [r'[\W^_]'] # word boundaries are useful above, but we want to remove them eventually.
-        multi_word_patterns = [country, location] # these are often multi-word; best to look after removing word boundaries.
-        if 'division' in doc:
-            multi_word_patterns.append(doc['division'])
+        multi_word_patterns = [country, location, division] # these are often multi-word; best to look after removing word boundaries.
+        all_patterns = disease_patterns+date_patterns+strain_patterns+geo_patterns+host_patterns # Loop through twice because sometimes order matters.
+        all_patterns = all_patterns*2 + punctuation_and_whitespace+multi_word_patterns           # Remove the punctuation and multi-word patterns once at the end.
 
-        all_patterns = disease_patterns+date_patterns+strain_patterns+geo_patterns+host_patterns+punctuation_and_whitespace+multi_word_patterns
-
-        # if doc['original_strain'] in ['BR DEN3 98-04', '98TW390', 'BR/SJRP/580/2012', 'INDIA G11337', 'Cuba_513_2001', 'D3/Hu/TL129NIID/2005']: # debug
-            # for k,v in doc.items():
-            #     if k != 'sequence':
-            #         print k, v
-            # for p in all_patterns: # Try and remove each of the above patterns in order.
-            #     print (p, strain_id.lower())
-            #     strain_id = re.sub(p, '', strain_id.lower(), re.IGNORECASE)
-        # else:
-        for p in all_patterns: # Try and remove each of the above patterns in order.
-            strain_id = re.sub(p, '', strain_id.lower(), re.IGNORECASE)
+        for p in all_patterns: # Try and remove each of the above patterns.
+            strain_id = re.sub(p, '', strain_id.lower(), flags=re.IGNORECASE)
 
         if strain_id == '':
             strain_id = 'NA'
             self.nonames.append((doc['accession'], doc['original_strain']))
         doc['strain'] = self.build_canonical_name(sero, country, strain_id, year) # New strain name = DENV1234/COUNTRY/STRAIN_ID/YEAR
         doc['sero'] = sero                                                   # Update serotype in standard format
-        # print doc['accession']
-        # print doc['original_strain']
-        # print doc['strain'], '\n\n'
+        print doc['accession']
+        print doc['original_strain']
+        print doc['strain'], '\n\n'
 
     def pull_metadata(self, doc, **kwargs): # Called within fix_strain above
         if doc['country'] != None:
             country = doc['country']
         else:
             country = 'NA'
+        try:
+            division = doc['division']
+        except:
+            division = 'NA'
         if doc['location'] != None:
             location = doc['location']
         else:
@@ -205,7 +219,7 @@ class dengue_upload(upload):
             country_code = self.country_to_code[country]
         except KeyError:
             country_code = 'NA'
-        return [country_code, country, location, sero, year]
+        return [country_code, country, division, location, sero, year]
 
     def build_canonical_name(self, sero, country, strain_id, year):
         return ('%s/%s/%s/%s'%(sero, country, strain_id, year)).strip().upper()
