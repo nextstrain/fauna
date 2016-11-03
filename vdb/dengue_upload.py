@@ -4,13 +4,16 @@ import pandas as pd
 from Bio import SeqIO
 from upload import upload
 from upload import parser
+from update import update
 
-class dengue_upload(upload):
+class dengue_upload(update):
     def __init__(self, **kwargs):
-        upload.__init__(self, **kwargs) # sets virus, viruses_table, sequences_table, database, uploadable_databases;
+        # upload.__init__(self, **kwargs) # update: sets virus, viruses_table, sequences_table, database, uploadable_databases;
                                         # initiates empty objects for strains, strain_fix_fname, virus_to_sequence_transfer_fields
-                                        # also calls parse.py __init__ --> set gbdb, checks for accession-type data in kwargs.
+                                        # parse: set gbdb, checks for accession-type data in kwargs.
+        update.__init__(self, **kwargs) # update(upload(parse))
         self.nonames=[]
+
     def upload(self, preview=False, **kwargs):
         '''
         format virus information, then upload to database
@@ -85,6 +88,7 @@ class dengue_upload(upload):
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
+        self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
             self.format_date(doc)
             self.format_place(doc) # overriden below
@@ -190,9 +194,9 @@ class dengue_upload(upload):
             self.nonames.append((doc['accession'], doc['original_strain']))
         doc['strain'] = self.build_canonical_name(sero, country, strain_id, year) # New strain name = DENV1234/COUNTRY/STRAIN_ID/YEAR
         doc['sero'] = sero                                                   # Update serotype in standard format
-        print doc['accession']
-        print doc['original_strain']
-        print doc['strain'], '\n\n'
+        # print doc['accession']
+        # print doc['original_strain']
+        # print doc['strain'], '\n\n'
 
     def pull_metadata(self, doc, **kwargs): # Called within fix_strain above
         if doc['country'] != None:
@@ -235,6 +239,38 @@ class dengue_upload(upload):
             sequences.append(s)
             viruses.append(v)
         return (viruses, sequences)
+
+    def get_genbank_dates(self, documents, **kwargs):
+        '''
+        Update all fields using genbank files
+        '''
+        print("Updating collection dates from genbank")
+        accessions = ','.join(list(set([ k['accession'].strip() for k in documents ])))
+        self.accessions=accessions
+        dates = self.get_genbank_sequences(**kwargs)[0]
+        dates = { k:v for (k,v) in dates }
+        for doc in documents:
+            if doc['accession'] in dates:
+                doc['collection_date'] = dates[doc['accession']]
+        print 'Updated genbank dates for %d documents'%len(dates)
+
+    def parse_gb_entries(self, handle, **kwargs):
+        '''
+        Go through genbank records to get proper collection dates
+        '''
+        dates = []
+        SeqIO_records = SeqIO.parse(handle, "genbank")
+        for record in SeqIO_records:
+            accession = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
+            for feat in record.features:
+                if feat.type == 'source' and 'collection_date' in feat.qualifiers:
+                    try:
+                        dates.append( (accession, self.convert_gb_date(feat.qualifiers['collection_date'][0]) ) )
+                    except:
+                        continue
+        handle.close()
+        print("There were " + str(len(dates)) + " records in the parsed file")
+        return (dates, [])
 
 if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
