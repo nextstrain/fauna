@@ -64,6 +64,72 @@ class dengue_upload(update):
         data = data.to_dict(orient='index').values() # dataframe --> [ {column_name: value_row_0, ...}, ... {column_name: value_row_nsequences, ...} ]
         return data, '' # extra '' purely for syntactical reasons; ignored later.
 
+    def format_metadata(self, documents, **kwargs):
+        self.define_regions("source-data/geo_regions.tsv")
+        self.define_countries("source-data/geo_synonyms.tsv")
+        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
+        self.get_genbank_dates(documents, **kwargs)
+        for doc in documents:
+            self.format_date(doc)
+            self.format_place(doc) # overriden below
+            self.format_region(doc)
+            self.determine_latitude_longitude(doc, ['location', 'country'])
+            self.fix_strain(doc)   # overridden below
+            doc['locus'] = 'genome' # temporary
+            try:
+                doc['authors'] = doc['authors'].split(',')[0].split(' ')[-1]+' et al.' # just keep the first author
+            except:
+                pass
+            # self.fix_locus(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+
+    def get_genbank_dates(self, documents, **kwargs):
+        '''
+        Update all fields using genbank files
+        '''
+        print("Updating collection dates from genbank")
+        accessions = ','.join(list(set([ k['accession'].strip() for k in documents ])))
+        self.accessions=accessions
+        dates = self.get_genbank_sequences(**kwargs)[0]
+        dates = { k:v for (k,v) in dates }
+        for doc in documents:
+            if doc['accession'] in dates:
+                doc['collection_date'] = dates[doc['accession']]
+        print 'Updated genbank dates for %d documents'%len(dates)
+
+    def parse_gb_entries(self, handle, **kwargs):
+        '''
+        Go through genbank records to get proper collection dates
+        '''
+        dates = []
+        SeqIO_records = SeqIO.parse(handle, "genbank")
+        for record in SeqIO_records:
+            accession = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
+            for feat in record.features:
+                if feat.type == 'source' and 'collection_date' in feat.qualifiers:
+                    dates.append( (accession, self.convert_gb_date(feat.qualifiers['collection_date'][0]) ) )
+        handle.close()
+        print("There were " + str(len(dates)) + " records in the parsed file")
+        return (dates, [])
+
+    def convert_gb_date(self, collection_date):
+        '''
+        Converts calendar dates between given formats
+        '''
+        N_fields = len(collection_date.split('-'))
+        if N_fields == 1:
+            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%Y'), '%Y-XX-XX')
+        elif N_fields == 2:
+            try:
+                return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%b-%Y'), '%Y-%m-XX')
+            except:
+                return '%s-XX'%(collection_date)
+        elif N_fields == 3:
+            try:
+                return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%d-%b-%Y'), '%Y-%m-%d')
+            except:
+                return collection_date
+
     def remove_duplicate_sequences(self, documents, **kwargs):
         accessions = list(set([ doc['accession'] for doc in documents ])) # all accessions in data
         accessions_to_documents = { a:[doc for doc in documents if doc['accession'] == a] for a in accessions}
@@ -83,25 +149,6 @@ class dengue_upload(update):
         documents.sort(key=lambda doc: doc['accession']) # sort by accession number to make strain name debugging easier later
         if number_duplicates > 0:
             print 'Removed %d duplicate accessions with the same sequence, kept the oldest record.'%number_duplicates
-
-    def format_metadata(self, documents, **kwargs):
-        self.define_regions("source-data/geo_regions.tsv")
-        self.define_countries("source-data/geo_synonyms.tsv")
-        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
-        self.get_genbank_dates(documents, **kwargs)
-        for doc in documents:
-            self.format_date(doc)
-            self.format_place(doc) # overriden below
-            self.format_region(doc)
-            self.determine_latitude_longitude(doc, ['location', 'country'])
-            self.fix_strain(doc)   # overridden below
-            doc['locus'] = 'genome' # temporary
-            try:
-                doc['authors'] = doc['authors'].split(',')[0].split(' ')[-1]+' et al.' # just keep the first author
-            except:
-                pass
-            # self.fix_locus(doc)
-            self.rethink_io.check_optional_attributes(doc, [])
 
     def format_place(self, doc, determine_location=True):
         '''
@@ -240,37 +287,6 @@ class dengue_upload(update):
             viruses.append(v)
         return (viruses, sequences)
 
-    def get_genbank_dates(self, documents, **kwargs):
-        '''
-        Update all fields using genbank files
-        '''
-        print("Updating collection dates from genbank")
-        accessions = ','.join(list(set([ k['accession'].strip() for k in documents ])))
-        self.accessions=accessions
-        dates = self.get_genbank_sequences(**kwargs)[0]
-        dates = { k:v for (k,v) in dates }
-        for doc in documents:
-            if doc['accession'] in dates:
-                doc['collection_date'] = dates[doc['accession']]
-        print 'Updated genbank dates for %d documents'%len(dates)
-
-    def parse_gb_entries(self, handle, **kwargs):
-        '''
-        Go through genbank records to get proper collection dates
-        '''
-        dates = []
-        SeqIO_records = SeqIO.parse(handle, "genbank")
-        for record in SeqIO_records:
-            accession = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
-            for feat in record.features:
-                if feat.type == 'source' and 'collection_date' in feat.qualifiers:
-                    try:
-                        dates.append( (accession, self.convert_gb_date(feat.qualifiers['collection_date'][0]) ) )
-                    except:
-                        continue
-        handle.close()
-        print("There were " + str(len(dates)) + " records in the parsed file")
-        return (dates, [])
 
 if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
