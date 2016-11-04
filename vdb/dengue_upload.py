@@ -70,17 +70,16 @@ class dengue_upload(update):
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
-            self.format_date(doc)
+            self.format_date(doc) # overriden below
             self.format_place(doc) # overriden below
             self.format_region(doc)
             self.determine_latitude_longitude(doc, ['location', 'country'])
             self.fix_strain(doc)   # overridden below
-            doc['locus'] = 'genome' # temporary
             try:
                 doc['authors'] = doc['authors'].split(',')[0].split(' ')[-1]+' et al.' # just keep the first author
             except:
                 pass
-            # self.fix_locus(doc)
+            self.fix_locus_gene_list(doc)
             self.rethink_io.check_optional_attributes(doc, [])
 
     def get_genbank_dates(self, documents, **kwargs):
@@ -185,7 +184,7 @@ class dengue_upload(update):
                         doc[field] = "_".join(doc[field].split("_")).lower()
                     doc[field] = self.camelcase_to_snakecase(doc[field])
 
-    def fix_locus(self, doc, **kwargs):
+    def fix_locus_gene_list(self, doc, **kwargs):
         reference_loci = {'C': (95, 436), 'prM': (437, 934), 'E': (935, 2413), 'NS1': (2414, 3469), 'NS2A': (3470, 4123), 'NS2B': (4124, 4513), 'NS3': (4514, 6370), 'NS4A': (6371, 6820), 'NS4B': (6821, 7564), 'NS5': (7565, 10264)}
         seq_loci = []
         seq_start, seq_end = int(doc['start']), int(doc['stop']) # coordinates of this sequence
@@ -196,7 +195,12 @@ class dengue_upload(update):
             prop_match = float(match_end - match_start) / locus_length # < 0 if entirely outside of the reference coordinates.
             if prop_match >= 0.8: # call it a match if >=80% of the locus is covered by the sequence.
                 seq_loci.append(locus)
-        doc['locus'] = seq_loci
+        if seq_loci > 1: # if captured more than one gene, locus just == 'genome', keep the full list in an optional field (gene_list)
+            doc['locus'] = 'genome'
+            doc['gene_list'] = seq_loci
+        else:
+            doc['locus'] = seq_loci[0] # if only one gene in the sequence, both locus and the gene_list are the gene
+            doc['gene_list'] = seq_loci[0]
 
     def fix_strain(self, doc, **kwargs):
         '''
@@ -207,7 +211,7 @@ class dengue_upload(update):
         ## Pull data, try the obvious first
         strain_id = doc['strain']
         doc['original_strain'] = doc['strain'] # Keep copy of original name
-        country_code, country, division, location, sero, year = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
+        country_code, country, division, location, sero, year, month, day = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
 
         if doc['isolate_name']!=None and doc['isolate_name']!=strain_id:    # Check for alternate ID field
             strain_id = doc['isolate_name']
@@ -222,7 +226,10 @@ class dengue_upload(update):
 
         ### Remove metadata redundancies from the strain ID
         disease_patterns = ['DF', 'DHF', 'AS', 'DSS', 'UD', 'EHI',r'(\b|_)NA(\b|_)']
-        date_patterns = [r'%s'%year, r'M?Y%s(\b|_)'%year[-2:], r'(\b|_)M?Y%s'%year[-2:], r'(\b|_)%s'%year[-2:], r'%s(\b|_)'%year[-2:], # just year (offset by punctuation)
+        date_patterns = [r'%s[\W^_]?%s[\W^_]?%s'%(day, month, year), r'%s[\W^_]?%s[\W^_]?%s'%(day, month, year[-2:]), # Full dates
+        r'%s[\W^_]?%s[\W^_]?%s'%(month, day, year), r'%s[\W^_]?%s[\W^_]?%s'%(month, day, year[-2:]),
+        r'%s[\W^_]?%s'%(month, year), r'%s[\W^_]?%s'%(month, year[-2:]),                                              # month-year
+        r'%s'%year, r'M?Y%s(\b|_)'%year[-2:], r'(\b|_)M?Y%s'%year[-2:], r'(\b|_)%s'%year[-2:], r'%s(\b|_)'%year[-2:], # just year (offset by punctuation)
         r'(\b|_)%s%s(\b|_)'%(year[-2:], country_code), r'(\b|_)%s%s(\b|_)'%(country_code, year[-2:])] # country code + year
         geo_patterns = [r'(\b|_)%s'%country_code, r'%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}(\b|_)'%country_code, # 2 or 3-letter country code (alone)
         r'(\b|_)[\w]{1}%s(\b|_)'%country_code, r'(\b|_)%s[\w]{1}%s(\b|_)'%(country_code[0], country_code[1])]
@@ -241,9 +248,6 @@ class dengue_upload(update):
             self.nonames.append((doc['accession'], doc['original_strain']))
         doc['strain'] = self.build_canonical_name(sero, country, strain_id, year) # New strain name = DENV1234/COUNTRY/STRAIN_ID/YEAR
         doc['sero'] = sero                                                   # Update serotype in standard format
-        # print doc['accession']
-        # print doc['original_strain']
-        # print doc['strain'], '\n\n'
 
     def pull_metadata(self, doc, **kwargs): # Called within fix_strain above
         if doc['country'] != None:
@@ -263,6 +267,14 @@ class dengue_upload(update):
         except AttributeError:
             year = 'NA'
         try:
+            month = str(int(doc['collection_date'].split('-')[1]))
+        except:
+            month = 'NA'
+        try:
+            day = str(int(doc['collection_date'].split('-')[2]))
+        except:
+            day = 'NA'
+        try:
             sero = 'DENV'+str(int(doc['serotype'][-1])) # Check for serotype annotation like 'dengue virus 1234'
         except ValueError:
             sero = 'DENV'
@@ -270,7 +282,7 @@ class dengue_upload(update):
             country_code = self.country_to_code[country]
         except KeyError:
             country_code = 'NA'
-        return [country_code, country, division, location, sero, year]
+        return [country_code, country, division, location, sero, year, month, day]
 
     def build_canonical_name(self, sero, country, strain_id, year):
         return ('%s/%s/%s/%s'%(sero, country, strain_id, year)).strip().upper()
@@ -291,7 +303,7 @@ class dengue_upload(update):
 if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
     virus_attribs = ['strain', 'original_strain', 'virus', 'serotype','collection_date', 'region', 'country', 'division', 'location'] # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
-    sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'sequence', 'authors', 'PMID', 'source']
+    sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'sequence', 'authors', 'PMID', 'source', 'gene_list']
 
     setattr(args, 'virus_attribs', virus_attribs)
     setattr(args, 'sequence_attribs', sequence_attribs)
