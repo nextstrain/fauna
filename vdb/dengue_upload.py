@@ -68,7 +68,7 @@ class dengue_upload(update):
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
-        self.get_genbank_dates(documents, **kwargs)
+        # self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
             self.format_date(doc) # overriden below
             self.format_place(doc) # overriden below
@@ -155,16 +155,15 @@ class dengue_upload(update):
         Ensure snakecase formatting after assigning location fields
         '''
         location_fields = ['location', 'division', 'country']
-
         for field in location_fields:
             if determine_location: # Check against geo source data?
                 if field in doc and doc[field] is not None:
                     # Cleanups specific to LANL formatting of dengue metadata
-                    field.replace('Ningbodiseasepreventionandcontrolcenterzhejiangprovince', 'Ningbo')
-                    if field.endswith('province'):
-                        field.replace('province', '')
                     doc[field] = re.sub(r'[\s\W]','', doc[field])
-                    if field in ['country', 'location'] and doc[field].lower() in ['south', 'northern', 'centralwest', 'westernprovince', 'northeast']:
+                    doc[field] = doc[field].lower().replace('ningbodiseasepreventionandcontrolcenterzhejiangprovince', 'Ningbo')
+                    if doc[field].lower().endswith('province'):
+                        doc[field] = doc[field].lower().replace('province', '')
+                    if field in ['country', 'location'] and doc[field].lower() in ['south', 'northern', 'centralwest', 'western', 'northeast']:
                         doc[field] = None
                         continue
 
