@@ -117,6 +117,7 @@ class download(object):
         command = self.add_intervals_command(command, **kwargs)
         command = self.add_public_command(command, **kwargs)
         sequences = list(command.run())
+        sequences = filter(None, sequences)
         return list(sequences)
 
     def add_present_command(self, command, presents=[], **kwargs):
