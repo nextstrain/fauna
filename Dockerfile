@@ -31,4 +31,4 @@ ADD http://www.timeapi.org/utc/now /tmp/bustcache
 RUN git pull
 
 # default process
-CMD python -u vdb/flu_download.py -db vdb -v flu --select locus:HA subtype:h3n2 --interval collection_date:2016-01-01,2016-01-15 --pick_longest --fstem h3n2
+CMD python -u vdb/flu_download.py -db vdb -v flu --select locus:HA subtype:h3n2 --interval collection_date:2016-01-01,2016-01-15 --fstem h3n2
