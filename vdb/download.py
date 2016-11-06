@@ -2,6 +2,7 @@ import os, json, datetime, sys, re
 import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
+
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 
@@ -24,6 +25,7 @@ def get_parser():
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
     parser.add_argument('--years_back', type=str, default=None, help='number of past years to sample sequences from \'--years_back field:value\'')
     parser.add_argument('--relaxed_interval', default=False, action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
+    parser.add_argument('--keep_duplicates', action="store_true", help="Prevent action of resolving duplicates by choosing the longest sequence")
     return parser
 
 class download(object):
@@ -178,9 +180,9 @@ class download(object):
             raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
         return(older_date.upper(), newer_date.upper())
 
-    def resolve_duplicates(self, sequences, pick_longest=True, **kwargs):
+    def resolve_duplicates(self, sequences, keep_duplicates=False, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if pick_longest:
+        if not keep_duplicates:
             print("Resolving duplicate strains and locus by picking the longest sequence")
             for doc in sequences:
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:
