@@ -26,7 +26,16 @@ def get_parser():
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
     parser.add_argument('--years_back', type=str, help='number of past years to sample sequences from \'--years_back field:value\'')
     parser.add_argument('--relaxed_interval', action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
-    parser.add_argument('--keep_duplicates', action="store_true", help="Prevent default action of only keeping the longest sequence for duplicates of the same locus")
+
+    def duplicate_resolver(resolve_method):
+        method = str(resolve_method)
+        accepted_methods = ('keep_duplicates', 'choose_longest')
+        if method not in accepted_methods:
+            msg = '"{}" is not a supported duplicate resolve method'.format(method)
+            raise argparse.ArgumentTypeError(msg)
+        return method
+
+    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus")
     return parser
 
 
@@ -182,9 +191,9 @@ class download(object):
             raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
         return(older_date.upper(), newer_date.upper())
 
-    def resolve_duplicates(self, sequences, keep_duplicates=False, **kwargs):
+    def resolve_duplicates(self, sequences, resolve_method=None, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if not keep_duplicates:
+        if resolve_method == "choose_longest":
             print("Resolving duplicate strains and locus by picking the longest sequence")
             for doc in sequences:
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:
