@@ -137,7 +137,7 @@ Subset documents with these commands
 * `--present`: Select specific fields to be non-null eg. `--present field1 field2`
 * `--interval`: Select date fields to be in a certain interval eg. `--interval collection_date:2016-01-01,2016-01-15`
 
-Prevent the default of resolving duplicate sequences for the same locus with thi argument
+Prevent the default of resolving duplicate sequences for the same locus with this argument
 * `--keep_duplicates`: keep all duplicate sequences for the same locus
 
 ### Examples
