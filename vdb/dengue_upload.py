@@ -68,7 +68,7 @@ class dengue_upload(update):
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
-        # self.get_genbank_dates(documents, **kwargs)
+        self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
             self.format_date(doc) # overriden below
             self.format_place(doc) # overriden below

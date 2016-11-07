@@ -1,6 +1,7 @@
 import os,datetime
 from download import download
 from download import get_parser
+import rethinkdb as r
 
 class dengue_download(download):
     def __init__(self, **kwargs):
