@@ -2,29 +2,42 @@ import os, json, datetime, sys, re
 import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
+
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
+
 
 def get_parser():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-db', '--database', default='vdb', help="database to download from")
-    parser.add_argument('--rethink_host', default=None, help="rethink host url")
-    parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-    parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
+    parser.add_argument('--rethink_host', help="rethink host url")
+    parser.add_argument('--auth_key', help="auth_key for rethink database")
+    parser.add_argument('--local', action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', help="virus name")
     parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
-    parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
+    parser.add_argument('--fstem', help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
     parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
-    parser.add_argument('--public_only', default=False, action="store_true", help="include to subset public sequences")
+    parser.add_argument('--public_only', action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
-    parser.add_argument('--years_back', type=str, default=None, help='number of past years to sample sequences from \'--years_back field:value\'')
-    parser.add_argument('--relaxed_interval', default=False, action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
+    parser.add_argument('--years_back', type=str, help='number of past years to sample sequences from \'--years_back field:value\'')
+    parser.add_argument('--relaxed_interval', action="store_true", help="Relaxed comparison to date interval, 2016-XX-XX in 2016-01-01 - 2016-03-01")
+
+    def duplicate_resolver(resolve_method):
+        method = str(resolve_method)
+        accepted_methods = ('keep_duplicates', 'choose_longest')
+        if method not in accepted_methods:
+            msg = '"{}" is not a supported duplicate resolve method'.format(method)
+            raise argparse.ArgumentTypeError(msg)
+        return method
+
+    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus")
     return parser
+
 
 class download(object):
     def __init__(self, database, virus, **kwargs):
@@ -178,9 +191,9 @@ class download(object):
             raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
         return(older_date.upper(), newer_date.upper())
 
-    def resolve_duplicates(self, sequences, pick_longest=True, **kwargs):
+    def resolve_duplicates(self, sequences, resolve_method=None, **kwargs):
         strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if pick_longest:
+        if resolve_method == "choose_longest":
             print("Resolving duplicate strains and locus by picking the longest sequence")
             for doc in sequences:
                 if doc['strain']+doc['locus'] in strain_locus_to_doc:

@@ -137,8 +137,8 @@ Subset documents with these commands
 * `--present`: Select specific fields to be non-null eg. `--present field1 field2`
 * `--interval`: Select date fields to be in a certain interval eg. `--interval collection_date:2016-01-01,2016-01-15`
 
-Resolve duplicate sequences for the same locus with these arguments
-* `--pick_longest`: pick the longest sequence
+Choose method of resolving duplicate sequences for the same locus
+* `--resolve_method`: keep_duplicates or choose_longest (default is to choose the longest sequence)
 
 ### Examples
 
@@ -154,7 +154,7 @@ Download sequences from `flu_download.py`:
 
     python vdb/download.py -db vdb -v zika --ftype json --countries brazil haiti --public_only
 
-    python vdb/flu_download.py -db test_vdb -v flu --select locus:HA --present age --interval collection_date:2016-01-01,2016-01-15 --pick_longest
+    python vdb/flu_download.py -db test_vdb -v flu --select locus:HA --present age --interval collection_date:2016-01-01,2016-01-15
 
 ## Updating
 
