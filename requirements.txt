@@ -5,3 +5,4 @@ rethinkdb==2.2.0.post2
 requests==2.11.1
 unidecode==0.4.19
 xlrd==1.0.0
+pandas==0.18.1
