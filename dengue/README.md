@@ -10,3 +10,6 @@
 2. Move downloaded file to `fauna/data`
 3. Upload to vdb database
   * `python vdb/dengue_upload.py -db vdb -v dengue --fname results.tbl --ftype tsv`
+
+## Download documents from VDB
+* `python vdb/dengue_download.py -db vdb -v dengue --fstem dengue`
