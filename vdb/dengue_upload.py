@@ -70,6 +70,7 @@ class dengue_upload(update):
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
+            doc['serotype'] = doc['serotype'].lower().replace(' ', '_')
             self.format_date(doc) # overriden below
             self.format_place(doc) # overriden below
             self.format_region(doc)

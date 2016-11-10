@@ -2,6 +2,8 @@ import os,datetime
 from download import download
 from download import get_parser
 import rethinkdb as r
+import time
+import re
 
 class dengue_download(download):
     def __init__(self, **kwargs):
@@ -29,8 +31,14 @@ if __name__=="__main__":
     fasta_fields = ['strain', 'accession', 'collection_date', 'region', 'country', 'division', 'location']
     args.fasta_fields = fasta_fields
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
+
     if args.fstem is None:
-        args.fstem = args.virus + '_' + current_date
+        if re.search(r'serotype:*',args.select[0]): # if restricting download to specific serotype, note in file name.
+            serotype=args.select[0][-1]
+            args.fstem = 'dengue_virus_%s'%serotype + '_'+ current_date
+        else:
+            args.fstem = 'dengue_virus' + '_' + current_date
+
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connfluVDB = dengue_download(**args.__dict__)
