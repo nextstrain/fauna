@@ -33,10 +33,10 @@ if __name__=="__main__":
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
 
     if args.fstem is None:
-        if re.search(r'serotype:*',args.select[0]): # if restricting download to specific serotype, note in file name.
+        try:
             serotype=args.select[0][-1]
             args.fstem = 'dengue_virus_%s'%serotype + '_'+ current_date
-        else:
+        except:
             args.fstem = 'dengue_virus' + '_' + current_date
 
     if not os.path.isdir(args.path):
