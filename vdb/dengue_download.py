@@ -28,16 +28,17 @@ class dengue_download(download):
 if __name__=="__main__":
     parser = get_parser()
     args = parser.parse_args()
-    fasta_fields = ['strain', 'accession', 'collection_date', 'region', 'country', 'division', 'location']
-    args.fasta_fields = fasta_fields
-    current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
-
+    args.fasta_fields = ['strain', 'accession', 'collection_date', 'region', 'country', 'division', 'location']
+    if args.virus == None:
+        setattr(args, 'virus', 'dengue')
+    if args.database == None:
+        setattr(args, 'database', 'vdb')
     if args.fstem is None:
         try:
             serotype=args.select[0][-1]
-            args.fstem = 'dengue_virus_%s'%serotype + '_'+ current_date
+            args.fstem = 'dengue_%s'%serotype
         except:
-            args.fstem = 'dengue_virus' + '_' + current_date
+            args.fstem = 'dengue'
 
     if not os.path.isdir(args.path):
         os.makedirs(args.path)

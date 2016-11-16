@@ -70,7 +70,10 @@ class dengue_upload(update):
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         self.get_genbank_dates(documents, **kwargs)
         for doc in documents:
-            doc['serotype'] = doc['serotype'].lower().replace(' ', '_')
+            try:
+                doc['serotype'] = str(int(doc['serotype'][-1]))
+            except:
+                doc['serotype'] = None
             self.format_date(doc) # overriden below
             self.format_place(doc) # overriden below
             self.format_region(doc)
@@ -276,7 +279,7 @@ class dengue_upload(update):
             day = 'NA'
         try:
             sero = 'DENV'+str(int(doc['serotype'][-1])) # Check for serotype annotation like 'dengue virus 1234'
-        except ValueError:
+        except TypeError:
             sero = 'DENV'
         try:
             country_code = self.country_to_code[country]
@@ -304,8 +307,16 @@ if __name__=="__main__":
     args = parser.parse_args() # parser is an argparse object initiated in parse.py
     virus_attribs = ['strain', 'original_strain', 'virus', 'serotype','collection_date', 'region', 'country', 'division', 'location'] # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
     sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'sequence', 'authors', 'PMID', 'source', 'gene_list']
+    if args.fname == None:
+        setattr(args, 'fname', 'results.tbl')
+        setattr(args, 'ftype', 'tsv')
+    if args.virus == None:
+        setattr(args, 'virus', 'dengue')
+    if args.database == None:
+        setattr(args, 'database', 'vdb')
 
     setattr(args, 'virus_attribs', virus_attribs)
     setattr(args, 'sequence_attribs', sequence_attribs)
+
     connVDB = dengue_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)
