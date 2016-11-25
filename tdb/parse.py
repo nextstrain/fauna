@@ -22,10 +22,10 @@ class parse(object):
         if ftype == "flat":
             flat_measurements = self.read_flat(**kwargs)
         elif ftype == "tables":
-            HI_titers = self.read_tables(**kwargs)  
+            HI_titers = self.read_tables(**kwargs)
             flat_measurements = self.table_to_flat(HI_titers)
         return flat_measurements
-        
+
     def read_flat(self, path, fstem, **kwargs):
         '''
         Read flat titer table, assumes file ends with .tsv
@@ -42,21 +42,25 @@ class parse(object):
         else:
             with open(file) as infile:
                 table_reader = csv.reader(infile, delimiter="\t")
-                header = {
-                    0: 'virus_strain',
-                    1: 'serum_strain',
-                    2: 'ferret_id',
-                    3: 'source',
-                    4: 'titer'
-                }
+                header = table_reader.next()
+                headers = {}
+                for i in range(len(header)):
+                    headers[i] = header[i]
+                # header = {
+                #     0: 'virus_strain',
+                #     1: 'serum_strain',
+                #     2: 'ferret_id',
+                #     3: 'source',
+                #     4: 'titer'
+                # }
                 for row in table_reader:
-                    m = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
+                    m = {key: row[ii] if ii < len(row) else "" for ii, key in headers.items()}
                     if re.search(r'[Ee][Gg][Gg]', m['ferret_id']):  # TODO FIX THIS FOR LATER IMPORTS
                         m['passage'] = 'egg'
                     else:
                         m['passage'] = 'cell'
                     flat_measurements.append(m)
-        return flat_measurements        
+        return flat_measurements
 
     def read_tables(self, path, **kwargs):
         '''

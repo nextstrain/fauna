@@ -44,16 +44,21 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
+        #self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
+        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'ferret_id', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
-        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
+        #self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
+        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'subtype', 'host', 'assay-type']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
         self.indexes = set()
-        self.passage = set()
+        # self.passage = set()
+        self.virus_strain_passage = set() #BP
+        self.serum_antigen_passage = set() #BP
         self.strain_names = set()
+        self.assay_type = set()
         self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV', 'NIMR_Feb2010_15.csv',
                                       'NIMR-REPORT-SEP2009_03.CSV', 'NIMR-REPORT-FEB2010_04.CSV', 'NIMR_FEB2010_15.CSV', 'NIMR_FEB2010_16.CSV', 'NIMR_Feb2010_16.csv',
                                       'NIMR-report-Feb2010_03.csv', 'NIMR-report-Feb2010_06.csv', 'NIMR-report-Feb2010_05.csv', 'NIMR-report-Sep2009_03.csv', 'NIMR-report-Feb2010_04.csv']
@@ -96,10 +101,13 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            self.format_passage(meas, 'passage', 'passage_category')
+            self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category') #BP
+            self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category') #BP
+            # self.format_passage(meas, 'passage', 'passage_category')
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
+            self.format_assay_type(meas) #BP
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
                 self.ref_virus_strains.add(meas['virus_strain'])
@@ -304,6 +312,10 @@ class upload(parse, flu_upload):
         '''
         Format ferret id attribute
         '''
+    def format_assay_type(self, meas):
+        '''
+        Format assay type attribute
+        '''
 
     def format_ref(self, meas):
         '''
@@ -347,10 +359,15 @@ class upload(parse, flu_upload):
         print(len(measurements), " measurements before filtering")
 #       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
+        if len(measurements) ==  0: print 'NO MEASUREMENTS BEFORE FILTERING' #BP
         print("Filtering out measurements missing required fields")
-        measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields), measurements)
+        print 'upload_fields', self.upload_fields #BP
+        print 'index_fields', self.index_fields #BP
+        measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
+        if len(measurements) ==  0: print 'NO MEASUREMENTS AFTER FILTERING BASED ON REQUIRED FIELDS' #BP
         print("Filtering out measurements with virus or serum strain names not formatted correctly")
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
+        if len(measurements) ==  0: print 'NO MEASUREMENTS AFTER FILTERING FOR BAD NAMES' #BP
         print(len(measurements), " measurements after filtering")
         return measurements
 
