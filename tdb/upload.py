@@ -45,11 +45,11 @@ class upload(parse, flu_upload):
 
         # fields that are needed to upload
         #self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'ferret_id', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type'] #index too but assign after checking
+        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'ferret_id', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type', 'virus_cdc_id', 'assay_date'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
         #self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
-        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'subtype', 'host', 'assay-type']
+        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'virus_passage', 'virus_passage_category', 'serum_passage', 'serum_passage_category', 'subtype', 'host', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
@@ -74,6 +74,7 @@ class upload(parse, flu_upload):
         print('Formatting documents for upload')
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
+        measurements = self.cleanup(measurements)
         measurements = self.create_index(measurements)
         self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
@@ -234,6 +235,9 @@ class upload(parse, flu_upload):
         Format date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
         Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
         '''
+        if 'assay_date' in meas.keys():
+            meas['date'] = meas['assay_date']
+            meas['source'] = 'cdc'
         # ex. 2002_04_25 to 2002-04-25
         lookup_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06',
                         'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
@@ -308,6 +312,8 @@ class upload(parse, flu_upload):
             print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain'])
             meas['date'] = None
 
+        meas['assay_date'] = meas['date']
+
     def format_id(self, meas):
         '''
         Format ferret id attribute
@@ -359,16 +365,27 @@ class upload(parse, flu_upload):
         print(len(measurements), " measurements before filtering")
 #       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
-        if len(measurements) ==  0: print 'NO MEASUREMENTS BEFORE FILTERING' #BP
         print("Filtering out measurements missing required fields")
-        print 'upload_fields', self.upload_fields #BP
-        print 'index_fields', self.index_fields #BP
         measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
-        if len(measurements) ==  0: print 'NO MEASUREMENTS AFTER FILTERING BASED ON REQUIRED FIELDS' #BP
         print("Filtering out measurements with virus or serum strain names not formatted correctly")
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
-        if len(measurements) ==  0: print 'NO MEASUREMENTS AFTER FILTERING FOR BAD NAMES' #BP
         print(len(measurements), " measurements after filtering")
+        return measurements
+
+    def cleanup(self, measurements):
+        '''
+        Remove unnecessary fields prior to upload and change field names to be consistent with tdb
+        '''
+        removed_fields = ['tested_by_fra','reported_by_fra','date','virus_collection_date']
+        for f in removed_fields:
+            for m in measurements:
+                m.pop(f,None)
+        updated_names = { 'assay-type':'assay_type', 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'serum_antigen_passage_category':'serum_passage_category', 'virus_strain_passage_category':'virus_passage_category'}
+        for old_name in updated_names.keys():
+            new_name = updated_names[old_name]
+            for m in measurements:
+                m[new_name] = m[old_name]
+                m.pop(old_name,None)
         return measurements
 
 if __name__=="__main__":
