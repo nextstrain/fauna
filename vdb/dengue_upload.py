@@ -24,6 +24,7 @@ class dengue_upload(update):
         self.remove_duplicate_sequences(data)               # Keeps oldest record of identical accession/sequence pairs. Also sorts by accession number.
         print('Formatting documents for upload')
         self.format_metadata(data, **kwargs)                # Pull source data, format place, date, strain, and citation metadata
+        data = self.remove_lab_strains(data, **kwargs)
         viruses, sequences = self.separate_viruses_sequences(data, **kwargs) # Split into separate virus and sequence objects,
                                                                              # with multiple records from the same isolate as separate
                                                                              # sequences linked to the same virus object
@@ -212,6 +213,7 @@ class dengue_upload(update):
         where ID is derived from the original strain ID with metadata redundancies removed
         '''
         ## Pull data, try the obvious first
+        reference_accessions = ['NC_001477', 'NC_001474', 'NC_001475', 'NC_002640']
         strain_id = doc['strain']
         doc['original_strain'] = doc['strain'] # Keep copy of original name
         country_code, country, division, location, sero, year, month, day = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
@@ -219,6 +221,9 @@ class dengue_upload(update):
         if doc['isolate_name']!=None and doc['isolate_name']!=strain_id:    # Check for alternate ID field
             strain_id = doc['isolate_name']
             print 'Accession %s has isolate name %s and strain name %s. Using isolate name.'%(doc['accession'], doc['isolate_name'], original_strain)
+        elif doc['accession'].split('.')[0] in reference_accessions:
+            doc['strain'] = self.build_canonical_name(sero, country, 'REFERENCE', year)
+            return
         try:                                                             # Many sequences already have a Broad ID. If so, use it.
             strain_id = re.search(r'BID[-]?V?[0-9]+', strain_id).group(0)   # e.g. BID-V123456, - and/or V optional.
             strain_id = re.sub(r'[\W^_]', '', strain_id)
@@ -289,6 +294,15 @@ class dengue_upload(update):
 
     def build_canonical_name(self, sero, country, strain_id, year):
         return ('%s/%s/%s/%s'%(sero, country, strain_id, year)).strip().upper()
+
+    def remove_lab_strains(self, data, **kwargs):
+        redflags = ['PLACEBO', 'MUTANT', 'HYBRID', 'DERIVATIVE']
+        for doc in data:
+            strain_id = doc['strain'].upper()
+            if any(word in strain_id for word in redflags) or all(word in strain_id for word in ['HR', 'MG']):
+                data.remove(doc)
+                print 'Removed lab strain %s'%strain_id
+        return data
 
     def separate_viruses_sequences(self, data, **kwargs):
         viruses = []
