@@ -237,7 +237,7 @@ class parse(object):
             s['source'] = 'genbank'
             s['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
             s['sequence'] = str(record.seq).lower()
-            print("Processing " + s['accession'])            
+            print("Processing " + s['accession'])
             reference = record.annotations["references"][0]
             if reference.title is not None and reference.title != "Direct Submission":
                 s['title'] = reference.title
@@ -303,7 +303,10 @@ class parse(object):
         elif N_fields == 2:
             return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%b-%Y'), '%Y-%m-XX')
         elif N_fields == 3:
-            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%d-%b-%Y'), '%Y-%m-%d')
+            if int(collection_date.split('-')[0]) < 32:
+                return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%d-%b-%Y'), '%Y-%m-%d')
+            else:
+                return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%Y-%m-%d'), '%Y-%m-%d')
 
     def get_upload_date(self):
         return str(datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d'))
