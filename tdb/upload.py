@@ -44,7 +44,6 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        #self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
         self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'ferret_id', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type', 'virus_cdc_id', 'assay_date'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
@@ -54,9 +53,8 @@ class upload(parse, flu_upload):
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
         self.indexes = set()
-        # self.passage = set()
-        self.virus_strain_passage = set() #BP
-        self.serum_antigen_passage = set() #BP
+        self.virus_strain_passage = set()
+        self.serum_antigen_passage = set()
         self.strain_names = set()
         self.assay_type = set()
         self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV', 'NIMR_Feb2010_15.csv',
@@ -102,13 +100,12 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category') #BP
-            self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category') #BP
-            # self.format_passage(meas, 'passage', 'passage_category')
+            self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category')
+            self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
-            self.format_assay_type(meas) #BP
+            self.format_assay_type(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
                 self.ref_virus_strains.add(meas['virus_strain'])
