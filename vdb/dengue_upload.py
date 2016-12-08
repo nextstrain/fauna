@@ -213,7 +213,7 @@ class dengue_upload(update):
         where ID is derived from the original strain ID with metadata redundancies removed
         '''
         ## Pull data, try the obvious first
-        reference_accessions = ['NC_001477', 'NC_001474', 'NC_001475', 'NC_002640']
+        preformatted_strains = { l.strip().split()[0]:l.strip().split()[1] for l in open('./source-data/dengue_strain_name_fix.tsv', 'r').readlines() }
         strain_id = doc['strain']
         doc['original_strain'] = doc['strain'] # Keep copy of original name
         country_code, country, division, location, sero, year, month, day = self.pull_metadata(doc) # Pull metadata from pre-processed annotations
@@ -221,8 +221,8 @@ class dengue_upload(update):
         if doc['isolate_name']!=None and doc['isolate_name']!=strain_id:    # Check for alternate ID field
             strain_id = doc['isolate_name']
             print 'Accession %s has isolate name %s and strain name %s. Using isolate name.'%(doc['accession'], doc['isolate_name'], original_strain)
-        elif doc['accession'].split('.')[0] in reference_accessions:
-            doc['strain'] = self.build_canonical_name(sero, country, 'REFERENCE', year)
+        elif doc['accession'].split('.')[0] in preformatted_strains:
+            doc['strain'] = preformatted_strains[doc['accession']]
             return
         try:                                                             # Many sequences already have a Broad ID. If so, use it.
             strain_id = re.search(r'BID[-]?V?[0-9]+', strain_id).group(0)   # e.g. BID-V123456, - and/or V optional.
