@@ -44,11 +44,11 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'ferret_id', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type', 'virus_cdc_id', 'assay_date'] #index too but assign after checking
+        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'serum_id', 'serum_host', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type', 'virus_cdc_id', 'assay_date'] #index too but assign after checking
         self.optional_fields = ['date', 'ref']
         self.overwritable_fields = ['titer', 'date', 'ref']
         #self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
-        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'virus_passage', 'virus_passage_category', 'serum_passage', 'serum_passage_category', 'subtype', 'host', 'assay_type', 'assay_date']
+        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'serum_host', 'virus_passage', 'virus_passage_category', 'serum_passage', 'serum_passage_category', 'subtype', 'host', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
@@ -77,7 +77,7 @@ class upload(parse, flu_upload):
         self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
-            self.upload_documents(self.table, measurements, **kwargs)
+            self.upload_documents(self.table, measurements, index='index', **kwargs)
         else:
             print("Titer Measurements:")
             print(json.dumps(measurements[0], indent=1))
@@ -106,6 +106,7 @@ class upload(parse, flu_upload):
             self.format_ref(meas)
             self.format_titer(meas)
             self.format_assay_type(meas)
+            self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
                 self.ref_virus_strains.add(meas['virus_strain'])
@@ -339,6 +340,17 @@ class upload(parse, flu_upload):
         '''
         Format titer number attribute
         '''
+
+    def format_serum_sample(self,meas):
+        '''
+        Format serum sample attribute for the measurements, so that there is
+        not a specific organism used for HI assays.
+        '''
+        if 'ferret_id' in meas.keys():
+            new_id = meas['ferret_id']
+            meas['serum_id'] = new_id
+            meas['serum_host'] = 'ferret'
+            meas.pop('ferret_id',None)
 
     def create_index(self,  measurements, output=False):
         '''
