@@ -69,8 +69,10 @@ class upload(parse, flu_upload):
         '''
         print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
+        print measurements[0] # BP
         print('Formatting documents for upload')
         self.format_measurements(measurements, **kwargs)
+        print measurements[0] # BP
         measurements = self.filter(measurements)
         measurements = self.cleanup(measurements)
         measurements = self.create_index(measurements)
@@ -100,8 +102,19 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category')
-            self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
+            ### BP
+            if 'passage' in meas.keys():
+                self.format_passage(meas, 'passage', 'passage_category') # BP
+                meas['serum_antigen_passage'] = meas['passage']
+                meas['serum_antigen_passage_category'] = meas['passage_category']
+                meas['virus_strain_passage'] = 'None'
+                meas['virus_strain_passage_category'] = 'None'
+                meas.pop('passage',None)
+                meas.pop('passage_category',None)
+            else:
+                self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category')
+                self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
+            ###
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
@@ -316,10 +329,15 @@ class upload(parse, flu_upload):
         '''
         Format ferret id attribute
         '''
-    def format_assay_type(self, meas):
+        if not 'virus_cdc_id' in meas.keys():
+            meas['virus_cdc_id'] = 'None'
+
+    def format_assay_type(self, meas, ty='HI'):
         '''
         Format assay type attribute
         '''
+        if not 'assay-type' in meas.keys():
+            meas['assay-type'] = ty
 
     def format_ref(self, meas):
         '''
