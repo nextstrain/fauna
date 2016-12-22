@@ -67,7 +67,7 @@ class parse(object):
         Read all csv tables in path, create data frame with reference viruses as columns
         '''
         import glob
-        flist = glob.glob(path + '/September*csv') #BP
+        flist = glob.glob(path + '/NIMR*csv') #BP
         HI_matrices = pd.DataFrame()
         for fname in flist:
             tmp = self.parse_HI_matrix(fname)
