@@ -84,7 +84,7 @@ class parse(object):
                 sub_set_passage = HI_table['passage'][~np.isnan(HI_table[ref_serum])]
                 sub_set_ref = HI_table['ref/test'][~np.isnan(HI_table[ref_serum])]
                 for virus, val, src_id, date, passage, ref in zip(sub_set_vals.index, sub_set_vals, sub_set_source, sub_set_date, sub_set_passage, sub_set_ref):
-                    flat_measurements.append({'virus_strain': virus, 'serum_strain': ref_serum[0], 'ferret_id': ref_serum[1], 'source': src_id, 'titer': val, 'date': date, 'passage': passage, 'ref': ref})
+                    flat_measurements.append({'virus_strain': virus, 'serum_strain': ref_serum[0], 'ferret_id': ref_serum[1], 'source': src_id, 'titer': val, 'date': date, 'passage': passage, 'ref': ref}) # BP changed 'ferret_id': ref_serum[1] to 'ferret_id': ref_serum[0] to try to parse NIMR tables 122816
             except:
                 print("Couldn't parse this serum's measurements", ref_serum)
                 print("Check fields at top left of file")
