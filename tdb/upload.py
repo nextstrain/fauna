@@ -44,11 +44,10 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'serum_id', 'serum_host', 'subtype', 'host', 'virus_strain_passage', 'virus_strain_passage_category', 'serum_antigen_passage', 'serum_antigen_passage_category', 'assay-type', 'virus_cdc_id', 'assay_date'] #index too but assign after checking
-        self.optional_fields = ['date', 'ref']
+        self.upload_fields = ['virus_strain', 'serum_strain', 'serum_id', 'assay_type', 'assay_date', 'titer', 'timestamp']
+        self.optional_fields = ['date', 'ref', 'virus_cdc_id', 'virus_strain_passage', 'virus_passage_category', 'subtype', 'serum_host', 'serum_antigen_passage', 'serum_antigen_passage_category']
         self.overwritable_fields = ['titer', 'date', 'ref']
-        #self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
-        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'serum_host', 'virus_passage', 'virus_passage_category', 'serum_passage', 'serum_passage_category', 'subtype', 'host', 'assay_type', 'assay_date']
+        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'virus_passage', 'serum_passage', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
@@ -325,8 +324,8 @@ class upload(parse, flu_upload):
         '''
         Format assay type attribute
         '''
-        if not 'assay-type' in meas.keys():
-            meas['assay-type'] = ty
+        if not 'assay_type' in meas.keys():
+            meas['assay_type'] = ty
 
     def format_ref(self, meas):
         '''
@@ -365,12 +364,10 @@ class upload(parse, flu_upload):
             meas['serum_antigen_passage'] = meas['passage']
             meas['serum_antigen_passage_category'] = meas['passage_category']
             meas['virus_strain_passage'] = False
-            meas['virus_strain_passage_category'] = False
-            meas['virus_cdc_id'] = False
             meas.pop('passage',None)
             meas.pop('passage_category',None)
         else:
-            self.format_passage(meas, 'virus_strain_passage', 'virus_strain_passage_category')
+            self.format_passage(meas, 'virus_strain_passage', 'virus_passage_category')
             self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
 
     def create_index(self,  measurements, output=False):
@@ -410,7 +407,7 @@ class upload(parse, flu_upload):
         for f in removed_fields:
             for m in measurements:
                 m.pop(f,None)
-        updated_names = { 'assay-type':'assay_type', 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'serum_antigen_passage_category':'serum_passage_category', 'virus_strain_passage_category':'virus_passage_category'}
+        updated_names = { 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'serum_antigen_passage_category':'serum_passage_category'}
         for old_name in updated_names.keys():
             new_name = updated_names[old_name]
             for m in measurements:
