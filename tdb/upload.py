@@ -358,14 +358,23 @@ class upload(parse, flu_upload):
             meas['serum_host'] = 'ferret'
             meas.pop('ferret_id',None)
 
-    def format_passages(self, meas):
+    def format_passages(self, meas, source_type='NIMR'):
         if ('virus_cdc_id' not in meas.keys()) and ('passage' in meas.keys()):
             self.format_passage(meas, 'passage', 'passage_category') # BP
-            meas['serum_antigen_passage'] = meas['passage']
-            meas['serum_antigen_passage_category'] = meas['passage_category']
-            meas['virus_strain_passage'] = False
-            meas.pop('passage',None)
-            meas.pop('passage_category',None)
+            if source_type == 'NIMR':
+                meas['virus_strain_passage'] = meas['passage']
+                meas['virus_strain_passage_category'] = meas['passage_category']
+                meas['serum_antigen_passage'] = False
+                meas['serum_antigen_passage_category'] = False
+                meas.pop('passage',None)
+                meas.pop('passage_category',None)
+            else:
+                meas['serum_antigen_passage'] = meas['passage']
+                meas['serum_antigen_passage_category'] = meas['passage_category']
+                meas['virus_strain_passage'] = False
+                meas['virus_strain_passage_category'] = False
+                meas.pop('passage',None)
+                meas.pop('passage_category',None)
         else:
             self.format_passage(meas, 'virus_strain_passage', 'virus_passage_category')
             self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
@@ -407,7 +416,7 @@ class upload(parse, flu_upload):
         for f in removed_fields:
             for m in measurements:
                 m.pop(f,None)
-        updated_names = { 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'serum_antigen_passage_category':'serum_passage_category'}
+        updated_names = { 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'virus_strain_passage_category':'virus_passage_category', 'serum_antigen_passage_category':'serum_passage_category'}
         for old_name in updated_names.keys():
             new_name = updated_names[old_name]
             for m in measurements:
