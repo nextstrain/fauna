@@ -52,3 +52,11 @@ Upload with: `python vdb/zika_upload.py -db vdb -v zika --source broad --locus g
 Regex replace: `^>([^_]+)_[^_]+_[^_]+_(\S+)`
 With: `>\1|\1|\2|human|usa|florida|florida`
 Upload with: `python vdb/zibra_upload.py -db vdb -v zika --source usamriid --locus genome --authors "Ladner et al" --fname RIID_ZIKV_FL_10-27-16.fasta`
+
+# FH sequences
+
+## Upload documents to VDB
+Upload with:
+
+* `python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_good.fasta`
+* `python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_partial.fasta`

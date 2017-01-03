@@ -2328,9 +2328,6 @@ Texas	USA	Texas	Texas
 Utah	USA	Utah	Utah
 Vermont	USA	Vermont	Vermont
 Virginia	USA	Virginia	Virginia
-VirginIslands	USA	VirginIslands	VirginIslands
-Usvirginislandssaintthomas	USA	VirginIslands	StThomas
-usvirginislandssaintcroix	USA	VirginIslands	StCroix
 Washington	USA	Washington	Washington
 WestVirginia	USA	WestVirginia	WestVirginia
 Wisconsin	USA	Wisconsin	Wisconsin
@@ -2391,6 +2388,13 @@ Springfield	USA	Illinois	Springfield
 Sophia	USA	WestVirginia	Sophia
 StLouis	USA	Missouri	StLouis
 
+# US Virgin Islands
+USVI	USVI	USVI	USVI
+USVirginIslands	USVI	USVI	USVI
+Usvirginislandssaintthomas	USVI	SaintThomas	SaintThomas
+usvirginislandssaintcroix	USVI	SaintCroix	SaintCroix
+SaintCroix	USVI	SaintCroix	SaintCroix
+SaintThomas	USVI	SaintThomas	SaintThomas
 
 # Uruguay
 Uruguay	Uruguay	Uruguay	Uruguay
