@@ -45,15 +45,15 @@ class upload(parse, flu_upload):
 
         # fields that are needed to upload
         self.upload_fields = ['virus_strain', 'serum_strain', 'serum_id', 'assay_type', 'assay_date', 'titer', 'timestamp']
-        self.optional_fields = ['date', 'ref', 'virus_cdc_id', 'virus_strain_passage', 'virus_passage_category', 'subtype', 'serum_host', 'serum_antigen_passage', 'serum_antigen_passage_category']
+        self.optional_fields = ['date', 'ref', 'virus_cdc_id', 'virus_passage', 'virus_passage_category', 'subtype', 'serum_host', 'serum_passage', 'serum_passage_category']
         self.overwritable_fields = ['titer', 'date', 'ref']
         self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'virus_passage', 'serum_passage', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
         self.indexes = set()
-        self.virus_strain_passage = set()
-        self.serum_antigen_passage = set()
+        self.virus_passage = set()
+        self.serum_passage = set()
         self.strain_names = set()
         self.assay_type = set()
         self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV', 'NIMR_Feb2010_15.csv',
@@ -71,7 +71,6 @@ class upload(parse, flu_upload):
         print('Formatting documents for upload')
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
-        measurements = self.cleanup(measurements)
         measurements = self.create_index(measurements)
         self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
@@ -99,16 +98,11 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            ### BP
-            # print "keys:",meas.keys()
-            self.format_passages(meas)
-            # print "newKeys:",meas.keys()
-            # print "meas:",meas
-            ###
+            self.format_passage(meas, 'serum_passage', 'serum_passage_category')
+            self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
-            self.format_assay_type(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
@@ -236,9 +230,6 @@ class upload(parse, flu_upload):
         Format date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
         Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
         '''
-        if 'assay_date' in meas.keys():
-            meas['date'] = meas['assay_date']
-            meas['source'] = 'cdc'
         # ex. 2002_04_25 to 2002-04-25
         lookup_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06',
                         'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
@@ -320,13 +311,6 @@ class upload(parse, flu_upload):
         Format ferret id attribute
         '''
 
-    def format_assay_type(self, meas, ty='HI'):
-        '''
-        Format assay type attribute
-        '''
-        if not 'assay_type' in meas.keys():
-            meas['assay_type'] = ty
-
     def format_ref(self, meas):
         '''
         Format ref/test attribute
@@ -358,27 +342,6 @@ class upload(parse, flu_upload):
             meas['serum_host'] = 'ferret'
             meas.pop('ferret_id',None)
 
-    def format_passages(self, meas, source_type='NIMR'):
-        if ('virus_cdc_id' not in meas.keys()) and ('passage' in meas.keys()):
-            self.format_passage(meas, 'passage', 'passage_category') # BP
-            if source_type == 'NIMR':
-                meas['virus_strain_passage'] = meas['passage']
-                meas['virus_strain_passage_category'] = meas['passage_category']
-                meas['serum_antigen_passage'] = False
-                meas['serum_antigen_passage_category'] = False
-                meas.pop('passage',None)
-                meas.pop('passage_category',None)
-            else:
-                meas['serum_antigen_passage'] = meas['passage']
-                meas['serum_antigen_passage_category'] = meas['passage_category']
-                meas['virus_strain_passage'] = False
-                meas['virus_strain_passage_category'] = False
-                meas.pop('passage',None)
-                meas.pop('passage_category',None)
-        else:
-            self.format_passage(meas, 'virus_strain_passage', 'virus_passage_category')
-            self.format_passage(meas, 'serum_antigen_passage', 'serum_antigen_passage_category')
-
     def create_index(self,  measurements, output=False):
         '''
         create unique key for storage in rethinkdb
@@ -408,21 +371,6 @@ class upload(parse, flu_upload):
         print(len(measurements), " measurements after filtering")
         return measurements
 
-    def cleanup(self, measurements):
-        '''
-        Remove unnecessary fields prior to upload and change field names to be consistent with tdb
-        '''
-        removed_fields = ['tested_by_fra','reported_by_fra','date','virus_collection_date']
-        for f in removed_fields:
-            for m in measurements:
-                m.pop(f,None)
-        updated_names = { 'serum_antigen_passage':'serum_passage', 'virus_strain_passage':'virus_passage', 'virus_strain_passage_category':'virus_passage_category', 'serum_antigen_passage_category':'serum_passage_category'}
-        for old_name in updated_names.keys():
-            new_name = updated_names[old_name]
-            for m in measurements:
-                m[new_name] = m[old_name]
-                m.pop(old_name,None)
-        return measurements
 
 if __name__=="__main__":
     args = parser.parse_args()
