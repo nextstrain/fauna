@@ -1,11 +1,34 @@
 import os, re, time, datetime, csv, sys, json
 from upload import upload
+import rethinkdb as r
+from Bio import SeqIO
+import argparse
+from parse import parse
+sys.path.append('')  # need to import from base
+from base.rethink_io import rethink_io
+from vdb.flu_upload import flu_upload
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
+parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with, ie Flu")
+parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
+parser.add_argument('--host', default='human', help="host of virus, ie human, swine")
+parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--fstem', help="input file stem")
+parser.add_argument('--ftype', default='flat', help="input file format, default \"flat\", other is \"tables\"")
+parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
+parser.add_argument('--exclusive', default=True, action="store_false",  help ="download all docs in db to check before upload")
+parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
+parser.add_argument('--rethink_host', default=None, help="rethink host url")
+parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
+parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
 
 class cdc_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
         self.removal_fields  = ['tested_by_fra', 'reported_by_fra','date', 'virus_collection_date']
-        self.cleanup_fields = { 'serum_passage':'serum_passage', 'virus_passage':'virus_passage', 'virus_passage_category':'virus_passage_category', 'serum_passage_category':'serum_passage_category'}
+        self.cleanup_fields =  {'assay-type': 'assay_type'}
 
     def upload(self, ftype='flat', preview=False, **kwargs):
         '''
@@ -14,10 +37,12 @@ class cdc_upload(upload):
         print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
-        self.format_measurements(measurements, **kwargs)
-        measurements = self.filter(measurements)
         measurements = self.remove_fields(measurements)
+        self.format_measurements(measurements, **kwargs)
+        print 'test:', measurements[0]
         measurements = self.clean_field_names(measurements)
+        print 'test2:', measurements[0]
+        measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
         self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
@@ -28,6 +53,44 @@ class cdc_upload(upload):
             print(json.dumps(measurements[0], indent=1))
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
+
+    def format_measurements(self, measurements, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        self.fix_whole_name.update(self.define_strain_fixes(self.HI_strain_fix_fname))
+        self.HI_ref_name_abbrev =self.define_strain_fixes(self.HI_ref_name_abbrev_fname)
+        self.define_location_fixes("source-data/flu_fix_location_label.tsv")
+        self.define_countries("source-data/geo_synonyms.tsv")
+        for meas in measurements:
+            meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
+            meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
+            self.test_location(meas['virus_strain'])
+            self.test_location(meas['serum_strain'])
+            self.add_attributes(meas, **kwargs)
+            self.format_date(meas)
+            self.format_passage(meas, 'serum_antigen_passage', 'serum_passage_category')
+            self.format_passage(meas, 'virus_strain_passage', 'virus_passage_category')
+            meas['serum_passage'] = meas.pop('serum_antigen_passage')
+            meas['virus_passage'] = meas.pop('virus_strain_passage')
+            meas.pop('passage',None)
+            self.format_id(meas)
+            self.format_ref(meas)
+            self.format_titer(meas)
+            self.format_serum_sample(meas)
+            if meas['ref'] == True:
+                self.ref_serum_strains.add(meas['serum_strain'])
+                self.ref_virus_strains.add(meas['virus_strain'])
+            if meas['ref'] == False:
+                self.test_virus_strains.add(meas['virus_strain'])
+            self.rethink_io.check_optional_attributes(meas, self.optional_fields)
+        if len(self.new_different_date_format) > 0:
+            print("Found files that had a different date format, need to add to self.different_date_format")
+            print(self.new_different_date_format)
+        self.check_strain_names(measurements)
+        print measurements[0] # debug line bp
+        return measurements
 
     def format_date(self, meas):
         '''
@@ -128,11 +191,23 @@ class cdc_upload(upload):
         Change field names from CDC titer tables to fit into fauna db.
         Dictionary of field names to update {'old_name': 'new_name'} stored in self.cleanup_fields.
         '''
-        for old_name in self.cleanup_fields.keys():
-            new_name = self.cleanup_fields[old_name]
-            for m in measurements:
-                m[new_name] = m[old_name]
-                m.pop(old_name,None)
+        for meas in measurements:
+            for old_name in self.cleanup_fields.keys():
+                print 'debug:',old_name
+                if old_name in meas.keys():
+                    new_name = self.cleanup_fields[old_name]
+                    print 'newname:',new_name
+                    meas[new_name] = meas[old_name]
+                    print '1:', meas[new_name], '2:', meas[old_name]
+                    meas.pop(old_name,None)
+
+
+        # for old_name in self.cleanup_fields.keys():
+        #     new_name = self.cleanup_fields[old_name]
+        #     for m in measurements:
+        #         if old_name in m.keys():
+        #             m[new_name] = m[old_name]
+        #             m.pop(old_name,None)
         return measurements
 
 if __name__=="__main__":
