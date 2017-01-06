@@ -27,7 +27,7 @@ parser.add_argument('--preview', default=False, action="store_true",  help ="If 
 class cdc_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.removal_fields  = ['tested_by_fra', 'reported_by_fra','date', 'virus_collection_date']
+        self.removal_fields  = ['tested_by_fra', 'reported_by_fra', 'date', 'virus_collection_date', 'ref']
         self.cleanup_fields =  {'assay-type': 'assay_type'}
 
     def upload(self, ftype='flat', preview=False, **kwargs):
@@ -37,11 +37,8 @@ class cdc_upload(upload):
         print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
-        measurements = self.remove_fields(measurements)
         self.format_measurements(measurements, **kwargs)
-        print 'test:', measurements[0]
         measurements = self.clean_field_names(measurements)
-        print 'test2:', measurements[0]
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
         self.adjust_tdb_strain_names(measurements)
@@ -64,6 +61,7 @@ class cdc_upload(upload):
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         for meas in measurements:
+            meas['source'] = 'CDC'
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
             self.test_location(meas['virus_strain'])
@@ -85,6 +83,7 @@ class cdc_upload(upload):
             if meas['ref'] == False:
                 self.test_virus_strains.add(meas['virus_strain'])
             self.rethink_io.check_optional_attributes(meas, self.optional_fields)
+            self.remove_fields(meas)
         if len(self.new_different_date_format) > 0:
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
@@ -98,7 +97,6 @@ class cdc_upload(upload):
         '''
 
         meas['date'] = meas['assay_date']
-        meas['source'] = 'cdc'
         # ex. 2002_04_25 to 2002-04-25
         lookup_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06',
                         'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
@@ -175,15 +173,15 @@ class cdc_upload(upload):
 
         meas['assay_date'] = meas['date']
 
-    def remove_fields(self, measurements):
+    def remove_fields(self, meas):
         '''
         Remove unnecessary fields provided in CDC titer tables.
         Specify fields for removal in self.removal_fields.
         '''
         for f in self.removal_fields:
-            for m in measurements:
-                m.pop(f,None)
-        return measurements
+            if f in meas.keys():
+                meas.pop(f,None)
+                print f
 
     def clean_field_names(self, measurements):
         '''
@@ -196,14 +194,6 @@ class cdc_upload(upload):
                     new_name = self.cleanup_fields[old_name]
                     meas[new_name] = meas[old_name]
                     meas.pop(old_name,None)
-
-
-        # for old_name in self.cleanup_fields.keys():
-        #     new_name = self.cleanup_fields[old_name]
-        #     for m in measurements:
-        #         if old_name in m.keys():
-        #             m[new_name] = m[old_name]
-        #             m.pop(old_name,None)
         return measurements
 
 if __name__=="__main__":
