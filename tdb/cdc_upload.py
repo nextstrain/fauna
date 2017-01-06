@@ -89,7 +89,6 @@ class cdc_upload(upload):
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
-        print measurements[0] # debug line bp
         return measurements
 
     def format_date(self, meas):
@@ -193,12 +192,9 @@ class cdc_upload(upload):
         '''
         for meas in measurements:
             for old_name in self.cleanup_fields.keys():
-                print 'debug:',old_name
                 if old_name in meas.keys():
                     new_name = self.cleanup_fields[old_name]
-                    print 'newname:',new_name
                     meas[new_name] = meas[old_name]
-                    print '1:', meas[new_name], '2:', meas[old_name]
                     meas.pop(old_name,None)
 
 
