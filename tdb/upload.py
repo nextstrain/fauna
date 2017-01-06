@@ -371,7 +371,6 @@ class upload(parse, flu_upload):
         print(len(measurements), " measurements after filtering")
         return measurements
 
-
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
