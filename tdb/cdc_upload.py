@@ -181,7 +181,6 @@ class cdc_upload(upload):
         for f in self.removal_fields:
             if f in meas.keys():
                 meas.pop(f,None)
-                print f
 
     def clean_field_names(self, measurements):
         '''
