@@ -1,6 +1,6 @@
 # ZIKA Pipeline Notes
 
-## Update documents in VDB
+## Update
 
 * Update citation fields
   * `python vdb/zika_update.py -db vdb -v zika --update_citations`
@@ -11,13 +11,13 @@
   * `python vdb/zika_update.py -db vdb -v zika --update_locations`
   * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
 
-## Download documents from VDB
+## Download
 
-* `python vdb/zika_download.py -db vdb -v zika --fstem zika`
+    python vdb/zika_download.py -db vdb -v zika --fstem zika
 
 ## Upload
 
-### [ViPR sequences](ttps://www.viprbrc.org/brc/vipr_genome_search.spg?method=ShowCleanSearch&decorator=flavi_zika)
+### [ViPR sequences](https://www.viprbrc.org/brc/vipr_genome_search.spg?method=ShowCleanSearch&decorator=flavi_zika)
 
 1. Download sequences
   * Select year >= 2013 and genome length >= 5000
