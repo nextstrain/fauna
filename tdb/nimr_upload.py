@@ -29,7 +29,7 @@ parser.add_argument('--assay_type', default='HI', help='type of assay being reco
 class nimr_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.assay_type = assay_type
+        self.assay_type = kwargs['assay_type']
 
     def format_measurements(self, measurements, **kwargs):
         '''
@@ -43,6 +43,7 @@ class nimr_upload(upload):
         for meas in measurements:
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
+            meas['assay_type'] = self.assay_type
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
@@ -51,7 +52,6 @@ class nimr_upload(upload):
             self.format_id(meas)
             self.format_ref(meas)
             self.format_titer(meas)
-            self.format_assay_type(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
