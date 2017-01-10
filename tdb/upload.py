@@ -47,7 +47,7 @@ class upload(parse, flu_upload):
         self.upload_fields = ['virus_strain', 'serum_strain', 'serum_id', 'assay_type', 'assay_date', 'titer', 'timestamp']
         self.optional_fields = ['date', 'ref', 'virus_cdc_id', 'virus_passage', 'virus_passage_category', 'subtype', 'serum_host', 'serum_passage', 'serum_passage_category']
         self.overwritable_fields = ['titer', 'date', 'ref']
-        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'virus_passage', 'serum_passage', 'assay_type', 'assay_date']
+        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'source', 'virus_passage_category', 'serum_passage_category', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
