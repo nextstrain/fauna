@@ -13,6 +13,7 @@ class parse(object):
     def __init__(self, **kwargs):
         self.table_column_names = ['viruses', 'other', 'collection', 'passage', '']
         self.titer_values = ['10.0', '20.0', '40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']
+        self.req_fields = ['ferret_id']
 
     def parse(self, ftype='flat', **kwargs):
         '''
@@ -55,6 +56,10 @@ class parse(object):
                 # }
                 for row in table_reader:
                     m = {key: row[ii] if ii < len(row) else "" for ii, key in headers.items()}
+                    # TODO: Fix this to be less of a band-aid
+                    for field in self.req_fields:
+                        if field not in m.keys():
+                            m[field] = "000"
                     if re.search(r'[Ee][Gg][Gg]', m['ferret_id']):  # TODO FIX THIS FOR LATER IMPORTS
                         m['passage'] = 'egg'
                     else:
