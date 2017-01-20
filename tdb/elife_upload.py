@@ -27,7 +27,6 @@ parser.add_argument('--preview', default=False, action="store_true",  help ="If 
 class elife_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.ferret_id = "None"
 
     def upload(self, ftype='flat', preview=False, **kwargs):
         '''
@@ -60,7 +59,6 @@ class elife_upload(upload):
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         for meas in measurements:
-            meas['ferret_id'] = self.ferret_id
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
             self.test_location(meas['virus_strain'])

@@ -56,11 +56,7 @@ class parse(object):
                 # }
                 for row in table_reader:
                     m = {key: row[ii] if ii < len(row) else "" for ii, key in headers.items()}
-                    # TODO: Fix this to be less of a band-aid
-                    for field in self.req_fields:
-                        if field not in m.keys():
-                            m[field] = "000"
-                    if re.search(r'[Ee][Gg][Gg]', m['ferret_id']):  # TODO FIX THIS FOR LATER IMPORTS
+                    if re.search(r'[Ee][Gg][Gg]', m['serum_id']):  # TODO FIX THIS FOR LATER IMPORTS
                         m['passage'] = 'egg'
                     else:
                         m['passage'] = 'cell'
