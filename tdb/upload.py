@@ -31,9 +31,9 @@ class upload(parse, flu_upload):
         self.table = self.virus
         self.subtype = subtype.lower()
         self.database = database.lower()
-        self.uploadable_databases = ['tdb', 'test_tdb', 'test']
+        self.uploadable_databases = ['tdb', 'test_tdb', 'test', 'test_tdb_2']
         if self.database not in self.uploadable_databases:
-            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
+            raise Exception("Can't upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         self.flu_upload = flu_upload(database=self.database, virus=self.virus)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)

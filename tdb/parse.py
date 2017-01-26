@@ -56,6 +56,9 @@ class parse(object):
                 # }
                 for row in table_reader:
                     m = {key: row[ii] if ii < len(row) else "" for ii, key in headers.items()}
+                    if 'ferret_id' in m.keys():
+                        m['serum_id'] = m['ferret_id']
+                        m.pop('ferret_id', None)
                     if re.search(r'[Ee][Gg][Gg]', m['serum_id']):  # TODO FIX THIS FOR LATER IMPORTS
                         m['passage'] = 'egg'
                     else:
@@ -63,16 +66,16 @@ class parse(object):
                     flat_measurements.append(m)
         return flat_measurements
 
-    def read_tables(self, path, **kwargs):
+    def read_tables(self, path, fstem, **kwargs):
         '''
         Read all csv tables in path, create data frame with reference viruses as columns
         '''
-        import glob
-        flist = glob.glob(path + '/NIMR*csv') #BP
+        fname = path + fstem + ".csv"
+        # import glob
+        # flist = glob.glob(path + '/NIMR*csv') #BP
         HI_matrices = pd.DataFrame()
-        for fname in flist:
-            tmp = self.parse_HI_matrix(fname)
-            HI_matrices = HI_matrices.append(tmp)
+        tmp = self.parse_HI_matrix(fname)
+        HI_matrices = HI_matrices.append(tmp)
         return HI_matrices
 
     def table_to_flat(self, HI_table):
