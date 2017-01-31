@@ -100,9 +100,7 @@ class upload(parse, flu_upload):
             self.format_date(meas)
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
-            self.format_id(meas)
             self.format_ref(meas)
-            self.format_titer(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
@@ -144,6 +142,9 @@ class upload(parse, flu_upload):
         return name, number_matched
 
     def HI_fix_name(self, name, serum):
+        '''
+        Canonicalize strain names to match with vdb
+        '''
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
                             'Jul': '7', 'Aug': '8', 'Sep': '9', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
@@ -187,6 +188,10 @@ class upload(parse, flu_upload):
         return name
 
     def test_location(self, strain):
+        '''
+        Determine that strains come from known locations, if not, print suggestion to add location to
+        flu_fix_location_label.tsv.
+        '''
         if isinstance(strain, basestring) and "/" in strain:
             location = strain.split('/')[1]
             if self.determine_location(location) is None:
@@ -194,7 +199,7 @@ class upload(parse, flu_upload):
 
     def add_attributes(self, meas, host, **kwargs):
         '''
-        Add attributes to virus
+        Add attributes to titer measurements
         '''
         meas['virus'] = self.virus.lower()
         meas['subtype'] = self.subtype.lower()
@@ -306,11 +311,6 @@ class upload(parse, flu_upload):
 
         meas['assay_date'] = meas['date']
 
-    def format_id(self, meas):
-        '''
-        Format ferret id attribute
-        '''
-
     def format_ref(self, meas):
         '''
         Format ref/test attribute
@@ -325,11 +325,6 @@ class upload(parse, flu_upload):
                 print("Couldn't parse reference status", meas['ref'])
         else:
             meas['ref'] = None
-
-    def format_titer(self, meas):
-        '''
-        Format titer number attribute
-        '''
 
     def format_serum_sample(self,meas):
         '''

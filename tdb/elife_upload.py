@@ -71,6 +71,10 @@ class elife_upload(upload):
         return measurements
 
     def disambiguate_sources(self, measurements):
+        '''
+        Add counter to sources so that create_index still creates unique identifiers for each
+        titer value.
+        '''
         sources = {}
         for meas in measurements:
             src = meas['source']
@@ -82,6 +86,9 @@ class elife_upload(upload):
             meas['source'] = new_src
 
     def check_uniqueness(self, measurements):
+        '''
+        Verify that there were not ambiguous indices created for different eLife uploads.
+        '''
         indices = []
         unique = 0
         nonunique = 0

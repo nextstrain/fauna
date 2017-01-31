@@ -52,7 +52,11 @@ class nimr_upload(upload):
         return measurements
 
     def format_passages(self, meas, source_type='NIMR'):
-        self.format_passage(meas, 'passage', 'passage_category') # BP
+        '''
+        Create virus passage and category fields for NIMR documents and
+        null fields for serum passage and category
+        '''
+        self.format_passage(meas, 'passage', 'passage_category')
         if source_type == 'NIMR':
             meas['virus_passage'] = meas['passage']
             meas['virus_passage_category'] = meas['passage_category']

@@ -1,3 +1,32 @@
+'''
+Use this script to reconstruct titer database from archived files containing titer tables
+Assumed directory structure is:
+.
++-- data
+|   +-- cdc
+|       +-- subtype1
+|           +-- flat_file_1.tsv
+|           +-- flat_file_2.tsv
+|           +-- ...
+|       +-- subtype2
+|       +-- ...
+|   +-- elife
+|       +-- subtype1
+|           +-- flat_file_1.tsv
+|           +-- flat_file_2.tsv
+|           +-- ...
+|       +-- subtype2
+|       +-- ...
+|   +-- nimr
+|       +-- subtype1
+|           +-- tabular_file_1.csv
+|           +-- tabular_file_2.csv
+|           +-- ...
+|       +-- subtype2
+|       +-- ...
++-- tdb
+|   +-- upload_all.py
+'''
 import subprocess
 import os
 
