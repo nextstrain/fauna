@@ -51,15 +51,15 @@ Upload sequences with:
 Download metadata with:
 
     python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --local
-    
+
 Download just metadata for samples from `natal`:
 
     python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --select location:natal --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
-	
+
 	python vdb/sync.py --push --local_table vdb.zibra --remote_table vdb.zibra
-	
+
 Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table:
 
 	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
@@ -68,9 +68,9 @@ Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table
 
 Remember to [install rethinkdb bindings](README.md#install).
 
-From `nextstrain-db/` run:
+From `fauna/` run:
 
     source environment_rethink.sh
     python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv
 
-This will result in the file `nextstrain-db/data/zibra.tsv` that has all necessary metadata. This file can be searched for `2_NB07`, etc... in the `minion_barcode` column to match MinION output to metadata, including strain name.
+This will result in the file `fauna/data/zibra.tsv` that has all necessary metadata. This file can be searched for `2_NB07`, etc... in the `minion_barcode` column to match MinION output to metadata, including strain name.
