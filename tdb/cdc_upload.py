@@ -52,6 +52,7 @@ class cdc_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            meas['date'] = meas['assay_date']
             self.format_date(meas)
             self.format_passage(meas, 'serum_antigen_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_strain_passage', 'virus_passage_category')
@@ -74,89 +75,6 @@ class cdc_upload(upload):
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
         return measurements
-
-    def format_date(self, meas):
-        '''
-        Format date attribute: collection date in YYYY-MM-DD format, for example, 2016-02-28
-        Input date could be YYYY_MM_DD, reformat to YYYY-MM-DD
-        '''
-
-        meas['date'] = meas['assay_date']
-        # ex. 2002_04_25 to 2002-04-25
-        lookup_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06',
-                        'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
-        try:
-            meas['date'] = re.sub(r'_', r'-', meas['date']).strip()
-        except:
-            meas['date'] = ''
-        if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', meas['date']):
-            pass
-        elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', meas['date']):
-            meas['date'] = meas['date'][0:4] + "-XX-XX"
-        # ex. 2009-06 (Day unknown)
-        elif re.match(r'\d\d\d\d-\d\d\s\(Day\sunknown\)', meas['date']):
-            meas['date'] = meas['date'][0:7] + "-XX"
-        elif re.match(r'\d\d\d\d-\d\d', meas['date']):
-            meas['date'] = meas['date'][0:7] + "-XX"
-        elif re.match(r'\d\d\d\d', meas['date']):
-            meas['date'] = meas['date'][0:4] + "-XX-XX"
-        elif re.match(r'^\d+/\d+/\d\d$', meas['date']):
-            try:
-                if meas['source'] not in self.different_date_format:
-                    date = datetime.datetime.strptime(meas['date'], '%m/%d/%y').date()
-                else:
-                    date = datetime.datetime.strptime(meas['date'], '%d/%m/%y').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
-            except:
-                meas['date'] = None
-                self.new_different_date_format.add(meas['source'])
-        elif re.match(r'^\d+/\d+/\d\d\d\d$', meas['date']):
-            try:
-                if meas['source'] not in self.different_date_format:
-                    date = datetime.datetime.strptime(meas['date'], '%m/%d/%Y').date()
-                else:
-                    date = datetime.datetime.strptime(meas['date'], '%d/%m/%Y').date()
-                meas['date'] = date.strftime('%Y-%m-%d')
-            except:
-                meas['date'] = None
-                self.new_different_date_format.add(meas['source'])
-        elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]\s\d\d\d\d', meas['date']):  #Jan 2012
-            try:
-                date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
-                meas['date'] = date.strftime('%Y-%m') + '-XX'
-            except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
-                meas['date'] = None
-        elif re.match(r'(\d+)-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']):  #12-Jan, 9-Jun
-            try:
-                year = re.match(r'(\d+)-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']).group(1)
-                if len(str(year)) == 1:
-                    meas['date'] = '0' + meas['date']
-                date = datetime.datetime.strptime(meas['date'], '%y-%b').date()
-                meas['date'] = date.strftime('%Y-%m') + '-XX'
-            except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
-                meas['date'] = None
-        elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-(\d+)', meas['date']):  #Nov-09, Jan-2012
-            try:
-                year = re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-(\d+)', meas['date']).group(1)
-                if len(str(year)) == 4:
-                    date = datetime.datetime.strptime(meas['date'], '%b-%Y').date()
-                else:
-                    date = datetime.datetime.strptime(meas['date'], '%b-%y').date()
-                meas['date'] = date.strftime('%Y-%m') + '-XX'
-            except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
-                meas['date'] = None
-        elif meas['date'].lower() == 'unknown' or meas['date'].lower() == 'd/m unknown':
-            meas['date'] = None
-        elif meas['date'] == '':
-            meas['date'] = None
-        else:
-            print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain'])
-            meas['date'] = None
-
-        meas['assay_date'] = meas['date']
 
     def remove_fields(self, meas):
         '''
