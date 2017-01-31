@@ -9,7 +9,11 @@ parser.add_argument('--cdc_path', default='data/cdc/', help="directory containin
 parser.add_argument('--elife_path', default='data/elife/', help="directory containing eLife titers")
 
 def upload_nimr(database, directory, nimr_path, subtype):
-    # Upload NIMR tables
+    '''
+    Makes calls to tdb/upload.py for every file in an NIMR titer directory (default data/nimr/).
+    All files in the directory should be tabular titer tables in CSV format for only one subtype
+    of virus (H3N2, H1N1pdm, etc.).
+    '''
     print "Beginning upload of NIMR documents to", database + "."
     path = nimr_path + subtype + "/"
     print "Uploading NIMR reports for subtype", subtype, "contained in directory", path + "."
@@ -24,7 +28,11 @@ def upload_nimr(database, directory, nimr_path, subtype):
     print "Done uploading NIMR documents."
 
 def upload_cdc(database, cdc_path, subtype):
-    # Upload CDC flat files
+    '''
+    Makes calls to tdb/upload.py for every flat file in an CDC titer directory (default data/cdc/).
+    All files in the directory should be flat titer files in TSV format for only one subtype
+    of virus (H3N2, H1N1pdm, etc.).
+    '''
     print "Beginning upload of CDC documents to", database + "."
     path = cdc_path + subtype + "/"
     print "Uploading CDC reports for subtype", subtype, "contained in directory", path + "."
@@ -39,7 +47,11 @@ def upload_cdc(database, cdc_path, subtype):
     print "Done uploading CDC documents."
 
 def upload_elife(database, elife_path, subtype):
-    # Upload stored elife files
+    '''
+    Makes calls to tdb/upload.py for every flat file in an eLife titer directory (default data/elife/).
+    All files in the directory should be flat titer files in TSV format for only one subtype
+    of virus (H3N2, H1N1pdm, etc.).
+    '''
     print "Beginning upload of stored NIMR documents to", database + "."
     path = elife_path + subtype + "/"
     print "Uploading CDC reports for subtype", subtype, "contained in directory", path + "."
