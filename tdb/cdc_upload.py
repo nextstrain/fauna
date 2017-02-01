@@ -59,9 +59,7 @@ class cdc_upload(upload):
             meas['serum_passage'] = meas.pop('serum_antigen_passage')
             meas['virus_passage'] = meas.pop('virus_strain_passage')
             meas.pop('passage',None)
-            self.format_id(meas)
             self.format_ref(meas)
-            self.format_titer(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])

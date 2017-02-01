@@ -34,9 +34,7 @@ class nimr_upload(upload):
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
             self.format_passages(meas)
-            self.format_id(meas)
             self.format_ref(meas)
-            self.format_titer(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])

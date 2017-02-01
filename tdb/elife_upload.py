@@ -53,9 +53,7 @@ class elife_upload(upload):
             meas['assay_date'] = "XXXX-XX-XX"
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
-            self.format_id(meas)
             self.format_ref(meas)
-            self.format_titer(meas)
             self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
