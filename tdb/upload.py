@@ -12,7 +12,7 @@ parser.add_argument('-db', '--database', default='tdb', help="database to upload
 parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with, ie Flu")
 parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
 parser.add_argument('--host', default='human', help="host of virus, ie human, swine")
-parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--path', default=None, help="path to input file, default is \"data/virus/\"")
 parser.add_argument('--fstem', help="input file stem")
 parser.add_argument('--ftype', default='flat', help="input file format, default \"flat\", other is \"tables\"")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
