@@ -13,7 +13,6 @@ class parse(object):
     def __init__(self, **kwargs):
         self.table_column_names = ['viruses', 'other', 'collection', 'passage', '']
         self.titer_values = ['10.0', '20.0', '40.0', '80.0', '160.0', '320.0', '640.0', '1280.0', '2560.0', '5120.0', 'nan']
-        self.req_fields = ['ferret_id']
 
     def parse(self, ftype='flat', **kwargs):
         '''
@@ -50,7 +49,7 @@ class parse(object):
                 # header = {
                 #     0: 'virus_strain',
                 #     1: 'serum_strain',
-                #     2: 'ferret_id',
+                #     2: 'serum_id',
                 #     3: 'source',
                 #     4: 'titer'
                 # }

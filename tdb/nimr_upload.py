@@ -15,6 +15,7 @@ class nimr_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
         self.assay_type = kwargs['assay_type']
+        self.assay_date = None
 
     def format_measurements(self, measurements, **kwargs):
         '''
@@ -33,6 +34,7 @@ class nimr_upload(upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
+            if meas['assay_date'] != None: self.assay_date = meas['assay_date']
             self.format_passages(meas)
             self.format_ref(meas)
             self.format_serum_sample(meas)
@@ -47,6 +49,8 @@ class nimr_upload(upload):
             print("Found files that had a different date format, need to add to self.different_date_format")
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
+        for meas in measurements:
+            meas['assay_date'] = self.assay_date
         return measurements
 
     def format_passages(self, meas, source_type='NIMR'):

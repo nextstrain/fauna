@@ -52,6 +52,7 @@ def upload_nimr(database, nimr_path, subtype):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
+            print "Uploading " + fname
             command = "python tdb/nimr_upload.py -db " + database + " --subtype " + subtype + " --ftype tables --path " + path + " --fstem " + fstem
             subprocess.call(command, shell=True)
             print "Done with", fname + "."
@@ -72,6 +73,7 @@ def upload_cdc(database, cdc_path, subtype):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
+            print "Uploading " + fname
             command = "python tdb/cdc_upload.py -db " + database + " --subtype " + subtype + " --path " + path + " --fstem " + fstem
             subprocess.call(command, shell=True)
             print "Done with", fname + "."
@@ -92,6 +94,7 @@ def upload_elife(database, elife_path, subtype):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
+            print "Uploading " + fname
             command = "python tdb/elife_upload.py -db " + database + " --subtype " + subtype + " --path " + path + " --fstem " + fstem
             subprocess.call(command, shell=True)
             print "Done with", fname + "."
@@ -105,12 +108,12 @@ if __name__=="__main__":
     nd = args.nimr_path
     cd = args.cdc_path
     ed = args.elife_path
-    upload_nimr(db, nd, "h3n2")
-    upload_nimr(db, nd, "h1n1pdm")
+    # upload_nimr(db, nd, "h3n2")
+    # upload_nimr(db, nd, "h1n1pdm")
     upload_nimr(db, nd, "vic")
     upload_nimr(db, nd, "yam")
-    upload_cdc(db, cd, "h3n2")
-    upload_elife(db, ed, "h3n2")
-    upload_elife(db, ed, "vic")
-    upload_elife(db, ed, "yam")
+    # upload_cdc(db, cd, "h3n2")
+    # upload_elife(db, ed, "h3n2")
+    # upload_elife(db, ed, "vic")
+    # upload_elife(db, ed, "yam")
     print "Done with all uploads."
