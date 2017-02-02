@@ -13,10 +13,9 @@ def get_parser():
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be include in download")
-    parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
+    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
-    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
@@ -28,7 +27,7 @@ def get_parser():
 class download(object):
     def __init__(self, database, virus, **kwargs):
         '''
-        parser for virus, fasta fields, output file names, output file format path, interval
+        parser for virus, output file names, output file format path, interval
         '''
         self.virus = virus.lower()
         self.database = database.lower()
