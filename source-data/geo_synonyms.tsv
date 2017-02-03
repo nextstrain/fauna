@@ -725,9 +725,11 @@ France	France	France	France
 AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Annecy	France	AuvergneRhoneAlpes	Annecy
+Annonay	France	AuvergneRhoneAlpes	Annonay
 BasseNormandie	France	Normandy	BasseNormandie
 Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux
 Bourgogne	France	BourgogneFrancheComte	Bourgogne
+BourgoinJallieu	France	AuvergneRhoneAlpes	BourgoinJallieu
 Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
 Centre	France	Centre	Centre
@@ -748,6 +750,7 @@ Limoges	France	AquitaineLimousinPoitouCharentes	Limoges
 Lorraine	France	AlsaceChampagneArdenneLorraine	Lorraine
 Lyon	France	AuvergneRhoneAlpes	Lyon
 Macon	France	BourgogneFrancheComte	Macon
+Marignier	France	AuvergneRhoneAlpes	Marignier
 Marseille	France	ProvenceAlpesCoteDAzur	Marseille
 Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
 Nice	France	ProvenceAlpesCoteDAzur	Nice
@@ -1487,10 +1490,13 @@ CapitalCoast	NewZealand	Wellington	Wellington
 Canterbury	NewZealand	Canterbury	Canterbury
 Christchurch	NewZealand	Canterbury	Christchurch
 Dunedin	NewZealand	Otago	Dunedin
+Gisborne	NewZealand	Gisborne	Gisborne
 HawkesBay	NewZealand	HawkesBay	HawkesBay
 Hutt	NewZealand	Wellington	Hutt
 HuttValley	NewZealand	Wellington	HuttValley
 Midcentral	NewZealand	NewZealand	PalmerstonNorth
+Napier	NewZealand	HawkesBay	Napier
+Nelson	NewZealand	Nelson	Nelson
 NelsonMarlborough	NewZealand	Nelson	Nelson
 Northland	NewZealand	Northland	Northland
 NorthWestAuckland	NewZealand	Auckland	Auckland
@@ -2013,6 +2019,7 @@ Visby	Sweden	Gotland	Visby
 # Switzerland
 Switzerland	Switzerland	Switzerland	Switzerland
 Geneva	Switzerland	Geneva	Geneva
+Zurich	Switzerland	Zurich	Zurich
 
 # Syria
 Syria	Syria	Syria	Syria
