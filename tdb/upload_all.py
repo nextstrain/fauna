@@ -108,10 +108,10 @@ if __name__=="__main__":
     nd = args.nimr_path
     cd = args.cdc_path
     ed = args.elife_path
-    # upload_nimr(db, nd, "h3n2")
+    upload_nimr(db, nd, "h3n2")
     # upload_nimr(db, nd, "h1n1pdm")
-    upload_nimr(db, nd, "vic")
-    upload_nimr(db, nd, "yam")
+    # upload_nimr(db, nd, "vic")
+    # upload_nimr(db, nd, "yam")
     # upload_cdc(db, cd, "h3n2")
     # upload_elife(db, ed, "h3n2")
     # upload_elife(db, ed, "vic")

@@ -79,7 +79,7 @@ class parse(object):
 
     def table_to_flat(self, HI_table):
         flat_measurements = list()
-        for ref_serum in HI_table.columns[5:]:
+        for ref_serum in HI_table.columns[4:]:
             try:
                 sub_set_vals = HI_table[ref_serum][~np.isnan(HI_table[ref_serum])]
                 sub_set_source = HI_table['source'][~np.isnan(HI_table[ref_serum])]
