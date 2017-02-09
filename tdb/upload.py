@@ -12,7 +12,7 @@ parser.add_argument('-db', '--database', default='tdb', help="database to upload
 parser.add_argument('-v', '--virus', default='flu', help="virus table to interact with, ie Flu")
 parser.add_argument('--subtype', default=None, help="subtype of virus, ie h1n1pdm, vic, yam, h3n2")
 parser.add_argument('--host', default='human', help="host of virus, ie human, swine")
-parser.add_argument('--path', default=None, help="path to fasta file, default is \"data/virus/\"")
+parser.add_argument('--path', default=None, help="path to input file, default is \"data/virus/\"")
 parser.add_argument('--fstem', help="input file stem")
 parser.add_argument('--ftype', default='flat', help="input file format, default \"flat\", other is \"tables\"")
 parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
@@ -31,9 +31,9 @@ class upload(parse, flu_upload):
         self.table = self.virus
         self.subtype = subtype.lower()
         self.database = database.lower()
-        self.uploadable_databases = ['tdb', 'test_tdb', 'test']
+        self.uploadable_databases = ['tdb', 'test_tdb', 'test', 'test_tdb_2']
         if self.database not in self.uploadable_databases:
-            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
+            raise Exception("Can't upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         self.flu_upload = flu_upload(database=self.database, virus=self.virus)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
@@ -44,16 +44,18 @@ class upload(parse, flu_upload):
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
-        self.upload_fields = ['virus_strain', 'serum_strain', 'titer', 'timestamp', 'source', 'ferret_id', 'subtype', 'host', 'passage'] #index too but assign after checking
-        self.optional_fields = ['date', 'ref']
+        self.upload_fields = ['virus_strain', 'serum_strain', 'serum_id', 'assay_type', 'assay_date', 'titer', 'timestamp']
+        self.optional_fields = ['date', 'ref', 'virus_cdc_id', 'virus_passage', 'virus_passage_category', 'subtype', 'serum_host', 'serum_passage', 'serum_passage_category']
         self.overwritable_fields = ['titer', 'date', 'ref']
-        self.index_fields = ['virus_strain', 'serum_strain', 'ferret_id', 'source', 'passage', 'subtype', 'host']
+        self.index_fields = ['virus_strain', 'serum_strain', 'serum_id', 'source', 'virus_passage_category', 'serum_passage_category', 'assay_type', 'assay_date']
         self.ref_virus_strains = set()
         self.ref_serum_strains = set()
         self.test_virus_strains = set()
         self.indexes = set()
-        self.passage = set()
+        self.virus_passage = set()
+        self.serum_passage = set()
         self.strain_names = set()
+        self.assay_type = set()
         self.different_date_format = ['NIMR-REPORT-FEB2010_03.CSV', 'NIMR-REPORT-FEB2010_06.CSV', 'NIMR-REPORT-FEB2010_05.CSV', 'NIMR_Feb2010_15.csv',
                                       'NIMR-REPORT-SEP2009_03.CSV', 'NIMR-REPORT-FEB2010_04.CSV', 'NIMR_FEB2010_15.CSV', 'NIMR_FEB2010_16.CSV', 'NIMR_Feb2010_16.csv',
                                       'NIMR-report-Feb2010_03.csv', 'NIMR-report-Feb2010_06.csv', 'NIMR-report-Feb2010_05.csv', 'NIMR-report-Sep2009_03.csv', 'NIMR-report-Feb2010_04.csv']
@@ -73,7 +75,7 @@ class upload(parse, flu_upload):
         self.adjust_tdb_strain_names(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
-            self.upload_documents(self.table, measurements, **kwargs)
+            self.upload_documents(self.table, measurements, index='index', **kwargs)
         else:
             print("Titer Measurements:")
             print(json.dumps(measurements[0], indent=1))
@@ -96,10 +98,10 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_date(meas)
-            self.format_passage(meas, 'passage', 'passage_category')
-            self.format_id(meas)
+            self.format_passage(meas, 'serum_passage', 'serum_passage_category')
+            self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_ref(meas)
-            self.format_titer(meas)
+            self.format_serum_sample(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
                 self.ref_virus_strains.add(meas['virus_strain'])
@@ -140,6 +142,9 @@ class upload(parse, flu_upload):
         return name, number_matched
 
     def HI_fix_name(self, name, serum):
+        '''
+        Canonicalize strain names to match with vdb
+        '''
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
                             'Jul': '7', 'Aug': '8', 'Sep': '9', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
@@ -183,6 +188,10 @@ class upload(parse, flu_upload):
         return name
 
     def test_location(self, strain):
+        '''
+        Determine that strains come from known locations, if not, print suggestion to add location to
+        flu_fix_location_label.tsv.
+        '''
         if isinstance(strain, basestring) and "/" in strain:
             location = strain.split('/')[1]
             if self.determine_location(location) is None:
@@ -190,7 +199,7 @@ class upload(parse, flu_upload):
 
     def add_attributes(self, meas, host, **kwargs):
         '''
-        Add attributes to virus
+        Add attributes to titer measurements
         '''
         meas['virus'] = self.virus.lower()
         meas['subtype'] = self.subtype.lower()
@@ -300,10 +309,7 @@ class upload(parse, flu_upload):
             print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain'])
             meas['date'] = None
 
-    def format_id(self, meas):
-        '''
-        Format ferret id attribute
-        '''
+        meas['assay_date'] = meas['date']
 
     def format_ref(self, meas):
         '''
@@ -320,10 +326,16 @@ class upload(parse, flu_upload):
         else:
             meas['ref'] = None
 
-    def format_titer(self, meas):
+    def format_serum_sample(self,meas):
         '''
-        Format titer number attribute
+        Format serum sample attribute for the measurements, so that there is
+        not a specific organism used for HI assays.
         '''
+        if 'ferret_id' in meas.keys():
+            new_id = meas['ferret_id']
+            meas['serum_id'] = new_id
+            meas['serum_host'] = 'ferret'
+            meas.pop('ferret_id',None)
 
     def create_index(self,  measurements, output=False):
         '''
@@ -348,7 +360,7 @@ class upload(parse, flu_upload):
 #       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
-        measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields), measurements)
+        measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
         print("Filtering out measurements with virus or serum strain names not formatted correctly")
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
         print(len(measurements), " measurements after filtering")

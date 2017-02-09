@@ -150,6 +150,8 @@ class flu_upload(upload):
                 print("Missing strain name!")
             self.format_date(doc)
             self.format_passage(doc, 'passage', 'passage_category')
+            self.format_passage(doc, 'virus_strain_passage', 'virus_strain_passage_category') #BP
+            self.format_passage(doc, 'serum_antigen_passage', 'serum_antigen_passage_category') #BP
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
         print("Names that need to be fixed")
@@ -351,7 +353,7 @@ class flu_upload(upload):
             elif re.search(r'C_[1-9]|C [1-9]|MD[1-9]|MK[1-9]|MEK[1-9]', passage):
                 passage_category = "cell"
             elif re.search(r'[Cc][Ee][Ll][Ll]', passage):
-                passage_category = "cell"                
+                passage_category = "cell"
             elif re.search(r'^S[1-9]_$| ^SX_$|SIAT2_SIAT1|SIAT3_SIAT1', passage):    # McWhite
                 passage_category = "cell"
             elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', passage):

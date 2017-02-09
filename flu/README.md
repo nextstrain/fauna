@@ -11,7 +11,7 @@
   * Download Isolates as "Sequences (DNA) as FASTA"
     * Select all DNA
     * Fasta Header as 0: DNA Accession no., 1: Isolate name, 2: Isolate ID, 3: Segment, 4: Passage details/history, 5: Submitting lab
-2. Move files to `nextstrain-db/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
+2. Move files to `fauna/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
 3. Upload to vdb database
   * `python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_epiflu`
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
@@ -22,7 +22,7 @@
 * Update genetic grouping fields
   * `python vdb/flu_update.py -db vdb -v flu --update_groupings`
   * updates `vtype`, `subtype`, `lineage`
-  
+
 ### Download documents from VDB
 
 * `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`
@@ -37,7 +37,7 @@
 #### Raw tables from NIMR reports
 
 1. Convert [NIMR report](https://www.crick.ac.uk/research/worldwide-influenza-centre/annual-and-interim-reports/) pdfs to csv files
-2. Move csv files to subtype directory in `nextstrain-db/data/`
+2. Move csv files to subtype directory in `fauna/data/`
 3. Upload to tdb database
   * `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem h3n2_nimr_titers`
   * Recommend running with `--preview` to confirm strain names are correctly parsed before uploading
@@ -45,7 +45,7 @@
 
 #### Flat files
 
-1. Move line-list tsv files to `nextstrain-db/data/`
+1. Move line-list tsv files to `fauna/data/`
 2. Upload to tdb database with `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem H3N2_HI_titers_upload`
 
 ### Download documents from TDB

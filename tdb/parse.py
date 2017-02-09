@@ -22,10 +22,10 @@ class parse(object):
         if ftype == "flat":
             flat_measurements = self.read_flat(**kwargs)
         elif ftype == "tables":
-            HI_titers = self.read_tables(**kwargs)  
+            HI_titers = self.read_tables(**kwargs)
             flat_measurements = self.table_to_flat(HI_titers)
         return flat_measurements
-        
+
     def read_flat(self, path, fstem, **kwargs):
         '''
         Read flat titer table, assumes file ends with .tsv
@@ -42,37 +42,44 @@ class parse(object):
         else:
             with open(file) as infile:
                 table_reader = csv.reader(infile, delimiter="\t")
-                header = {
-                    0: 'virus_strain',
-                    1: 'serum_strain',
-                    2: 'ferret_id',
-                    3: 'source',
-                    4: 'titer'
-                }
+                header = table_reader.next()
+                headers = {}
+                for i in range(len(header)):
+                    headers[i] = header[i]
+                # header = {
+                #     0: 'virus_strain',
+                #     1: 'serum_strain',
+                #     2: 'serum_id',
+                #     3: 'source',
+                #     4: 'titer'
+                # }
                 for row in table_reader:
-                    m = {key: row[ii] if ii < len(row) else "" for ii, key in header.items()}
-                    if re.search(r'[Ee][Gg][Gg]', m['ferret_id']):  # TODO FIX THIS FOR LATER IMPORTS
+                    m = {key: row[ii] if ii < len(row) else "" for ii, key in headers.items()}
+                    if 'ferret_id' in m.keys():
+                        m['serum_id'] = m['ferret_id']
+                        m.pop('ferret_id', None)
+                    if re.search(r'[Ee][Gg][Gg]', m['serum_id']):  # TODO FIX THIS FOR LATER IMPORTS
                         m['passage'] = 'egg'
                     else:
                         m['passage'] = 'cell'
                     flat_measurements.append(m)
-        return flat_measurements        
+        return flat_measurements
 
-    def read_tables(self, path, **kwargs):
+    def read_tables(self, path, fstem, **kwargs):
         '''
         Read all csv tables in path, create data frame with reference viruses as columns
         '''
-        import glob
-        flist = glob.glob(path + '/NIMR*csv')
+        fname = path + fstem + ".csv"
+        # import glob
+        # flist = glob.glob(path + '/NIMR*csv') #BP
         HI_matrices = pd.DataFrame()
-        for fname in flist:
-            tmp = self.parse_HI_matrix(fname)
-            HI_matrices = HI_matrices.append(tmp)
+        tmp = self.parse_HI_matrix(fname)
+        HI_matrices = HI_matrices.append(tmp)
         return HI_matrices
 
     def table_to_flat(self, HI_table):
         flat_measurements = list()
-        for ref_serum in HI_table.columns[5:]:
+        for ref_serum in HI_table.columns[4:]:
             try:
                 sub_set_vals = HI_table[ref_serum][~np.isnan(HI_table[ref_serum])]
                 sub_set_source = HI_table['source'][~np.isnan(HI_table[ref_serum])]
@@ -80,7 +87,7 @@ class parse(object):
                 sub_set_passage = HI_table['passage'][~np.isnan(HI_table[ref_serum])]
                 sub_set_ref = HI_table['ref/test'][~np.isnan(HI_table[ref_serum])]
                 for virus, val, src_id, date, passage, ref in zip(sub_set_vals.index, sub_set_vals, sub_set_source, sub_set_date, sub_set_passage, sub_set_ref):
-                    flat_measurements.append({'virus_strain': virus, 'serum_strain': ref_serum[0], 'ferret_id': ref_serum[1], 'source': src_id, 'titer': val, 'date': date, 'passage': passage, 'ref': ref})
+                    flat_measurements.append({'virus_strain': virus, 'serum_strain': ref_serum[0], 'ferret_id': ref_serum[1], 'source': src_id, 'titer': val, 'date': date, 'passage': passage, 'ref': ref}) # BP changed 'ferret_id': ref_serum[1] to 'ferret_id': ref_serum[0] to try to parse NIMR tables 122816
             except:
                 print("Couldn't parse this serum's measurements", ref_serum)
                 print("Check fields at top left of file")

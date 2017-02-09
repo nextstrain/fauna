@@ -13,10 +13,9 @@ def get_parser():
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be include in download")
-    parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
+    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
-    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
@@ -28,14 +27,14 @@ def get_parser():
 class download(object):
     def __init__(self, database, virus, **kwargs):
         '''
-        parser for virus, fasta fields, output file names, output file format path, interval
+        parser for virus, output file names, output file format path, interval
         '''
         self.virus = virus.lower()
         self.database = database.lower()
         self.measurements = []
 
     def connect_rethink(self, **kwargs):
-        if self.database not in ['tdb', 'test_tdb', 'test']:
+        if self.database not in ['tdb', 'test_tdb', 'test', 'test_tdb_2']:
             raise Exception("Cant download to this database: " + self.database)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
@@ -98,7 +97,7 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'ferret_id', 'source', 'titer']):
+    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer']):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -151,7 +150,7 @@ class download(object):
             if meas['virus_strain'] in HI_titer_count.keys():
                 HI_titer_count[meas['virus_strain']] = HI_titer_count[meas['virus_strain']] + 1
             else:
-                HI_titer_count[meas['virus_strain']] = 1                
+                HI_titer_count[meas['virus_strain']] = 1
         return HI_titer_count
 
 if __name__=="__main__":

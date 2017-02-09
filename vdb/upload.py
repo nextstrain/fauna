@@ -80,7 +80,7 @@ class upload(parse):
 
     def connect(self, **kwargs):
         if self.database not in self.uploadable_databases:
-            raise Exception("Cant upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
+            raise Exception("Can't upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
