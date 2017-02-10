@@ -40,7 +40,8 @@ Command line arguments to run tdb_upload:
 * `--exclusive`: downloads all documents in database to see if measurements present, include `--exclusive` to get each document on its own (takes longer, but better if others updating database at same time)
 * `--preview`: if included, preview a virus document to be uploaded
 * `--replace` if included, delete all documents in table
-* `--path`: path to input file, default is `data/virus/`
+* `--path`: path to input file, default is `data/`
+* `--fstem`: input file stem
 * `--auth\_key`: authorization key for rethink database
 * `--host`: rethink host url
 
@@ -48,15 +49,46 @@ Command line arguments to run tdb_upload:
 
 Test parsing of HI tables without actually uploading to database:
 
-    python tdb/upload.py -db tdb -v h1n1pdm --preview
+    python tdb/upload.py -db tdb -v h1n1pdm --fstem <FILE STEM> --preview
 
 Upload measurements to database:
 
-    python tdb/upload.py -db tdb -v h1n1pdm
+    python tdb/upload.py -db tdb -v h1n1pdm --fstem <FILE STEM>
 
 Replace all measurements in table before uploading:
 
-    python tdb/upload.py -db tdb -v h1n1pdm --replace
+    python tdb/upload.py -db tdb -v h1n1pdm --fstem <FILE STEM> --replace
+
+#### Batch Uploads
+
+The script `upload_all.py` calls uploads for all upload files in the `data/` from multiple sources with files of both `flat` and `tabular` formats. It uploads all files in the directory structure:
+
+    .
+    +-- data
+    |   +-- cdc
+    |       +-- subtype1
+    |           +-- flat_file_1.tsv
+    |           +-- flat_file_2.tsv
+    |           +-- ...
+    |       +-- subtype2
+    |       +-- ...
+    |   +-- elife
+    |       +-- subtype1
+    |           +-- flat_file_1.tsv
+    |           +-- flat_file_2.tsv
+    |           +-- ...
+    |       +-- subtype2
+    |       +-- ...
+    |   +-- nimr
+    |       +-- subtype1
+    |           +-- tabular_file_1.csv
+    |           +-- tabular_file_2.csv
+    |           +-- ...
+    |       +-- subtype2
+    |       +-- ...
+    +-- tdb
+    |   +-- upload_all.py
+
 
 ### HI Table Troubleshooting
 
@@ -68,7 +100,7 @@ The Francis Crick Institute releases biannual [reports](https://www.crick.ac.uk/
 	* Some serum names included date information that needed to be reformatted (B/SHANDONG/JUL-97, A/CALIFORNIA/9-APR). Again used regex to reformat, but other patterns may arise.
 	* `check_strain_names` looks for serum strain names that are potentially not parsed correctly by looking for a matching reference or test virus strain name. This helped me spot patterns of incorrectly parsed serum names.
 * Titer measurement values
-	* The HI assay uses two fold dilutions to measure antigenic similarity between viruses. So each titer measurement can only be certain values. I manually changed some values like '160' was most likely incorrectly entered and should be '180'.
+	* The HI assay uses two fold dilutions to measure antigenic similarity between viruses. So each titer measurement can only be certain values. I manually changed some values like '160' was most likely incorrectly entered and should be '180'. This can cause issues for non-HI assay types.
 	* The pdf converter sometimes made mistakes like combining two columns into one, half of one column into another (80 | 160 would become 8 | 0 160), regex handled some of these mistakes but others may arise, the function `check_titer_values` tries to spot these.
 * Column labels
 	* The HI tables have included more columns over time. They seems to always include `viruses`, `collection date` and `passage history`, but have added `genetic group` and `other information` columns.
@@ -88,19 +120,20 @@ Measurements can be downloaded from tdb.
 Command line arguments to run `download.py`:
 
 * `-db --database`: database to download from, eg. `tdb`, `test_db`
-* `-v --virus`: virus table to interact with, eg. `h1n1pdm`
+* `-v`, `--virus`: virus table to interact with, eg. `h3n2`
 * `--host`: host to be include in download, multiple arguments allowed
 * `--path`: path to dump output files to, default is `data/`
-* `--ftype`: output file format, default is `tsv`, other option is `json`
+* `--ftype`: output file format, default is `tsv`, other options are `json` and `augur`
 * `--fstem`: output file stem name, default is `VirusName\_Year\_Month\_Date`
 * `--auth\_key`: authorization key for rethink database
 * `--host`: rethink host url
+* `--subtype`: subtype to be included in download
 
 ### Examples
 
 Download all H1N1pdm titers:
 
-    python tdb/download.py -db tdb -v h1n1pdm
+    python tdb/download.py -db tdb -v flu --subtype h3n2
 
 ## Backup and Restore
 
