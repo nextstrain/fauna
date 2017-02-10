@@ -189,10 +189,18 @@ class parse(object):
         '''
         Use entrez esearch to get genbank identifiers from accession numbers
         '''
-        retmax = 10**9
-        query = " ".join(accessions)
-        handle = Entrez.esearch(db=self.gbdb, term=query, retmax=retmax)
-        giList = Entrez.read(handle)['IdList']
+        retmax = 10**5  # max records to retrieve at once; 10^5 is documented limit, but >2500 reproducibly throws errors
+        queries = []
+        giList = []
+
+        for i in sorted(xrange(0, len(accessions), 2500)): # split accessions list into 2500-long portions
+            queries.append(" ".join(accessions[i:i+2500])) # convert list to ' ' separated string
+
+        assert sum([len(q.split()) for q in queries]) == len(accessions) # sanity check
+
+        for q in queries:
+            handle = Entrez.esearch(db=self.gbdb, term=q, retmax=retmax)    # retrieve xml of search results
+            giList += Entrez.read(handle)['IdList'] # pull GI numbers from handle
         return giList
 
     def get_entrez_viruses(self, giList, **kwargs):
