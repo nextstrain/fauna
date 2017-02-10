@@ -13,7 +13,7 @@ def get_parser():
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be included in download")
-    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\" and \"tsv\"")
+    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\", \"tsv\", and \"augur\")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
 
