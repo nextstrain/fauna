@@ -29,7 +29,8 @@ class upload(parse, flu_upload):
         flu_upload.__init__(self, database=database, virus=virus)
         self.virus = virus.lower()
         self.table = self.virus
-        self.subtype = subtype.lower()
+        if subtype is not None:
+            self.subtype = subtype.lower()
         self.database = database.lower()
         self.uploadable_databases = ['tdb', 'test_tdb', 'test', 'test_tdb_2']
         if self.database not in self.uploadable_databases:
@@ -97,6 +98,7 @@ class upload(parse, flu_upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            self.format_subtype(meas)
             self.format_date(meas)
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
@@ -202,7 +204,8 @@ class upload(parse, flu_upload):
         Add attributes to titer measurements
         '''
         meas['virus'] = self.virus.lower()
-        meas['subtype'] = self.subtype.lower()
+        if hasattr(self, 'subtype'):
+            meas['subtype'] = self.subtype.lower()
         meas['host'] = host.lower()
         meas['timestamp'] = self.rethink_io.get_upload_timestamp()
         meas['inclusion_date'] = self.rethink_io.get_upload_date()
@@ -325,6 +328,22 @@ class upload(parse, flu_upload):
                 print("Couldn't parse reference status", meas['ref'])
         else:
             meas['ref'] = None
+
+    def format_subtype(self, meas):
+        '''
+        Format subtype attribute
+        '''
+        if 'subtype' in meas:
+            if meas['subtype'] == 'H3':
+                meas['subtype'] = 'h3n2'
+            elif meas['subtype'] == 'H1 swl':
+                meas['subtype'] = 'h1n1pdm'
+            elif meas['subtype'] == 'B vic':
+                meas['subtype'] = 'vic'
+            elif meas['subtype'] == 'B yam':
+                meas['subtype'] = 'yam'
+        else:
+            meas['subtype'] = None
 
     def format_serum_sample(self,meas):
         '''

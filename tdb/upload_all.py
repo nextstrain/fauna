@@ -60,21 +60,21 @@ def upload_nimr(database, nimr_path, subtype):
 
     print "Done uploading NIMR documents."
 
-def upload_cdc(database, cdc_path, subtype):
+def upload_cdc(database, cdc_path):
     '''
     Makes calls to tdb/upload.py for every flat file in an CDC titer directory (default data/cdc/).
-    All files in the directory should be flat titer files in TSV format for only one subtype
-    of virus (H3N2, H1N1pdm, etc.).
+    All files in the directory should be flat titer files in TSV format.
+    There are multiple subtypes within a file.
     '''
-    path = cdc_path + subtype + "/"
-    print "Uploading CDC data for subtype", subtype, "contained in directory", path + "."
+    path = cdc_path
+    print "Uploading CDC data contained in directory", path + "."
 
     for fname in os.listdir(path):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
             print "Uploading " + fname
-            command = "python tdb/cdc_upload.py -db " + database + " --subtype " + subtype + " --path " + path + " --fstem " + fstem
+            command = "python tdb/cdc_upload.py -db " + database + " --path " + path + " --fstem " + fstem
             print "Running with: " + command
             subprocess.call(command, shell=True)
             print "Done with", fname + "."
