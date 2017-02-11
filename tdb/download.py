@@ -34,7 +34,7 @@ class download(object):
         self.measurements = []
 
     def connect_rethink(self, **kwargs):
-        if self.database not in ['tdb', 'test_tdb', 'test', 'test_tdb_2']:
+        if self.database not in ['tdb', 'test_tdb', 'test_tdb_2', 'cdc_tdb']:
             raise Exception("Cant download to this database: " + self.database)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
