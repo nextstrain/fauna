@@ -72,7 +72,7 @@ class upload(parse, flu_upload):
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
-        self.adjust_tdb_strain_names(measurements)
+        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
@@ -114,7 +114,7 @@ class upload(parse, flu_upload):
         self.check_strain_names(measurements)
         return measurements
 
-    def adjust_tdb_strain_names(self, measurements, database='vdb'):
+    def adjust_tdb_strain_names_from_vdb(self, measurements, database='vdb'):
         '''
         Compare measurement strain names to vdb strain names to ensure downstream matching between measurements and sequences
         '''

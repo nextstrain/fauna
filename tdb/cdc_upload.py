@@ -26,7 +26,7 @@ class cdc_upload(upload):
         measurements = self.clean_field_names(measurements)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
-        self.adjust_tdb_strain_names(measurements)
+        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)

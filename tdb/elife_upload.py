@@ -24,7 +24,7 @@ class elife_upload(upload):
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
         self.check_uniqueness(measurements)
-        self.adjust_tdb_strain_names(measurements)
+        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
