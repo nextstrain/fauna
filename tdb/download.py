@@ -97,7 +97,7 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer']):
+    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer', 'assay_type']):
         try:
             handle = open(fname, 'w')
         except IOError:

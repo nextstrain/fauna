@@ -33,6 +33,8 @@ class nimr_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            self.format_subtype(meas)
+            self.format_assay_type(meas)                
             self.format_date(meas)
             if meas['assay_date'] != None: self.assay_date = meas['assay_date']
             self.format_passages(meas)

@@ -49,6 +49,8 @@ class elife_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            self.format_subtype(meas)
+            self.format_assay_type(meas)                
             self.format_date(meas)
             meas['assay_date'] = "XXXX-XX-XX"
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
