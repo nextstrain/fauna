@@ -9,7 +9,7 @@ sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
 
-parser.add_argument('--assay_type', default='HI', help='type of assay being recorded')
+parser.add_argument('--assay_type', default='hi', help='type of assay being recorded')
 
 class nimr_upload(upload):
     def __init__(self, **kwargs):
@@ -34,7 +34,7 @@ class nimr_upload(upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_subtype(meas)
-            self.format_assay_type(meas)                
+            self.format_assay_type(meas)
             self.format_date(meas)
             if meas['assay_date'] != None: self.assay_date = meas['assay_date']
             self.format_passages(meas)
