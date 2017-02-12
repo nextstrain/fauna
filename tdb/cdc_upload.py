@@ -52,7 +52,8 @@ class cdc_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
-            self.format_subtype(meas)            
+            self.format_subtype(meas)
+            self.format_assay_type(meas)                     
             meas['date'] = meas['assay_date']
             self.format_date(meas)
             self.format_passage(meas, 'serum_antigen_passage', 'serum_passage_category')

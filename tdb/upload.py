@@ -99,6 +99,7 @@ class upload(parse, flu_upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_subtype(meas)
+            self.format_assay_type(meas)
             self.format_date(meas)
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
@@ -344,6 +345,18 @@ class upload(parse, flu_upload):
                 meas['subtype'] = 'yam'
         else:
             meas['subtype'] = None
+
+    def format_assay_type(self, meas):
+        '''
+        Format assay_type attribute
+        '''
+        if 'assay_type' in meas:
+            if meas['assay_type'] == 'HI':
+                meas['assay_type'] = 'hi'
+            elif meas['assay_type'] == 'FRA':
+                meas['assay_type'] = 'fra'
+        else:
+            meas['assay_type'] = None
 
     def format_serum_sample(self,meas):
         '''
