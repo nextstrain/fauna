@@ -11,7 +11,7 @@ def get_parser():
     parser.add_argument('--rethink_host', default=None, help="rethink host url")
     parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
-    parser.add_argument('-v', '--virus', help="virus name")
+    parser.add_argument('-v', '--virus', default='flu', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be included in download")
     parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\", \"tsv\", and \"augur\")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
