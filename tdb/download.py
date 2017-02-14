@@ -7,13 +7,13 @@ from vdb.download import download as vdb_download
 def get_parser():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-db', '--database', default='vdb', help="database to download from")
+    parser.add_argument('-db', '--database', default='tdb', help="database to download from")
     parser.add_argument('--rethink_host', default=None, help="rethink host url")
     parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', default='flu', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be included in download")
-    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\", \"tsv\", and \"augur\")
+    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\", \"tsv\", and \"augur\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
 
@@ -34,7 +34,7 @@ class download(object):
         self.measurements = []
 
     def connect_rethink(self, **kwargs):
-        if self.database not in ['tdb', 'test_tdb', 'test', 'test_tdb_2']:
+        if self.database not in ['tdb', 'test_tdb', 'cdc_tdb']:
             raise Exception("Cant download to this database: " + self.database)
         self.rethink_io = rethink_io()
         self.rethink_host, self.auth_key = self.rethink_io.assign_rethink(**kwargs)
