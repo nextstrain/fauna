@@ -61,33 +61,18 @@ Replace all measurements in table before uploading:
 
 #### Batch Uploads
 
-The script `upload_all.py` calls uploads for all upload files in the `data/` from multiple sources with files of both `flat` and `tabular` formats. It uploads all files in the directory structure:
+The script `upload_all.py` calls uploads for all upload files in the `data/` from multiple sources with files of both `flat` and `tabular` formats.
 
-    .
-    +-- data
-    |   +-- cdc
-    |       +-- subtype1
-    |           +-- flat_file_1.tsv
-    |           +-- flat_file_2.tsv
-    |           +-- ...
-    |       +-- subtype2
-    |       +-- ...
-    |   +-- elife
-    |       +-- subtype1
-    |           +-- flat_file_1.tsv
-    |           +-- flat_file_2.tsv
-    |           +-- ...
-    |       +-- subtype2
-    |       +-- ...
-    |   +-- nimr
-    |       +-- subtype1
-    |           +-- tabular_file_1.csv
-    |           +-- tabular_file_2.csv
-    |           +-- ...
-    |       +-- subtype2
-    |       +-- ...
-    +-- tdb
-    |   +-- upload_all.py
+Command line arguments to run upload_all:
+
+* `-db --database`: database to upload to, eg. `tdb`, `test_tdb`
+* `--subtypes`: flu subtypes to include, options are: h3n2, h1n1pdm, vic, yam
+* `--sources`: data sources to include, options are: elife, nimr, cdc
+
+Additional arguments based on chosen `sources`:
+* `--nimr_path`: directory containing NIMR titers; default `data/nimr/`
+* `--cdc_path`: directory containing CDC titers; default `data/cdc/`
+* `--elife_path`: directory containing eLife titers; default `data/elife/`
 
 
 ### HI Table Troubleshooting
