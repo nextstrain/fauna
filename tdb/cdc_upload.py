@@ -22,11 +22,11 @@ class cdc_upload(upload):
         print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
+        measurements = self.clean_field_names(measurements)        
         self.format_measurements(measurements, **kwargs)
-        measurements = self.clean_field_names(measurements)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
-        self.adjust_tdb_strain_names(measurements)
+        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
@@ -52,6 +52,8 @@ class cdc_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            self.format_subtype(meas)
+            self.format_assay_type(meas)                     
             meas['date'] = meas['assay_date']
             self.format_date(meas)
             self.format_passage(meas, 'serum_antigen_passage', 'serum_passage_category')

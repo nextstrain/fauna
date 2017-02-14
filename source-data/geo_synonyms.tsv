@@ -729,6 +729,7 @@ Annonay	France	AuvergneRhoneAlpes	Annonay
 BasseNormandie	France	Normandy	BasseNormandie
 Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux
 Bourgogne	France	BourgogneFrancheComte	Bourgogne
+Bourgoin	France	AuvergneRhoneAlpes	BourgoinJallieu
 BourgoinJallieu	France	AuvergneRhoneAlpes	BourgoinJallieu
 Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
@@ -763,6 +764,7 @@ Picardie	France	NordPasdeCalaisPicardie	Picardie
 Poitiers	France	AquitaineLimousinPoitouCharentes	Poitiers
 PoitouCharentes	France	AquitaineLimousinPoitouCharentes	PoitouCharentes
 ProvenceAlpesCoteDAzur	France	ProvenceAlpesCoteDAzur	ProvenceAlpesCoteDAzur
+Puymirol	France	NouvelleAquitaine	Puymirol
 Reims	France	AlsaceChampagneArdenneLorraine	Reims
 Rennes	France	Bretagne	Rennes
 Reunion	France	SaintDenis	Reunion
@@ -864,10 +866,12 @@ Crete	Greece	Crete	Crete
 Drama	Greece	EasternMacedoniaAndThrace	Drama
 Edessa	Greece	CentralMacedonia	Edessa
 Evros	Greece	EasternMacedoniaAndThrace	Evros
+Evrytania	Greece	CentralGreece	Evrytania
 Florina	Greece	WesternMacedonia	Florina
 Giannitsa	Greece	CentralMacedonia	Giannitsa
 Grevena	Greece	WesternMacedonia	Grevena
 Herakleion	Greece	Crete	Herakleion
+Ilia	Greece	WesternGreece	Ilia
 Irakleio	Greece	Crete	Irakleio
 Ioannina	Greece	Epirus	Ioannina
 Kalamata	Greece	Peloponnese	Kalamata
@@ -887,6 +891,7 @@ Lesvos	Greece	NorthAegean	Lesvos
 Livadia	Greece	CentralGreece	Livadia
 Naousa	Greece	CentralMacedonia	Naousa
 Patra	Greece	CentralGreece	Patra
+Pella	Greece	CentralMacedonia	Pella
 Peloponnese	Greece	Peloponnese	Peloponnese
 Preveza	Greece	Epirus	Preveza
 Ptolemaida	Greece	WesternMacedonia	Ptolemaida
@@ -2083,6 +2088,7 @@ SuphanBuri	Thailand	SuphanBuri	SuphanBuri
 SuratThani	Thailand	SuratThani	SuratThani
 Tak	Thailand	Tak	Tak
 Udorn	Thailand	NakhonRatachasima	NongPhaiLom
+Yasothon	Thailand	Yasothon	Yasothon
 
 # Togo
 Togo	Togo	Togo	Togo

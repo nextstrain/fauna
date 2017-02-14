@@ -34,6 +34,7 @@ class download(object):
         self.measurements = []
 
     def connect_rethink(self, **kwargs):
+      
         if self.database not in ['tdb', 'test_tdb', 'cdc_tdb']:
             raise Exception("Cant download to this database: " + self.database)
         self.rethink_io = rethink_io()
@@ -97,7 +98,7 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer']):
+    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer', 'assay_type']):
         try:
             handle = open(fname, 'w')
         except IOError:

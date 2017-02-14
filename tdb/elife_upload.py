@@ -24,7 +24,7 @@ class elife_upload(upload):
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
         self.check_uniqueness(measurements)
-        self.adjust_tdb_strain_names(measurements)
+        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
@@ -49,6 +49,8 @@ class elife_upload(upload):
             self.test_location(meas['virus_strain'])
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
+            self.format_subtype(meas)
+            self.format_assay_type(meas)                
             self.format_date(meas)
             meas['assay_date'] = "XXXX-XX-XX"
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
