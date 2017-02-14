@@ -74,7 +74,6 @@ Additional arguments based on chosen `sources`:
 * `--cdc_path`: directory containing CDC titers; default `data/cdc/`
 * `--elife_path`: directory containing eLife titers; default `data/elife/`
 
-
 ### HI Table Troubleshooting
 
 The Francis Crick Institute releases biannual [reports](https://www.crick.ac.uk/research/worldwide-influenza-centre/annual-and-interim-reports/) that include antigenic analyses of the different subtypes of seasonal flu. These tables are in pdf format and must be converted to `csv` format using a pdf converter like [tabular](https://github.com/tabulapdf/tabula) or [okular](https://okular.kde.org/). The reports are not consistent with their column labels and formatting, serum strain names are difficult to parse, and the pdf converters are not perfect. This required manual curation/fixing of the csv files and expansion of the [parse_HI_matrix function](https://github.com/blab/nextflu/blob/master/augur/src/tree_titer.py#L842) to try to catch common mistakes.
@@ -87,6 +86,7 @@ The Francis Crick Institute releases biannual [reports](https://www.crick.ac.uk/
 * Titer measurement values
 	* The HI assay uses two fold dilutions to measure antigenic similarity between viruses. So each titer measurement can only be certain values. I manually changed some values like '160' was most likely incorrectly entered and should be '180'. This can cause issues for non-HI assay types.
 	* The pdf converter sometimes made mistakes like combining two columns into one, half of one column into another (80 | 160 would become 8 | 0 160), regex handled some of these mistakes but others may arise, the function `check_titer_values` tries to spot these.
+  * Many report tables contain upper-bound values (i.e. <10) which may cause issues in downstream applications.
 * Column labels
 	* The HI tables have included more columns over time. They seems to always include `viruses`, `collection date` and `passage history`, but have added `genetic group` and `other information` columns.
 	* `determine_columns` looks for field names from `self.table_column_names` in the first row of the HI table to label data parsed from that column. Some of the February 2016 column names were parsed to second row and this method didn't work in that case, need to manually move column names up in the csv files. Removed `other information` and blank columns from the HI matrix.
@@ -104,21 +104,29 @@ Measurements can be downloaded from tdb.
 
 Command line arguments to run `download.py`:
 
-* `-db --database`: database to download from, eg. `tdb`, `test_db`
-* `-v`, `--virus`: virus table to interact with, eg. `h3n2`
+* `-db --database`: database to download from, eg. `tdb`, `test_db`, `cdc_tdb`
+* `-v`, `--virus`: virus table to interact with; default is `flu`
 * `--host`: host to be include in download, multiple arguments allowed
 * `--path`: path to dump output files to, default is `data/`
-* `--ftype`: output file format, default is `tsv`, other options are `json` and `augur`
+* `--ftype`: output file format; default is `tsv`, other options are `json` and `augur`
 * `--fstem`: output file stem name, default is `VirusName\_Year\_Month\_Date`
 * `--auth\_key`: authorization key for rethink database
 * `--host`: rethink host url
-* `--subtype`: subtype to be included in download
+* `--subtype`: subtype to be included in download; default is `h3n2`, other options are `h1n1pdm`, `vic`, and `yam`
 
 ### Examples
 
-Download all H1N1pdm titers:
+Download all H3N2 titers from tdb:
 
-    python tdb/download.py -db tdb -v flu --subtype h3n2
+    python tdb/download.py
+
+Download a json of Yam titers from cdc_tdb:
+
+    python tdb/download.py -db cdc_tdb --ftype json --subtype yam
+
+### Batch download
+
+Both sequence and titer information can be download at once using `flu/download_all.py`.
 
 ## Backup and Restore
 
