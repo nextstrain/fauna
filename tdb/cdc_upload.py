@@ -22,7 +22,7 @@ class cdc_upload(upload):
         print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
-        measurements = self.clean_field_names(measurements)        
+        measurements = self.clean_field_names(measurements)
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
@@ -53,7 +53,7 @@ class cdc_upload(upload):
             self.test_location(meas['serum_strain'])
             self.add_attributes(meas, **kwargs)
             self.format_subtype(meas)
-            self.format_assay_type(meas)                     
+            self.format_assay_type(meas)
             meas['date'] = meas['assay_date']
             self.format_date(meas)
             self.format_passage(meas, 'serum_antigen_passage', 'serum_passage_category')
@@ -63,6 +63,7 @@ class cdc_upload(upload):
             meas.pop('passage',None)
             self.format_ref(meas)
             self.format_serum_sample(meas)
+            self.format_titer(meas)
             if meas['ref'] == True:
                 self.ref_serum_strains.add(meas['serum_strain'])
                 self.ref_virus_strains.add(meas['virus_strain'])
@@ -75,6 +76,18 @@ class cdc_upload(upload):
             print(self.new_different_date_format)
         self.check_strain_names(measurements)
         return measurements
+
+    def format_titer(self, meas):
+        '''
+        Format titer attribute.
+        Correct "5" to "<20" in CDC uploads.
+        '''
+        if 'titer' in meas:
+            if 'source' in meas:
+                if meas['titer'] == '5' and meas['source'] == 'CDC':
+                    meas['titer'] = '<20'
+        else:
+            meas['titer'] = None
 
     def remove_fields(self, meas):
         '''
