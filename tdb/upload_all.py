@@ -3,7 +3,7 @@ import subprocess
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-db', '--database', default='test_tdb', help="database to upload to")
+parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
 parser.add_argument('--subtypes', nargs='+', type = str,  help ="flu subtypes to include, options are: h3n2, h1n1pdm, vic, yam")
 parser.add_argument('--sources', nargs='+', type = str,  help ="data sources to include, options are: elife, nimr, cdc")
 parser.add_argument('--nimr_path', default='data/nimr/', help="directory containing NIMR titers")

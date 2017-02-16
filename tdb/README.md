@@ -108,7 +108,7 @@ Command line arguments to run `download.py`:
 * `-v`, `--virus`: virus table to interact with; default is `flu`
 * `--host`: host to be include in download, multiple arguments allowed
 * `--path`: path to dump output files to, default is `data/`
-* `--ftype`: output file format; default is `tsv`, other options are `json` and `augur`
+* `--ftype`: output file format; default is `tsv`, other option is `json`
 * `--fstem`: output file stem name, default is `VirusName\_Year\_Month\_Date`
 * `--auth\_key`: authorization key for rethink database
 * `--host`: rethink host url

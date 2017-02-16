@@ -13,7 +13,7 @@ def get_parser():
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', default='flu', help="virus name")
     parser.add_argument('--subtype', default='h3n2', help="subtype to be included in download")
-    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\", \"tsv\", and \"augur\"")
+    parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
 
@@ -34,7 +34,7 @@ class download(object):
         self.measurements = []
 
     def connect_rethink(self, **kwargs):
-      
+
         if self.database not in ['tdb', 'test_tdb', 'cdc_tdb']:
             raise Exception("Cant download to this database: " + self.database)
         self.rethink_io = rethink_io()
@@ -64,9 +64,9 @@ class download(object):
         measurements = self.rethinkdb_download(self.virus, presents=present, selections=select, intervals=interval, **kwargs)
         print("Downloaded " + str(len(measurements)) + " measurements")
         if output:
-            self.output(measurements, subtype=subtype, **kwargs)
+            self.output(measurements, **kwargs)
         if count:
-            self.write_count(measurements, subtype=subtype, **kwargs)
+            self.write_count(measurements, **kwargs)
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
 
     def rethinkdb_download(self, table, **kwargs):
@@ -114,20 +114,17 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def output(self, measurements, path, fstem, ftype, subtype, **kwargs):
-        fname = path + '/' + fstem + '.' + ftype
+    def output(self, measurements, path, fstem, ftype, **kwargs):
+        fname = path + '/' + fstem + '_titers' + '.' + ftype
         if ftype == 'json':
             self.write_json(measurements,fname)
         elif ftype == 'tsv':
             self.write_text(measurements, fname)
-        elif ftype == 'augur':
-            fname = path + '/' + subtype + "_hi_titers.tsv"
-            self.write_text(measurements, fname)
         else:
             raise Exception("Can't output to that file type, only json or text allowed")
 
-    def write_count(self, measurements, path, subtype, **kwargs):
-        fname = path + '/' + subtype + '_hi_strains.tsv'
+    def write_count(self, measurements, path, fstem, **kwargs):
+        fname = path + '/' + fstem + '_strains.tsv'
         print("Counting HI_strains and printing to " + fname)
         HI_titer_count = self.count(measurements)
         try:
