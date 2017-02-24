@@ -63,5 +63,6 @@ Upload with:
 
 Upload with:
 
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_good.fasta
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_partial.fasta
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_good.fasta
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_partial.fasta
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_poor.fasta    

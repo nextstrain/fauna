@@ -31,7 +31,6 @@ Antarctica	Antarctica	Antarctica	Antarctica
 # Antigua
 antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
 AntiguaAndBarbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
-Saintjohn	antigua_and_barbuda	antigua_and_barbuda	SaintJohn
 
 # Argentina
 Argentina	Argentina	Argentina	Argentina
@@ -510,6 +509,7 @@ Putian	China	Fujian	Putian
 Qingdao	China	Shandong	Qingdao
 Qingfeng	China	Henan	Qingfeng
 Qinghai	China	Qinghai	Qinghai
+Qingyuan	China	Guangdong	Qingyuan
 Qitie	China	Heilongjiang	Heilongjiang
 Quanzhou	China	Fujian	Quanzhou
 Quzhou	China	Zhejiang	Quzhou
@@ -1406,6 +1406,7 @@ Moldova	Moldova	Moldova	Moldova
 # Mongolia
 Mongolia	Mongolia	Mongolia	Mongolia
 Arvaikheer	Mongolia	Arvaikheer	Arvaikheer
+Bayankhongor	Mongolia	Bayankhongor	Bayankhongor
 BayanOlgii	Mongolia	BayanOlgii	BayanOlgii
 Bulgan	Mongolia	Bulgan	Bulgan
 Choibalsan	Mongolia	Dornod	Choibalsan
@@ -2066,12 +2067,14 @@ MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
 Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom
 NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima
+NakhonSiThammarat	Thailand	NakhonSiThammarat	NakhonSiThammarat
 Nan	Thailand	Nan	Nan
 NongKhai	Thailand	NongKhai	NongKhai
 Nonthaburi	Thailand	Nonthaburi	Nonthaburi
 PathumThani	Thailand	PathumThani	PathumThani
 Phetchaburi	Thailand	Phetchaburi	Phetchaburi
 Phitsanulok	Thailand	Phitsanulok	Phitsanulok
+PhraNakhonSiAyutthaya	Thailand	PhraNakhonSiAyutthaya	PhraNakhonSiAyutthaya
 Phuket	Thailand	Phuket	Phuket
 PrachinBuri	Thailand	PrachinBuri	PrachinBuri
 PrachuapKhiriKhan	Thailand	PrachuapKhiriKhan	PrachuapKhiriKhan
