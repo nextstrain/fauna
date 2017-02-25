@@ -13,7 +13,7 @@
 
 ## Download
 
-    python vdb/zika_download.py -db vdb -v zika --fstem zika
+    python vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
 
 ## Upload
 
@@ -25,7 +25,7 @@
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
 2. Move downloaded sequences to `fauna/data`
 3. Upload to vdb database
-  * `python vdb/zika_upload.py -db vdb -v zika --source vipr --locus genome --fname GenomeFastaResults.fasta`
+  * `python vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta`
 
 ### [ZiBRA sequences](https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus)
 

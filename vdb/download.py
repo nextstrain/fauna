@@ -29,13 +29,13 @@ def get_parser():
 
     def duplicate_resolver(resolve_method):
         method = str(resolve_method)
-        accepted_methods = ('keep_duplicates', 'choose_longest')
+        accepted_methods = ('keep_duplicates', 'choose_longest', 'choose_genbank')
         if method not in accepted_methods:
             msg = '"{}" is not a supported duplicate resolve method'.format(method)
             raise argparse.ArgumentTypeError(msg)
         return method
 
-    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus")
+    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus, options are \'keep_duplicates\', \'choose_longest\' and \'choose_genbank\'")
     return parser
 
 
@@ -191,17 +191,46 @@ class download(object):
             raise Exception("Date interval must be in YYYY-MM-DD format with all values defined", older_date, newer_date)
         return(older_date.upper(), newer_date.upper())
 
-    def resolve_duplicates(self, sequences, resolve_method=None, **kwargs):
-        strain_locus_to_doc = {doc['strain']+doc['locus']: doc for doc in sequences}
-        if resolve_method == "choose_longest":
-            print("Resolving duplicate strains and locus by picking the longest sequence")
-            for doc in sequences:
-                if doc['strain']+doc['locus'] in strain_locus_to_doc:
-                    if self.longer_sequence(doc['sequence'], strain_locus_to_doc[doc['strain']+doc['locus']]):
-                        strain_locus_to_doc[doc['strain']+doc['locus']] = doc
-                else:
-                    strain_locus_to_doc[doc['strain']] = doc
-        return list(strain_locus_to_doc.values())
+    def resolve_duplicates(self, sequence_docs, resolve_method=None, **kwargs):
+        '''
+        Takes a list of sequence documents (each one a Dict of key value pairs)
+        And subsets this list to have only 1 sequence document for each 'strain'
+        Resolves by different methods: choose_longest, choose_genbank or keep_duplicates
+        '''
+        resolved_sequence_docs = []
+        strains = set([sdoc['strain'] for sdoc in sequence_docs])
+        strain_to_sdocs = {}
+        for strain in strains:
+            strain_sdocs = []
+            for sdoc in sequence_docs:
+                if sdoc['strain'] == strain:
+                    strain_sdocs.append(sdoc)
+            strain_to_sdocs[strain] = strain_sdocs
+
+        if resolve_method == "choose_genbank":
+            print("Resolving duplicate strains by prioritizing Genbank")
+            for strain in strains:
+                strain_sdocs = strain_to_sdocs[strain]
+                genbank_strain_sdocs = [sdoc for sdoc in strain_sdocs if sdoc['source'] == 'genbank']
+                other_strain_sdocs = [sdoc for sdoc in strain_sdocs if sdoc['source'] != 'genbank']
+                if len(genbank_strain_sdocs) > 0:
+                    resolved_sequence_docs.append(genbank_strain_sdocs[0])
+                elif len(other_strain_sdocs) > 0:
+                    resolved_sequence_docs.append(other_strain_sdocs[0])
+        elif resolve_method == "choose_longest":
+            print("Resolving duplicate strains by prioritizing longest sequence")
+            for strain in strains:
+                print(strain)
+                strain_sdocs = strain_to_sdocs[strain]
+                sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                for sdoc in sorted_strain_sdocs:
+                    print(len(sdoc['sequence']))
+                resolved_sequence_docs.append(sorted_strain_sdocs[0])
+        elif resolve_method == "keep_duplicates":
+            print("Keeping duplicate strains")
+            resolved_sequence_docs = sequence_docs
+
+        return resolved_sequence_docs
 
     def longer_sequence(self, long_seq, short_seq):
         '''
