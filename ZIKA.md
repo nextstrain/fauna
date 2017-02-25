@@ -30,12 +30,12 @@
 ### [ZiBRA sequences](https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus)
 
 * Replace `^>([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|(\S+) .+` with `>\1|\1|\5|brazil|\4|\3`
-* Replace `^>([^|]+)\|\d.+` with `>\1|\1|XXXX-XX-XX|brazil`
+* Replace `^>([^|]+)\|\d.+` with `>\1|\1|XXXX-XX-XX|brazil|brazil|brazil`
 
 Upload with:
 
-    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Good.fasta
-    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Partial.fasta
+    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Good.fasta --url https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus
+    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Partial.fasta --url https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus
 
 ### [Scripps sequences](https://github.com/andersen-lab/zika-florida/tree/master/consensus_sequences)
 
@@ -49,7 +49,7 @@ Upload with:
 
 Upload with:
 
-    python vdb/zika_upload.py -db vdb -v zika --source broad --locus genome --authors "Broad Viral Genomics Group" --fname ZIKV_BROAD_2016-10.fasta
+    python vdb/zika_upload.py -db vdb -v zika --source broad --locus genome --authors "Broad Viral Genomics Group" --fname ZIKV_BROAD_2016-10.fasta --url http://virological.org/t/33-zika-virus-genomes-sequenced-from-patient-and-pooled-mosquito-samples/372
 
 ### [USAMRIID sequences](https://github.com/jtladner/ZIKA_Florida/tree/master/sequences)
 
@@ -63,6 +63,5 @@ Upload with:
 
 Upload with:
 
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_good.fasta
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_partial.fasta
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_poor.fasta    
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_good.fasta --url https://github.com/blab/zika-seq/tree/master/consensus-genomes
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_partial.fasta --url https://github.com/blab/zika-seq/tree/master/consensus-genomes
