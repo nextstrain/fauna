@@ -94,11 +94,15 @@ class upload(parse):
         '''
         if self.strain_fix_fname is not None:
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        if self.location_fix_fname is not None:
+            self.fix_location = self.define_location_fixes(self.location_fix_fname)
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
             doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
+            if doc['strain'] in self.fix_location:
+                doc['location'] = self.fix_location[doc['strain']]
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
@@ -127,6 +131,16 @@ class upload(parse):
         for line in reader:
             fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
         return fix_whole_name
+
+    def define_location_fixes(self, fname):
+        '''
+        Open location fix file and define corresponding dictionaries
+        '''
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
+        fix_location = {}
+        for line in reader:
+            fix_location[line['label'].decode('unicode-escape')] = line['fix']
+        return fix_location
 
     def replace_strain_name(self, original_name, fixes={}):
         '''
