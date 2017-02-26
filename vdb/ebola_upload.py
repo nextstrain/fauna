@@ -23,12 +23,10 @@ class ebola_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    virus_fasta_fields = {2:'strain', 3: 'authors', 4:'country', 5:'division', 8:'collection_date'}
-    sequence_fasta_fields = {1:'accession', 2:'strain'}
-    # 0    1        2                   3            4   5           6 7           8
-    #>EBOV|KU296357|2208_C2_18642R_EMLH|EMLab/UoC/WT|SLE|WesternArea|?|Ion_torrent|2015-07-08
-    # 0    1                  2                  3        4   5       6 7      8
-    #>EBOV|EM_COY_2015_014098|EM_COY_2015_014098|EMLab-RT|GUI|Conakry|?|MinION|2015-03-26
+    #>EBOV|PL7709|KU296426|sierra_leone|PortLoko|2015-06-06
+    # 0    1      2        3            4        5
+    virus_fasta_fields = {1:'strain', 3:'country', 4:'division', 5:'collection_date'}
+    sequence_fasta_fields = {1:'strain', 2:'accession'}
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = ebola_upload(**args.__dict__)

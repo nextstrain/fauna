@@ -40,6 +40,8 @@ class upload(parse):
         self.uploadable_databases = ['vdb', 'test_vdb', 'test']
         self.strains = {}
         self.strain_fix_fname = None
+        self.location_fix_fname = None
+        self.fix_location = None
         self.virus_to_sequence_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
@@ -101,8 +103,9 @@ class upload(parse):
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
             doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
-            if doc['strain'] in self.fix_location:
-                doc['location'] = self.fix_location[doc['strain']]
+            if self.fix_location is not None:
+                if doc['strain'] in self.fix_location:
+                    doc['location'] = self.fix_location[doc['strain']]
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
