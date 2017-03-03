@@ -45,11 +45,16 @@ Upload with:
 
     python vdb/zibra_upload.py -db vdb -v zika --source andersen --locus genome --authors "Grubaugh et al" --fname andersen.fasta
 
-### [Broad sequences](http://virological.org/t/33-zika-virus-genomes-sequenced-from-patient-and-pooled-mosquito-samples/372)
+### [Broad sequences](http://biorxiv.org/content/early/2017/02/18/109348)
+
+* Replace: `[date_omitted_pending_approval]` with `2016-XX-XX`
+* Replace `South_Brazil` with `brazil`
+* Replace: `>([^\|]+)\|([^\|]+)\|(\S+)\r` with `>\1|\1|ZIKV|\3|human|\2\r`
+* Curate `host` in samples that have `MOS` in the name
 
 Upload with:
 
-    python vdb/zika_upload.py -db vdb -v zika --source broad --locus genome --authors "Broad Viral Genomics Group" --fname ZIKV_BROAD_2016-10.fasta --url http://virological.org/t/33-zika-virus-genomes-sequenced-from-patient-and-pooled-mosquito-samples/372
+    python vdb/zika_upload.py -db vdb -v zika --source broad --locus genome --authors "Broad Viral Genomics Group" --fname sequences-generated-in-this-study.fasta --url http://biorxiv.org/content/early/2017/02/18/109348
 
 ### [USAMRIID sequences](https://github.com/jtladner/ZIKA_Florida/tree/master/sequences)
 
