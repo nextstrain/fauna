@@ -11,6 +11,7 @@
   * Download Isolates as "Sequences (DNA) as FASTA"
     * Select all DNA
     * Fasta Header as 0: DNA Accession no., 1: Isolate name, 2: Isolate ID, 3: Segment, 4: Passage details/history, 5: Submitting lab
+    * `DNA Accession no. | Isolate name | Isolate ID | Segment | Passage details/history | Submitting lab`
 2. Move files to `fauna/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
 3. Upload to vdb database
   * `python vdb/flu_upload.py -db vdb -v flu --source gisaid --fname gisaid_epiflu`
