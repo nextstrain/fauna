@@ -17,7 +17,7 @@ class rethink_io(object):
             try:
                 rethink_host = os.environ['RETHINK_HOST']
             except:
-                raise Exception("Missing rethink host")
+                raise Exception("Missing rethink host - is $RETHINK_HOST set?")
         if local:
             auth_key = None
         elif auth_key is not None:
