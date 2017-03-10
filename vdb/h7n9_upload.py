@@ -298,11 +298,24 @@ class flu_upload(upload):
     def format_country(self, v):
         '''
         Label viruses with country based on strain name
+        A/Taiwan/1/2013 is human virus. Four fields total. Take second field.
+        A/Chicken/Taiwan/1/2013 is animal virus. Five field total. Take third field.
+        Else, take GISAID location.
         '''
         strain_name = v['strain']
         original_name = v['gisaid_strain']
         result = None
-        if v['gisaid_location'] is not None:
+        field_count = 0
+        if '/' in strain_name:
+            field_count = len(strain_name.split('/'))
+        if field_count == 4:
+            loc = strain_name.split('/')[1].replace(" ", "")
+            result = self.determine_location(loc)
+        elif field_count == 5:
+            loc = strain_name.split('/')[2].replace(" ", "")
+            result = self.determine_location(loc)
+
+        if v['gisaid_location'] is not None and result is None:
             loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
             result = self.determine_location(loc)
 

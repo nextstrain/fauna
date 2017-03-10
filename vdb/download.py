@@ -220,11 +220,8 @@ class download(object):
         elif resolve_method == "choose_longest":
             print("Resolving duplicate strains by prioritizing longest sequence")
             for strain in strains:
-                print(strain)
                 strain_sdocs = strain_to_sdocs[strain]
                 sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
-                for sdoc in sorted_strain_sdocs:
-                    print(len(sdoc['sequence']))
                 resolved_sequence_docs.append(sorted_strain_sdocs[0])
         elif resolve_method == "keep_duplicates":
             print("Keeping duplicate strains")
