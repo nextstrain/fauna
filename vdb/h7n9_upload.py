@@ -131,6 +131,7 @@ class flu_upload(upload):
                 print("Missing strain name!")
             self.fix_casing(doc)
             self.fix_age(doc)
+            self.format_host(doc)
             self.determine_group_fields(doc, self.patterns)
             self.format_date(doc)
             self.format_country(doc)
@@ -164,7 +165,7 @@ class flu_upload(upload):
         '''
         print(str(len(documents)) + " documents before filtering")
         documents = filter(lambda doc: index in doc, documents)
-        remove_labels = ['duck', 'environment', 'Environment', 'shoveler']
+        remove_labels = []
         # remove certain documents from gisaid files that were not actually isolated from humans
         result_documents = [doc for doc in documents if all(label not in doc['strain'] for label in remove_labels)]
         #result_documents = [doc for doc in result_documents if self.correct_strain_format(doc['strain'], doc['gisaid_strain'])]
@@ -227,10 +228,11 @@ class flu_upload(upload):
         '''
         # replace all accents with ? mark
         original_name = name.encode('ascii', 'replace')
-        return original_name, original_name
+        # return original_name, original_name
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
+            .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
             .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')
         split_name = name.split('/')
@@ -294,6 +296,40 @@ class flu_upload(upload):
             else:
                 name = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
         return name
+
+    def format_host(self, v):
+        '''
+        Fix host formatting
+        '''
+        if v['host'] is not None:
+            if v['host'] == "gallusgallus":
+                v['host'] = "chicken"
+            if v['host'] == "anasclypeata":
+                v['host'] = "duck"
+            if v['host'] == "chencanagica":
+                v['host'] = "goose"
+            if v['host'] == "anasplatyrhynchos":
+                v['host'] = "duck"
+            if v['host'] == "anassp.":
+                v['host'] = "duck"
+            if v['host'] == "anaspoecilorhyncha":
+                v['host'] = "duck"
+            if v['host'] == "anasdiscors":
+                v['host'] = "duck"
+            if v['host'] == "passermontanus":
+                v['host'] = "other_avian"
+            if v['host'] == "arenariainterpres":
+                v['host'] = "other_avian"
+            if v['host'] == "otheravian":
+                v['host'] = "other_avian"
+            if v['host'] == "avian":
+                v['host'] = "other_avian"
+            if v['host'] == "guineafowl":
+                v['host'] = "other_avian"
+            if v['host'] == "surfaceswab":
+                v['host'] = "environment"
+            if v['host'] == "feces":
+                v['host'] = "environment"
 
     def format_country(self, v):
         '''
