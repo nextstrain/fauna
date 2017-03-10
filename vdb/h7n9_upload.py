@@ -330,6 +330,8 @@ class flu_upload(upload):
                 v['host'] = "environment"
             if v['host'] == "feces":
                 v['host'] = "environment"
+            if v['host'] == "watersample":
+                v['host'] = "environment"
 
     def format_country(self, v):
         '''
