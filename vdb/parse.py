@@ -182,7 +182,7 @@ class parse(object):
             if url == 'null' or url == 'none' or url == 'None':
                 v['url'] = None
             else:
-                v['url'] = url                
+                v['url'] = url
         if 'public' not in v and public is not None:
             v['public'] = public
         v['virus'] = self.virus
@@ -264,15 +264,17 @@ class parse(object):
                 print("Couldn't parse authors for " + s['accession'])
                 s['authors'] = None
                 first_author = None
-            url = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
-            s['url'] = self.get_doi_url(url, s['title'], first_author)
+            s['url'] = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
+            #s['url'] = self.get_doi_url(url, s['title'], first_author)
 
             record_features = record.features
             for feat in record_features:
                 if feat.type == 'source':
                     qualifiers = feat.qualifiers
-                    v['collection_date'] = self.convert_gb_date(qualifiers['collection_date'][0])
-                    v['country'] = re.match(r'^([^:]*)', qualifiers['country'][0]).group(0)
+                    if 'collection_date' in qualifiers:
+                        v['collection_date'] = self.convert_gb_date(qualifiers['collection_date'][0])
+                    if 'country' in qualifiers:
+                        v['country'] = re.match(r'^([^:]*)', qualifiers['country'][0]).group(0)
                     if 'strain' in qualifiers:
                         v['strain'] = qualifiers['strain'][0]
                         s['strain'] = qualifiers['strain'][0]
@@ -293,10 +295,12 @@ class parse(object):
 
     def get_doi_url(self, url, title, author):
         '''
-        Use crossref api to look for matching title and author name to link to DOI"
+        Use crossref api to look for matching title and author name to link to DOI
+        Depcrecated for the moment. Crossref was hanging randomly.
         '''
         if title is not None:
             num = str(2)
+            print("Calling crossref for " + url)
             response = json.loads(requests.get('http://api.crossref.org/works?query=%' + title + '%22&rows=' + num).text)
             items = response['message']['items']
             for item in items:
