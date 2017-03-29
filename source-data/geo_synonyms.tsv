@@ -1721,6 +1721,7 @@ Vrancea	Romania	Vrancea	Vrancea
 
 # Russia
 Russia	Russia	Russia	Russia
+Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
 Anadyr	Russia	Chukotka	Anadyr
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
@@ -1737,6 +1738,7 @@ Cherkessk	Russia	Karachay-Cherkess	Cherkessk
 Chita	Russia	ZabaykalskyKrai	Chita
 Dagestan	Russia	Dagestan	Dagestan
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
+GornoAltaysk	Russia	Altaia	GornoAltaysk
 Irkutsk	Russia	Irkutsk	Irkutsk
 Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
@@ -1759,16 +1761,20 @@ Leningrad	Russia	Leningrad	Leningrad
 Lipetsk	Russia	Lipetsk	Lipetsk
 Magadan	Russia	Magadan	Magadan
 Majkop	Russia	Adygeya	Majkop
+MariEl	Russia	MariEl	MariEl
 Mcensk	Russia	Oryol	Mcensk
+Mordovia	Russia	Mordovia	Mordovia
 Moscow	Russia	Moscow	Moscow
 Murmansk	Russia	Murmansk	Murmansk
 Naryan-Mar	Russia	Naryan-Mar	Naryan-Mar
 NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod
 Novosibirsk	Russia	Novosibirsk	Novosibirsk
+NovyUrengoy	Russia	Yamalia	NovyUrengoy
 Noyabrsk	Russia	Yamalia	Noyabrsk
 Omsk	Russia	Omsk	Omsk
 Orel	Russia	Oryol	Orel
 Orenburg	Russia	Orenburg	Orenburg
+OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
 Petrozavodsk	Russia	Karelia	Petrozavodsk
@@ -1782,6 +1788,7 @@ Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
+Surgut	Russia	KhantyMansia	Surgut
 Syktyvkar	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
 Tatarstan	Russia	Tatarstan	Tatarstan
@@ -2143,6 +2150,7 @@ Bitlis	Turkey	Bitlis	Bitlis
 Bolu	Turkey	Bolu	Bolu
 Burdur	Turkey	Burdur	Burdur
 Bursa	Turkey	Bursa	Bursa
+Canakkale	Turkey	Canakkale	Canakkale
 Cankiri	Turkey	Cankiri	Cankiri
 Corum	Turkey	Corum	Corum
 Denizli	Turkey	Denizli	Denizli
