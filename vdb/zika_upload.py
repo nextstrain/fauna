@@ -8,7 +8,7 @@ class zika_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
         self.strain_fix_fname = "source-data/zika_strain_name_fix.tsv"
-        self.location_fix_fname = "source-data/zika_location_fix.tsv"        
+        self.location_fix_fname = "source-data/zika_location_fix.tsv"
 
     def fix_name(self, name):
         original_name = name
@@ -17,6 +17,8 @@ class zika_upload(upload):
         name = name.replace('Human', '').replace('human', '').replace('H.sapiens_wt', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
         name = name.replace('/Hu/', '')
         name = name.replace('_Asian', '').replace('_Asia', '').replace('_asian', '').replace('_asia', '')
+        name = name.replace('_URI', '').replace('_SER', '').replace('_PLA', '').replace('_MOS', '').replace('_SAL', '')
+        name = name.replace('Aaegypti_wt', 'Aedes_aegypti').replace('Aedessp', 'Aedes_sp')
         name = name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
         name = re.sub('^[\/\_\-]', '', name)
         try:
