@@ -45,7 +45,7 @@ def upload_cdc(database, cdc_path):
             fpath = path + fname
             fstem = fname[:-4]
             print "Uploading " + fname
-            command = "python tdb/cdc_upload.py -db " + database + " --path " + path + " --fstem " + fstem
+            command = "python tdb/cdc_upload.py -db cdc_tdb --path " + path + " --fstem " + fstem
             print "Running with: " + command
             subprocess.call(command, shell=True)
             print "Done with", fname + "."
@@ -90,7 +90,8 @@ if __name__=="__main__":
             upload_cdc(params.database, params.cdc_path)
         if source == "elife":
             for subtype in params.subtypes:
-                upload_elife(params.database, params.elife_path, subtype)
+                if subtype != 'h1n1pdm':
+                    upload_elife(params.database, params.elife_path, subtype)
         if source == "nimr":
             for subtype in params.subtypes:
                 upload_nimr(params.database, params.nimr_path, subtype)
