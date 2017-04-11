@@ -7,7 +7,7 @@
 # Assumes that nextflu/, nextflu-cdc/ and nextflu-cdc-fra/ are
 # sister directories to fauna/
 
-import os
+import os, subprocess
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -16,10 +16,15 @@ parser.add_argument('--sequences', default=False, action="store_true", help="dow
 parser.add_argument('--crick', default=False, action="store_true", help="download titers from crick reports")
 parser.add_argument('--cdc', default=False, action="store_true", help="download titers from cdc reports")
 parser.add_argument('--virus', default="flu", help="virus to download; default is flu")
+parser.add_argument('--all', default=False, action="store_true", help="concatenate matched titer and strain TSVs")
 parser.add_argument('--augur_path', default="../nextflu/augur/", help="path to the desired augur directory; default is ../nextflu/augur/")
 
 if __name__=="__main__":
     args = parser.parse_args()
+
+    if args.all:
+        args.crick = True
+        args.cdc = True
 
     if args.virus == "flu":
         # Download FASTAs from database
@@ -53,6 +58,67 @@ if __name__=="__main__":
             for passage in ["egg", "cell"]:
                 call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
                 os.system(call)
+
+        if args.all:
+
+            # Concatenate strains TSVs for each subtype
+            out = 'data/h3n2_all_hi_strains.tsv'
+            hi_strains_h3n2 = ['data/h3n2_cdc_hi_cell_strains.tsv', 'data/h3n2_cdc_hi_egg_strains.tsv', 'data/h3n2_crick_hi_strains.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_strains_h3n2
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/h1n1pdm_all_hi_strains.tsv'
+            hi_strains_h1n1pdm = ['data/h1n1pdm_cdc_hi_cell_strains.tsv', 'data/h1n1pdm_cdc_hi_egg_strains.tsv', 'data/h1n1pdm_crick_hi_strains.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_strains_h1n1pdm
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/vic_all_hi_strains.tsv'
+            hi_strains_vic = ['data/vic_cdc_hi_cell_strains.tsv', 'data/vic_cdc_hi_egg_strains.tsv', 'data/vic_crick_hi_strains.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_strains_vic
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/yam_all_hi_strains.tsv'
+            hi_strains_yam = ['data/yam_cdc_hi_cell_strains.tsv', 'data/yam_cdc_hi_egg_strains.tsv', 'data/yam_crick_hi_strains.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_strains_yam
+                print call
+                subprocess.call(call, stdout=f)
+
+
+            # Concatenate titers TSVs for each subtype
+            out = 'data/h3n2_all_hi_titers.tsv'
+            hi_titers_h3n2 = ['data/h3n2_cdc_hi_cell_titers.tsv', 'data/h3n2_cdc_hi_egg_titers.tsv', 'data/h3n2_crick_hi_titers.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers_h3n2
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/h1n1pdm_all_hi_titers.tsv'
+            hi_titers_h1n1pdm = ['data/h1n1pdm_cdc_hi_cell_titers.tsv', 'data/h1n1pdm_cdc_hi_egg_titers.tsv', 'data/h1n1pdm_crick_hi_titers.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers_h1n1pdm
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/vic_all_hi_titers.tsv'
+            hi_titers_vic = ['data/vic_cdc_hi_cell_titers.tsv', 'data/vic_cdc_hi_egg_titers.tsv', 'data/vic_crick_hi_titers.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers_vic
+                print call
+                subprocess.call(call, stdout=f)
+
+            out = 'data/yam_all_hi_titers.tsv'
+            hi_titers_yam = ['data/yam_cdc_hi_cell_titers.tsv', 'data/yam_cdc_hi_egg_titers.tsv', 'data/yam_crick_hi_titers.tsv']
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers_yam
+                print call
+                subprocess.call(call, stdout=f)
 
         # Copy TSVs to nextflu/augur directory. Leave in fauna/data/ for nextstrain/augur.
         if args.copy_data:
