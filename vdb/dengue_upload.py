@@ -178,7 +178,7 @@ class dengue_upload(update):
 						doc['location'], doc['division'], doc['country'] = result
 						break
 					else:
-						print("couldn't parse location for ", doc['strain'], self.snakecase_to_camelcase(doc[field]))
+						print("couldn't parse %s for "%field, doc['strain'], self.snakecase_to_camelcase(doc[field]))
 						if "_" in doc[field]:  # French_Polynesia -> french_polynesia
 							doc[field] = "_".join(doc[field].split("_")).lower()
 						doc[field] = self.camelcase_to_snakecase(doc[field])
