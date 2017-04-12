@@ -36,9 +36,9 @@ if __name__=="__main__":
     if args.fstem is None:
         try:
             serotype=args.select[0][-1]
-            args.fstem = 'dengue_denv%s'%serotype
+            args.fstem = 'dengue_%s'%serotype
         except:
-            args.fstem = 'dengue_all'
+            args.fstem = 'dengue'
 
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
