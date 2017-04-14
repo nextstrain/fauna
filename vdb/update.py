@@ -76,6 +76,10 @@ class update(upload):
         Update location information, region, latitude and longitude
         '''
         updated_documents = []
+        fix_region = 'region' in location_fields # Do we also want to update region designations?
+        if fix_region:
+            location_fields.remove('region') # 'region' not a valid field for determine_location
+
         for doc in documents:
             old_location = tuple(doc[field] for field in location_fields if field in doc)
             for field in location_fields:
@@ -88,9 +92,19 @@ class update(upload):
                             self.format_region(doc)
                             self.determine_latitude_longitude(doc)
                             updated_documents.append(doc)
-                        break  # found location information at detailed level
                     else:
-                        print("couldn't parse location for ", doc['strain'], self.snakecase_to_camelcase(doc[field]))
+                        print("couldn't parse %s for "%field, doc['strain'], self.snakecase_to_camelcase(doc[field]))
+                    break  # found location information at detailed level
+
+            if fix_region and doc not in updated_documents:
+                try:
+                    old_region = doc['region']
+                    self.format_region(doc)
+                    if doc['region'] != old_region:
+                        updated_documents.append(doc)
+                except Error as e:
+                    print e
+                    continue
         return updated_documents
 
     def update_groupings(self, **kwargs):
