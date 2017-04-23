@@ -11,151 +11,94 @@ import os, subprocess
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--copy_data', default=False, action="store_true", help="copy downloaded data to augur/data")
-parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
-parser.add_argument('--crick', default=False, action="store_true", help="download titers from crick reports")
-parser.add_argument('--cdc', default=False, action="store_true", help="download titers from cdc reports")
 parser.add_argument('--virus', default="flu", help="virus to download; default is flu")
-parser.add_argument('--all', default=False, action="store_true", help="concatenate matched titer and strain TSVs")
-parser.add_argument('--augur_path', default="../nextflu/augur/", help="path to the desired augur directory; default is ../nextflu/augur/")
+parser.add_argument('--flu_lineages', default=["h3n2", "h1n1pdm", "vic", "yam"], nargs='+', type = str,  help ="seasonal flu lineages to download, options are h3n2, h1n1pdm, vic and yam")
+parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
+parser.add_argument('--titers', default=False, action="store_true", help="download titers from tdb")
+parser.add_argument('--titers_sources', default=["crick", "cdc"], nargs='+', type = str,  help ="titer sources to download, options are crick and cdc")
+parser.add_argument('--titers_passages', default=["egg", "cell"], nargs='+', type = str,  help ="titer passage types to download, options are egg and cell")
+
 
 if __name__=="__main__":
-    args = parser.parse_args()
+    params = parser.parse_args()
 
-    if args.all:
-        args.crick = True
-        args.cdc = True
-
-    if args.virus == "flu":
+    if params.virus == "flu":
         # Download FASTAs from database
-        if args.sequences:
-            for lineage in ['h3n2', 'h1n1pdm', 'vic', 'yam']:
+        if params.sequences:
+            for lineage in params.flu_lineages:
                 call = "python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_%s --fstem %s"%(lineage, lineage)
                 os.system(call)
 
-        # Copy FASTAs to nextflu/augur directory. Leave in fauna/data/ for nextstrain/augur.
-        if args.copy_data:
-            os.system("cp data/h3n2.fasta %sdata/"%(args.augur_path))
-            os.system("cp data/h1n1pdm.fasta %sdata/"%(args.augur_path))
-            os.system("cp data/vic.fasta %sdata/"%(args.augur_path))
-            os.system("cp data/yam.fasta %sdata/"%(args.augur_path))
+        if params.titers:
+            # download titers
+            for source in params.titers_sources:
+                if source == "crick":
+                    for lineage in params.flu_lineages:
+                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_crick_hi_cell"%(lineage, lineage)
+                        os.system(call)
+                if source == "cdc":
+                    for passage in params.titers_passages:
+                        for lineage in params.flu_lineages:
+                            call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_cdc_hi_%s"%(lineage, passage, lineage, passage)
+                            os.system(call)
+                        lineage = 'h3n2'
+                        call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
+                        os.system(call)
 
-        if args.crick:
-            for lineage in ['h3n2', 'h1n1pdm', 'vic', 'yam']:
-                call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_crick_hi"%(lineage, lineage)
-                os.system(call)
+            # concatenate to create default HI strain TSVs for each subtype
+            # need to sum counts across HI strain TSVs
+            for lineage in params.flu_lineages:
+                strain_to_count = {}
+                for source in params.titers_sources:
+                    hi_strain_file = 'data/%s_%s_hi_cell_strains.tsv'%(lineage, source)
+                    with open(hi_strain_file) as f:
+                        lines = f.read().splitlines()
+                        for line in lines:
+                            (strain, count) = line.split("\t")
+                            if strain in strain_to_count:
+                                strain_to_count[strain] = strain_to_count[strain] + count
+                            else:
+                                strain_to_count[strain] = count
+                out_file = 'data/%s_hi_strains.tsv'%(lineage)
+                with open(out_file, 'w') as f:
+                    [f.write('{0}\t{1}\n'.format(strain, count)) for strain, count in strain_to_count.items()]
 
+            # concatenate to create default HI titer TSVs for each subtype
+            for lineage in params.flu_lineages:
+                out = 'data/%s_hi_titers.tsv'%(lineage)
+                hi_titers = []
+                for source in params.titers_sources:
+                    hi_titers.append('data/%s_%s_hi_cell_titers.tsv'%(lineage, source))
+                with open(out, 'w+') as f:
+                    call = ['cat'] + hi_titers
+                    print call
+                    subprocess.call(call, stdout=f)
 
-        # Download CDC HI titers from database
-        if args.cdc:
-            for lineage in ['h3n2', 'h1n1pdm', 'vic', 'yam']:
-                for passage in ["egg", "cell"]:
-                    call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_cdc_hi_%s"%(lineage, passage, lineage, passage)
-                    os.system(call)
-
-            # Download CDC FRA titers from database
-            lineage = 'h3n2'
-            for passage in ["egg", "cell"]:
-                call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
-                os.system(call)
-
-        if args.all:
-
-            # Concatenate strains TSVs for each subtype
-            out = 'data/h3n2_all_hi_strains.tsv'
-            hi_strains_h3n2 = ['data/h3n2_cdc_hi_cell_strains.tsv', 'data/h3n2_cdc_hi_egg_strains.tsv', 'data/h3n2_crick_hi_strains.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_strains_h3n2
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/h1n1pdm_all_hi_strains.tsv'
-            hi_strains_h1n1pdm = ['data/h1n1pdm_cdc_hi_cell_strains.tsv', 'data/h1n1pdm_cdc_hi_egg_strains.tsv', 'data/h1n1pdm_crick_hi_strains.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_strains_h1n1pdm
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/vic_all_hi_strains.tsv'
-            hi_strains_vic = ['data/vic_cdc_hi_cell_strains.tsv', 'data/vic_cdc_hi_egg_strains.tsv', 'data/vic_crick_hi_strains.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_strains_vic
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/yam_all_hi_strains.tsv'
-            hi_strains_yam = ['data/yam_cdc_hi_cell_strains.tsv', 'data/yam_cdc_hi_egg_strains.tsv', 'data/yam_crick_hi_strains.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_strains_yam
-                print call
-                subprocess.call(call, stdout=f)
-
-
-            # Concatenate titers TSVs for each subtype
-            out = 'data/h3n2_all_hi_titers.tsv'
-            hi_titers_h3n2 = ['data/h3n2_cdc_hi_cell_titers.tsv', 'data/h3n2_cdc_hi_egg_titers.tsv', 'data/h3n2_crick_hi_titers.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_titers_h3n2
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/h1n1pdm_all_hi_titers.tsv'
-            hi_titers_h1n1pdm = ['data/h1n1pdm_cdc_hi_cell_titers.tsv', 'data/h1n1pdm_cdc_hi_egg_titers.tsv', 'data/h1n1pdm_crick_hi_titers.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_titers_h1n1pdm
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/vic_all_hi_titers.tsv'
-            hi_titers_vic = ['data/vic_cdc_hi_cell_titers.tsv', 'data/vic_cdc_hi_egg_titers.tsv', 'data/vic_crick_hi_titers.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_titers_vic
-                print call
-                subprocess.call(call, stdout=f)
-
-            out = 'data/yam_all_hi_titers.tsv'
-            hi_titers_yam = ['data/yam_cdc_hi_cell_titers.tsv', 'data/yam_cdc_hi_egg_titers.tsv', 'data/yam_crick_hi_titers.tsv']
-            with open(out, 'w+') as f:
-                call = ['cat'] + hi_titers_yam
-                print call
-                subprocess.call(call, stdout=f)
-
-        # Copy TSVs to nextflu/augur directory. Leave in fauna/data/ for nextstrain/augur.
-        if args.copy_data:
-            os.system("cp data/h3n2_crick_hi_strains.tsv %sdata/h3n2_hi_strains.tsv"%(args.augur_path))
-            os.system("cp data/h3n2_crick_hi_titers.tsv %sdata/h3n2_hi_titers.tsv"%(args.augur_path))
-            os.system("cp data/h1n1pdm_crick_hi_strains.tsv %sdata/h1n1pdm_hi_strains.tsv"%(args.augur_path))
-            os.system("cp data/h1n1pdm_crick_hi_titers.tsv %sdata/h1n1pdm_hi_titers.tsv"%(args.augur_path))
-            os.system("cp data/vic_crick_hi_strains.tsv %sdata/vic_hi_strains.tsv"%(args.augur_path))
-            os.system("cp data/vic_crick_hi_titers.tsv %sdata/vic_hi_titers.tsv"%(args.augur_path))
-            os.system("cp data/yam_crick_hi_strains.tsv %sdata/yam_hi_strains.tsv"%(args.augur_path))
-            os.system("cp data/yam_crick_hi_titers.tsv %sdata/yam_hi_titers.tsv"%(args.augur_path))
-
-    elif args.virus == "ebola":
+    elif params.virus == "ebola":
 
         call = "python vdb/ebola_download.py -db vdb -v ebola --fstem ebola"
         os.system(call)
 
-        if args.copy_data:
-            os.system("cp data/ebola* %sdata/"%(args.augur_path))
+        if params.copy_data:
+            os.system("cp data/ebola* %sdata/"%(params.augur_path))
 
-    elif args.virus == "dengue":
+    elif params.virus == "dengue":
 
         call = "python vdb/dengue_download.py -db vdb -v dengue --fstem dengue"
         os.system(call)
 
-        if args.copy_data:
-            os.system("cp data/dengue* %sdata/"%(args.augur_path))
+        if params.copy_data:
+            os.system("cp data/dengue* %sdata/"%(params.augur_path))
 
-    elif args.virus == "zika":
+    elif params.virus == "zika":
 
         call = "python vdb/zika_download.py -db vdb -v zika --fstem zika"
         os.system(call)
 
-        if args.copy_data:
-            os.system("cp data/zika* %sdata/"%(args.augur_path))
+        if params.copy_data:
+            os.system("cp data/zika* %sdata/"%(params.augur_path))
 
-    elif args.virus == "h7n9":
+    elif params.virus == "h7n9":
 
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:PB2 --fstem h7n9_pb2")
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:PB1 --fstem h7n9_pb1")
@@ -166,8 +109,8 @@ if __name__=="__main__":
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:MP --fstem h7n9_mp")
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:NS --fstem h7n9_ns")
 
-        if args.copy_data:
-            os.system("cp data/h7n9* %sdata/"%(args.augur_path))
+        if params.copy_data:
+            os.system("cp data/h7n9* %sdata/"%(params.augur_path))
 
     else:
-        print("%s is an invalid virus type.\nValid viruses are flu, ebola, dengue, zika, and h7n9."%(args.virus))
+        print("%s is an invalid virus type.\nValid viruses are flu, ebola, dengue, zika, and h7n9."%(params.virus))
