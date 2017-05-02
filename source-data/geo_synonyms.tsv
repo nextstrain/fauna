@@ -342,6 +342,7 @@ AltoHospicio	Chile	Tarapaca	AltoHospicio
 Antofagasta	Chile	Antofagasta	Antofagasta
 Arauco	Chile	Arauco	Arauco
 Arica	Chile	Arica	Arica
+Calama	Chile	Antofagasta	Calama
 Castro	Chile	LosLagos	Castro
 Chillan	Chile	BioBio	Chillan
 Concepcion	Chile	BioBio	Concepcion
@@ -363,11 +364,13 @@ Lota	Chile	BioBio	Lota
 Melipilla	Chile	Santiago	Melipilla
 NuevaImperial	Chile	Araucania	NuevaImperial
 Osorno	Chile	LosLagos	Osorno
+Panguipulli	Chile	LosRios	Panguipulli
 Pucon	Chile	Araucania	Pucon
 PuertoMontt	Chile	LosLagos	PuertoMontt
 PuntaArenas	Chile	Magallanes	PuntaArenas
 Quillota	Chile	Valparaiso	Quillota
 Rancagua	Chile	OHiggins	Rancagua
+Rengo	Chile	OHiggins	Rengo
 Santiago	Chile	Santiago	Santiago
 Talca	Chile	Maule	Talca
 Talcahuano	Chile	BioBio	Talcahuano
@@ -880,6 +883,7 @@ Arta	Greece	Epirus	Arta
 Astros	Greece	Peloponnese	Astros
 Athens	Greece	CentralGreece	Athens
 Chalkida	Greece	CentralGreece	Chalkida
+Chalkidiki	Greece	CentralMacedonia	Chalkidiki
 Chania	Greece	Crete	Chania
 Chios	Greece	NorthAegean	Chios
 Crete	Greece	Crete	Crete
@@ -890,7 +894,7 @@ Evrytania	Greece	CentralGreece	Evrytania
 Florina	Greece	WesternMacedonia	Florina
 Giannitsa	Greece	CentralMacedonia	Giannitsa
 Grevena	Greece	WesternMacedonia	Grevena
-Herakleion	Greece	Crete	Herakleion
+Heraklion	Greece	Crete	Heraklion
 Ilia	Greece	WesternGreece	Ilia
 Irakleio	Greece	Crete	Irakleio
 Ioannina	Greece	Epirus	Ioannina
@@ -1394,6 +1398,9 @@ Nouakchott	Mauritania	Nouakchott	Nouakchott
 # Mauritius
 Mauritius	Mauritius	Mauritius	Mauritius
 Candos	Mauritius	QuatreBornes	Candos
+
+# Mayotte
+Mayotte	Mayotte	Mayotte	Mayotte
 
 # Mexico
 Mexico	Mexico	Mexico	Mexico

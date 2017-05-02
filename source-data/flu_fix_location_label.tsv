@@ -78,6 +78,7 @@ La_Serena	LaSerena
 Nueva_Imperial	NuevaImperial
 PtoMontt	PuertoMontt
 Puerto_Montt	PuertoMontt
+PuertoMont	PuertoMontt
 Punta_Arenas	PuntaArenas
 Valpara?so	Valparaiso
 Vi?a_del_Mar	VinaDelMar
@@ -285,7 +286,8 @@ Chios_IslandGR	Chios
 CreteGR	Crete
 Crete_IslandGR	Crete
 EvritaniaGR	Evrytania
-HerakleionGR	Irakleio
+HerakleionGR	Heraklion
+Heraklion_CreteGR	Heraklion
 IliaGR	Ilia
 IraklioGR	Irakleio
 IrakleioGR	Irakleio
