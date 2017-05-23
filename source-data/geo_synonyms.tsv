@@ -1264,6 +1264,7 @@ Astana	Kazakhstan	Astana	Astana
 Gvardeyskiy	Kazakhstan	Almaty	Gvardeyskiy
 Jambyl	Kazakhstan	Jambyl	Jambyl
 Karaganda	Kazakhstan	Karaganda	Karaganda
+NorthKazakhstan	Kazakhstan	NorthKazakhstan	NorthKazakhstan
 Petropavlovsk	Kazakhstan	NorthKazakhstan	Petropavlovsk
 Semey	Kazakhstan	EastKazakhstan	Semey
 Taraz	Kazakhstan	Jambyl	Taraz
@@ -1377,6 +1378,9 @@ Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
 Malaysia	Malaysia	Malaysia	Malaysia
 Johorbahru	Malaysia	Johor	JohorBahru
 Kualalumpur	Malaysia	Malaysia	KualaLumpur
+
+# Maldives
+Maldives	Maldives	Maldives	Maldives
 
 # Mali
 Mali	Mali	Mali	Mali
@@ -2058,6 +2062,7 @@ Vasteras	Sweden	Vastmanland	Vasteras
 Vaxjo	Sweden	Kronoberg	Vaxjo
 Vimmerby	Sweden	Kalmar	Vimmerby
 Visby	Sweden	Gotland	Visby
+Ystad	Sweden	Skane	Ystad
 
 # Switzerland
 Switzerland	Switzerland	Switzerland	Switzerland
