@@ -27,16 +27,6 @@
 3. Upload to vdb database
   * `python vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta`
 
-### [ZiBRA sequences](https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus)
-
-* Replace `^>([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|(\S+) .+` with `>\1|\1|\5|brazil|\4|\3`
-* Replace `^>([^|]+)\|\d.+` with `>\1|\1|XXXX-XX-XX|brazil|brazil|brazil`
-
-Upload with:
-
-    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Good.fasta --url https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus
-    python vdb/zibra_upload.py -db vdb -v zika --source zibra --locus genome --authors "Zika in Brazil Real-time Analysis Consortium" --fname BRA_ZIBRA_Partial.fasta --url https://github.com/zibraproject/zibraproject.github.io/tree/master/data/consensus
-
 ### [Fred Hutch sequences](https://github.com/blab/zika-usvi/tree/master/data)
 
 Upload with:
