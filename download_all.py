@@ -79,24 +79,15 @@ if __name__=="__main__":
         call = "python vdb/ebola_download.py -db vdb -v ebola --fstem ebola"
         os.system(call)
 
-        if params.copy_data:
-            os.system("cp data/ebola* %sdata/"%(params.augur_path))
-
     elif params.virus == "dengue":
 
         call = "python vdb/dengue_download.py -db vdb -v dengue --fstem dengue"
         os.system(call)
 
-        if params.copy_data:
-            os.system("cp data/dengue* %sdata/"%(params.augur_path))
-
     elif params.virus == "zika":
 
         call = "python vdb/zika_download.py -db vdb -v zika --fstem zika"
         os.system(call)
-
-        if params.copy_data:
-            os.system("cp data/zika* %sdata/"%(params.augur_path))
 
     elif params.virus == "h7n9":
 
@@ -108,9 +99,6 @@ if __name__=="__main__":
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:NA --fstem h7n9_na")
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:MP --fstem h7n9_mp")
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:NS --fstem h7n9_ns")
-
-        if params.copy_data:
-            os.system("cp data/h7n9* %sdata/"%(params.augur_path))
 
     else:
         print("%s is an invalid virus type.\nValid viruses are flu, ebola, dengue, zika, and h7n9."%(params.virus))
