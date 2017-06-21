@@ -24,6 +24,10 @@
   * `python vdb/flu_update.py -db vdb -v flu --update_groupings`
   * updates `vtype`, `subtype`, `lineage`
 
+* Update locations
+  * `python vdb/flu_update.py -db vdb -v flu --update_locations`
+  * updates `division`, `country` and `region` from `location`
+
 ### Download documents from VDB
 
 * `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`

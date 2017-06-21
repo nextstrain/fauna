@@ -10,7 +10,7 @@ parser.add_argument('--update_groupings', default=False, action="store_true", he
 class update(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.location_fields = ['location', 'division', 'country']
+        self.location_fields = ['location', 'division', 'country', 'region']
 
     def update(self, update_citations, update_locations, update_groupings, **kwargs):
         self.connect(**kwargs)

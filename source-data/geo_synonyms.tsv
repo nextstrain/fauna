@@ -418,6 +418,7 @@ Dandong	China	Liaoning	Dandong
 Dianxin	China	Neimenggu	Dianxin
 Dongcheng	China	Beijing	Dongcheng
 Dongguan	China	Guangdong	Dongguan
+Donghu	China	Jiangxi	Donghu
 Du	China	China	Du
 Eryansuo	China	China	China
 Foshanguangdong	China	Guangdong	Foshan
@@ -461,6 +462,7 @@ Huaian	China	Jiangsu	Huaian
 Huai'an	China	Jiangsu	Huaian
 HuaianQingpu	China	Jiangsu	Qingpu
 Hualong	China	Henan	Hualong
+Huairou	China	Beijing	Huairou
 Hubei	China	Hubei	Hubei
 HubeiJiangan	China	Hubei	Jiangan
 HubeiMaojian	China	Hubei	Maojian
@@ -474,6 +476,7 @@ HunanWuling	China	Hunan	Wuling
 HunanYuhua	China	Hunan	Yuhua
 InnerMongolia	China	Neimenggu	Neimenggu
 Jinlinnanguan	China	China	China
+Jiangan	China	Hubei	Jiangan
 Jiangmenguangdong	China	Guangdong	Jiangmen
 Jiangsu	China	Jiangsu	Jiangsu
 JiangsuBeitang	China	Jiangsu	Beitang
@@ -524,6 +527,7 @@ Ningbo	China	Zhejiang	Ningbo
 Ningfang	China	China	China
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia
+Pudong	China	Shanghai	Pudong
 Putian	China	Fujian	Putian
 Qingdao	China	Shandong	Qingdao
 Qingfeng	China	Henan	Qingfeng
@@ -570,6 +574,7 @@ Tumen	China	Jilin	Tumen
 Weidu	China	Henan	Weidu
 Weidong	China	Henan	Weidong
 Wenzhou	China	Zhejiang	Wenzhou
+Wujiagang	China	Hubei	Wujiagang
 Wulumuqi	China	Xinjiang	Urumqi
 Wuhan	China	Hubei	Wuhan
 Wuxi	China	Jiangsu	Wuxi
@@ -784,6 +789,7 @@ NordPasDeCalais	France	NordPasdeCalaisPicardie	NordPasDeCalais
 Oms	France	LanguedocRoussillonMidiPyrenees	Oms
 Paris	France	IleDeFrance	Paris
 PaysDeLoire	France	PaysDeLaLoire	PaysDeLaLoire
+PaysDeLaLoire	France	PaysDeLaLoire	PaysDeLaLoire
 Picardie	France	NordPasdeCalaisPicardie	Picardie
 Poitiers	France	AquitaineLimousinPoitouCharentes	Poitiers
 PoitouCharentes	France	AquitaineLimousinPoitouCharentes	PoitouCharentes
@@ -1115,6 +1121,7 @@ Kermanshah	Iran	Kermanshah	Kermanshah
 Kordestan	Iran	Kurdistan	Kurdistan
 Khorasan	Iran	Khorasan	Khorasan
 Khozestan	Iran	Khuzestan	Khuzestan
+Kurdistan	Iran	Kurdistan	Kurdistan
 Lorestan	Iran	Lorestan	Lorestan
 Mashad	Iran	RazaviKhorasan	Mashad
 Marivan	Iran	Kurdistan	Marivan
@@ -1505,6 +1512,7 @@ nauruisland	Nauru	Nauru	Nauru
 # Nepal
 Nepal	Nepal	Nepal	Nepal
 KathmanduBGN	Nepal	Central	Kathmandu
+Kathmandu	Nepal	Central	Kathmandu
 
 # Netherlands
 Netherlands	Netherlands	Netherlands	Netherlands
@@ -2026,9 +2034,9 @@ Matara	SriLanka	SouthernProvince	Matara
 Ratnapura	SriLanka	Sabaragamuwa	Ratnapura
 
 # StVincentAndTheGrenadines
-StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
-saint_vincent_and_the_grenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
-SaintVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines	StVincentAndTheGrenadines
+StVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines
+saint_vincent_and_the_grenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines
+SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines
 
 # Sudan
 Sudan	Sudan	Sudan	Sudan
