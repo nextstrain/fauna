@@ -159,7 +159,7 @@ class parse(object):
         v['number_sequences'] = 0
         return v
 
-    def add_sequence_fields(self, v, locus, authors, source, url, public=True, **kwargs):
+    def add_sequence_fields(self, v, locus, authors, title, source, url, public=True, **kwargs):
         '''
         add fields to the sequences defined aat the commandline
         '''
@@ -173,6 +173,11 @@ class parse(object):
                 v['authors'] = None
             else:
                 v['authors'] = authors
+        if 'title' not in v and title is not None:
+            if title == 'null' or title == 'none' or title == 'None':
+                v['title'] = None
+            else:
+                v['title'] = title
         if 'source' not in v and source is not None:
             if source == 'null' or source == 'none' or source == 'None':
                 v['source'] = None
