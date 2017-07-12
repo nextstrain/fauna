@@ -7,11 +7,16 @@ from pdb import set_trace
 def fixHeaders(seqs):
     with open("source-data/mumps-name-fix.txt", 'rU') as fh:
         fixes = {x.strip().split()[0]: x.strip().split()[1] for x in fh.readlines() if not x.startswith('#')}
+    fixed = []
     for seq in seqs:
         if seq.name in fixes:
             print("seq.name:", seq.name, " -> ", fixes[seq.name])
             seq.name = fixes[seq.name]
-    return seqs
+            fixed.append(seq)
+        else:
+            print("ignoring ", seq.name)
+    print("Taking {} of {} sequences forward".format(len(fixed), len(seqs)))
+    return fixed
 
 def standardiseViaName(seqs):
     for seq in seqs:
@@ -22,7 +27,7 @@ def standardiseViaName(seqs):
 
 def vipr():
     with open("data/mumps_vipr_full.fasta", 'rU') as fh:
-        seqs = [x for x in SeqIO.parse(fh, 'fasta') if 'MuV' in x.name]
+        seqs = [x for x in SeqIO.parse(fh, 'fasta')]
     seqs = fixHeaders(seqs)
     seqs = standardiseViaName(seqs)
     with open("data/mumps_vipr.fasta", 'w') as fh:
