@@ -81,7 +81,7 @@ FJ211585|RIT4385|NA|NA|Unknown|NA|NA|Mumps_virus	FJ211585|MuVi/Jeryl-Lynn1_RIT43
 JQ388690|RS_12|NA|NA|Unknown|Iran|NA|Mumps_virus	JQ388691|MuVi/RS-12_pass2/Iran/86(H)(VAC)|NA|1986-XX-XX|Human|Iran|H|Mumps_virus
 AF314558|SIPAR_02|NA|NA|Unknown|NA|NA|Mumps_virus	AF314558|MuVi/UrabeAm9_ChironSpA_lots_PS22-27(B)(VAC)|NA|XXXX-XX-XX|Human|Unknown|B|Mumps_virus
 DQ649478|SP|NA|NA|Unknown|China|NA|Mumps_virus	DQ649478|MuVi/Shiping.CHN/05(F)(VAC)|NA|2005-XX-XX|Human|China|F|Mumps_virus
-EU884413|SP|NA|2007_07_15|Human|China|NA|Mumps_virus	EU884413|MuVs/CHN/28.07(F)|NA|2007-07-15|Human|China|F|Mumps_virus - DO EPI WEEK
+EU884413|SP|NA|2007_07_15|Human|China|NA|Mumps_virus	EU884413|MuVs/CHN/28.07(F)|NA|2007-07-15|Human|China|F|Mumps_virus
 FJ556896|SP_A|NA|2005|Human|China|NA|Mumps_virus	FJ556896|MuVi/Shiping.CHN/05(F)(VAC)|NA|2005-XX-XX|Human|China|F|Mumps_virus
 FJ375177|Urabe|NA|1987|Human|Canada|NA|Mumps_virus	FJ375177|MuVi/UrabeAm9_vac-associated_men/CAN/87(B)(VAC)|NA|1987-XX-XX|Human|Canada|B|Mumps_virus
 FJ375178|Urabe|NA|1996_09|Human|Canada|NA|Mumps_virus	FJ375178|MuVi/UrabeAm9_Gw7vaccine/CAN/96(B)(VAC)|NA|1996-09-XX|Human|Canada|B|Mumps_virus
@@ -90,7 +90,7 @@ AB000386|Urabe_AM_9_A|NA|NA|Unknown|NA|NA|Mumps_virus	AB000386|MuVi/UrabeAm9(B)(
 AB000387|Urabe_AM_9_B|NA|NA|Unknown|NA|NA|Mumps_virus	AB000387|MuVi/UrabeAm9(B)(VAC)|NA|XXXX-XX-XX|Human|Unknown|B|Mumps_virus
 AF314559|Urabe_AM9|NA|NA|Unknown|NA|NA|Mumps_virus	AF314559|MuVi/Urabe_Am9(B)(VAC)|NA|XXXX-XX-XX|Human|Unknown|B|Mumps_virus
 AB576764|Y213|NA|NA|Human|NA|NA|Mumps_virus	AB576764|MuVi|NA|XXXX-XX-XX|Human|Unknown|NA|Mumps_virus
-FN431985|Jeryl_Lynn|NA|NA|Unknown|China|NA|Mumps_virus	FN431985|MuVi/Jeryl-Lynn_JL2/London.GBR(A)(VAC)|NA|XXXX-XX-XX|Human|United_Kington|A|Mumps_virus
+FN431985|Jeryl_Lynn|NA|NA|Unknown|China|NA|Mumps_virus	FN431985|MuVi/Jeryl-Lynn_JL2/London.GBR(A)(VAC)|NA|XXXX-XX-XX|Human|United_Kingdom|A|Mumps_virus
 AF338106|Jeryl_Lynn|NA|NA|Unknown|NA|NA|Mumps_virus	AF338106|MuVi/Jeryl-Lynn/West_Point.USA(A)(VAC)|NA|XXXX-XX-XX|Human|USA|A|Mumps_virus
 AF345290|Jeryl_Lynn|NA|NA|Unknown|NA|NA|Mumps_virus	AF345290|MuVi/Jeryl-Lynn_JL2/West_Point.USA(A)(VAC)|NA|XXXX-XX-XX|Human|USA|A|Mumps_virus
 AY685920|L_Zagreb|NA|NA|Unknown|Croatia|NA|Mumps_virus	AY685920|MuVi/L-Zagreb/Zagreb.HRV/69(N)(VAC)|NA|1969-XX-XX|Human|Croatia|N|Mumps_virus
