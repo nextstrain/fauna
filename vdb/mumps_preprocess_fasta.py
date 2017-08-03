@@ -1,7 +1,7 @@
 from __future__ import print_function
 from Bio import SeqIO
 import argparse
-import os, sys
+import os, sys, re
 from pdb import set_trace
 
 def fixHeaders(seqs):
@@ -18,6 +18,16 @@ def fixHeaders(seqs):
     print("Taking {} of {} sequences forward".format(len(fixed), len(seqs)))
     return fixed
 
+def add_region(seqs):
+    for seq in seqs:
+        result = re.search('\|MuV[si]\/([A-z]+)\.',seq.name)
+        if result:
+            region = ''.join(result.groups())
+        else:
+            region = "NA"
+        seq.name = seq.name + "|" + region
+    return seqs
+
 def standardiseViaName(seqs):
     for seq in seqs:
         seq.name = seq.name.replace('[','(').replace(']',')')
@@ -26,13 +36,14 @@ def standardiseViaName(seqs):
     return seqs
 
 def vipr():
-    with open("data/mumps_vipr_full.fasta", 'rU') as fh:
+    with open("data/mumps_all_full.fasta", 'rU') as fh:
         seqs = [x for x in SeqIO.parse(fh, 'fasta')]
     seqs = fixHeaders(seqs)
+    seqs = add_region(seqs)
     seqs = standardiseViaName(seqs)
-    with open("data/mumps_vipr.fasta", 'w') as fh:
+    with open("data/mumps_all.fasta", 'w') as fh:
         SeqIO.write(seqs, fh, "fasta")
-    print("Fixed VIPR fasta file saved to data/mumps_vipr.fasta")
+    print("Fixed VIPR fasta file saved to data/mumps_all.fasta")
 
 def preprocessFASTA(fname):
     with open(fname, 'rU') as fh:
