@@ -12,7 +12,7 @@ def get_parser():
     parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
     parser.add_argument('-v', '--virus', default='flu', help="virus name")
-    parser.add_argument('--subtype', default='h3n2', help="subtype to be included in download")
+    parser.add_argument('--subtype', help="subtype to be included in download")
     parser.add_argument('--ftype', default='tsv', help="output file format, default \"tsv\", options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', default=None, help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
@@ -48,7 +48,7 @@ class download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self, subtype, output=True, count=True, **kwargs):
+    def download(self, subtype=None, output=True, count=True, **kwargs):
         '''
         download documents from table
         '''
@@ -57,7 +57,10 @@ class download(object):
         self.connect_rethink(**kwargs)
         self.vdb_download = vdb_download(database=self.database, virus=self.virus)
         select, present, interval, = self.vdb_download.parse_subset_arguments(**kwargs)
-        select.append(('subtype', [subtype]))
+
+        if subtype is not None:
+            select.append(('subtype', [subtype]))
+
         sequence_count = r.table(self.virus).count().run()
         print(sequence_count, "measurements in table:", self.virus)
         print("Downloading titer measurements from the table: " + self.virus)
@@ -156,7 +159,11 @@ if __name__=="__main__":
     args = parser.parse_args()
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
     if args.fstem is None:
-        args.fstem = args.subtype + '_' + current_date
+        if args.subtype is not None:
+            args.fstem = args.subtype + '_' + current_date
+        else:
+            args.fstem = args.virus + '_' + current_date
+
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connTDB = download(**args.__dict__)
