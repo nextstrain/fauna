@@ -255,20 +255,37 @@ class parse(object):
             s['source'] = 'genbank'
             s['accession'] = re.match(r'^([^.]*)', record.id).group(0).upper()  # get everything before the '.'?
             s['sequence'] = str(record.seq).lower()
-            print("Processing " + s['accession'])
-            reference = record.annotations["references"][0]
-            if reference.title is not None and reference.title != "Direct Submission":
+            # set up as none and overwrite
+            s["title"] = None
+            s['authors'] = None
+            s["puburl"] = None
+            s["journal"] = None
+            print("Processing genbank file for " + s['accession'])
+            # all the references (i.e. the papers / direct-submission notes)
+            references = record.annotations["references"]
+
+            if len(references):
+                # is there a reference which is not a "Direct Submission"?
+                titles = [reference.title for reference in references]
+                try:
+                    idx = [i for i, j in enumerate(titles) if j is not None and j != "Direct Submission"][0]
+                except IndexError: # fall back to direct submission
+                    idx = [i for i, j in enumerate(titles) if j is not None][0]
+                reference = references[idx] # <class 'Bio.SeqFeature.Reference'>
+                keys = reference.__dict__.keys()
                 s['title'] = reference.title
+                if "authors" in keys and reference.authors is not None:
+                    first_author = re.match(r'^([^,]*)', reference.authors).group(0)
+                    s['authors'] = first_author + " et al"
+                if "journal" in keys and reference.journal is not None:
+                    s['journal'] = reference.journal
+                if "pubmed_id" in keys and reference.pubmed_id is not None:
+                    s["puburl"] = "https://www.ncbi.nlm.nih.gov/pubmed/" + reference.pubmed_id
             else:
-                print("Couldn't find reference title for " + s['accession'])
-                s['title'] = None
-            if reference.authors is not None:
-                first_author = re.match(r'^([^,]*)', reference.authors).group(0)
-                s['authors'] = first_author + " et al"
-            else:
-                print("Couldn't parse authors for " + s['accession'])
-                s['authors'] = None
-                first_author = None
+                print("Couldn't find the reference for " + s['accession'])
+
+            # print(" *** Accession: {} title: {} authors: {} journal: {} paperURL: {}".format(s['accession'], s['title'], s['authors'], s['journal'], s['puburl']))
+
             s['url'] = "https://www.ncbi.nlm.nih.gov/nuccore/" + s['accession']
             #s['url'] = self.get_doi_url(url, s['title'], first_author)
 
@@ -295,7 +312,7 @@ class parse(object):
             #self.fix_casing(v)
             #self.fix_boolean(v)
         handle.close()
-        print("There were " + str(len(viruses)) + " viruses in the parsed file")
+        print(str(len(viruses)) + " genbank entries parsed")
         return (viruses, sequences)
 
     def get_doi_url(self, url, title, author):
