@@ -197,15 +197,12 @@ class download(object):
         And subsets this list to have only 1 sequence document for each 'strain'
         Resolves by different methods: choose_longest, choose_genbank or keep_duplicates
         '''
+        from collections import defaultdict
         resolved_sequence_docs = []
         strains = set([sdoc['strain'] for sdoc in sequence_docs])
-        strain_to_sdocs = {}
-        for strain in strains:
-            strain_sdocs = []
-            for sdoc in sequence_docs:
-                if sdoc['strain'] == strain:
-                    strain_sdocs.append(sdoc)
-            strain_to_sdocs[strain] = strain_sdocs
+        strain_to_sdocs = defaultdict(list)
+        for sdoc in sequence_docs:
+            strain_to_sdocs[sdoc['strain']].append(sdoc)
 
         if resolve_method == "choose_genbank":
             print("Resolving duplicate strains by prioritizing Genbank")
