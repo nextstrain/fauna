@@ -29,7 +29,7 @@ class update(upload):
         self.format_sequences(sequences, **kwargs)
         self.match_duplicate_accessions(sequences, **kwargs)
         self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
-        citation_keys = ['authors', 'title', 'url', index]
+        citation_keys = ['authors', 'title', 'journal', 'puburl', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
             print("Updating " + str(len(sequences)) + " sequence citations in " + database + "." + table)
