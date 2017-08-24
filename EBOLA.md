@@ -17,7 +17,7 @@
 
 1. Update citation fields
   * `python vdb/ebola_update.py -db vdb -v ebola --update_citations`
-  * Updates `authors`, `title` and `url` fields from genbank files
+  * Updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
 
 ## Download documents from VDB

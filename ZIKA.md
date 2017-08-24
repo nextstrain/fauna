@@ -4,7 +4,7 @@
 
 * Update citation fields
   * `python vdb/zika_update.py -db vdb -v zika --update_citations`
-  * updates `authors`, `title` and `url` fields from genbank files
+  * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
 * Update location fields
   * After hand editing `location` in [chateau](https://github.com/blab/chateau)
