@@ -1367,13 +1367,13 @@ Kocani	Macedonia	Kocani	Kocani
 
 # Madagascar
 Madagascar	Madagascar	Madagascar	Madagascar
-Analavory Madagascar  Miarinarivo Analavory
+Analavory	Madagascar	Miarinarivo	Analavory
 Anjeva	Madagascar	Antananarivo	Anjeva
 Antananarivo	Madagascar	Antananarivo	Antananarivo
 Antsirabe	Madagascar	Vakinankaratra	Antsirabe
 Antsohihy	Madagascar	Sofia	Antsohihy
 Behoririka	Madagascar	Antananarivo	Behoririka
-Fianarantsoa  HauteMatsiatra  Fianarantsoa
+Fianarantsoa	Madagascar	HauteMatsiatra	Fianarantsoa
 Itaosy	Madagascar	Antananarivo	Itaosy
 Maevatanana	Madagascar	Betsiboka	Maevatanana
 Mahajanga	Madagascar	Mahajanga	Mahajanga
@@ -1783,6 +1783,7 @@ Kemerovo	Russia	Kemerovo	Kemerovo
 Khabarovsk	Russia	Khabarovsk	Khabarovsk
 Kirov	Russia	Kirov	Kirov
 KhantyMansia	Russia	KhantyMansia	KhantyMansia
+Koltsovo	Russia	Novosibirsk	Koltsovo
 Komi	Russia	Komi	Komi
 Kostroma	Russia	Kostroma	Kostroma
 Krasnodar	Russia	Krasnodar	Krasnodar
