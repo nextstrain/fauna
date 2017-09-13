@@ -27,6 +27,7 @@ if __name__=="__main__":
         if params.sequences:
             for lineage in params.flu_lineages:
                 call = "python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_%s --fstem %s"%(lineage, lineage)
+                print(call)
                 os.system(call)
 
         if params.titers:
@@ -35,14 +36,17 @@ if __name__=="__main__":
                 if source == "crick":
                     for lineage in params.flu_lineages:
                         call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_crick_hi_cell"%(lineage, lineage)
+                        print(call)
                         os.system(call)
                 if source == "cdc":
                     for passage in params.titers_passages:
                         for lineage in params.flu_lineages:
                             call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_cdc_hi_%s"%(lineage, passage, lineage, passage)
+                            print(call)
                             os.system(call)
                         lineage = 'h3n2'
                         call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
+                        print(call)
                         os.system(call)
 
             # concatenate to create default HI strain TSVs for each subtype
@@ -77,16 +81,19 @@ if __name__=="__main__":
     elif params.virus == "ebola":
 
         call = "python vdb/ebola_download.py -db vdb -v ebola --fstem ebola"
+        print(call)
         os.system(call)
 
     elif params.virus == "dengue":
 
         call = "python vdb/dengue_download.py -db vdb -v dengue --fstem dengue"
+        print(call)
         os.system(call)
 
     elif params.virus == "zika":
 
         call = "python vdb/zika_download.py -db vdb -v zika --fstem zika"
+        print(call)
         os.system(call)
 
     elif params.virus == "h7n9":

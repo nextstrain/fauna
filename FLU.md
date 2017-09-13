@@ -53,6 +53,12 @@
 1. Move line-list tsv files to `fauna/data/`
 2. Upload to tdb database with `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem H3N2_HI_titers_upload`
 
+#### CDC files
+
+1. Move line-list tsv files to `fauna/data/`
+2. Upload HI titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
+3. Upload FRA titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
+
 ### Download documents from TDB
 
 * `python tdb/download.py -db tdb -v flu --subtype h3n2`
