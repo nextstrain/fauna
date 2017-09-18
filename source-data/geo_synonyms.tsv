@@ -107,6 +107,7 @@ Bahrain	Bahrain	Bahrain	Bahrain
 # Bangladesh
 Bangladesh	Bangladesh	Bangladesh	Bangladesh
 Dnipro	Bangladesh	Bangladesh	Bangladesh
+Dhaka	Bangladesh	Bangladesh	Dhaka
 
 # Barbados
 Barbados	Barbados	Barbados	Barbados
@@ -147,6 +148,8 @@ LaPaz	Bolivia	LaPaz	LaPaz
 
 # Borneo
 Borneo	Indonesia	Borneo	Borneo
+Kalimantan	Indonesia	Borneo	Borneo
+Sarawak	Indonesia	Borneo	Sarawak
 
 # BosniaHerzegovina
 BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina
@@ -168,6 +171,7 @@ Belem	Brazil	Para	Belem
 Belempa	Brazil	Para	Belem
 Boavistaroraima	Brazil	Roraima	BoaVista
 Boavistarr	Brazil	Roraima	BoaVista
+Roraimarr	Brazil	Roraima	Roraima
 Boavistaroraimastate	Brazil	Roraima	BoaVista
 Bragancapara	Brazil	Para	Braganca
 BrasiliaDf	Brazil	Brasilia	Brasilia
@@ -199,10 +203,13 @@ Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
 Paulista	Brazil	Pernambuco	Paulista
 Pernambuco	Brazil	Pernambuco	Pernambuco
+Pernambucocamaragib	Brazil	Pernambuco	Camaragibe
+PernambucorecifePernambuco	Brazil	Pernambuco	Recife
 Piaui	Brazil	Piaui	Piaui
 Parana	Brazil	Parana	Parana
 Poconemt	Brazil	MatoGrosso	Pocone
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
+Portovelhopv	Brazil	Rondonia	PortoVelho
 Recife	Brazil	Pernambuco	Recife
 RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
 Ribeiraopretosaopaulo	Brazil	SaoPaulo	RibeiraoPreto
@@ -289,6 +296,7 @@ Votuporanga	Brazil	SaoPaulo	Votuporanga
 
 # BritishVirginIslands
 BritishVirginIslands	BritishVirginIslands	BritishVirginIslands	BritishVirginIslands
+Virginislandsbritish	BritishVirginIslands	BritishVirginIslands	BritishVirginIslands
 
 # Brunei
 Brunei	Brunei	Brunei	Brunei
@@ -694,6 +702,7 @@ Dominica	Dominica	Dominica	Dominica
 # DominicanRepublic
 DominicanRepublic	DominicanRepublic	DominicanRepublic	DominicanRepublic
 Riosanjuan	DominicanRepublic	RioSanJuan	RioSanJuan
+Townofmoca	DomicanRepublic	Espaillat	Moca
 
 # EastTimor
 east_timor	EastTimor	EastTimor	EastTimor
@@ -814,11 +823,19 @@ Gyeonggi	FrenchGuiana	FrenchGuiana	Gyeonggi
 # FrenchPolynesia
 FrenchPolynesia	FrenchPolynesia	FrenchPolynesia	FrenchPolynesia
 Borabora	FrenchPolynesia	FrenchPolynesia	BoraBora
+Boraboraislv	FrenchPolynesia	FrenchPolynesia	BoraBora
+Hivaoamarquesas	FrenchPolynesia	Marquesas	HivaOa
+Northmarquesas	FrenchPolynesia	Marquesas	Marquesas
+Uapou	FrenchPolynesia	Marquesas	Uapou
+Nukuhivamarquesa	FrenchPolynesia	Marquesas	NukuHiva
 Papeete	FrenchPolynesia	FrenchPolynesia	Papeete
 Raiatea	FrenchPolynesia	FrenchPolynesia	Raiatea
+Raiateaislv	FrenchPolynesia	FrenchPolynesia	Raiatea
 Tahaa	FrenchPolynesia	FrenchPolynesia	Tahaa
 Tahiti	FrenchPolynesia	FrenchPolynesia	Tahiti
+Tahitiidv	FrenchPolynesia	FrenchPolynesia	Tahiti
 Tubuai	FrenchPolynesia	FrenchPolynesia	Tubuai
+Tubuaiaustral	FrenchPolynesia	FrenchPolynesia	Tubuai
 Moorea	FrenchPolynesia	FrenchPolynesia	Moorea
 
 # Gabon
@@ -1092,12 +1109,16 @@ Banten	Indonesia	Banten	Banten
 Bengkulu	Indonesia	Bengkulu	Bengkulu
 Bogorwestjava	Indonesia	WestJava	Bogor
 Jakarta	Indonesia	Jakarta	Jakarta
+Java	Indonesia	Java	Java
+Bandungjava	Indonesia	Java	Bandung
 Makassar	Indonesia	Makassar	Makassar
+Palembangsumatra	Indonesia	Sumatra	Palembang
 Raas	Indonesia	EastJava	Raas
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
 Surakarta	Indonesia	Jateng	Surakarta
+Sulawesi	Indonesia	Sulawesi	Sulawesi
 
 # Iran
 Iran	Iran	Iran	Iran
@@ -1390,6 +1411,7 @@ Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
 Malaysia	Malaysia	Malaysia	Malaysia
 Johorbahru	Malaysia	Johor	JohorBahru
 Kualalumpur	Malaysia	Malaysia	KualaLumpur
+Klangvalley	Malaysia	KlangValley	KlangValley
 
 # Maldives
 Maldives	Maldives	Maldives	Maldives
@@ -1421,6 +1443,7 @@ Mayotte	Mayotte	Mayotte	Mayotte
 # Mexico
 Mexico	Mexico	Mexico	Mexico
 Yucatan	Mexico	Mexico	Yucatan
+Yucatanstate	Mexico	Yucatan	Yucatan
 Monterrey	Mexico	Mexico	Monterrey
 Morelos	Mexico	Morelos	Morelos
 Merida	Mexico	Mexico	Merida
@@ -1428,15 +1451,30 @@ Puebla	Mexico	Puebla	Puebla
 Queretaro	Mexico	Queretaro	Queretaro
 QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
+Lacoloradasonora	Mexico	Sonora	LaColorada
 Nayarit	Mexico	Nayarit	Nayarit
 Chiapas	Mexico	Chiapas	Chiapas
 MexicoCity	Mexico	DistritoFederal	MexicoCity
 NuevoLeon	Mexico	NuevoLeon	NuevoLeon
 Oaxaca	Mexico	Oaxaca	Oaxaca
+Cerrodeltepezcouintleoaxaca	Mexico	Oaxaca	Oaxaca
+Nejapademorelosoaxaca	Mexico	Oaxaca	NejapaDeMorelos
 Hidalgo	Mexico	Hidalgo	Hidalgo
 Tapachula	Mexico	Chiapas	Tapachula
 Tlaxcala	Mexico	Tlaxcala	Tlaxcala
 Zacatecas	Mexico	Zacatecas	Zacatecas
+Tlaltizapanmorelos	Mexico	Morelos	Tlaltizapan
+Altoluceroveracruz	Mexico	Veracruz	AltoLucero
+Ixtaczoquitlanveracruz	Mexico	Veracruz	Ixtaczoquitlan
+Mocoritosinaloa	Mexico	Sinaloa	Mocorito
+Jalpandeserraqueretaro	Mexico	Queretaro	JalpanDeSerra
+Othonpblancoquintanaroo	Mexico	QuintanaRoo	OthonPBlanco
+Ocosingochiapas	Mexico	Ocosingo	Chiapas
+Mujicatabasco	Mexico	Tabasco	Mujica
+Huimanguillotabasco	Mexico	Tabasco	Huimanguillotabasco
+Leonguanajuato	Mexico	Guanajuato	Leon
+Puertovallartajalisco	Mexico	Jalisco	PuertoVallarta
+Cdvictoriatamaulipas	Mexico	Tamaulipas	CiudadVictoria
 
 # Micronesia
 MicronesiaFederatedStatesOf	Micronesia	Micronesia	Micronesia
@@ -1446,6 +1484,7 @@ Nauru	Micronesia	Nauru	Nauru
 Pohnpei	Micronesia	Pohnpei	Pohnpei
 Kosrae	Micronesia	Kosrae	Kosrae
 Yap	Micronesia	Yap	Yap
+Yapisland	Micronesia	Yap	Yap
 
 # Moldova
 Moldova	Moldova	Moldova	Moldova
@@ -1508,6 +1547,8 @@ Maputo	Mozambique	Maputo	Maputo
 
 # Myanmar
 Myanmar	Myanmar	Myanmar	Myanmar
+Mandalay	Myanmar	Mandalay	Mandalay
+Sagaing	Myanmar	Sagaing	Sagaing
 Yangon	Myanmar	Yangon	Yangon
 Naypyitaw	Myanmar	Naypyitaw	Naypyitaw
 
@@ -2108,6 +2149,7 @@ Tajikistan	Tajikistan	Tajikistan	Tajikistan
 
 # Tanzania
 Tanzania	Tanzania	Tanzania	Tanzania
+Tanzaniaunitedrepublicof	Tanzania	Tanzania	Tanzania
 
 # Thailand
 Thailand	Thailand	Thailand	Thailand
@@ -2519,6 +2561,7 @@ HungYen	Vietnam	HungYen	HungYen
 KhanhHoa	Vietnam	KhanhHoa	KhanhHoa
 LangSon	Vietnam	LangSon	LangSon
 LongAn	Vietnam	LongAn	LongAn
+Mekongdelta	Vietnam	MekongDelta	MekongDelta
 TayNguyen	Vietnam	DakLak	TayNguyen
 TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh
