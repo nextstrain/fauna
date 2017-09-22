@@ -10,6 +10,10 @@ class mumps_upload(upload):
         self.strain_fix_fname = "source-data/mumps_strain_name_fix.tsv"
         self.location_fix_fname = "source-data/zika_location_fix.tsv"
 
+    # overwrite format_place from upload
+    def format_place(self, doc, determine_location=False):
+        return upload.format_place(self, doc, determine_location)
+
     def fix_name(self, name):
         original_name = name
         name = self.replace_strain_name(original_name, self.fix_whole_name)
