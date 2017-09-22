@@ -36,7 +36,9 @@ class mumps_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country'}
+    ## look in the mumps_header_fix file!
+    ##  0: accession, 1: strain, 2: date, 3: host, 4: country, 5: division (admin1), 6: muv_genotype
+    virus_fasta_fields = {1:'strain', 2:'collection_date', 3: 'host', 4:'country', 5: 'division', 6: 'muv_genotype'}
     sequence_fasta_fields = {0:'accession', 1:'strain'}
     # 0                   1              2        3      4    5    6     7
     #>KF843896|MuVi/Chennai.IND/35.12[C]|NA|2012_08_31|Human|India|NA|Mumps_virus

@@ -1,4 +1,4 @@
-import os, re, datetime, json
+import os, re, datetime, json, csv
 from Bio import SeqIO
 from Bio import Entrez
 import requests
@@ -68,6 +68,18 @@ class parse(object):
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
         '''
+        header_fixes = False
+        if (kwargs["fasta_header_fix"]):
+            header_fixes = {}
+            try:
+                with open(kwargs["fasta_header_fix"], 'rU') as fh:
+                    for line in fh:
+                        if not line.startswith('#'):
+                            k, v = line.strip().split("\t")
+                            header_fixes[k] = v
+            except IOError:
+                raise Exception(kwargs["fasta_header_fix"], "not found")
+
         viruses = []
         sequences = []
         try:
@@ -76,6 +88,11 @@ class parse(object):
             raise Exception(fasta, "not found")
         else:
             for record in SeqIO.parse(handle, "fasta"):
+                if header_fixes:
+                    try:
+                        record.description = header_fixes[record.description]
+                    except KeyError:
+                        raise Exception(record.description, "not in header fix file. Fatal.")
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 v = {key: content[ii] if ii < len(content) else "" for ii, key in virus_fasta_fields.items()}
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
