@@ -52,8 +52,10 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 ## Environment variables
 
 Throughout we assume the existence of environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. We do not share these variables here, because for security reasons our RethinkDB instance is private. To use fauna you will need to set up your own RethinkDB instance as described [here](RETHINKDB.md). This instance can be local, in which case variables will be:
+
 * `RETHINK_HOST`: `localhost`
 * `RETHINK_AUTH_KEY`: ``
+
 Or this instance can be remote, in which case follow the [RethinkDB docs to configure](https://rethinkdb.com/docs/security/#securing-the-web-interface). Note that admin password is synonymous with RethinkDB `auth_key`.
 
 ## Chateau
