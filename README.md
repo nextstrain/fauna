@@ -2,7 +2,7 @@
 
 The nextstrain project is an attempt to make flexible informatic pipelines and visualization tools to track ongoing pathogen evolution as sequence data emerges. The nextstrain project derives from [nextflu](https://github.com/blab/nextflu), which was specific to influenza evolution.
 
-nextstrain is comprised of three components:
+nextstrain is comprised of three primary components:
 
 * [fauna](https://github.com/nextstrain/fauna): database and IO scripts for sequence and serological data
 * [augur](https://github.com/nextstrain/augur): informatic pipelines to conduct inferences from raw data
@@ -12,7 +12,9 @@ nextstrain is comprised of three components:
 
 *Definition: The animals of a given region or period considered as a whole. Also, prophetic Roman deity.*
 
-The fauna database stores viral sequences and serological data in [rethinkdb](RETHINKDB.md). The current database and scripts is designed around influenza and Zika viruses.
+The fauna database stores viral sequences and serological data in [RethinkDB](RETHINKDB.md). The current database and scripts are designed around influenza, Ebola and Zika viruses, but with the intention of provided a general purpose tool.
+
+_Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip fauna and proceed to directly to augur._
 
 ### vdb
 
@@ -21,6 +23,10 @@ The [virus database (vdb)](vdb/) is used to store viral information in an organi
 ### tdb
 
 The [titer database (tdb)](tdb/) is used to store titer measurements in an organized schema. This allows easy storage and downloading of all measurements in the database.
+
+### Supported virus builds
+
+We maintain notes on [supported virus builds](builds/).
 
 ## Install
 
@@ -58,22 +64,8 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 
 Chateau configurations are stored in [`config.js`](config.js) for remote server and [`config_local.js`](config_local.js) for local server.
 
-## Docker
-
-Build a Docker image for fauna:
-
-    docker build -t nextstrain/fauna:latest .
-
-Push image to the Docker Hub:
-
-    docker push nextstrain/fauna:latest
-
-Run a shell from within the container:
-
-    docker run --env-file environment_docker.env -t -i nextstrain/fauna /bin/bash
-
 ## License and copyright
 
-Copyright 2016 Trevor Bedford and Charlton Callender.
+Copyright 2016-2017 Trevor Bedford.
 
 Source code to nextstrain is made available under the terms of the [GNU Affero General Public License](LICENSE.txt) (AGPL). nextstrain is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
