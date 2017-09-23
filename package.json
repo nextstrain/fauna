@@ -1,10 +1,10 @@
 {
-  "name": "nextstrain-db",
-  "version": "0.1.0",
-  "description": "Rethink database for all the viruses, backend for nextstrain",
+  "name": "fauna",
+  "version": "0.2.0",
+  "description": "RethinkDB database to support real-time virus analysis",
   "repository": {
     "type": "git",
-    "url": "git://github.com/blab/nextstrain-db"
+    "url": "git://github.com/blab/fauna"
   },
   "license": "AGPL-3.0",
   "dependencies": {
@@ -13,10 +13,9 @@
     "jade": "= 1.0.2",
     "optimist": " >= 0.6.0",
     "stream": ">= 0.0.1",
-    "moment": "2.13.0"    
+    "moment": "2.13.0"
   },
   "scripts": {
-    "chateau": "./chateau/bin/chateau",
-    "chateau-local": "./chateau/bin/chateau -f config_local.js"
-  }  
+    "chateau": "./chateau/bin/chateau"
+  }
 }

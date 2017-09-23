@@ -49,22 +49,22 @@ Backup and restore functionality requires the rethinkdb command line utility. Th
 
     brew install rethinkdb
 
+## Environment variables
+
+Throughout we assume the existence of environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. We do not share these variables here, because for security reasons our RethinkDB instance is private. To use fauna you will need to set up your own RethinkDB instance as described [here](RETHINKDB.md). This instance can be local, in which case variables will be:
+* `RETHINK_HOST`: `localhost`
+* `RETHINK_AUTH_KEY`: ``
+Or this instance can be remote, in which case follow the [RethinkDB docs to configure](https://rethinkdb.com/docs/security/#securing-the-web-interface). Note that admin password is synonymous with RethinkDB `auth_key`.
+
 ## Chateau
 
-[Chateau](https://github.com/nextstrain/chateau/) allows easy web access to the database. To run, do the following:
+[Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/timestamp)) allows easy web access to the database. To run, do the following:
 
-#### For remote rethink instance
-
-1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`.
+1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. If running locally set `RETHINK_HOST` to `localhost` and leave `RETHINK_AUTH_KEY` empty.
 2. Run with `npm run chateau` from directory `fauna/`.
 3. Go to `http://localhost:3000/`.
 
-#### For local rethink instance
-
-2. Run with `npm run chateau-local` from directory `fauna/`.
-3. Go to `http://localhost:3001/`.
-
-Chateau configurations are stored in [`config.js`](config.js) for remote server and [`config_local.js`](config_local.js) for local server.
+Chateau configurations are stored in [`config.js`](config.js).
 
 ## License and copyright
 
