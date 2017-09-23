@@ -1,12 +1,14 @@
 ## Introduction
 
-The nextstrain project is an attempt to make flexible informatic pipelines and visualization tools to track ongoing pathogen evolution as sequence data emerges. The nextstrain project derives from [nextflu](https://github.com/blab/nextflu), which was specific to influenza evolution.
+Nextstrain is an open-source project to harness the scientific and public health potential of pathogen genome data. We provide a continually-updated view of publicly available data with powerful analytics and visualizations showing pathogen evolution and epidemic spread. Our goal is to aid epidemiological understanding and improve outbreak response.
 
-nextstrain is comprised of three primary components:
+Nextstrain is comprised of three primary components:
 
 * [fauna](https://github.com/nextstrain/fauna): database and IO scripts for sequence and serological data
 * [augur](https://github.com/nextstrain/augur): informatic pipelines to conduct inferences from raw data
 * [auspice](https://github.com/nextstrain/auspice): web app to visualize resulting inferences
+
+Resulting data and inferences are available live at the website [nextstrain.org](http://nextstrain.org).
 
 ## fauna
 
@@ -68,4 +70,4 @@ Chateau configurations are stored in [`config.js`](config.js) for remote server 
 
 Copyright 2016-2017 Trevor Bedford.
 
-Source code to nextstrain is made available under the terms of the [GNU Affero General Public License](LICENSE.txt) (AGPL). nextstrain is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+Source code to Nextstrain is made available under the terms of the [GNU Affero General Public License](LICENSE.txt) (AGPL). Nextstrain is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
