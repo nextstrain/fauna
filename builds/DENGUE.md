@@ -11,6 +11,14 @@
 3. Upload to vdb database
   * `python vdb/dengue_upload.py -db vdb -v dengue --fname results.tbl --ftype tsv`
 
-## Download documents from VDB
+## Download sequence documents from VDB
+
 * `python vdb/dengue_download.py` # all serotypes together
-* `python vdb/dengue_download.py --select serotype:2` # just serotype 2 sequences  
+* `python vdb/dengue_download.py --select serotype:1` # just serotype 1
+* `python vdb/dengue_download.py --select serotype:2` # just serotype 2
+* `python vdb/dengue_download.py --select serotype:3` # just serotype 3
+* `python vdb/dengue_download.py --select serotype:4` # just serotype 4
+
+## Download titer documents from TDB
+
+* `python tdb/download.py -db tdb -v dengue --fstem dengue`
