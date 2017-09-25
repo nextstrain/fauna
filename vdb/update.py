@@ -6,6 +6,7 @@ from upload import parser
 parser.add_argument('--update_citations', default=False, action="store_true", help="update citation fields")
 parser.add_argument('--update_locations', default=False, action="store_true", help="update location fields")
 parser.add_argument('--update_groupings', default=False, action="store_true", help="update grouping fields")
+parser.add_argument('--n_entrez', default=2500, type=int, help="number of entrez accessions to fetch at a time (default: 2500)")
 
 class update(upload):
     def __init__(self, **kwargs):
@@ -26,9 +27,10 @@ class update(upload):
     def update_citations(self, database, table, preview, index='accession', **kwargs):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
-        self.format_sequences(sequences, **kwargs)
-        self.match_duplicate_accessions(sequences, **kwargs)
-        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
+        # the sequences come from the DB so we don't need to reformat them!
+        # self.format_sequences(sequences, **kwargs)
+        # self.match_duplicate_accessions(sequences, **kwargs)
+        # self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
         citation_keys = ['authors', 'title', 'journal', 'puburl', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
@@ -44,7 +46,7 @@ class update(upload):
         else:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
         self.entrez_email(email)
-        gi = self.get_GIs(accessions)
+        gi = self.get_GIs(accessions, kwargs["n_entrez"])
         return self.get_entrez_viruses(gi, **kwargs)
 
     def get_accessions(self, database, table):

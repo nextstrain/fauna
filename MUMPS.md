@@ -11,5 +11,7 @@
 * copy `GenomeFastaResults.fasta` to `fauna/data/mumps_vipr.fasta`
 * upload to fauna
   * `python vdb/mumps_upload.py -db vdb -v mumps --source genbank --locus genome --fname mumps_vipr.fasta --fasta_header_fix source-data/mumps_header_fix.tsv`
+* Add in citations from entrez (NCBI):
+  * `python vdb/mumps_update.py -db vdb -v mumps --update_citations --n_entrez 25`
 
 #### Private data in CSV format

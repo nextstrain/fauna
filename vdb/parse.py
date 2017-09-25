@@ -212,7 +212,7 @@ class parse(object):
         v['sequence_inclusion_date'] = self.rethink_io.get_upload_date()
         return v
 
-    def get_GIs(self, accessions, **kwargs):
+    def get_GIs(self, accessions, n_entrez, **kwargs):
         '''
         Use entrez esearch to get genbank identifiers from accession numbers
         '''
@@ -220,8 +220,8 @@ class parse(object):
         queries = []
         giList = []
 
-        for i in sorted(xrange(0, len(accessions), 2500)): # split accessions list into 2500-long portions
-            queries.append(" ".join(accessions[i:i+2500])) # convert list to ' ' separated string
+        for i in sorted(xrange(0, len(accessions), n_entrez)): # split accessions list into 2500-long portions
+            queries.append(" ".join(accessions[i:i+n_entrez])) # convert list to ' ' separated string
 
         assert sum([len(q.split()) for q in queries]) == len(accessions) # sanity check
 
