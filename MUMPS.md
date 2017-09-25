@@ -14,4 +14,7 @@
 * Add in citations from entrez (NCBI):
   * `python vdb/mumps_update.py -db vdb -v mumps --update_citations --n_entrez 25`
 
+#### Private data in FASTA format
+* `python vdb/mumps_upload.py -db vdb -v mumps --source private --locus genome --fname <FASTA> --fasta_header_fix source-data/mumps_header_fix.tsv`
+* `python vdb/mumps_update.py -db vdb -v mumps --update_citations_tsv source-data/mumps_citations.tsv --n_entrez 25`
 #### Private data in CSV format
