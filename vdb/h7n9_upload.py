@@ -326,6 +326,10 @@ class flu_upload(upload):
                 v['host'] = "other_avian"
             if v['host'] == "guineafowl":
                 v['host'] = "other_avian"
+            if v['host'] == "cairinamoschata":
+                v['host'] = "other_avian"
+            if v['host'] == "anascyanoptera":
+                v['host'] = "other_avian"
             if v['host'] == "surfaceswab":
                 v['host'] = "environment"
             if v['host'] == "feces":
