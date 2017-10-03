@@ -38,8 +38,8 @@ class rethink_interact(object):
         for table in tables:
             dump_file = self.rethink_io.get_upload_date() + '_' + database + '_' + table + '.tar.gz'
             self.dump(database=database, dump_table=table, dump_file=dump_file, **kwargs)
-            shutil.move(dump_file, path+'/'+dump_file)            
-            bucket.upload_file(path+'/'+dump_file, dump_file)            
+            shutil.move(dump_file, path+'/'+dump_file)
+            bucket.upload_file(path+'/'+dump_file, dump_file)
         print("Successfully backed up")
         if delete_expired:
             self.delete_expired_s3_backups(bucket, **kwargs)
@@ -71,7 +71,8 @@ class rethink_interact(object):
             command = ['rethinkdb', 'dump', '-e', database + '.' + dump_table, '-f', dump_file]
         try:
             with open(os.devnull, 'wb') as devnull:
-                subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT)
+                print " ".join(command)
+                subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT, shell=True)
         except:
             raise Exception("Couldn't dump tar file, make sure " + dump_file + " doesn't exist")
 
