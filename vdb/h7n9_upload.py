@@ -306,8 +306,6 @@ class flu_upload(upload):
                 v['host'] = "chicken"
             if v['host'] == "anasclypeata":
                 v['host'] = "duck"
-            if v['host'] == "chencanagica":
-                v['host'] = "goose"
             if v['host'] == "anasplatyrhynchos":
                 v['host'] = "duck"
             if v['host'] == "anassp.":
@@ -316,6 +314,10 @@ class flu_upload(upload):
                 v['host'] = "duck"
             if v['host'] == "anasdiscors":
                 v['host'] = "duck"
+            if v['host'] == "goose":
+                v['host'] = "other_avian"
+            if v['host'] == "chencanagica":
+                v['host'] = "other_avian"
             if v['host'] == "passermontanus":
                 v['host'] = "other_avian"
             if v['host'] == "arenariainterpres":
