@@ -86,9 +86,23 @@ if __name__=="__main__":
 
     elif params.virus == "dengue":
 
-        call = "python vdb/dengue_download.py -db vdb -v dengue --fstem dengue"
+        # Download all serotypes together.
+        call = "python vdb/dengue_download.py"
         print(call)
         os.system(call)
+
+        # Download individual serotypes.
+        serotypes = [1, 2, 3, 4]
+        for serotype in serotypes:
+            call = "python vdb/dengue_download.py --select serotype:%i" % serotype
+            print(call)
+            os.system(call)
+
+        # Download titers.
+        if params.titers:
+            call = "python tdb/download.py -db tdb -v dengue --fstem dengue"
+            print(call)
+            os.system(call)
 
     elif params.virus == "zika":
 
