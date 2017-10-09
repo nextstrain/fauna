@@ -1,36 +1,33 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--files', nargs='*', default=[], help="tsvs that will be concatenated")
-parser.add_argument('-o', '--output', type=str, default="data/titers_complete.tsv")
+parser.add_argument('files', nargs='+', default=[], help="tsvs that will be concatenated")
 
-def concat(files,out):
-    with open(out, 'w') as o:
-        for filename in files:
+def concat(files):
+    for filename in files:
 
-            print "Concatenating and annotating %s into %s." % (filename, out)
+        print "Concatenating and annotating %s." % (filename)
 
-            if "cdc" in filename.lower():
-                source = "cdc"
-            elif "crick" in filename.lower():
-                source = "crick"
-            else:
-                source = "none"
+        if "cdc" in filename.lower():
+            source = "cdc"
+        elif "crick" in filename.lower():
+            source = "crick"
+        else:
+            source = "unknown"
 
-            if "egg" in filename.lower():
-                passage = "egg"
-            elif "cell" in filename.lower():
-                passage = "egg"
-            else:
-                passage = "none"
+        if "egg" in filename.lower():
+            passage = "egg"
+        elif "cell" in filename.lower():
+            passage = "cell"
+        else:
+            passage = "none"
 
-            with open(filename, 'r') as f:
-                for line in f.readlines():
-                    print line
-                    line = line.strip()
-                    l = "%s\t%s\t%s\n" % (line, source, passage)
-                    o.write(l)
+        with open(filename, 'r') as f:
+            for line in f.readlines():
+                line = line.strip()
+                l = "%s\t%s\t%s" % (line, source, passage)
+                print l
 
 if __name__=="__main__":
     args = parser.parse_args()
-    concat(args.files, args.output)
+    concat(args.files)
