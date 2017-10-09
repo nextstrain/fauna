@@ -1,5 +1,6 @@
 # For vdb repo #
 environment*
+input_data/
 data/
 backups/
 lacen/
