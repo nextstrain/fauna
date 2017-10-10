@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('files', nargs='+', default=[], help="tsvs that will be concatenated")
@@ -6,7 +7,7 @@ parser.add_argument('files', nargs='+', default=[], help="tsvs that will be conc
 def concat(files):
     for filename in files:
 
-        print "Concatenating and annotating %s." % (filename)
+        sys.stderr.write("Concatenating and annotating %s." % (filename))
 
         if "cdc" in filename.lower():
             source = "cdc"
