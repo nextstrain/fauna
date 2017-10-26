@@ -6,16 +6,21 @@ from upload import parser
 parser.add_argument('--update_citations', default=False, action="store_true", help="update citation fields")
 parser.add_argument('--update_locations', default=False, action="store_true", help="update location fields")
 parser.add_argument('--update_groupings', default=False, action="store_true", help="update grouping fields")
+parser.add_argument('--n_entrez', default=2500, type=int, help="number of entrez accessions to fetch at a time (default: 2500)")
+parser.add_argument('--update_citations_tsv', default=None, type=str, help="update citations from tsv not entrez")
+
 
 class update(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
         self.location_fields = ['location', 'division', 'country', 'region']
 
-    def update(self, update_citations, update_locations, update_groupings, **kwargs):
+    def update(self, update_citations, update_citations_tsv, update_locations, update_groupings, **kwargs):
         self.connect(**kwargs)
         if update_citations:
             self.update_citations(table=self.sequences_table, **kwargs)
+        elif update_citations_tsv:
+            self.update_citations_tsv(update_citations_tsv, table=self.sequences_table, **kwargs)
         elif update_locations:
             self.update_locations(table=self.viruses_table, **kwargs)
         elif update_groupings:
@@ -26,9 +31,10 @@ class update(upload):
     def update_citations(self, database, table, preview, index='accession', **kwargs):
         print("Updating citation fields")
         _, sequences = self.get_genbank_sequences(**kwargs)
-        self.format_sequences(sequences, **kwargs)
-        self.match_duplicate_accessions(sequences, **kwargs)
-        self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
+        # the sequences come from the DB so we don't need to reformat them!
+        # self.format_sequences(sequences, **kwargs)
+        # self.match_duplicate_accessions(sequences, **kwargs)
+        # self.match_database_duplicate_accessions(sequences, virus=self.virus, database=database)
         citation_keys = ['authors', 'title', 'journal', 'puburl', 'url', index]
         sequences = [{key: doc[key] for key in citation_keys} for doc in sequences]
         if not preview:
@@ -44,7 +50,7 @@ class update(upload):
         else:
             accessions = [acc.strip() for acc in self.accessions.split(",")]
         self.entrez_email(email)
-        gi = self.get_GIs(accessions)
+        gi = self.get_GIs(accessions, kwargs["n_entrez"])
         return self.get_entrez_viruses(gi, **kwargs)
 
     def get_accessions(self, database, table):
@@ -135,6 +141,41 @@ class update(upload):
             print("Sequences:")
             print(json.dumps(sequences[0], indent=1))
             print("Preview of updates to be made, remove --preview to make updates to database")
+
+    def update_citations_tsv(self, update_citations_tsv, database, table, preview, index='accession', **kwargs):
+        print("Updating citation fields (manual table used for mumps)")
+        citations = {}
+        try:
+            with open(update_citations_tsv, 'rU') as fh:
+                for line in fh:
+                    if not line.startswith('#'):
+                        fields = line.strip().split("\t")
+                        citations[fields[0]] = {
+                            "authors": fields[1],
+                            "title": fields[2],
+                            "journal": fields[3],
+                            "puburl": fields[4],
+                            "url": fields[5]
+                        }
+        except IOError:
+            raise Exception(update_citations_tsv, "not found")
+        except IndexError:
+            raise Exception(update_citations_tsv, "incorrect number of fields")
+
+        sequences = list(r.db(database).table(table).run())
+        sequences = [s for s in sequences if s["accession"] in citations.keys()]
+        for s in sequences:
+            if s["accession"] in citations:
+                for n in ["authors", "title", "journal", "puburl", "url"]:
+                    s[n] = citations[s["accession"]][n]
+            else:
+                print("Sequence {} not in citations TSV".format(s["accession"]))
+
+        if not preview:
+            print("Updating " + str(len(sequences)) + " sequence citations in " + database + "." + table)
+            self.upload_to_rethinkdb(database, table, sequences, overwrite=True, index='accession')
+        else:
+            print("Preview doesn't work")
 
 if __name__=="__main__":
     args = parser.parse_args()

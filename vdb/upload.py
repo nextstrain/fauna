@@ -14,6 +14,7 @@ parser.add_argument('--local', default=False, action="store_true",  help ="conne
 parser.add_argument('-v', '--virus', help="virus name")
 parser.add_argument('--fname', help="input file name")
 parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
+parser.add_argument('--fasta_header_fix', default=None, help="faster header fix file. Default: None.")
 parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
 parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
 parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
