@@ -110,6 +110,12 @@ if __name__=="__main__":
         print(call)
         os.system(call)
 
+    elif params.virus == "mumps":
+
+        call = "python vdb/zika_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank"
+        print(call)
+        os.system(call)
+
     elif params.virus == "h7n9" or params.virus == "avian":
 
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:PB2 --fstem h7n9_pb2")
@@ -122,4 +128,5 @@ if __name__=="__main__":
         os.system("python vdb/h7n9_download.py -db vdb -v h7n9 --select locus:NS --fstem h7n9_ns")
 
     else:
-        print("%s is an invalid virus type.\nValid viruses are flu, ebola, dengue, zika, h7n9, and avian."%(params.virus))
+        print("%s is an invalid virus type.\nValid viruses are flu, ebola, dengue, zika, mumps, h7n9, and avian."%(params.virus))
+        sys.exit(2)
