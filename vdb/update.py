@@ -166,6 +166,7 @@ class update(upload):
         sequences = [s for s in sequences if s["accession"] in citations.keys()]
         for s in sequences:
             if s["accession"] in citations:
+                print("updating {} -> {}".format(s["accession"], citations[s["accession"]]["authors"]))
                 for n in ["authors", "title", "journal", "puburl", "url"]:
                     s[n] = citations[s["accession"]][n]
             else:

@@ -74,10 +74,10 @@ class download(object):
         self.connect_rethink(**kwargs)
         select, present, interval= self.parse_subset_arguments(**kwargs)
         sequence_count = r.table(self.sequences_table).count().run()
-        print(sequence_count, "sequences in table:", self.sequences_table)
+        # print(sequence_count, "sequences in table:", self.sequences_table)
         virus_count = r.table(self.viruses_table).count().run()
-        print(virus_count, "viruses in table:", self.viruses_table)
-        print("Downloading documents from the sequence table: " + self.sequences_table, " and virus table: ", self.viruses_table)
+        # print(virus_count, "viruses in table:", self.viruses_table)
+        print("Downloading documents from the sequence table \"{}\" (n={}) & virus table \"{}\" (n={})".format(self.sequences_table, sequence_count, self.viruses_table, virus_count))
         sequences = self.rethinkdb_download(self.sequences_table, self.viruses_table, presents=present, selections=select, intervals=interval, **kwargs)
         print("Downloaded " + str(len(sequences)) + " sequences")
         sequences = self.resolve_duplicates(sequences, **kwargs)
@@ -124,6 +124,7 @@ class download(object):
         Return documents from the database that are left after filtering
         '''
         # take each sequence and merge with corresponding virus document
+        # NO! you can't define the spec as a lookup from viruses[accessions] to the primary key of sequences and then do the merge this way! don't do this
         command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index]))
         command = self.add_present_command(command, **kwargs)
         command = self.add_selections_command(command, **kwargs)

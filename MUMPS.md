@@ -11,8 +11,9 @@
 * copy `GenomeFastaResults.fasta` to `fauna/data/mumps_vipr.fasta`
 * upload to fauna
   * `python vdb/mumps_upload.py -db vdb -v mumps --source genbank --locus genome --fname mumps_vipr.fasta --fasta_header_fix source-data/mumps_header_fix.tsv`
-* Add in citations from entrez (NCBI):
-  * `python vdb/mumps_update.py -db vdb -v mumps --update_citations --n_entrez 25`
+* Add in citations:
+  * From NCBI: `python vdb/mumps_update.py -db vdb -v mumps --update_citations --n_entrez 25`
+  * Manually: `python vdb/mumps_update.py -db vdb -v mumps --update_citations_tsv source-data/mumps_citations.tsv`
 
 #### Private data in FASTA format
 * `python vdb/mumps_upload.py -db vdb -v mumps --source private --locus genome --fname <FASTA> --fasta_header_fix source-data/mumps_header_fix.tsv`
@@ -23,4 +24,4 @@
 * Then add the data via "private data in FASTA format" (above)
 
 ## Download
-* `python vdb/zika_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank`
+* `python vdb/mumps_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank`
