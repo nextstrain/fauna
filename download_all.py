@@ -112,7 +112,7 @@ if __name__=="__main__":
 
     elif params.virus == "mumps":
 
-        call = "python vdb/zika_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank"
+        call = "python vdb/mumps_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank"
         print(call)
         os.system(call)
 
