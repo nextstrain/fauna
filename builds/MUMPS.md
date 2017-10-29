@@ -47,3 +47,13 @@ This is needed to populate certain attributes such as author & paper title.
 ## Download from fauna
 
 `python vdb/mumps_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank`
+
+## Upload Broad genomes
+
+Preprocess to fix metadata and header ordering
+
+`python vdb/mumps_preprocess_fasta.py --fasta data/muv-nextstrain-20170718.pruned.fasta > data/mumps_broad.fasta`
+
+Upload to fauna
+
+`python vdb/mumps_upload.py -db vdb -v mumps --source broad --locus genome --fname mumps_broad.fasta --authors "Wohl et al" --title "Unpublished"`

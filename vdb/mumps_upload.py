@@ -30,10 +30,10 @@ class mumps_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country'}
+    virus_fasta_fields = {1:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'division'}
     sequence_fasta_fields = {0:'accession', 1:'strain'}
-    # 0        1                          2  3    4   5                                6  7
-    #>HQ660095|BatPV/Epo_spe/AR1/DRC/2009|NA|2009|Bat|Democratic_Republic_of_the_Congo|NA|Mumps_virus
+    # 0                          1                                2          3     4   5             6
+    #>Massachusetts_outbreak_123|MuVs/Massachusetts.USA/50.16/1/G|2016-12-14|Human|USA|Massachusetts|G
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = mumps_upload(**args.__dict__)
