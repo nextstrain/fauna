@@ -57,3 +57,9 @@ Preprocess to fix metadata and header ordering
 Upload to fauna
 
 `python vdb/mumps_upload.py -db vdb -v mumps --source broad --locus genome --fname mumps_broad.fasta --authors "Wohl et al" --title "Unpublished"`
+
+## Upload BCCDC genomes
+
+Upload to fauna
+
+`python vdb/mumps_upload.py -db vdb -v mumps --source bccdc --locus genome --fname mumps.bc.fasta --authors "Gardy et al" --title "Unpublished"`

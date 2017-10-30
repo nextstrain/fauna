@@ -16,7 +16,7 @@ class mumps_upload(upload):
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('MuV/', '').replace('MuVi/', '').replace('MuVs/','')
         name = re.sub(r'[_ ]?\[([A-Z])\]$', r'/\1', name)
-        name = re.sub(r'\(([A-Z])\)$', r'/\1', name)        
+        name = re.sub(r'\(([A-Z])\)$', r'/\1', name)
         name = re.sub(r'_([A-Z])_$', r'/\1', name)
         name = re.sub(r'[ ;]', r'_', name)
         name = re.sub(r'//', r'/', name)
@@ -34,6 +34,8 @@ if __name__=="__main__":
     sequence_fasta_fields = {0:'accession', 1:'strain'}
     # 0                          1                                2          3     4   5             6
     #>Massachusetts_outbreak_123|MuVs/Massachusetts.USA/50.16/1/G|2016-12-14|Human|USA|Massachusetts|G
+    # 0       1                                  2         3     4      5                6
+    #>BCCDC90|MuVs/BritishColumbia.CAN/34.16/1/G|2016-8-19|human|canada|british columbia|G
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = mumps_upload(**args.__dict__)

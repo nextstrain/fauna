@@ -200,9 +200,18 @@ class upload(parse):
         for field in date_fields:
             if virus[field] is not None and virus[field].strip() != '':
                 virus[field] = re.sub(r'_', r'-', virus[field])
-                # ex. 2002 (Month and day unknown)
+                # ex. 2002-XX-XX or 2002-09-05
                 if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
                     pass
+                # ex. 2002-2-4
+                elif re.match(r'^\d\d\d\d-\d-\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d)-(\d)$', r'\1-0\2-0\3', virus[field])
+                # ex. 2002-02-4
+                elif re.match(r'^\d\d\d\d-\d\d-\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d\d)-(\d)$', r'\1-\2-0\3', virus[field])
+                # ex. 2002-2-15                    
+                elif re.match(r'^\d\d\d\d-\d-\d\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d)-(\d\d)$', r'\1-0\2-\3', virus[field])
                 elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
                     virus[field] = virus[field][0:4] + "-XX-XX"
                 # ex. 2009-06 (Day unknown)
