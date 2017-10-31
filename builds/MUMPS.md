@@ -63,3 +63,9 @@ Upload to fauna
 Upload to fauna
 
 `python vdb/mumps_upload.py -db vdb -v mumps --source bccdc --locus genome --fname mumps.bc.fasta --authors "Gardy et al" --title "Unpublished"`
+
+## Upload Fred Hutch genomes
+
+Upload to fauna
+
+`python vdb/mumps_upload.py -db vdb -v mumps --source fh --locus genome --fname MuVs-WA0268502_buccal-Washington.USA-16.fasta --authors "Moncla et al" --title "Unpublished"`
