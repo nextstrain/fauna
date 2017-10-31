@@ -44,6 +44,8 @@ class upload(parse):
         self.strain_fix_fname = None
         self.location_fix_fname = None
         self.fix_location = None
+        self.date_fix_fname = None
+        self.fix_date = None
         self.virus_to_sequence_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
@@ -100,14 +102,21 @@ class upload(parse):
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         if self.location_fix_fname is not None:
             self.fix_location = self.define_location_fixes(self.location_fix_fname)
+        if self.date_fix_fname is not None:
+            self.fix_date = self.define_date_fixes(self.date_fix_fname)
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
+            if 'strain' not in doc:
+                doc['strain'] = "unnamed"
             doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             if self.fix_location is not None:
                 if doc['strain'] in self.fix_location:
                     doc['location'] = self.fix_location[doc['strain']]
+            if self.fix_date is not None:
+                if doc['strain'] in self.fix_date:
+                    doc['collection_date'] = self.fix_date[doc['strain']]
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
@@ -122,6 +131,8 @@ class upload(parse):
         if self.strain_fix_fname is not None:
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         for doc in documents:
+            if 'strain' not in doc:
+                doc['strain'] = "unnamed"
             doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
             self.format_date(doc)
             self.rethink_io.check_optional_attributes(doc, [])
@@ -146,6 +157,16 @@ class upload(parse):
         for line in reader:
             fix_location[line['label'].decode('unicode-escape')] = line['fix']
         return fix_location
+
+    def define_date_fixes(self, fname):
+        '''
+        Open date fix file and define corresponding dictionaries
+        '''
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
+        fix_date = {}
+        for line in reader:
+            fix_date[line['label'].decode('unicode-escape')] = line['fix']
+        return fix_date
 
     def replace_strain_name(self, original_name, fixes={}):
         '''
@@ -179,9 +200,18 @@ class upload(parse):
         for field in date_fields:
             if virus[field] is not None and virus[field].strip() != '':
                 virus[field] = re.sub(r'_', r'-', virus[field])
-                # ex. 2002 (Month and day unknown)
+                # ex. 2002-XX-XX or 2002-09-05
                 if re.match(r'\d\d\d\d-(\d\d|XX)-(\d\d|XX)', virus[field]):
                     pass
+                # ex. 2002-2-4
+                elif re.match(r'^\d\d\d\d-\d-\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d)-(\d)$', r'\1-0\2-0\3', virus[field])
+                # ex. 2002-02-4
+                elif re.match(r'^\d\d\d\d-\d\d-\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d\d)-(\d)$', r'\1-\2-0\3', virus[field])
+                # ex. 2002-2-15                    
+                elif re.match(r'^\d\d\d\d-\d-\d\d$', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)-(\d)-(\d\d)$', r'\1-0\2-\3', virus[field])
                 elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):
                     virus[field] = virus[field][0:4] + "-XX-XX"
                 # ex. 2009-06 (Day unknown)
