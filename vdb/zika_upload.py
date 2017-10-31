@@ -9,6 +9,7 @@ class zika_upload(upload):
         upload.__init__(self, **kwargs)
         self.strain_fix_fname = "source-data/zika_strain_name_fix.tsv"
         self.location_fix_fname = "source-data/zika_location_fix.tsv"
+        self.date_fix_fname = "source-data/zika_date_fix.tsv"
 
     def fix_name(self, name):
         original_name = name
