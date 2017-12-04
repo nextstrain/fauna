@@ -353,6 +353,7 @@ Arauco	Chile	Arauco	Arauco
 Arica	Chile	Arica	Arica
 Calama	Chile	Antofagasta	Calama
 Castro	Chile	LosLagos	Castro
+CerroNavia	Chile	Santiago	CerroNavia
 Chillan	Chile	BioBio	Chillan
 Concepcion	Chile	BioBio	Concepcion
 Copiapo	Chile	Atacama	Copiapo
@@ -374,6 +375,7 @@ Melipilla	Chile	Santiago	Melipilla
 NuevaImperial	Chile	Araucania	NuevaImperial
 Osorno	Chile	LosLagos	Osorno
 Panguipulli	Chile	LosRios	Panguipulli
+Paillaco	Chile	LosRios	Paillaco
 Pucon	Chile	Araucania	Pucon
 PuertoMontt	Chile	LosLagos	PuertoMontt
 PuntaArenas	Chile	Magallanes	PuntaArenas
@@ -1205,6 +1207,7 @@ Vicenza	Italy	Veneto	Vicenza
 
 # Jamaica
 Jamaica	Jamaica	Jamaica	Jamaica
+RioBueno	Jamaica	Trelawney	RioBueno
 
 # Japan
 Japan	Japan	Japan	Japan
@@ -2194,7 +2197,9 @@ Sukhothai	Thailand	Sukhothai	Sukhothai
 SuphanBuri	Thailand	SuphanBuri	SuphanBuri
 SuratThani	Thailand	SuratThani	SuratThani
 Tak	Thailand	Tak	Tak
+Trang	Thailand	Trang	Trang
 Udorn	Thailand	NakhonRatachasima	NongPhaiLom
+Uttaradit	Thailand	Uttaradit	Uttaradit
 Yasothon	Thailand	Yasothon	Yasothon
 
 # Togo
@@ -2507,6 +2512,7 @@ Temple	USA	Pennsylvania	Temple
 SanAntonio	USA	Texas	SanAntonio
 SanDiego	USA	California	SanDiego
 SanFrancisco	USA	California	SanFrancisco
+SanRamon	USA	California	SanRamon
 SantaClara	USA	California	SantaClara
 SantaFe	USA	NewMexico	SantaFe
 SilverSpring	USA	Maryland	SilverSpring
