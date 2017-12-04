@@ -89,6 +89,18 @@ class cdc_upload(upload):
         else:
             meas['titer'] = None
 
+    def format_serum_sample(self,meas):
+        '''
+        Format serum sample attribute for the measurements, so that there is
+        not a specific organism used for HI assays.
+        '''
+        if not meas['serum_id']:
+            if 'lot_number' in meas.keys():
+                meas['serum_id'] = 'L' + str(meas['lot_number'])
+            #     print 'new serum id is %s' % (meas['serum_id'])
+            # else:
+            #     print 'old serum id is %s' % (meas['serum_id'])
+
     def remove_fields(self, meas):
         '''
         Remove unnecessary fields provided in CDC titer tables.
