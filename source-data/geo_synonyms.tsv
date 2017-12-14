@@ -176,7 +176,9 @@ Boavistaroraimastate	Brazil	Roraima	BoaVista
 Bragancapara	Brazil	Para	Braganca
 BrasiliaDf	Brazil	Brasilia	Brasilia
 Caetes	Brazil	Pernambuco	Caetes
+CambaradoSul	Brazil	RioGrandeDoSul	CambaradoSul
 Cambepr	Brazil	Parana	Cambe
+Canoas	Brazil	RioGrandeDoSul	Canoas
 Ceara	Brazil	Ceara	Ceara
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
 Cuiabamt	Brazil	MatoGrosso	Cuiaba
@@ -202,6 +204,7 @@ Olinda	Brazil	Pernambuco	Olinda
 Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
 Paulista	Brazil	Pernambuco	Paulista
+Pelotas	Brazil	RioGrandeDoSul	Pelotas
 Pernambuco	Brazil	Pernambuco	Pernambuco
 Pernambucocamaragib	Brazil	Pernambuco	Camaragibe
 PernambucorecifePernambuco	Brazil	Pernambuco	Recife
@@ -221,6 +224,8 @@ RioDoSul	Brazil	SantaCatarina	RioDoSul
 RioGrandeDoSul	Brazil	RioGrandeDoSul	RioGrandeDoSul
 SantaCatarina	Brazil	SantaCatarina	SantaCatarina
 Santarempa	Brazil	Para	Santarem
+SantaRosa	Brazil	RioGrandeDoSul	SantaRosa
+SaoGabriel	Brazil	RioGrandeDoSul	SaoGabriel
 Saoluismaranhao	Brazil	Maranhao	SaoLuis
 Santossaopaulo	Brazil	SaoPaulo	Santos
 Sanharo	Brazil	Pernambuco	Sanharo
@@ -229,6 +234,7 @@ Sergipe	Brazil	Brazil	Sergipe
 Salvador	Brazil	Bahia	Salvador
 Tocantins	Brazil	Brazil	Tocantins
 Uberlandia	Brazil	MinasGerais	Uberlandia
+Vacaria	Brazil	RioGrandeDoSul	Vacaria
 Varzeagrandemt	Brazil	MatoGrosso	VarzeaGrande
 VitoriaDeSantoAntao	Brazil	Pernambuco	VitoriaDeSantoAntao
 
@@ -794,6 +800,7 @@ Macon	France	BourgogneFrancheComte	Macon
 Marignier	France	AuvergneRhoneAlpes	Marignier
 Marseille	France	ProvenceAlpesCoteDAzur	Marseille
 Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
+Nantes	France	PaysDeLaLoire	Nantes
 Nice	France	ProvenceAlpesCoteDAzur	Nice
 Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
 NordPasDeCalais	France	NordPasdeCalaisPicardie	NordPasDeCalais
@@ -815,6 +822,7 @@ SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
+Tours	France	CentreValDeLoire	Tours
 
 # FrenchGuiana
 FrenchGuiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
@@ -1030,6 +1038,7 @@ Andaman	India	AndamanAndNicobarIslands	Andaman
 Assam	India	Assam	Assam
 Aurangabad	India	Maharashtra	Aurangabad
 Bangalore	India	Karnataka	Bangalore
+Barmer	India	Rajasthan	Barmer
 Barwani	India	MadhyaPradesh	Barwani
 Betul	India	MadhyaPradesh	Betul
 Bhopal	India	MadhyaPradesh	Bhopal
@@ -1055,6 +1064,7 @@ Indore	India	MadhyaPradesh	Indore
 Itarsi	India	MadhyaPradesh	Itarsi
 Jabalpur	India	MadhyaPradesh	Jabalpur
 Jaipurrajasthan	India	Rajasthan	Jaipur
+Jodhpur	India	Rajasthan	Jodhpur
 Jalna	India	Maharashtra	Jalna
 JammuKashmir	India	JammuKashmir	JammuKashmir
 Jhabua	India	MadhyaPradesh	Jhabua
@@ -1146,6 +1156,7 @@ Khorasan	Iran	Khorasan	Khorasan
 Khozestan	Iran	Khuzestan	Khuzestan
 Kurdistan	Iran	Kurdistan	Kurdistan
 Lorestan	Iran	Lorestan	Lorestan
+Markazi	Iran	Markazi	Markazi
 Mashad	Iran	RazaviKhorasan	Mashad
 Marivan	Iran	Kurdistan	Marivan
 Mazandaran	Iran	Mazandaran	Mazandaran
@@ -1155,6 +1166,7 @@ Qom	Iran	Qom	Qom
 Sanandaj	Iran	Kurdistan	Sanandaj
 Sardasht	Iran	WestAzerbaijan	Sardasht
 Sari	Iran	Mazandaran	Sari
+Semnan	Iran	Semnan	Semnan
 Shiraz	Iran	Fars	Shiraz
 Shahriar	Iran	Tehran	Shahriar
 Sistan	Iran	SistanAndBaluchestan	Sistan
@@ -1445,6 +1457,7 @@ Mayotte	Mayotte	Mayotte	Mayotte
 
 # Mexico
 Mexico	Mexico	Mexico	Mexico
+Guerrero	Mexico	Guerrero	Guerrero
 Yucatan	Mexico	Mexico	Yucatan
 Yucatanstate	Mexico	Yucatan	Yucatan
 Monterrey	Mexico	Mexico	Monterrey
@@ -1606,6 +1619,7 @@ SouthAuckland	NewZealand	Auckland	SouthAuckland
 SouthCanterbury	NewZealand	Canterbury	SouthCanterbury
 Southland	NewZealand	Southland	Southland
 Tairawhiti	NewZealand	Gisborne	Gisborne
+Taranaki	NewZealand	Taranaki	Taranaki
 Tauranga	NewZealand	NorthIsland	Tauranga
 Waikato	NewZealand	Waikato	Waikato
 Wellington	NewZealand	Wellington	Wellington
@@ -2009,6 +2023,7 @@ Middleburg	SouthAfrica	Mpumalanga	Middleburg
 # SouthKorea
 SouthKorea	SouthKorea	SouthKorea	SouthKorea
 Korearepublicof	SouthKorea	SouthKorea	SouthKorea
+Ansan	SouthKorea	Gyeonggi	Ansan
 Busan	SouthKorea	Busan	Busan
 Changwon	SouthKorea	Gyeongsangnam	Changwon
 Cheonbuk	SouthKorea	Jeollabuk	Jeonbuk
@@ -2038,7 +2053,9 @@ Kyungbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
 Kyunggi	SouthKorea	Gyeonggi	Gyeonggi
 Kyungnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Seoul	SouthKorea	Seoul	Seoul
+Suwon	SouthKorea	Gyeonggi	Suwon
 Ulsan	SouthKorea	Ulsan	Ulsan
+Wonju	SouthKorea	Gangwon	Wonju
 
 # Spain
 Spain	Spain	Spain	Spain
@@ -2102,6 +2119,7 @@ Suriname	Suriname	Suriname	Suriname
 Sweden	Sweden	Sweden	Sweden
 Alingsas	Sweden	VastraGotaland	Alingsas
 Boras	Sweden	VastraGotaland	Boras
+Eskilstuna	Sweden	Sodermanland	Eskilstuna
 Falun	Sweden	Dalarna	Falun
 Gavle	Sweden	Gavleborgs	Gavle
 Gothenburg	Sweden	VastraGotaland	Gothenburg
@@ -2141,7 +2159,9 @@ Syria	Syria	Syria	Syria
 Taiwan	Taiwan	Taiwan	Taiwan
 TaiwanProvinceOfChina	Taiwan	Taiwan	Taiwan
 Hsiaoliuchiuisletpingtong	Taiwan	Pingtung	Pingtung
+Keelung	Taiwan	Keelung	Keelung
 Kinmen	Taiwan	Kinmen	Kinmen
+Linkou	Taiwan	Linkou	Linkou
 Pingtung	Taiwan	Pingtung	Pingtung
 Taipei	Taiwan	Taipei	Taipei
 Taoyuan	Taiwan	Taoyuan	Taoyuan
@@ -2417,6 +2437,7 @@ Alabama	USA	Alabama	Alabama
 Alaska	USA	Alaska	Alaska
 Arizona	USA	Arizona	Arizona
 Arkansas	USA	Arkansas	Arkansas
+Baltimore	USA	Maryland	Baltimore
 California	USA	California	California
 Colorado	USA	Colorado	Colorado
 Connecticut	USA	Connecticut	Connecticut
