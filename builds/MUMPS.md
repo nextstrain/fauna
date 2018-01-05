@@ -1,31 +1,3 @@
-## Download data from ViPR
-
-_This is deprecated. Instead download data from Genbank below and upload directly._
-* Goto [ViPR Paramyxo](https://www.viprbrc.org/brc/vipr_genome_search.spg?method=ShowCleanSearch&decorator=paramyxo)
-* Type "mumps" in search
-* Select min length of 5000
-* Search
-* Select all ->  Download
-* Select "Genome FASTA" with custom format. Fields:
-  1. Genbank Accession
-  2. Strain Name
-  3. Segment
-  4. Date
-  5. Host
-  6. Country
-  7. Subtype
-  8. Virus Species
-* Copy `GenomeFastaResults.fasta` file to `fauna/data/GenomeFastaResults.fasta`
-
-## Clean FASTA
-
-_This is deprecated. Instead download data from Genbank below and upload directly._
-```
-cd fauna
-python vdb/mumps_preprocess_fasta.py --vipr
-```
-The cleaned fasta is now available at `data/mumps_vipr.fasta`
-
 ## Download data from Genbank
 
 * [Genbank search URL](https://www.ncbi.nlm.nih.gov/nuccore?term=mumps%5Btitle%5D%20AND%20viruses%5Bfilter%5D%20AND%20%28%225000%22%5BSLEN%5D%20%3A%20%2220000%22%5BSLEN%5D%29&cmd=DetailsSearch)
