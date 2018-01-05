@@ -357,7 +357,13 @@ class parse(object):
         if N_fields == 1:
             return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%Y'), '%Y-XX-XX')
         elif N_fields == 2:
-            return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%b-%Y'), '%Y-%m-XX')
+            if collection_date.split('-')[0].isdigit():
+                if int(collection_date.split('-')[0]) < 13:
+                    return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%m-%Y'), '%Y-%m-XX')
+                else:
+                    return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%Y-%m'), '%Y-%m-XX')
+            else:
+                return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%b-%Y'), '%Y-%m-XX')
         elif N_fields == 3:
             if int(collection_date.split('-')[0]) < 32:
                 return datetime.datetime.strftime(datetime.datetime.strptime(collection_date,'%d-%b-%Y'), '%Y-%m-%d')
