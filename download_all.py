@@ -13,6 +13,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--virus', default="flu", help="virus to download; default is flu")
 parser.add_argument('--flu_lineages', default=["h3n2", "h1n1pdm", "vic", "yam"], nargs='+', type = str,  help ="seasonal flu lineages to download, options are h3n2, h1n1pdm, vic and yam")
+parser.add_argument('--segments', type=str, default=["ha", "na"], nargs='+', help="specify segment(s) to download")
 parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
 parser.add_argument('--titers', default=False, action="store_true", help="download titers from tdb")
 parser.add_argument('--titers_sources', default=["crick", "cdc"], nargs='+', type = str,  help ="titer sources to download, options are crick and cdc")
@@ -25,10 +26,12 @@ if __name__=="__main__":
     if params.virus == "flu":
         # Download FASTAs from database
         if params.sequences:
-            for lineage in params.flu_lineages:
-                call = "python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_%s --fstem %s"%(lineage, lineage)
-                print(call)
-                os.system(call)
+            segments = params.segments
+            for segment in segments:
+                for lineage in params.flu_lineages:
+                    call = "python vdb/flu_download.py -db vdb -v flu --select locus:%s lineage:seasonal_%s --fstem %s_%s"%(segment.upper(), lineage, lineage, segment)
+                    print(call)
+                    os.system(call)
 
         if params.titers:
             # download titers
