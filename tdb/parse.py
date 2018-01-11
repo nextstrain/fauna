@@ -25,9 +25,6 @@ class parse(object):
         elif ftype == "tables":
             HI_titers = self.read_tables(**kwargs)
             flat_measurements = self.table_to_flat(HI_titers)
-        elif ftype == "virdl":
-            HI_titers = self.read_virdl(**kwargs)
-            flat_measurements = self.table_to_flat(HI_titers)
         return flat_measurements
 
     def read_flat(self, path, fstem, **kwargs):
@@ -81,39 +78,6 @@ class parse(object):
         HI_matrices = HI_matrices.append(tmp)
         return HI_matrices
 
-    def read_virdl(self, path, fstem, **kwargs):
-        '''
-        Read all csv tables in path, create data frame with reference viruses as columns
-        '''
-        fname = path + fstem + ".csv"
-        # import glob
-        # flist = glob.glob(path + '/NIMR*csv') #BP
-        try:
-            HI_matrices = pd.DataFrame()
-            tmp = self.parse_HI_matrix(fname)
-            HI_matrices = HI_matrices.append(tmp)
-        except IOError as e:
-            exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', 'xlsx'] ]
-            if True in exten:
-                ind = exten.index(True)
-                self.convert_xls_to_csv(path, fstem, ind)
-                fname = "data/tmp/%s.csv"%(fstem)
-                HI_matrices = pd.DataFrame()
-                tmp = self.parse_HI_matrix(fname)
-                HI_matrices = HI_matrices.append(tmp)
-            else:
-                raise
-        return HI_matrices
-
-    def convert_xls_to_csv(self, path, fstem, ind):
-        import xlrd
-        exts = ['.xls', '.xlsm', 'xlsx']
-        workbook = xlrd.open_workbook(path+fstem + exts[ind])
-        for sheet in workbook.sheets():
-            with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
-                writer = csv.writer(f)
-                writer.writerows(sheet.row_values(row)[2:] for row in range(8,sheet.nrows))
-
     def table_to_flat(self, HI_table):
         flat_measurements = list()
         for ref_serum in HI_table.columns[4:]:
@@ -137,7 +101,6 @@ class parse(object):
         :return:
         '''
         from string import strip
-        import csv
         src_id = fname.split('/')[-1]
         with self.myopen(fname) as infile:
             csv_reader = csv.reader(infile)
