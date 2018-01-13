@@ -219,8 +219,13 @@ class download(object):
             print("Resolving duplicate strains by prioritizing longest sequence")
             for strain in strains:
                 strain_sdocs = strain_to_sdocs[strain]
-                sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
-                resolved_sequence_docs.append(sorted_strain_sdocs[0])
+                for s in strain_sdocs:
+                	if s['sequence'] == None:
+                		strain_sdocs.remove(s)
+                
+                if len(strain_sdocs) != 0:
+                	sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                	resolved_sequence_docs.append(sorted_strain_sdocs[0])
         elif resolve_method == "keep_duplicates":
             print("Keeping duplicate strains")
             resolved_sequence_docs = sequence_docs
