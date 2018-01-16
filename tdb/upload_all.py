@@ -73,6 +73,9 @@ def upload_elife(database, elife_path, subtype):
 
     print "Done uploading stored eLife documents."
 
+def upload_virdl(database, virdl_path, subtype):
+    pass
+
 if __name__=="__main__":
 
     params = parser.parse_args()
