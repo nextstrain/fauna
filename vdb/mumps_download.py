@@ -11,7 +11,7 @@ if __name__=="__main__":
     args = parser.parse_args()
     fasta_fields = ['strain', 'virus', 'accession', 'collection_date', 'region',
                     'country', 'division', 'location', 'source', 'locus', 'authors',
-                    'url', 'title', 'journal', 'puburl']
+                    'url', 'title', 'journal', 'puburl', 'MuV_genotype']
     args.fasta_fields = fasta_fields
     current_date = str(datetime.datetime.strftime(datetime.datetime.now(),'%Y_%m_%d'))
     if args.fstem is None:

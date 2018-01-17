@@ -30,7 +30,7 @@ class mumps_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    virus_fasta_fields = {1:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'division'}
+    virus_fasta_fields = {1:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'division', 6: 'MuV_genotype'}
     sequence_fasta_fields = {0:'accession', 1:'strain'}
     # 0                          1                                2          3     4   5             6
     #>Massachusetts_outbreak_123|MuVs/Massachusetts.USA/50.16/1/G|2016-12-14|Human|USA|Massachusetts|G
