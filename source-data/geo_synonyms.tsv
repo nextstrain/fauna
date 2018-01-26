@@ -1660,7 +1660,12 @@ Oslo	Norway	Ostlandet	Oslo
 
 # Oman
 Oman	Oman	Oman	Oman
+Bahla	Oman	AdDakhiliyah	Bahla
 Buraimi	Oman	AlBuraimi	Buraimi
+Ibra	Oman	AshSharqiyah	Ibra
+Muscat	Oman	AshSharqiyah	Muscat
+Nizwa	Oman	AdDakhiliyah	Nizwa
+Rustaq	Oman	AlBatinah	Rustaq
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
 Salalah	Oman	Dhofar	Salalah
@@ -1675,6 +1680,7 @@ Karachi	Pakistan	Sindh	Karachi
 Palau	Palau	Palau	Palau
 
 # Palestine
+Palestine	Palestine	Palestine	Palestine
 Bethlehem	Palestine	Bethlehem	Bethlehem
 Hebron	Palestine	Hebron	Hebron
 Jenin	Palestine	Jenin	Jenin
