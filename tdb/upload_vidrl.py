@@ -12,7 +12,7 @@ from vdb.flu_upload import flu_upload
 import logging
 logger = logging.getLogger()
 
-def read_vidrl(path, fstem, x_shift, y_shift, **kwargs):
+def read_vidrl(path, fstem):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
@@ -22,14 +22,14 @@ def read_vidrl(path, fstem, x_shift, y_shift, **kwargs):
     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
     if True in exten:
         ind = exten.index(True)
-        convert_xls_to_csv(path, fstem, ind, x_shift, y_shift)
+        convert_xls_to_csv(path, fstem, ind)
         fname = "data/tmp/%s.csv"%(fstem)
         parse_vidrl_matrix_to_tsv(fname, path)
     else:
         logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         sys.exit()
 
-def convert_xls_to_csv(path, fstem, ind, x_shift, y_shift):
+def convert_xls_to_csv(path, fstem, ind):
     import xlrd
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
@@ -38,22 +38,24 @@ def convert_xls_to_csv(path, fstem, ind, x_shift, y_shift):
             writer = csv.writer(f)
             writer.writerows(sheet.row_values(row) for row in range(10))
             # Edit row containing serum strains
-            temp = sheet.row_values(y_shift-2)
-            col = sheet.col_values(x_shift-2)
-            # print col
-            # print x_shift
-            # print y_shift
-            # print '#####'
-            # print sheet.col_values(x_shift-1)
-            # print '#####'
-            # print sheet.col_values(x_shift-3)
-            # sys.exit()
+            print sheet.row_values(10)[4]
+            print type(sheet.row_values(10)[4])
+            print sheet.row_values(12)[2]
+            print type(sheet.row_values(12)[2])
+            if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
+                print sheet.row_values(12)[4]
+            else:
+                raise ValueError
+            print "Got to here!"
+            temp = sheet.row_values(10)
+            col = sheet.col_values(2)
             for i in range(4,16):
                 temp[i] = col[11+i-4]
             writer.writerow(temp)
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
+        return
 
-def parse_vidrl_matrix_to_tsv(fname, original_path, x_shift, y_shift):
+def parse_vidrl_matrix_to_tsv(fname, original_path):
     from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
@@ -91,37 +93,37 @@ def determine_subtype(original_path):
     subtype = original_path[-2]
     return subtype
 
-def determine_initial_indices(path, fstem):
-    import xlrd
-    exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
-    if True in exten:
-        ind = exten.index(True)
-    else:
-        return
-    exts = ['.xls', '.xlsm', '.xlsx']
-    workbook = xlrd.open_workbook(path+fstem + exts[ind])
-    value = None
-    for sheet in workbook.sheets():
-        with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
-            for row in range(len(sheet.col_values(0))):
-                for col in range(len(sheet.row_values(0))):
-                    try:
-                        value = int(sheet.row_values(col)[row])
-                    except:
-                        pass
-                    if value:
-                        if is_power_of_2(value/10):
-                            return col, row
-    return 0, 0
-
-def is_power_of_2(n):
-    n = n/2
-    if n == 2:
-        return True
-    elif n > 2:
-        is_power_of_2(n)
-    else:
-        return False
+# def determine_initial_indices(path, fstem):
+#     import xlrd
+#     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
+#     if True in exten:
+#         ind = exten.index(True)
+#     else:
+#         return
+#     exts = ['.xls', '.xlsm', '.xlsx']
+#     workbook = xlrd.open_workbook(path+fstem + exts[ind])
+#     value = None
+#     for sheet in workbook.sheets():
+#         with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
+#             for row in range(len(sheet.col_values(0))):
+#                 for col in range(len(sheet.row_values(0))):
+#                     try:
+#                         value = int(sheet.row_values(col)[row])
+#                     except:
+#                         pass
+#                     if value:
+#                         if is_power_of_2(value/10):
+#                             return col, row
+    # return 0, 0
+#
+# def is_power_of_2(n):
+#     n = n/2
+#     if n == 2:
+#         return True
+#     elif n > 2:
+#         is_power_of_2(n)
+#     else:
+#         return False
 
 if __name__=="__main__":
     args = parser.parse_args()
@@ -129,8 +131,8 @@ if __name__=="__main__":
         args.path = "data/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
-    read_vidrl(args.path, args.fstem, x_shift, y_shift)
+    # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
+    read_vidrl(args.path, args.fstem)
     ####
     subtype = determine_subtype(args.path)
     #TODO: This is where I will add conversion of vidrl files to eLife format!

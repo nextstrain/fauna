@@ -62,6 +62,8 @@ class elife_upload(upload):
                     meas['assay_date'] = "{}-{}-{}".format(tmp[0:4],tmp[4:6],tmp[6:8])
                 else:
                     meas['assay_date'] = "XXXX-XX-XX"
+            if 'assay_date' not in meas.keys() or meas['assay_date'] is None:
+                meas['assay_date'] = "XXXX-XX-XX"
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_ref(meas)

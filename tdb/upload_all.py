@@ -99,7 +99,6 @@ def upload_vidrl():
                         except:
                             logger.critical("Couldn't upload {}, please try again.".format(fname))
                         print "Done with", fname + "."
-                        sys.exit()
 
 if __name__=="__main__":
 
