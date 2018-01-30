@@ -15,7 +15,7 @@ parser.add_argument('--virus', default="flu", help="virus to download; default i
 parser.add_argument('--flu_lineages', default=["h3n2", "h1n1pdm", "vic", "yam"], nargs='+', type = str,  help ="seasonal flu lineages to download, options are h3n2, h1n1pdm, vic and yam")
 parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
 parser.add_argument('--titers', default=False, action="store_true", help="download titers from tdb")
-parser.add_argument('--titers_sources', default=["crick", "cdc"], nargs='+', type = str,  help ="titer sources to download, options are crick and cdc")
+parser.add_argument('--titers_sources', default=["crick", "cdc", "vidrl"], nargs='+', type = str,  help ="titer sources to download, options are crick and cdc")
 parser.add_argument('--titers_passages', default=["egg", "cell"], nargs='+', type = str,  help ="titer passage types to download, options are egg and cell")
 
 
@@ -46,6 +46,14 @@ if __name__=="__main__":
                             os.system(call)
                         lineage = 'h3n2'
                         call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
+                        print(call)
+                        os.system(call)
+                if source == "vidrl":
+                    for lineage in params.flu_lineages:
+                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_vidrl_hi_cell"%(lineage, lineage)
+                        print(call)
+                        os.system(call)
+                        call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:fra --fstem %s_vidrl_fra_cell"%(lineage, lineage)
                         print(call)
                         os.system(call)
 
