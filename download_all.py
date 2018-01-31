@@ -49,11 +49,13 @@ if __name__=="__main__":
                         print(call)
                         os.system(call)
                 if source == "vidrl":
-                    for lineage in params.flu_lineages:
-                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_vidrl_hi_cell"%(lineage, lineage)
-                        print(call)
-                        os.system(call)
-                        call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:fra --fstem %s_vidrl_fra_cell"%(lineage, lineage)
+                    for passage in params.titers_passages:
+                        for lineage in params.flu_lineages:
+                            call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_vidrl_hi_%s"%(lineage, passage, lineage, passage)
+                            print(call)
+                            os.system(call)
+                        lineage = 'h3n2'
+                        call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_vidrl_fra_%s"%(lineage, passage, lineage, passage)
                         print(call)
                         os.system(call)
 
