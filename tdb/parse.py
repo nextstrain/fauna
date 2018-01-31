@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os, re, datetime, gzip
+import os, re, datetime, gzip, sys
+import csv
 from Bio import SeqIO
 from Bio import Entrez
 import requests
@@ -100,7 +101,6 @@ class parse(object):
         :return:
         '''
         from string import strip
-        import csv
         src_id = fname.split('/')[-1]
         with self.myopen(fname) as infile:
             csv_reader = csv.reader(infile)

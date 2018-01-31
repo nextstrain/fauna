@@ -1,6 +1,9 @@
 import argparse
 import subprocess
-import os
+import os, sys
+import re
+import logging
+from utils.colorLogging import ColorizingStreamHandler
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-db', '--database', default='tdb', help="database to upload to")
@@ -9,6 +12,7 @@ parser.add_argument('--sources', nargs='+', type = str,  help ="data sources to 
 parser.add_argument('--nimr_path', default='data/nimr/', help="directory containing NIMR titers")
 parser.add_argument('--cdc_path', default='data/cdc/', help="directory containing CDC titers")
 parser.add_argument('--elife_path', default='data/elife/', help="directory containing eLife titers")
+parser.add_argument("--debug", action="store_const", dest="loglevel", const=logging.DEBUG, help="Enable debugging logging")
 
 def upload_nimr(database, nimr_path, subtype):
     '''
@@ -73,9 +77,41 @@ def upload_elife(database, elife_path, subtype):
 
     print "Done uploading stored eLife documents."
 
+def upload_vidrl():
+    with open('data/vidrl_fail_log.txt', 'w') as o:
+        path = '../../fludata/VIDRL-Melbourne-WHO-CC/raw-data/'
+        for ab in os.listdir(path):
+            ab_path = '{}{}/'.format(path, ab)
+            for subtype in os.listdir(ab_path):
+                subtype_path = '{}{}/'.format(ab_path, subtype)
+                for assay in os.listdir(subtype_path):
+                    complete_path = '{}{}/'.format(subtype_path, assay)
+                    for fname in os.listdir(complete_path):
+                        fpath = complete_path + fname
+                        fstem = fname.split('.')[0]
+                        if ' ' in fstem:
+                            fstem = re.escape(fstem)
+                        print "Uploading " + fname
+                        command = "python tdb/upload_vidrl.py -db vidrl_tdb -v flu --path {} --fstem {} --ftype vidrl".format(complete_path, fstem)
+                        print "Running with: " + command
+                        try:
+                            subprocess.call(command, shell=True)
+                        except:
+                            logger.critical("Couldn't upload {}, please try again.".format(fname))
+                        print "Done with", fname + "."
+
 if __name__=="__main__":
 
+
+
     params = parser.parse_args()
+
+    ## L O G G I N G
+    # https://docs.python.org/2/howto/logging-cookbook.html#multiple-handlers-and-formatters
+    root_logger = logging.getLogger('')
+    root_logger.setLevel(args.loglevel if params.loglevel else logging.INFO)
+    root_logger.addHandler(ColorizingStreamHandler())
+    logger = logging.getLogger(__name__)
 
     print "Beginning construction of", params.database + "."
 
@@ -95,5 +131,7 @@ if __name__=="__main__":
         if source == "nimr":
             for subtype in params.subtypes:
                 upload_nimr(params.database, params.nimr_path, subtype)
+        if source == "vidrl":
+            upload_vidrl()
 
     print "Done with all uploads."

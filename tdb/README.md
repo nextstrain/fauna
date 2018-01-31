@@ -59,6 +59,12 @@ Replace all measurements in table before uploading:
 
     python tdb/upload.py -db tdb -v h1n1pdm --fstem <FILE STEM> --replace
 
+Upload VIDRL titers to database:
+
+This upload converts a VIDRL titer table to the eLife document format, then calls `elife_upload` on the generated file.
+
+    python tdb/upload_vidrl.py -db vidrl_tdb -v flu --path <PATH TO FILE> --fstem <FILE STEM> --ftype vidrl
+
 #### Batch Uploads
 
 The script `upload_all.py` calls uploads for all upload files in the `data/` from multiple sources with files of both `flat` and `tabular` formats.
@@ -67,7 +73,7 @@ Command line arguments to run upload_all:
 
 * `-db --database`: database to upload to, eg. `tdb`, `test_tdb`
 * `--subtypes`: flu subtypes to include, options are: h3n2, h1n1pdm, vic, yam
-* `--sources`: data sources to include, options are: elife, nimr, cdc
+* `--sources`: data sources to include, options are: elife, nimr, cdc, vidrl
 
 Additional arguments based on chosen `sources`:
 * `--nimr_path`: directory containing NIMR titers; default `data/nimr/`
