@@ -20,6 +20,20 @@ parser.add_argument('--titers_sources', default=["crick", "cdc", "vidrl"], nargs
 parser.add_argument('--titers_passages', default=["egg", "cell"], nargs='+', type = str,  help ="titer passage types to download, options are egg and cell")
 
 
+def concatenate_titers(params, passage, assay):
+    for lineage in params.flu_lineages:
+        out = 'data/%s_who_%s_%s_titers.tsv'%(lineage, assay, passage)
+        hi_titers = []
+        for source in params.titers_sources:
+            hi_titers_file = 'data/%s_%s_%s_%s_titers.tsv'%(lineage, source, assay, passage)
+            if os.path.isfile(hi_titers_file):
+                hi_titers.append(hi_titers_file)
+        if len(hi_titers) > 0:
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers
+                print call
+                subprocess.call(call, stdout=f)
+
 if __name__=="__main__":
     params = parser.parse_args()
 
@@ -63,33 +77,10 @@ if __name__=="__main__":
                         os.system(call)
 
             # concatenate to create default HI strain TSVs for each subtype
-            # need to sum counts across HI strain TSVs
-            for lineage in params.flu_lineages:
-                strain_to_count = {}
-                for source in params.titers_sources:
-                    hi_strain_file = 'data/%s_%s_hi_cell_strains.tsv'%(lineage, source)
-                    with open(hi_strain_file) as f:
-                        lines = f.read().splitlines()
-                        for line in lines:
-                            (strain, count) = line.split("\t")
-                            if strain in strain_to_count:
-                                strain_to_count[strain] = strain_to_count[strain] + count
-                            else:
-                                strain_to_count[strain] = count
-                out_file = 'data/%s_hi_strains.tsv'%(lineage)
-                with open(out_file, 'w') as f:
-                    [f.write('{0}\t{1}\n'.format(strain, count)) for strain, count in strain_to_count.items()]
-
-            # concatenate to create default HI titer TSVs for each subtype
-            for lineage in params.flu_lineages:
-                out = 'data/%s_hi_titers.tsv'%(lineage)
-                hi_titers = []
-                for source in params.titers_sources:
-                    hi_titers.append('data/%s_%s_hi_cell_titers.tsv'%(lineage, source))
-                with open(out, 'w+') as f:
-                    call = ['cat'] + hi_titers
-                    print call
-                    subprocess.call(call, stdout=f)
+            concatenate_titers(params, "cell", "hi")
+            concatenate_titers(params, "cell", "fra")
+            concatenate_titers(params, "egg", "hi")
+            concatenate_titers(params, "egg", "fra")
 
     elif params.virus == "ebola":
 

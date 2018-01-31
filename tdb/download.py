@@ -48,7 +48,7 @@ class download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self, subtype=None, output=True, count=True, **kwargs):
+    def download(self, subtype=None, output=True, count=False, **kwargs):
         '''
         download documents from table
         '''
