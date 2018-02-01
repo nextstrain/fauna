@@ -38,15 +38,10 @@ def convert_xls_to_csv(path, fstem, ind):
             writer = csv.writer(f)
             writer.writerows(sheet.row_values(row) for row in range(10))
             # Edit row containing serum strains
-            print sheet.row_values(10)[4]
-            print type(sheet.row_values(10)[4])
-            print sheet.row_values(12)[2]
-            print type(sheet.row_values(12)[2])
-            if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
-                print sheet.row_values(12)[4]
-            else:
-                raise ValueError
-            print "Got to here!"
+            # if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
+            #     print sheet.row_values(12)[4]
+            # else:
+            #     raise ValueError
             temp = sheet.row_values(10)
             col = sheet.col_values(2)
             for i in range(4,16):
@@ -91,6 +86,10 @@ def determine_subtype(original_path):
     except:
         pass
     subtype = original_path[-2]
+    if subtype.lower() == "victoria":
+        subtype = "vic"
+    if subtype.upper() == "yamagata":
+        subtype = "yam"
     return subtype
 
 # def determine_initial_indices(path, fstem):
