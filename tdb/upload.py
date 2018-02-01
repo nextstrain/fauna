@@ -32,7 +32,7 @@ class upload(parse, flu_upload):
         if subtype is not None:
             self.subtype = subtype.lower()
         self.database = database.lower()
-        self.uploadable_databases = ['tdb', 'test_tdb', 'test_tdb_2', 'cdc_tdb', 'vidrl_tdb']
+        self.uploadable_databases = ['tdb', 'test_tdb', 'test_tdb_2', 'cdc_tdb', 'vidrl_tdb', 'test_vidrl']
         if self.database not in self.uploadable_databases:
             raise Exception("Can't upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         self.flu_upload = flu_upload(database=self.database, virus=self.virus)
@@ -393,10 +393,17 @@ class upload(parse, flu_upload):
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
         measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
-        print("Filtering out measurements with virus or serum strain names not formatted correctly")
-        measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']), measurements)
+        print("Filtering out measurements with virus, serum strain names or titers not formatted correctly")
+        measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) or self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']) or self.correct_titer_format(meas['titer']), measurements)
         print(len(measurements), " measurements after filtering")
         return measurements
+
+    def correct_titer_format(self, titer):
+        if re.match("^[0-9<>.]*$", titer):
+            return True
+        else:
+            print "Bad titer: {}. Removing.".format(titer)
+            return False
 
 if __name__=="__main__":
     args = parser.parse_args()
