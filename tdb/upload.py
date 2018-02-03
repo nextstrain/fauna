@@ -32,7 +32,7 @@ class upload(parse, flu_upload):
         if subtype is not None:
             self.subtype = subtype.lower()
         self.database = database.lower()
-        self.uploadable_databases = ['tdb', 'test_tdb', 'test_tdb_2', 'cdc_tdb', 'vidrl_tdb', 'test_vidrl']
+        self.uploadable_databases = ['tdb', 'test_tdb', 'test_tdb_2', 'cdc_tdb', 'vidrl_tdb', 'test_vidrl', 'crick_tdb', 'crick_test']
         if self.database not in self.uploadable_databases:
             raise Exception("Can't upload to this database: " + self.database, "add to list of databases allowed", self.uploadable_databases)
         self.flu_upload = flu_upload(database=self.database, virus=self.virus)
