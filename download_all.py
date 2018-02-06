@@ -33,6 +33,18 @@ def concatenate_titers(params, passage, assay):
                 call = ['cat'] + hi_titers
                 print call
                 subprocess.call(call, stdout=f)
+    for lineage in params.flu_lineages:
+        out = 'data/%s_public_%s_%s_titers.tsv'%(lineage, assay, passage)
+        hi_titers = []
+        for source in ["base", "cdc"]:
+            hi_titers_file = 'data/%s_%s_%s_%s_titers.tsv'%(lineage, source, assay, passage)
+            if os.path.isfile(hi_titers_file):
+                hi_titers.append(hi_titers_file)
+        if len(hi_titers) > 0:
+            with open(out, 'w+') as f:
+                call = ['cat'] + hi_titers
+                print call
+                subprocess.call(call, stdout=f)
 
 if __name__=="__main__":
     params = parser.parse_args()
