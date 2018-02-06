@@ -16,7 +16,7 @@ parser.add_argument('--flu_lineages', default=["h3n2", "h1n1pdm", "vic", "yam"],
 parser.add_argument('--segments', type=str, default=["ha", "na"], nargs='+', help="specify segment(s) to download")
 parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
 parser.add_argument('--titers', default=False, action="store_true", help="download titers from tdb")
-parser.add_argument('--titers_sources', default=["crick", "cdc", "vidrl"], nargs='+', type = str,  help ="titer sources to download, options are crick and cdc")
+parser.add_argument('--titers_sources', default=["base", "crick", "cdc", "vidrl"], nargs='+', type = str,  help ="titer sources to download, options are base, crick, cdc and vidrl")
 parser.add_argument('--titers_passages', default=["egg", "cell"], nargs='+', type = str,  help ="titer passage types to download, options are egg and cell")
 
 
@@ -50,29 +50,19 @@ if __name__=="__main__":
         if params.titers:
             # download titers
             for source in params.titers_sources:
-                if source == "crick":
+                if source == "base":
                     for lineage in params.flu_lineages:
-                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_crick_hi_cell"%(lineage, lineage)
+                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_base_hi_cell"%(lineage, lineage)
                         print(call)
                         os.system(call)
-                if source == "cdc":
+                if source in ["cdc", "crick", "vidrl"]:
                     for passage in params.titers_passages:
                         for lineage in params.flu_lineages:
-                            call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_cdc_hi_%s"%(lineage, passage, lineage, passage)
+                            call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_%s_hi_%s"%(source, lineage, passage, lineage, source, passage)
                             print(call)
                             os.system(call)
                         lineage = 'h3n2'
-                        call = "python tdb/download.py -db cdc_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_cdc_fra_%s"%(lineage, passage, lineage, passage)
-                        print(call)
-                        os.system(call)
-                if source == "vidrl":
-                    for passage in params.titers_passages:
-                        for lineage in params.flu_lineages:
-                            call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_vidrl_hi_%s"%(lineage, passage, lineage, passage)
-                            print(call)
-                            os.system(call)
-                        lineage = 'h3n2'
-                        call = "python tdb/download.py -db vidrl_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_vidrl_fra_%s"%(lineage, passage, lineage, passage)
+                        call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_%s_fra_%s"%(source, lineage, passage, lineage, source, passage)
                         print(call)
                         os.system(call)
 
