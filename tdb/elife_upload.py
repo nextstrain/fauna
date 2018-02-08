@@ -89,6 +89,8 @@ class elife_upload(upload):
         sources = {}
         for meas in measurements:
             src = meas['source']
+            if src is None:
+                src = 'UnknownSource'
             if src not in sources.keys():
                 sources[src] = 0
             else:
