@@ -1,4 +1,4 @@
-import os, re, time, datetime, csv, sys, json
+import os, re, time, datetime, csv, sys, json, errno
 from upload import upload
 import rethinkdb as r
 from Bio import SeqIO
@@ -34,7 +34,14 @@ def convert_xls_to_csv(path, fstem, ind):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
-        with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
+        tmpfile = 'data/tmp/%s.csv'%(fstem)
+        if not os.path.exists(os.path.dirname(tmpfile)):
+            try:
+                os.makedirs(os.path.dirname(tmpfile))
+            except OSError as exc: # Guard against race condition
+                if exc.errno != errno.EEXIST:
+                    raise
+        with open(tmpfile, 'wb') as f:
             writer = csv.writer(f)
             writer.writerows(sheet.row_values(row) for row in range(10))
             # Edit row containing serum strains
@@ -128,6 +135,8 @@ if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
         args.path = "data/"
+    if args.database is None:
+        args.database = "vidrl_tdb"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
@@ -136,10 +145,10 @@ if __name__=="__main__":
     subtype = determine_subtype(args.path)
     #TODO: This is where I will add conversion of vidrl files to eLife format!
     if args.preview:
-        command = "python tdb/elife_upload.py -db vidrl_tdb --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
+        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
         print command
         subprocess.call(command, shell=True)
     else:
-        command = "python tdb/elife_upload.py -db vidrl_tdb --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem
+        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem
         print command
         subprocess.call(command, shell=True)

@@ -77,34 +77,24 @@ def upload_elife(database, elife_path, subtype):
 
     print "Done uploading stored eLife documents."
 
-def upload_vidrl(upload_subtypes):
+def upload_vidrl(database, upload_subtypes):
     with open('data/vidrl_fail_log.txt', 'w') as o:
-        path = '../../fludata/VIDRL-Melbourne-WHO-CC/raw-data/'
-        for ab in os.listdir(path):
-            ab_path = '{}{}/'.format(path, ab)
-            for subtype in os.listdir(ab_path):
-                subtype_path = '{}{}/'.format(ab_path, subtype)
-                if subtype.lower() == "victoria":
-                    subtype = "vic"
-                if subtype.lower() == "yamagata":
-                    subtype = "yam"
-                if subtype.lower() in upload_subtypes:
-                    for assay in os.listdir(subtype_path):
-                        complete_path = '{}{}/'.format(subtype_path, assay)
-                        for fname in os.listdir(complete_path):
-                            fpath = complete_path + fname
-                            fstem = fname.split('.')[0]
-                            if ' ' in fstem:
-                                fstem = re.escape(fstem)
-                            print "Uploading " + fname
-                            command = "python tdb/upload_vidrl.py -db vidrl_tdb -v flu --path {} --fstem {} --ftype vidrl".format(complete_path, fstem)
-                            print "Running with: " + command
-                            try:
-                                subprocess.call(command, shell=True)
-                            except:
-                                logger.critical("Couldn't upload {}, please try again.".format(fname))
-                            print "Done with", fname + "."
-                            # sys.exit()
+        base_path = '../VIDRL-Melbourne-WHO-CC/raw-data/'
+        dir_paths = ["A/H3N2/HI", "A/H3N2/FRA", "A/H1N1pdm/HI", "B/Victoria/HI", "B/Yamagata/HI"]
+        for dir_path in dir_paths:
+            complete_path = '{}{}/'.format(base_path, dir_path)
+            for fname in os.listdir(complete_path):
+                fstem = fname.split('.')[0]
+                if ' ' in fstem:
+                    fstem = re.escape(fstem)
+                print "Uploading " + fname
+                command = "python tdb/upload_vidrl.py -db {} -v flu --path {} --fstem {} --ftype vidrl".format(database, complete_path, fstem)
+                print "Running with: " + command
+                try:
+                    subprocess.call(command, shell=True)
+                except:
+                    logger.critical("Couldn't upload {}, please try again.".format(fname))
+                print "Done with", fname + "."
 
 def upload_niid(upload_subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:
@@ -162,7 +152,7 @@ if __name__=="__main__":
             for subtype in params.subtypes:
                 upload_nimr(params.database, params.nimr_path, subtype)
         if source == "vidrl":
-            upload_vidrl(params.subtypes)
+            upload_vidrl(params.database, params.subtypes)
         if source == "niid":
             upload_niid(params.subtypes)
 
