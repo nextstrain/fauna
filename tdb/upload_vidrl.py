@@ -49,11 +49,14 @@ def convert_xls_to_csv(path, fstem, ind):
             #     print sheet.row_values(12)[4]
             # else:
             #     raise ValueError
-            temp = sheet.row_values(10)
-            col = sheet.col_values(2)
-            for i in range(4,16):
-                temp[i] = col[11+i-4]
-            writer.writerow(temp)
+            # assume there all always 12 reference viruses in a table
+            row_with_ref_sera = sheet.row_values(10)
+            col_with_ref_viruses = sheet.col_values(2)
+            ref_serum_indices = range(4, 16)
+            ref_virus_indices = range(12, 24)
+            for (sindex, vindex) in zip(ref_serum_indices, ref_virus_indices):
+                row_with_ref_sera[sindex] = col_with_ref_viruses[vindex]
+            writer.writerow(row_with_ref_sera)
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
         return
 
