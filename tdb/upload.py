@@ -41,7 +41,6 @@ class upload(parse, flu_upload):
         self.rethink_io.connect_rethink(self.database, self.rethink_host, self.auth_key)
         self.rethink_io.check_table_exists(self.database, self.virus)
         self.strain_fix_fname = "source-data/flu_strain_name_fix.tsv"
-        self.HI_strain_fix_fname = "source-data/HI_flu_strain_name_fix.tsv"
         self.HI_ref_name_abbrev_fname = "source-data/HI_ref_name_abbreviations.tsv"
 
         # fields that are needed to upload
@@ -88,7 +87,6 @@ class upload(parse, flu_upload):
         format virus information in preparation to upload to database table
         '''
         self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
-        self.fix_whole_name.update(self.define_strain_fixes(self.HI_strain_fix_fname))
         self.HI_ref_name_abbrev =self.define_strain_fixes(self.HI_ref_name_abbrev_fname)
         self.define_location_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
@@ -148,6 +146,10 @@ class upload(parse, flu_upload):
         '''
         Canonicalize strain names to match with vdb
         '''
+        # replace all accents with ? mark
+        original_name = name.encode('ascii', 'replace')
+        # Replace whole strain names
+        name = self.replace_strain_name(original_name, self.fix_whole_name)
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
                             'Jul': '7', 'Aug': '8', 'Sep': '9', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
@@ -189,6 +191,15 @@ class upload(parse, flu_upload):
             if abbrev in self.HI_ref_name_abbrev:
                 name = match.group(1) + self.HI_ref_name_abbrev[abbrev] + match.group(3)
         return name
+
+    def replace_strain_name(self, original_name, fixes={}):
+        '''
+        return the new strain name that will replace the original
+        '''
+        if original_name in fixes:
+            return fixes[original_name]
+        else:
+            return original_name
 
     def test_location(self, strain):
         '''
