@@ -77,32 +77,31 @@ def upload_elife(database, elife_path, subtype):
 
     print "Done uploading stored eLife documents."
 
-def upload_vidrl(database, upload_subtypes):
+def upload_vidrl(database, subtypes):
     with open('data/vidrl_fail_log.txt', 'w') as o:
         base_path = '../VIDRL-Melbourne-WHO-CC/raw-data/'
         dir_paths = []
-        if "h3n2" in upload_subtypes:
-            dir_paths += ["A/H3N2/HI", "A/H3N2/FRA"]
-        if "h1n1pdm" in upload_subtypes:
-            dir_paths += ["A/H1N1pdm/HI"]
-        if "vic" in upload_subtypes:
-            dir_paths += ["B/Victoria/HI"]
-        if "yam" in upload_subtypes:
-            dir_paths += ["B/Yamagata/HI"]
-        for dir_path in dir_paths:
-            complete_path = '{}{}/'.format(base_path, dir_path)
-            for fname in os.listdir(complete_path):
-                fstem = fname.split('.')[0]
-                if ' ' in fstem:
-                    fstem = re.escape(fstem)
-                print "Uploading " + fname
-                command = "python tdb/upload_vidrl.py -db {} -v flu --path {} --fstem {} --ftype vidrl".format(database, complete_path, fstem)
-                print "Running with: " + command
-                try:
-                    subprocess.call(command, shell=True)
-                except:
-                    logger.critical("Couldn't upload {}, please try again.".format(fname))
-                print "Done with", fname + "."
+        subtype_to_paths = {
+            "h3n2": ["A/H3N2/HI", "A/H3N2/FRA"],
+            "h1n1pdm": ["A/H1N1pdm/HI"],
+            "vic": ["B/Victoria/HI"],
+            "yam": ["B/Yamagata/HI"]
+        }
+        for subtype in subtypes:
+            for dir_path in subtype_to_paths[subtype]:
+                complete_path = '{}{}/'.format(base_path, dir_path)
+                for fname in os.listdir(complete_path):
+                    fstem = fname.split('.')[0]
+                    if ' ' in fstem:
+                        fstem = re.escape(fstem)
+                    print "Uploading " + fname
+                    command = "python tdb/upload_vidrl.py -db {} -v flu --subtype {} --path {} --fstem {} --ftype vidrl".format(database, subtype, complete_path, fstem)
+                    print "Running with: " + command
+                    try:
+                        subprocess.call(command, shell=True)
+                    except:
+                        logger.critical("Couldn't upload {}, please try again.".format(fname))
+                    print "Done with", fname + "."
 
 def upload_niid(upload_subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:

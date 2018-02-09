@@ -89,19 +89,6 @@ def parse_vidrl_matrix_to_tsv(fname, original_path):
                 line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                 outfile.write(line)
 
-def determine_subtype(original_path):
-    original_path = original_path.split('/')
-    try:
-        original_path.remove('')
-    except:
-        pass
-    subtype = original_path[-2]
-    if subtype.lower() == "victoria":
-        subtype = "vic"
-    if subtype.upper() == "yamagata":
-        subtype = "yam"
-    return subtype
-
 # def determine_initial_indices(path, fstem):
 #     import xlrd
 #     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
@@ -144,14 +131,15 @@ if __name__=="__main__":
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
     read_vidrl(args.path, args.fstem)
-    ####
-    subtype = determine_subtype(args.path)
     #TODO: This is where I will add conversion of vidrl files to eLife format!
-    if args.preview:
-        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
-        print command
-        subprocess.call(command, shell=True)
+    if args.subtype:
+        if args.preview:
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
+            print command
+            subprocess.call(command, shell=True)
+        else:
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem
+            print command
+            subprocess.call(command, shell=True)
     else:
-        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem
-        print command
-        subprocess.call(command, shell=True)
+        print("Subtype needs to be specified with --subtype")
