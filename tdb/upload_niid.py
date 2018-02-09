@@ -10,29 +10,45 @@ sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
 import logging
-logger = logging.getLogger()
+# logger = logging.getLogger()
 
 def read_niid(path, fstem):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
+    # fixed = ''
+    # for char in fstem:
+    #     if char != '\\':
+    #         fixed += char
+    # fstem = fixed
     fname = path + fstem + ".csv"
     # import glob
     # flist = glob.glob(path + '/NIMR*csv') #BP
-    exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
-    if True in exten:
-        ind = exten.index(True)
+    possible_files = [ path + '/' + fstem + ext for ext in ['.xls', '.xlsm', '.xlsx']]
+    real_file = ''
+    for possible_file in possible_files:
+        if os.path.isfile(possible_file):
+            real_file = possible_file
+    if real_file != '':
+        ind = '.{}'.format(real_file.split('.')[1])
         convert_xls_to_csv(path, fstem, ind)
-        fname = "data/tmp/%s.csv"%(fstem)
+        fname = "data/tmp/{}.csv".format(fstem)
         parse_niid_matrix_to_tsv(fname, path)
-    else:
-        logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
-        sys.exit()
+    # exten = [ os.path.isfile(os.path.join(path, fstem, ext)) for ext in ['.xls', '.xlsm', '.xlsx'] ]
+    # if True in exten:
+    #     ind = exten.index(True)
+    #     convert_xls_to_csv(path, fstem, ind)
+    #     fname = "data/tmp/%s.csv"%(fstem)
+    #     parse_niid_matrix_to_tsv(fname, path)
+    # else:
+    #     print("Unable to recognize file extension of {}/{}".format(path,fstem))
+    #     sys.exit()
 
 def convert_xls_to_csv(path, fstem, ind):
     import xlrd
-    exts = ['.xls', '.xlsm', '.xlsx']
-    workbook = xlrd.open_workbook(path+fstem + exts[ind])
+    # exts = ['.xls', '.xlsm', '.xlsx']
+    wb_name = path + '/' + fstem + ind
+    workbook = xlrd.open_workbook(wb_name)
     for sheet in workbook.sheets():
         with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
             writer = csv.writer(f)
@@ -63,13 +79,35 @@ def parse_niid_matrix_to_tsv(fname, original_path):
         for i in range(7,len(mat)):
             for j in range(4,12):
                 virus_strain = mat[i][1]
-                serum_strain = mat[5][j].split('\n')[0]
+                try:
+                    serum_strain = mat[5][j].split('\n')[0]
+                    if "Cell" in serum_strain:
+                        serum_strain = serum_strain.split("Cell")[0]
+                    elif "Egg" in serum_strain:
+                        serum_strain = serum_strain.split("Egg")[0]
+                except:
+                    serum_strain = mat[5][j]
+                    if "Cell" in serum_strain:
+                        serum_strain = serum_strain.split("Cell")[0]
+                    elif "Egg" in serum_strain:
+                        serum_strain = serum_strain.split("Egg")[0]
+                    else:
+                        print("Error parsing serum strain: {}".format(serum_strain))
+                        sys.exit()
                 serum_id = 'UnknownFerret'
                 titer = mat[i][j]
                 source = "niid_%s"%(src_id)
                 virus_passage = mat[i][2]
                 virus_passage_category = ''
-                serum_passage = mat[5][j].split('\n')[1]
+                try:
+                    serum_passage = mat[5][j].split('\n')[1]
+                except:
+                    if "cell" in mat[5][j].lower():
+                        serum_passage = "cell"
+                    elif "egg" in mat[5][j].lower():
+                        serum_passage = "egg"
+                    else:
+                        serum_passage = "UnknownPassage"
                 serum_passage_category = ''
                 line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                 outfile.write(line)
@@ -79,15 +117,16 @@ def determine_assay_type(original_path):
 
 def determine_subtype(original_path):
     original_path = original_path.split('/')
-    try:
-        original_path.remove('')
-    except:
-        pass
-    subtype = original_path[-4]
-    if subtype.lower() == "victoria":
-        subtype = "vic"
-    if subtype.upper() == "yamagata":
-        subtype = "yam"
+    if 'h3n2' in original_path:
+        subtype = 'h3n2'
+    elif 'h1n1pdm' in original_path:
+        subtype = 'h3n2'
+    elif 'h3n2' in original_path:
+        subtype = 'h3n2'
+    elif 'h3n2' in original_path:
+        subtype = 'h3n2'
+    else:
+        subtype = "UnknownSubtype"
     return subtype
 
 if __name__=="__main__":

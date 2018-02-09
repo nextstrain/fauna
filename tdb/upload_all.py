@@ -106,18 +106,42 @@ def upload_vidrl(upload_subtypes):
                             print "Done with", fname + "."
                             # sys.exit()
 
+def upload_niid(upload_subtypes):
+    with open('data/niid_fail_log.txt', 'w') as o:
+        path = '/Users/bpotter/Dropbox/niid-nextflu-data-share/antigenic-data'
+        for subtype in os.listdir(path):
+                if subtype in upload_subtypes:
+                    if os.path.isdir('{}/{}'.format(path,subtype)):
+                        for assay in os.listdir('{}/{}'.format(path,subtype)):
+                            if os.path.isdir('{}/{}/{}'.format(path,subtype,assay)):
+                                for year in os.listdir('{}/{}/{}'.format(path,subtype,assay)):
+                                    if os.path.isdir('{}/{}/{}/{}'.format(path,subtype,assay,year)):
+                                        for infile in os.listdir('{}/{}/{}/{}'.format(path,subtype,assay,year)):
+                                            fpath = '{}/{}/{}/{}'.format(path,subtype,assay,year)
+                                            fstem = infile.split('.')[0]
+                                            fstem = fstem.replace('(','\\(').replace(')','\\)')
+                                            okay_suffixes = [ 'xls', 'xlsm', 'xlsx', 'csv', 'tsv' ]
+                                            if infile.split('.')[1] in okay_suffixes:
+                                                if ' ' in fstem:
+                                                    fstem = re.escape(fstem)
+                                                print "Uploading " + infile
+                                                command = "python tdb/upload_niid.py -db niid_tdb -v flu --path {} --fstem {} --ftype niid".format(fpath, fstem)
+                                                print "Running with: " + command
+                                                try:
+                                                    subprocess.call(command, shell=True)
+                                                except:
+                                                    o.writeline("Couldn't upload {}, please try again.".format(infile))
+                                                print "Done with", infile + "."
+
 if __name__=="__main__":
-
-
-
     params = parser.parse_args()
 
     ## L O G G I N G
     # https://docs.python.org/2/howto/logging-cookbook.html#multiple-handlers-and-formatters
-    root_logger = logging.getLogger('')
-    root_logger.setLevel(args.loglevel if params.loglevel else logging.INFO)
-    root_logger.addHandler(ColorizingStreamHandler())
-    logger = logging.getLogger(__name__)
+    # root_logger = logging.getLogger('')
+    # root_logger.setLevel(args.loglevel if params.loglevel else logging.INFO)
+    # root_logger.addHandler(ColorizingStreamHandler())
+    # logger = logging.getLogger(__name__)
 
     print "Beginning construction of", params.database + "."
 
@@ -139,5 +163,7 @@ if __name__=="__main__":
                 upload_nimr(params.database, params.nimr_path, subtype)
         if source == "vidrl":
             upload_vidrl(params.subtypes)
+        if source == "niid":
+            upload_niid(params.subtypes)
 
     print "Done with all uploads."
