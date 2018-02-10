@@ -59,6 +59,11 @@
 2. Upload HI titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
 3. Upload FRA titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
 
+#### VIDRL files
+
+1. Make sure `VIDRL-Melbourne-WHO-CC/` is a sister directory to `fauna/`
+2. Upload all titers with `python tdb/upload_all.py --sources vidrl -db vidrl_tdb`
+
 ### Download documents from TDB
 
 * `python tdb/download.py -db tdb -v flu --subtype h3n2`

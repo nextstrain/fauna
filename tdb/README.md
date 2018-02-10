@@ -63,7 +63,7 @@ Upload VIDRL titers to database:
 
 This upload converts a VIDRL titer table to the eLife document format, then calls `elife_upload` on the generated file.
 
-    python tdb/upload_vidrl.py -db vidrl_tdb -v flu --path <PATH TO FILE> --fstem <FILE STEM> --ftype vidrl
+    python tdb/vidrl_upload.py -db vidrl_tdb -v flu --path <PATH TO FILE> --fstem <FILE STEM> --ftype vidrl
 
 #### Batch Uploads
 

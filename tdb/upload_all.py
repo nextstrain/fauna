@@ -95,7 +95,7 @@ def upload_vidrl(database, subtypes):
                     if ' ' in fstem:
                         fstem = re.escape(fstem)
                     print "Uploading " + fname
-                    command = "python tdb/upload_vidrl.py -db {} -v flu --subtype {} --path {} --fstem {} --ftype vidrl".format(database, subtype, complete_path, fstem)
+                    command = "python tdb/vidrl_upload.py -db {} -v flu --subtype {} --path {} --fstem {} --ftype vidrl".format(database, subtype, complete_path, fstem)
                     print "Running with: " + command
                     try:
                         subprocess.call(command, shell=True)
