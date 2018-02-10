@@ -64,17 +64,17 @@ if __name__=="__main__":
             for source in params.titers_sources:
                 if source == "base":
                     for lineage in params.flu_lineages:
-                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi --fstem %s_base_hi_cell"%(lineage, lineage)
+                        call = "python tdb/download.py -db tdb -v flu --subtype %s --select assay_type:hi virus_passage_category:cell --fstem %s_base_hi_cell"%(lineage, lineage)
                         print(call)
                         os.system(call)
                 if source in ["cdc", "crick", "vidrl"]:
                     for passage in params.titers_passages:
                         for lineage in params.flu_lineages:
-                            call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:hi serum_passage_category:%s --fstem %s_%s_hi_%s"%(source, lineage, passage, lineage, source, passage)
+                            call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:hi virus_passage_category:cell serum_passage_category:%s --fstem %s_%s_hi_%s"%(source, lineage, passage, lineage, source, passage)
                             print(call)
                             os.system(call)
                         lineage = 'h3n2'
-                        call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_%s_fra_%s"%(source, lineage, passage, lineage, source, passage)
+                        call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:fra virus_passage_category:cell serum_passage_category:%s --fstem %s_%s_fra_%s"%(source, lineage, passage, lineage, source, passage)
                         print(call)
                         os.system(call)
 
