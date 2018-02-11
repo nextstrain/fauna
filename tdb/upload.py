@@ -1,5 +1,6 @@
 import os, re, time, datetime, csv, sys, json
 import rethinkdb as r
+import hashlib
 from Bio import SeqIO
 import argparse
 from parse import parse
@@ -383,10 +384,11 @@ class upload(parse, flu_upload):
     def create_index(self,  measurements, output=False):
         '''
         create unique key for storage in rethinkdb
+        do this using an md5 hash on index_fields
         '''
         for meas in measurements:
             index = [meas[field] for field in self.index_fields]
-            meas['index'] = index
+            meas['index'] = hashlib.md5("".join(index)).hexdigest()
             if str(index) in self.indexes:
                 if output:
                     print("Repeat Index: " + str(index) + str(meas['titer']))

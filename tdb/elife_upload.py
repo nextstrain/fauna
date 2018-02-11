@@ -23,8 +23,6 @@ class elife_upload(upload):
         self.format_measurements(measurements, **kwargs)
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
-        self.check_uniqueness(measurements)
-        #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
@@ -96,29 +94,6 @@ class elife_upload(upload):
                 sources[src] += 1
             new_src = src + '_' + str(sources[src])
             meas['source'] = new_src
-
-    def check_uniqueness(self, measurements):
-        '''
-        Verify that there were not ambiguous indices created for different eLife uploads.
-        '''
-        indices = []
-        unique = 0
-        nonunique = 0
-        uniq = True
-        for meas in measurements:
-            index_string = ''
-            for field in meas['index']:
-                index_string = index_string + str(field)
-            if index_string in indices:
-                print "Nonunique index field: ", index_string
-                nonunique += 1
-                uniq = False
-            else:
-                indices.append(index_string)
-                unique += 1
-        print "Unique fields: ", unique
-        print "Nonunique fields: ", nonunique
-        return uniq
 
 if __name__=="__main__":
     args = parser.parse_args()
