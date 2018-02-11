@@ -29,13 +29,13 @@ def get_parser():
 
     def duplicate_resolver(resolve_method):
         method = str(resolve_method)
-        accepted_methods = ('keep_duplicates', 'choose_longest', 'choose_genbank')
+        accepted_methods = ('keep_duplicates', 'choose_longest', 'choose_genbank', 'split_passage')
         if method not in accepted_methods:
             msg = '"{}" is not a supported duplicate resolve method'.format(method)
             raise argparse.ArgumentTypeError(msg)
         return method
 
-    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus, options are \'keep_duplicates\', \'choose_longest\' and \'choose_genbank\'")
+    parser.add_argument('--resolve_method', type=duplicate_resolver, default="choose_longest", help="Set method of resolving duplicates for the same locus, options are \'keep_duplicates\', \'choose_longest\', \'choose_genbank\' and \'split_passage\'")
     return parser
 
 
@@ -196,7 +196,7 @@ class download(object):
         '''
         Takes a list of sequence documents (each one a Dict of key value pairs)
         And subsets this list to have only 1 sequence document for each 'strain'
-        Resolves by different methods: choose_longest, choose_genbank or keep_duplicates
+        Resolves by different methods: choose_longest, choose_genbank, keep_duplicates, or split_passage
         '''
         from collections import defaultdict
         resolved_sequence_docs = []
@@ -204,7 +204,6 @@ class download(object):
         strain_to_sdocs = defaultdict(list)
         for sdoc in sequence_docs:
             strain_to_sdocs[sdoc['strain']].append(sdoc)
-
         if resolve_method == "choose_genbank":
             print("Resolving duplicate strains by prioritizing Genbank")
             for strain in strains:
@@ -222,10 +221,29 @@ class download(object):
                 for s in strain_sdocs:
                 	if s['sequence'] == None:
                 		strain_sdocs.remove(s)
-                
                 if len(strain_sdocs) != 0:
                 	sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
                 	resolved_sequence_docs.append(sorted_strain_sdocs[0])
+        elif resolve_method == "split_passage":
+            print("Resolving duplicate strains by keeping one cell/direct and one egg sequence")
+            print("Appends -egg to egg-passaged sequence")
+            print("Within cell/egg partitions prioritize longest sequence")
+            for strain in strains:
+                strain_sdocs = strain_to_sdocs[strain]
+                cell_strain_sdocs = []
+                egg_strain_sdocs = []
+                for strain_sdoc in strain_sdocs:
+                    if strain_sdoc['passage_category'] == "unpassaged" or strain_sdoc['passage_category'] == "cell" or strain_sdoc['passage_category'] == "undetermined":
+                		cell_strain_sdocs.append(strain_sdoc)
+                    if strain_sdoc['passage_category'] == "egg":
+                        strain_sdoc['strain'] = strain_sdoc['strain'] + "-egg"
+                        egg_strain_sdocs.append(strain_sdoc)
+                if len(cell_strain_sdocs) > 0:
+                    sorted_cell_strain_sdocs = sorted(cell_strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                    resolved_sequence_docs.append(sorted_cell_strain_sdocs[0])
+                if len(egg_strain_sdocs) > 0:
+                    sorted_egg_strain_sdocs = sorted(egg_strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                    resolved_sequence_docs.append(sorted_egg_strain_sdocs[0])
         elif resolve_method == "keep_duplicates":
             print("Keeping duplicate strains")
             resolved_sequence_docs = sequence_docs

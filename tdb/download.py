@@ -65,6 +65,7 @@ class download(object):
         print(sequence_count, "measurements in table:", self.virus)
         print("Downloading titer measurements from the table: " + self.virus)
         measurements = self.rethinkdb_download(self.virus, presents=present, selections=select, intervals=interval, **kwargs)
+        self.rename_strains_with_passage(measurements)
         print("Downloaded " + str(len(measurements)) + " measurements")
         if output:
             self.output(measurements, **kwargs)
@@ -85,6 +86,19 @@ class download(object):
         command = self.vdb_download.add_intervals_command(command, **kwargs)
         sequences = list(command.run())
         return list(sequences)
+
+    def rename_strains_with_passage(self, measurements):
+        '''
+        Append -egg to virus_strain and serum_strain for egg-passaged viruses
+        '''
+        print("reformat_measurements")
+        for measurement in measurements:
+            print("measurement")
+            print(measurement)
+            if measurement['virus_passage_category'] == "egg":
+                measurement['virus_strain'] = measurement['virus_strain'] + "-egg"
+            if measurement['serum_passage_category'] == "egg":
+                measurement['serum_strain'] = measurement['serum_strain'] + "-egg"
 
     def write_json(self, data, fname, indent=1):
         '''
