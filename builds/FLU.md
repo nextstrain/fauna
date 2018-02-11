@@ -68,6 +68,11 @@
 5. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BVicHIs`
 6. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BYamHIs`
 
+#### NIID files
+
+1. Make sure `NIID-Tokyo-WHO-CC/` is a sister directory to `fauna/`
+2. Upload all titers with `python tdb/upload_all.py --sources niid -db niid_tdb`
+
 #### VIDRL files
 
 1. Make sure `VIDRL-Melbourne-WHO-CC/` is a sister directory to `fauna/`

@@ -47,8 +47,6 @@ def convert_xls_to_csv(path, fstem, ind):
                 writer = csv.writer(f)
                 print(sheet.name)
                 writer.writerows( sheet.row_values(row) for row in range(sheet.nrows))
-                # writer.writerow(temp)
-                # writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
             except:
                 print("couldn't write data/tmp/{}_{}.csv".format(fstem,sheet.name))
         print("wrote new csv to data/tmp/{}_{}.csv".format(fstem, sheet.name))

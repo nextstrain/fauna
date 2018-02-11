@@ -103,32 +103,36 @@ def upload_vidrl(database, subtypes):
                         logger.critical("Couldn't upload {}, please try again.".format(fname))
                     print "Done with", fname + "."
 
-def upload_niid(upload_subtypes):
+def upload_niid(database, subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:
-        path = '/Users/bpotter/Dropbox/niid-nextflu-data-share/antigenic-data'
-        for subtype in os.listdir(path):
-                if subtype in upload_subtypes:
-                    if os.path.isdir('{}/{}'.format(path,subtype)):
-                        for assay in os.listdir('{}/{}'.format(path,subtype)):
-                            if os.path.isdir('{}/{}/{}'.format(path,subtype,assay)):
-                                for year in os.listdir('{}/{}/{}'.format(path,subtype,assay)):
-                                    if os.path.isdir('{}/{}/{}/{}'.format(path,subtype,assay,year)):
-                                        for infile in os.listdir('{}/{}/{}/{}'.format(path,subtype,assay,year)):
-                                            fpath = '{}/{}/{}/{}'.format(path,subtype,assay,year)
-                                            fstem = infile.split('.')[0]
-                                            fstem = fstem.replace('(','\\(').replace(')','\\)')
-                                            okay_suffixes = [ 'xls', 'xlsm', 'xlsx', 'csv', 'tsv' ]
-                                            if infile.split('.')[1] in okay_suffixes:
-                                                if ' ' in fstem:
-                                                    fstem = re.escape(fstem)
-                                                print "Uploading " + infile
-                                                command = "python tdb/upload_niid.py -db niid_tdb -v flu --path {} --fstem {} --ftype niid".format(fpath, fstem)
-                                                print "Running with: " + command
-                                                try:
-                                                    subprocess.call(command, shell=True)
-                                                except:
-                                                    o.writeline("Couldn't upload {}, please try again.".format(infile))
-                                                print "Done with", infile + "."
+        base_path = '../NIID-Tokyo-WHO-CC/raw-data/'
+        dir_paths = []
+        subtype_to_paths = {
+            "h3n2": ["h3n2/hi/2015", "h3n2/MNT/2016", "h3n2/MNT/2017", "h3n2/fra/2018", "h3n2/fra/2017"],
+            "h1n1pdm": ["h1n1pdm/2015", "h1n1pdm/2016", "h1n1pdm/2017", "h1n1pdm/2018"],
+            "vic": ["vic/2017"],
+            "yam": ["yam/2017"]
+        }
+        for subtype in subtypes:
+            for dir_path in subtype_to_paths[subtype]:
+                complete_path = '{}{}/'.format(base_path, dir_path)
+                assay_type = "hi"
+                m = re.search(r'(fra|MNT)', complete_path)
+                if m is not None:
+                    assay_type = "fra"
+                for fname in os.listdir(complete_path):
+                    fstem = fname.split('.')[0]
+                    fstem = fstem.replace('(','\\(').replace(')','\\)')
+                    if ' ' in fstem:
+                        fstem = re.escape(fstem)
+                    print "Uploading " + fname
+                    command = "python tdb/niid_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype niid".format(database, subtype, assay_type, complete_path, fstem)
+                    print "Running with: " + command
+                    try:
+                        subprocess.call(command, shell=True)
+                    except:
+                        o.writeline("Couldn't upload {}, please try again.".format(infile))
+                    print "Done with", fname + "."
 
 if __name__=="__main__":
     params = parser.parse_args()
@@ -161,6 +165,6 @@ if __name__=="__main__":
         if source == "vidrl":
             upload_vidrl(params.database, params.subtypes)
         if source == "niid":
-            upload_niid(params.subtypes)
+            upload_niid(params.database, params.subtypes)
 
     print "Done with all uploads."
