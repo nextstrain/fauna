@@ -12,7 +12,9 @@ from vdb.flu_upload import flu_upload
 import logging
 logger = logging.getLogger()
 
-def read_vidrl(path, fstem):
+parser.add_argument('--assay_type', default='hi')
+
+def read_vidrl(path, fstem, assay_type):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
@@ -24,7 +26,7 @@ def read_vidrl(path, fstem):
         ind = exten.index(True)
         convert_xls_to_csv(path, fstem, ind)
         fname = "data/tmp/%s.csv"%(fstem)
-        parse_vidrl_matrix_to_tsv(fname, path)
+        parse_vidrl_matrix_to_tsv(fname, path, assay_type)
     else:
         logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         sys.exit()
@@ -60,7 +62,7 @@ def convert_xls_to_csv(path, fstem, ind):
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
         return
 
-def parse_vidrl_matrix_to_tsv(fname, original_path):
+def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
     from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
@@ -74,20 +76,45 @@ def parse_vidrl_matrix_to_tsv(fname, original_path):
             original_path.remove('')
         except:
             pass
-        assay_type = original_path[-1]
-        for i in range(12,len(mat)):
-            for j in range(4,15):
-                virus_strain = mat[i][2]
-                serum_strain = mat[10][j]
-                serum_id = mat[8][j]
-                titer = mat[i][j]
-                source = "vidrl_%s"%(src_id)
-                virus_passage = mat[i][16]
-                virus_passage_category = ''
-                serum_passage = mat[9][j]
-                serum_passage_category = ''
-                line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                outfile.write(line)
+        print("assay_type: " + assay_type)
+        if assay_type == "hi":
+            start_row = 12
+            start_col = 7
+            end_col = 15
+            virus_strain_col_index = 2
+            virus_passage_col_index = 16
+        elif assay_type == "fra":
+            start_row = 12
+            start_col = 4
+            end_col = 13
+            virus_strain_col_index = 2
+            virus_passage_col_index = 14
+            # some FRA tables have 10 sera, some have 11, some have 9
+            check_cell_10th_sera = mat[7][13]
+            check_cell_11th_sera = mat[7][14]
+            if check_cell_10th_sera == '':
+                virus_passage_col_index = 13
+            elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
+                virus_passage_col_index = 14
+            else:
+                virus_passage_col_index = 15
+
+        # some tables are do not begin where we think they do
+        check_cell = mat[10][2]
+        if check_cell == "Reference Antigens":
+            for i in range(start_row, len(mat)):
+                for j in range(start_col, end_col):
+                    virus_strain = mat[i][virus_strain_col_index]
+                    serum_strain = mat[10][j]
+                    serum_id = mat[8][j]
+                    titer = mat[i][j]
+                    source = "vidrl_%s"%(src_id)
+                    virus_passage = mat[i][virus_passage_col_index]
+                    virus_passage_category = ''
+                    serum_passage = mat[9][j]
+                    serum_passage_category = ''
+                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                    outfile.write(line)
 
 # def determine_initial_indices(path, fstem):
 #     import xlrd
@@ -130,7 +157,7 @@ if __name__=="__main__":
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
-    read_vidrl(args.path, args.fstem)
+    read_vidrl(args.path, args.fstem, args.assay_type)
     #TODO: This is where I will add conversion of vidrl files to eLife format!
     if args.subtype:
         if args.preview:

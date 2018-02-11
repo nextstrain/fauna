@@ -90,12 +90,16 @@ def upload_vidrl(database, subtypes):
         for subtype in subtypes:
             for dir_path in subtype_to_paths[subtype]:
                 complete_path = '{}{}/'.format(base_path, dir_path)
+                assay_type = "hi"
+                m = re.search(r'fra', complete_path, re.IGNORECASE)
+                if m is not None:
+                    assay_type = "fra"
                 for fname in os.listdir(complete_path):
                     fstem = fname.split('.')[0]
                     if ' ' in fstem:
                         fstem = re.escape(fstem)
                     print "Uploading " + fname
-                    command = "python tdb/vidrl_upload.py -db {} -v flu --subtype {} --path {} --fstem {} --ftype vidrl".format(database, subtype, complete_path, fstem)
+                    command = "python tdb/vidrl_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype vidrl".format(database, subtype, assay_type, complete_path, fstem)
                     print "Running with: " + command
                     try:
                         subprocess.call(command, shell=True)
@@ -117,7 +121,7 @@ def upload_niid(database, subtypes):
             for dir_path in subtype_to_paths[subtype]:
                 complete_path = '{}{}/'.format(base_path, dir_path)
                 assay_type = "hi"
-                m = re.search(r'(fra|MNT)', complete_path)
+                m = re.search(r'(fra|MNT)', complete_path, re.IGNORECASE)
                 if m is not None:
                     assay_type = "fra"
                 for fname in os.listdir(complete_path):
