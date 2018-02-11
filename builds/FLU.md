@@ -59,6 +59,15 @@
 2. Upload HI titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
 3. Upload FRA titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
 
+#### Crick files
+
+1. Move Excel documents to `fauna/data/`
+2. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H3N2HIs`
+3. Run `python tdb/crick_upload.py -db crick_tdb --assay_type fra --fstem H3N2VNs`
+4. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H1N1pdm09HIs`
+5. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BVicHIs`
+6. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BYamHIs`
+
 #### VIDRL files
 
 1. Make sure `VIDRL-Melbourne-WHO-CC/` is a sister directory to `fauna/`

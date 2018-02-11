@@ -57,7 +57,6 @@ def convert_xls_to_csv(path, fstem, ind):
     return sheets
 
 def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
-    assay_type = assay_type
     from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
@@ -71,15 +70,29 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             original_path.remove('')
         except:
             pass
-        for i in range(14,len(mat)):
-            for j in range(7,len(mat[0])):
-                # Change this line to mat[i][2] for non-FRA tables
-                virus_strain = mat[i][1]
-                serum_strain = mat[6][j]
+        if assay_type == "hi":
+            start_row = 14
+            start_col = 7
+            col_span = 1
+            virus_strain_col_index = 2
+            virus_passage_col_index = 6
+        elif assay_type == "fra":
+            start_row = 16
+            start_col = 5
+            col_span = 2
+            virus_strain_col_index = 1
+            virus_passage_col_index = 4
+        for i in range(start_row, len(mat)):
+            for j in range(start_col, len(mat[0]), col_span):
+                virus_strain = mat[i][virus_strain_col_index]
+                if mat[7][j] == "":
+                    serum_strain = mat[6][j]
+                else:
+                    serum_strain = mat[6][j] + "/" + mat[7][j]
                 serum_id = mat[9][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
-                virus_passage = mat[i][6]
+                virus_passage = mat[i][virus_passage_col_index]
                 virus_passage_category = ''
                 serum_passage = mat[8][j]
                 serum_passage_category = ''
@@ -104,6 +117,8 @@ if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
         args.path = "data/"
+    if args.database is None:
+        args.database = "crick_tdb"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
@@ -114,10 +129,10 @@ if __name__=="__main__":
         if args.preview:
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))
-            command = "python tdb/elife_upload.py -db crick_tdb --subtype " + subtype + " --path data/tmp/ --fstem " + sheet + " --preview"
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + sheet + " --preview"
             print command
             subprocess.call(command, shell=True)
         else:
-            command = "python tdb/elife_upload.py -db crick_tdb --subtype " + subtype + " --path data/tmp/ --fstem " + sheet
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + sheet
             print command
             subprocess.call(command, shell=True)
