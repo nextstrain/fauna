@@ -91,10 +91,7 @@ class download(object):
         '''
         Append -egg to virus_strain and serum_strain for egg-passaged viruses
         '''
-        print("reformat_measurements")
         for measurement in measurements:
-            print("measurement")
-            print(measurement)
             if measurement['virus_passage_category'] == "egg":
                 measurement['virus_strain'] = measurement['virus_strain'] + "-egg"
             if measurement['serum_passage_category'] == "egg":
