@@ -47,6 +47,7 @@ class flu_upload(upload):
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
         self.strain_fix_fname = "source-data/flu_strain_name_fix.tsv"
+        self.location_fix_fname = "source-data/flu_location_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
         self.fix = set()
 
@@ -120,10 +121,12 @@ class flu_upload(upload):
         '''
         if self.strain_fix_fname is not None:
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        if self.location_fix_fname is not None:
+            self.fix_location = self.define_location_fixes(self.location_fix_fname)
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
         self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
-        self.define_location_fixes("source-data/flu_fix_location_label.tsv")
+        self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
@@ -134,8 +137,11 @@ class flu_upload(upload):
             self.format_host(doc)
             self.determine_group_fields(doc, self.patterns)
             self.format_date(doc)
-            self.format_country(doc)
-            self.format_place(doc, determine_location=False)
+            self.format_country(doc) # first format from strain name
+            if self.fix_location is not None: # override with fixes
+                if doc['strain'] in self.fix_location:
+                    doc['location'] = self.fix_location[doc['strain']]
+            self.format_place(doc, determine_location=True)
             self.format_region(doc)
             self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
@@ -217,6 +223,16 @@ class flu_upload(upload):
         return doc
 
     def define_location_fixes(self, fname):
+        '''
+        Open location fix file and define corresponding dictionaries
+        '''
+        reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
+        fix_location = {}
+        for line in reader:
+            fix_location[line['label'].decode('unicode-escape')] = line['fix']
+        return fix_location
+
+    def define_location_label_fixes(self, fname):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         self.label_to_fix = {}
         for line in reader:
