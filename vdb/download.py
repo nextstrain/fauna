@@ -278,8 +278,6 @@ class download(object):
             pass
         else:
             for virus in viruses:
-                print(virus.keys())
-                # sys.exit()
                 fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?' for field in fasta_fields]
                 handle.write(">"+sep.join(fields)+'\n')
                 handle.write(virus['sequence'] + "\n")
