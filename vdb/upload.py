@@ -6,31 +6,34 @@ from parse import parse
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
-parser.add_argument('--rethink_host', default=None, help="rethink host url")
-parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
-parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
-parser.add_argument('-v', '--virus', help="virus name")
-parser.add_argument('--fname', help="input file name")
-parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
-parser.add_argument('--fasta_header_fix', default=None, help="faster header fix file. Default: None.")
-parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
-parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
-parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
-parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
-parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
-parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
+def get_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-db', '--database', default='vdb', help="database to upload to")
+    parser.add_argument('--rethink_host', default=None, help="rethink host url")
+    parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
+    parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
+    parser.add_argument('-v', '--virus', help="virus name")
+    parser.add_argument('--fname', help="input file name")
+    parser.add_argument('--ftype', default='fasta', help="input file format, default \"fasta\", other is \"genbank\", \"accession\" or \"tsv\"")
+    parser.add_argument('--fasta_header_fix', default=None, help="faster header fix file. Default: None.")
+    parser.add_argument('--path', default="data/", help="path to fasta file, default is \"data/\"")
+    parser.add_argument('--accessions', default=None, help="comma seperated list of accessions to be uploaded")
+    parser.add_argument('--email', default=None, help="email to access NCBI database via entrez to get virus information")
+    parser.add_argument('--overwrite', default=False, action="store_true",  help ="Overwrite fields that are not none")
+    parser.add_argument('--preview', default=False, action="store_true",  help ="If included, preview a virus document to be uploaded")
+    parser.add_argument('--replace', default=False, action="store_true",  help ="If included, delete all documents in table")
 
-parser.add_argument('--source', default=None, help="source of fasta file")
-parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
-parser.add_argument('--host', default='human', help="host virus isolated from")
-parser.add_argument('--country', default=None, help="country virus isolated from")
-parser.add_argument('--authors', default=None, help="authors of source of sequences")
-parser.add_argument('--title', default=None, help="title of sequence release")
-parser.add_argument('--url', default=None, help="url of source of sequences")
-parser.add_argument('--public', default=True, dest='public', action="store_true",  help ="sequences classified as public")
-parser.add_argument('--private', default=False, dest='public', action="store_false",  help ="sequences classified as private")
+    parser.add_argument('--source', default=None, help="source of fasta file")
+    parser.add_argument('--locus', default=None, help="gene or genomic region for sequences")
+    parser.add_argument('--host', default='human', help="host virus isolated from")
+    parser.add_argument('--country', default=None, help="country virus isolated from")
+    parser.add_argument('--authors', default=None, help="authors of source of sequences")
+    parser.add_argument('--title', default=None, help="title of sequence release")
+    parser.add_argument('--url', default=None, help="url of source of sequences")
+    parser.add_argument('--public', default=True, dest='public', action="store_true",  help ="sequences classified as public")
+    parser.add_argument('--private', default=False, dest='public', action="store_false",  help ="sequences classified as private")
+    return parser
+
 
 class upload(parse):
     def __init__(self, database, virus, **kwargs):
@@ -209,7 +212,7 @@ class upload(parse):
                 # ex. 2002-02-4
                 elif re.match(r'^\d\d\d\d-\d\d-\d$', virus[field]):
                     virus[field] = re.sub(r'^(\d\d\d\d)-(\d\d)-(\d)$', r'\1-\2-0\3', virus[field])
-                # ex. 2002-2-15                    
+                # ex. 2002-2-15
                 elif re.match(r'^\d\d\d\d-\d-\d\d$', virus[field]):
                     virus[field] = re.sub(r'^(\d\d\d\d)-(\d)-(\d\d)$', r'\1-0\2-\3', virus[field])
                 elif re.match(r'\d\d\d\d\s\(Month\sand\sday\sunknown\)', virus[field]):

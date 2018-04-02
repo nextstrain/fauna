@@ -1,8 +1,9 @@
 import os, json
 import rethinkdb as r
 from upload import upload
-from upload import parser
+from upload import get_parser
 
+parser = get_parser()
 parser.add_argument('--update_citations', default=False, action="store_true", help="update citation fields")
 parser.add_argument('--update_locations', default=False, action="store_true", help="update location fields")
 parser.add_argument('--update_groupings', default=False, action="store_true", help="update grouping fields")
