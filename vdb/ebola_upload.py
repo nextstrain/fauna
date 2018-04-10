@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 from upload import upload
-from upload import parser
+from upload import get_parser
 
 class ebola_upload(upload):
     def __init__(self, **kwargs):
@@ -22,6 +22,7 @@ class ebola_upload(upload):
                 document[field] = self.camelcase_to_snakecase(document[field])
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     #>EBOV|PL7709|KU296426|sierra_leone|PortLoko|2015-06-06
     # 0    1      2        3            4        5

@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 from upload import upload
-from upload import parser
+from upload import get_parser
 
 class zibra_upload(upload):
     def __init__(self, **kwargs):
@@ -31,6 +31,7 @@ class zibra_upload(upload):
                 document[field] = self.camelcase_to_snakecase(document[field])
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     virus_fasta_fields = {0:'strain', 2:'collection_date', 3:'country', 4: 'division', 5:'location'}
     sequence_fasta_fields = {0:'strain', 1:'accession'}

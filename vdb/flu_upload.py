@@ -4,9 +4,10 @@ import rethinkdb as r
 from Bio import SeqIO
 from Bio import AlignIO
 from upload import upload
-from upload import parser
+from upload import get_parser
 from unidecode import unidecode
 
+parser = get_parser()
 parser.add_argument('--upload_directory', default=False, action="store_true", help='upload all xls and fasta files in directory')
 parser.add_argument('--vtype', default=None, help="type of virus, if applicable")
 parser.add_argument('--subtype', default=None, help="subtype of virus")

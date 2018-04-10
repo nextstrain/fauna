@@ -3,7 +3,7 @@ import rethinkdb as r
 import pandas as pd
 from Bio import SeqIO
 from upload import upload
-from upload import parser
+from upload import get_parser
 from update import update
 
 class dengue_upload(update):
@@ -318,6 +318,7 @@ class dengue_upload(update):
 
 
 if __name__=="__main__":
+	parser = get_parser()
 	args = parser.parse_args() # parser is an argparse object initiated in parse.py
 	virus_attribs = ['strain', 'original_strain', 'virus', 'serotype','collection_date', 'region', 'country', 'division', 'location'] # define fields in fasta headers that you want used in parse.py > parse > parse_fasta_file ---> (viruses, sequences)
 	sequence_attribs = ['accession', 'strain', 'original_strain', 'virus', 'serotype',  'locus', 'sequence', 'authors', 'PMID', 'source', 'gene_list']

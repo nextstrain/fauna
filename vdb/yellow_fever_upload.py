@@ -2,7 +2,7 @@ import os, re, time, datetime, csv, sys
 import rethinkdb as r
 from Bio import SeqIO
 from upload import upload
-from upload import parser
+from upload import get_parser
 
 """
 Data downloaded from https://www.viprbrc.org/brc/home.spg?decorator=vipr
@@ -49,6 +49,7 @@ class YF_upload(upload):
                 document[field] = self.camelcase_to_snakecase(document[field])
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country'}
     sequence_fasta_fields = {0:'accession', 1:'strain'}

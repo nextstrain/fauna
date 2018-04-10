@@ -1,6 +1,6 @@
 import re
 from upload import upload
-from upload import parser
+from upload import get_parser
 
 class siv_upload(upload):
     def __init__(self, **kwargs):
@@ -72,6 +72,7 @@ class siv_upload(upload):
             return None
 
 if __name__=="__main__":
+    parser = get_parser()
     args = parser.parse_args()
     virus_fasta_fields = {2:'host_species', 3:'sub_species', 4:'SIVxyz', 5:'strain', 8:'country', 9:'collection_date'}
     sequence_fasta_fields = {0:'accession', 1:'LanL_ID', 6:'sequence_length'}
