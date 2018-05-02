@@ -79,7 +79,7 @@ def upload_elife(database, elife_path, subtype):
 
 def upload_vidrl(database, subtypes):
     with open('data/vidrl_fail_log.txt', 'w') as o:
-        base_path = '../VIDRL-Melbourne-WHO-CC/raw-data/'
+        base_path = '../../fludata/VIDRL-Melbourne-WHO-CC/raw-data/'
         dir_paths = []
         subtype_to_paths = {
             "h3n2": ["A/H3N2/HI", "A/H3N2/FRA"],
@@ -109,13 +109,19 @@ def upload_vidrl(database, subtypes):
 
 def upload_niid(database, subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:
-        base_path = '../NIID-Tokyo-WHO-CC/raw-data/'
+        base_path = '../../fludata/NIID-Tokyo-WHO-CC/raw-data/'
         dir_paths = []
+        # subtype_to_paths = {
+        #     "h3n2": ["A/H3N2/FRA/2017", "A/H3N2/FRA/2018", "A/H3N2/HI/2008", "A/H3N2/HI/2009", "A/H3N2/HI/2010", "A/H3N2/HI/2011", "A/H3N2/HI/2012", "A/H3N2/HI/2013", "A/H3N2/HI/2014", "A/H3N2/HI/2015", "A/H3N2/MNT/2015", "A/H3N2/MNT/2016", "A/H3N2/MNT/2017"],
+        #     "h1n1pdm": ["A/H1N1pdm/HI/2009", "A/H1N1pdm/HI/2010", "A/H1N1pdm/HI/2011", "A/H1N1pdm/HI/2012", "A/H1N1pdm/HI/2013", "A/H1N1pdm/HI/2014", "A/H1N1pdm/HI/2015", "A/H1N1pdm/HI/2016", "A/H1N1pdm/HI/2017", "A/H1N1pdm/HI/2018"],
+        #     "vic": ["B/Victoria/HI/2009", "B/Victoria/HI/2010", "B/Victoria/HI/2011", "B/Victoria/HI/2012", "B/Victoria/HI/2013", "B/Victoria/HI/2014", "B/Victoria/HI/2015", "B/Victoria/HI/2016", "B/Victoria/HI/2017", "B/Victoria/HI/2018"],
+        #     "yam": ["B/Yamagata/HI/2010", "B/Yamagata/HI/2011", "B/Yamagata/HI/2012", "B/Yamagata/HI/2013", "B/Yamagata/HI/2014", "B/Yamagata/HI/2015", "B/Yamagata/HI/2016", "B/Yamagata/HI/2017", "B/Yamagata/HI/2018"]
+        # }
         subtype_to_paths = {
-            "h3n2": ["h3n2/hi/2015", "h3n2/MNT/2016", "h3n2/MNT/2017", "h3n2/fra/2018", "h3n2/fra/2017"],
-            "h1n1pdm": ["h1n1pdm/2015", "h1n1pdm/2016", "h1n1pdm/2017", "h1n1pdm/2018"],
-            "vic": ["vic/2017"],
-            "yam": ["yam/2017"]
+            'h3n2' : ['A/H3N2/FRA/2018/'],
+            'h1n1pdm' : ['A/H1N1pdm/HI/2018/'],
+            'vic' : [],
+            'yam' : ['B/Yamagata/HI/2018']
         }
         for subtype in subtypes:
             for dir_path in subtype_to_paths[subtype]:

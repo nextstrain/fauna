@@ -111,13 +111,13 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
 
 def determine_subtype(original_path):
     original_path = original_path.split('/')
-    if 'h3n2' in original_path:
+    if 'H3N2' in original_path:
         subtype = 'h3n2'
-    elif 'h1n1pdm' in original_path:
+    elif 'H1N1pdm' in original_path:
         subtype = 'h1n1pdm'
-    elif 'vic' in original_path:
+    elif 'Victoria' in original_path:
         subtype = 'vic'
-    elif 'yam' in original_path:
+    elif 'Yamagata' in original_path:
         subtype = 'yam'
     else:
         subtype = "UnknownSubtype"
