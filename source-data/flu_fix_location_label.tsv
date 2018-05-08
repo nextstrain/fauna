@@ -283,6 +283,7 @@ ArgosGR	Argos
 ArkadiaGR	Arkadia
 AstrosGR	Astros
 Athensgr	Athens
+AtticaGRC	Attica
 ChalkidaGR	Chalkida
 ChaniaGR	Chania
 ChiosIslandGR	Chios
@@ -407,6 +408,14 @@ Almatinskay	Almaty
 AlmaAta	Almaty
 Kazakstan	Kazakhstan
 Ustkamenogosk	Oskemen
+North_KazakhstanNRL	NorthKazakhstan
+West_KazakhstanNRL	WestKazakhstan
+East_KazakhstanNRL	EastKazakhstan
+SouthKazakhstanNRL	SouthKazakhstan
+Almatinskaya_KazNRL	Almaty
+Karaganda_KazNRL	Karaganda
+Akmolinskaya_NRL	Akmola
+Kysylorda_KazNRL	Kyzylorda
 
 # Kenya
 KENYA CP	Kenya

@@ -917,6 +917,7 @@ Arkadia	Greece	Peloponnese	Arkadia
 Arta	Greece	Epirus	Arta
 Astros	Greece	Peloponnese	Astros
 Athens	Greece	CentralGreece	Athens
+Attica	Greece	Attica	Attica
 Chalkida	Greece	CentralGreece	Chalkida
 Chalkidiki	Greece	CentralMacedonia	Chalkidiki
 Chania	Greece	Crete	Chania
@@ -1309,13 +1310,20 @@ Astana	Kazakhstan	Astana	Astana
 Gvardeyskiy	Kazakhstan	Almaty	Gvardeyskiy
 Jambyl	Kazakhstan	Jambyl	Jambyl
 Karaganda	Kazakhstan	Karaganda	Karaganda
-NorthKazakhstan	Kazakhstan	NorthKazakhstan	NorthKazakhstan
 Oskemen	Kazakhstan	EastKazakhstan	Oskemen
 Petropavlovsk	Kazakhstan	NorthKazakhstan	Petropavlovsk
 Semey	Kazakhstan	EastKazakhstan	Semey
 Taldykorgan	Kazakhstan	Almaty	Taldykorgan
 Taraz	Kazakhstan	Jambyl	Taraz
 Uralsk	Kazakhstan	WestKazakhstan	Uralsk
+WestKazakhstan	Kazakhstan	WestKazakhstan	WestKazakhstan
+EastKazakhstan	Kazakhstan	EastKazakhstan	EastKazakhstan
+SouthKazakhstan	Kazakhstan	SouthKazakhstan	SouthKazakhstan
+NorthKazakhstan	Kazakhstan	NorthKazakhstan	NorthKazakhstan
+Akmola	Kazakhstan	Akmola	Akmola
+Kyzylorda	Kazakhstan	Kyzylorda	Kyzylorda
+
+
 
 # Kenya
 Kenya	Kenya	Kenya	Kenya
@@ -1458,6 +1466,9 @@ Mayotte	Mayotte	Mayotte	Mayotte
 
 # Mexico
 Mexico	Mexico	Mexico	Mexico
+Aguascalientes	Mexico	Aguascalientes	Aguascalientes
+Coahuila	Mexico	Coahuila	Coahuila
+Jalisco	Mexico	Jalisco	Jalisco
 Guerrero	Mexico	Guerrero	Guerrero
 Yucatan	Mexico	Mexico	Yucatan
 Yucatanstate	Mexico	Yucatan	Yucatan
@@ -2290,6 +2301,7 @@ Malatya	Turkey	Malatya	Malatya
 Manisa	Turkey	Manisa	Manisa
 Mardin	Turkey	Mardin	Mardin
 Mersin	Turkey	Mersin	Mersin
+Mugla	Turkey	Mugla	Mugla
 Nevsehir	Turkey	Nevsehir	Nevsehir
 Nigde	Turkey	Nigde	Nigde
 Ordu	Turkey	Ordu	Ordu
@@ -2355,18 +2367,24 @@ AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
+Aberaeron	UnitedKingdom	Wales	Aberaeron
+Aberystwyth	UnitedKingdom	Wales	Aberystwyth
 Aldershot	UnitedKingdom	England	Aldershot
+Ammanford	UnitedKingdom	Wales	Ammanford
 Aylesbury	UnitedKingdom	England	Aylesbury
+Barry	UnitedKingdom	Wales	Barry
 Bedford	UnitedKingdom	England	Bedford
 Belfast	UnitedKingdom	NorthernIreland	Belfast
 Berks	UnitedKingdom	England	Berkshire
 Birmingham	UnitedKingdom	England	Birmingham
+Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
+Carmarthen	UnitedKingdom	Wales	Carmarthen
 ChristsHospital	UnitedKingdom	England	Horsham
 Cheshire	UnitedKingdom	England	Cheshire
 Cirencester	UnitedKingdom	England	Cirencester
@@ -2408,7 +2426,9 @@ Manchester	UnitedKingdom	England	Manchester
 Middlesex	UnitedKingdom	England	Middlesex
 Middx	UnitedKingdom	England	Middlesex
 Minehead	UnitedKingdom	England	Minehead
+Neath	UnitedKingdom	Wales	Neath
 NewcastleuponTyne	UnitedKingdom	England	Newcastle
+Newport	UnitedKingdom	Wales	Newport
 Ni	UnitedKingdom	NorthernIreland	Belfast
 Nib	UnitedKingdom	UnitedKingdom	UnitedKingdom
 NorthernIreland	UnitedKingdom	NorthernIreland	NorthernIreland
@@ -2417,11 +2437,15 @@ Nottingham	UnitedKingdom	England	Nottingham
 Oxford	UnitedKingdom	England	Oxford
 Oxon	UnitedKingdom	England	Oxfordshire
 Oxfordshire	UnitedKingdom	England	Oxfordshire
+Penarth	UnitedKingdom	Wales	Penarth
 Peterborough	UnitedKingdom	England	Peterborough
 Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
 Portsmouth	UnitedKingdom	England	Portsmouth
+PortTalbot	UnitedKingdom	Wales	PortTalbot
+Pwllheli	UnitedKingdom	Wales	Pwllheli
 Reading	UnitedKingdom	England	Reading
+Rhyl	UnitedKingdom	Wales	Rhyl
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
 Sheffield	UnitedKingdom	England	Sheffield
@@ -2434,6 +2458,7 @@ Swansea	UnitedKingdom	Wales	Swansea
 Telford	UnitedKingdom	England	Telford
 Tetbury	UnitedKingdom	England	Tetbury
 Ware	UnitedKingdom	England	Ware
+Wrexham	UnitedKingdom	Wales	Wrexham
 Whitechapel	UnitedKingdom	England	London
 Wirral	UnitedKingdom	England	Wirral
 Wythenshawe	UnitedKingdom	England	Wythenshawe
