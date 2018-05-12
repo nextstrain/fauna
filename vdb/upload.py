@@ -109,7 +109,6 @@ class upload(parse):
             self.fix_date = self.define_date_fixes(self.date_fix_fname)
         self.define_regions("source-data/geo_regions.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
-        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         for doc in documents:
             if 'strain' not in doc:
                 doc['strain'] = "unnamed"
@@ -123,7 +122,6 @@ class upload(parse):
             self.format_date(doc)
             self.format_place(doc)
             self.format_region(doc)
-            self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
 
@@ -345,85 +343,64 @@ class upload(parse):
         print(str(len(documents)) + " documents after filtering")
         return documents
 
-    def define_latitude_longitude(self, lat_long_fname, code_fname):
-        # get the latitude and longitudes that were already determined
-        file = open(lat_long_fname, 'r')
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')		# list of dicts
-        self.location_to_lat_long = {}
-        for line in reader:
-            try:
-                self.location_to_lat_long[line['location'] + ":" + line['country_code']] = (float(line['latitude']), float(line['longitude']))
-            except:
-                print("Line failed ", line)
-                raise Exception("Failed to read ", file, "please check the line that failed")
-        file.close()
+    # Latitude and longitude have moved to augur
+    # There should be no reference to lat/long in fauna
 
-        # Mapping from country to ISO 3166-1 Alpha-2 code
-        file = open(code_fname, 'r')
-        reader = csv.DictReader(filter(lambda row: row[0]!='#', file), delimiter='\t')
-        self.country_to_code = {}
-        for line in reader:
-            self.country_to_code[line['country']] =line['code']
-        file.close()
+    # def determine_latitude_longitude(self, doc, location_fields=['location', 'division', 'country']):
+    #     '''
+    #     Assign latitude, longitude for as specific of a location as possible
+    #     Location fields should be defined in order prioritized to determine latitude and longitude from
+    #     Start by looking first for location, then division then country
+    #
+    #     '''
+    #     if 'country' in doc and doc['country'] is not None:
+    #         if doc['country'] in self.country_to_code:
+    #             country_code = self.country_to_code[doc['country']]
+    #             locations = [doc[field] for field in location_fields if field in doc and doc[field] is not None]
+    #             for loc in locations:
+    #                 if loc + ":" + country_code in self.location_to_lat_long:  # already determined location
+    #                     doc['latitude'], doc['longitude'], doc['lat_long_location'] = self.location_to_lat_long[loc + ":" + country_code] + (loc,)
+    #                     return doc['latitude'], doc['longitude'], doc['lat_long_location']
+    #                 else:
+    #                     try:
+    #                         result = self.get_latitude_longitude(country_code, loc)
+    #                     except:
+    #                         print(doc['strain'], locations, loc)
+    #                         self.new_lat_long_file.close()
+    #                         raise Exception("Geopy query failed")
+    #                     if result is not None:  # found location
+    #                         if loc not in self.location_to_lat_long:
+    #                             print("Found latitude and longitude for ", loc, doc['country'])
+    #                             self.new_lat_long_file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
+    #                             self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
+    #                         doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
+    #                         return doc['latitude'], doc['longitude'], doc['lat_long_location']
+    #                     else:
+    #                         print("Couldn't find latitude and longitude for ", loc, doc['country'])
+    #             print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
+    #             doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
+    #             return None, None, None
+    #         else:
+    #             print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
+    #     else:
+    #         #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
+    #         pass
 
-        # file to write the new latitudes and longitudes that will be determined
-        self.new_lat_long_file = open(lat_long_fname, 'a')
-
-    def determine_latitude_longitude(self, doc, location_fields=['location', 'division', 'country']):
-        '''
-        Assign latitude, longitude for as specific of a location as possible
-        Location fields should be defined in order prioritized to determine latitude and longitude from
-        Start by looking first for location, then division then country
-
-        '''
-        if 'country' in doc and doc['country'] is not None:
-            if doc['country'] in self.country_to_code:
-                country_code = self.country_to_code[doc['country']]
-                locations = [doc[field] for field in location_fields if field in doc and doc[field] is not None]
-                for loc in locations:
-                    if loc + ":" + country_code in self.location_to_lat_long:  # already determined location
-                        doc['latitude'], doc['longitude'], doc['lat_long_location'] = self.location_to_lat_long[loc + ":" + country_code] + (loc,)
-                        return doc['latitude'], doc['longitude'], doc['lat_long_location']
-                    else:
-                        try:
-                            result = self.get_latitude_longitude(country_code, loc)
-                        except:
-                            print(doc['strain'], locations, loc)
-                            self.new_lat_long_file.close()
-                            raise Exception("Geopy query failed")
-                        if result is not None:  # found location
-                            if loc not in self.location_to_lat_long:
-                                print("Found latitude and longitude for ", loc, doc['country'])
-                                self.new_lat_long_file.write("\t".join([loc, country_code, str(result[0]), str(result[1])]) + "\n")
-                                self.location_to_lat_long[loc + ":" + country_code] = (result[0], result[1])
-                            doc['latitude'], doc['longitude'], doc['lat_long_location'] = result + (loc,)
-                            return doc['latitude'], doc['longitude'], doc['lat_long_location']
-                        else:
-                            print("Couldn't find latitude and longitude for ", loc, doc['country'])
-                print("Couldn't determine latitude and longitude for ", doc['strain'], locations)
-                doc['latitude'], doc['longitude'], doc['lat_long_location'] = None, None, None
-                return None, None, None
-            else:
-                print("Couldn't find alpha-2 country code for ", doc['country'], doc['strain'])
-        else:
-            #print("Country not defined for this document, can't determine latitude and longitude", doc['strain'])
-            pass
-
-    def get_latitude_longitude(self, country_code, location):
-        '''
-        Use geopy package to determine latitude and longitude for location
-        Bias results to country_code
-        Return tuple of latitude, longitude if result found, otherwise returns None
-        '''
-        from geopy.geocoders import Nominatim
-        geolocator = Nominatim(country_bias=country_code)
-        #from geopy.geocoders import GeoNames
-        #geolocator = GeoNames(country_bias=country_code, username='')
-        result = geolocator.geocode(location.replace("_", " "))
-        if result is not None:
-            return (result.latitude, result.longitude)
-        else:
-            return result
+    # def get_latitude_longitude(self, country_code, location):
+    #     '''
+    #     Use geopy package to determine latitude and longitude for location
+    #     Bias results to country_code
+    #     Return tuple of latitude, longitude if result found, otherwise returns None
+    #     '''
+    #     from geopy.geocoders import Nominatim
+    #     geolocator = Nominatim(country_bias=country_code)
+    #     #from geopy.geocoders import GeoNames
+    #     #geolocator = GeoNames(country_bias=country_code, username='')
+    #     result = geolocator.geocode(location.replace("_", " "))
+    #     if result is not None:
+    #         return (result.latitude, result.longitude)
+    #     else:
+    #         return result
 
     def match_duplicate_strains(self, viruses, sequences, **kwargs):
         '''

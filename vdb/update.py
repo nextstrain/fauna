@@ -67,7 +67,6 @@ class update(upload):
         viruses = list(r.table(table).run())
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
-        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         viruses = self.reassign_new_locations(viruses, self.location_fields, **kwargs)
         if not preview:
             print("Updating " + str(len(viruses)) + " virus locations in " + self.database + "." + self.viruses_table)
@@ -80,7 +79,7 @@ class update(upload):
         '''
         Use location fields to find location information that needs to be updated
         Uses the first location field that returns location information from self.determine_location
-        Update location information, region, latitude and longitude
+        Update location and region
         '''
         updated_documents = []
         fix_region = 'region' in location_fields # Do we also want to update region designations?
@@ -97,7 +96,6 @@ class update(upload):
                             doc['location'], doc['division'], doc['country'] = result
                             self.format_place(doc)
                             self.format_region(doc)
-                            self.determine_latitude_longitude(doc)
                             updated_documents.append(doc)
                     else:
                         print("couldn't parse %s for "%field, doc['strain'], self.snakecase_to_camelcase(doc[field]))

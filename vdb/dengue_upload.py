@@ -68,7 +68,6 @@ class dengue_upload(update):
 	def format_metadata(self, documents, **kwargs):
 		self.define_regions("source-data/geo_regions.tsv")
 		self.define_countries("source-data/geo_synonyms.tsv")
-		self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
 		self.get_genbank_dates(documents, **kwargs)
 		for doc in documents:
 			try:
@@ -78,7 +77,6 @@ class dengue_upload(update):
 			self.format_date(doc) # overriden below
 			self.format_place(doc) # overriden below
 			self.format_region(doc)
-			self.determine_latitude_longitude(doc, ['location', 'country'])
 			self.fix_strain(doc)   # overridden below
 			try:
 				doc['authors'] = doc['authors'].split(',')[0].split(' ')[-1]+' et al.' # just keep the first author

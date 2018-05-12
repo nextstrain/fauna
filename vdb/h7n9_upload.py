@@ -126,7 +126,6 @@ class flu_upload(upload):
             self.fix_location = self.define_location_fixes(self.location_fix_fname)
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
-        self.define_latitude_longitude("source-data/geo_lat_long.tsv", "source-data/geo_ISO_code.tsv")
         self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
             if 'strain' in doc:
@@ -144,7 +143,6 @@ class flu_upload(upload):
                     doc['location'] = self.fix_location[doc['strain']]
             self.format_place(doc, determine_location=True)
             self.format_region(doc)
-            self.determine_latitude_longitude(doc)
             self.rethink_io.check_optional_attributes(doc, [])
 
     def format_sequences(self, documents, **kwargs):

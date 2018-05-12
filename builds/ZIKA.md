@@ -9,7 +9,7 @@
 * Update location fields
   * After hand editing `location` in [chateau](https://github.com/blab/chateau)
   * `python vdb/zika_update.py -db vdb -v zika --update_locations`
-  * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
+  * Updates `division`, `country`, `region` fields
 
 ## Download
 

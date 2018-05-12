@@ -169,7 +169,7 @@ Sequences and Viruses in vdb can be updated.
   * `python vdb/zika_update.py -db vdb -v zika --update_citations`
 * `--update_locations`
   * First manually edit most detailed location field (ie `location`) with [chateau](https://github.com/blab/chateau)
-  * Updates `division`, `country`, `region`, `latitude`, `longitude` fields
+  * Updates `division`, `country`, `region` fields
   * `python vdb/zika_update.py -db vdb -v zika --update_locations`
 * `--update_groupings`
   * Updates genetic grouping fields like `vtype`, `subtype`, `lineage

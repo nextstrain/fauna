@@ -37,9 +37,6 @@ class siv_upload(upload):
             self.format_region(doc)
             self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc)
-        if not exclude_virus_methods:
-            print("Determining latitudes and longitudes")
-            self.determine_latitude_longitude(documents, ['country'])
 
     def format_country(self, v):
         '''
