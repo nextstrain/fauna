@@ -1,8 +1,7 @@
-biopython==1.68
-boto3==1.4.0
-geopy==1.11.0
+biopython==1.69
+boto==2.38.0
+pandas==0.16.2
 rethinkdb==2.3.0.post6
 requests==2.11.1
 unidecode==0.4.19
 xlrd==1.0.0
-pandas==0.20.3
