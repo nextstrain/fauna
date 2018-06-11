@@ -1,0 +1,15 @@
+biopython==1.71
+boto==2.48.0
+certifi==2018.4.16
+chardet==3.0.4
+idna==2.6
+numpy==1.14.4
+pandas==0.16.2
+python-dateutil==2.7.3
+pytz==2018.4
+requests==2.18.4
+rethinkdb==2.3.0.post6
+six==1.11.0
+Unidecode==1.0.22
+urllib3==1.22
+xlrd==1.1.0
