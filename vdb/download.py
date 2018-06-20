@@ -18,7 +18,7 @@ def get_parser():
     parser.add_argument('--ftype', default='fasta', help="output file format, default \"fasta\", other options are \"json\" and \"tsv\"")
     parser.add_argument('--fstem', help="default output file name is \"VirusName_Year_Month_Date\"")
     parser.add_argument('--path', default='data', help="path to dump output files to")
-    parser.add_argument('--fasta_fields', default=['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
+    parser.add_argument('--fasta_fields', nargs='+', default=['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
     parser.add_argument('--public_only', action="store_true", help="include to subset public sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
