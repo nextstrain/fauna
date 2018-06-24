@@ -1227,6 +1227,7 @@ Japan	Japan	Japan	Japan
 Aichi	Japan	Aichi	Aichi
 Akita	Japan	Akita	Akita
 Aomori	Japan	Aomori	Aomori
+Asaka	Japan	Saitama	Asaka
 Chiba	Japan	Chiba	Chiba
 Ehime	Japan	Ehime	Ehime
 Fukui	Japan	Fukui	Fukui
@@ -2370,6 +2371,7 @@ Aberaeron	UnitedKingdom	Wales	Aberaeron
 Aberystwyth	UnitedKingdom	Wales	Aberystwyth
 Aldershot	UnitedKingdom	England	Aldershot
 Ammanford	UnitedKingdom	Wales	Ammanford
+Anglesey	UnitedKingdom	Wales	Anglesey
 Aylesbury	UnitedKingdom	England	Aylesbury
 Barry	UnitedKingdom	Wales	Barry
 Bedford	UnitedKingdom	England	Bedford
@@ -2380,6 +2382,7 @@ Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
+Caldicot	UnitedKingdom	Wales	Caldicot
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
@@ -2407,6 +2410,7 @@ Glasgow	UnitedKingdom	Scotland	Glasgow
 Gloucester	UnitedKingdom	England	Gloucester
 Guildford	UnitedKingdom	England	Guildford
 Hampshire	UnitedKingdom	England	Hampshire
+Haverfordwest	UnitedKingdom	Wales	Haverfordwest
 Headington	UnitedKingdom	England	Headington
 HERTS	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
@@ -2419,12 +2423,14 @@ Leeds	UnitedKingdom	England	Leeds
 Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
 Liverpool	UnitedKingdom	England	Liverpool
+Llanelli	UnitedKingdom	Wales	Llanelli
 London	UnitedKingdom	England	London
 Luton	UnitedKingdom	England	Luton
 Manchester	UnitedKingdom	England	Manchester
 Middlesex	UnitedKingdom	England	Middlesex
 Middx	UnitedKingdom	England	Middlesex
 Minehead	UnitedKingdom	England	Minehead
+Monmouth	UnitedKingdom	Wales	Monmouth
 Neath	UnitedKingdom	Wales	Neath
 NewcastleuponTyne	UnitedKingdom	England	Newcastle
 Newport	UnitedKingdom	Wales	Newport
@@ -2440,8 +2446,10 @@ Penarth	UnitedKingdom	Wales	Penarth
 Peterborough	UnitedKingdom	England	Peterborough
 Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
+Pontyclun	UnitedKingdom	Wales	Pontyclun
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
+Powys	UnitedKingdom	Wales	Powys
 Pwllheli	UnitedKingdom	Wales	Pwllheli
 Reading	UnitedKingdom	England	Reading
 Rhyl	UnitedKingdom	Wales	Rhyl
