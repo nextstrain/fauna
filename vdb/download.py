@@ -219,11 +219,11 @@ class download(object):
             for strain in strains:
                 strain_sdocs = strain_to_sdocs[strain]
                 for s in strain_sdocs:
-                	if s['sequence'] == None:
-                		strain_sdocs.remove(s)
+                    if s['sequence'] == None:
+                        strain_sdocs.remove(s)
                 if len(strain_sdocs) != 0:
-                	sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
-                	resolved_sequence_docs.append(sorted_strain_sdocs[0])
+                    sorted_strain_sdocs = sorted(strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                    resolved_sequence_docs.append(sorted_strain_sdocs[0])
         elif resolve_method == "split_passage":
             print("Resolving duplicate strains by keeping one cell/direct and one egg sequence")
             print("Appends -egg to egg-passaged sequence")
@@ -234,7 +234,7 @@ class download(object):
                 egg_strain_sdocs = []
                 for strain_sdoc in strain_sdocs:
                     if strain_sdoc['passage_category'] == "unpassaged" or strain_sdoc['passage_category'] == "cell" or strain_sdoc['passage_category'] == "undetermined":
-                		cell_strain_sdocs.append(strain_sdoc)
+                        cell_strain_sdocs.append(strain_sdoc)
                     if strain_sdoc['passage_category'] == "egg":
                         strain_sdoc['strain'] = strain_sdoc['strain'] + "-egg"
                         egg_strain_sdocs.append(strain_sdoc)
