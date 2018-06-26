@@ -235,10 +235,10 @@ class download(object):
                 egg_strain_sdocs = []
                 for strain_sdoc in strain_sdocs:
                     if strain_sdoc['passage_category'] == "unpassaged" or strain_sdoc['passage_category'] == "undetermined":
-                		unpassaged_strain_sdocs.append(strain_sdoc)
+                        unpassaged_strain_sdocs.append(strain_sdoc)
                     if strain_sdoc['passage_category'] == "cell":
                         strain_sdoc['strain'] = strain_sdoc['strain'] + "-cell"
-                		cell_strain_sdocs.append(strain_sdoc)
+                        cell_strain_sdocs.append(strain_sdoc)
                     if strain_sdoc['passage_category'] == "egg":
                         strain_sdoc['strain'] = strain_sdoc['strain'] + "-egg"
                         egg_strain_sdocs.append(strain_sdoc)
