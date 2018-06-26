@@ -230,14 +230,21 @@ class download(object):
             print("Within cell/egg partitions prioritize longest sequence")
             for strain in strains:
                 strain_sdocs = strain_to_sdocs[strain]
+                unpassaged_strain_sdocs = []
                 cell_strain_sdocs = []
                 egg_strain_sdocs = []
                 for strain_sdoc in strain_sdocs:
-                    if strain_sdoc['passage_category'] == "unpassaged" or strain_sdoc['passage_category'] == "cell" or strain_sdoc['passage_category'] == "undetermined":
+                    if strain_sdoc['passage_category'] == "unpassaged" or strain_sdoc['passage_category'] == "undetermined":
+                		unpassaged_strain_sdocs.append(strain_sdoc)
+                    if strain_sdoc['passage_category'] == "cell":
+                        strain_sdoc['strain'] = strain_sdoc['strain'] + "-cell"
                 		cell_strain_sdocs.append(strain_sdoc)
                     if strain_sdoc['passage_category'] == "egg":
                         strain_sdoc['strain'] = strain_sdoc['strain'] + "-egg"
                         egg_strain_sdocs.append(strain_sdoc)
+                if len(unpassaged_strain_sdocs) > 0:
+                    sorted_unpassaged_strain_sdocs = sorted(unpassaged_strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
+                    resolved_sequence_docs.append(sorted_unpassaged_strain_sdocs[0])
                 if len(cell_strain_sdocs) > 0:
                     sorted_cell_strain_sdocs = sorted(cell_strain_sdocs, key=lambda k: len(k['sequence'].replace('n', '')), reverse=True)
                     resolved_sequence_docs.append(sorted_cell_strain_sdocs[0])
