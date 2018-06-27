@@ -31,5 +31,5 @@
 
 Upload with:
 
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_good.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname ZIKA_USVI_partial.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_good.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
+    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_partial.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
