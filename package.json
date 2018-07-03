@@ -10,7 +10,7 @@
   "dependencies": {
     "rethinkdb": "2.2.1",
     "express": "3.3.4",
-    "jade": "= 1.0.2",
+    "jade": "1.11.0",
     "optimist": " >= 0.6.0",
     "stream": ">= 0.0.1",
     "moment": "2.22.2"
