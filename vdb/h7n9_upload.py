@@ -394,7 +394,7 @@ class flu_upload(upload):
             passage_category = "undetermined"
             if re.search(r'AM[1-9]|E[1-9]|AMNIOTIC|EGG|EX|AM_[1-9]', passage):   # McWhite
                 passage_category = "egg"
-            elif re.search(r'AM-[1-9]|EMBRYO|E$', passage):
+            elif re.search(r'AM-[1-9]|EMBRYO|^E$', passage):
                 passage_category = "egg"
             elif re.search(r'LUNG|P0|OR_|ORIGINAL|CLINICAL|DIRECT', passage):    # McWhite
                 passage_category = "unpassaged"
