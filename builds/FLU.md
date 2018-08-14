@@ -20,6 +20,8 @@
 
 ### Update documents in VDB
 
+All of these functions are quite slow given they run over ~600k documents. Use sparingly.
+
 * Update genetic grouping fields
   * `python vdb/flu_update.py -db vdb -v flu --update_groupings`
   * updates `vtype`, `subtype`, `lineage`

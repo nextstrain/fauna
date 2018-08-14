@@ -333,13 +333,18 @@ class flu_upload(upload):
                     v['division'] = assignment[1]
                     v['country'] = assignment[2]
 
-    def format_passage(self, doc, initial_field, new_field, **kwargs):
+    def format_passage(self, doc, passage_field = 'passage', passage_category_field = 'passage_category', **kwargs):
         '''
         Separate passage into general categories
         Regex borrowed from McWhite et al. 2016
         '''
-        if initial_field in doc and doc[initial_field] is not None:
-            passage = doc[initial_field].upper()
+        updated = False
+        initial_passage_category =  None
+        passage_category = None
+        if passage_category_field in doc and doc[passage_category_field] is not None:
+            initial_passage_category = doc[passage_category_field]
+        if passage_field in doc and doc[passage_field] is not None:
+            passage = doc[passage_field].upper()
             passage_category = "undetermined"
             if re.search(r'AM[1-9]|E[1-9]|AMNIOTIC|EGG|EX|AM_[1-9]', passage):   # McWhite
                 passage_category = "egg"
@@ -347,11 +352,11 @@ class flu_upload(upload):
                 passage_category = "egg"
             elif re.search(r'LUNG|P0|OR_|ORIGINAL|CLINICAL|DIRECT', passage):    # McWhite
                 passage_category = "unpassaged"
-            elif re.search(r'ORGINAL|ORIGNAL|CLINCAL|THROAT|PRIMARY|NASO|AUTOPSY|BRONCHIAL|INITIAL|NASAL|NOSE|ORIG|SWAB', passage):
+            elif re.search(r'ORGINAL|ORIGNAL|CLINCAL|THROAT|PRIMARY|NASO|AUTOPSY|BRONCHIAL|INITIAL|NASAL|NOSE|ORIG|SWAB|NO PASSAGE', passage):
                 passage_category = "unpassaged"
-            elif re.search(r'TMK|RMK|RHMK|RII|PMK|R[1-9]|RX', passage):    # McWhite
+            elif re.search(r'TMK|RMK|RHMK|RII|PMK|R[1-9]|RX|RHESUS', passage):    # McWhite
                 passage_category = "cell"
-            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MCDK|C[1-9]|CX|M[1-9]|MX|X[1-9]|^X_$', passage):  # McWhite
+            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MDCK[1-9]|C[1-9]|CX|M[1-9]|MX|X[1-9]|^X_$', passage):  # McWhite
                 passage_category = "cell"
             elif re.search(r'C_[1-9]|C [1-9]|MD[1-9]|MK[1-9]|MEK[1-9]', passage):
                 passage_category = "cell"
@@ -361,10 +366,22 @@ class flu_upload(upload):
                 passage_category = "cell"
             elif re.search(r'UNKNOWN|UNDEFINED|NOT SPECIFIED|DIFFERENT ISOLATION SOURCES', passage):
                 pass
-            doc[new_field] = passage_category
+            doc[passage_category_field] = passage_category
+        elif passage_field in doc and doc[passage_field] is None:
+            passage_category = 'undetermined'
+            doc[passage_category_field] = passage_category
         else:
-            doc[initial_field] = None
-            doc[new_field] = None
+            passage_category = None
+            doc[passage_field] = None
+            doc[passage_category_field] = passage_category
+        if initial_passage_category != passage_category:
+            updated = True
+            if initial_passage_category != None:
+                print(doc['strain'])
+                print("passage: ", doc['passage'])
+                print("initial category ", initial_passage_category)
+                print("new category ", passage_category)
+        return updated
 
     def determine_group_fields(self, v, patterns, **kwargs):
         '''

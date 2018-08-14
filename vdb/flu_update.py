@@ -19,14 +19,24 @@ class flu_update(update, flu_upload):
 
     def update_passage_categories(self, database, table, preview, index='accession', **kwargs):
         print("Updating passage_category field via passage field")
-        sequences = list(r.table(table).run())
         upload = flu_upload(**args.__dict__)
-        for sequence in sequences:
-            upload.format_passage(sequence, 'passage', 'passage_category')
+        updated_sequences = []
+        cursor = r.table(table).run()
+        counter = 0
+        total = r.table(table).count().run()
+        print("Analyzing " +  str(total) + " sequence entries")
+        for sequence in cursor:
+            updated = upload.format_passage(sequence)
+            if updated:
+                updated_sequences.append(sequence)
+            counter += 1
+            if counter % 10000 == 0:
+                print(str(counter) + " entries parsed")
+        print("Found " +  str(len(updated_sequences)) + " sequences to update")
         if not preview:
-            print("Updating " + str(len(sequence)) + " sequence passage categories in " + database + "." + table)
+            print("Updating " + str(len(updated_sequences)) + " sequence passage categories in " + database + "." + table)
             del kwargs['overwrite']
-            self.upload_to_rethinkdb(database, table, sequences, overwrite=True, index='accession')
+            self.upload_to_rethinkdb(database, table, updated_sequences, overwrite=True, index='accession')
         else:
             print("Preview of updates to be made, remove --preview to make updates to database")
 
