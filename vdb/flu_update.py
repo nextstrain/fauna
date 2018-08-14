@@ -17,6 +17,19 @@ class flu_update(update, flu_upload):
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
 
+    def update_passage_categories(self, database, table, preview, index='accession', **kwargs):
+        print("Updating passage_category field via passage field")
+        sequences = list(r.table(table).run())
+        upload = flu_upload(**args.__dict__)
+        for sequence in sequences:
+            upload.format_passage(sequence, 'passage', 'passage_category')
+        if not preview:
+            print("Updating " + str(len(sequence)) + " sequence passage categories in " + database + "." + table)
+            del kwargs['overwrite']
+            self.upload_to_rethinkdb(database, table, sequences, overwrite=True, index='accession')
+        else:
+            print("Preview of updates to be made, remove --preview to make updates to database")
+
     def update_groupings(self, viruses_table, sequences_table, database, update_keyword='tbd', preview=False, optimal_upload=50, **kwargs):
         '''
         Get viruses that have not had virus groupings determined, signaled by update_keyword

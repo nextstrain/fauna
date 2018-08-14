@@ -28,6 +28,10 @@
   * `python vdb/flu_update.py -db vdb -v flu --update_locations`
   * updates `division`, `country` and `region` from `location`
 
+* Update passage_category fields
+  * `python vdb/flu_update.py -db vdb -v flu --update_passage_categories`
+  * update `passage_category` based on `passage` field
+
 ### Download documents from VDB
 
 * `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`

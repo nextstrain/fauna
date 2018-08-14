@@ -6,6 +6,7 @@ from upload import get_parser
 parser = get_parser()
 parser.add_argument('--update_citations', default=False, action="store_true", help="update citation fields")
 parser.add_argument('--update_locations', default=False, action="store_true", help="update location fields")
+parser.add_argument('--update_passage_categories', default=False, action="store_true", help="update passage_category fields")
 parser.add_argument('--update_groupings', default=False, action="store_true", help="update grouping fields")
 parser.add_argument('--n_entrez', default=2500, type=int, help="number of entrez accessions to fetch at a time (default: 2500)")
 parser.add_argument('--update_citations_tsv', default=None, type=str, help="update citations from tsv not entrez")
@@ -16,7 +17,7 @@ class update(upload):
         upload.__init__(self, **kwargs)
         self.location_fields = ['location', 'division', 'country', 'region']
 
-    def update(self, update_citations, update_citations_tsv, update_locations, update_groupings, **kwargs):
+    def update(self, update_citations, update_citations_tsv, update_locations, update_passage_categories, update_groupings, **kwargs):
         self.connect(**kwargs)
         if update_citations:
             self.update_citations(table=self.sequences_table, **kwargs)
@@ -24,6 +25,8 @@ class update(upload):
             self.update_citations_tsv(update_citations_tsv, table=self.sequences_table, **kwargs)
         elif update_locations:
             self.update_locations(table=self.viruses_table, **kwargs)
+        elif update_passage_categories:
+            self.update_passage_categories(table=self.sequences_table, **kwargs)
         elif update_groupings:
             self.update_groupings(self.viruses_table, self.sequences_table, **kwargs)
         else:
@@ -111,6 +114,9 @@ class update(upload):
                     print e
                     continue
         return updated_documents
+
+    def update_passage_categories(self, **kwargs):
+        print("No default passage category method defined, please use the specific virus update script, ie flu_update.py")
 
     def update_groupings(self, **kwargs):
         print("No default grouping method defined, please use the specific virus update script, ie flu_update.py")
