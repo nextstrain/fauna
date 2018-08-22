@@ -109,13 +109,13 @@ def upload_vidrl(database, subtypes):
 
 def upload_niid(database, subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:
-        base_path = '../NIID-Tokyo-WHO-CC/raw-data/'
+        base_path = '/Users/bpotter/fludata/NIID-Tokyo-WHO-CC/raw-data/'
         dir_paths = []
         subtype_to_paths = {
-            "h3n2": ["h3n2/hi/2015", "h3n2/MNT/2016", "h3n2/MNT/2017", "h3n2/fra/2018", "h3n2/fra/2017"],
-            "h1n1pdm": ["h1n1pdm/2015", "h1n1pdm/2016", "h1n1pdm/2017", "h1n1pdm/2018"],
-            "vic": ["vic/2017"],
-            "yam": ["yam/2017"]
+            "h3n2": ["A/H3N2/HI/2015", "A/H3N2/MNT/2016", "A/H3N2/MNT/2017", "A/H3N2/FRA/2018", "A/H3N2/FRA/2017"],
+            "h1n1pdm": ["A/H1N1pdm/2015", "A/H1N1pdm/2016", "A/H1N1pdm/2017", "A/H1N1pdm/2018"],
+            "vic": ["B/Victoria/HI/2017", "B/Victoria/HI/2018"],
+            "yam": ["B/Yamagata/HI/2017", "B/Yamagata/HI/2018"]
         }
         for subtype in subtypes:
             for dir_path in subtype_to_paths[subtype]:
