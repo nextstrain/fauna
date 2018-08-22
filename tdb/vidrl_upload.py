@@ -152,6 +152,9 @@ if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
         args.path = "data/"
+    else:
+        if not args.path.endswith('/'):
+            args.path = args.path + '/'
     if args.database is None:
         args.database = "vidrl_tdb"
     if not os.path.isdir(args.path):
