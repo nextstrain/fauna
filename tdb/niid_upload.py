@@ -50,6 +50,7 @@ def convert_xls_to_csv(path, fstem, ind):
         return
 
 def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
+    suptype=subtype.lower()
     flutype = ""
     if subtype == "h3n2" or subtype == "h1n1pdm":
         flutype = "A"
@@ -79,7 +80,7 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
         elif subtype == "vic":
             start_row = 5
             start_col = 4
-            serum_id_row_index = 3
+            serum_id_row_index = 4
         elif subtype == "yam":
             start_row = 5
             start_col = 4
@@ -91,6 +92,7 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                 serum_id = re.sub(r'[\r\n ]+', '', serum_id)
                 m = re.search(r'^(\S+)(egg|cell|siat)', serum_id, re.IGNORECASE)
                 serum_strain = ""
+                # import pdb; pdb.set_trace()
                 if m:
                     serum_strain = m.group(1)
                     serum_strain = flutype + "/" + serum_strain
@@ -110,14 +112,14 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                 outfile.write(line)
 
 def determine_subtype(original_path):
-    original_path = original_path.split('/')
+    original_path = original_path.lower().split('/')
     if 'h3n2' in original_path:
         subtype = 'h3n2'
     elif 'h1n1pdm' in original_path:
         subtype = 'h1n1pdm'
-    elif 'vic' in original_path:
+    elif 'victoria' in original_path:
         subtype = 'vic'
-    elif 'yam' in original_path:
+    elif 'yamagata' in original_path:
         subtype = 'yam'
     else:
         subtype = "UnknownSubtype"
