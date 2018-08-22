@@ -100,21 +100,23 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                 virus_passage_col_index = 15
 
         # some tables are do not begin where we think they do
-        check_cell = mat[10][2]
-        if check_cell == "Reference Antigens":
-            for i in range(start_row, len(mat)):
-                for j in range(start_col, end_col):
-                    virus_strain = mat[i][virus_strain_col_index]
-                    serum_strain = mat[10][j]
-                    serum_id = mat[8][j]
-                    titer = mat[i][j]
-                    source = "vidrl_%s"%(src_id)
-                    virus_passage = mat[i][virus_passage_col_index]
-                    virus_passage_category = ''
-                    serum_passage = mat[9][j]
-                    serum_passage_category = ''
-                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                    outfile.write(line)
+        # add possible starting locations
+        possible_starts = [mat[10][2], mat[13][0]]
+        for check_cell in possible_starts:
+            if check_cell == "Reference Antigens":
+                for i in range(start_row, len(mat)):
+                    for j in range(start_col, end_col):
+                        virus_strain = mat[i][virus_strain_col_index]
+                        serum_strain = mat[10][j]
+                        serum_id = mat[8][j]
+                        titer = mat[i][j]
+                        source = "vidrl_%s"%(src_id)
+                        virus_passage = mat[i][virus_passage_col_index]
+                        virus_passage_category = ''
+                        serum_passage = mat[9][j]
+                        serum_passage_category = ''
+                        line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                        outfile.write(line)
 
 # def determine_initial_indices(path, fstem):
 #     import xlrd
