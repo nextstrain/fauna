@@ -10,7 +10,7 @@ sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
 import logging
-logger = logging.getLogger()
+# logger = logging.getLogger()
 
 parser.add_argument('--assay_type', default='hi')
 
@@ -28,7 +28,7 @@ def read_vidrl(path, fstem, assay_type):
         fname = "data/tmp/%s.csv"%(fstem)
         parse_vidrl_matrix_to_tsv(fname, path, assay_type)
     else:
-        logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
+        # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         sys.exit()
 
 def convert_xls_to_csv(path, fstem, ind):
