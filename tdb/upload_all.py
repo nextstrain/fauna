@@ -154,7 +154,7 @@ if __name__=="__main__":
         params.subtypes = ['h3n2', 'h1n1pdm', 'vic', 'yam']
 
     if params.sources is None:
-        params.sources = ['elife', 'nimr', 'cdc']
+        params.sources = ['elife', 'nimr', 'cdc', 'vidrl']
 
     for source in params.sources:
         if source == "cdc":
