@@ -79,7 +79,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         print("assay_type: " + assay_type)
         if assay_type == "hi":
             start_row = 12
-            start_col = 7
+            start_col = 5 # Changed from 7 to 5 for VIC/YAM tables -BP
             end_col = 15
             virus_strain_col_index = 2
             virus_passage_col_index = 16
@@ -90,8 +90,8 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
             virus_strain_col_index = 2
             virus_passage_col_index = 14
             # some FRA tables have 10 sera, some have 11, some have 9
-            check_cell_10th_sera = mat[7][13]
-            check_cell_11th_sera = mat[7][14]
+            check_cell_10th_sera = mat[start_col][13]
+            check_cell_11th_sera = mat[start_col][14]
             if check_cell_10th_sera == '':
                 virus_passage_col_index = 13
             elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
