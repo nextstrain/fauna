@@ -43,15 +43,18 @@ def convert_xls_to_csv(path, fstem, ind):
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
         with open('data/tmp/{}_{}.csv'.format(fstem, sheet.name), 'wb') as f:
-            try:
-                writer = csv.writer(f)
-                print(sheet.name)
-                writer.writerows( sheet.row_values(row) for row in range(sheet.nrows))
-            except:
-                print("couldn't write data/tmp/{}_{}.csv".format(fstem,sheet.name))
+            writer = csv.writer(f)
+            print(sheet.name)
+            for row in range(sheet.nrows):
+                new_row = []
+                for cell in sheet.row_values(row):
+                    try:
+                        new_row.append(unicode(cell).encode('utf-8'))
+                    except:
+                        import pdb; pdb.set_trace()
+                writer.writerow(new_row)
         print("wrote new csv to data/tmp/{}_{}.csv".format(fstem, sheet.name))
         sheets.append("{}_{}".format(fstem, sheet.name))
-        # sys.exit()
     return sheets
 
 def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
