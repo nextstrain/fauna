@@ -377,10 +377,16 @@ class flu_upload(upload):
         if initial_passage_category != passage_category:
             updated = True
             if initial_passage_category != None:
-                print(doc['strain'])
-                print("passage: ", doc['passage'])
-                print("initial category ", initial_passage_category)
-                print("new category ", passage_category)
+                try:
+                    print(doc['strain'])
+                    print("passage: ", doc['passage'])
+                    print("initial category ", initial_passage_category)
+                    print("new category ", passage_category)
+                except KeyError:
+                    # Exception for titers that do not have a 'strain' label
+                    # only 'virus_strain' and 'serum_strain'
+                    pass
+
         return updated
 
     def determine_group_fields(self, v, patterns, **kwargs):
