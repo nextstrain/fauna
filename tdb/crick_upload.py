@@ -73,10 +73,10 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             pass
         if assay_type == "hi":
             start_row = 14
-            start_col = 7
+            start_col = 6
             col_span = 1
-            virus_strain_col_index = 2
-            virus_passage_col_index = 6
+            virus_strain_col_index = 1
+            virus_passage_col_index = 5
         elif assay_type == "fra":
             start_row = 16
             start_col = 5
@@ -86,10 +86,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index]
-                if mat[7][j] == "":
-                    serum_strain = mat[6][j]
-                else:
-                    serum_strain = mat[6][j] + "/" + mat[7][j]
+                serum_strain = mat[6][j]
                 serum_id = mat[9][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
