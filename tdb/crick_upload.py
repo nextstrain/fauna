@@ -121,9 +121,11 @@ if __name__=="__main__":
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
     sheets = read_crick(args.path, args.fstem, args.assay_type)
-    #TODO: This is where I will add conversion of crick files to eLife format!
     for sheet in sheets:
-        subtype = determine_subtype(sheet)
+        if args.subtype:
+            subtype = args.subtype
+        else:
+            subtype = determine_subtype(sheet)
         if args.preview:
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))
