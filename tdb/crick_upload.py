@@ -43,15 +43,18 @@ def convert_xls_to_csv(path, fstem, ind):
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
         with open('data/tmp/{}_{}.csv'.format(fstem, sheet.name), 'wb') as f:
-            try:
-                writer = csv.writer(f)
-                print(sheet.name)
-                writer.writerows( sheet.row_values(row) for row in range(sheet.nrows))
-            except:
-                print("couldn't write data/tmp/{}_{}.csv".format(fstem,sheet.name))
+            writer = csv.writer(f)
+            print(sheet.name)
+            for row in range(sheet.nrows):
+                new_row = []
+                for cell in sheet.row_values(row):
+                    try:
+                        new_row.append(unicode(cell).encode('utf-8'))
+                    except:
+                        import pdb; pdb.set_trace()
+                writer.writerow(new_row)
         print("wrote new csv to data/tmp/{}_{}.csv".format(fstem, sheet.name))
         sheets.append("{}_{}".format(fstem, sheet.name))
-        # sys.exit()
     return sheets
 
 def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
@@ -70,10 +73,10 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             pass
         if assay_type == "hi":
             start_row = 14
-            start_col = 7
+            start_col = 6
             col_span = 1
-            virus_strain_col_index = 2
-            virus_passage_col_index = 6
+            virus_strain_col_index = 1
+            virus_passage_col_index = 5
         elif assay_type == "fra":
             start_row = 16
             start_col = 5
@@ -83,10 +86,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index]
-                if mat[7][j] == "":
-                    serum_strain = mat[6][j]
-                else:
-                    serum_strain = mat[6][j] + "/" + mat[7][j]
+                serum_strain = mat[6][j]
                 serum_id = mat[9][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
@@ -121,9 +121,11 @@ if __name__=="__main__":
         os.makedirs(args.path)
     # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
     sheets = read_crick(args.path, args.fstem, args.assay_type)
-    #TODO: This is where I will add conversion of crick files to eLife format!
     for sheet in sheets:
-        subtype = determine_subtype(sheet)
+        if args.subtype:
+            subtype = args.subtype
+        else:
+            subtype = determine_subtype(sheet)
         if args.preview:
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))

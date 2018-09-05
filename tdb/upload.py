@@ -380,6 +380,11 @@ class upload(parse, flu_upload):
             meas['serum_id'] = new_id
             meas['serum_host'] = 'ferret'
             meas.pop('ferret_id',None)
+        if 'serum_id' in meas.keys() and meas['serum_id'].lower().startswith('f'):
+            meas['serum_host'] = 'ferret'
+        elif 'serum_id' in meas.keys() and meas['serum_id'].lower().startswith('h'):
+            meas['serum_host'] = 'human'
+
 
     def create_index(self,  measurements, output=False):
         '''
