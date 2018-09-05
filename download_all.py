@@ -77,6 +77,15 @@ if __name__=="__main__":
                         call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:fra serum_passage_category:%s --fstem %s_%s_fra_%s"%(source, lineage, passage, lineage, source, passage)
                         print(call)
                         os.system(call)
+                if source == "cdc":
+                    for lineage in params.flu_lineages:
+                        call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:hi serum_host:human --fstem %s_%s_hi_%s_human"%(source, lineage, lineage, source, passage)
+                        print(call)
+                        os.system(call)
+                    lineage = 'h3n2'
+                    call = "python tdb/download.py -db %s_tdb -v flu --subtype %s --select assay_type:fra serum_host:human --fstem %s_%s_fra_%s_human"%(source, lineage, lineage, source, passage)
+                    print(call)
+                    os.system(call)
 
             # concatenate to create default HI strain TSVs for each subtype
             concatenate_titers(params, "cell", "hi")

@@ -68,6 +68,8 @@ class cdc_upload(upload):
                 self.ref_virus_strains.add(meas['virus_strain'])
             if meas['ref'] == False:
                 self.test_virus_strains.add(meas['virus_strain'])
+            if "Human" in meas['serum_id']:
+                meas['serum_host'] = 'human'
             self.rethink_io.check_optional_attributes(meas, self.optional_fields)
             self.remove_fields(meas)
         if len(self.new_different_date_format) > 0:
