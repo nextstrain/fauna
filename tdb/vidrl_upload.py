@@ -10,7 +10,7 @@ sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
 import logging
-logger = logging.getLogger()
+# logger = logging.getLogger()
 
 parser.add_argument('--assay_type', default='hi')
 
@@ -28,7 +28,7 @@ def read_vidrl(path, fstem, assay_type):
         fname = "data/tmp/%s.csv"%(fstem)
         parse_vidrl_matrix_to_tsv(fname, path, assay_type)
     else:
-        logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
+        # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         sys.exit()
 
 def convert_xls_to_csv(path, fstem, ind):
@@ -79,7 +79,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         print("assay_type: " + assay_type)
         if assay_type == "hi":
             start_row = 12
-            start_col = 7
+            start_col = 5 # Changed from 7 to 5 for VIC/YAM tables -BP
             end_col = 15
             virus_strain_col_index = 2
             virus_passage_col_index = 16
@@ -90,8 +90,8 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
             virus_strain_col_index = 2
             virus_passage_col_index = 14
             # some FRA tables have 10 sera, some have 11, some have 9
-            check_cell_10th_sera = mat[7][13]
-            check_cell_11th_sera = mat[7][14]
+            check_cell_10th_sera = mat[start_col][13]
+            check_cell_11th_sera = mat[start_col][14]
             if check_cell_10th_sera == '':
                 virus_passage_col_index = 13
             elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
@@ -100,21 +100,23 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                 virus_passage_col_index = 15
 
         # some tables are do not begin where we think they do
-        check_cell = mat[10][2]
-        if check_cell == "Reference Antigens":
-            for i in range(start_row, len(mat)):
-                for j in range(start_col, end_col):
-                    virus_strain = mat[i][virus_strain_col_index]
-                    serum_strain = mat[10][j]
-                    serum_id = mat[8][j]
-                    titer = mat[i][j]
-                    source = "vidrl_%s"%(src_id)
-                    virus_passage = mat[i][virus_passage_col_index]
-                    virus_passage_category = ''
-                    serum_passage = mat[9][j]
-                    serum_passage_category = ''
-                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                    outfile.write(line)
+        # add possible starting locations
+        possible_starts = [mat[10][2], mat[13][0]]
+        for check_cell in possible_starts:
+            if check_cell == "Reference Antigens":
+                for i in range(start_row, len(mat)):
+                    for j in range(start_col, end_col):
+                        virus_strain = mat[i][virus_strain_col_index]
+                        serum_strain = mat[10][j]
+                        serum_id = mat[8][j]
+                        titer = mat[i][j]
+                        source = "vidrl_%s"%(src_id)
+                        virus_passage = mat[i][virus_passage_col_index]
+                        virus_passage_category = ''
+                        serum_passage = mat[9][j]
+                        serum_passage_category = ''
+                        line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                        outfile.write(line)
 
 # def determine_initial_indices(path, fstem):
 #     import xlrd
@@ -152,6 +154,9 @@ if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
         args.path = "data/"
+    else:
+        if not args.path.endswith('/'):
+            args.path = args.path + '/'
     if args.database is None:
         args.database = "vidrl_tdb"
     if not os.path.isdir(args.path):

@@ -79,7 +79,7 @@ def upload_elife(database, elife_path, subtype):
 
 def upload_vidrl(database, subtypes):
     with open('data/vidrl_fail_log.txt', 'w') as o:
-        base_path = '../VIDRL-Melbourne-WHO-CC/raw-data/'
+        base_path = '../../fludata/VIDRL-Melbourne-WHO-CC/raw-data/'
         dir_paths = []
         subtype_to_paths = {
             "h3n2": ["A/H3N2/HI", "A/H3N2/FRA"],
@@ -154,7 +154,7 @@ if __name__=="__main__":
         params.subtypes = ['h3n2', 'h1n1pdm', 'vic', 'yam']
 
     if params.sources is None:
-        params.sources = ['elife', 'nimr', 'cdc']
+        params.sources = ['elife', 'nimr', 'cdc', 'vidrl']
 
     for source in params.sources:
         if source == "cdc":
