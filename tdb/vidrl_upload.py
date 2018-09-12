@@ -14,6 +14,15 @@ import logging
 
 parser.add_argument('--assay_type', default='hi')
 
+def parse_sera_mapping_to_dict():
+    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
+    map_dict = {}
+    with open(sera_mapping_file, 'r') as f:
+        for line in f:
+            (key, value) = line.split('\t')
+            map_dict[key] = value
+    return map_dict
+
 def read_vidrl(path, fstem, assay_type):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
@@ -33,6 +42,7 @@ def read_vidrl(path, fstem, assay_type):
 
 def convert_xls_to_csv(path, fstem, ind):
     import xlrd
+    sera_mapping = parse_sera_mapping_to_dict()
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
@@ -53,11 +63,12 @@ def convert_xls_to_csv(path, fstem, ind):
             #     raise ValueError
             # assume there all always 12 reference viruses in a table
             row_with_ref_sera = sheet.row_values(10)
-            col_with_ref_viruses = sheet.col_values(2)
-            ref_serum_indices = range(4, 16)
-            ref_virus_indices = range(12, 24)
-            for (sindex, vindex) in zip(ref_serum_indices, ref_virus_indices):
-                row_with_ref_sera[sindex] = col_with_ref_viruses[vindex]
+            for i in range(4,16):
+                row_with_ref_sera[i] = row_with_ref_sera[i].strip('\n')
+                try:
+                    row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i]]
+                except KeyError:
+                    pass
             writer.writerow(row_with_ref_sera)
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
         return
@@ -117,38 +128,6 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                         serum_passage_category = ''
                         line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                         outfile.write(line)
-
-# def determine_initial_indices(path, fstem):
-#     import xlrd
-#     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
-#     if True in exten:
-#         ind = exten.index(True)
-#     else:
-#         return
-#     exts = ['.xls', '.xlsm', '.xlsx']
-#     workbook = xlrd.open_workbook(path+fstem + exts[ind])
-#     value = None
-#     for sheet in workbook.sheets():
-#         with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
-#             for row in range(len(sheet.col_values(0))):
-#                 for col in range(len(sheet.row_values(0))):
-#                     try:
-#                         value = int(sheet.row_values(col)[row])
-#                     except:
-#                         pass
-#                     if value:
-#                         if is_power_of_2(value/10):
-#                             return col, row
-    # return 0, 0
-#
-# def is_power_of_2(n):
-#     n = n/2
-#     if n == 2:
-#         return True
-#     elif n > 2:
-#         is_power_of_2(n)
-#     else:
-#         return False
 
 if __name__=="__main__":
     args = parser.parse_args()
