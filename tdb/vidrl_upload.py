@@ -20,6 +20,7 @@ def parse_sera_mapping_to_dict():
     with open(sera_mapping_file, 'r') as f:
         for line in f:
             (key, value) = line.split('\t')
+            key = key.lower()
             map_dict[key] = value
     return map_dict
 
@@ -66,7 +67,7 @@ def convert_xls_to_csv(path, fstem, ind):
             for i in range(4,16):
                 row_with_ref_sera[i] = row_with_ref_sera[i].strip('\n')
                 try:
-                    row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i]]
+                    row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i].lower()]
                 except KeyError:
                     print("Couldn't find {} in mapping lookup source-data/vidrl_serum_mapping.tsv".format(row_with_ref_sera[i]))
             writer.writerow(row_with_ref_sera)
@@ -119,7 +120,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                     for j in range(start_col, end_col):
                         virus_strain = mat[i][virus_strain_col_index].strip()
                         serum_strain = mat[10][j].strip()
-                        serum_id = mat[8][j].strip()
+                        serum_id = mat[8][j].strip().replace(' ','')
                         titer = mat[i][j].strip()
                         source = "vidrl_%s"%(src_id).strip()
                         virus_passage = mat[i][virus_passage_col_index].strip()
