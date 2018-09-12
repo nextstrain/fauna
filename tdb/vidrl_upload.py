@@ -70,6 +70,8 @@ def convert_xls_to_csv(path, fstem, ind):
                     row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i].lower()]
                 except KeyError:
                     print("Couldn't find {} in mapping lookup source-data/vidrl_serum_mapping.tsv".format(row_with_ref_sera[i]))
+                    with open ('data/BAD_VIDRL_KEYS.txt', 'a') as f:
+                        f.write(row_with_ref_sera[i])
             writer.writerow(row_with_ref_sera)
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
         return
