@@ -68,7 +68,7 @@ def convert_xls_to_csv(path, fstem, ind):
                 try:
                     row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i]]
                 except KeyError:
-                    pass
+                    print("Couldn't find {} in mapping lookup source-data/vidrl_serum_mapping.tsv".format(row_with_ref_sera[i]))
             writer.writerow(row_with_ref_sera)
             writer.writerows(sheet.row_values(row) for row in range(11,sheet.nrows))
         return
@@ -90,7 +90,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         print("assay_type: " + assay_type)
         if assay_type == "hi":
             start_row = 12
-            start_col = 5 # Changed from 7 to 5 for VIC/YAM tables -BP
+            start_col = 4 # Changed from 7 to 5 for VIC/YAM tables -BP
             end_col = 15
             virus_strain_col_index = 2
             virus_passage_col_index = 16
@@ -117,14 +117,14 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
             if check_cell == "Reference Antigens":
                 for i in range(start_row, len(mat)):
                     for j in range(start_col, end_col):
-                        virus_strain = mat[i][virus_strain_col_index]
-                        serum_strain = mat[10][j]
-                        serum_id = mat[8][j]
-                        titer = mat[i][j]
-                        source = "vidrl_%s"%(src_id)
-                        virus_passage = mat[i][virus_passage_col_index]
+                        virus_strain = mat[i][virus_strain_col_index].strip()
+                        serum_strain = mat[10][j].strip()
+                        serum_id = mat[8][j].strip()
+                        titer = mat[i][j].strip()
+                        source = "vidrl_%s"%(src_id).strip()
+                        virus_passage = mat[i][virus_passage_col_index].strip()
                         virus_passage_category = ''
-                        serum_passage = mat[9][j]
+                        serum_passage = mat[9][j].strip()
                         serum_passage_category = ''
                         line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                         outfile.write(line)
