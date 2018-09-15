@@ -366,6 +366,7 @@ Coquimbo	Chile	Coquimbo	Coquimbo
 Coronel	Chile	Biobio	Coronel
 Coyhaique	Chile	Aisen	Coyhaique
 Cunco	Chile	Araucania	Cunco
+Curanilahue	Chile	Biobio	Curanilahue
 Curico	Chile	Maule	Curico
 Gorbea	Chile	Araucania	Gorbea
 Easterisland	Chile	EasterIsland	EasterIsland
@@ -1467,6 +1468,7 @@ Mayotte	Mayotte	Mayotte	Mayotte
 # Mexico
 Mexico	Mexico	Mexico	Mexico
 Aguascalientes	Mexico	Aguascalientes	Aguascalientes
+Campeche	Mexico	Campeche	Campeche
 Coahuila	Mexico	Coahuila	Coahuila
 Jalisco	Mexico	Jalisco	Jalisco
 Guerrero	Mexico	Guerrero	Guerrero
@@ -1859,6 +1861,7 @@ Kazan	Russia	Tatarstan	Kazan
 Kemerovo	Russia	Kemerovo	Kemerovo
 Khabarovsk	Russia	Khabarovsk	Khabarovsk
 Khakassia	Russia	Khakassia	Khakassia
+Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
 Kirov	Russia	Kirov	Kirov
 KhantyMansia	Russia	KhantyMansia	KhantyMansia
 Koltsovo	Russia	Novosibirsk	Koltsovo
@@ -1889,6 +1892,7 @@ OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
 Petrozavodsk	Russia	Karelia	Petrozavodsk
+Podporozhie	Russia	Podporozhie	Podporozhie
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
 Ryazan	Russia	Ryazan	Ryazan
@@ -1899,6 +1903,7 @@ Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
+SosnoviyBor	Russia	Leningrad	SosnoviyBor
 Surgut	Russia	KhantyMansia	Surgut
 Syktyvkar	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
@@ -2209,6 +2214,7 @@ Kampheangephet	Thailand	KamphaengPhet	KamphaengPhet
 KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet
 KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
+Loei	Thailand	Loei	Loei
 LopBuri	Thailand	LopBuri	LopBuri
 MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
@@ -2385,6 +2391,7 @@ Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
 Caldicot	UnitedKingdom	Wales	Caldicot
+Caerphilly	UnitedKingdom	Wales	Caerphilly
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff

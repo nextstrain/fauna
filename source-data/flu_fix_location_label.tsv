@@ -85,6 +85,7 @@ Punta_Arenas	PuntaArenas
 PtaArenas	PuntaArenas
 Valpara?so	Valparaiso
 Vi?a_del_Mar	VinaDelMar
+Vina_del_Mar	VinaDelMar
 
 # China
 Anhuidangtu	AnhuiDangtu
@@ -587,6 +588,7 @@ Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
 NNovgorod	NizhnyNovgorod
 NizniyNovgorod	NizhnyNovgorod
+Nizhni_Novgorod	NizhnyNovgorod
 Nizhni Novgorod	NizhnyNovgorod
 NizhniiNovgorod	NizhnyNovgorod
 NizhniyNovgorod	NizhnyNovgorod
@@ -600,6 +602,7 @@ Rostov-on-Don	RostovOnDon
 Rostovoblast	Rostov
 Salehard	Salekhard
 SaintPetersburg	StPetersburg
+Sosnoviy_Bor	SosnoviyBor
 Stpetersburg	StPetersburg
 Saint-Petersburg	StPetersburg
 Stpetersburg	StPetersburg
@@ -611,10 +614,12 @@ Ulan_Ude	UlanUde
 Ussr	USSR
 Vladivistok	Vladivostok
 VNovgorod	VelikyNovgorod
+Velikiy_Novgorod	VelikyNovgorod
 Volgda	Vologda
 Voroneg	Voronezh
 Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
+Yaroslavyl	Yaroslavl
 
 # Slovakia
 Sastin-Straze	SastinStraze
