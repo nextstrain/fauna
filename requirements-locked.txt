@@ -7,7 +7,7 @@ numpy==1.14.4
 pandas==0.17.1
 python-dateutil==2.7.3
 pytz==2018.4
-requests==2.18.4
+requests==2.20.0
 rethinkdb==2.3.0.post6
 six==1.11.0
 Unidecode==1.0.22
