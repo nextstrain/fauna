@@ -442,6 +442,7 @@ Fujian	China	Fujian	Fujian
 Fujian	China	Fujian	Fujian
 FujianGulou	China	Fujian	Gulou
 Fuzhou	China	Fujian	Fuzhou
+Gangca	China	Quinghai	Gangca
 Gansu	China	Gansu	Gansu
 GansuChengguan	China	Gansu	Chengguan
 Guangdong	China	Guangdong	Guangdong
@@ -1534,6 +1535,7 @@ Govisumber	Mongolia	Govisumber	Govisumber
 Khentii	Mongolia	Khentii	Khentii
 Kherlen	Mongolia	Dornod	Kherlen
 Khovd	Mongolia	Khovd	Khovd
+Khuvsgul	Mongolia	Khuvsgul	Khuvsgul
 Olgii	Mongolia	BayanOlgii	Olgii
 Omnogovi	Mongolia	Omnogovi	Omnogovi
 Orkhon	Mongolia	Orkhon	Orkhon
@@ -1544,6 +1546,7 @@ Tuv	Mongolia	Tuv	Tuv
 Ulaanbaatar	Mongolia	Ulaanbaatar	Ulaanbaatar
 Ulaangom	Mongolia	Uvs	Ulaangom
 Uvurkhangai	Mongolia	Uvurkhangai	Uvurkhangai
+Zamyn-Uud	Mongolia	Zamyn-Uud	Zamyn-Uud
 Zavkhan	Mongolia	Zavkhan	Zavkhan
 
 # Montenegro
@@ -2216,6 +2219,7 @@ KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
 Loei	Thailand	Loei	Loei
 LopBuri	Thailand	LopBuri	LopBuri
+Loei	Thailand	Loei	Loei
 MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
 Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom

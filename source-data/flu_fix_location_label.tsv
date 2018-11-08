@@ -40,6 +40,7 @@ Rio_de_Janeiro	RioDeJaneiro
 RioGdeSul	RioGrandeDoSul
 RioGdoSul	RioGrandeDoSul
 Rio_Grande_do_Sul	RioGrandeDoSul
+RioGrandeDuSul	RioGrandeDoSul
 Santa_Catarina	SantaCatarina
 SaopPaulo	SaoPaulo
 S?oPaulo	SaoPaulo
@@ -172,6 +173,7 @@ Neimeng	Neimenggu
 NingDe	Ningde
 PuTian	Putian
 Qingfang	Qingfeng
+Quinghai-Gangcha	Gangca
 QuanZhou	Quanzhou
 SanMing	Sanming
 Shangdong	Shandong
@@ -468,6 +470,7 @@ Ulgii	Olgii
 Ulaabaatar	Ulaanbaatar
 unmugobi	Omnogovi
 Uvurkhagai	Uvurkhangai
+Zamiin-Uud	Zamyn-Uud
 
 # Morocco
 Benimellal	BeniMellal
@@ -582,6 +585,7 @@ Krasnojarsk	Krasnoyarsk
 LIPETSK	Lipetsk
 Lipetsk	Lipetsk
 Lipezk	Lipetsk
+Lipesk	Lipetsk
 Moscowoblast	Moscow
 Moscowv	Moscow
 Novgorod	NizhnyNovgorod
@@ -617,6 +621,7 @@ VNovgorod	VelikyNovgorod
 Velikiy_Novgorod	VelikyNovgorod
 Volgda	Vologda
 Voroneg	Voronezh
+Yaroslavyl	Yaroslavl
 Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
 Yaroslavyl	Yaroslavl
