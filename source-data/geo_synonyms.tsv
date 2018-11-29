@@ -1645,7 +1645,6 @@ Whanganui	NewZealand	ManawatuWanganui	Whanganui
 
 # Nicaragua
 Nicaragua	Nicaragua	Nicaragua	Nicaragua
-Andalucia	Nicaragua	Nicaragua	Andalucia
 Carazo	Nicaragua	Carazo	Carazo
 Chinandega	Nicaragua	Chinandega	Chinandega
 Esteli	Nicaragua	Esteli	Esteli
@@ -2088,6 +2087,7 @@ Wonju	SouthKorea	Gangwon	Wonju
 # Spain
 Spain	Spain	Spain	Spain
 Alicante	Spain	Valencia	Alicante
+Andalucia	Spain	Spain	Andalucia
 Aragon	Spain	Aragon	Aragon
 Asturias	Spain	Asturias	Asturias
 Baleares	Spain	BalearicIslands	Baleares
@@ -2212,6 +2212,7 @@ ChiangMai	Thailand	ChiangMai	ChiangMai
 ChiangRai	Thailand	ChiangRai	ChiangRai
 Chonburi	Thailand	Chonburi	Chonburi
 CuTha	Thailand	Thailand	CuTha
+Kanchanaburi	Thailand	Kanchanaburi	Kanchanaburi
 Kampheangphet	Thailand	KamphaengPhet	KamphaengPhet
 Kampheangephet	Thailand	KamphaengPhet	KamphaengPhet
 KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet
