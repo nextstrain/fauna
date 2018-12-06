@@ -1,4 +1,4 @@
-import os, json, datetime, sys
+import os, json, datetime, sys, time
 import rethinkdb as r
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
@@ -7,7 +7,7 @@ from vdb.download import download as vdb_download
 def get_parser():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-db', '--database', default='tdb', help="database to download from")
+    parser.add_argument('-db', '--database', nargs='+', type=str, default=['tdb'], help="database(s) to download from")
     parser.add_argument('--rethink_host', default=None, help="rethink host url")
     parser.add_argument('--auth_key', default=None, help="auth_key for rethink database")
     parser.add_argument('--local', default=False, action="store_true",  help ="connect to local instance of rethinkdb database")
@@ -48,11 +48,10 @@ class download(object):
         '''
         return r.db(self.database).table(self.virus).count().run()
 
-    def download(self, subtype=None, output=True, count=False, **kwargs):
+    def download(self, subtype=None, **kwargs):
         '''
         download documents from table
         '''
-        import time
         start_time = time.time()
         self.connect_rethink(**kwargs)
         self.vdb_download = vdb_download(database=self.database, virus=self.virus)
@@ -61,17 +60,14 @@ class download(object):
         if subtype is not None:
             select.append(('subtype', [subtype]))
 
-        sequence_count = r.table(self.virus).count().run()
-        print(sequence_count, "measurements in table:", self.virus)
+        measurement_count = r.table(self.virus).count().run()
+        print(measurement_count, "measurements in table:", self.virus)
         print("Downloading titer measurements from the table: " + self.virus)
         measurements = self.rethinkdb_download(self.virus, presents=present, selections=select, intervals=interval, **kwargs)
         self.rename_strains_with_passage(measurements)
         print("Downloaded " + str(len(measurements)) + " measurements")
-        if output:
-            self.output(measurements, **kwargs)
-        if count:
-            self.write_count(measurements, **kwargs)
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
+        return measurements
 
     def rethinkdb_download(self, table, **kwargs):
         '''
@@ -174,8 +170,15 @@ if __name__=="__main__":
             args.fstem = args.subtype + '_' + current_date
         else:
             args.fstem = args.virus + '_' + current_date
-
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    connTDB = download(**args.__dict__)
-    connTDB.download(**args.__dict__)
+    measurements = []
+    for database in args.database:
+        print("Downloading from " + database + " database")
+        dict_args = vars(args)
+        dict_args["database"] = database
+        print(dict_args)
+        downloader = download(**dict_args)
+        db_measurements = downloader.download(**dict_args)
+        measurements.extend(db_measurements)
+    downloader.output(measurements, **dict_args)
