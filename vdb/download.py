@@ -123,9 +123,8 @@ class download(object):
         Chain rethinkdb filter and has_fields commands to the default command
         Return documents from the database that are left after filtering
         '''
-        # take each sequence and merge with corresponding virus document
-        # NO! you can't define the spec as a lookup from viruses[accessions] to the primary key of sequences and then do the merge this way! don't do this
-        command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index]))
+        command = r.table(sequence_table).merge(lambda sequence: r.table(virus_table).get(sequence[index])) # via merge
+        # command = r.table(sequence_table).eq_join("strain", r.table(virus_table)).zip() # via eq_join, testing suggests that this is slower than the above merge strategy
         command = self.add_present_command(command, **kwargs)
         command = self.add_selections_command(command, **kwargs)
         command = self.add_intervals_command(command, **kwargs)
