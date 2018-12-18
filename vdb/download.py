@@ -3,7 +3,8 @@ import rethinkdb as r
 from Bio import SeqIO
 import numpy as np
 
-sys.path.append('')  # need to import from base
+# Enable import from modules in parent directory.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from base.rethink_io import rethink_io
 
 
