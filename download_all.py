@@ -13,7 +13,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--virus', default="flu", help="virus to download; default is flu")
 parser.add_argument('--flu_lineages', default=["h3n2", "h1n1pdm", "vic", "yam"], nargs='+', type = str,  help ="seasonal flu lineages to download, options are h3n2, h1n1pdm, vic and yam")
-parser.add_argument('--segments', type=str, default=['ha', 'na', 'mp', 'np', 'ns', 'pa', 'pb1', 'pb2'], nargs='+', help="specify segment(s) to download")
+parser.add_argument('--segments', type=str, default=['ha', 'na'], nargs='+', help="specify segment(s) to download")
 parser.add_argument('--sequences', default=False, action="store_true", help="download sequences from vdb")
 parser.add_argument('--titers', default=False, action="store_true", help="download titers from tdb")
 parser.add_argument('--titers_sources', default=["base", "crick", "cdc", "niid", "vidrl"], nargs='+', type = str,  help ="titer sources to download, options are base, cdc, crick, niid and vidrl")
