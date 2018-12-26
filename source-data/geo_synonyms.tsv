@@ -1506,6 +1506,8 @@ Huimanguillotabasco	Mexico	Tabasco	Huimanguillotabasco
 Leonguanajuato	Mexico	Guanajuato	Leon
 Puertovallartajalisco	Mexico	Jalisco	PuertoVallarta
 Cdvictoriatamaulipas	Mexico	Tamaulipas	CiudadVictoria
+Veracruz	Mexico	Veracruz	Veracruz
+Tabasco	Mexico	Tabasco	Tabasco
 
 # Micronesia
 MicronesiaFederatedStatesOf	Micronesia	Micronesia	Micronesia
@@ -1630,6 +1632,7 @@ Nelson	NewZealand	Nelson	Nelson
 NelsonMarlborough	NewZealand	Nelson	Nelson
 Northland	NewZealand	Northland	Northland
 NorthWestAuckland	NewZealand	Auckland	Auckland
+North-WestAuckland	NewZealand	Auckland	Auckland
 Otago	NewZealand	Otago	Otago
 PortChalmers	NewZealand	Otago	PortChalmers
 SouthAuckland	NewZealand	Auckland	SouthAuckland
@@ -2380,6 +2383,8 @@ AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
+Abergele	UnitedKingdom	Wales	Abergele
+Abertillery	UnitedKingdom	Wales	Abertillery
 Aberaeron	UnitedKingdom	Wales	Aberaeron
 Aberystwyth	UnitedKingdom	Wales	Aberystwyth
 Aldershot	UnitedKingdom	England	Aldershot
@@ -2395,6 +2400,7 @@ Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
+BurryPort	UnitedKingdom	Wales	BurryPort
 Caldicot	UnitedKingdom	Wales	Caldicot
 Caerphilly	UnitedKingdom	Wales	Caerphilly
 Cambridge	UnitedKingdom	England	Cambridge
@@ -2411,8 +2417,10 @@ Colchester	UnitedKingdom	England	Colchester
 Cornwall	UnitedKingdom	England	Cornwall
 Craven	UnitedKingdom	England	Craven
 Croydon	UnitedKingdom	England	Croydon
+Crumlin	UnitedKingdom	Wales	Crumlin
 Cumbria	UnitedKingdom	England	Cumbria
 Derbyshire	UnitedKingdom	England	Derbyshire
+DinasPowys	UnitedKingdom	Wales	DinasPowys
 Dundee	UnitedKingdom	England	Dundee
 Edinburgh	UnitedKingdom	Scotland	Edinburgh
 England	UnitedKingdom	England	England
@@ -2433,6 +2441,7 @@ HUNTINGDONCAMBS	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
 Kent	UnitedKingdom	England	Kent
 Lambeth	UnitedKingdom	England	Lambeth
+Llangollen	UnitedKingdom	Wales	Llangollen
 Leeds	UnitedKingdom	England	Leeds
 Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
@@ -2443,6 +2452,7 @@ Luton	UnitedKingdom	England	Luton
 Manchester	UnitedKingdom	England	Manchester
 Middlesex	UnitedKingdom	England	Middlesex
 Middx	UnitedKingdom	England	Middlesex
+MilfordHaven	UnitedKingdom	Wales	MilfordHaven
 Minehead	UnitedKingdom	England	Minehead
 Monmouth	UnitedKingdom	Wales	Monmouth
 Neath	UnitedKingdom	Wales	Neath
@@ -2478,6 +2488,7 @@ Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
 Telford	UnitedKingdom	England	Telford
 Tetbury	UnitedKingdom	England	Tetbury
+Treorchy	UnitedKingdom	Wales	Treorchy
 Ware	UnitedKingdom	England	Ware
 Wrexham	UnitedKingdom	Wales	Wrexham
 Whitechapel	UnitedKingdom	England	London
