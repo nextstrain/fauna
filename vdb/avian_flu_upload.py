@@ -246,10 +246,12 @@ class flu_upload(upload):
         # return original_name, original_name
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
-        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
+        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '')\
             .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
-            .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
+            .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')
+        name = name.rstrip('_')
+
         split_name = name.split('/')
         # check location labels in strain names for fixing
         for index, label in enumerate(split_name):
@@ -266,6 +268,7 @@ class flu_upload(upload):
             split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
             split_name[3] = split_name[3].lstrip('0')  # A/Cologne/Germany/01/2009 becomes A/Cologne/Germany/1/2009
         result_name = '/'.join(split_name).strip()
+
         return result_name, original_name
 
     def flu_fix_patterns(self, name):
@@ -279,19 +282,6 @@ class flu_upload(upload):
         # remove ending parentheses and their contents
         if re.match(r'([^(]+)[^)]+\)$', name):  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
             name = re.match(r'([^(]+)[^)]+\)$', name).group(1)
-        # Add year info to these Hongkong sequences
-        if re.match(r'A/HongKong/H090-[0-9]{3}-V[0-9]$', name):  # A/HongKong/H090-750-V1 All confirmed from 2009
-            name = name + "/2009"
-        # Add year info to these Sendai sequences
-        if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
-            name = name + "/2010"
-        # reformat names with clinical isolate in names, Philippines and Thailand
-        if re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]{4})', name):  #B/clinicalisolateSA116Philippines/2002 -> B/Philippines/SA116/2002
-            match = re.match(r'([A|B]/)clinicalisolate(SA[0-9]+)([^/]+)(/[0-9]{4})', name)
-            name = match.group(1) + match.group(3) + "/" + match.group(2) + match.group(4)
-        # reformat Ireland strain names
-        if re.match(r'([1-2]+)IRL([0-9]+)$', name):  # 12IRL26168 -> A/Ireland/26168/2012  (All sequences with same pattern are H3N2)
-            name = "A/Ireland/" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(2) + "/20" + re.match(r'([1-2]+)IRL([0-9]+)$', name).group(1)
         # Remove info B/Vic strain info from name
         if re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name):  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
             name = re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name).group(1)
