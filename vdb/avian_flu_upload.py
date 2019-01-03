@@ -250,7 +250,8 @@ class flu_upload(upload):
             .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
             .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')
-        name = name.rstrip('_')
+        name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
+        name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
 
         split_name = name.split('/')
         # check location labels in strain names for fixing
@@ -307,36 +308,48 @@ class flu_upload(upload):
         Fix host formatting
         '''
         if v['host'] is not None:
+            if v['host'] == "chicken":
+                v['host'] = "avian"
+            if v['host'] == "duck":
+                v['host'] = "avian"
             if v['host'] == "gallusgallus":
-                v['host'] = "chicken"
+                v['host'] = "avian"
+            if v['host'] == "gallusgallusdomesticus":
+                v['host'] = "avian"
             if v['host'] == "anasclypeata":
-                v['host'] = "duck"
+                v['host'] = "avian"
             if v['host'] == "anasplatyrhynchos":
-                v['host'] = "duck"
+                v['host'] = "avian"
             if v['host'] == "anassp.":
-                v['host'] = "duck"
+                v['host'] = "avian"
             if v['host'] == "anaspoecilorhyncha":
-                v['host'] = "duck"
+                v['host'] = "avian"
             if v['host'] == "anasdiscors":
-                v['host'] = "duck"
+                v['host'] = "avian"
+            if v['host'] == "anascrecca":
+                v['host'] = "avian"
+            if v['host'] == "anascarolinensis":
+                v['host'] = "avian"
             if v['host'] == "goose":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "chencanagica":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "passermontanus":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "arenariainterpres":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "otheravian":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "avian":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "guineafowl":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "cairinamoschata":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
             if v['host'] == "anascyanoptera":
-                v['host'] = "other_avian"
+                v['host'] = "avian"
+            if v['host'] == "watersample":
+                v['host'] = "environment"
             if v['host'] == "surfaceswab":
                 v['host'] = "environment"
             if v['host'] == "feces":
@@ -373,6 +386,9 @@ class flu_upload(upload):
         else:
             v['location'], v['division'], v['country'] = None, None, None
             print("couldn't parse country for ", strain_name, "gisaid location", v['gisaid_location'], original_name)
+
+        if v['division'] == v['country']:
+            v['division'] == '?'
 
     def format_passage(self, doc, initial_field, new_field, **kwargs):
         '''
