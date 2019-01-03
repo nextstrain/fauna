@@ -428,36 +428,6 @@ class flu_upload(upload):
                 v['vtype'], v['subtype'], v['lineage'] = match[0], match[1], match[2]
         return v
 
-    def align_flu(self, doc, min_score_percentage=0.85, **kwargs):
-        '''
-        align with sequence from outgroup to determine subtype and lineage
-        :return: True if determined grouping, False otherwise
-        '''
-        try:
-            scores = []
-            from Bio.Seq import Seq
-            from Bio.SeqRecord import SeqRecord
-            from Bio.Alphabet import IUPAC
-            from Bio import AlignIO
-            record = SeqRecord(Seq(doc['sequence'],
-                               IUPAC.ambiguous_dna),
-                               id=doc['strain'])
-            for olineage, oseq in self.outgroups.items():
-                SeqIO.write([oseq, record], "temp_in.fasta", "fasta")
-                os.system("mafft --auto temp_in.fasta > temp_out.fasta 2>tmp")
-                tmp_aln = np.array(AlignIO.read('temp_out.fasta', 'fasta'))
-                scores.append((olineage, (tmp_aln[0]==tmp_aln[1]).sum()))
-            scores.sort(key = lambda x:x[1], reverse=True)
-            if scores[0][1]>min_score_percentage*len(record.seq):
-                print("Lineage based on similarity:", scores[0][0], doc['strain'], len(record.seq), scores)
-                return self.outgroup_patterns[scores[0][0]]
-            else:
-                print("Couldn't parse virus subtype and lineage from aligning sequence: ", doc['strain'], len(record.seq), scores)
-                return None
-        except:
-            print("Alignment failed: " + doc['strain'])
-            return None
-
 if __name__=="__main__":
     args = parser.parse_args()
     sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
