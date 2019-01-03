@@ -18,6 +18,15 @@
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
   	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv) and [flu_fix_location_label file](source-data/flu_fix_location_label.tsv) to fix some of the formatting.
 
+1. Download sequences from [IRD](https://www.fludb.org)
+  * Search for Sequences and strains
+  * Select Data Type as Strain
+  * Enter either "H5N1" or "H7N9" under Subtype
+  * Click Search
+  * Click download all
+  ...
+  * Download as `GenomicFastaResults.fasta`
+
 ### Download documents from VDB
 
 ```bash
