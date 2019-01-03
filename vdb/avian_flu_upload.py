@@ -8,6 +8,7 @@ from upload import get_parser
 from unidecode import unidecode
 
 parser = get_parser()
+parser.add_argument('--data_source', default='gisaid', type=str, choices=['gisaid', 'ird'], help='data source, either gisaid or ird')
 parser.add_argument('--upload_directory', default=False, action="store_true", help='upload all xls and fasta files in directory')
 parser.add_argument('--vtype', default=None, help="type of virus, if applicable")
 parser.add_argument('--subtype', default=None, help="subtype of virus")
@@ -40,7 +41,9 @@ class flu_upload(upload):
                     ('b / h0n0', 'victoria'): ('b', None, 'seasonal_vic'),
                     ('b / h0n0', 'yamagata'): ('b', None, 'seasonal_yam'),
                     ('b', 'victoria'): ('b', None, 'seasonal_vic'),
-                    ('b', 'yamagata'): ('b', None, 'seasonal_yam')}
+                    ('b', 'yamagata'): ('b', None, 'seasonal_yam'),
+                    ('h5n1',''): ('a', 'h5n1', None),
+                    ('h7n9',''): ('a', 'h7n9', None)}
         self.outgroups = {lineage: SeqIO.read('source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
         self.outgroup_patterns = {'H3N2': ('a', 'h3n2', 'seasonal_h3n2'),
                                   'H1N1': ('a', 'h1n1', 'seasonal_h1n1'),
@@ -52,21 +55,27 @@ class flu_upload(upload):
         self.virus_to_sequence_transfer_fields = ['submission_date']
         self.fix = set()
 
-    def parse(self, path, fname, upload_directory, **kwargs):
-        '''
-        '''
+    def parse(self, path, fname, data_source, upload_directory, **kwargs):
         viruses, sequences = [], []
-        if upload_directory:
-            import glob
-            for xls_fname, fasta_fname in zip(glob.glob(path + "gisaid*.xls"), glob.glob(path + "gisaid*.fasta")):
-                parsed = self.parse_files(xls_fname, fasta_fname, **kwargs)
-                viruses.extend(parsed[0])
-                sequences.extend(parsed[1])
+        # data_source comes through **kwargs ie 'gisaid'
+        if (data_source == 'gisaid'):
+            if upload_directory:
+                import glob
+                for xls_fname, fasta_fname in zip(glob.glob(path + "gisaid*.xls"), glob.glob(path + "gisaid*.fasta")):
+                    parsed = self.parse_files(xls_fname, fasta_fname, **kwargs)
+                    viruses.extend(parsed[0])
+                    sequences.extend(parsed[1])
+            else:
+                fasta_fname = path + fname + ".fasta"
+                xls_fname = path + fname + ".xls"
+                viruses, sequences = self.parse_files(xls_fname, fasta_fname, **kwargs)
+            print("Parsed total of " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from files")
+        elif (data_source == 'ird'):
+            print("path + fname", path + fname)
+            viruses, sequences = self.parse_fasta_file(path + fname, data_source, **kwargs)
+            print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from file " + path+fname)
         else:
-            fasta_fname = path + fname + ".fasta"
-            xls_fname = path + fname + ".xls"
-            viruses, sequences = self.parse_files(xls_fname, fasta_fname, **kwargs)
-        print("Parsed total of " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from files")
+            print("Missing data source")
         return viruses, sequences
 
     def parse_files(self, xls_fname, fasta_fname, **kwargs):
@@ -74,16 +83,17 @@ class flu_upload(upload):
         parse linked xls and fasta downloaded from gisaid
         '''
         viruses = self.parse_gisaid_xls_file(xls_fname, **kwargs)
-        sequences = self.parse_fasta_file(fasta_fname, **kwargs)
+        sequences = self.parse_fasta_file(fasta_fname, args.data_source, **kwargs)[1]
         print("Parsed " + str(len(viruses)) + " viruses and " + str(len(sequences)) + " sequences from files", fasta_fname, xls_fname)
         return viruses, sequences
 
-    def parse_fasta_file(self, fasta, **kwargs):
+    def parse_fasta_file(self, fasta, data_source, **kwargs):
         '''
         Parse FASTA file with default header formatting
         :return: list of documents(dictionaries of attributes) to upload
         '''
         sequences = []
+        viruses = []
         try:
             handle = open(fasta, 'r')
         except IOError:
@@ -95,8 +105,12 @@ class flu_upload(upload):
                 s['sequence'] = str(record.seq)
                 s = self.add_sequence_fields(s, **kwargs)
                 sequences.append(s)
+                if data_source == 'ird':
+                    v = {key: content[ii] if ii < len(content) else "" for ii, key in virus_fasta_fields.items()}
+                    viruses.append(v)
+            viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
             handle.close()
-        return sequences
+        return viruses, sequences
 
     def parse_gisaid_xls_file(self, xls, xls_fields_wanted, **kwargs):
         '''
@@ -116,7 +130,45 @@ class flu_upload(upload):
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
         return viruses
 
-    def format_viruses(self, documents, **kwargs):
+    def format_ird_date(self, virus):
+        '''
+        Format viruses date attribute: collection dates from IRD come in MM/DD/YYYY format, for example, 02/28/2016
+        Reformat the date so that it is readable by format_date in uploady.py
+        '''
+        # ex. 2002_04_25 to 2002-04-25
+        date_fields = []
+        for f in ['date', 'collection_date', 'submission_date']:
+            if f in virus:
+                date_fields.append(f)
+
+        for field in date_fields:
+            if virus[field] is not None and virus[field].strip() != '':
+                virus[field] = re.sub(r'_', r'-', virus[field])
+                # ex. XX/XX/2002 or 09/22/2002
+                if re.match(r'(\d\d|XX)/(\d\d|XX)/\d\d\d\d', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d|XX)/(\d\d|XX)/(\d\d\d\d)$', r'\3-\1-\2', virus[field])
+                # ex. 9/1/2002
+                elif re.match(r'(\d|X)/(\d|X)/\d\d\d\d', virus[field]):
+                    virus[field] = re.sub(r'^(\d|X)/(\d|X)/(\d\d\d\d)$', r'\3-0\1-0\2', virus[field])
+                # ex. 09/1/2002
+                elif re.match(r'(\d\d|XX)/(\d|X)/\d\d\d\d', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d|XX)/(\d|X)/(\d\d\d\d)$', r'\3-\1-0\2', virus[field])
+                # ex. 9/01/2002
+                elif re.match(r'(\d|X)/(\d\d|XX)/\d\d\d\d', virus[field]):
+                    virus[field] = re.sub(r'^(\d|X)/(\d\d|XX)/(\d\d\d\d)$', r'\3-0\1-\2', virus[field])
+                # ex. 06/2009 (Day unknown)
+                elif re.match(r'(\d\d/\d\d\d\d)', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d)/(\d\d\d\d)$', r'\2-\1-XX', virus[field])
+                # ex. 2009 (day and month unknown)
+                elif re.match(r'\d\d\d\d', virus[field]):
+                    virus[field] = re.sub(r'^(\d\d\d\d)$', r'\1-XX-XX', virus[field])
+                else:
+                    print("Couldn't reformat this date: " + virus[field] + ", setting to None")
+                    virus[field] = None
+            else:
+                virus[field] = None
+
+    def format_viruses(self, documents, data_source, **kwargs):
         '''
         format virus information in preparation to upload to database table
         '''
@@ -130,14 +182,18 @@ class flu_upload(upload):
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
+                #if data_source == "gisaid":
+                    #doc['gisaid_strain'] = doc['gisaid_strain'].replace(" ", "")
             else:
                 print("Missing strain name!")
-            self.fix_casing(doc)
+            self.fix_casing(doc, args.data_source)
             self.fix_age(doc)
             self.format_host(doc)
             self.determine_group_fields(doc, self.patterns)
+            if args.data_source == 'ird':
+                self.format_ird_date(doc)
             self.format_date(doc)
-            self.format_country(doc) # first format from strain name
+            self.format_country(doc, args.data_source) # first format from strain name
             if self.fix_location is not None: # override with fixes
                 if doc['strain'] in self.fix_location:
                     doc['location'] = self.fix_location[doc['strain']]
@@ -152,6 +208,8 @@ class flu_upload(upload):
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
+                doc['gisaid_strain'] = doc['gisaid_strain'].rstrip("_")
+
             else:
                 print("Missing strain name!")
             self.format_date(doc)
@@ -159,7 +217,7 @@ class flu_upload(upload):
             self.format_passage(doc, 'virus_strain_passage', 'virus_strain_passage_category') #BP
             self.format_passage(doc, 'serum_antigen_passage', 'serum_antigen_passage_category') #BP
             self.rethink_io.check_optional_attributes(doc, [])
-            self.fix_casing(doc)
+            self.fix_casing(doc, args.data_source)
         print("Names that need to be fixed")
         for name in sorted(self.fix):
             print(name)
@@ -186,7 +244,7 @@ class flu_upload(upload):
             print("This strain name was not in the correct format and will be filtered out", strain, original_strain)
             self.fix.add(strain)
 
-    def fix_casing(self, doc):
+    def fix_casing(self, doc, data_source):
         '''
         fix gisaid specific fields casing
         '''
@@ -196,8 +254,16 @@ class flu_upload(upload):
         for field in ['gender', 'host', 'locus']:
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
-        if 'accession' in doc and doc['accession'] is not None:
+                doc[field] = doc[field].lstrip("_").rstrip("_")
+        if 'accession' in doc and doc['accession'] is not None and data_source == 'gisaid':
             doc['accession'] = 'EPI' + doc['accession']
+        if 'accession' in doc and doc['accession'] is not None and data_source == 'ird':
+            doc['accession'] = doc['accession']
+        if 'isolate_id' in doc and doc['isolate_id'] is not None: 
+            doc['isolate_id'] = doc['isolate_id'].lstrip("_").rstrip("_")
+        if 'submitting_lab' in doc and doc['submitting_lab'] is not None: 
+            doc['submitting_lab'] = doc['submitting_lab'].lstrip("_").rstrip("_")
+
 
     def fix_age(self, doc):
         '''
@@ -248,8 +314,8 @@ class flu_upload(upload):
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '')\
             .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
-            .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
-            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')
+            .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '_')\
+            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
 
@@ -269,7 +335,7 @@ class flu_upload(upload):
             split_name[2] = split_name[2].lstrip('0')  # A/Mali/013MOP/2015 becomes A/Mali/13MOP/2015
             split_name[3] = split_name[3].lstrip('0')  # A/Cologne/Germany/01/2009 becomes A/Cologne/Germany/1/2009
         result_name = '/'.join(split_name).strip()
-
+        original_name = original_name.replace(" ","_")
         return result_name, original_name
 
     def flu_fix_patterns(self, name):
@@ -301,43 +367,60 @@ class flu_upload(upload):
         if v['host'] is not None:
 
             if v['host'] in ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
-                             "aixgalericulata", "alectorischukar", "anasboschas", "anasacuta",
-                             "anasamericana", "anascarolinensis", "anasclypeata", "anascrecca",
-                             "anascyanoptera", "anasdiscors", "anasformosa", "anasplatyrhynchos",
-                             "anaspoecilorhyncha", "anasrubripes", "anassp.", "anasstrepera",
-                             "anasstrepera", "anasundalata", "anseranser", "anserfabalis",
-                             "anseralbifrons", "anserindicus", "arenariainterpres", "avian", "bird",
-                             "bucephalaclangula", "buteo", "buteobuteo", "cairinamoschata",
-                             "chencanagica", "chicken", "corvus", "coturnix", "cygnusatratus",
-                             "cygnuscolumbianus", "cygnuscygnus", "cygnusolor", "duck", "eagle",
-                             "falco", "falcon", "falcoperegrinus", "falcotinnunculus",
-                             "gallusgallus", "gallusgallusdomesticus", "goose", "graculareligiosa",
-                             "guineafowl", "gull", "hirundorustica", "larusschistisagus",
-                             "larusargentatus", "larusbrunnicephalus", "larusichthyaetus",
-                             "larusridibundus", "larusridibundus", "lophuranycthemera",
-                             "morphnusguianensis", "necrosyrtesmonachus", "nisaetusnipalensis",
-                             "ostrich", "otheravian", "partridge", "pavocristatus", "pheasant",
-                             "passerine", "passermontanus", "polyplectronbicalcaratum", "swan",
-                             "tadornaferuginea", "turkey", "us_quail", "zosteropsjaponicus"]:
+                     "aixgalericulata", "alectorischukar","american__black__duck", 
+                     "american__wigeon","anasboschas", "anasacuta","anasamericana", 
+                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera", 
+                     "anasdiscors", "anasformosa", "anasplatyrhynchos","anaspoecilorhyncha", 
+                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", 
+                     "anasundalata", "anseranser", "anserfabalis","anseralbifrons", 
+                     "anserindicus", "arenariainterpres", "avian","bar__headed__goose", "bird",
+                     "barn__swallow","brown__headed__gull","bucephalaclangula", "buteo", 
+                     "buteobuteo", "blue__winged__teal","cairinamoschata", "canada__goose",
+                     "chencanagica", "chicken",  "cormorant","corvus", "common__pochard",
+                     "common__goldeneye", "condor","coturnix", "crane","crow","cygnusatratus",
+                     "cygnuscolumbianus", "cygnuscygnus", "cygnusolor", "duck", "eagle",
+                     "egret", "eurasian__eagel__owl","falco", "falcon", "falcoperegrinus", 
+                     "falcotinnunculus","gadwall","gallusgallus", "gallusgallusdomesticus", 
+                     "goose", "graculareligiosa", "great__black__headed__gull",
+                     "great__crested__grebe","grebe","green__winged__teal","grey__heron",
+                     "guineafowl", "gull", "heron","hirundorustica","japanese__white__eye",
+                     "larusschistisagus", "larusargentatus", "larusbrunnicephalus",
+                     "larusichthyaetus","larusridibundus", "larusridibundus", "little__grebe",
+                     "little__egret","lophuranycthemera","magpie","magpie__robin","mallard",
+                     "morphnusguianensis", "mute__swan", "muscovy__duck","myna",
+                     "necrosyrtesmonachus", "nisaetusnipalensis","northern__shoveler",
+                     "openbill__stork","ostrich", "otheravian", "partridge", 
+                     "pavocristatus", "pheasant","peregrine__falcon","pigeon","parrot",
+                     "passerine", "passermontanus", "peacock","polyplectronbicalcaratum", 
+                     "quail","rook","ruddy__turnstone","saker__falcon","shrike", 
+                     "shorebird","starling","swan","stork","swiftlet","tadornaferuginea",
+                     "teal","turkey","turtledove", "tree__sparrow","us_quail", "waterfowl",
+                     "whooper__swan","yellow__billed__duck","zosteropsjaponicus"]:
                 v['host'] = "avian"
-
-            if v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample"]:
+    
+            elif v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample","environment"]:
                 v['host'] = "environment"
-
-            if v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
-                             "swine"]:
+    
+            elif v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
+                     "swine", "lion", "weasel","raccoon__dog","tiger", "large__cat"]:
                 v['host'] = "nonhuman_mammal"
-
-            if v['host'] in ["circus", "ferret", "insect"]:
+    
+            elif v['host'] in ["circus", "ferret", "insect", "laboratoryderived", "unknown"]:
                 v['host'] = "other"
+            elif v['host'] in ['human']:
+                v['host'] = "human"
+            else:
+                print("cannot classify ", v['host'])
 
-    def format_country(self, v):
+
+    def format_country(self, v, data_source):
         '''
         Label viruses with country based on strain name
         A/Taiwan/1/2013 is human virus. Four fields total. Take second field.
         A/Chicken/Taiwan/1/2013 is animal virus. Five field total. Take third field.
         Else, take GISAID location.
         '''
+
         strain_name = v['strain']
         original_name = v['gisaid_strain']
         result = None
@@ -351,15 +434,22 @@ class flu_upload(upload):
             loc = strain_name.split('/')[2].replace(" ", "")
             result = self.determine_location(loc)
 
-        if v['gisaid_location'] is not None and result is None:
-            loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
+        if data_source == "gisaid":
+            if v['gisaid_location'] is not None and result is None:
+                loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
+                result = self.determine_location(loc)
+        if data_source == 'ird':
+            loc = strain_name.split("/")[-3]
             result = self.determine_location(loc)
 
         if result is not None:
             v['location'], v['division'], v['country'] = result
         else:
             v['location'], v['division'], v['country'] = None, None, None
-            print("couldn't parse country for ", strain_name, "gisaid location", v['gisaid_location'], original_name)
+            #print("couldn't parse country for ", strain_name, "gisaid location", original_name)
+
+	if v['division'] == v['country']:
+	    v['division'] == '?'
 
         if v['division'] == v['country']:
             v['division'] == '?'
@@ -420,14 +510,22 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
-    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
-    setattr(args, 'fasta_fields', sequence_fasta_fields)
-    xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
-                             ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
-                             ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
-                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
-    setattr(args, 'xls_fields_wanted', xls_fields_wanted)
+    if (args.data_source == 'gisaid'):
+        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
+        #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+        setattr(args, 'fasta_fields', sequence_fasta_fields)
+        xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
+                                 ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
+                                 ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
+                                 ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
+        setattr(args, 'xls_fields_wanted', xls_fields_wanted)
+    elif (args.data_source == 'ird'):
+        virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 9: 'host', 10:'h5_clade'}
+        sequence_fasta_fields = {0:'strain', 1:'accession', 3:'locus'}
+        # 0                                1        2 3  4 5    6    78   9    10               11
+        #>A/blue_winged_teal/Ohio/566/2006|CY024819|7|M1|A|H7N9|2006||USA|Ohio|Blue_Winged_Teal|NA
+        setattr(args, 'virus_fasta_fields', virus_fasta_fields)
+        setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     if args.path is None:
         args.path = "data/"
     if not os.path.isdir(args.path):
