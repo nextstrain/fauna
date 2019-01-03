@@ -330,6 +330,8 @@ class flu_upload(upload):
                 v['host'] = "avian"
             if v['host'] == "anascarolinensis":
                 v['host'] = "avian"
+            if v['host'] == "us_quail":
+                v['host'] = "avian"
             if v['host'] == "goose":
                 v['host'] = "avian"
             if v['host'] == "chencanagica":
