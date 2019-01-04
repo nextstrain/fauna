@@ -317,6 +317,7 @@ BurkinaFaso	BurkinaFaso	BurkinaFaso	BurkinaFaso
 # Cambodia
 Cambodia	Cambodia	Cambodia	Cambodia
 Kampongchamhospital	Cambodia	KampongCham	KampongCham
+PhenomPenh	Cambodia	PhenomPenh	PhenomPenh
 
 # Cameroon
 Cameroon	Cameroon	Cameroon	Cameroon
@@ -739,6 +740,10 @@ Damietta	Egypt	Damietta	Damietta
 Dakahlia	Egypt	Dakahlia	Dakahlia
 Aswan	Egypt	Aswan	Aswan
 Helwan	Egypt	Cairo	Helwan
+Ismailia	Egypt	Ismailia	Ismailia
+Gharbia	Egypt	Gharbia	Gharbia
+Giza	Egypt	Giza	Giza
+NorthSinai	Egypt	NorthSinai	NorthSinai
 
 # ElSalvador
 ElSalvador	ElSalvador	ElSalvador	ElSalvador
@@ -1121,19 +1126,38 @@ Yavatmal	India	Maharashtra	Yavatmal
 Indonesia	Indonesia	Indonesia	Indonesia
 Bali	Indonesia	Bali	Bali
 Banten	Indonesia	Banten	Banten
+Banyuwangi	Indonesia	Java	Banyuwangi
 Bengkulu	Indonesia	Bengkulu	Bengkulu
 Bogorwestjava	Indonesia	WestJava	Bogor
+CentralJava	Indonesia	Java	CentralJava
+EastJava	Indonesia	Java	EastJava
+Gorontalo	Indonesia	Sulawesi	Gorontalo
 Jakarta	Indonesia	Jakarta	Jakarta
+Jambi	Indonesia	Sumatra	Jambi
 Java	Indonesia	Java	Java
+Kediri	Indonesia	Java	Kediri
+Klaten	Indonesia	Java	Klaten
+Kuningan	Indonesia	WestJava	Kuningan
+LampungUtara	Indonesia	Sulawesi	LampungUtara
+Lamongan	Indonesia	Java	Lamongan
+Lampung	Indonesia	Sumatra	Lampung
+Lumajang	Indonesia	Java	Lumajang
 Bandungjava	Indonesia	Java	Bandung
 Makassar	Indonesia	Makassar	Makassar
+NorthSumatra	Indonesia	Sumatra	NorthSumatra
 Palembangsumatra	Indonesia	Sumatra	Palembang
 Raas	Indonesia	EastJava	Raas
+Semarang	Indonesia	Java	Semarang
+SouthSumatra	Indonesia	Sumatra	SouthSumatra
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
+Sidrap	Indonesia	Sulawesi	Sidrap
 Surakarta	Indonesia	Jateng	Surakarta
 Sulawesi	Indonesia	Sulawesi	Sulawesi
+Sukoharjo	Indonesia	Java	Sukoharjo
+WestJava	Indonesia	Java	WestJava
+Yogyakarta	Indonesia	Java	Yogyakarta
 
 # Iran
 Iran	Iran	Iran	Iran
@@ -1848,11 +1872,13 @@ Birobidzhan	Russia	JewishOblast	Birobidzhan
 Blagoveshchensk	Russia	Amur	Blagoveshchensk
 Bryansk	Russia	Bryansk	Bryansk
 Buryatia	Russia	Buryatia	Buryatia
+Chany	Russia	Novosibirsk	Chany
 Cheboksary	Russia	Chuvash	Cheboksary
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
 Chita	Russia	ZabaykalskyKrai	Chita
 Dagestan	Russia	Dagestan	Dagestan
+Dovolnoe	Russia	Novosibirsk	Dovolnoe
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
 GornoAltaysk	Russia	Altaia	GornoAltaysk
 Irkutsk	Russia	Irkutsk	Irkutsk
@@ -1901,6 +1927,7 @@ Podporozhie	Russia	Podporozhie	Podporozhie
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
 Ryazan	Russia	Ryazan	Ryazan
+Sartlan	Russia	Novosibirsk	Sartlan
 StPetersburg	Russia	StPetersburg	StPetersburg
 Salekhard	Russia	Yamalia	Salekhard
 Samara	Russia	Samara	Samara
@@ -2654,6 +2681,8 @@ KhanhHoa	Vietnam	KhanhHoa	KhanhHoa
 LangSon	Vietnam	LangSon	LangSon
 LongAn	Vietnam	LongAn	LongAn
 Mekongdelta	Vietnam	MekongDelta	MekongDelta
+QuanhNinh	Vietnam	QuanhNinh	QuanhNinh
+SocTrang	Vietnam	SocTrang	SocTrang
 TayNguyen	Vietnam	DakLak	TayNguyen
 TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh

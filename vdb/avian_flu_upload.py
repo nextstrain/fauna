@@ -283,15 +283,6 @@ class flu_upload(upload):
         # remove ending parentheses and their contents
         if re.match(r'([^(]+)[^)]+\)$', name):  # A/Eskisehir/359/2016 (109) -> A/Eskisehir/359/2016 ; A/South Australia/55/2014  IVR145  (14/232) -> A/South Australia/55/2014  IVR145
             name = re.match(r'([^(]+)[^)]+\)$', name).group(1)
-        # Remove info B/Vic strain info from name
-        if re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name):  # B/Finland/150/90 B/Victoria/2/1987 -> B/Finland/150/90
-            name = re.match(r'([\w\s\-/]+)(\(?)(B/Victoria/2/87|B/Victoria/2/1987)$', name).group(1)
-        # Separate location info from ID info in strain name
-        if re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name):  #A/Iceland183/2009  A/Baylor4A/1983  A/Beijing262/41/1994
-            name = re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name).group(1) + "/" + re.match(r'([A|B]/[^0-9/]+)([0-9]+[A-Za-z]*/[0-9/]*[0-9]{2,4})$', name).group(2)
-        # Remove characters after year info, associated with passage info but can parse that from passage field later
-        if re.match(r'([A|B]/[A-Za-z-]+/[A-Za-z0-9_-]+/[0-9]{4})(.)+$', name):  # B/California/12/2015BX59B A/Shanghai/11/1987/X99/highyieldingreassortant
-            name = re.match(r'([A|B]/[A-Za-z-]+/[A-Za-z0-9_-]+/[0-9]{4})(.)+$', name).group(1)
         # Strip trailing slashes
         name = name.rstrip('/')  # A/NorthernTerritory/60/68//  A/Paris/455/2015/
         # Change two digit years to four digit years
@@ -328,13 +319,41 @@ class flu_upload(upload):
                 v['host'] = "avian"
             if v['host'] == "anascrecca":
                 v['host'] = "avian"
+            if v['host'] == "anasstrepera":
+                v['host'] = "avian"
+            if v['host'] == "passerine":
+                v['host'] = "avian"
+            if v['host'] == "larusridibundus":
+                v['host'] = "avian"
             if v['host'] == "anascarolinensis":
                 v['host'] = "avian"
             if v['host'] == "us_quail":
                 v['host'] = "avian"
             if v['host'] == "goose":
                 v['host'] = "avian"
+            if v['host'] == "anasrubripes":
+                v['host'] = "avian"
+            if v['host'] == "anasamericana":
+                v['host'] = "avian"
+            if v['host'] == "corvus":
+                v['host'] = "avian"
+            if v['host'] == "falcoperegrinus":
+                v['host'] = "avian"
+            if v['host'] == "zosteropsjaponicus":
+                v['host'] = "avian"
+            if v['host'] == "cygnuscygnus":
+                v['host'] = "avian"
+            if v['host'] == "falcon":
+                v['host'] = "avian"
+            if v['host'] == "eagle":
+                v['host'] = "avian"
+            if v['host'] == "turkey":
+                v['host'] = "avian"
+            if v['host'] == "graculareligiosa":
+                v['host'] = "avian"
             if v['host'] == "chencanagica":
+                v['host'] = "avian"
+            if v['host'] == "anserindicus":
                 v['host'] = "avian"
             if v['host'] == "passermontanus":
                 v['host'] = "avian"
@@ -344,12 +363,16 @@ class flu_upload(upload):
                 v['host'] = "avian"
             if v['host'] == "avian":
                 v['host'] = "avian"
+            if v['host'] == "coturnix":
+                v['host'] = "avian"
             if v['host'] == "guineafowl":
                 v['host'] = "avian"
             if v['host'] == "cairinamoschata":
                 v['host'] = "avian"
             if v['host'] == "anascyanoptera":
                 v['host'] = "avian"
+            if v['host'] == "feline":
+                v['host'] = "nonhuman_mammal"
             if v['host'] == "watersample":
                 v['host'] = "environment"
             if v['host'] == "surfaceswab":
