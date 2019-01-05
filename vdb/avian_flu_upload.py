@@ -299,88 +299,37 @@ class flu_upload(upload):
         Fix host formatting
         '''
         if v['host'] is not None:
-            if v['host'] == "chicken":
+
+            if v['host'] in ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
+                             "aixgalericulata", "alectorischukar", "anasboschas", "anasacuta",
+                             "anasamericana", "anascarolinensis", "anasclypeata", "anascrecca",
+                             "anascyanoptera", "anasdiscors", "anasformosa", "anasplatyrhynchos",
+                             "anaspoecilorhyncha", "anasrubripes", "anassp.", "anasstrepera",
+                             "anasstrepera", "anasundalata", "anseranser", "anserfabalis",
+                             "anseralbifrons", "anserindicus", "arenariainterpres", "avian", "bird",
+                             "bucephalaclangula", "buteo", "buteobuteo", "cairinamoschata",
+                             "chencanagica", "chicken", "corvus", "coturnix", "cygnusatratus",
+                             "cygnuscolumbianus", "cygnuscygnus", "cygnusolor", "duck", "eagle",
+                             "falco", "falcon", "falcoperegrinus", "falcotinnunculus",
+                             "gallusgallus", "gallusgallusdomesticus", "goose", "graculareligiosa",
+                             "guineafowl", "gull", "hirundorustica", "larusschistisagus",
+                             "larusargentatus", "larusbrunnicephalus", "larusichthyaetus",
+                             "larusridibundus", "larusridibundus", "lophuranycthemera",
+                             "morphnusguianensis", "necrosyrtesmonachus", "nisaetusnipalensis",
+                             "ostrich", "otheravian", "partridge", "pavocristatus", "pheasant",
+                             "passerine", "passermontanus", "polyplectronbicalcaratum", "swan",
+                             "tadornaferuginea", "turkey", "us_quail", "zosteropsjaponicus"]:
                 v['host'] = "avian"
-            if v['host'] == "duck":
-                v['host'] = "avian"
-            if v['host'] == "gallusgallus":
-                v['host'] = "avian"
-            if v['host'] == "gallusgallusdomesticus":
-                v['host'] = "avian"
-            if v['host'] == "anasclypeata":
-                v['host'] = "avian"
-            if v['host'] == "anasplatyrhynchos":
-                v['host'] = "avian"
-            if v['host'] == "anassp.":
-                v['host'] = "avian"
-            if v['host'] == "anaspoecilorhyncha":
-                v['host'] = "avian"
-            if v['host'] == "anasdiscors":
-                v['host'] = "avian"
-            if v['host'] == "anascrecca":
-                v['host'] = "avian"
-            if v['host'] == "anasstrepera":
-                v['host'] = "avian"
-            if v['host'] == "passerine":
-                v['host'] = "avian"
-            if v['host'] == "larusridibundus":
-                v['host'] = "avian"
-            if v['host'] == "anascarolinensis":
-                v['host'] = "avian"
-            if v['host'] == "us_quail":
-                v['host'] = "avian"
-            if v['host'] == "goose":
-                v['host'] = "avian"
-            if v['host'] == "anasrubripes":
-                v['host'] = "avian"
-            if v['host'] == "anasamericana":
-                v['host'] = "avian"
-            if v['host'] == "corvus":
-                v['host'] = "avian"
-            if v['host'] == "falcoperegrinus":
-                v['host'] = "avian"
-            if v['host'] == "zosteropsjaponicus":
-                v['host'] = "avian"
-            if v['host'] == "cygnuscygnus":
-                v['host'] = "avian"
-            if v['host'] == "falcon":
-                v['host'] = "avian"
-            if v['host'] == "eagle":
-                v['host'] = "avian"
-            if v['host'] == "turkey":
-                v['host'] = "avian"
-            if v['host'] == "graculareligiosa":
-                v['host'] = "avian"
-            if v['host'] == "chencanagica":
-                v['host'] = "avian"
-            if v['host'] == "anserindicus":
-                v['host'] = "avian"
-            if v['host'] == "passermontanus":
-                v['host'] = "avian"
-            if v['host'] == "arenariainterpres":
-                v['host'] = "avian"
-            if v['host'] == "otheravian":
-                v['host'] = "avian"
-            if v['host'] == "avian":
-                v['host'] = "avian"
-            if v['host'] == "coturnix":
-                v['host'] = "avian"
-            if v['host'] == "guineafowl":
-                v['host'] = "avian"
-            if v['host'] == "cairinamoschata":
-                v['host'] = "avian"
-            if v['host'] == "anascyanoptera":
-                v['host'] = "avian"
-            if v['host'] == "feline":
+
+            if v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample"]:
+                v['host'] = "environment"
+
+            if v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
+                             "swine"]:
                 v['host'] = "nonhuman_mammal"
-            if v['host'] == "watersample":
-                v['host'] = "environment"
-            if v['host'] == "surfaceswab":
-                v['host'] = "environment"
-            if v['host'] == "feces":
-                v['host'] = "environment"
-            if v['host'] == "watersample":
-                v['host'] = "environment"
+
+            if v['host'] in ["circus", "ferret", "insect"]:
+                v['host'] = "other"
 
     def format_country(self, v):
         '''

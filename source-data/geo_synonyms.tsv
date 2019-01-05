@@ -134,6 +134,9 @@ Wallonia	Belgium	Wallonia	Wallonia
 # Belize
 Belize	Belize	Belize	Belize
 
+# Benin
+Benin	Benin	Benin	Benin
+
 # Bermuda
 Bermuda	Bermuda	Bermuda	Bermuda
 
@@ -144,11 +147,6 @@ Bhutan	Bhutan	Bhutan	Bhutan
 Bolivia	Bolivia	Bolivia	Bolivia
 Cochabamba	Bolivia	Cochabamba	Cochabamba
 LaPaz	Bolivia	LaPaz	LaPaz
-
-# Borneo
-Borneo	Indonesia	Borneo	Borneo
-Kalimantan	Indonesia	Borneo	Borneo
-Sarawak	Indonesia	Borneo	Sarawak
 
 # BosniaHerzegovina
 BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina	BosniaHerzegovina
@@ -494,6 +492,7 @@ HunanWuling	China	Hunan	Wuling
 HunanYuhua	China	Hunan	Yuhua
 InnerMongolia	China	Neimenggu	Neimenggu
 Jinlinnanguan	China	China	China
+Jiande	China	Zhejiang	sJiande
 Jiangan	China	Hubei	Jiangan
 Jiangmenguangdong	China	Guangdong	Jiangmen
 Jiangsu	China	Jiangsu	Jiangsu
@@ -621,6 +620,7 @@ Zhejiangyiwu	China	Zhejiang	Yiwu
 Zhenjiang	China	Jiangsu	Zhenjiang
 Zhongshan	China	Guangdong	Zhongshan
 Zhejiang	China	Zhejiang	Zhejiang
+Zhengzhou	China	Henan	Zhengzhou
 Zhoushan	China	Zhejiang	Zhoushan
 Zhuhai	China	Guangdong	Zhuhai
 Zhongyuan	China	Henan	Zhongyuan
@@ -744,6 +744,7 @@ Ismailia	Egypt	Ismailia	Ismailia
 Gharbia	Egypt	Gharbia	Gharbia
 Giza	Egypt	Giza	Giza
 NorthSinai	Egypt	NorthSinai	NorthSinai
+Qalubia	Egypt	Qalubia	Qalubia
 
 # ElSalvador
 ElSalvador	ElSalvador	ElSalvador	ElSalvador
@@ -1073,6 +1074,7 @@ Itarsi	India	MadhyaPradesh	Itarsi
 Jabalpur	India	MadhyaPradesh	Jabalpur
 Jaipurrajasthan	India	Rajasthan	Jaipur
 Jodhpur	India	Rajasthan	Jodhpur
+Jalgaon	India	Maharashtra	Jalgaon
 Jalna	India	Maharashtra	Jalna
 JammuKashmir	India	JammuKashmir	JammuKashmir
 Jhabua	India	MadhyaPradesh	Jhabua
@@ -1092,7 +1094,9 @@ Mumbai	India	Maharashtra	Mumbai
 Nagda	India	MadhyaPradesh	Nagda
 Nagpur	India	Maharashtra	Nagpur
 Nanded	India	Maharashtra	Nanded
+Nandurbar	India	Maharashtra	Nandurbar
 Nashik	India	Maharashtra	Nashik
+Navapur	India	Maharashtra	Navapur
 Odisha	India	Odisha	Odisha
 Pachpadra	India	Rajasthan	Pachpadra
 Panchgani	India	Maharashtra	Panchgani
@@ -1109,6 +1113,7 @@ Ratnagiri	India	Maharashtra	Ratnagiri
 Rewa	India	MadhyaPradesh	Rewa
 Rtng	India	India	India
 Satna	India	MadhyaPradesh	Satna
+Sikkim	India	Sikkim	Sikkim
 Shajapur	India	MadhyaPradesh	Shajapur
 Srinigar	India	JammuAndKashmir	Srinagar
 TamilNaidu	India	TamilNaidu	TamilNaidu
@@ -1124,40 +1129,79 @@ Yavatmal	India	Maharashtra	Yavatmal
 
 # Indonesia
 Indonesia	Indonesia	Indonesia	Indonesia
+Agam	Indonesia	Sumatra	Agam
 Bali	Indonesia	Bali	Bali
+BandarLampung	Indonesia	Sumatra	BandarLampung
+Bandung	Indonesia	Java	Bandung
 Banten	Indonesia	Banten	Banten
+Banyumas	Indonesia	Java	Banyumas
 Banyuwangi	Indonesia	Java	Banyuwangi
 Bengkulu	Indonesia	Bengkulu	Bengkulu
-Bogorwestjava	Indonesia	WestJava	Bogor
+Bogorwestjava	Indonesia	Java	Bogor
+Bojonggenteng	Indonesia	Java	Bojonggenteng
+Boyolali	Indonesia	Java	Boyolali
 CentralJava	Indonesia	Java	CentralJava
+Cicurug	Indonesia	Java	Cicurug
+Cileungsi	Indonesia	Java	Cileungsi
+DeliDerdang	Indonesia	Sumatra	DeliDerdang
+Denpasar	Indonesia	Bali	Denpasar
 EastJava	Indonesia	Java	EastJava
+EastKalimantan	Indonesia	Borneo	EastKalimantan
 Gorontalo	Indonesia	Sulawesi	Gorontalo
+GunungKidul	Indonesia	Java	GunungKidul
+Indramayu	Indonesia	Java	Indramayu
 Jakarta	Indonesia	Jakarta	Jakarta
 Jambi	Indonesia	Sumatra	Jambi
 Java	Indonesia	Java	Java
+Jembrana	Indonesia	Bali	Jembrana
+Jombang	Indonesia	Java	Jombang
+Kapuas	Indonesia	Borneo	Kapuas
 Kediri	Indonesia	Java	Kediri
+Klapanunggal	Indonesia	Java	Klapanunggal
 Klaten	Indonesia	Java	Klaten
-Kuningan	Indonesia	WestJava	Kuningan
+Kudus	Indonesia	Java	Kudus
+Kuningan	Indonesia	Java	Kuningan
 LampungUtara	Indonesia	Sulawesi	LampungUtara
 Lamongan	Indonesia	Java	Lamongan
 Lampung	Indonesia	Sumatra	Lampung
+Leuwiliang	Indonesia	Java	Leuwiliang
 Lumajang	Indonesia	Java	Lumajang
-Bandungjava	Indonesia	Java	Bandung
+Madiun	Indonesia	Java	Madiun
 Makassar	Indonesia	Makassar	Makassar
+Medan	Indonesia	Sumatra	Medan
+MuraoJambi	Indonesia	Sumatra	MuraoJambi
+Nagrak	Indonesia	Java	Nagrak
 NorthSumatra	Indonesia	Sumatra	NorthSumatra
 Palembangsumatra	Indonesia	Sumatra	Palembang
-Raas	Indonesia	EastJava	Raas
+Pangkalpinang	Indonesia	BangkaBelitung	Pangkalpinang
+Parung	Indonesia	Java	Parung
+Payakumbuh	Indonesia	Sumatra	Payakumbuh
+Pekalongan	Indonesia	Java	Pekalongan
+Raas	Indonesia	Java	Raas
+Riau	Indonesia	Sumatra	Riau
 Semarang	Indonesia	Java	Semarang
+Sembawa	Indonesia	Java	Sembawa
 SouthSumatra	Indonesia	Sumatra	SouthSumatra
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
 Sidrap	Indonesia	Sulawesi	Sidrap
+Sleman	Indonesia	Java	Sleman
+Sragen	Indonesia	Java	Sragen
 Surakarta	Indonesia	Jateng	Surakarta
 Sulawesi	Indonesia	Sulawesi	Sulawesi
 Sukoharjo	Indonesia	Java	Sukoharjo
+TanahDatar	Indonesia	Sumatra	TanahDatar
+Tasikmalaya	Indonesia	Java	Tasikmalaya
+Temanggung	Indonesia	Java	Temanggung
 WestJava	Indonesia	Java	WestJava
+Wonogiri	Indonesia	Java	Wonogiri
+Wonosobo	Indonesia	Java	Wonosobo
 Yogyakarta	Indonesia	Java	Yogyakarta
+Borneo	Indonesia	Borneo	Borneo
+Kalimantan	Indonesia	Borneo	Borneo
+Sarawak	Indonesia	Borneo	Sarawak
+SouthKalimantan	Indonesia	Borneo	SouthKalimantan
 
 # Iran
 Iran	Iran	Iran	Iran
@@ -1348,8 +1392,7 @@ SouthKazakhstan	Kazakhstan	SouthKazakhstan	SouthKazakhstan
 NorthKazakhstan	Kazakhstan	NorthKazakhstan	NorthKazakhstan
 Akmola	Kazakhstan	Akmola	Akmola
 Kyzylorda	Kazakhstan	Kyzylorda	Kyzylorda
-
-
+Pavlodar	Kazakhstan	Pavlodar	Pavlodar
 
 # Kenya
 Kenya	Kenya	Kenya	Kenya
@@ -1610,6 +1653,8 @@ Mandalay	Myanmar	Mandalay	Mandalay
 Sagaing	Myanmar	Sagaing	Sagaing
 Yangon	Myanmar	Yangon	Yangon
 Naypyitaw	Myanmar	Naypyitaw	Naypyitaw
+Shan	Myanmar	Shan	Shan
+Yinmarbin	Myanmar	Sagaing	Yinmarbin
 
 # Nauru
 Nauru	Nauru	Nauru	Nauru
@@ -1715,7 +1760,9 @@ Salalah	Oman	Dhofar	Salalah
 
 # Pakistan
 Pakistan	Pakistan	Pakistan	Pakistan
+Islamabad	Pakistan	Islamabad	Islamabad
 Lahore	Pakistan	Punjab	Lahore
+Mansehra	Pakistan	KhyberPakhtunkhwa	Mansehra
 Muridke	Pakistan	Punjab	Muridke
 Karachi	Pakistan	Sindh	Karachi
 
@@ -1725,6 +1772,7 @@ Palau	Palau	Palau	Palau
 # Palestine
 Palestine	Palestine	Palestine	Palestine
 Bethlehem	Palestine	Bethlehem	Bethlehem
+Gaza	Palestine	Gaza	Gaza
 Hebron	Palestine	Hebron	Hebron
 Jenin	Palestine	Jenin	Jenin
 Jericho	Palestine	Jericho	Jericho
@@ -1878,6 +1926,7 @@ Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
 Chita	Russia	ZabaykalskyKrai	Chita
 Dagestan	Russia	Dagestan	Dagestan
+Domodedovo	Russia	Moscow	Domodedovo
 Dovolnoe	Russia	Novosibirsk	Dovolnoe
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
 GornoAltaysk	Russia	Altaia	GornoAltaysk
@@ -1886,6 +1935,7 @@ Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
+Kalmykia	Russia	Kalmykia	Kalmykia
 Kaluga	Russia	Kaluga	Kaluga
 Karasuk	Russia	Novosibirsk	Karasuk
 Kazan	Russia	Tatarstan	Kazan
@@ -1899,11 +1949,14 @@ Koltsovo	Russia	Novosibirsk	Koltsovo
 Komi	Russia	Komi	Komi
 Kostroma	Russia	Kostroma	Kostroma
 Krasnodar	Russia	Krasnodar	Krasnodar
+Krasnoozerka	Russia	Khakassia	Krasnoozerka
+Krasnoozerskoe	Russia	Khakassia	Krasnoozerka
 Krasnoyarsk	Russia	Krasnoyarsk	Krasnoyarsk
 Kurgan	Russia	Kurgan	Kurgan
 Kursk	Russia	Kursk	Kursk
 Leningrad	Russia	Leningrad	Leningrad
 Lipetsk	Russia	Lipetsk	Lipetsk
+Mahachkala	Russia	Dagestan	Mahachkala
 Magadan	Russia	Magadan	Magadan
 Majkop	Russia	Adygeya	Majkop
 MariEl	Russia	MariEl	MariEl
@@ -1924,6 +1977,8 @@ Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
 Petrozavodsk	Russia	Karelia	Petrozavodsk
 Podporozhie	Russia	Podporozhie	Podporozhie
+Primorsky	Russia	Primorsky	Primorsky
+Reshoty	Russia	Pskov	Reshoty
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
 Ryazan	Russia	Ryazan	Ryazan
@@ -1936,6 +1991,7 @@ Saratov	Russia	Saratov	Saratov
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
+Suzdalka	Russia	Novosibirsk	Suzdalka
 Surgut	Russia	KhantyMansia	Surgut
 Syktyvkar	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
@@ -1943,6 +1999,7 @@ Tatarstan	Russia	Tatarstan	Tatarstan
 Tomsk	Russia	Tomsk	Tomsk
 Tula	Russia	Tula	Tula
 Tver	Russia	Tver	Tver
+Tyva	Russia	Tyva	Tyva
 Tyumen	Russia	Tyumen	Tyumen
 Ufa	Russia	Bashkortostan	Ufa
 UlanUde	Russia	Buryatia	UlanUde
@@ -2122,6 +2179,7 @@ Aragon	Spain	Aragon	Aragon
 Asturias	Spain	Asturias	Asturias
 Baleares	Spain	BalearicIslands	Baleares
 Barcelona	Spain	Catalonia	Barcelona
+BasqueCountry	Spain	BasqueCountry	BasqueCountry
 Burgos	Spain	CastillaLaMancha	Burgos
 Canarias	Spain	CanaryIslands	Canarias
 Cantabria	Spain	Cantabria	Cantabria
@@ -2232,16 +2290,21 @@ Tajikistan	Tajikistan	Tajikistan	Tajikistan
 Tanzania	Tanzania	Tanzania	Tanzania
 Tanzaniaunitedrepublicof	Tanzania	Tanzania	Tanzania
 
+# Tibet
+Tibet	Tibet	Tibet	Tibet
+
 # Thailand
 Thailand	Thailand	Thailand	Thailand
 Ayutthaya	Thailand	Ayutthaya	Ayutthaya
 Bangkok	Thailand	Bangkok	Bangkok
 Chachoengsao	Thailand	Chachoengsao	Chachoengsao
+Chaiyaphum	Thailand	Chaiyaphum	Chaiyaphum
 Chanthaburi	Thailand	Chanthaburi	Chanthaburi
 ChiangMai	Thailand	ChiangMai	ChiangMai
 ChiangRai	Thailand	ChiangRai	ChiangRai
 Chonburi	Thailand	Chonburi	Chonburi
 CuTha	Thailand	Thailand	CuTha
+Kalasin	Thailand	Kalasin	Kalasin
 Kanchanaburi	Thailand	Kanchanaburi	Kanchanaburi
 Kampheangphet	Thailand	KamphaengPhet	KamphaengPhet
 Kampheangephet	Thailand	KamphaengPhet	KamphaengPhet
@@ -2253,14 +2316,20 @@ LopBuri	Thailand	LopBuri	LopBuri
 Loei	Thailand	Loei	Loei
 MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
+Mukdahan	Thailand	Mukdahan	Mukdahan
 Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom
+NakhonPathom	Thailand	NakhonPathom	NakhonPathom
 NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima
+Nakhonsawan	Thailand	Nakhonsawan	Nakhonsawan
 NakhonSiThammarat	Thailand	NakhonSiThammarat	NakhonSiThammarat
 Nan	Thailand	Nan	Nan
 NongKhai	Thailand	NongKhai	NongKhai
 Nonthaburi	Thailand	Nonthaburi	Nonthaburi
 PathumThani	Thailand	PathumThani	PathumThani
+PhangNga	Thailand	PhangNga	PhangNga
 Phetchaburi	Thailand	Phetchaburi	Phetchaburi
+Phetchabun	Thailand	Phetchabun	Phetchabun
+Phichit	Thailand	Phichit	Phichit
 Phitsanulok	Thailand	Phitsanulok	Phitsanulok
 PhraNakhonSiAyutthaya	Thailand	PhraNakhonSiAyutthaya	PhraNakhonSiAyutthaya
 Phuket	Thailand	Phuket	Phuket
@@ -2281,6 +2350,8 @@ SuratThani	Thailand	SuratThani	SuratThani
 Tak	Thailand	Tak	Tak
 Trang	Thailand	Trang	Trang
 Udorn	Thailand	NakhonRatachasima	NongPhaiLom
+Uthaiyhani	Thailand	Uthaiyhani	Uthaiyhani
+Uthaithani	Thailand	Uthaithani	Uthaithani
 Uttaradit	Thailand	Uttaradit	Uttaradit
 Yasothon	Thailand	Yasothon	Yasothon
 
@@ -2396,6 +2467,7 @@ Odessa	Ukraine	Odessa	Odessa
 Poltava	Ukraine	Poltava	Poltava
 Rivne	Ukraine	Rivne	Rivne
 Ternopil	Ukraine	Ternopil	Ternopil
+Sevastopol	Ukraine	Crimea	Sevastopol
 Sumy	Ukraine	Sumy	Sumy
 Volyn	Ukraine	Volyn	Volyn
 Zaporizhia	Ukraine	Zaporizhia	Zaporizhia

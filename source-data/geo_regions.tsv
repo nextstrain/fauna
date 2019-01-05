@@ -1,6 +1,7 @@
 country	region
 
 algeria	africa
+benin	africa
 canary_islands	africa
 egypt	africa
 morocco	africa
@@ -126,6 +127,7 @@ china	china
 hong_kong	china
 macau	china
 taiwan	china
+tibet	china
 
 bangladesh	south_asia
 bhutan	south_asia
