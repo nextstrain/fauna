@@ -47,11 +47,16 @@ S?oPaulo	SaoPaulo
 StaCatarina	SantaCatarina
 MinasGerias	MinasGerais
 
+# Burkina Faso
+Burkina_Faso	BurkinaFaso
+
 # Canada
 NorthwestTerritories	NorthWestTerritories
+BC	BritishColumbia
 Canada_SK	Saskatchewan
 Canada_QC	Quebec
 Canada_ON	Ontario
+ON	Ontario
 Canada_NWT	NorthwestTerritories
 Canada_NFL	NewfoundlandAndLabrador
 Canada_NB	NewBrunswick
@@ -110,6 +115,7 @@ Beijinxuanwu	BeijingXuanwu
 Cheng-mei	ChengMei
 Chongqingyuzhong	ChongqingYuzhong
 Guandong	Guangdong
+Eastern_China	EasternChina
 Fujiangulou	FujianGulou
 Gansuchengguan	GansuChengguan
 Guanxi	Guangxi
@@ -172,6 +178,7 @@ NanPing	Nanping
 Nangchang	Nanchang
 Neimeng	Neimenggu
 NingDe	Ningde
+North_China	NorthChina
 PuTian	Putian
 Qingfang	Qingfeng
 Quinghai-Gangcha	Gangca
@@ -211,6 +218,9 @@ CoteDIvorie	CoteDIvoire
 YopougonGR926	Yopougon/GR926
 Korogho	Korhogo
 IvoryCoast	CoteDIvoire
+Ivory_Coast	CoteDIvoire
+Cote_dIvoire	CoteDIvoire
+Cote_d'Ivoire	CoteDIvoire
 
 # CzechRepublic
 CzechRep	CzechRepublic
@@ -228,6 +238,8 @@ Equador	Ecuador
 
 # Egypt
 Helwan746	Helwan/746
+El_Fayoum	Faiyum
+Sharkia	Sharqia
 
 # Finland
 Finlad	Finland
@@ -367,10 +379,20 @@ Pachgani	Panchgani
 Patna-India	Patna
 Ujain	Ujjain
 Uttrakhand	Uttarakhand
+West_Bengal	WestBengal
 Ytml	Yavatmal
 
 # Indonesia
 Bandungjava	Bandung
+Central_Java	CentralJava
+East_Java	EastJava
+East_Kalimantan	EastKalimantan
+North_Sumatra	Sumatra
+Sulawesi_Selatan	SulawesiSelatan
+South_Kalimantan	SouthKalimantan
+West_Java	WestJava
+Yogjakarta	Yogyakarta
+WestJava_Sbg_	WestJava
 
 # Iran
 Bandar_Abbas	BandarAbbas
@@ -470,6 +492,7 @@ Darkhan-uul	DarkhanUul
 Dornogobi	Dornogovi
 Dundgobi	Dundgovi
 Gobisumber	Govisumber
+Inner_Mongolia	InnerMongolia
 Orchon	Orkhon
 Ulgii	Olgii
 Ulaabaatar	Ulaanbaatar
@@ -487,6 +510,7 @@ RABT	Rabat
 
 # Myanmar
 Myanmer	Myanmar
+Kyaing_Tong	KyaingTong
 
 # Netherlands
 Netherland	Netherlands
@@ -611,6 +635,7 @@ NorthNovgorod	NizhnyNovgorod
 Ossetia-Alania	OssetiaAlania
 Rostov-On-Don	RostovOnDon
 Rostov-on-Don	RostovOnDon
+Rostov_on_Don	RostovOnDon
 Rostovoblast	Rostov
 Russia_Krasnodar	Krasnodar
 Salehard	Salekhard
@@ -656,6 +681,7 @@ Daejeion	Daejeon
 Deajeon	Daejeon
 Gyeonggibuk	Gyeongbuk
 Gyongbuk	Gyeongbuk
+Ha_Nam	Hanam
 Inchon	Incheon
 Kangwon	Gangwon
 Kyounggi	Gyeonggi
@@ -679,6 +705,9 @@ Rathnapura	Ratnapura
 
 # SaintLucia
 StLucia	SaintLucia
+
+# SaudiArabia
+Saudi_Arabia	SaudiArabia
 
 # StVincentAndTheGrenadines
 StVincentAndGrenadines	StVincentAndTheGrenadines
@@ -713,9 +742,11 @@ Chantuaburi	Chanthaburi
 CU-THA	CuTha
 Cu-Tha	CuTha
 Kamphaengphet	KamphaengPhet
+Kohn_Kaen	KohnKaen
 MaeHongSorn	MaeHongSon
 Nakhonratchasima	NakhonRatachasima
 Nakhonratchaisma	NakhonRatachasima
+Nakhon_Pathom	NakhonPathom
 NONG KAI	NongKhai
 Nongkai	NongKhai
 NONTHANURI	Nonthaburi
@@ -724,6 +755,8 @@ Nonthanuri	Nonthaburi
 Nothaburi	Nonthaburi
 Pathumthani	PathumThani
 Petchaburi	Phetchaburi
+Phathumthani	PathumThani
+Prachinburi__Thailand_	PrachinBuri
 Prachuapkhirikhan	PrachuapKhiriKhan
 Prachinburi	PrachinBuri
 Prajianburi	PrachinBuri
@@ -739,6 +772,7 @@ Trinidad-Tobago	Trinidad
 
 # Turkey
 SUrfa	Sanliurfa
+Ha_Tay	Hatay
 
 # TurksAndCaicos
 TurksandCaicos	TurksAndCaicos
@@ -777,6 +811,8 @@ Delware	Delaware
 DictrictofColumbia	DistrictOfColumbia
 DistrictofColombia	DistrictOfColumbia
 DC	DistrictOfColumbia
+DE	Delaware
+Delaware_Bay	DelawareBay
 Ft.Benning	FtBenning
 Georgia_NHRC	GeorgiaNHRC
 Lousiana	Louisiana
@@ -785,20 +821,24 @@ Massachussetts	Massachusetts
 Mem	Memphis
 ID	Idaho
 GA	Georgia
+VA	Virginia
 VI	VirginIslands
 North_Carolina	NorthCarolina
 WI	Wisconsin
 MD	Maryland
 WV	WestVirginia
 Md	Maryland
+MI	Michigan
 NEW-YORK	NewYork
 New_York	NewYork
+North_Dakota	NorthDakota
 West_Virginia	WestVirginia
 Los_Angeles	LosAngeles
 New_Mexico	NewMexico
 NewMexcio	NewMexico
 New-York	NewYork
 Pennsalvanya	Pennsylvania
+PA	Pennsylvania
 South_Carolina	SouthCarolina
 South_Dakota	SouthDakota
 West_Virginia	WestVirginia
@@ -813,7 +853,23 @@ Venezuala	Venezuela
 
 # Vietnam
 VietNam	Vietnam
+Viet_Nam	Vietnam
+Bac_Lieu	BacLieu
+Ca_Mau	CaMau
+Cao_Bang	CaoBang
 HaNoi	Hanoi
+Hai_Duong	HaiDuong
+Hau_Giang	HauGiang
+Lang_Son	LangSon
+Long_An	LongAn
+Nam_Dinh	NamDinh
+Ninh_Binh	NinhBinh
+Quang_Ninh	QuangNinh
+Vietnam_Hau_Giang	HuaGiang
+Soc_Trang	SocTrang
+Son_La	SonLa
+Vietnam_NamDinh	NamDinh
+Vietnam_BacLiu	BacLieu
 
 # WallisAndFutuna
 WALLIS-FUTUNA	WallisAndFutuna
