@@ -32,6 +32,7 @@ def read_vidrl(path, fstem, assay_type):
     # import glob
     # flist = glob.glob(path + '/NIMR*csv') #BP
     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
+
     if True in exten:
         ind = exten.index(True)
         convert_xls_to_csv(path, fstem, ind)
@@ -39,6 +40,7 @@ def read_vidrl(path, fstem, assay_type):
         parse_vidrl_matrix_to_tsv(fname, path, assay_type)
     else:
         # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
+        print("Unable to recognize file {}/{}".format(path,fstem))
         sys.exit()
 
 def convert_xls_to_csv(path, fstem, ind):
