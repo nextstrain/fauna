@@ -1273,6 +1273,7 @@ Genoa	Italy	Liguria	Genoa
 Lazio	Italy	Lazio	Lazio
 Messina	Italy	Sicily	Messina
 Milan	Italy	Lombardy	Milan
+Napoli	Italy	Campania	Napoli
 Padova	Italy	Veneto	Padova
 Palermo	Italy	Sicily	Palermo
 Parma	Italy	EmiliaRomagna	Parma
@@ -1937,6 +1938,7 @@ Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
 Kalmykia	Russia	Kalmykia	Kalmykia
 Kaluga	Russia	Kaluga	Kaluga
+Kamchatka	Russia	Kamchatka	Kamchatka
 Karasuk	Russia	Novosibirsk	Karasuk
 Kazan	Russia	Tatarstan	Kazan
 Kemerovo	Russia	Kemerovo	Kemerovo
@@ -1978,6 +1980,7 @@ Perm	Russia	Perm	Perm
 Petrozavodsk	Russia	Karelia	Petrozavodsk
 Podporozhie	Russia	Podporozhie	Podporozhie
 Primorsky	Russia	Primorsky	Primorsky
+Primorie	Russia	Primorsky	Primorie
 Reshoty	Russia	Pskov	Reshoty
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
@@ -2014,6 +2017,7 @@ Voronezh	Russia	Voronezh	Voronezh
 Volgograd	Russia	Volgograd	Volgograd
 Vologda	Russia	Vologda	Vologda
 Yakutsk	Russia	Sakha	Yakutsk
+Yakutia	Russia	Sakha	Yakutia
 Yaroslavl	Russia	Yaroslavl	Yaroslavl
 Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
@@ -2483,6 +2487,7 @@ AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
+Abergavenny	UnitedKingdom	Wales	Abergavenny
 Abergele	UnitedKingdom	Wales	Abergele
 Abertillery	UnitedKingdom	Wales	Abertillery
 Aberaeron	UnitedKingdom	Wales	Aberaeron
@@ -2496,6 +2501,7 @@ Bedford	UnitedKingdom	England	Bedford
 Belfast	UnitedKingdom	NorthernIreland	Belfast
 Berks	UnitedKingdom	England	Berkshire
 Birmingham	UnitedKingdom	England	Birmingham
+Blackwood	UnitedKingdom	Wales	Blackwood
 Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
@@ -2508,6 +2514,7 @@ Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
 Carmarthen	UnitedKingdom	Wales	Carmarthen
 ChristsHospital	UnitedKingdom	England	Horsham
+Chepstow	UnitedKingdom	Wales	Chepstow
 Cheshire	UnitedKingdom	England	Cheshire
 Cirencester	UnitedKingdom	England	Cirencester
 CityofLondon	UnitedKingdom	England	London
@@ -2519,6 +2526,9 @@ Craven	UnitedKingdom	England	Craven
 Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
 Cumbria	UnitedKingdom	England	Cumbria
+Cwmbran	UnitedKingdom	Wales	Cwmbran
+Deeside	UnitedKingdom	Wales	Deeside
+Denbigh	UnitedKingdom	Wales	Denbigh
 Derbyshire	UnitedKingdom	England	Derbyshire
 DinasPowys	UnitedKingdom	Wales	DinasPowys
 Dundee	UnitedKingdom	England	Dundee
@@ -2532,16 +2542,20 @@ Glasgow	UnitedKingdom	Scotland	Glasgow
 Gloucester	UnitedKingdom	England	Gloucester
 Guildford	UnitedKingdom	England	Guildford
 Hampshire	UnitedKingdom	England	Hampshire
+Harrow	UnitedKingdom	England	Harrow
 Haverfordwest	UnitedKingdom	Wales	Haverfordwest
 Headington	UnitedKingdom	England	Headington
+Hengoed	UnitedKingdom	Wales	Hengoed
 HERTS	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
+Holywell	UnitedKingdom	Wales	Holywell
 Huntingdon	UnitedKingdom	England	Huntingdon
 HUNTINGDONCAMBS	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
 Kent	UnitedKingdom	England	Kent
 Lambeth	UnitedKingdom	England	Lambeth
 Llangollen	UnitedKingdom	Wales	Llangollen
+Llanidloes	UnitedKingdom	Wales	Llanidloes
 Leeds	UnitedKingdom	England	Leeds
 Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
@@ -2555,7 +2569,9 @@ Middlesex	UnitedKingdom	England	Middlesex
 Middx	UnitedKingdom	England	Middlesex
 MilfordHaven	UnitedKingdom	Wales	MilfordHaven
 Minehead	UnitedKingdom	England	Minehead
+Mold	UnitedKingdom	Wales	Mold
 Monmouth	UnitedKingdom	Wales	Monmouth
+MountainAsh	UnitedKingdom	Wales	MountainAsh
 Neath	UnitedKingdom	Wales	Neath
 Newcastleunderlyme	UnitedKingdom	England	Newcastleunderlyme
 Newcastle-Under-Lyme	UnitedKingdom	England	Newcastleunderlyme
@@ -2575,14 +2591,19 @@ Peterborough	UnitedKingdom	England	Peterborough
 Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
 Pontyclun	UnitedKingdom	Wales	Pontyclun
+Pontypool	UnitedKingdom	Wales	Pontypool
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
+Prestatyn	UnitedKingdom	Wales	Prestatyn
 Pwllheli	UnitedKingdom	Wales	Pwllheli
 Reading	UnitedKingdom	England	Reading
 Rhyl	UnitedKingdom	Wales	Rhyl
+Risca	UnitedKingdom	Wales	Risca
+Ruthin	UnitedKingdom	Wales	Ruthin
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
+Senghenydd	UnitedKingdom	Wales	Senghenydd
 Sheffield	UnitedKingdom	England	Sheffield
 Somerset	UnitedKingdom	England	Somerset
 Southampton	UnitedKingdom	England	Southampton
@@ -2592,13 +2613,17 @@ Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
 Telford	UnitedKingdom	England	Telford
 Tetbury	UnitedKingdom	England	Tetbury
+Tregaron	UnitedKingdom	Wales	Tregaron
+Tredegar	UnitedKingdom	Wales	Tredegar
 Treorchy	UnitedKingdom	Wales	Treorchy
+Usk	UnitedKingdom	Wales	Usk
 Ware	UnitedKingdom	England	Ware
 Wrexham	UnitedKingdom	Wales	Wrexham
 Whitechapel	UnitedKingdom	England	London
 Wirral	UnitedKingdom	England	Wirral
 Wythenshawe	UnitedKingdom	England	Wythenshawe
 Wales	UnitedKingdom	Wales	Wales
+Ynysddu	UnitedKingdom	Wales	Ynysddu
 York	UnitedKingdom	England	York
 
 # USA
