@@ -780,6 +780,7 @@ Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
 Aquitaine	France	Aquitaine	Aquitaine
+Barjols	France	ProvenceAlpesCoteDAzur	Barjols
 BasseNormandie	France	Normandy	BasseNormandie
 Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux
 Bourgogne	France	BourgogneFrancheComte	Bourgogne
@@ -796,9 +797,12 @@ Chambery	France	AuvergneRhoneAlpes	Chambery
 Desgenettes	France	AuvergneRhoneAlpes	Lyon
 Dijon	France	BourgogneFrancheComte	Dijon
 FrancheComte	France	FrancheComte	FrancheComte
+Frejus	France	ProvenceAlpesCoteDAzur	Frejus
+Gigean	France	Herault	Gigean
 Grenoble	France	AuvergneRhoneAlpes	Grenoble
 HauteNormandie	France	Normandy	HauteNormandie
 LaReunion	France	SaintDenis	LaReunion
+LaRochelle	France	CharenteMaritime	LaRochelle
 LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
 Lille	France	NordPasDeCalais	Lille
 Limoges	France	AquitaineLimousinPoitouCharentes	Limoges
@@ -824,6 +828,7 @@ Puymirol	France	NouvelleAquitaine	Puymirol
 Reims	France	AlsaceChampagneArdenneLorraine	Reims
 Rennes	France	Bretagne	Rennes
 Reunion	France	SaintDenis	Reunion
+Rochefort	France	CharenteMaritime	Rochefort
 Rouen	France	Normandy	Rouen
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
