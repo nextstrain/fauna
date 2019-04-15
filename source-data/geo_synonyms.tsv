@@ -1918,10 +1918,12 @@ Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
 Anadyr	Russia	Chukotka	Anadyr
 Anapa	Russia	KrasnodarKrai	Anapa	Anapa
+AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
 Astrakhan	Russia	Astrakhan	Astrakhan
 Barnaul	Russia	AltaiKrai	Barnaul
 Belgorod	Russia	Belgorod	Belgorod
+Belogorsk	Russia	Amur	Belogorsk
 Birobidzhan	Russia	JewishOblast	Birobidzhan
 Blagoveshchensk	Russia	Amur	Blagoveshchensk
 Bryansk	Russia	Bryansk	Bryansk
@@ -1929,13 +1931,16 @@ Buryatia	Russia	Buryatia	Buryatia
 Chany	Russia	Novosibirsk	Chany
 Cheboksary	Russia	Chuvash	Cheboksary
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
+Cherepovets	Russia	Vologda	Cherepovets
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
 Chita	Russia	ZabaykalskyKrai	Chita
 Dagestan	Russia	Dagestan	Dagestan
 Domodedovo	Russia	Moscow	Domodedovo
 Dovolnoe	Russia	Novosibirsk	Dovolnoe
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
+Gatchina	Russia	Leningrad	Gatchina
 GornoAltaysk	Russia	Altaia	GornoAltaysk
+Grozny	Russia	Chechnya	Grozny
 Irkutsk	Russia	Irkutsk	Irkutsk
 Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
@@ -1951,6 +1956,7 @@ Khabarovsk	Russia	Khabarovsk	Khabarovsk
 Khakassia	Russia	Khakassia	Khakassia
 KhantiMansiysk	Russia	KhantyMansi	KhantiMansiysk
 Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
+Kirishi	Russia	Leningrad	Kirishi
 Kirov	Russia	Kirov	Kirov
 KhantyMansia	Russia	KhantyMansia	KhantyMansia
 Koltsovo	Russia	Novosibirsk	Koltsovo
@@ -1964,7 +1970,7 @@ Kurgan	Russia	Kurgan	Kurgan
 Kursk	Russia	Kursk	Kursk
 Leningrad	Russia	Leningrad	Leningrad
 Lipetsk	Russia	Lipetsk	Lipetsk
-Mahachkala	Russia	Dagestan	Mahachkala
+Makhachkala	Russia	Dagestan	Makhachkala
 Magadan	Russia	Magadan	Magadan
 Majkop	Russia	Adygeya	Majkop
 MariEl	Russia	MariEl	MariEl
@@ -1987,6 +1993,7 @@ Petrozavodsk	Russia	Karelia	Petrozavodsk
 Podporozhie	Russia	Podporozhie	Podporozhie
 Primorsky	Russia	Primorsky	Primorsky
 Primorie	Russia	Primorsky	Primorie
+Pskov	Russia	Pskov	Pskov
 Reshoty	Russia	Pskov	Reshoty
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
@@ -1997,6 +2004,7 @@ Salekhard	Russia	Yamalia	Salekhard
 Samara	Russia	Samara	Samara
 Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
+Shuberskoye	Russia	Voronezh	Shuberskoye
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
@@ -2016,6 +2024,7 @@ Ulyanovsk	Russia	Ulyanovsk	Ulyanovsk
 Urengoy	Russia	Yamalia	Urengoy
 USSR	Russia	Russia	Russia
 VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
+VerkhChebula	Russia	Kemerovo	VerkhChebula
 Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
 Vladimir	Russia	Vladimir	Vladimir
 Vladivostok	Russia	Primorsky	Vladivostok
@@ -2027,6 +2036,7 @@ Yakutia	Russia	Sakha	Yakutia
 Yaroslavl	Russia	Yaroslavl	Yaroslavl
 Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
+Zhizdra	Russia	Kaluga	Zhizdra
 
 # Rwanda
 Rwanda	Rwanda	Rwanda	Rwanda
@@ -2493,6 +2503,7 @@ AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
+Aberdare	UnitedKingdom	Wales	Aberdare
 Abergavenny	UnitedKingdom	Wales	Abergavenny
 Abergele	UnitedKingdom	Wales	Abergele
 Abertillery	UnitedKingdom	Wales	Abertillery
@@ -2506,12 +2517,15 @@ Barry	UnitedKingdom	Wales	Barry
 Bedford	UnitedKingdom	England	Bedford
 Belfast	UnitedKingdom	NorthernIreland	Belfast
 Berks	UnitedKingdom	England	Berkshire
+BetwysYCoed	UnitedKingdom	Wales	BetwysYCoed
 Birmingham	UnitedKingdom	England	Birmingham
 Blackwood	UnitedKingdom	Wales	Blackwood
+BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
 Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 Bristol	UnitedKingdom	England	Bristol
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
+Buckley	UnitedKingdom	Wales	Buckley
 BurryPort	UnitedKingdom	Wales	BurryPort
 Caldicot	UnitedKingdom	Wales	Caldicot
 Caerphilly	UnitedKingdom	Wales	Caerphilly
@@ -2519,6 +2533,7 @@ Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
 Carmarthen	UnitedKingdom	Wales	Carmarthen
+CefnYBedd	UnitedKingdom	Wales	CefnYBedd
 ChristsHospital	UnitedKingdom	England	Horsham
 Chepstow	UnitedKingdom	Wales	Chepstow
 Cheshire	UnitedKingdom	England	Cheshire
@@ -2560,6 +2575,7 @@ HUNTINGDONCAMBS	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
 Kent	UnitedKingdom	England	Kent
 Lambeth	UnitedKingdom	England	Lambeth
+Llandudno	UnitedKingdom	Wales	Llandudno
 Llangollen	UnitedKingdom	Wales	Llangollen
 Llanidloes	UnitedKingdom	Wales	Llanidloes
 Leeds	UnitedKingdom	England	Leeds
@@ -2569,6 +2585,7 @@ Liverpool	UnitedKingdom	England	Liverpool
 Llanelli	UnitedKingdom	Wales	Llanelli
 London	UnitedKingdom	England	London
 Luton	UnitedKingdom	England	Luton
+Maerdy	UnitedKingdom	Wales	Maerdy
 Manchester	UnitedKingdom	England	Manchester
 MerthyrTydfil	UnitedKingdom	Wales	MerthyrTydfil
 Middlesex	UnitedKingdom	England	Middlesex
@@ -2598,15 +2615,19 @@ Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
 Pontyclun	UnitedKingdom	Wales	Pontyclun
 Pontypool	UnitedKingdom	Wales	Pontypool
+Pontypridd	UnitedKingdom	Wales	Pontypridd
+Porth	UnitedKingdom	Wales	Porth
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
 Prestatyn	UnitedKingdom	Wales	Prestatyn
 Pwllheli	UnitedKingdom	Wales	Pwllheli
+Raglan	UnitedKingdom	Wales	Raglan
 Reading	UnitedKingdom	England	Reading
 Rhyl	UnitedKingdom	Wales	Rhyl
 Risca	UnitedKingdom	Wales	Risca
 Ruthin	UnitedKingdom	Wales	Ruthin
+Saundersfoot	UnitedKingdom	Wales	Saundersfoot
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
 Senghenydd	UnitedKingdom	Wales	Senghenydd

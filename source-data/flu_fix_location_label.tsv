@@ -575,6 +575,7 @@ Puerto_Rico	PuertoRico
 Bucuresti	Bucharest
 
 # Russia
+Anzhero-Sudzhensk	AnzheroSudzhensk
 Archangelsk	Arkhangelsk
 Astrahan	Astrakhan
 Astrahkan	Astrakhan
@@ -582,6 +583,7 @@ Blagovechensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
 Karachay-Cherkess	Cherkessk
 Gorno-Altaysk	GornoAltaysk
+Groznyi	Grozny
 IIV-Anadyr	Anadyr
 IIV-Birobidzhan	Birobidzhan
 IIV-Cheboksary	Cheboksary
@@ -602,6 +604,7 @@ Lipezk	Lipetsk
 Lipesk	Lipetsk
 Moscowoblast	Moscow
 Moscowv	Moscow
+Mahachkala
 Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
 NNovgorod	NizhnyNovgorod
@@ -636,12 +639,14 @@ Ussr	USSR
 Vladivistok	Vladivostok
 VNovgorod	VelikyNovgorod
 Velikiy_Novgorod	VelikyNovgorod
+Verkh-Chebula	VerkhChebula
 Volgda	Vologda
 Voroneg	Voronezh
 Yaroslavyl	Yaroslavl
 Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
 Yaroslavyl	Yaroslavl
+Yoshkar-Ola	YoshkarOla
 
 # Slovakia
 Sastin-Straze	SastinStraze
@@ -773,6 +778,7 @@ Zaporizzya	Zaporizhia
 Zhitomir	Zhytomyr
 
 # UnitedKingdom
+Blaenau_Ffestiniog	BlaenauFfestiniog
 NIreland	NorthernIreland
 ChristHospital	ChristsHospital
 United_Kingdom	UnitedKingdom
