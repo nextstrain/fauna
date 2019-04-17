@@ -435,6 +435,7 @@ Dongcheng	China	Beijing	Dongcheng
 Dongguan	China	Guangdong	Dongguan
 Donghu	China	Jiangxi	Donghu
 Du	China	China	Du
+EasternChina	China	China	China
 Eryansuo	China	China	China
 Foshanguangdong	China	Guangdong	Foshan
 Fujian	China	Fujian	Fujian
@@ -474,6 +475,7 @@ Henan	China	Henan	Henan
 HenanJinshui	China	Henan	Jinshui
 HenanShenqiu	China	Henan	Shenqiu
 HenanXigong	China	Henan	Xigong
+Huadong	China	Huadong	Huadong
 Huaian	China	Jiangsu	Huaian
 Huai'an	China	Jiangsu	Huaian
 HuaianQingpu	China	Jiangsu	Qingpu
@@ -544,6 +546,7 @@ Ningbo	China	Zhejiang	Ningbo
 Ningfang	China	China	China
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia
+NorthChina	China	NorthChina	NorthChina
 Pudong	China	Shanghai	Pudong
 Putian	China	Fujian	Putian
 Qingdao	China	Shandong	Qingdao
@@ -609,6 +612,7 @@ Xuanwu	China	Beijing	Xuanwu
 Xuchang	China	Henan	Xuchang
 Xutie	China	Jiangxia	Xutie
 Xuzhou	China	Jiangsu	Xuzhou
+Yangzhou	China	Jiangsu	Yangzhou
 Yantai	China	Shandong	Yantai
 Yunan	China	Guangdong	Yunan
 YunnanAnning	China	Yunnan	Anning
@@ -659,6 +663,7 @@ Plateau	CoteDIvoire	Abidjan	Plateau
 # Croatia
 Croatia	Croatia	Croatia	Croatia
 Zagreb	Croatia	Zagreb	Zagreb
+Primorje	Croatia	Primorje	Primorje
 
 # Cuba
 Cuba	Cuba	Cuba	Cuba
@@ -731,6 +736,7 @@ Quito	Ecuador	Pichincha	Quito
 Egypt	Egypt	Egypt	Egypt
 Cairo	Egypt	Cairo	Cairo
 Menya	Egypt	Minya	Minya
+Menofia	Egypt	Menofia	Menofia
 Sohag	Egypt	Sohag	Sohag
 Faiyum	Egypt	Faiyum	Faiyum
 Suez	Egypt	Suez	Suez
@@ -744,6 +750,7 @@ Ismailia	Egypt	Ismailia	Ismailia
 Gharbia	Egypt	Gharbia	Gharbia
 Giza	Egypt	Giza	Giza
 NorthSinai	Egypt	NorthSinai	NorthSinai
+Sharqia	Egypt	Sharqia	Sharqia
 Qalubia	Egypt	Qalubia	Qalubia
 
 # ElSalvador
@@ -1122,6 +1129,7 @@ Sikkim	India	Sikkim	Sikkim
 Shajapur	India	MadhyaPradesh	Shajapur
 Srinigar	India	JammuAndKashmir	Srinagar
 TamilNaidu	India	TamilNaidu	TamilNaidu
+Tripura	India	Tripura	Tripura
 Ujjain	India	MadhyaPradesh	Ujjain
 UttarPradesh	India	UttarPradesh	UttarPradesh
 Uttarakhand	India	Uttarakhand	Uttarakhand
@@ -1152,6 +1160,7 @@ DeliDerdang	Indonesia	Sumatra	DeliDerdang
 Denpasar	Indonesia	Bali	Denpasar
 EastJava	Indonesia	Java	EastJava
 EastKalimantan	Indonesia	Borneo	EastKalimantan
+Garut	Indonesia	Java	Garut
 Gorontalo	Indonesia	Sulawesi	Gorontalo
 GunungKidul	Indonesia	Java	GunungKidul
 Indramayu	Indonesia	Java	Indramayu
@@ -1186,6 +1195,7 @@ Raas	Indonesia	Java	Raas
 Riau	Indonesia	Sumatra	Riau
 Semarang	Indonesia	Java	Semarang
 Sembawa	Indonesia	Java	Sembawa
+SouthKalimantan	Indonesia	Borneo	SouthKalimantan
 SouthSumatra	Indonesia	Sumatra	SouthSumatra
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
@@ -1195,6 +1205,7 @@ Sleman	Indonesia	Java	Sleman
 Sragen	Indonesia	Java	Sragen
 Surakarta	Indonesia	Jateng	Surakarta
 Sulawesi	Indonesia	Sulawesi	Sulawesi
+SulawesiSelatan	Indonesia	Sulawesi	Sulawesi
 Sukoharjo	Indonesia	Java	Sukoharjo
 TanahDatar	Indonesia	Sumatra	TanahDatar
 Tasikmalaya	Indonesia	Java	Tasikmalaya
@@ -1607,6 +1618,7 @@ DarkhanUul	Mongolia	DarkhanUul	DarkhanUul
 Dornogovi	Mongolia	Dornogovi	Dornogovi
 Dundgovi	Mongolia	Dundgovi	Dundgovi
 Govisumber	Mongolia	Govisumber	Govisumber
+InnerMongolia	Mongolia	InnerMongolia	InnerMongolia
 Khentii	Mongolia	Khentii	Khentii
 Kherlen	Mongolia	Dornod	Kherlen
 Khovd	Mongolia	Khovd	Khovd
@@ -1655,12 +1667,16 @@ Maputo	Mozambique	Maputo	Maputo
 
 # Myanmar
 Myanmar	Myanmar	Myanmar	Myanmar
+Hmawbi	Myanmar	Yangon	Hmawbi
+KyaingTong	Myanmar	Shan	KyaingTong
 Mandalay	Myanmar	Mandalay	Mandalay
 Sagaing	Myanmar	Sagaing	Sagaing
 Yangon	Myanmar	Yangon	Yangon
 Naypyitaw	Myanmar	Naypyitaw	Naypyitaw
 Shan	Myanmar	Shan	Shan
+Thanatpin	Myanmar	Bago	Thanatpin
 Yinmarbin	Myanmar	Sagaing	Yinmarbin
+Pyigyitagon	Myanmar	Mandalay	Pyigyitagon
 
 # Nauru
 Nauru	Nauru	Nauru	Nauru
@@ -1771,6 +1787,8 @@ Lahore	Pakistan	Punjab	Lahore
 Mansehra	Pakistan	KhyberPakhtunkhwa	Mansehra
 Muridke	Pakistan	Punjab	Muridke
 Karachi	Pakistan	Sindh	Karachi
+Rawalakot	Pakistan	Rawalakot	Rawalakot
+Sihala	Pakistan	Sihala	Sihala
 
 # Palau
 Palau	Palau	Palau	Palau
@@ -2173,6 +2191,7 @@ Gwangju	SouthKorea	Gwangju	Gwangju
 Gyeonggi	SouthKorea	Gyeonggi	Gyeonggi
 Gyeongbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
 Gyeongnam	SouthKorea	Gyeongsangnam	Gyeongnam
+Hanam	SouthKorea	Gyeonggi	Hanam
 Incheon	SouthKorea	Seoul	Incheon
 Jeju	SouthKorea	Jeju	Jeju
 Jeonbuk	SouthKorea	Seoul	Gangnam
@@ -2316,6 +2335,7 @@ Tibet	Tibet	Tibet	Tibet
 
 # Thailand
 Thailand	Thailand	Thailand	Thailand
+Angthong	Thailand	Angthong	Angthong
 Ayutthaya	Thailand	Ayutthaya	Ayutthaya
 Bangkok	Thailand	Bangkok	Bangkok
 Chachoengsao	Thailand	Chachoengsao	Chachoengsao
@@ -2663,6 +2683,7 @@ California	USA	California	California
 Colorado	USA	Colorado	Colorado
 Connecticut	USA	Connecticut	Connecticut
 Delaware	USA	Delaware	Delaware
+DelawareBay	USA	DelawareBay	DelawareBay
 DistrictOfColumbia	USA	DistrictOfColumbia	DistrictOfColumbia
 Florida	USA	Florida	Florida
 Georgia	USA	Georgia	Georgia
@@ -2729,6 +2750,7 @@ CherryPoint	USA	NorthCarolina	CherryPoint
 Chicago	USA	Illinois	Chicago
 Cornell	USA	NewYork	Cornell
 Dayton	USA	Ohio	Dayton
+Delaware	USA	Delaware	Delaware
 Durham	USA	NorthCarolina	Durham
 FtBenning	USA	Georgia	FortBenning
 FtCarson	USA	Colorado	FortCarson
@@ -2763,6 +2785,7 @@ SL	USA	USA	USA
 Springfield	USA	Illinois	Springfield
 Sophia	USA	WestVirginia	Sophia
 StLouis	USA	Missouri	StLouis
+Virginia	USA	Virginia	Virginia
 
 # US Virgin Islands
 USVI	USVI	USVI	USVI
@@ -2800,22 +2823,33 @@ Aragua	Venezuela	Aragua	Aragua
 Vietnam	Vietnam	Vietnam	Vietnam
 BacGiang	Vietnam	BacGiang	BacGiang
 BacNinh	Vietnam	BacNinh	BacNinh
+BacLieu	Vietnam	BacLieu	BacLieu
+CaMau	Vietnam	CaMau	CaMau
+CaoBang	Vietnam	CaoBang	CaoBang
 DaNang	Vietnam	DaNang	DaNang
+DongNai	Vietnam	DongNai	DongNai
 HaNam	Vietnam	HaNam	HaNam
 Hanoi	Vietnam	Hanoi	Hanoi
+HaiDuong	Vietnam	HaiDuong	HaiDuong
 HoaBinh	Vietnam	HoaBinh	HoaBinh
 HoChiMinh	Vietnam	HoChiMinh	HoChiMinh
+HuaGiang	Vietnam	HuaGiang	HuaGiang
 Hue	Vietnam	ThuaThienHue	Hue
 HungYen	Vietnam	HungYen	HungYen
 KhanhHoa	Vietnam	KhanhHoa	KhanhHoa
 LangSon	Vietnam	LangSon	LangSon
 LongAn	Vietnam	LongAn	LongAn
 Mekongdelta	Vietnam	MekongDelta	MekongDelta
+NamDinh	Vietnam	NamDinh	NamDinh
+NinhBinh	Vietnam	NinhBinh	NinhBinh
 QuanhNinh	Vietnam	QuanhNinh	QuanhNinh
 SocTrang	Vietnam	SocTrang	SocTrang
+SonLa	Vietnam	SonLa	SonLa
 TayNguyen	Vietnam	DakLak	TayNguyen
 TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh
+TienGiang	Vietnam	TienGiang	TienGiang
+VinhLong	Vietnam	VinhLong	VinhLong
 
 # WallisAndFutuna
 WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
