@@ -259,9 +259,9 @@ class flu_upload(upload):
             doc['accession'] = 'EPI' + doc['accession']
         if 'accession' in doc and doc['accession'] is not None and data_source == 'ird':
             doc['accession'] = doc['accession']
-        if 'isolate_id' in doc and doc['isolate_id'] is not None: 
+        if 'isolate_id' in doc and doc['isolate_id'] is not None:
             doc['isolate_id'] = doc['isolate_id'].lstrip("_").rstrip("_")
-        if 'submitting_lab' in doc and doc['submitting_lab'] is not None: 
+        if 'submitting_lab' in doc and doc['submitting_lab'] is not None:
             doc['submitting_lab'] = doc['submitting_lab'].lstrip("_").rstrip("_")
 
 
@@ -367,20 +367,20 @@ class flu_upload(upload):
         if v['host'] is not None:
 
             if v['host'] in ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
-                     "aixgalericulata", "alectorischukar","american__black__duck", 
-                     "american__wigeon","anasboschas", "anasacuta","anasamericana", 
-                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera", 
-                     "anasdiscors", "anasformosa", "anasplatyrhynchos","anaspoecilorhyncha", 
-                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", 
-                     "anasundalata", "anseranser", "anserfabalis","anseralbifrons", 
+                     "aixgalericulata", "alectorischukar","american__black__duck",
+                     "american__wigeon","anasboschas", "anasacuta","anasamericana",
+                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
+                     "anasdiscors", "anasformosa", "anasplatyrhynchos","anaspoecilorhyncha",
+                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera",
+                     "anasundalata", "anseranser", "anserfabalis","anseralbifrons",
                      "anserindicus", "arenariainterpres", "avian","bar__headed__goose", "bird",
-                     "barn__swallow","brown__headed__gull","bucephalaclangula", "buteo", 
+                     "barn__swallow","brown__headed__gull","bucephalaclangula", "buteo",
                      "buteobuteo", "blue__winged__teal","cairinamoschata", "canada__goose",
                      "chencanagica", "chicken",  "cormorant","corvus", "common__pochard",
                      "common__goldeneye", "condor","coturnix", "crane","crow","cygnusatratus",
                      "cygnuscolumbianus", "cygnuscygnus", "cygnusolor", "duck", "eagle",
-                     "egret", "eurasian__eagel__owl","falco", "falcon", "falcoperegrinus", 
-                     "falcotinnunculus","gadwall","gallusgallus", "gallusgallusdomesticus", 
+                     "egret", "eurasian__eagel__owl","falco", "falcon", "falcoperegrinus",
+                     "falcotinnunculus","gadwall","gallusgallus", "gallusgallusdomesticus",
                      "goose", "graculareligiosa", "great__black__headed__gull",
                      "great__crested__grebe","grebe","green__winged__teal","grey__heron",
                      "guineafowl", "gull", "heron","hirundorustica","japanese__white__eye",
@@ -389,22 +389,22 @@ class flu_upload(upload):
                      "little__egret","lophuranycthemera","magpie","magpie__robin","mallard",
                      "morphnusguianensis", "mute__swan", "muscovy__duck","myna",
                      "necrosyrtesmonachus", "nisaetusnipalensis","northern__shoveler",
-                     "openbill__stork","ostrich", "otheravian", "partridge", 
+                     "openbill__stork","ostrich", "otheravian", "partridge",
                      "pavocristatus", "pheasant","peregrine__falcon","pigeon","parrot",
-                     "passerine", "passermontanus", "peacock","polyplectronbicalcaratum", 
-                     "quail","rook","ruddy__turnstone","saker__falcon","shrike", 
+                     "passerine", "passermontanus", "peacock","polyplectronbicalcaratum",
+                     "quail","rook","ruddy__turnstone","saker__falcon","shrike",
                      "shorebird","starling","swan","stork","swiftlet","tadornaferuginea",
                      "teal","turkey","turtledove", "tree__sparrow","us_quail", "waterfowl",
                      "whooper__swan","yellow__billed__duck","zosteropsjaponicus"]:
                 v['host'] = "avian"
-    
+
             elif v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample","environment"]:
                 v['host'] = "environment"
-    
+
             elif v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
                      "swine", "lion", "weasel","raccoon__dog","tiger", "large__cat"]:
                 v['host'] = "nonhuman_mammal"
-    
+
             elif v['host'] in ["circus", "ferret", "insect", "laboratoryderived", "unknown"]:
                 v['host'] = "other"
             elif v['host'] in ['human']:
@@ -512,7 +512,7 @@ if __name__=="__main__":
     args = parser.parse_args()
     if (args.data_source == 'gisaid'):
         sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
-        #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+        #>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
         setattr(args, 'fasta_fields', sequence_fasta_fields)
         xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                                  ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
@@ -520,10 +520,10 @@ if __name__=="__main__":
                                  ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
-        virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 9: 'host', 10:'h5_clade'}
+        virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 20:'h5_clade'}
         sequence_fasta_fields = {0:'strain', 1:'accession', 3:'locus'}
-        # 0                                1        2 3  4 5    6    78   9    10               11
-        #>A/blue_winged_teal/Ohio/566/2006|CY024819|7|M1|A|H7N9|2006||USA|Ohio|Blue_Winged_Teal|NA
+        # 0                                                   1        2 3   4 5    6          7     8   9          10                11 12                     13                       14                     15                       16      17 18 19 20
+        #>A/American_green_winged_teal/Washington/195750/2014|KP739418|1|PB2|A|H5N1|12/29/2014|14_15|USA|Washington|Green_Winged_Teal|N|AdmantaneResistance_Yes|OseltamivirResistance_No|IncreasedVirulence_Yes|EnhancedTransmission_Yes|T92E_No|No|NA|NA|2.3.4.4
         setattr(args, 'virus_fasta_fields', virus_fasta_fields)
         setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     if args.path is None:
