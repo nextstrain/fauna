@@ -8,8 +8,8 @@
 
 ## Upload to fauna
 
-`python vdb/measles_upload.py -db vdb -v measles --ftype accession --source genbank --locus genome --fname sequence.seq`
+`python2 vdb/measles_upload.py -db vdb -v measles --ftype accession --source genbank --locus genome --fname sequence.seq`
 
 ## Download from fauna
 
-`python vdb/measles_download.py -db vdb -v measles --fstem measles --resolve_method choose_genbank`
+`python2 vdb/measles_download.py -db vdb -v measles --fstem measles --resolve_method choose_genbank`

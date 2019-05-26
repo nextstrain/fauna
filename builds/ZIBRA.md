@@ -42,27 +42,27 @@ Remember to [install rethinkdb bindings](README.md#install).
 
 Upload metadata with:
 
-    python vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname zibra.tsv --ftype tsv --source zibra --virus zika --country brazil --authors ZiBRA --local
+    python2 vdb/zibra_metadata_upload.py -db vdb -tb zibra --fname zibra.tsv --ftype tsv --source zibra --virus zika --country brazil --authors ZiBRA --local
 
 Upload sequences with:
 
-    python vdb/zibra_upload.py -db vdb -tb zibra --fname minion.fasta --ftype fasta --source zibra --virus zika --locus genome --local
+    python2 vdb/zibra_upload.py -db vdb -tb zibra --fname minion.fasta --ftype fasta --source zibra --virus zika --locus genome --local
 
 Download metadata with:
 
-    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --local
+    python2 vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --local
 
 Download just metadata for samples from `natal`:
 
-    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --select location:natal --local
+    python2 vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv --select location:natal --local
 
 Push local rethinkdb `vdb.zibra` documents to remote `vdb.zibra` rethinkdb table:
 
-	python vdb/sync.py --push --local_table vdb.zibra --remote_table vdb.zibra
+	python2 vdb/sync.py --push --local_table vdb.zibra --remote_table vdb.zibra
 
 Pull remote rethinkdb `vdb.zibra` documents to local `vdb.zibra` rethinkdb table:
 
-	python vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
+	python2 vdb/sync.py --pull --local_table vdb.zibra --remote_table vdb.zibra
 
 ## Download latest metadata for consensus builds
 
@@ -71,6 +71,6 @@ Remember to [install rethinkdb bindings](README.md#install).
 From `fauna/` run:
 
     source environment_rethink.sh
-    python vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv
+    python2 vdb/zibra_download.py -db vdb -tb zibra --fstem zibra --ftype tsv
 
 This will result in the file `fauna/data/zibra.tsv` that has all necessary metadata. This file can be searched for `2_NB07`, etc... in the `minion_barcode` column to match MinION output to metadata, including strain name.

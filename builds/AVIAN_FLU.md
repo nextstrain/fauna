@@ -38,6 +38,6 @@
 
 ### Download documents from VDB
 
-```bash
-python vdb/avian_flu_download.py -db vdb -v avian_flu --select locus:HA subtype:h7n9 --fstem h7n9_ha
+```
+python2 vdb/avian_flu_download.py -db vdb -v avian_flu --select locus:HA subtype:h7n9 --fstem h7n9_ha
 ```

@@ -23,23 +23,23 @@
 All of these functions are quite slow given they run over ~600k documents. Use sparingly.
 
 * Update genetic grouping fields
-  * `python vdb/flu_update.py -db vdb -v flu --update_groupings`
+  * `python2 vdb/flu_update.py -db vdb -v flu --update_groupings`
   * updates `vtype`, `subtype`, `lineage`
 
 * Update locations
-  * `python vdb/flu_update.py -db vdb -v flu --update_locations`
+  * `python2 vdb/flu_update.py -db vdb -v flu --update_locations`
   * updates `division`, `country` and `region` from `location`
 
 * Update passage_category fields
-  * `python vdb/flu_update.py -db vdb -v flu --update_passage_categories`
+  * `python2 vdb/flu_update.py -db vdb -v flu --update_passage_categories`
   * update `passage_category` based on `passage` field
 
 ### Download documents from VDB
 
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h1n1pdm --fstem h1n1pdm`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_vic --fstem vic`
-* `python vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_yam --fstem yam`
+* `python2 vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h3n2 --fstem h3n2`
+* `python2 vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_h1n1pdm --fstem h1n1pdm`
+* `python2 vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_vic --fstem vic`
+* `python2 vdb/flu_download.py -db vdb -v flu --select locus:HA lineage:seasonal_yam --fstem yam`
 
 ## TDB
 
@@ -50,43 +50,43 @@ All of these functions are quite slow given they run over ~600k documents. Use s
 1. Convert [NIMR report](https://www.crick.ac.uk/research/worldwide-influenza-centre/annual-and-interim-reports/) pdfs to csv files
 2. Move csv files to subtype directory in `fauna/data/`
 3. Upload to tdb database
-  * `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem h3n2_nimr_titers`
+  * `python2 tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem h3n2_nimr_titers`
   * Recommend running with `--preview` to confirm strain names are correctly parsed before uploading
   	* Can add to [HI_ref_name_abbreviations file](source-data/HI_ref_name_abbreviations.tsv) and [HI_flu_strain_name_fix file](source-data/HI_flu_strain_name_fix.tsv) to fix some strain names.
 
 #### Flat files
 
 1. Move line-list tsv files to `fauna/data/`
-2. Upload to tdb database with `python tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem H3N2_HI_titers_upload`
+2. Upload to tdb database with `python2 tdb/upload.py -db tdb -v flu --subtype h3n2 --ftype flat --fstem H3N2_HI_titers_upload`
 
 #### CDC files
 
 1. Move line-list tsv files to `fauna/data/`
-2. Upload HI titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
-3. Upload FRA titers to tdb database with `python tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
+2. Upload HI titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
+3. Upload FRA titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
 
 #### Crick files
 
 1. Move Excel documents to `fauna/data/`
-2. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H3N2HIs`
-3. Run `python tdb/crick_upload.py -db crick_tdb --assay_type fra --fstem H3N2VNs`
-4. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H1N1pdm09HIs`
-5. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BVicHIs`
-6. Run `python tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BYamHIs`
+2. Run `python2 tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H3N2HIs`
+3. Run `python2 tdb/crick_upload.py -db crick_tdb --assay_type fra --fstem H3N2VNs`
+4. Run `python2 tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem H1N1pdm09HIs`
+5. Run `python2 tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BVicHIs`
+6. Run `python2 tdb/crick_upload.py -db crick_tdb --assay_type hi --fstem BYamHIs`
 
 #### NIID files
 
 1. Make sure `NIID-Tokyo-WHO-CC/` is a sister directory to `fauna/`
-2. Upload all titers with `python tdb/upload_all.py --sources niid -db niid_tdb`
+2. Upload all titers with `python2 tdb/upload_all.py --sources niid -db niid_tdb`
 
 #### VIDRL files
 
 1. Make sure `VIDRL-Melbourne-WHO-CC/` is a sister directory to `fauna/`
-2. Upload all titers with `python tdb/upload_all.py --sources vidrl -db vidrl_tdb`
+2. Upload all titers with `python2 tdb/upload_all.py --sources vidrl -db vidrl_tdb`
 
 ### Download documents from TDB
 
-* `python tdb/download.py -db tdb -v flu --subtype h3n2`
-* `python tdb/download.py -db tdb -v flu --subtype h1n1pdm`
-* `python tdb/download.py -db tdb -v flu --subtype vic`
-* `python tdb/download.py -db tdb -v flu --subtype yam`
+* `python2 tdb/download.py -db tdb -v flu --subtype h3n2`
+* `python2 tdb/download.py -db tdb -v flu --subtype h1n1pdm`
+* `python2 tdb/download.py -db tdb -v flu --subtype vic`
+* `python2 tdb/download.py -db tdb -v flu --subtype yam`

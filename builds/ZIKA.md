@@ -3,17 +3,17 @@
 ## Update
 
 * Update citation fields
-  * `python vdb/zika_update.py -db vdb -v zika --update_citations`
+  * `python2 vdb/zika_update.py -db vdb -v zika --update_citations`
   * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
 * Update location fields
   * After hand editing `location` in [chateau](https://github.com/blab/chateau)
-  * `python vdb/zika_update.py -db vdb -v zika --update_locations`
+  * `python2 vdb/zika_update.py -db vdb -v zika --update_locations`
   * Updates `division`, `country`, `region` fields
 
 ## Download
 
-    python vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
+    python2 vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
 
 ## Upload
 
@@ -25,11 +25,11 @@
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
 2. Move downloaded sequences to `fauna/data`
 3. Upload to vdb database
-  * `python vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta`
+  * `python2 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta`
 
 ### [Fred Hutch sequences](https://github.com/blab/zika-usvi/tree/master/data)
 
 Upload with:
 
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_good.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
-    python vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_partial.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_good.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_partial.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"

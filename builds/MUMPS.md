@@ -8,7 +8,7 @@
 
 ## Upload to fauna
 
-`python vdb/mumps_upload.py -db vdb -v mumps --ftype accession --source genbank --locus genome --fname sequence.seq`
+`python2 vdb/mumps_upload.py -db vdb -v mumps --ftype accession --source genbank --locus genome --fname sequence.seq`
 
 
 FASTA header field ordering:
@@ -24,35 +24,35 @@ FASTA header field ordering:
 
 _This is not necessary when uploading accessions as we do here._
 This is needed to populate certain attributes such as author & paper title.
-`python vdb/mumps_update.py -db vdb -v mumps --update_citations`
+`python2 vdb/mumps_update.py -db vdb -v mumps --update_citations`
 
 ## Download from fauna
 
-`python vdb/mumps_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank`
+`python2 vdb/mumps_download.py -db vdb -v mumps --fstem mumps --resolve_method choose_genbank`
 
 ## Upload Broad genomes
 
 Preprocess to fix metadata and header ordering
 
-`python vdb/mumps_preprocess_fasta.py --fasta data/muv-nextstrain-20170718.pruned.fasta > data/mumps_broad.fasta`
+`python2 vdb/mumps_preprocess_fasta.py --fasta data/muv-nextstrain-20170718.pruned.fasta > data/mumps_broad.fasta`
 
 Upload to fauna
 
-`python vdb/mumps_upload.py -db vdb -v mumps --source broad --locus genome --fname mumps_broad.fasta --authors "Wohl et al" --title "Unpublished"`
+`python2 vdb/mumps_upload.py -db vdb -v mumps --source broad --locus genome --fname mumps_broad.fasta --authors "Wohl et al" --title "Unpublished"`
 
 ## Upload BCCDC genomes
 
 If you have a FASTA file and CSV metadata, this script will help (with minor modifications as needed)
 
-`python scripts/mumps.csv-and-fasta-to-vipr-fasta.py data/input.mumps.raw.fasta data/input.mumps.csv data/input.mumps.vipr.fasta`
+`python2 scripts/mumps.csv-and-fasta-to-vipr-fasta.py data/input.mumps.raw.fasta data/input.mumps.csv data/input.mumps.vipr.fasta`
 
 
 Upload to fauna
 
-`python vdb/mumps_upload.py -db vdb -v mumps --source bccdc --locus genome --fname mumps.bc.fasta --authors "Gardy et al" --title "Unpublished"`
+`python2 vdb/mumps_upload.py -db vdb -v mumps --source bccdc --locus genome --fname mumps.bc.fasta --authors "Gardy et al" --title "Unpublished"`
 
 ## Upload Fred Hutch genomes
 
 Upload to fauna
 
-`python vdb/mumps_upload.py -db vdb -v mumps --source fh --locus genome --fname MuVs-WA0268502_buccal-Washington.USA-16.fasta --authors "Moncla et al" --title "Unpublished"`
+`python2 vdb/mumps_upload.py -db vdb -v mumps --source fh --locus genome --fname MuVs-WA0268502_buccal-Washington.USA-16.fasta --authors "Moncla et al" --title "Unpublished"`
