@@ -62,8 +62,8 @@ All of these functions are quite slow given they run over ~600k documents. Use s
 #### CDC files
 
 1. Move line-list tsv files to `fauna/data/`
-2. Upload HI titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2016_to_Sep2017_titers`
-3. Upload FRA titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2016_to_Sep2017_titers`
+2. Upload HI titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem HITest_Oct2018_to_Sep2019_titers`
+3. Upload FRA titers to tdb database with `python2 tdb/cdc_upload.py -db cdc_tdb -v flu --ftype flat --fstem FRA_Oct2018_to_Sep2019_titers`
 
 #### Crick files
 

@@ -264,6 +264,7 @@ Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
 St-Etienne	StEtienne
+Saint-Etienne	StEtienne
 
 # GeorgiaCountry
 Ozirgeti	Ozurgeti
@@ -512,6 +513,7 @@ Casa	Casablanca
 MORROCO	Morocco
 morocco	Morocco
 Mrrakech	Marrakech
+Marakech	Marrakech
 RABT	Rabat
 
 # Myanmar
@@ -820,6 +822,9 @@ ChristHospital	ChristsHospital
 United_Kingdom	UnitedKingdom
 ENG	England
 Eng	England
+Angelsey	Anglesey
+StAsaph	SaintAsaph
+StClears	SaintClears
 
 # USA
 Ann_Arbor	AnnArbor

@@ -79,6 +79,7 @@ NewSouthWales	Australia	NewSouthWales	NewSouthWales
 NorthFitzroy	Australia	Victoria	NorthFitzroy
 NorthernTerritory	Australia	NorthernTerritory	NorthernTerritory
 Perth	Australia	WesternAustralia	Perth
+PortHedland	Australia	WesternAustralia	PortHedland
 Queensland	Australia	Queensland	Queensland
 SouthAustralia	Australia	SouthAustralia	SouthAustralia
 Sydney	Australia	NewSouthWales	Sydney
@@ -807,6 +808,7 @@ FrancheComte	France	FrancheComte	FrancheComte
 Frejus	France	ProvenceAlpesCoteDAzur	Frejus
 Gigean	France	Herault	Gigean
 Grenoble	France	AuvergneRhoneAlpes	Grenoble
+Gueret	France	AquitaineLimousinPoitouCharentes	Gueret
 HauteNormandie	France	Normandy	HauteNormandie
 LaReunion	France	SaintDenis	LaReunion
 LaRochelle	France	CharenteMaritime	LaRochelle
@@ -1657,8 +1659,10 @@ Rabat	Morocco	RabatSaleKenitra	Rabat
 Safi	Morocco	MarrakechSafi	Safi
 Sale	Morocco	RabatSaleKenitra	Sale
 Settat	Morocco	CasablancaSettat	Settat
+Skhirat	Morocco	RabatSaleKenitraSkhirat
 Tanger	Morocco	TangerTetouan	Tanger
 Temara	Morocco	RabatSaleKenitra	Temara
+Tetouan	Morocco	TangerTetouan	Tetouan
 Tiznit	Morocco	SoussMassa	Tiznit
 
 # Mozambique
@@ -2217,6 +2221,7 @@ Alicante	Spain	Valencia	Alicante
 Andalucia	Spain	Spain	Andalucia
 Aragon	Spain	Aragon	Aragon
 Asturias	Spain	Asturias	Asturias
+Avila	Spain	CastileAndLeon	Avila
 Baleares	Spain	BalearicIslands	Baleares
 Barcelona	Spain	Catalonia	Barcelona
 BasqueCountry	Spain	BasqueCountry	BasqueCountry
@@ -2536,6 +2541,7 @@ Anglesey	UnitedKingdom	Wales	Anglesey
 Aylesbury	UnitedKingdom	England	Aylesbury
 Barry	UnitedKingdom	Wales	Barry
 Bedford	UnitedKingdom	England	Bedford
+Bedwas	UnitedKingdom	Wales	Bedwas
 Belfast	UnitedKingdom	NorthernIreland	Belfast
 Berks	UnitedKingdom	England	Berkshire
 BetwysYCoed	UnitedKingdom	Wales	BetwysYCoed
@@ -2574,6 +2580,7 @@ Denbigh	UnitedKingdom	Wales	Denbigh
 Derbyshire	UnitedKingdom	England	Derbyshire
 DinasPowys	UnitedKingdom	Wales	DinasPowys
 Dundee	UnitedKingdom	England	Dundee
+EbbwVale	UnitedKingdom	Wales	EbbwVale
 Edinburgh	UnitedKingdom	Scotland	Edinburgh
 England	UnitedKingdom	England	England
 Exeter	UnitedKingdom	England	Exeter
@@ -2595,7 +2602,9 @@ Huntingdon	UnitedKingdom	England	Huntingdon
 HUNTINGDONCAMBS	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
 Kent	UnitedKingdom	England	Kent
+Kilgetty	UnitedKingdom	Wales	Kilgetty
 Lambeth	UnitedKingdom	England	Lambeth
+Lampeter	UnitedKingdom	Wales	Lampeter
 Llandudno	UnitedKingdom	Wales	Llandudno
 Llangollen	UnitedKingdom	Wales	Llangollen
 Llanidloes	UnitedKingdom	Wales	Llanidloes
@@ -2604,6 +2613,9 @@ Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
 Liverpool	UnitedKingdom	England	Liverpool
 Llanelli	UnitedKingdom	Wales	Llanelli
+Llanfairfechan	UnitedKingdom	Wales	Llanfairfechan
+Llansamlet	UnitedKingdom	Wales	Llansamlet
+LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 London	UnitedKingdom	England	London
 Luton	UnitedKingdom	England	Luton
 Maerdy	UnitedKingdom	Wales	Maerdy
@@ -2638,6 +2650,7 @@ Pontyclun	UnitedKingdom	Wales	Pontyclun
 Pontypool	UnitedKingdom	Wales	Pontypool
 Pontypridd	UnitedKingdom	Wales	Pontypridd
 Porth	UnitedKingdom	Wales	Porth
+Porthcawl	UnitedKingdom	Wales	Porthcawl
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
@@ -2648,6 +2661,8 @@ Reading	UnitedKingdom	England	Reading
 Rhyl	UnitedKingdom	Wales	Rhyl
 Risca	UnitedKingdom	Wales	Risca
 Ruthin	UnitedKingdom	Wales	Ruthin
+SaintAsaph	UnitedKingdom	Wales	SaintAsaph
+SaintClears	UnitedKingdom	Wales	SaintClears
 Saundersfoot	UnitedKingdom	Wales	Saundersfoot
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
