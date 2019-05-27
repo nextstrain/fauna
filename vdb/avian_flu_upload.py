@@ -389,9 +389,9 @@ class flu_upload(upload):
                     "larusichthyaetus", "larusridibundus", "larusridibundus", "little__grebe",
                     "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard",
                     "morphnusguianensis", "mute__swan", "muscovy__duck", "myna",
-                    "necrosyrtesmonachus", "nisaetusnipalensis", "northern__shoveler",
-                    "openbill__stork", "ostrich", "otheravian", "partridge", "pavo",
-                    "pavocristatus", "pheasant", "peregrine__falcon", "pigeon", "parrot",
+                    "necrosyrtesmonachus", "nettapeposaca", "nisaetusnipalensis",
+                    "northern__shoveler", "openbill__stork", "ostrich", "otheravian", "partridge",
+                    "pavo", "pavocristatus", "pheasant", "peregrine__falcon", "pigeon", "parrot",
                     "passerine", "passermontanus", "peacock", "polyplectronbicalcaratum", "quail",
                     "rook", "ruddy__turnstone", "saker__falcon", "shrike", "shorebird", "starling",
                     "swan", "stork", "swiftlet", "tadornaferuginea", "teal", "turkey", "turtledove",
@@ -411,7 +411,7 @@ class flu_upload(upload):
 
             elif v['host'] in ['human']:
                 v['host'] = "human"
-                
+
             else:
                 print("cannot classify ", v['host'])
 
