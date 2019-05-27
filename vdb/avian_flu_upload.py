@@ -367,48 +367,51 @@ class flu_upload(upload):
         if v['host'] is not None:
 
             if v['host'] in ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
-                     "aixgalericulata", "alectorischukar","american__black__duck",
-                     "american__wigeon","anasboschas", "anasacuta","anasamericana",
-                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
-                     "anasdiscors", "anasformosa", "anasplatyrhynchos","anaspoecilorhyncha",
-                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera",
-                     "anasundalata", "anseranser", "anserfabalis","anseralbifrons",
-                     "anserindicus", "arenariainterpres", "avian","bar__headed__goose", "bird",
-                     "barn__swallow","brown__headed__gull","bucephalaclangula", "buteo",
-                     "buteobuteo", "blue__winged__teal","cairinamoschata", "canada__goose",
-                     "chencanagica", "chicken",  "cormorant","corvus", "common__pochard",
-                     "common__goldeneye", "condor","coturnix", "crane","crow","cygnusatratus",
-                     "cygnuscolumbianus", "cygnuscygnus", "cygnusolor", "duck", "eagle",
-                     "egret", "eurasian__eagel__owl","falco", "falcon", "falcoperegrinus",
-                     "falcotinnunculus","gadwall","gallusgallus", "gallusgallusdomesticus",
-                     "goose", "graculareligiosa", "great__black__headed__gull",
-                     "great__crested__grebe","grebe","green__winged__teal","grey__heron",
-                     "guineafowl", "gull", "heron","hirundorustica","japanese__white__eye",
-                     "larusschistisagus", "larusargentatus", "larusbrunnicephalus",
-                     "larusichthyaetus","larusridibundus", "larusridibundus", "little__grebe",
-                     "little__egret","lophuranycthemera","magpie","magpie__robin","mallard",
-                     "morphnusguianensis", "mute__swan", "muscovy__duck","myna",
-                     "necrosyrtesmonachus", "nisaetusnipalensis","northern__shoveler",
-                     "openbill__stork","ostrich", "otheravian", "partridge",
-                     "pavocristatus", "pheasant","peregrine__falcon","pigeon","parrot",
-                     "passerine", "passermontanus", "peacock","polyplectronbicalcaratum",
-                     "quail","rook","ruddy__turnstone","saker__falcon","shrike",
-                     "shorebird","starling","swan","stork","swiftlet","tadornaferuginea",
-                     "teal","turkey","turtledove", "tree__sparrow","us_quail", "waterfowl",
-                     "whooper__swan","yellow__billed__duck","zosteropsjaponicus"]:
+                    "aixgalericulata", "alectorischukar", "american__black__duck",
+                    "american__wigeon", "anasboschas", "anasacuta", "anasamericana",
+                    "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
+                    "anasdiscors", "anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
+                    "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasundalata",
+                    "anseranser", "anserfabalis", "anseralbifrons", "anserindicus",
+                    "arenariainterpres", "avian", "bar__headed__goose", "bird", "barn__swallow",
+                    "brown__headed__gull", "bucephalaclangula", "buteo", "buteobuteo",
+                    "blue__winged__teal", "cairinamoschata", "canada__goose", "chencanagica",
+                    "chicken",  "cormorant", "corvus", "common__pochard", "common__goldeneye",
+                    "condor", "copsychussaularis", "corvusmacrorhynchos", "coturnix", "crane",
+                    "crow", "cygnusatratus", "cygnuscolumbianus", "cygnuscygnus", "cygnusolor",
+                    "duck", "eagle", "egret", "eurasian__eagel__owl", "falco", "falcon",
+                    "falcoperegrinus", "falcotinnunculus", "gadwall", "gallusgallus",
+                    "gallusgallusdomesticus", "goose", "graculareligiosa",
+                    "great__black__headed__gull", "great__crested__grebe", "grebe",
+                    "green__winged__teal", "grey__heron", "guineafowl", "gull",
+                    "helmeted__guineafowl" "heron", "hirundorustica", "japanese__white__eye",
+                    "larusschistisagus", "larusargentatus", "larusbrunnicephalus",
+                    "larusichthyaetus", "larusridibundus", "larusridibundus", "little__grebe",
+                    "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard",
+                    "morphnusguianensis", "mute__swan", "muscovy__duck", "myna",
+                    "necrosyrtesmonachus", "nisaetusnipalensis", "northern__shoveler",
+                    "openbill__stork", "ostrich", "otheravian", "partridge", "pavo",
+                    "pavocristatus", "pheasant", "peregrine__falcon", "pigeon", "parrot",
+                    "passerine", "passermontanus", "peacock", "polyplectronbicalcaratum", "quail",
+                    "rook", "ruddy__turnstone", "saker__falcon", "shrike", "shorebird", "starling",
+                    "swan", "stork", "swiftlet", "tadornaferuginea", "teal", "turkey", "turtledove",
+                    "tree__sparrow", "us_quail", "waterfowl", "whooper__swan",
+                    "yellow__billed__duck", "zosteropsjaponicus"]:
                 v['host'] = "avian"
 
-            elif v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample","environment"]:
+            elif v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample", "environment"]:
                 v['host'] = "environment"
 
             elif v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
-                     "swine", "lion", "weasel","raccoon__dog","tiger", "large__cat"]:
+                     "swine", "lion", "weasel", "raccoon__dog", "tiger", "large__cat", "meerkat"]:
                 v['host'] = "nonhuman_mammal"
 
             elif v['host'] in ["circus", "ferret", "insect", "laboratoryderived", "unknown"]:
                 v['host'] = "other"
+
             elif v['host'] in ['human']:
                 v['host'] = "human"
+                
             else:
                 print("cannot classify ", v['host'])
 
