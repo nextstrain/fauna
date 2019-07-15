@@ -29,6 +29,7 @@ We maintain notes on [supported virus builds](builds/).
 Clone the repo and load submodules:
 
     git clone https://github.com/nextstrain/fauna.git
+    cd fauna
     git submodule update --init --recursive
 
 Install Python modules needed to run upload/download scripts:
