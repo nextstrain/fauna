@@ -131,7 +131,7 @@ class flu_upload(upload):
                 print("Missing strain name!")
             self.fix_casing(doc)
             self.fix_age(doc)
-            self.determine_group_fields(doc, self.patterns)
+            self.determine_group_fields(doc, self.patterns, kwargs['subtype'])
             self.format_date(doc)
             self.format_country(doc)
             self.format_place(doc, determine_location=False)
@@ -394,12 +394,15 @@ class flu_upload(upload):
 
         return updated
 
-    def determine_group_fields(self, v, patterns, **kwargs):
+    def determine_group_fields(self, v, patterns, subtype, **kwargs):
         '''
         Determine and assign genetic group fields
         '''
         # determine virus type from strain name
-        v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
+        if subtype == 'h1n1':
+            v['vtype'], v['subtype'], v['lineage'] = 'flu', 'h1n1', 'h1n1'
+        else:
+            v['vtype'], v['subtype'], v['lineage'] = 'tbd', 'tbd', 'tbd'
         temp_subtype = ''
         temp_lineage = ''
         if 'Subtype' in v:
