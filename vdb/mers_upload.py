@@ -20,6 +20,12 @@ class mers_upload(upload):
         name = re.sub(r'_([A-Z][0-9])_$', r'/\1', name)
         name = re.sub(r'[ ;]', r'_', name)
         name = re.sub(r'//', r'/', name)
+    
+        try: 
+            name = MERS + str(int(name))
+        except: 
+            pass
+        
         name = self.replace_strain_name(name, self.fix_whole_name)
         print("fixed name", name)
         return name, original_name
