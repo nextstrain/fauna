@@ -7,15 +7,14 @@ from upload import get_parser
 class mers_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.strain_fix_fname = "source-data/measles_strain_name_fix.tsv"
-        self.location_fix_fname = "source-data/measles_location_fix.tsv"
-        self.date_fix_fname = "source-data/measles_date_fix.tsv"
+        self.strain_fix_fname = "source-data/mers_strain_name_fix.tsv"
+        self.location_fix_fname = "source-data/mers_location_fix.tsv"
+        self.date_fix_fname = "source-data/mers_date_fix.tsv"
 
     def fix_name(self, name):
         original_name = name
         print("original name", original_name)
         name = self.replace_strain_name(original_name, self.fix_whole_name)
-        name = name.replace('MVs/', '').replace('MVi/', '').replace('Mvi/', '')
         name = re.sub(r'[_ ]?\[([A-Z][0-9])\]$', r'/\1', name)
         name = re.sub(r'\(([A-Z][0-9])\)$', r'/\1', name)
         name = re.sub(r'_([A-Z][0-9])_$', r'/\1', name)

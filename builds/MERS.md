@@ -12,4 +12,4 @@ Call this file `mers_accessions.txt` and put it in the `fauna/data/` directory.
 
 ## Download from fauna
 
-`python2 vdb/mers_download.py -db test_vdb -v mers --fstem measles --resolve_method choose_genbank`
+`python2 vdb/mers_download.py -db test_vdb -v mers --fstem mers --resolve_method choose_genbank`
