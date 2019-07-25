@@ -34,7 +34,7 @@ Clone the repo and load submodules:
 
 Install Python modules needed to run upload/download scripts:
 
-    pip install -r requirements.txt
+    python2 -m pip install -r requirements.txt
 
 Install Chateau Web UI:
 
