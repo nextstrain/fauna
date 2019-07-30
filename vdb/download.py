@@ -7,6 +7,22 @@ import numpy as np
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from base.rethink_io import rethink_io
 
+def rethinkdb_date_greater(greater_date, comparison_date, relaxed_interval):
+    return r.branch(r.lt(greater_date[0], comparison_date[0]),
+        False,
+        r.eq(greater_date[0], comparison_date[0]),
+        r.branch(r.eq(greater_date[1], 'XX').or_(r.eq(comparison_date[1],'XX')),
+            relaxed_interval,
+            r.lt(greater_date[1], comparison_date[1]),
+            False,
+            r.eq(greater_date[1], comparison_date[1]),
+            r.branch(r.eq(greater_date[2], 'XX').or_(r.eq(comparison_date[2],'XX')),
+                relaxed_interval,
+                r.lt(greater_date[2], comparison_date[2]),
+                False,
+                True),
+            True),
+        True)
 
 def get_parser():
     import argparse
@@ -319,20 +335,3 @@ if __name__=="__main__":
         os.makedirs(args.path)
     connVDB = download(**args.__dict__)
     connVDB.download(**args.__dict__)
-
-def rethinkdb_date_greater(greater_date, comparison_date, relaxed_interval):
-    return r.branch(r.lt(greater_date[0], comparison_date[0]),
-        False,
-        r.eq(greater_date[0], comparison_date[0]),
-        r.branch(r.eq(greater_date[1], 'XX').or_(r.eq(comparison_date[1],'XX')),
-            relaxed_interval,
-            r.lt(greater_date[1], comparison_date[1]),
-            False,
-            r.eq(greater_date[1], comparison_date[1]),
-            r.branch(r.eq(greater_date[2], 'XX').or_(r.eq(comparison_date[2],'XX')),
-                relaxed_interval,
-                r.lt(greater_date[2], comparison_date[2]),
-                False,
-                True),
-            True),
-        True)
