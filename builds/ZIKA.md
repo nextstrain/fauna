@@ -25,11 +25,16 @@
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
 2. Move downloaded sequences to `fauna/data`
 3. Upload to vdb database
-  * `python2 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomeFastaResults.fasta`
+  * `python2 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomicFastaResults.fasta`
 
 ### [Fred Hutch sequences](https://github.com/blab/zika-usvi/tree/master/data)
 
 Upload with:
 
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_good.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --fname zika_usvi_partial.fasta --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands"
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands" --fname zika_usvi_good.fasta
+
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands" --fname zika_usvi_partial.fasta
+
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-good.fasta
+
+    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-partial.fasta
