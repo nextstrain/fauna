@@ -291,12 +291,12 @@ class parse(object):
                 reference = references[idx] # <class 'Bio.SeqFeature.Reference'>
                 keys = reference.__dict__.keys()
                 s['title'] = reference.title
-                if "authors" in keys and reference.authors is not None:
+                if "authors" in keys and reference.authors:
                     first_author = re.match(r'^([^,]*)', reference.authors).group(0)
                     s['authors'] = first_author + " et al"
-                if "journal" in keys and reference.journal is not None:
+                if "journal" in keys and reference.journal:
                     s['journal'] = reference.journal
-                if "pubmed_id" in keys and reference.pubmed_id is not None:
+                if "pubmed_id" in keys and reference.pubmed_id:
                     s["puburl"] = "https://www.ncbi.nlm.nih.gov/pubmed/" + reference.pubmed_id
             else:
                 print("Couldn't find the reference for " + s['accession'])
