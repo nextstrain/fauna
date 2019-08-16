@@ -1,16 +1,5 @@
 # ZIKA Pipeline Notes
 
-## Update
-
-* Update citation fields
-  * `python2 vdb/zika_update.py -db vdb -v zika --update_citations`
-  * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
-  * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
-* Update location fields
-  * After hand editing `location` in [chateau](https://github.com/blab/chateau)
-  * `python2 vdb/zika_update.py -db vdb -v zika --update_locations`
-  * Updates `division`, `country`, `region` fields
-
 ## Download
 
     python2 vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
@@ -38,3 +27,10 @@ Upload with:
     python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-good.fasta
 
     python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-partial.fasta
+
+## Update
+
+* Update citation fields
+  * `python2 vdb/zika_update.py -db vdb -v zika --update_citations`
+  * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
+  * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
