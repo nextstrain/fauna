@@ -319,9 +319,12 @@ Kampongchamhospital	Cambodia	KampongCham	KampongCham
 PhenomPenh	Cambodia	PhenomPenh	PhenomPenh
 
 # Cameroon
+Buea	Cameroon	Southwest	Buea
 Cameroon	Cameroon	Cameroon	Cameroon
+Ebolowa	Cameroon	South	Ebolowa
 AbongMbang	Cameroon	East	AbongMbang
 Douala	Cameroon		Littoral	Douala
+Garoua	Cameroon	North	Garoua
 Hevecam	Cameroon	South	South
 Yaounde	Cameroon	Mfoundi	Yaounde
 
@@ -1957,6 +1960,7 @@ Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherepovets	Russia	Vologda	Cherepovets
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
 Chita	Russia	ZabaykalskyKrai	Chita
+Chuvashia	Russia	Volga	Chuvashia
 Dagestan	Russia	Dagestan	Dagestan
 Domodedovo	Russia	Moscow	Domodedovo
 Dovolnoe	Russia	Novosibirsk	Dovolnoe
@@ -2136,7 +2140,9 @@ Singapore	Singapore	Singapore	Singapore
 # Slovakia
 Slovakia	Slovakia	Slovakia	Slovakia
 BanskaBystrica	Slovakia	Banskobystricky	BanskaBystrica
+Bojnice	Slovakia	Trencin	Bojnice
 Bratislava	Slovakia	Bratislava	Bratislava
+DunajskaStreda	Slovakia	Trnava	DunajskaStreda
 Galanta	Slovakia	Trnava	Galanta
 Komarno	Slovakia	Nitra	Komarno
 Kosice	Slovakia	Kosice	Kosice
@@ -2157,6 +2163,8 @@ Trencin	Slovakia	Trencin	Trencin
 Trnava	Slovakia	Trnava	Trnava
 Sastin	Slovakia	Trnava	Sastin
 SastinStraze	Slovakia	Trnava	SastinStraze
+Senica	Slovakia	Trnava	Senica
+Skalica	Slovakia	Trnava	Skalica
 Sobotiste	Slovakia	Trnava	Sobotiste
 
 # Slovenia
