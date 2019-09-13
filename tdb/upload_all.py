@@ -142,6 +142,41 @@ def upload_niid(database, subtypes):
                         o.writeline("Couldn't upload {}, please try again.".format(infile))
                     print "Done with", fname + "."
 
+def upload_crick(database, subtypes):
+    with open('data/crick_fail_log.txt', 'w') as o:
+        base_path = '../../../Dropbox/crick-nextflu-data-share/raw-data/'
+        dir_paths = []
+        subtype_to_paths = {
+            #"h3n2": ["A/H3N2/HI/2015", "A/H3N2/MNT/2016", "A/H3N2/MNT/2017", "A/H3N2/FRA/2018", "A/H3N2/FRA/2017"],
+            "h3n2": ["A/H3N2/HI/2019", "A/H3N2/FRA/2019"],
+            # "h1n1pdm": ["A/H1N1pdm/2015", "A/H1N1pdm/2016", "A/H1N1pdm/2017", "A/H1N1pdm/2018"],
+            "h1n1pdm" : ["A/H1N1pdm/HI/2019"],
+            # "vic": ["B/Victoria/HI/2017", "B/Victoria/HI/2018"],
+            "vic": ["B/Victoria/HI/2019"],
+            # "yam": ["B/Yamagata/HI/2017", "B/Yamagata/HI/2018"]
+            "yam": ["B/Yamagata/HI/2019"]
+        }
+        for subtype in subtypes:
+            for dir_path in subtype_to_paths[subtype]:
+                complete_path = '{}{}/'.format(base_path, dir_path)
+                assay_type = "hi"
+                m = re.search(r'(fra|MNT|VN)', complete_path, re.IGNORECASE)
+                if m is not None:
+                    assay_type = "fra"
+                for fname in os.listdir(complete_path):
+                    fstem = fname.split('.')[0]
+                    fstem = fstem.replace('(','\\(').replace(')','\\)')
+                    if ' ' in fstem:
+                        fstem = re.escape(fstem)
+                    print "Uploading " + fname
+                    command = "python tdb/crick_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype tables".format(database, subtype, assay_type, complete_path, fstem)
+                    print "Running with: " + command
+                    try:
+                        subprocess.call(command, shell=True)
+                    except:
+                        o.writeline("Couldn't upload {}, please try again.".format(infile))
+                    print "Done with", fname + "."
+
 if __name__=="__main__":
     params = parser.parse_args()
 
@@ -174,5 +209,7 @@ if __name__=="__main__":
             upload_vidrl(params.database, params.subtypes)
         if source == "niid":
             upload_niid(params.database, params.subtypes)
+        if source == "crick":
+            upload_crick(params.database, params.subtypes)
 
     print "Done with all uploads."

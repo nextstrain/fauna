@@ -16,6 +16,17 @@ from vdb.flu_upload import flu_upload
 
 parser.add_argument('--assay_type', default='hi')
 
+def build_location_mapping():
+    l = { "Swit": "Switzerland",
+          "Bris": "Brisbane",
+          "Ire": "Ireland",
+          "HK": "HongKong",
+          "Maur": "Mauritius",
+          "Nord-West": "NordrheinWestfalen",
+          "Mich": "Michigan",
+          "Bret": "Bretagne"}
+    return l
+
 def read_crick(path, fstem, assay_type):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
@@ -28,7 +39,7 @@ def read_crick(path, fstem, assay_type):
         ind = exten.index(True)
         sheets = convert_xls_to_csv(path, fstem, ind)
         for sheet in sheets:
-            fname = "data/tmp/{}.csv".format(sheet)
+            fname = "../../fludata/Crick-London-WHO-CC/processed-data/csv/{}.csv".format(sheet)
             parse_crick_matrix_to_tsv(fname, path, assay_type)
     else:
         # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
@@ -42,7 +53,7 @@ def convert_xls_to_csv(path, fstem, ind):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
-        with open('data/tmp/{}_{}.csv'.format(fstem, sheet.name), 'wb') as f:
+        with open('../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'wb') as f:
             writer = csv.writer(f)
             print(sheet.name)
             for row in range(sheet.nrows):
@@ -53,7 +64,7 @@ def convert_xls_to_csv(path, fstem, ind):
                     except:
                         import pdb; pdb.set_trace()
                 writer.writerow(new_row)
-        print("wrote new csv to data/tmp/{}_{}.csv".format(fstem, sheet.name))
+        print("wrote new csv to ../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv".format(fstem, sheet.name))
         sheets.append("{}_{}".format(fstem, sheet.name))
     return sheets
 
@@ -63,7 +74,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
     with open(fname) as infile:
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
-    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
+    with open('../../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
         header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
         outfile.write("%s\n" % ("\t".join(header)))
         original_path = original_path.split('/')
@@ -86,7 +97,11 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index]
-                serum_strain = mat[6][j]
+                serum_strain = mat[6][j]+"/"+mat[7][j]
+                m = build_location_mapping()
+                for (k,v) in m.iteritems():
+                    if v not in serum_strain:
+                        serum_strain = serum_strain.replace(k, v)
                 serum_id = mat[9][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
@@ -129,10 +144,10 @@ if __name__=="__main__":
         if args.preview:
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + sheet + " --preview"
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet + " --preview"
             print command
             subprocess.call(command, shell=True)
         else:
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + sheet
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet
             print command
             subprocess.call(command, shell=True)
