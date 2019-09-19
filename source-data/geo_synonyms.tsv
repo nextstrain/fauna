@@ -176,6 +176,7 @@ BrasiliaDf	Brazil	Brasilia	Brasilia
 Caetes	Brazil	Pernambuco	Caetes
 CambaradoSul	Brazil	RioGrandeDoSul	CambaradoSul
 Cambepr	Brazil	Parana	Cambe
+CampoGrande	Brazil	MatoGrosso	CampoGrande
 Canoas	Brazil	RioGrandeDoSul	Canoas
 Ceara	Brazil	Ceara	Ceara
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
@@ -184,6 +185,7 @@ DistritoFederal	Brazil	DistritoFederal	DistritoFederal
 EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto
 FeiraDeSantana	Brazil	Bahia	FeiraDeSantana
 Garanhuns	Brazil	Pernambuco	Garanhuns
+Goiania	Brazil	Goias	Goiania
 Goias	Brazil	Goias	Goias
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
 Manausam	Brazil	Amazonas	Manaus
@@ -195,6 +197,7 @@ Macapa	Brazil	Amapa	Macapa
 Maceio	Brazil	Alagoas	Maceio
 MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul
 MatoGrosso	Brazil	MatoGrosso	MatoGrosso
+MogidasCruzes	Brazil	SaoPaulo	MogidasCruzes
 Murici	Brazil	Alagoas	Murici
 Natal	Brazil	RioGrandeDoNorte	Natal
 Nossasenhoradolivramentomt	Brazil	MatoGrosso	NossaSenhoraDoLivramento
@@ -202,16 +205,19 @@ Olinda	Brazil	Pernambuco	Olinda
 Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
 Paulista	Brazil	Pernambuco	Paulista
+PedraBela	Brazil	SaoPaulo	PedraBela
 Pelotas	Brazil	RioGrandeDoSul	Pelotas
 Pernambuco	Brazil	Pernambuco	Pernambuco
 Pernambucocamaragib	Brazil	Pernambuco	Camaragibe
 PernambucorecifePernambuco	Brazil	Pernambuco	Recife
 Piaui	Brazil	Piaui	Piaui
+PilardoSul	Brazil	SaoPaulo	PilardoSul
 Parana	Brazil	Parana	Parana
 Poconemt	Brazil	MatoGrosso	Pocone
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Portovelhopv	Brazil	Rondonia	PortoVelho
 Recife	Brazil	Pernambuco	Recife
+RibeiraoPires	Brazil	SaoPaulo	RibeiraoPires
 RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
 Ribeiraopretosaopaulo	Brazil	SaoPaulo	RibeiraoPreto
 RioDeJaneiro	Brazil	RioDeJaneiro	RioDeJaneiro
@@ -373,6 +379,7 @@ Curanilahue	Chile	Biobio	Curanilahue
 Curico	Chile	Maule	Curico
 Gorbea	Chile	Araucania	Gorbea
 Easterisland	Chile	EasterIsland	EasterIsland
+HangaRoa	Chile	EasterIsland	EasterIsland
 Iquique	Chile	Tarapaca	Iquique
 IslaDePascua	Chile	Valparaiso	IslaDePascua
 LaSerena	Chile	Coquimbo	LaSerena
@@ -2405,6 +2412,8 @@ SuphanBuri	Thailand	SuphanBuri	SuphanBuri
 SuratThani	Thailand	SuratThani	SuratThani
 Tak	Thailand	Tak	Tak
 Trang	Thailand	Trang	Trang
+UbonRatchathani	Thailand	UbonRatchathani	UbonRatchathani
+UdonThani	Thailand	UdonThani	UdonThani
 Udorn	Thailand	NakhonRatachasima	NongPhaiLom
 Uthaiyhani	Thailand	Uthaiyhani	Uthaiyhani
 Uthaithani	Thailand	Uthaithani	Uthaithani
