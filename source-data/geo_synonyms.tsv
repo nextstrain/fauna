@@ -182,12 +182,14 @@ Ceara	Brazil	Ceara	Ceara
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
 Cuiabamt	Brazil	MatoGrosso	Cuiaba
 DistritoFederal	Brazil	DistritoFederal	DistritoFederal
+Dracena	Brazil	SaoPaulo	Dracena
 EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto
 FeiraDeSantana	Brazil	Bahia	FeiraDeSantana
 Garanhuns	Brazil	Pernambuco	Garanhuns
 Goiania	Brazil	Goias	Goiania
 Goias	Brazil	Goias	Goias
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
+Lorena	Brazil	SaoPaulo	Lorena
 Manausam	Brazil	Amazonas	Manaus
 Manausamazonasstate	Brazil	Amazonas	Manaus
 Maranhao	Brazil	Maranhao	Maranhao
@@ -214,8 +216,10 @@ Piaui	Brazil	Piaui	Piaui
 PilardoSul	Brazil	SaoPaulo	PilardoSul
 Parana	Brazil	Parana	Parana
 Poconemt	Brazil	MatoGrosso	Pocone
+Pompeia	Brazil	SaoPaulo	Pompeia
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Portovelhopv	Brazil	Rondonia	PortoVelho
+Presidentevenceslau	Brazil	SaoPaulo	Presidentevenceslau
 Recife	Brazil	Pernambuco	Recife
 RibeiraoPires	Brazil	SaoPaulo	RibeiraoPires
 RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
@@ -231,6 +235,7 @@ Santarempa	Brazil	Para	Santarem
 SantaRosa	Brazil	RioGrandeDoSul	SantaRosa
 SaoGabriel	Brazil	RioGrandeDoSul	SaoGabriel
 Saoluismaranhao	Brazil	Maranhao	SaoLuis
+Santos	Brazil	SaoPaulo	Santos
 Santossaopaulo	Brazil	SaoPaulo	Santos
 Sanharo	Brazil	Pernambuco	Sanharo
 Spsaojosedoriopreto	Brazil	SaoJoseDoRioPreto	SaoJoseDoRioPreto
@@ -1437,6 +1442,7 @@ Keiyo	Kenya	ElgeyoMarakwet	Keiyo
 Kericho	Kenya	Kericho	Kericho
 Kijabe	Kenya	Kiambu	Kijabe
 Kikuyu	Kenya	Kiambu	Kikuyu
+Kilifi	Kenya	Kilifi	Kilifi
 Kisii	Kenya	Kisii	Kisii
 Kisumu	Kenya	Kisumu	Kisumu
 Kitale	Kenya	TransNzoia	Kitale
@@ -2308,8 +2314,10 @@ Karlstad	Sweden	Varmland	Karlstad
 Kristianstad	Sweden	Skane	Kristianstad
 Kungalv	Sweden	VastraGotaland	Kungalv
 Linkoping	Sweden	Ostergotland	Linkoping
+Lulea	Sweden	Norrbotten	Lulea
 Lund	Sweden	Skane	Lund
 Malmo	Sweden	Skane	Malmo
+Norrkoping	Sweden	Ostergotland	Norrkoping
 Orebro	Sweden	Orebro	Orebro
 Ostersund	Sweden	Jamtland	Ostersund
 Skovde	Sweden	VastraGotaland	Skovde
