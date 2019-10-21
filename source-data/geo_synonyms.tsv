@@ -172,6 +172,7 @@ Boavistarr	Brazil	Roraima	BoaVista
 Roraimarr	Brazil	Roraima	Roraima
 Boavistaroraimastate	Brazil	Roraima	BoaVista
 Bragancapara	Brazil	Para	Braganca
+Brasilia	Brazil	Brasilia	Brasilia
 BrasiliaDf	Brazil	Brasilia	Brasilia
 Caetes	Brazil	Pernambuco	Caetes
 CambaradoSul	Brazil	RioGrandeDoSul	CambaradoSul
@@ -187,6 +188,7 @@ EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto
 FeiraDeSantana	Brazil	Bahia	FeiraDeSantana
 Garanhuns	Brazil	Pernambuco	Garanhuns
 Goiania	Brazil	Goias	Goiania
+Goianesia	Brazil	Goias	Goianesia
 Goias	Brazil	Goias	Goias
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
 Lorena	Brazil	SaoPaulo	Lorena
@@ -219,7 +221,7 @@ Poconemt	Brazil	MatoGrosso	Pocone
 Pompeia	Brazil	SaoPaulo	Pompeia
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Portovelhopv	Brazil	Rondonia	PortoVelho
-Presidentevenceslau	Brazil	SaoPaulo	Presidentevenceslau
+Presidentevenceslau	Brazil	SaoPaulo	PresidenteVenceslau
 Recife	Brazil	Pernambuco	Recife
 RibeiraoPires	Brazil	SaoPaulo	RibeiraoPires
 RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
@@ -235,6 +237,7 @@ Santarempa	Brazil	Para	Santarem
 SantaRosa	Brazil	RioGrandeDoSul	SantaRosa
 SaoGabriel	Brazil	RioGrandeDoSul	SaoGabriel
 Saoluismaranhao	Brazil	Maranhao	SaoLuis
+SaoMiguelArcanjo	Brazil	SaoPaulo	SaoMiguelArcanjo
 Santos	Brazil	SaoPaulo	Santos
 Santossaopaulo	Brazil	SaoPaulo	Santos
 Sanharo	Brazil	Pernambuco	Sanharo
