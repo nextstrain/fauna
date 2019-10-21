@@ -159,9 +159,11 @@ Botswana	Botswana	Botswana	Botswana
 # Brazil
 Brazil	Brazil	Brazil	Brazil
 Acre	Brazil	Acre	Acre
+AguaClara	Brazil	MatoGrossoDoSul	AguaClara
 Alagoas	Brazil	Alagoas	Alagoas
 Amazonas	Brazil	Amazonas	Amazonas
 Amapa	Brazil	Amapa	Amapa
+Anapolis	Brazil	Goias	Anapolis
 Arapiraca	Brazil	Alagoas	Arapiraca
 Bahia	Brazil	Bahia	Bahia
 Bahiaba	Brazil	Bahia	Bahia
@@ -172,6 +174,7 @@ Boavistarr	Brazil	Roraima	BoaVista
 Roraimarr	Brazil	Roraima	Roraima
 Boavistaroraimastate	Brazil	Roraima	BoaVista
 Bragancapara	Brazil	Para	Braganca
+Brasilandia	Brazil	MatoGrossoDoSul	Brasilandia
 Brasilia	Brazil	Brasilia	Brasilia
 BrasiliaDf	Brazil	Brasilia	Brasilia
 Caetes	Brazil	Pernambuco	Caetes
@@ -199,6 +202,7 @@ Maritubapara	Brazil	Para	Marituba
 MinasGerais	Brazil	MinasGerais	MinasGerais
 Macapa	Brazil	Amapa	Macapa
 Maceio	Brazil	Alagoas	Maceio
+Maracaju	Brazil	MatoGrossoDoSul	Maracaju
 MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul
 MatoGrosso	Brazil	MatoGrosso	MatoGrosso
 MogidasCruzes	Brazil	SaoPaulo	MogidasCruzes
@@ -245,6 +249,7 @@ Spsaojosedoriopreto	Brazil	SaoJoseDoRioPreto	SaoJoseDoRioPreto
 Sergipe	Brazil	Brazil	Sergipe
 Salvador	Brazil	Bahia	Salvador
 Tocantins	Brazil	Brazil	Tocantins
+TresLagoas	Brazil	MatoGrossoDoSul	TresLagoas
 Uberlandia	Brazil	MinasGerais	Uberlandia
 Vacaria	Brazil	RioGrandeDoSul	Vacaria
 Varzeagrandemt	Brazil	MatoGrosso	VarzeaGrande
@@ -252,6 +257,7 @@ VitoriaDeSantoAntao	Brazil	Pernambuco	VitoriaDeSantoAntao
 
 EstadoDeSaoPaulo	Brazil	SaoPaulo	SaoPaulo
 AltoAlegre	Brazil	SaoPaulo	AltoAlegre
+Americana	Brazil	SaoPaulo	Americana
 Andradina	Brazil	SaoPaulo	Andradina
 Aracatuba	Brazil	SaoPaulo	Aracatuba
 Araras	Brazil	SaoPaulo	Araras
@@ -278,6 +284,7 @@ Itapira	Brazil	SaoPaulo	Itapira
 Ituverava	Brazil	SaoPaulo	Ituverava
 Jaboticabal	Brazil	SaoPaulo	Jaboticabal
 Jau	Brazil	SaoPaulo	Jau
+LaranjalPaulista	Brazil	SaoPaulo	LaranjalPaulista
 Leme	Brazil	SaoPaulo	Leme
 Limeira	Brazil	SaoPaulo	Limeira
 Lins	Brazil	SaoPaulo	Lins
@@ -285,12 +292,14 @@ Louveira	Brazil	SaoPaulo	Louveira
 Marilia	Brazil	SaoPaulo	Marilia
 Matao	Brazil	SaoPaulo	Matao
 Maua	Brazil	SaoPaulo	Maua
+MogiGuacu	Brazil	SaoPaulo	MogiGuacu
 MojiDasCruzes	Brazil	SaoPaulo	MojiDas
 Moji-Guacu	Brazil	SaoPaulo	MojiGuacu
 Moji-Mirim	Brazil	SaoPaulo	MojiMirim
 MonteAlto	Brazil	SaoPaulo	MonteAlto
 Osasco	Brazil	SaoPaulo	Osasco
 Paulinia	Brazil	SaoPaulo	Paulinia
+Pariquera-Acu	Brazil	SaoPaulo	Pariquera-Acu
 Piracicaba	Brazil	SaoPaulo	Piracicaba
 PresidentePrudente	Brazil	SaoPaulo	PresidentePrudente
 RibeiraoPreto	Brazil	SaoPaulo	Ribeirao
