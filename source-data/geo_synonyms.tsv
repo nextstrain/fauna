@@ -824,6 +824,7 @@ Bourgoin	France	AuvergneRhoneAlpes	BourgoinJallieu
 BourgoinJallieu	France	AuvergneRhoneAlpes	BourgoinJallieu
 Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
+Cannes	France	ProvenceAlpesCoteDAzur	Cannes
 Centre	France	Centre	Centre
 ChampagneArdenne	France	AlsaceChampagneArdenneLorraine	ChampagneArdenne
 ClermontFerrand	France	AuvergneRhoneAlpes	ClermontFerrand
@@ -869,6 +870,7 @@ Rochefort	France	CharenteMaritime	Rochefort
 Rouen	France	Normandy	Rouen
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
+StLaurentDuVar	France	ProvenceAlpesCoteDAzur	StLaurentDuVar
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
@@ -1586,6 +1588,7 @@ Mexico	Mexico	Mexico	Mexico
 Aguascalientes	Mexico	Aguascalientes	Aguascalientes
 Campeche	Mexico	Campeche	Campeche
 Coahuila	Mexico	Coahuila	Coahuila
+Colima	Mexico	Colima	Colima
 Jalisco	Mexico	Jalisco	Jalisco
 Guerrero	Mexico	Guerrero	Guerrero
 Yucatan	Mexico	Mexico	Yucatan
@@ -2597,11 +2600,12 @@ Caerphilly	UnitedKingdom	Wales	Caerphilly
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
+Cardigan	UnitedKingdom	Wales	Ceredigion
 Carmarthen	UnitedKingdom	Wales	Carmarthen
 CefnYBedd	UnitedKingdom	Wales	CefnYBedd
 ChristsHospital	UnitedKingdom	England	Horsham
 Chepstow	UnitedKingdom	Wales	Chepstow
-Cheshire	UnitedKingdom	England	Cheshire
+Cheshire	UnitedKingdom	England	Cheshireƒ
 Cirencester	UnitedKingdom	England	Cirencester
 CityofLondon	UnitedKingdom	England	London
 CityofSouthampton	UnitedKingdom	England	Southampton
