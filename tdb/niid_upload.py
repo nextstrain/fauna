@@ -95,7 +95,8 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                 # import pdb; pdb.set_trace()
                 if m:
                     serum_strain = m.group(1)
-                    serum_strain = flutype + "/" + serum_strain
+                    if not serum_strain.startswith(flutype + "/"):
+                        serum_strain = flutype + "/" + serum_strain
                 titer = mat[i][j]
                 source = "niid_%s"%(src_id)
                 virus_passage = mat[i][2]
