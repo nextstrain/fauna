@@ -165,6 +165,7 @@ Amazonas	Brazil	Amazonas	Amazonas
 Amapa	Brazil	Amapa	Amapa
 Anapolis	Brazil	Goias	Anapolis
 Arapiraca	Brazil	Alagoas	Arapiraca
+Aquidauana	Brazil	MatoGrossoDoSul	Aquidauana
 Bahia	Brazil	Bahia	Bahia
 Bahiaba	Brazil	Bahia	Bahia
 Belem	Brazil	Para	Belem
@@ -1587,12 +1588,14 @@ Mayotte	Mayotte	Mayotte	Mayotte
 Mexico	Mexico	Mexico	Mexico
 Aguascalientes	Mexico	Aguascalientes	Aguascalientes
 Campeche	Mexico	Campeche	Campeche
+Chihuahua	Mexico	Chihuahua	Chihuahua
 Coahuila	Mexico	Coahuila	Coahuila
 Colima	Mexico	Colima	Colima
 Jalisco	Mexico	Jalisco	Jalisco
 Guerrero	Mexico	Guerrero	Guerrero
 Yucatan	Mexico	Mexico	Yucatan
 Yucatanstate	Mexico	Yucatan	Yucatan
+Michoacan	Mexico	Michoacan	Michoacan
 Monterrey	Mexico	Mexico	Monterrey
 Morelos	Mexico	Morelos	Morelos
 Merida	Mexico	Mexico	Merida
@@ -1600,6 +1603,7 @@ Puebla	Mexico	Puebla	Puebla
 Queretaro	Mexico	Queretaro	Queretaro
 QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
+SanLuisPotosi	Mexico	SanLuisPotosi	SanLuisPotosi
 Lacoloradasonora	Mexico	Sonora	LaColorada
 Nayarit	Mexico	Nayarit	Nayarit
 Chiapas	Mexico	Chiapas	Chiapas
