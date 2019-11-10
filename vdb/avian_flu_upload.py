@@ -371,6 +371,7 @@ class flu_upload(upload):
                     "american__wigeon", "anasboschas", "anasacuta", "anasamericana",
                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
                     "anasdiscors", "anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
+                    "anasplatyrhynchosvar.domesticus",
                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasundalata",
                     "anseranser", "anserfabalis", "anseralbifrons", "anserindicus",
                     "arenariainterpres", "avian", "bar__headed__goose", "bird", "barn__swallow",
