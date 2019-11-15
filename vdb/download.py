@@ -37,7 +37,8 @@ def get_parser():
     parser.add_argument('--path', default='data', help="path to dump output files to")
     parser.add_argument('--fasta_fields', nargs='+', default=['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'source', 'locus', 'authors'], help="fasta fields for output fasta")
 
-    parser.add_argument('--public_only', action="store_true", help="include to subset public sequences")
+    parser.add_argument('--public_only', action="store_true", help="subset to only public sequences")
+    parser.add_argument('--private_only', action="store_true", help="subset to only previate sequences")
     parser.add_argument('--select', nargs='+', type=str, default=[], help="Select specific fields ie \'--select field1:value1 field2:value1,value2\'")
     parser.add_argument('--present', nargs='+', type=str, default=[], help="Select specific fields to be non-null ie \'--present field1 field2\'")
     parser.add_argument('--interval', nargs='+', type=str, default=[], help="Select interval of values for fields \'--interval field1:value1,value2 field2:value1,value2\'")
@@ -146,6 +147,7 @@ class download(object):
         command = self.add_selections_command(command, **kwargs)
         command = self.add_intervals_command(command, **kwargs)
         command = self.add_public_command(command, **kwargs)
+        command = self.add_private_command(command, **kwargs)
         sequences = list(command.run())
         sequences = filter(None, sequences)
         return list(sequences)
@@ -194,6 +196,15 @@ class download(object):
         if public_only:
             print("Only downloading public sequences")
             command = command.filter({'public': True})
+        return command
+
+    def add_private_command(self, command, private_only, **kwargs):
+        '''
+        Add private filter to command
+        '''
+        if private_only:
+            print("Only downloading private sequences")
+            command = command.filter({'public': False})
         return command
 
     def check_date_format(self, older_date, newer_date):
