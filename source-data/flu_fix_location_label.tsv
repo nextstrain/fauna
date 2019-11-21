@@ -52,6 +52,7 @@ MinasGerias	MinasGerais
 Burkina_Faso	BurkinaFaso
 
 # Canada
+ALB	Alberta
 NorthwestTerritories	NorthWestTerritories
 BC	BritishColumbia
 British_Columbia	BritishColumbia
@@ -99,6 +100,7 @@ Valdiva	Valdivia
 
 # China
 Anhuidangtu	AnhuiDangtu
+Banna	XishuangBanna
 Beijng	Beijing
 Beijin	Beijing
 Beijignshijingshan	BeijingShijingshan
@@ -131,14 +133,17 @@ Guangxilongzhou	GuangxiLongzhou
 Guansu	Gansu
 hanfang	Hanfang
 Heilongijang	Heilongjiang
+Heiilongjiang	Heilongjiang
 heilongJiangxi-An	HeilongjiangXiAn
 Heilongijang-Jianhua	HeilongjiangJianhua
 HeilongijangJianhua	HeilongjiangJianhua
+Heibei	Hebei
 Hebeiwuchang	HubeiWuchang
 Henanhuojia	HenanHuojia
 Henanjinshui	HenanJinshui
 Henansheqiu	HenanShenqiu
 Henanxigong	HenanXigong
+Hong_Kong	HongKong
 Huaian-Qingpu	HuaianQingpu
 Hubeijiangan	HubeiJiangan
 Hubeimaojian	HubeiMaojian
@@ -146,8 +151,10 @@ Hubeiqiaokou	HubeiQiaokou
 Hubeiwuchang	HubeiWuchang
 Hubei-Wujiagang	HubeiWujiagang
 Hubeiwujiagang	HubeiWujiagang
+Huibei	Hubei
 Huizhou	HuZhou
 Huzhou	HuZhou
+Hunankaifu	Kaifu
 Hunanwuling	HunanWuling
 Hunanyuhua	HunanYuhua
 InnerMongolia	Neimenggu
@@ -184,9 +191,11 @@ Neimeng	Neimenggu
 NingDe	Ningde
 North_China	NorthChina
 PuTian	Putian
+Qianzhou	Jiangxi
 Qingfang	Qingfeng
 Quinghai-Gangcha	Gangca
 QuanZhou	Quanzhou
+Sandong	Shandong
 SanMing	Sanming
 Shangdong	Shandong
 Shanghainanhui	ShanghaiNanhui
@@ -199,6 +208,7 @@ shenfang	Shenfang
 Shengzhen	Shenzhen
 Shichuan	Sichuan
 Sichuanwenjiang	SichuanWenjiang
+SJiande	Jiande
 Tianjing	Tianjin
 tianjinHebei	TianjinHebei
 Tianjinhedong	TianjinHedong
@@ -231,6 +241,7 @@ Cote_d'Ivoire	CoteDIvoire
 CzechRep	CzechRepublic
 Brno216	Brno/216
 CzechRepublic75	CzechRepublic/75
+Czech_Republic	CzechRepublic
 
 # DominicanRepublic
 DominicanRep	DominicanRepublic
@@ -247,6 +258,7 @@ Equador	Ecuador
 # Egypt
 Helwan746	Helwan/746
 El_Fayoum	Faiyum
+ElFayoum	Faiyum
 Sharkia	Sharqia
 
 # Finland
@@ -305,6 +317,9 @@ Thueringen	Thuringen
 Thu_Ringen	Thuringen
 SachenAnhalt	SachsenAnhalt
 Schleswig-Holstein	SchleswigHolstein
+
+# Ghana
+Brong_Ahafo	BrongAhafo
 
 # Greece
 ArgolidaGR	Argolida
@@ -377,7 +392,9 @@ Awb	Aurangabad
 Blore	Bangalore
 Che	Chennai
 Chhattisgarh	Chattisgarh
+GujratIndia	Gujarat
 Hyd	Hyderabad
+HaryanaIndia	Haryana
 Ind	India
 Kol	Kolkata
 Kolkutta	Kolkata
@@ -386,10 +403,14 @@ Mum	Mumbai
 Naghpur	Nagpur
 Ngp	Nagpur
 Nsk	Nashik
+Orissa	Odisha
+OrissaIndia	Odisha
 Pach	Pachpadra
 Pachgani	Panchgani
 Patna-India	Patna
+Uchal	UchalPukhari
 Ujain	Ujjain
+Uttar_Pradesh	UttarPradesh
 Uttrakhand	Uttarakhand
 West_Bengal	WestBengal
 Ytml	Yavatmal
@@ -398,11 +419,15 @@ Srinagar	Srinigar
 # Indonesia
 Bandungjava	Bandung
 Central_Java	CentralJava
+Central_Sulawesi	CentralSulawesi
 East_Java	EastJava
 East_Kalimantan	EastKalimantan
 North_Sumatra	Sumatra
+North_Sumatera	Sumatra
+NorthSumatera	Sumatra
 Sulawesi_Selatan	SulawesiSelatan
 South_Kalimantan	SouthKalimantan
+South_Sulawesi	SouthSulawesi
 West_Java	WestJava
 Yogjakarta	Yogyakarta
 WestJava_Sbg_	WestJava
@@ -417,6 +442,32 @@ Ghom	Qom
 Gholestan	Golestan
 Zanjani	Zanjan
 Zanjann	Zanjan
+
+# Israel
+Beit_Alfa	BeitAlfa
+Beit_Aran	BeitAran
+Gan_Shomron	GanHaShomron
+GanShomron	GanHaShomron
+Hod_Ezyon	HodEzyon
+Maale_HaHamisha	MaaleHaHamisha
+Kfar_Monash	KfarMonash
+Klanit	Kalanit
+Naharia	Nahariya
+Nahalel	Nahalal
+Neve_Ilan	NeveIlan
+Pardes_Hana_Carcur	PardesHannaKarkur
+PardesHanaCarcur	PardesHannaKarkur
+QevuzatYavne	KvutzatYavne
+Sde_Uziahu	SdeUziahu
+Sede_Uzziyyahu	SedeUzziyyahu
+Talmei_Elazar	TalmeiElazar
+Tel_Adashim	TelAdashim
+TEL_ADASHIM	TelAdashim
+TELADASHIM	TelAdashim
+Telmond	TelMond
+Uzziyyahu	SedeUzziyyahu
+Yedidia	KfarYedidia
+Ysodot	Yesodot
 
 # Italy
 Firenze	Florence
@@ -532,11 +583,13 @@ NL	Netherlands
 
 # NewZealand
 Nelson_Marlborough	NelsonMarlborough
+New_Zealand	NewZealand
 Bop	BayOfPlenty
 Capitalcoast	CapitalCoast
 Christhcurch	Christchurch
 CHR	Christchurch
 Nelsonmarlborough	NelsonMarlborough
+NZL	NewZealand
 
 # Nicaragua
 Mangua	Managua
@@ -547,6 +600,9 @@ Qalqilia	Qalqilya
 
 # Pakistan
 Manshera	Mansehra
+G_Karachi	Karachi
+GKarachi	Karachi
+Kasoor	Kasur
 
 # PapuaNewGuinea
 EAST SEPIK PROVINCE	EastSepik
@@ -595,6 +651,7 @@ Madeirapt	Madeira
 Portalegre_PT	Portalegre
 Portalegrept	Portalegre
 Porto_PT	Porto
+PT	Portugal
 Santar?m_PT	Santarem
 Santarem_PT	Santarem
 Santarempt	Santarem
@@ -652,6 +709,7 @@ Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
 NorthNovgorod	NizhnyNovgorod
 Ossetia-Alania	OssetiaAlania
+Primorie	Primorsky
 Rostov-On-Don	RostovOnDon
 Rostov-on-Don	RostovOnDon
 Rostov_on_Don	RostovOnDon
@@ -719,6 +777,7 @@ seoul	Seoul
 Capetown	CapeTown
 Ohannesburg	Johannesburg
 Johanneburg	Johannesburg
+South_Africa	SouthAfrica
 
 # Spain
 Baleares100	Baleares/100
@@ -826,6 +885,9 @@ Zaporizhzhya	Zaporizhia
 Zaporizzya	Zaporizhia
 Zhitomir	Zhytomyr
 
+# United Arab Emirates
+United_Arab_Emirates	UnitedArabEmirates
+
 # UnitedKingdom
 Blaenau_Ffestiniog	BlaenauFfestiniog
 NIreland	NorthernIreland
@@ -839,6 +901,7 @@ StClears	SaintClears
 
 # USA
 Ann_Arbor	AnnArbor
+CA	California
 Delware	Delaware
 DictrictofColumbia	DistrictOfColumbia
 DistrictofColombia	DistrictOfColumbia
@@ -847,6 +910,7 @@ DE	Delaware
 Delaware_Bay	DelawareBay
 Ft.Benning	FtBenning
 Georgia_NHRC	GeorgiaNHRC
+Interior_Alaska	InteriorAlaska
 Lousiana	Louisiana
 New_Jersey	NewJersey
 Massachussetts	Massachusetts
@@ -863,9 +927,11 @@ Md	Maryland
 MI	Michigan
 NEW-YORK	NewYork
 New_York	NewYork
+NY	NewYork
 North_Dakota	NorthDakota
 West_Virginia	WestVirginia
 Los_Angeles	LosAngeles
+MN	Minnesota
 New_Mexico	NewMexico
 NewMexcio	NewMexico
 New-York	NewYork
@@ -873,7 +939,9 @@ Pennsalvanya	Pennsylvania
 PA	Pennsylvania
 San_Antonio	SanAntonio
 South_Carolina	SouthCarolina
+Southcentral_Alaska	SouthcentralAlaska
 South_Dakota	SouthDakota
+TX	Texas
 West_Virginia	WestVirginia
 Okahoma	Oklahoma
 Columbia	DistrictOfColumbia
@@ -898,6 +966,7 @@ Long_An	LongAn
 Nam_Dinh	NamDinh
 Ninh_Binh	NinhBinh
 Quang_Ninh	QuangNinh
+QuanhNinh	QuangNinh
 Vietnam_Hau_Giang	HuaGiang
 Soc_Trang	SocTrang
 Son_La	SonLa
