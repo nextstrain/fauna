@@ -313,10 +313,10 @@ class flu_upload(upload):
         # return original_name, original_name
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
-        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '')\
+        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '').replace('H9N2', '')\
             .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
             .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '_')\
-            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','')  # above at end used to be .replace(' ', '')
+            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','').replace('-','')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
 
@@ -461,6 +461,12 @@ class flu_upload(upload):
 
         if v['host'] is not None:
 
+#             """print an error if the length of the strain does not match the host"""
+#             if len(v['strain'].split('/')) == 4 and v['host'] != 'human':
+#                 print(v['strain'], "only has 4 fields but is labelled as not human", v['host'])
+#             if len(v['strain'].split('/')) == 5 and v['host'] == 'human':
+#                 print(v['strain'], "has 5 fields but is labelled as human", v['host'])
+            
             if v['host'] in avian_list:
                 v['host'] = "avian"
             elif v['host'] in environment_list:
@@ -510,22 +516,35 @@ class flu_upload(upload):
         elif field_count == 5:
             loc = strain_name.split('/')[2].replace(" ", "")
             result = self.determine_location(loc)
+        
+        """there are some old avian viruses whose strain names are incorrectly formatted
+        and are missing a strain identifier. Therefore, they are only 4 fields long instead
+        of 5. For most of these, the location errors out, but for Turkey viruses, because
+        Turkey is an actual country, these will be mislabelled as West Asian. This line
+        will check whether the strain name is only 4 fields and has turkey in it, and if 
+        the location field is not also Turkey, it will print out this error message"""
+        if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
+            print("check location for", strain_name, original_name, "location ",loc)
 
+            
         if data_source == "gisaid":
             if v['gisaid_location'] is not None and result is None:
                 loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
                 result = self.determine_location(loc)
         if data_source == 'ird':
-            if field_count == 4: 
+            if field_count == 4 and v['host'].lower() == 'human': 
                 loc = strain_name.split("/")[1]
+            elif field_count == 4 and v['host'].lower() != 'human':
+                loc = strain_name.split("/")[2]
             elif field_count == 5:
                 loc = strain_name.split("/")[2]
             else:
-                loc = 'unknown'
+                loc = None
             result = self.determine_location(loc)
 
         if result is not None:
             v['location'], v['division'], v['country'] = result
+
         else:
             v['location'], v['division'], v['country'] = None, None, None
             print("couldn't parse country for ", original_name)
