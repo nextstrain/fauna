@@ -817,6 +817,7 @@ Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
 Aquitaine	France	Aquitaine	Aquitaine
+Avignon	France	ProvenceAlpesCoteDAzur	Avignon
 Barjols	France	ProvenceAlpesCoteDAzur	Barjols
 BasseNormandie	France	Normandy	BasseNormandie
 Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux
@@ -843,6 +844,7 @@ HauteNormandie	France	Normandy	HauteNormandie
 LaReunion	France	SaintDenis	LaReunion
 LaRochelle	France	CharenteMaritime	LaRochelle
 LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
+LeCannet	France	ProvenceAlpesCoteDAzur	LeCannet
 Lille	France	NordPasDeCalais	Lille
 Limoges	France	AquitaineLimousinPoitouCharentes	Limoges
 Lorraine	France	AlsaceChampagneArdenneLorraine	Lorraine
@@ -851,6 +853,7 @@ Macon	France	BourgogneFrancheComte	Macon
 Marignier	France	AuvergneRhoneAlpes	Marignier
 Marseille	France	ProvenceAlpesCoteDAzur	Marseille
 Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
+Mougins	France	ProvenceAlpesCoteDAzur	Mougins
 Nantes	France	PaysDeLaLoire	Nantes
 Nice	France	ProvenceAlpesCoteDAzur	Nice
 Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
@@ -2269,6 +2272,7 @@ BasqueCountry	Spain	BasqueCountry	BasqueCountry
 Burgos	Spain	CastillaLaMancha	Burgos
 Canarias	Spain	CanaryIslands	Canarias
 Cantabria	Spain	Cantabria	Cantabria
+Castellon	Spain	Castellon	Castellon
 CastillaLaMancha	Spain	CastillaLaMancha	CastillaLaMancha
 CastileAndLeon	Spain	CastileAndLeon	CastileAndLeon
 Catalonia	Spain	Catalonia	Catalonia
@@ -2346,6 +2350,7 @@ Trollhattan	Sweden	VastraGotaland	Trollhattan
 Umea	Sweden	Vasterbottens	Umea
 Uppsala	Sweden	Uppsala	Uppsala
 Vasteras	Sweden	Vastmanland	Vasteras
+Vastervik	Sweden	Kalmar	Vastervik
 Vaxjo	Sweden	Kronoberg	Vaxjo
 Vimmerby	Sweden	Kalmar	Vimmerby
 Visby	Sweden	Gotland	Visby
