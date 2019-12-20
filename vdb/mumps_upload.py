@@ -27,6 +27,47 @@ class mumps_upload(upload):
         for field in ['host']:
             if field in document and document[field] is not None:
                 document[field] = self.camelcase_to_snakecase(document[field])
+                
+    def format_viruses(self, documents, **kwargs):
+        '''
+        format virus information in preparation to upload to database table
+        '''
+        if self.strain_fix_fname is not None:
+            self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
+        if self.location_fix_fname is not None:
+            self.fix_location = self.define_location_fixes(self.location_fix_fname)
+        if self.date_fix_fname is not None:
+            self.fix_date = self.define_date_fixes(self.date_fix_fname)
+        self.define_regions("source-data/geo_regions.tsv")
+        self.define_countries("source-data/geo_synonyms.tsv")
+        for doc in documents:
+            if 'strain' not in doc:
+                doc['strain'] = "unnamed"
+            doc['strain'], doc['original_strain'] = self.fix_name(doc['strain'])
+            if self.fix_location is not None:
+                if doc['strain'] in self.fix_location:
+                    doc['location'] = self.fix_location[doc['strain']]
+            if self.fix_date is not None:
+                if doc['strain'] in self.fix_date:
+                    doc['collection_date'] = self.fix_date[doc['strain']]
+            self.format_date(doc)
+            self.define_MuV_genotype(doc)
+            self.format_place(doc)
+            self.format_region(doc)
+            self.rethink_io.check_optional_attributes(doc, [])
+            self.fix_casing(doc)
+
+    def define_MuV_genotype(self, v):
+    	MuV_genotypes_list = ["A","B","C","D","F","G","H","I","J","K","L","N"]
+    	strain_name = v['strain']
+    	if 'MuV_genotype' in v:
+    		genotype = v['MuV_genotype']
+    	else:
+    		genotype = ""
+    	if genotype == "" and strain_name != "" and strain_name.split("/")[-1] in MuV_genotypes_list:
+    		MuV_genotype = strain_name.split("/")[-1]
+    		v['MuV_genotype'] = MuV_genotype
+    	return(v)
 
 if __name__=="__main__":
     parser = get_parser()
