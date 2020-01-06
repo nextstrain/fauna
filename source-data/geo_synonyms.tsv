@@ -1813,12 +1813,19 @@ Oslo	Norway	Ostlandet	Oslo
 
 # Oman
 Oman	Oman	Oman	Oman
+AlBuraimi	Oman	AlBuraimi	AlBuraimi
 Bahla	Oman	AdDakhiliyah	Bahla
 Buraimi	Oman	AlBuraimi	Buraimi
+Haima	Oman	AlWusta	Haima
 Ibra	Oman	AshSharqiyah	Ibra
+Ibri	Oman	AdDhahirah	Ibri
+JalanBaniBuAli	Oman	AshSharqiyah	JalanBaniBuAli
+Khasab	Oman	Musandam	Khasab
+Muqshin	Oman	Dhofar	Muqshin
 Muscat	Oman	AshSharqiyah	Muscat
 Nizwa	Oman	AdDakhiliyah	Nizwa
 Rustaq	Oman	AlBatinah	Rustaq
+Saham	Oman	AlBatinah	Saham
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
 Salalah	Oman	Dhofar	Salalah
@@ -2590,6 +2597,7 @@ Ammanford	UnitedKingdom	Wales	Ammanford
 Anglesey	UnitedKingdom	Wales	Anglesey
 Aylesbury	UnitedKingdom	England	Aylesbury
 Barry	UnitedKingdom	Wales	Barry
+Beaumaris	UnitedKingdom	Wales	Beaumaris
 Bedford	UnitedKingdom	England	Bedford
 Bedwas	UnitedKingdom	Wales	Bedwas
 Belfast	UnitedKingdom	NorthernIreland	Belfast
@@ -2625,6 +2633,7 @@ CityofSouthampton	UnitedKingdom	England	Southampton
 Co.Durham	UnitedKingdom	England	CountyDurham
 Colchester	UnitedKingdom	England	Colchester
 ColwynBay	UnitedKingdom	Wales	ColwynBay
+Conwy	UnitedKingdom	Wales	Conwy
 Cornwall	UnitedKingdom	England	Cornwall
 Craven	UnitedKingdom	England	Craven
 Croydon	UnitedKingdom	England	Croydon
@@ -2758,6 +2767,7 @@ Wythenshawe	UnitedKingdom	England	Wythenshawe
 Wales	UnitedKingdom	Wales	Wales
 Ynysddu	UnitedKingdom	Wales	Ynysddu
 York	UnitedKingdom	England	York
+YstradMynach	UnitedKingdom	Wales	YstradMynach
 
 # USA
 Alabama	USA	Alabama	Alabama
