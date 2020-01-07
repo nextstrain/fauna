@@ -42,7 +42,7 @@ class cdc_upload(upload):
         '''
         self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         self.HI_ref_name_abbrev =self.define_strain_fixes(self.HI_ref_name_abbrev_fname)
-        self.define_location_fixes("source-data/flu_fix_location_label.tsv")
+        self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
         for meas in measurements:
             meas['source'] = 'cdc'
