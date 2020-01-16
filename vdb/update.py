@@ -111,7 +111,7 @@ class update(upload):
                     if doc['region'] != old_region:
                         updated_documents.append(doc)
                 except Error as e:
-                    print e
+                    print(e)
                     continue
         return updated_documents
 

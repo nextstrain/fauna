@@ -24,12 +24,10 @@ class coronavirus_upload(upload):
 if __name__=="__main__":
     parser = get_parser()
     args = parser.parse_args()
-    virus_fasta_fields = {1:'strain', 3:'collection_date', 4: 'host', 5:'country', 7:'virus_species'}
-    sequence_fasta_fields = {0:'accession', 1:'strain'}
-    # 0        1                2  3  4       5  6  7
-    #>CS362782|UNKNOWN_CS362782|NA|NA|Unknown|NA|NA|Severe_acute_respiratory_syndrome_related_coronavirus
-    # 0        1              2  3          4     5            6  7
-    #>KF186564|Al_Hasa_4_2013|NA|2013_05_01|Human|Saudi_Arabia|NA|Middle_East_respiratory_syndrome_coronavirus
+    virus_fasta_fields = {0:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'virus_species', 6:'originating_lab', 8:'authors'}
+    sequence_fasta_fields = {0:'strain', 1:'accession', 7:'submitting_lab'}
+    # 0                             1              2          3     4     5                 6                  7                      8
+    #>BetaCoV/Wuhan/IVDC-HB-01/2019|EPI_ISL_402119|2019-12-30|Human|China|Wuhan_coronavirus|National Institute|National Institute for|Wenjie Tan, Xiang Zhao
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
     connVDB = coronavirus_upload(**args.__dict__)
