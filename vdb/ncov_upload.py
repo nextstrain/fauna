@@ -4,7 +4,7 @@ from Bio import SeqIO
 from upload import upload
 from upload import get_parser
 
-class coronavirus_upload(upload):
+class ncov_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
 
@@ -24,11 +24,11 @@ class coronavirus_upload(upload):
 if __name__=="__main__":
     parser = get_parser()
     args = parser.parse_args()
-    virus_fasta_fields = {0:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'virus_species', 6:'originating_lab', 8:'authors'}
-    sequence_fasta_fields = {0:'strain', 1:'accession', 7:'submitting_lab'}
-    # 0                             1              2          3     4     5                 6                  7                      8
-    #>BetaCoV/Wuhan/IVDC-HB-01/2019|EPI_ISL_402119|2019-12-30|Human|China|Wuhan_coronavirus|National Institute|National Institute for|Wenjie Tan, Xiang Zhao
+    virus_fasta_fields = {0:'strain', 2:'collection_date', 3: 'host', 4:'country', 5:'division', 6:'city', 7:'originating_lab'}
+    sequence_fasta_fields = {0:'strain', 1:'accession', 8:'submitting_lab', 9:'authors'}
+    # 0                             1              2          3     4     5     6     7                  8                      9
+    #>BetaCoV/Wuhan/IVDC-HB-01/2019|EPI_ISL_402119|2019-12-30|Human|China|Hubei|Wuhan|National Institute|National Institute for|Tan et al
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
     setattr(args, 'sequence_fasta_fields', sequence_fasta_fields)
-    connVDB = coronavirus_upload(**args.__dict__)
+    connVDB = ncov_upload(**args.__dict__)
     connVDB.upload(**args.__dict__)
