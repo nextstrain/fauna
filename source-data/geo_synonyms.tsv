@@ -433,7 +433,9 @@ Anhui	China	Anhui	Anhui
 AnhuiDangtu	China	Anhui	Dangtu
 Anshan	China	Liaoning	Anshan
 Cixi	China	China	Cixi
+Baicheng	China	Jilin	Baicheng
 Baofeng	China	Henan	Baofeng
+Baoshan	China	Yunnan	Baoshan
 Beijing	China	Beijing	Beijing
 BeijingShijingshan	China	Beijing	Shijingshan
 BeijingChaoyang	China	Beijing	Chaoyang
@@ -459,10 +461,14 @@ Chongwen	China	Beijing	Chongwen
 Cnic	China	China	Cnic
 Dalian	China	Liaoning	Dalian
 Dandong	China	Liaoning	Dandong
+Dehong	China	Yunnan	Dehong
+Dawang	China	China	China
+Daye	China	Hubei	Daye
 Dianxin	China	Neimenggu	Dianxin
 Dongcheng	China	Beijing	Dongcheng
 Dongguan	China	Guangdong	Dongguan
 Donghu	China	Jiangxi	Donghu
+Dongting	China	Hunan	Dongting
 Du	China	China	Du
 EasternChina	China	China	China
 Eryansuo	China	China	China
@@ -472,15 +478,16 @@ Fujian	China	Fujian	Fujian
 FujianGulou	China	Fujian	Gulou
 Fuzhou	China	Fujian	Fuzhou
 Gangca	China	Quinghai	Gangca
+Gangxi	China	Shandong	Gangxi
 Gansu	China	Gansu	Gansu
 GansuChengguan	China	Gansu	Chengguan
-Guangdong	China	Guangdong	Guangdong
 Guangdong	China	Guangdong	Guangdong
 Guangzhouguangdong	China	Guangdong	Guangzhou
 GuangdongFutian	China	Guangdong	Futian
 GuangdongHaizhu	China	Guangdong	Haizhu
 GuangdongLuohu	China	Guangdong	Luohu
 Guanger	China	China	China
+Guangdxi	China	Guangxi	Guangxi
 Guangxi	China	Guangxi	Guangxi
 Guangxi	China	Guangxi	Guangxi
 GuangxiLongzhou	China	Guangxi	Longzhou
@@ -504,7 +511,9 @@ Henan	China	Henan	Henan
 HenanJinshui	China	Henan	Jinshui
 HenanShenqiu	China	Henan	Shenqiu
 HenanXigong	China	Henan	Xigong
+Honghe	China	Yunnan	Honghe
 Huadong	China	Huadong	Huadong
+Huangdong	China	Huangdong	Huangdong
 Huaian	China	Jiangsu	Huaian
 Huai'an	China	Jiangsu	Huaian
 HuaianQingpu	China	Jiangsu	Qingpu
@@ -523,7 +532,7 @@ HunanWuling	China	Hunan	Wuling
 HunanYuhua	China	Hunan	Yuhua
 InnerMongolia	China	Neimenggu	Neimenggu
 Jinlinnanguan	China	China	China
-Jiande	China	Zhejiang	sJiande
+Jiande	China	Zhejiang	Jiande
 Jiangan	China	Hubei	Jiangan
 Jiangmenguangdong	China	Guangdong	Jiangmen
 Jiangsu	China	Jiangsu	Jiangsu
@@ -545,44 +554,61 @@ Jiangxi	China	Jiangxi	Jiangxi
 JiangxiDonghu	China	Jiangxi	Donghu
 JiangxiGuix	China	Jiangxi	Guix
 Jiangyin	China	Jiangsu	Jiangyin
+Jianhu	China	Jiangsu	Jianhu
+Jiawang	China	Jiangsu	Jiawang
 Jiaxing	China	Zhejiang	Jiaxing
 Jilin	China	Jilin	Jilin
 JilinChaoyang	China	Jilin	Chaoyang
 JilinNanguan	China	Jilin	Nanguan
+Jinan	China	Shandong	Jinan
 JinagsuQuanshan	China	Jinagsu	Quanshan
 Jinfang	China	Yunnan	Anning
+Jingmen	China	Hubei	Jingmen
 Jinhua	China	Zhejiang	Jinhua
 Jinshui	China	Henan	Jinshui
 Jitie	China	China	China
+Jurong	China	Jiangsu	Jurong
+Juxian	China	Shandong	Juxian
+Kaifeng	China	Henan	Kaifeng
+Kaifu	China	Hunan	Kaifu
 Kunke	China	Shanghai	Shanghai
 Kunming	China	Yunnan	Kunming
 Kuntie	China	China	Kuntie
+Lengshuitan	China	Hunan	Lengshuitan
 Liaoning	China	Liaoning	Liaoning
 LiaoningHuanggu	China	Liaoning	Huanggu
 LiaoShen	China	China	LiaoShen
+Lijiang	China	Yunnan	Lijiang
 Lishui	China	Zhejiang	Lishui
 Longquan	China	Zhejiang	Longquan
 LongYan	China	Fujian	Longyan
 Macau	China	Macau	Macau
+Menyuan	China	Qinghai	Menyuan
+Mudanjiang	China	Heilongjiang	Mudanjiang
 Nanchang	China	Jiangxi	Nanchang
 Nanhaiguangdong	China	Guangdong	Nanhai
+Nanji	China	Fujian	Nanji
 Nanjing	China	Jiangsu	Nanjing
 Nanping	China	Fujian	Nanping
+Nantong	China	Jiangsu	Nantong
 NeiMongolHohhotHuimin	China	Neimenggu	Hohhot
 NeiMongol	China	Neimenggu	Neimenggu
 Neimenggu	China	Neimenggu	Neimenggu
+Neimonggu	China	Neimenggu	Neimenggu
 Ningbo	China	Zhejiang	Ningbo
 Ningfang	China	China	China
 Ningde	China	Fujian	Ningde
 Ningxia	China	Ningxia	Ningxia
 NorthChina	China	NorthChina	NorthChina
 Pudong	China	Shanghai	Pudong
+Puer	China	Yunnang	Puer
 Putian	China	Fujian	Putian
 Qingdao	China	Shandong	Qingdao
 Qingfeng	China	Henan	Qingfeng
 Qinghai	China	Qinghai	Qinghai
 Qingyuan	China	Guangdong	Qingyuan
 Qitie	China	Heilongjiang	Heilongjiang
+Qixian	China	Shanxi	Qixian
 Quanzhou	China	Fujian	Quanzhou
 Quzhou	China	Zhejiang	Quzhou
 Sanming	China	Fujian	Sanming
@@ -594,6 +620,7 @@ Shandong	China	Shandong	Shandong
 Shanghai	China	Shanghai	Shanghai
 ShanghaiNanhui	China	Shanghai	Nanhui
 ShanghaiPudongxin	China	Shanghai	Pudong
+Shangqiu	China	Henan	Shangqiu
 Shantou	China	Guangdong	Shantou
 Shanxi	China	Shanxi	Shanxi
 ShanxiWeicheng	China	Shanxi	Weicheng
@@ -602,14 +629,18 @@ ShaanxiBeilin	China	Shaanxi	Beilin
 Shaoguan	China	Guangdong	Shaoguan
 Shaoxing	China	Zhejiang	Shaoxing
 Shenfang	China	China	China
+Shenyang	China	Liaoning	Shenyang
 Shenzhen	China	Guangdong	Shenzhen
 Shijiazhuang	China	Hebei	Shijiazhuang
 Shitie	China	China	Shitie
+Shuanggou	China	Jiangsu	Shuanggou
+Suqian	China	Jiangsu	Suqian
 Sichuan	China	Sichuan	Sichuan
 SichuanWenjiang	China	Sichuan	Wenjiang
 Sunan	China	Gansu	Sunan
 Suzhou	China	Jiangsu	Suzhou
 Taizhou	China	Zhejiang	Taizhou
+Taixing	China	Jiangsu	Taixing
 Tianjin	China	Tianjin	Tianjin
 TianjinHebei	China	Tianjin	Hebei
 TianjinHedong	China	Tianjin	Hedong
@@ -620,11 +651,15 @@ TianjinNankai	China	Tianjin	Nankai
 TianjinNinghe	China	Tianjin	Ninghe
 TianjinTanggu	China	Tianjin	Tanggu
 Tientsin	China	Tianjin	Tianjin
+Tongshan	China	Hubei	Tongshan
 Tumen	China	Jilin	Tumen
+Wangcheng	China	Hunan	Wangcheng
 Weidu	China	Henan	Weidu
 Weidong	China	Henan	Weidong
+Wenshan	China	Yunnan	Wenshan
 Wenzhou	China	Zhejiang	Wenzhou
 Wujiagang	China	Hubei	Wujiagang
+Wujin	China	Changzhou	Wujin
 Wulumuqi	China	Xinjiang	Urumqi
 Wuhan	China	Hubei	Wuhan
 Wuxi	China	Jiangsu	Wuxi
@@ -632,19 +667,27 @@ Wuzhou	China	Guangxi	Wuzhou
 Xiamen	China	Fujian	Xiamen
 Xian	China	Shaanxi	Xian
 Xianfeng	China	Hubei	Xianfeng
+Xianghai	China	Jilin	Xianghai
+Xiangshui	China	Jiangsu	Xiangshui
 Xigong	China	Henan	Xigong
+Xigou	China	China	Xigou
 Xining	China	Qinghai	Xining
 XinjiangTulufan	China	Xinjiang	Tulufan
 XinjiangTianshan	China	Xinjiang	Tianshan
 Xinjiang	China	Xinjiang	Xinjiang
+XishuangBanna	China	Yunnan	XishuangBanna
 Xizang	China	Xizang	Xizang
+Xuancheng	China	Anhui	Xuancheng
 Xuanwu	China	Beijing	Xuanwu
 Xuchang	China	Henan	Xuchang
 Xutie	China	Jiangxia	Xutie
 Xuzhou	China	Jiangsu	Xuzhou
+Yancheng	China	Jiangsu	Yancheng
 Yangzhou	China	Jiangsu	Yangzhou
 Yantai	China	Shandong	Yantai
+Yuhuan	China	Zhejiang	Yuhuan
 Yunan	China	Guangdong	Yunan
+Yongcheng	China	Henan	Yongcheng
 YunnanAnning	China	Yunnan	Anning
 Yuelu	China	Hunan	Yuelu
 Yunnan	China	Yunnan	Yunnan
@@ -658,6 +701,7 @@ Zhengzhou	China	Henan	Zhengzhou
 Zhoushan	China	Zhejiang	Zhoushan
 Zhuhai	China	Guangdong	Zhuhai
 Zhongyuan	China	Henan	Zhongyuan
+Zibo	China	Shandong	Zibo
 
 # Colombia
 Colombia	Colombia	Colombia	Colombia
@@ -827,6 +871,7 @@ BourgoinJallieu	France	AuvergneRhoneAlpes	BourgoinJallieu
 Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
 Cannes	France	ProvenceAlpesCoteDAzur	Cannes
+Camargue	France	France	Camargue
 Centre	France	Centre	Centre
 ChampagneArdenne	France	AlsaceChampagneArdenneLorraine	ChampagneArdenne
 ClermontFerrand	France	AuvergneRhoneAlpes	ClermontFerrand
@@ -960,6 +1005,8 @@ Wurzburg	Germany	Bayern	Wurzburg
 
 # Ghana
 Ghana	Ghana	Ghana	Ghana
+Ashanti	Ghana	Ashanti	Ashanti
+BrongAhafo	Ghana	BrongAhafo	BrongAhafo
 Manhean	Ghana	Accra	Manhean
 Korlebu	Ghana	Accra	Accra
 
@@ -1100,6 +1147,7 @@ Barwani	India	MadhyaPradesh	Barwani
 Betul	India	MadhyaPradesh	Betul
 Bhopal	India	MadhyaPradesh	Bhopal
 Bihar	India	Bihar	Bihar
+Chandigarh	India	Punjab	Chandigarh
 Chattisgarh	India	Chattisgarh	Chattisgarh
 Chennai	India	TamilNadu	Chennai
 Delhi	India	Delhi	Delhi
@@ -1114,6 +1162,7 @@ Gujarat	India	Gujarat	Gujarat
 Gwalior	India	MadhyaPradesh	Gwalior
 Harda	India	MadhyaPradesh	Harda
 Haryana	India	Haryana	Haryana
+HaryanaIndia	India	Haryana	Haryana
 Hnl	India	India	India
 Hyderaad	India	Telangana	Hyderabad
 Hyderabad	India	Telangana	Hyderabad
@@ -1166,6 +1215,7 @@ Shajapur	India	MadhyaPradesh	Shajapur
 Srinigar	India	JammuAndKashmir	Srinagar
 TamilNaidu	India	TamilNaidu	TamilNaidu
 Tripura	India	Tripura	Tripura
+UchalPukhari	India	WestBengal	UchalPukhari
 Ujjain	India	MadhyaPradesh	Ujjain
 UttarPradesh	India	UttarPradesh	UttarPradesh
 Uttarakhand	India	Uttarakhand	Uttarakhand
@@ -1190,6 +1240,7 @@ Bogorwestjava	Indonesia	Java	Bogor
 Bojonggenteng	Indonesia	Java	Bojonggenteng
 Boyolali	Indonesia	Java	Boyolali
 CentralJava	Indonesia	Java	CentralJava
+CentralSulawesi	Indonesia	Sulawesi	CentralSulawesi
 Cicurug	Indonesia	Java	Cicurug
 Cileungsi	Indonesia	Java	Cileungsi
 DeliDerdang	Indonesia	Sumatra	DeliDerdang
@@ -1222,6 +1273,7 @@ Medan	Indonesia	Sumatra	Medan
 MuraoJambi	Indonesia	Sumatra	MuraoJambi
 Nagrak	Indonesia	Java	Nagrak
 NorthSumatra	Indonesia	Sumatra	NorthSumatra
+NorthSulawesi	Indonesia	Sulawesi	NorthSulawesi
 Palembangsumatra	Indonesia	Sumatra	Palembang
 Pangkalpinang	Indonesia	BangkaBelitung	Pangkalpinang
 Parung	Indonesia	Java	Parung
@@ -1240,6 +1292,7 @@ Sidrap	Indonesia	Sulawesi	Sidrap
 Sleman	Indonesia	Java	Sleman
 Sragen	Indonesia	Java	Sragen
 Surakarta	Indonesia	Jateng	Surakarta
+SouthSulawesi	Indonesia	Sulawesi	SouthSulawesi
 Sulawesi	Indonesia	Sulawesi	Sulawesi
 SulawesiSelatan	Indonesia	Sulawesi	Sulawesi
 Sukoharjo	Indonesia	Java	Sukoharjo
@@ -1247,6 +1300,7 @@ TanahDatar	Indonesia	Sumatra	TanahDatar
 Tasikmalaya	Indonesia	Java	Tasikmalaya
 Temanggung	Indonesia	Java	Temanggung
 WestJava	Indonesia	Java	WestJava
+WestSumatra	Indonesia	Sumatra	WestSumatra
 Wonogiri	Indonesia	Java	Wonogiri
 Wonosobo	Indonesia	Java	Wonosobo
 Yogyakarta	Indonesia	Java	Yogyakarta
@@ -1310,7 +1364,44 @@ Dublin	Ireland	Leinster	Dublin
 
 # Israel
 Israel	Israel	Israel	Israel
+Amioz	Israel	 HevelEshkol	Amioz
+Alonim	Israel	Israel	Alonim
+Avigdor	Israel	Israel	Avigdor
+Bazat	Israel	Israel	Bazat
+BeitAlfa	Israel	Israel	BeitAlfa
+BeitAran	Israel	Israel	BeitAran
+BeitHaLevi	Israel	Israel	BeitHaLevi
+BeitHerut	Israel	Israel	BeitHerut
+Brosh	Israel	Israel	Brosh
+EinTzurim	Israel	Israel	EinTzurim
+Eshkol	Israel	Israel	Eshkol
+GanHaShomron	Israel	Israel	GanHaShomron
+GivatHaim	Israel	Israel	GivatHaim
+GyvatHaimEhud	Israel	Israel	GyvatHaimEhud
+HodEzyon	Israel	Israel	HodEzyon
 Jerusalem	Israel	Jerusalem	Jerusalem
+KfarMonash	Israel	Israel	KfarMonash
+KfarVitkin	Israel	Israel	KfarVitkin
+KfarYedidia	Israel	Israel	KfarYedidia
+Kalanit	Israel	Israel	Kalanit
+KvutzatYavne	Israel	Israel	KvutzatYavne
+MaaleHaHamisha	Israel	Israel	MaaleHaHamisha
+Maanit	Israel	Israel	Maanit
+MishmarHasharon	Israel	Israel	MishmarHasharon
+Nahalal	Israel	Israel	Nahalal
+Nahariya	Israel	Israel	Nahariya
+NeveIlan	Israel	Israel	NeveIlan
+PardesHannaKarkur	Israel	Haifa	PardesHannaKarkur
+Sapir	Israel	Israel	Sapir
+SdeUziahu	Israel	Israel	SdeUziahu
+SedeUzziyyahu	Israel	Ashqelon	SedeUzziyyahu
+ShadmotDvorah	Israel	Israel	ShadmotDvorah
+TalmeiElazar	Israel	Israel	TalmeiElazar
+TelAdashim	Israel	Israel	TelAdashim
+TelMond	Israel	Sharon	TelMond
+TzurMoshe	Israel	Israel	TzurMoshe
+Tzrofa	Israel	Israel	Tzrofa
+Yesodot	Israel	Shephelah	Yesodot
 
 # Italy
 Italy	Italy	Italy	Italy
@@ -1413,6 +1504,7 @@ Tokyoshibuya	Japan	Tokyo	Tokyo
 Tokyoshinjuku	Japan	Tokyo	Tokyo
 Tottori	Japan	Tottori	Tottori
 Toyama	Japan	Toyama	Toyama
+Tsukuba	Japan	Kanto	Tsukuba
 Utsunomiya	Japan	Tochigi	Utsunomiya
 Wakayama	Japan	Wakayama	Wakayama
 Yamagata	Japan	Yamagata	Yamagata
@@ -1513,6 +1605,9 @@ Rivercess	Liberia	Rivercess	Rivercess
 RiverGee	Liberia	RiverGee	RiverGee
 Sinoe	Liberia	Sinoe	Sinoe
 
+# Libya
+Libya	Libya	Libya	Libya
+
 # Lithuania
 Lithuania	Lithuania	Lithuania	Lithuania
 Klaipeda	Lithuania	Klaipeda	Klaipeda
@@ -1607,6 +1702,7 @@ Queretaro	Mexico	Queretaro	Queretaro
 QuintanaRoo	Mexico	QuintanaRoo	QuintanaRoo
 Sonora	Mexico	Sonora	Sonora
 SanLuisPotosi	Mexico	SanLuisPotosi	SanLuisPotosi
+Mexico_Sonora	Mexico	Sonora	Sonora
 Lacoloradasonora	Mexico	Sonora	LaColorada
 Nayarit	Mexico	Nayarit	Nayarit
 Chiapas	Mexico	Chiapas	Chiapas
@@ -1693,6 +1789,7 @@ Fes	Morocco	FesMeknes	Fes
 Kenitra	Morocco	RabatSaleKenitra	Kenitra
 Marrakech	Morocco	MarrakechSafi	Marrakech
 Meknes	Morocco	FesMeknes	Meknes
+Nador	Morocco	Rif	Nador
 Oujda	Morocco	Rif	Oujda
 Rabat	Morocco	RabatSaleKenitra	Rabat
 Safi	Morocco	MarrakechSafi	Safi
@@ -1832,13 +1929,20 @@ Salalah	Oman	Dhofar	Salalah
 
 # Pakistan
 Pakistan	Pakistan	Pakistan	Pakistan
+Abbottabad	Pakistan	KhyberPakhtunkhwa	Abbottabad
+Attock	Pakistan	Punjab	Attock
+Faisalabad	Pakistan	Punjab	Faisalabad
 Islamabad	Pakistan	Islamabad	Islamabad
 Lahore	Pakistan	Punjab	Lahore
 Mansehra	Pakistan	KhyberPakhtunkhwa	Mansehra
 Muridke	Pakistan	Punjab	Muridke
 Karachi	Pakistan	Sindh	Karachi
+Kasur	Pakistan	Punjab	Kasur
 Rawalakot	Pakistan	Rawalakot	Rawalakot
+Sanghar	Pakistan	Sindh	Sanghar
 Sihala	Pakistan	Sihala	Sihala
+Sawabi	Pakistan	KhyberPakhtunkhwa	Sawabi
+Tarbela	Pakistan	KhyberPakhtunkhwa	Tarbela
 
 # Palau
 Palau	Palau	Palau	Palau
@@ -2265,6 +2369,7 @@ Seoul	SouthKorea	Seoul	Seoul
 Suwon	SouthKorea	Gyeonggi	Suwon
 Ulsan	SouthKorea	Ulsan	Ulsan
 Wonju	SouthKorea	Gangwon	Wonju
+Yanggam	SouthKorea	Gyeonggido	Yanggam
 
 # Spain
 Spain	Spain	Spain	Spain
@@ -2583,6 +2688,7 @@ Zhytomyr	Ukraine	Zhytomyr	Zhytomyr
 UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 Dubai	UnitedArabEmirates	Dubai	Dubai
 AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
+Emirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
@@ -2787,6 +2893,7 @@ Hawaii	USA	Hawaii	Hawaii
 Idaho	USA	Idaho	Idaho
 Illinois	USA	Illinois	Illinois
 Indiana	USA	Indiana	Indiana
+InteriorAlaska	USA	Alaska	Alaska
 Iowa	USA	Iowa	Iowa
 Kentucky	USA	Kentucky	Kentucky
 Louisiana	USA	Louisiana	Louisiana
@@ -2813,6 +2920,7 @@ Oregon	USA	Oregon	Oregon
 Pennsylvania	USA	Pennsylvania	Pennsylvania
 RhodeIsland	USA	RhodeIsland	RhodeIsland
 SouthCarolina	USA	SouthCarolina	SouthCarolina
+SouthcentralAlaska	USA	Alaska	Alaska
 SouthDakota	USA	SouthDakota	SouthDakota
 Tennessee	USA	Tennessee	Tennessee
 Texas	USA	Texas	Texas
@@ -2938,7 +3046,7 @@ LongAn	Vietnam	LongAn	LongAn
 Mekongdelta	Vietnam	MekongDelta	MekongDelta
 NamDinh	Vietnam	NamDinh	NamDinh
 NinhBinh	Vietnam	NinhBinh	NinhBinh
-QuanhNinh	Vietnam	QuanhNinh	QuanhNinh
+QuangNinh	Vietnam	QuangNinh	QuangNinh
 SocTrang	Vietnam	SocTrang	SocTrang
 SonLa	Vietnam	SonLa	SonLa
 TayNguyen	Vietnam	DakLak	TayNguyen
@@ -2946,6 +3054,7 @@ TayNinh	Vietnam	TayNinh	TayNinh
 ThaiBinh	Vietnam	ThaiBinh	ThaiBinh
 TienGiang	Vietnam	TienGiang	TienGiang
 VinhLong	Vietnam	VinhLong	VinhLong
+VungTau	Vietnam	BaRiaVungTau	VungTau
 
 # WallisAndFutuna
 WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
