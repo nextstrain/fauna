@@ -734,6 +734,11 @@ Agnibilekrou	CoteDIvoire		Comoe
 Cocody	CoteDIvoire	Abidjan	Cocody
 Plateau	CoteDIvoire	Abidjan	Plateau
 
+# Crimea
+Crimea	Ukraine	Crimea	Crimea
+Gurzuf	Ukraine	Crimea	Gurzuf
+Sevastopol	Ukraine	Crimea	Sevastopol
+
 # Croatia
 Croatia	Croatia	Croatia	Croatia
 Zagreb	Croatia	Zagreb	Zagreb
@@ -2659,7 +2664,6 @@ Ukraine	Ukraine	Ukraine	Ukraine
 Cherkasy	Ukraine	Cherkasy	Cherkasy
 Chernihiv	Ukraine	Chernihiv	Chernihiv
 Chernivtsi	Ukraine	Chernivtsi	Chernivtsi
-Crimea	Ukraine	Crimea	Crimea
 Dnipropetrovsk	Ukraine	Dnipropetrovsk	Dnipropetrovsk
 Dniprodzerzhynsk	Ukraine	Dnipropetrovsk	Kamianske
 Donetsk	Ukraine	Donetsk	Donetsk
@@ -2676,7 +2680,6 @@ Odessa	Ukraine	Odessa	Odessa
 Poltava	Ukraine	Poltava	Poltava
 Rivne	Ukraine	Rivne	Rivne
 Ternopil	Ukraine	Ternopil	Ternopil
-Sevastopol	Ukraine	Crimea	Sevastopol
 Sumy	Ukraine	Sumy	Sumy
 Volyn	Ukraine	Volyn	Volyn
 Zaporizhia	Ukraine	Zaporizhia	Zaporizhia
