@@ -7,6 +7,7 @@ from upload import get_parser
 class ncov_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
+        self.location_fix_fname = "source-data/ncov_location_fix.tsv"
 
     def fix_name(self, name):
         original_name = name
