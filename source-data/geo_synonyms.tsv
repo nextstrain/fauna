@@ -211,6 +211,7 @@ Murici	Brazil	Alagoas	Murici
 Natal	Brazil	RioGrandeDoNorte	Natal
 Nossasenhoradolivramentomt	Brazil	MatoGrosso	NossaSenhoraDoLivramento
 Olinda	Brazil	Pernambuco	Olinda
+Palmas	Brazil	Tocantins	Palmas
 Para	Brazil	Para	Para
 Paraiba	Brazil	Paraiba	Paraiba
 Paulista	Brazil	Pernambuco	Paulista
@@ -2093,6 +2094,7 @@ Vrancea	Romania	Vrancea	Vrancea
 Russia	Russia	Russia	Russia
 Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
+Altai	Russia	Altai	Altai
 Anadyr	Russia	Chukotka	Anadyr
 Anapa	Russia	KrasnodarKrai	Anapa	Anapa
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
@@ -2101,6 +2103,7 @@ Astrakhan	Russia	Astrakhan	Astrakhan
 Barnaul	Russia	AltaiKrai	Barnaul
 Belgorod	Russia	Belgorod	Belgorod
 Belogorsk	Russia	Amur	Belogorsk
+Berdigestyakh	Russia	Sakha	Berdigestyakh
 Birobidzhan	Russia	JewishOblast	Birobidzhan
 Blagoveshchensk	Russia	Amur	Blagoveshchensk
 Bryansk	Russia	Bryansk	Bryansk
@@ -2149,6 +2152,7 @@ Kurgan	Russia	Kurgan	Kurgan
 Kursk	Russia	Kursk	Kursk
 Leningrad	Russia	Leningrad	Leningrad
 Lipetsk	Russia	Lipetsk	Lipetsk
+Luga	Russia	Leningrad	Luga
 Makhachkala	Russia	Dagestan	Makhachkala
 Magadan	Russia	Magadan	Magadan
 Majkop	Russia	Adygeya	Majkop
@@ -2216,6 +2220,7 @@ Yaroslavl	Russia	Yaroslavl	Yaroslavl
 Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
 Zhizdra	Russia	Kaluga	Zhizdra
+Znamensk	Russia	Astrakhan	Znamensk
 
 # Rwanda
 Rwanda	Rwanda	Rwanda	Rwanda
