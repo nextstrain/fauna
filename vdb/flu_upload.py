@@ -131,7 +131,7 @@ class flu_upload(upload):
         self.define_regions("source-data/geo_regions.tsv")
         for doc in documents:
             if 'strain' in doc:
-                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'].strip())
             else:
                 print("Missing strain name!")
             self.fix_casing(doc)
@@ -152,7 +152,7 @@ class flu_upload(upload):
         '''
         for doc in documents:
             if 'strain' in doc:
-                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
+                doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'].strip())
             else:
                 print("Missing strain name!")
             self.format_date(doc)
