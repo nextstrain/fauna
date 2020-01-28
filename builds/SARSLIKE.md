@@ -38,7 +38,7 @@ Upload with:
 
 Upload with:
 
-    python2 vdb/coronavirus_upload_gisaid.py -db vdb -v sarslike --source gisaid --locus genome --url https://www.gisaid.org/ --title "Newly discovered betacoronavirus, Wuhan 2019-2020" --fname wuhan_gisaid.fasta
+    python2 vdb/coronavirus_upload.py -db vdb -v sarslike --source gisaid --locus genome --url https://www.gisaid.org/ --title "Newly discovered betacoronavirus, Wuhan 2019-2020" --fname sarslike_gisaid.fasta
 
 ## Update
 
