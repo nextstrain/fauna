@@ -26,7 +26,7 @@ if __name__=="__main__":
     parser = get_parser()
     args = parser.parse_args()
     virus_fasta_fields = {0:'strain', 3:'collection_date', 4: 'host', 5:'country', 6:'division', 7:'location', 8:'originating_lab'}
-    sequence_fasta_fields = {0:'strain', 1:'accession', 2:'gisaid_epi_id', 9:'submitting_lab', 10:'authors'}
+    sequence_fasta_fields = {0:'strain', 1:'accession', 2:'gisaid_epi_isl', 9:'submitting_lab', 10:'authors'}
     # 0                             1              2              3          4     5     6     7     8                  9                      10
     #>BetaCoV/Wuhan/IVDC-HB-01/2019|EPI_ISL_402119|EPI_ISL_402119|2019-12-30|Human|China|Hubei|Wuhan|National Institute|National Institute for|Tan et al
     setattr(args, 'virus_fasta_fields', virus_fasta_fields)
