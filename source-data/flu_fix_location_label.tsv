@@ -36,6 +36,7 @@ BosniaandHerzegovina	BosniaHerzegovina
 Bosnia	BosniaHerzegovina
 
 # Brazil
+CeilandiaNorte	Ceilandia
 Espirito_Santo	EspiritoSanto
 Minas_Gerais	MinasGerais
 Osasaco	Osasco
@@ -476,6 +477,9 @@ Ysodot	Yesodot
 # Italy
 Firenze	Florence
 Friuli-VeneziaGiulia	FriuliVeneziaGiulia
+FriuliVeneziaGiuliaPN	Pordenone
+FriuliVeneziaGiuliaTS	Trieste
+FriuliVeneziaGiuliaUD	Udine
 Genova	Genoa
 MIlano	Milan
 Milano	Milan
@@ -525,6 +529,7 @@ Kosova	Kosovo
 
 # Kyrgyzstan
 Kyrgyztan	Kyrgyzstan
+Kyrgzstan	Kyrgyzstan
 
 # Lao
 Laos	Lao

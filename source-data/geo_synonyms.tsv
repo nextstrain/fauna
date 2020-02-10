@@ -186,6 +186,7 @@ Cambepr	Brazil	Parana	Cambe
 CampoGrande	Brazil	MatoGrosso	CampoGrande
 Canoas	Brazil	RioGrandeDoSul	Canoas
 Ceara	Brazil	Ceara	Ceara
+Ceilandia	Brazil	DistritoFederal	Ceilandia
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
 Cuiabamt	Brazil	MatoGrosso	Cuiaba
 DistritoFederal	Brazil	DistritoFederal	DistritoFederal
@@ -1437,6 +1438,7 @@ Palermo	Italy	Sicily	Palermo
 Parma	Italy	EmiliaRomagna	Parma
 Pavia	Italy	Lombardy	Pavia
 Perugia	Italy	Umbria	Perugia
+Pordenone	Italy	FriuliVeneziaGiulia	Pordenone
 Rome	Italy	Lazio	Rome
 Sassari	Italy	Sardinia	Sassari
 Siena	Italy	Tuscany	Siena
@@ -1444,6 +1446,7 @@ Torino	Italy	Piedmont	Torino
 Trento	Italy	TrentinoAltoAdige	Trento
 Trieste	Italy	FriuliVeneziaGiulia	Trieste
 Turin	Italy	Piedmont	Turin
+Udine	Italy	FriuliVeneziaGiulia	Udine
 Verona	Italy	Veneto	Verona
 Vicenza	Italy	Veneto	Vicenza
 
@@ -2164,6 +2167,7 @@ Lipetsk	Russia	Lipetsk	Lipetsk
 Luga	Russia	Leningrad	Luga
 Makhachkala	Russia	Dagestan	Makhachkala
 Magadan	Russia	Magadan	Magadan
+Maiya	Russia	Sakha	Maiya
 Majkop	Russia	Adygeya	Majkop
 MariEl	Russia	MariEl	MariEl
 Mcensk	Russia	Oryol	Mcensk
@@ -2629,6 +2633,7 @@ Giresun	Turkey	Giresun	Giresun
 Gumushane	Turkey	Gumushane	Gumushane
 Hatay	Turkey	Hatay	Hatay
 Karabuk	Turkey	Karabuk	Karabuk
+Kahramanmaras	Turkey	Kahramanmaras	Kahramanmaras
 Karaman	Turkey	Karaman	Karaman
 Kocaeli	Turkey	Kocaeli	Kocaeli
 Kutahya	Turkey	Kutahya	Kutahya
