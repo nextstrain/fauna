@@ -1607,6 +1607,10 @@ Latvia	Latvia	Latvia	Latvia
 
 # Lebanon
 Lebanon	Lebanon	Lebanon	Lebanon
+AinWZein	Lebanon	MountLebanon	AinWZein
+Beirut	Lebanon	Beirut	Beirut
+Sidon	Lebanon	SouthLebanon	Sidon
+Tyre	Lebanon	SouthLebanon	Tyre
 
 # Liberia
 Liberia	Liberia	Liberia	Liberia
@@ -2096,6 +2100,7 @@ Prahova	Romania	Prahova	Prahova
 Salaj	Romania	Salaj	Salaj
 Sibiu	Romania	Sibiu	Sibiu
 Suceava	Romania	Suceava	Suceava
+TarguMures	Romania	Mures	TarguMures
 Teleorman	Romania	Teleorman	Teleorman
 Timis	Romania	Timis	Timis
 Tulcea	Romania	Tulcea	Tulcea

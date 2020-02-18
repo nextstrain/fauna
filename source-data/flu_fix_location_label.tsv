@@ -284,6 +284,7 @@ Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
 St-Etienne	StEtienne
+St_Etienne	StEtienne
 Saint-Etienne	StEtienne
 St_Laurent_du_Var	StLaurentDuVar
 
@@ -534,6 +535,9 @@ Kyrgzstan	Kyrgyzstan
 # Lao
 Laos	Lao
 
+# Lebanon
+Saida	Sidon
+
 # Lithuania
 Vilnus	Vilnius
 
@@ -679,6 +683,7 @@ Puerto_Rico	PuertoRico
 
 # Romania
 Bucuresti	Bucharest
+Targu-Mures	TarguMures
 
 # Russia
 Anzhero-Sudzhensk	AnzheroSudzhensk
@@ -863,6 +868,7 @@ Prachinburi__Thailand_	PrachinBuri
 Prachuapkhirikhan	PrachuapKhiriKhan
 Prachinburi	PrachinBuri
 Prajianburi	PrachinBuri
+Rarchaburi	Ratchaburi
 Sakaew	SaKaeo
 Sakonnakhon	SakonNakhon
 Samutprakan	SamutPrakan
