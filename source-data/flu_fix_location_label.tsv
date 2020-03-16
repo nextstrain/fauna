@@ -510,6 +510,7 @@ kadoma	Kadoma
 # Kazakhstan
 Almatinskay	Almaty
 AlmaAta	Almaty
+Almaty_NRL	Almaty
 Kazakstan	Kazakhstan
 Ustkamenogosk	Oskemen
 North_KazakhstanNRL	NorthKazakhstan
@@ -520,6 +521,11 @@ Almatinskaya_KazNRL	Almaty
 Karaganda_KazNRL	Karaganda
 Akmolinskaya_NRL	Akmola
 Kysylorda_KazNRL	Kyzylorda
+Kyzylorda_NRL	Kyzylorda
+Oskemen_NRL	Oskemen
+Taldykorgan_NRL	Taldykorgan
+Taraz_NRL	Taraz
+Turkestan_NRL	Turkistan
 
 # Kenya
 KENYA CP	Kenya
@@ -891,6 +897,7 @@ TurksandCaicos	TurksAndCaicos
 
 # Ukraine
 Dnepropetrovsk	Dnipropetrovsk
+Dnipro	Dnipropetrovsk
 Dniprodzerdzinsk	Dniprodzerzhynsk
 Dniprodzerzinsk	Dniprodzerzhynsk
 Doneck	Donetsk
