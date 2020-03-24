@@ -8,12 +8,12 @@
   },
   "license": "AGPL-3.0",
   "dependencies": {
-    "rethinkdb": "2.2.1",
     "express": "4.16.4",
     "jade": "1.11.0",
+    "moment": "^2.24.0",
     "optimist": " >= 0.6.0",
-    "stream": ">= 0.0.1",
-    "moment": "2.22.2"
+    "rethinkdb": "2.2.1",
+    "stream": ">= 0.0.1"
   },
   "scripts": {
     "chateau": "./chateau/bin/chateau"
