@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, re, time, datetime, csv, sys, json
 from upload import upload
 import rethinkdb as r
@@ -145,9 +146,9 @@ if __name__=="__main__":
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet + " --preview"
-            print command
+            print(command)
             subprocess.call(command, shell=True)
         else:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet
-            print command
+            print(command)
             subprocess.call(command, shell=True)

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, re, time, datetime, csv, sys, json
 import rethinkdb as r
 import hashlib
@@ -74,7 +75,7 @@ class upload(parse, flu_upload):
         measurements = self.filter(measurements)
         measurements = self.create_index(measurements)
         #self.adjust_tdb_strain_names_from_vdb(measurements)
-        print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
+        print(('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements)))
         if not preview:
             self.upload_documents(self.table, measurements, index='index', **kwargs)
         else:
@@ -210,7 +211,7 @@ class upload(parse, flu_upload):
         if isinstance(strain, basestring) and "/" in strain:
             location = strain.split('/')[1]
             if self.determine_location(location) is None:
-                print("Couldn't determine location for this strain, consider adding to flu_fix_location_label.tsv", location, strain)
+                print(("Couldn't determine location for this strain, consider adding to flu_fix_location_label.tsv", location, strain))
 
     def add_attributes(self, meas, host, **kwargs):
         '''
@@ -294,7 +295,7 @@ class upload(parse, flu_upload):
                 date = datetime.datetime.strptime(meas['date'], '%b %Y').date()
                 meas['date'] = date.strftime('%Y-%m') + '-XX'
             except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                print(("Couldn't parse as datetime object", meas['date'], meas['source']))
                 meas['date'] = None
         elif re.match(r'(\d+)-[a-zA-Z][a-zA-Z][a-zA-Z]', meas['date']):  #12-Jan, 9-Jun
             try:
@@ -304,7 +305,7 @@ class upload(parse, flu_upload):
                 date = datetime.datetime.strptime(meas['date'], '%y-%b').date()
                 meas['date'] = date.strftime('%Y-%m') + '-XX'
             except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                print(("Couldn't parse as datetime object", meas['date'], meas['source']))
                 meas['date'] = None
         elif re.match(r'[a-zA-Z][a-zA-Z][a-zA-Z]-(\d+)', meas['date']):  #Nov-09, Jan-2012
             try:
@@ -315,14 +316,14 @@ class upload(parse, flu_upload):
                     date = datetime.datetime.strptime(meas['date'], '%b-%y').date()
                 meas['date'] = date.strftime('%Y-%m') + '-XX'
             except:
-                print("Couldn't parse as datetime object", meas['date'], meas['source'])
+                print(("Couldn't parse as datetime object", meas['date'], meas['source']))
                 meas['date'] = None
         elif meas['date'].lower() == 'unknown' or meas['date'].lower() == 'd/m unknown':
             meas['date'] = None
         elif meas['date'] == '':
             meas['date'] = None
         else:
-            print("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain'])
+            print(("Couldn't reformat this date: \'" + meas['date'] + "\'", meas['source'], meas['serum_strain'], meas['virus_strain']))
             meas['date'] = None
 
         meas['assay_date'] = meas['date']
@@ -338,7 +339,7 @@ class upload(parse, flu_upload):
                 meas['ref'] = False
             else:
                 meas['ref'] = None
-                print("Couldn't parse reference status", meas['ref'])
+                print(("Couldn't parse reference status", meas['ref']))
         else:
             meas['ref'] = None
 
@@ -406,21 +407,21 @@ class upload(parse, flu_upload):
         Filter out viruses without correct dating format or without region specified
         Check  optional and upload attributes
         '''
-        print(len(measurements), " measurements before filtering")
+        print((len(measurements), " measurements before filtering"))
 #       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
         measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
         print("Filtering out measurements with virus, serum strain names or titers not formatted correctly")
         measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) and self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']) and self.correct_titer_format(meas['titer']), measurements)
-        print(len(measurements), " measurements after filtering")
+        print((len(measurements), " measurements after filtering"))
         return measurements
 
     def correct_titer_format(self, titer):
         if re.match("^[0-9<>.]*$", titer):
             return True
         else:
-            print "Bad titer: {}. Removing.".format(titer)
+            print("Bad titer: {}. Removing.".format(titer))
             return False
 
 if __name__=="__main__":

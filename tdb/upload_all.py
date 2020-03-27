@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import subprocess
 import os, sys
@@ -21,19 +22,19 @@ def upload_nimr(database, nimr_path, subtype):
     of virus (H3N2, H1N1pdm, etc.).
     '''
     path = nimr_path + subtype + "/"
-    print "Uploading NIMR data for subtype", subtype, "contained in directory", path + "."
+    print("Uploading NIMR data for subtype", subtype, "contained in directory", path + ".")
 
     for fname in os.listdir(path):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
-            print "Uploading " + fname
+            print("Uploading " + fname)
             command = "python tdb/nimr_upload.py -db " + database + " --subtype " + subtype + " --ftype tables --path " + path + " --fstem " + fstem
-            print "Running with: " + command
+            print("Running with: " + command)
             subprocess.call(command, shell=True)
-            print "Done with", fname + "."
+            print("Done with", fname + ".")
 
-    print "Done uploading NIMR documents."
+    print("Done uploading NIMR documents.")
 
 def upload_cdc(database, cdc_path):
     '''
@@ -42,19 +43,19 @@ def upload_cdc(database, cdc_path):
     There are multiple subtypes within a file.
     '''
     path = cdc_path
-    print "Uploading CDC data contained in directory", path + "."
+    print("Uploading CDC data contained in directory", path + ".")
 
     for fname in os.listdir(path):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
-            print "Uploading " + fname
+            print("Uploading " + fname)
             command = "python tdb/cdc_upload.py -db cdc_tdb --path " + path + " --fstem " + fstem
-            print "Running with: " + command
+            print("Running with: " + command)
             subprocess.call(command, shell=True)
-            print "Done with", fname + "."
+            print("Done with", fname + ".")
 
-    print "Done uploading CDC documents."
+    print("Done uploading CDC documents.")
 
 def upload_elife(database, elife_path, subtype):
     '''
@@ -63,19 +64,19 @@ def upload_elife(database, elife_path, subtype):
     of virus (H3N2, H1N1pdm, etc.).
     '''
     path = elife_path + subtype + "/"
-    print "Uploading eLife data for subtype", subtype, "contained in directory", path + "."
+    print("Uploading eLife data for subtype", subtype, "contained in directory", path + ".")
 
     for fname in os.listdir(path):
         if fname[0] != '.':
             fpath = path + fname
             fstem = fname[:-4]
-            print "Uploading " + fname
+            print("Uploading " + fname)
             command = "python tdb/elife_upload.py -db " + database + " --subtype " + subtype + " --path " + path + " --fstem " + fstem
-            print "Running with: " + command
+            print("Running with: " + command)
             subprocess.call(command, shell=True)
-            print "Done with", fname + "."
+            print("Done with", fname + ".")
 
-    print "Done uploading stored eLife documents."
+    print("Done uploading stored eLife documents.")
 
 def upload_vidrl(database, subtypes):
     with open('data/vidrl_fail_log.txt', 'w') as o:
@@ -98,14 +99,14 @@ def upload_vidrl(database, subtypes):
                     fstem = fname.split('.')[0]
                     if ' ' in fstem:
                         fstem = re.escape(fstem)
-                    print "Uploading " + fname
+                    print("Uploading " + fname)
                     command = "python tdb/vidrl_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype vidrl".format(database, subtype, assay_type, complete_path, fstem)
-                    print "Running with: " + command
+                    print("Running with: " + command)
                     try:
                         subprocess.call(command, shell=True)
                     except:
                         logger.critical("Couldn't upload {}, please try again.".format(fname))
-                    print "Done with", fname + "."
+                    print("Done with", fname + ".")
 
 def upload_niid(database, subtypes):
     with open('data/niid_fail_log.txt', 'w') as o:
@@ -133,14 +134,14 @@ def upload_niid(database, subtypes):
                     fstem = fstem.replace('(','\\(').replace(')','\\)')
                     if ' ' in fstem:
                         fstem = re.escape(fstem)
-                    print "Uploading " + fname
+                    print("Uploading " + fname)
                     command = "python tdb/niid_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype niid".format(database, subtype, assay_type, complete_path, fstem)
-                    print "Running with: " + command
+                    print("Running with: " + command)
                     try:
                         subprocess.call(command, shell=True)
                     except:
                         o.writeline("Couldn't upload {}, please try again.".format(infile))
-                    print "Done with", fname + "."
+                    print("Done with", fname + ".")
 
 def upload_crick(database, subtypes):
     with open('data/crick_fail_log.txt', 'w') as o:
@@ -168,14 +169,14 @@ def upload_crick(database, subtypes):
                     fstem = fstem.replace('(','\\(').replace(')','\\)')
                     if ' ' in fstem:
                         fstem = re.escape(fstem)
-                    print "Uploading " + fname
+                    print("Uploading " + fname)
                     command = "python tdb/crick_upload.py -db {} -v flu --subtype {} --assay_type {} --path {} --fstem {} --ftype tables".format(database, subtype, assay_type, complete_path, fstem)
-                    print "Running with: " + command
+                    print("Running with: " + command)
                     try:
                         subprocess.call(command, shell=True)
                     except:
                         o.writeline("Couldn't upload {}, please try again.".format(infile))
-                    print "Done with", fname + "."
+                    print("Done with", fname + ".")
 
 if __name__=="__main__":
     params = parser.parse_args()
@@ -187,7 +188,7 @@ if __name__=="__main__":
     # root_logger.addHandler(ColorizingStreamHandler())
     # logger = logging.getLogger(__name__)
 
-    print "Beginning construction of", params.database + "."
+    print("Beginning construction of", params.database + ".")
 
     if params.subtypes is None:
         params.subtypes = ['h3n2', 'h1n1pdm', 'vic', 'yam']
@@ -212,4 +213,4 @@ if __name__=="__main__":
         if source == "crick":
             upload_crick(params.database, params.subtypes)
 
-    print "Done with all uploads."
+    print("Done with all uploads.")

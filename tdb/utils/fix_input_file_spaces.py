@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, subprocess
 import re
 
@@ -18,7 +19,7 @@ def fix_input_file_spaces():
                         fstem = re.escape(fstem)
                         fname = "{}.{}".format(fstem,fext)
                         command = 'mv {}{} {}{}'.format(complete_path, fname, complete_path, new_fname)
-                        print command
+                        print(command)
                         subprocess.call(command, shell=True)
 
 if __name__=="__main__":

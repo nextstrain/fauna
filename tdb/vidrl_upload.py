@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, re, time, datetime, csv, sys, json, errno
 from upload import upload
 import rethinkdb as r
@@ -151,11 +152,11 @@ if __name__=="__main__":
     if args.subtype:
         if args.preview:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
-            print command
+            print(command)
             subprocess.call(command, shell=True)
         else:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem
-            print command
+            print(command)
             subprocess.call(command, shell=True)
     else:
         print("Subtype needs to be specified with --subtype")
