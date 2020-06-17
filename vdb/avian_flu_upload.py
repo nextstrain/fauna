@@ -43,7 +43,8 @@ class flu_upload(upload):
                     ('b', 'victoria'): ('b', None, 'seasonal_vic'),
                     ('b', 'yamagata'): ('b', None, 'seasonal_yam'),
                     ('h5n1',''): ('a', 'h5n1', None),
-                    ('h7n9',''): ('a', 'h7n9', None)}
+                    ('h7n9',''): ('a', 'h7n9', None),
+                    ('h9n2',''): ('a', 'h9n2', None)}
         self.outgroups = {lineage: SeqIO.read('source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
         self.outgroup_patterns = {'H3N2': ('a', 'h3n2', 'seasonal_h3n2'),
                                   'H1N1': ('a', 'h1n1', 'seasonal_h1n1'),
@@ -182,8 +183,8 @@ class flu_upload(upload):
         for doc in documents:
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
-                #if data_source == "gisaid":
-                    #doc['gisaid_strain'] = doc['gisaid_strain'].replace(" ", "")
+                if data_source == "gisaid":
+                    doc['gisaid_strain'] = doc['gisaid_strain'].replace(" ", "")
             else:
                 print("Missing strain name!")
             self.fix_casing(doc, args.data_source)
@@ -312,10 +313,10 @@ class flu_upload(upload):
         # return original_name, original_name
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
-        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '')\
+        name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('H5N1', '').replace('H7N9', '').replace('H9N2', '')\
             .replace('Influenza A Virus', '').replace('segment 4 hemagglutinin (HA) gene', '').replace("segment 6 neuraminidase (NA) gene", "")\
             .replace('Human', '').replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '_')\
-            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')  # above at end used to be .replace(' ', '')
+            .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','').replace('-','')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
 
@@ -326,7 +327,7 @@ class flu_upload(upload):
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
         name = '/'.join(split_name)
         name = self.flu_fix_patterns(name)
-
+        
         # Strip leading zeroes, change all capitalization location field to title case
         split_name = name.split('/')
         if len(split_name) == 4:
@@ -364,61 +365,93 @@ class flu_upload(upload):
         '''
         Fix host formatting
         '''
+        avian_list = ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
+                     "african__stonechat","aixgalericulata", "alectorischukar","american__black__duck", 
+                     "american__wigeon","anasboschas", "anasacuta","anasamericana", "anaspenelope",
+                     "anseranserdomesticus","anserbrachyrhynchus","ansercanagica","anasquerquedula",
+                     "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera", 
+                     "anasdiscors", "anasformosa", "anasplatyrhynchos","anaspoecilorhyncha", 
+                     "anasrubripes", "anassp.", "anasstrepera", "anasstrepera","anasplatyrhynchosvar.domesticus",
+                     "anasundalata", "anseranser", "anserfabalis","anseralbifrons","anthropoidesvirgo",
+                     "anserindicus", "arenariainterpres", "avian","bar__headed__goose", "bird",
+                     "barn__swallow","brown__headed__gull","bucephalaclangula", "buteo", 
+                     "baikal__teal","bewick's__swan","black__billed__magpie","babbler",
+                     "buteobuteo", "blue__winged__teal","cairinamoschata", "canada__goose",
+                     "chencanagica", "chicken","chukar","cormorant","corvus", "common__pochard",
+                     "common__goldeneye","common__coot","common__pheasant","condor",
+                     "coturnix","coturnixsp.","coturniccoturnix","coturnixjaponica",
+                      "crane","crow","curlew","cygnusatratus","chinese__francolin",
+                     "corvussplendens","cygnuscolumbianus", "cygnuscygnus", "cygnusolor", 
+                     "duck","dove", "eagle","egret", "eurasian__eagel__owl",
+                     "eurasian__wigeon","falco", "falcon", 
+                     "falcoperegrinus","finch","francolinus", "fowl",
+                     "falcotinnunculus","gadwall","gallus","gallusgallus", "gallusgallusdomesticus", 
+                     "goose", "graculareligiosa", "great__black__headed__gull","garrulaxcanorus","garganey",
+                     "great__crested__grebe","greatbustard","great__bustard",
+                     "greater__white__fronted__goose","grebe","green__winged__teal",
+                     "green-wingedteal","grey__heron","guineafowl", "gull", 
+                     "heron","hirundorustica","houbara__bustard","japanese__white__eye","japanese__quail",
+                     "larusschistisagus", "larusargentatus", "larusbrunnicephalus","larusmelanocephalus",
+                     "larusatricilla","laruscanus","laughing__gull",
+                     "larusichthyaetus","larusridibundus", "larusridibundus", "leucophaeusatricilla","little__grebe",
+                     "little__egret","lophuranycthemera","magpie","magpie__robin","mallard","murre",
+                     "morphnusguianensis", "mute__swan", "muscovy__duck","myna","meleagrisgallopavo",
+                     "necrosyrtesmonachus", "nisaetusnipalensis","northern__shoveler","northernshoveler",
+                     "northern__pintail","openbill__stork","ostrich", "oystercatcher","otheravian", 
+                     "partridge","passerdomesticus", "parakeet","parrot","passerine", "passermontanus", 
+                     "pavocristatus","peacock","phasianuscolchicus","pheasant",
+                     "peregrine__falcon","pigeon","pink__footed__goose","polyplectronbicalcaratum","poultry",
+                     "quail","rook","ruddy__turnstone","rosy__billed__pochard",
+                     "saker__falcon","sanderling","shrike","silky__chicken","snow__goose", 
+                     "shorebird","sparrow","starling","swan","stork","swiftlet","tadornaferuginea",
+                     "teal","turkey","turtledove", "tree__sparrow","us_quail", "waterfowl",
+                     "wild__turkey","white__bellied__bustard","wild__chicken","wild__duck",
+                     "whooper__swan","wildbird","yellow__billed__duck","zosteropsjaponicus"]
+        environment_list = ["feces", "otherenvironment", "surfaceswab", "watersample","environment"]
+        nonhuman_mammal_list = ["bat","canine", "equine", "feline", "mammals", "mink", "othermammals",
+                     "swine","susscrofadomesticus", "lion", "weasel","raccoon__dog","tiger", 
+                     "dog","large__cat","pika"]
+        other_list = ["circus", "ferret", "insect", "laboratoryderived", "unknown","animal"]
+
         if v['host'] is not None:
 
-            if v['host'] in ["accipitergentilis", "accipiternisus", "accipitertrivirgatus",
-                    "aixgalericulata", "alectorischukar", "american__black__duck",
-                    "american__wigeon", "anasboschas", "anasacuta", "anasamericana",
-                    "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
-                    "anasdiscors", "anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
-                    "anasplatyrhynchosvar.domesticus",
-                    "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasundalata",
-                    "anseranser", "anserfabalis", "anseralbifrons", "anserindicus",
-                    "arenariainterpres", "avian", "bar__headed__goose", "bird", "barn__swallow",
-                    "brown__headed__gull", "bucephalaclangula", "buteo", "buteobuteo",
-                    "blue__winged__teal", "cairinamoschata", "canada__goose", "chencanagica",
-                    "chicken",  "cormorant", "corvus", "common__pochard", "common__goldeneye",
-                    "condor", "copsychussaularis", "corvusmacrorhynchos", "coturnix", "crane",
-                    "crow", "cygnusatratus", "cygnuscolumbianus", "cygnuscygnus", "cygnusolor",
-                    "duck", "eagle", "egret", "eurasian__eagel__owl", "falco", "falcon",
-                    "falcoperegrinus", "falcotinnunculus", "gadwall", "gallusgallus",
-                    "gallusgallusdomesticus", "goose", "graculareligiosa",
-                    "great__black__headed__gull", "great__crested__grebe", "grebe",
-                    "green__winged__teal", "grey__heron", "guineafowl", "gull",
-                    "helmeted__guineafowl" "heron", "hirundorustica", "japanese__white__eye",
-                    "larusschistisagus", "larusargentatus", "larusbrunnicephalus",
-                    "larusichthyaetus", "larusridibundus", "larusridibundus", "little__grebe",
-                    "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard",
-                    "morphnusguianensis", "mute__swan", "muscovy__duck", "myna",
-                    "necrosyrtesmonachus", "nettapeposaca", "nisaetusnipalensis",
-                    "northern__shoveler", "openbill__stork", "ostrich", "otheravian", "partridge",
-                    "pavo", "pavocristatus", "pheasant", "peregrine__falcon", "pigeon", "parrot",
-                    "passerine", "passermontanus", "peacock", "polyplectronbicalcaratum", "quail",
-                    "rook", "ruddy__turnstone", "saker__falcon", "shrike", "shorebird", "starling",
-                    "swan", "stork", "swiftlet", "tadornaferuginea", "teal", "turkey", "turtledove",
-                    "tree__sparrow", "us_quail", "waterfowl", "whooper__swan",
-                    "yellow__billed__duck", "zosteropsjaponicus"]:
+#             """print an error if the length of the strain does not match the host"""
+#             if len(v['strain'].split('/')) == 4 and v['host'] != 'human':
+#                 print(v['strain'], "only has 4 fields but is labelled as not human", v['host'])
+#             if len(v['strain'].split('/')) == 5 and v['host'] == 'human':
+#                 print(v['strain'], "has 5 fields but is labelled as human", v['host'])
+            
+            if v['host'] in avian_list:
                 v['host'] = "avian"
-
-            elif v['host'] in ["feces", "otherenvironment", "surfaceswab", "watersample", "environment"]:
+            elif v['host'] in environment_list:
                 v['host'] = "environment"
-
-            elif v['host'] in ["canine", "equine", "feline", "mammals", "mink", "othermammals",
-                     "swine", "lion", "weasel", "raccoon__dog", "tiger", "large__cat", "meerkat"]:
+            elif v['host'] in nonhuman_mammal_list:
                 v['host'] = "nonhuman_mammal"
-
-            elif v['host'] in ["circus", "ferret", "insect", "laboratoryderived", "unknown"]:
+            elif v['host'] in other_list:
                 v['host'] = "other"
 
             elif v['host'] in ['human']:
                 v['host'] = "human"
-
+            
+            # if no host attribute, but there is a host in strain name
+            elif v['host'] == '' and len(v['strain'].split("/")) == 5:
+                hostspecies = v['strain'].split("/")[1]
+                if hostspecies in avian_list:
+                    v['host'] = "avian"
+                elif hostspecies in environment_list:
+                    v['host'] = 'environment'
+                elif hostspecies in nonhuman_mammal_list:
+                    v['host'] = 'nonhuman_mammal'
+                elif hostspecies in other_list:
+                    v['host'] = 'other'
+                
             else:
-                print("cannot classify ", v['host'])
+                print("cannot classify host for", v['strain'], v['host'])
 
 
     def format_country(self, v, data_source):
         '''
+        
         Label viruses with country based on strain name
         A/Taiwan/1/2013 is human virus. Four fields total. Take second field.
         A/Chicken/Taiwan/1/2013 is animal virus. Five field total. Take third field.
@@ -437,20 +470,38 @@ class flu_upload(upload):
         elif field_count == 5:
             loc = strain_name.split('/')[2].replace(" ", "")
             result = self.determine_location(loc)
+        
+        """there are some old avian viruses whose strain names are incorrectly formatted
+        and are missing a strain identifier. Therefore, they are only 4 fields long instead
+        of 5. For most of these, the location errors out, but for Turkey viruses, because
+        Turkey is an actual country, these will be mislabelled as West Asian. This line
+        will check whether the strain name is only 4 fields and has turkey in it, and if 
+        the location field is not also Turkey, it will print out this error message"""
+        if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
+            print("check location for", strain_name, original_name, "location ",loc)
 
+            
         if data_source == "gisaid":
             if v['gisaid_location'] is not None and result is None:
                 loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
                 result = self.determine_location(loc)
         if data_source == 'ird':
-            loc = strain_name.split("/")[-3]
+            if field_count == 4 and v['host'].lower() == 'human': 
+                loc = strain_name.split("/")[1]
+            elif field_count == 4 and v['host'].lower() != 'human':
+                loc = strain_name.split("/")[2]
+            elif field_count == 5:
+                loc = strain_name.split("/")[2]
+            else:
+                loc = None
             result = self.determine_location(loc)
 
         if result is not None:
             v['location'], v['division'], v['country'] = result
+
         else:
             v['location'], v['division'], v['country'] = None, None, None
-            #print("couldn't parse country for ", strain_name, "gisaid location", original_name)
+            print("couldn't parse country for ", original_name)
 
 	if v['division'] == v['country']:
 	    v['division'] == '?'
@@ -524,7 +575,7 @@ if __name__=="__main__":
                                  ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
-        virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 20:'h5_clade'}
+        virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 11:'h5_clade'}
         sequence_fasta_fields = {0:'strain', 1:'accession', 3:'locus'}
         # 0                                                   1        2 3   4 5    6          7     8   9          10                11 12                     13                       14                     15                       16      17 18 19 20
         #>A/American_green_winged_teal/Washington/195750/2014|KP739418|1|PB2|A|H5N1|12/29/2014|14_15|USA|Washington|Green_Winged_Teal|N|AdmantaneResistance_Yes|OseltamivirResistance_No|IncreasedVirulence_Yes|EnhancedTransmission_Yes|T92E_No|No|NA|NA|2.3.4.4
