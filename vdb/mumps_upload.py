@@ -15,6 +15,7 @@ class mumps_upload(upload):
         original_name = name
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('MuV/', '').replace('MuVi/', '').replace('MuVs/','')
+        name = name.replace('&','_').replace('?','_')
         name = re.sub(r'[_ ]?\[([A-Z])\]$', r'/\1', name)
         name = re.sub(r'\(([A-Z])\)$', r'/\1', name)
         name = re.sub(r'_([A-Z])_$', r'/\1', name)
