@@ -104,6 +104,9 @@ class flu_upload(upload):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
                 s['sequence'] = str(record.seq)
+                if data_source == 'ird':
+                    convert_segment_to_locus = {"1":"PB2","2":"PB1","3":"PA","4":"HA","5":"NP","6":"NA","7":"MP","8":"NS"}
+                    s['locus'] = convert_segment_to_locus[s['locus']]
                 s = self.add_sequence_fields(s, **kwargs)
                 sequences.append(s)
                 if data_source == 'ird':
@@ -576,7 +579,7 @@ if __name__=="__main__":
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
         virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 11:'h5_clade'}
-        sequence_fasta_fields = {0:'strain', 1:'accession', 3:'locus'}
+        sequence_fasta_fields = {0:'strain', 1:'accession', 2:'locus'}
         # 0                                                   1        2 3   4 5    6          7     8   9          10                11 12                     13                       14                     15                       16      17 18 19 20
         #>A/American_green_winged_teal/Washington/195750/2014|KP739418|1|PB2|A|H5N1|12/29/2014|14_15|USA|Washington|Green_Winged_Teal|N|AdmantaneResistance_Yes|OseltamivirResistance_No|IncreasedVirulence_Yes|EnhancedTransmission_Yes|T92E_No|No|NA|NA|2.3.4.4
         setattr(args, 'virus_fasta_fields', virus_fasta_fields)
