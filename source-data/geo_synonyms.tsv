@@ -359,7 +359,7 @@ Buea	Cameroon	Southwest	Buea
 Cameroon	Cameroon	Cameroon	Cameroon
 Ebolowa	Cameroon	South	Ebolowa
 AbongMbang	Cameroon	East	AbongMbang
-Douala	Cameroon		Littoral	Douala
+Douala	Cameroon	Littoral	Douala
 Garoua	Cameroon	North	Garoua
 Hevecam	Cameroon	South	South
 Yaounde	Cameroon	Mfoundi	Yaounde
@@ -741,13 +741,13 @@ CostaRica	CostaRica	CostaRica	CostaRica
 CoteDIvoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
 Ctedivoire	CoteDIvoire	CoteDIvoire	CoteDIvoire
 Abidjan	CoteDIvoire	Abidjan	Abidjan
-Attecoube	CoteDIvoire	Abidjan	Attecoube	Agnibilekrou
+Attecoube	CoteDIvoire	Abidjan	Attecoube
 Adjame	CoteDIvoire	Abidjan	Adjame
 Korhogo	CoteDIvoire	Savanes	Korhogo
 Yopougon	CoteDIvoire	Abidjan	Yopougon
 Abobo	CoteDIvoire	Abidjan	Abobo
 Bouafle	CoteDIvoire	SassandraMarahoue	Bouafle
-Agnibilekrou	CoteDIvoire		Comoe
+Agnibilekrou	CoteDIvoire		Comoe   Agnibilekrou
 Cocody	CoteDIvoire	Abidjan	Cocody
 Plateau	CoteDIvoire	Abidjan	Plateau
 
@@ -2129,7 +2129,7 @@ Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
 Altai	Russia	Altai	Altai
 Anadyr	Russia	Chukotka	Anadyr
-Anapa	Russia	KrasnodarKrai	Anapa	Anapa
+Anapa	Russia	KrasnodarKrai	Anapa
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
 Astrakhan	Russia	Astrakhan	Astrakhan
