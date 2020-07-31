@@ -363,10 +363,7 @@ class upload(parse, flu_upload):
         Format assay_type attribute
         '''
         if 'assay_type' in meas:
-            if meas['assay_type'] == 'HI':
-                meas['assay_type'] = 'hi'
-            elif meas['assay_type'] == 'FRA':
-                meas['assay_type'] = 'fra'
+            meas['assay_type'] = meas['assay_type'].lower()
         else:
             meas['assay_type'] = None
 
