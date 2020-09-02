@@ -548,8 +548,14 @@ Laos	Lao
 
 # Lebanon
 AinWazein	AinWZain
+AinWZein	AinWZain
 Jbeil	Byblos
+MountLebanon_Ain-W-zein	AinWZain
 Saida	Sidon
+SouthLebanonSaida	Sidon
+SouthLebanon_Saida	Sidon
+SouthLebanonTyre	Tyre
+SouthLebanon_Tyre	Tyre
 
 # Lithuania
 Vilnus	Vilnius
@@ -742,6 +748,7 @@ Nizhny-Novgorod	NizhnyNovgorod
 Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
 NorthNovgorod	NizhnyNovgorod
+NRCEM-Orenburg	Orenburg
 Ossetia-Alania	OssetiaAlania
 Primorie	Primorsky
 Rostov-On-Don	RostovOnDon
@@ -985,6 +992,7 @@ South_Carolina	SouthCarolina
 Southcentral_Alaska	SouthcentralAlaska
 South_Dakota	SouthDakota
 TX	Texas
+Washton	Washington
 West_Virginia	WestVirginia
 Okahoma	Oklahoma
 Columbia	DistrictOfColumbia
