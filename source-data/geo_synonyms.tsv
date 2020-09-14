@@ -883,6 +883,7 @@ AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
+Antibes	France	ProvenceAlpesCoteDAzur	Antibes
 Aquitaine	France	Aquitaine	Aquitaine
 Avignon	France	ProvenceAlpesCoteDAzur	Avignon
 Barjols	France	ProvenceAlpesCoteDAzur	Barjols
@@ -941,12 +942,14 @@ Puymirol	France	NouvelleAquitaine	Puymirol
 Reims	France	AlsaceChampagneArdenneLorraine	Reims
 Rennes	France	Bretagne	Rennes
 Reunion	France	SaintDenis	Reunion
+Roanne	France	AuvergneRhoneAlpes	Roanne
 Rochefort	France	CharenteMaritime	Rochefort
 Rouen	France	Normandy	Rouen
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 StLaurentDuVar	France	ProvenceAlpesCoteDAzur	StLaurentDuVar
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
+Tulle	France	NouvelleAquitaine	Tulle
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
 Tours	France	CentreValDeLoire	Tours
@@ -1169,6 +1172,7 @@ Andaman	India	AndamanAndNicobarIslands	Andaman
 Assam	India	Assam	Assam
 Aurangabad	India	Maharashtra	Aurangabad
 Bangalore	India	Karnataka	Bangalore
+Baramulla	India	JammuAndKashmir	Baramulla
 Barmer	India	Rajasthan	Barmer
 Barwani	India	MadhyaPradesh	Barwani
 Betul	India	MadhyaPradesh	Betul
@@ -1184,7 +1188,9 @@ Dhar	India	MadhyaPradesh	Dhar
 Dhule	India	Maharashtra	Dhule
 Dhulemaharashtra	India	Maharashtra	Dhule
 Dibrugarh	India	Assam	Dibrugarh
+Doda	India	JammuAndKashmir	Doda
 EasternIndia	India	EasternIndia	EasternIndia
+Ganderbal	India	JammuAndKashmir	Ganderbal
 Goa	India	Goa	Goa
 Gujarat	India	Gujarat	Gujarat
 Gwalior	India	MadhyaPradesh	Gwalior
@@ -1211,6 +1217,8 @@ Khargone	India	MadhyaPradesh	Khargone
 Kol	India	India	Kol
 Kolkata	India	WestBengal	Kolkata
 Kolkatawestbengol	India	WestBengal	Kolkata
+Kulgam	India	JammuAndKashmir	Kulgam
+Kupwara	India	JammuAndKashmir	Kupwara
 Latur	India	Maharashtra	Latur
 MadhyaPradesh	India	MadhyaPradesh	MadhyaPradesh
 Manipur	India	Manipur	Manipur
@@ -1228,11 +1236,13 @@ Panchgani	India	Maharashtra	Panchgani
 Pandharpur	India	Maharashtra	Pandharpur
 Patna	India	Bihar	Patna
 Pondicherry	India	Pondicherry	Pondicherry
+Pulwama	India	JammuAndKashmir	Pulwama
 Pune	India	Maharashtra	Pune
 Punemaharashtra	India	Maharashtra	Pune
 Punjab	India	Punjab	Punjab
 Raisen	India	MadhyaPradesh	Raisen
 Rajasthan	India	Rajasthan	Rajasthan
+Rajouri	India	JammuAndKashmira	Rajouri
 Ratlam	India	MadhyaPradesh	Ratlam
 Ratnagiri	India	Maharashtra	Ratnagiri
 Rewa	India	MadhyaPradesh	Rewa
@@ -1240,6 +1250,7 @@ Rtng	India	India	India
 Satna	India	MadhyaPradesh	Satna
 Sikkim	India	Sikkim	Sikkim
 Shajapur	India	MadhyaPradesh	Shajapur
+Shopian	India	JammuAndKashmir	Shopian
 Srinigar	India	JammuAndKashmir	Srinagar
 TamilNaidu	India	TamilNaidu	TamilNaidu
 Tripura	India	Tripura	Tripura
