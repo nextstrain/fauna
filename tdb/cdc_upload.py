@@ -12,7 +12,7 @@ from vdb.flu_upload import flu_upload
 class cdc_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
-        self.removal_fields  = ['tested_by_fra', 'reported_by_fra', 'date', 'virus_collection_date', 'ref', 'virus_harvest_date', 'Boosted']
+        self.removal_fields  = ['tested_by_fra', 'reported_by_fra', 'date', 'virus_collection_date', 'ref', 'virus_harvest_date', 'Boosted', 'RBC_species']
         self.cleanup_fields =  {'assay-type': 'assay_type', 'lot #': 'lot_number'}
 
     def upload(self, ftype='flat', preview=False, **kwargs):
