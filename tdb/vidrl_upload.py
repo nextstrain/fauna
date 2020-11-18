@@ -1,4 +1,5 @@
 import os, re, time, datetime, csv, sys, json, errno
+import pandas as pd
 from upload import upload
 import rethinkdb as r
 from Bio import SeqIO
@@ -135,6 +136,26 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                         line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                         outfile.write(line)
 
+
+def read_flat_vidrl(path, fstem, assay_type):
+    """
+    Read the flat CSV file with *fstem* in the provided *path* and convert
+    to the expected TSV file at `data/tmp/<fstem>.tsv` for tdb/elife_upload.
+    """
+    column_map = parse_tsv_mapping_to_dict("source-data/vidrl_flat_file_column_map.tsv")
+    filepath = path + fstem + ".csv"
+
+    titer_measurements = pd.read_csv(filepath, usecols=column_map.keys()) \
+                           .rename(columns=column_map)
+
+    titer_measurements["assay_type"] = assay_type
+    titer_measurements["virus_passage_category"] = ""
+    titer_measurements["serum_passage_category"] = ""
+    titer_measurements["source"] = "vidrl_{}.csv".format(fstem)
+
+    titer_measurements[ELIFE_COLUMNS].to_csv("data/tmp/{}.tsv".format(fstem), sep="\t", index=False)
+
+
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
@@ -146,9 +167,12 @@ if __name__=="__main__":
         args.database = "vidrl_tdb"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
-    read_vidrl(args.path, args.fstem, args.assay_type)
-    #TODO: This is where I will add conversion of vidrl files to eLife format!
+
+    if args.ftype == "flat":
+        read_flat_vidrl(args.path, args.fstem, args.assay_type)
+    else:
+        read_vidrl(args.path, args.fstem, args.assay_type)
+
     if args.subtype:
         if args.preview:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
