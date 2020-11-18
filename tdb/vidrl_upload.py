@@ -14,14 +14,15 @@ import logging
 
 parser.add_argument('--assay_type', default='hi')
 
-def parse_sera_mapping_to_dict():
-    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
+ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
+
+def parse_tsv_mapping_to_dict(tsv_file):
     map_dict = {}
-    with open(sera_mapping_file, 'r') as f:
+    with open(tsv_file, 'r') as f:
         for line in f:
             (key, value) = line.split('\t')
             key = key.lower()
-            map_dict[key] = value
+            map_dict[key] = value.rstrip('\n')
     return map_dict
 
 def read_vidrl(path, fstem, assay_type):
@@ -45,7 +46,8 @@ def read_vidrl(path, fstem, assay_type):
 
 def convert_xls_to_csv(path, fstem, ind):
     import xlrd
-    sera_mapping = parse_sera_mapping_to_dict()
+    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
+    sera_mapping = parse_tsv_mapping_to_dict(sera_mapping_file)
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
@@ -71,7 +73,7 @@ def convert_xls_to_csv(path, fstem, ind):
                 try:
                     row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i].lower()]
                 except KeyError:
-                    print("Couldn't find {} in mapping lookup source-data/vidrl_serum_mapping.tsv".format(row_with_ref_sera[i]))
+                    print("Couldn't find {} in mapping lookup {}".format(row_with_ref_sera[i], sera_mapping_file))
                     with open ('data/BAD_VIDRL_KEYS.txt', 'a') as f:
                         f.write(row_with_ref_sera[i])
             writer.writerow(row_with_ref_sera)
@@ -85,8 +87,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
     with open('data/tmp/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
-        header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
-        outfile.write("%s\n" % ("\t".join(header)))
+        outfile.write("%s\n" % ("\t".join(ELIFE_COLUMNS)))
         original_path = original_path.split('/')
         try:
             original_path.remove('')
