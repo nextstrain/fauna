@@ -84,6 +84,10 @@ All of these functions are quite slow given they run over ~600k documents. Use s
 1. Make sure `VIDRL-Melbourne-WHO-CC/` is a sister directory to `fauna/`
 2. Upload all titers with `python2 tdb/upload_all.py --sources vidrl -db vidrl_tdb`
 
+##### VIDRL Flat files
+* These are flat CSV files that should replace the raw Excel tables.
+* Upload with `python2 tdb/vidrl_upload.py -db vidrl_tdb -v flu --subtype <subtype> --path <path> --fstem <fstem> --ftype flat`
+
 ### Download documents from TDB
 
 * `python2 tdb/download.py -db tdb -v flu --subtype h3n2`

@@ -1,4 +1,5 @@
 import os, re, time, datetime, csv, sys, json, errno
+import pandas as pd
 from upload import upload
 import rethinkdb as r
 from Bio import SeqIO
@@ -14,14 +15,15 @@ import logging
 
 parser.add_argument('--assay_type', default='hi')
 
-def parse_sera_mapping_to_dict():
-    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
+ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
+
+def parse_tsv_mapping_to_dict(tsv_file):
     map_dict = {}
-    with open(sera_mapping_file, 'r') as f:
+    with open(tsv_file, 'r') as f:
         for line in f:
             (key, value) = line.split('\t')
             key = key.lower()
-            map_dict[key] = value
+            map_dict[key] = value.rstrip('\n')
     return map_dict
 
 def read_vidrl(path, fstem, assay_type):
@@ -45,7 +47,8 @@ def read_vidrl(path, fstem, assay_type):
 
 def convert_xls_to_csv(path, fstem, ind):
     import xlrd
-    sera_mapping = parse_sera_mapping_to_dict()
+    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
+    sera_mapping = parse_tsv_mapping_to_dict(sera_mapping_file)
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
@@ -71,7 +74,7 @@ def convert_xls_to_csv(path, fstem, ind):
                 try:
                     row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i].lower()]
                 except KeyError:
-                    print("Couldn't find {} in mapping lookup source-data/vidrl_serum_mapping.tsv".format(row_with_ref_sera[i]))
+                    print("Couldn't find {} in mapping lookup {}".format(row_with_ref_sera[i], sera_mapping_file))
                     with open ('data/BAD_VIDRL_KEYS.txt', 'a') as f:
                         f.write(row_with_ref_sera[i])
             writer.writerow(row_with_ref_sera)
@@ -85,8 +88,7 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
     with open('data/tmp/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
-        header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
-        outfile.write("%s\n" % ("\t".join(header)))
+        outfile.write("%s\n" % ("\t".join(ELIFE_COLUMNS)))
         original_path = original_path.split('/')
         try:
             original_path.remove('')
@@ -134,6 +136,26 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                         line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                         outfile.write(line)
 
+
+def read_flat_vidrl(path, fstem, assay_type):
+    """
+    Read the flat CSV file with *fstem* in the provided *path* and convert
+    to the expected TSV file at `data/tmp/<fstem>.tsv` for tdb/elife_upload.
+    """
+    column_map = parse_tsv_mapping_to_dict("source-data/vidrl_flat_file_column_map.tsv")
+    filepath = path + fstem + ".csv"
+
+    titer_measurements = pd.read_csv(filepath, usecols=column_map.keys()) \
+                           .rename(columns=column_map)
+
+    titer_measurements["assay_type"] = assay_type
+    titer_measurements["virus_passage_category"] = ""
+    titer_measurements["serum_passage_category"] = ""
+    titer_measurements["source"] = "vidrl_{}.csv".format(fstem)
+
+    titer_measurements[ELIFE_COLUMNS].to_csv("data/tmp/{}.tsv".format(fstem), sep="\t", index=False)
+
+
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
@@ -145,9 +167,12 @@ if __name__=="__main__":
         args.database = "vidrl_tdb"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
-    # x_shift, y_shift = determine_initial_indices(args.path, args.fstem)
-    read_vidrl(args.path, args.fstem, args.assay_type)
-    #TODO: This is where I will add conversion of vidrl files to eLife format!
+
+    if args.ftype == "flat":
+        read_flat_vidrl(args.path, args.fstem, args.assay_type)
+    else:
+        read_vidrl(args.path, args.fstem, args.assay_type)
+
     if args.subtype:
         if args.preview:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
