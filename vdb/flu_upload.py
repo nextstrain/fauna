@@ -379,7 +379,7 @@ class flu_upload(upload):
                 passage_category = "unpassaged"
             elif re.search(r'TMK|RMK|RHMK|RII|PMK|R[1-9]|RX|RHESUS', passage):    # McWhite
                 passage_category = "cell"
-            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MDCK[1-9]|C[1-9]|CX|M[1-9]|MX|X[1-9]|^X_$', passage):  # McWhite
+            elif re.search(r'S[1-9]|SX|SIAT|MDCK|MDCK[1-9]|C[1-9]|CX|M[1-9]|MX|X[1-9]|HCK|^X_$', passage):  # McWhite
                 passage_category = "cell"
             elif re.search(r'C_[1-9]|C [1-9]|MD[1-9]|MK[1-9]|MEK[1-9]', passage):
                 passage_category = "cell"
