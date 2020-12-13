@@ -3,9 +3,10 @@ import numpy as np
 from rethinkdb import r
 from Bio import SeqIO
 from Bio import AlignIO
-from upload import upload
-from upload import get_parser
 from unidecode import unidecode
+sys.path.append('')  # need to import from base
+from vdb.upload import upload
+from vdb.upload import get_parser
 
 parser = get_parser()
 parser.add_argument('--upload_directory', default=False, action="store_true", help='upload all xls and fasta files in directory')
@@ -222,12 +223,12 @@ class flu_upload(upload):
                 pass
             del doc['Host_Age']
         if 'Host_Age_Unit' in doc:
-            if isinstance(doc['Host_Age_Unit'], basestring):
+            if isinstance(doc['Host_Age_Unit'], str):
                 temp_age_unit = doc['Host_Age_Unit'].lower()
             else:
                 temp_age_unit = 'y'
             del doc['Host_Age_Unit']
-        if isinstance(temp_age, basestring) and isinstance(temp_age_unit, basestring):
+        if isinstance(temp_age, str) and isinstance(temp_age_unit, str):
             doc['age'] = temp_age + temp_age_unit
         return doc
 
@@ -235,7 +236,7 @@ class flu_upload(upload):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         self.label_to_fix = {}
         for line in reader:
-            self.label_to_fix[line['label'].decode('unicode-escape').replace(' ', '').lower()] = line['fix']
+            self.label_to_fix[line['label'].encode().decode('unicode-escape').replace(' ', '').lower()] = line['fix']
 
     def define_location_fixes(self, fname):
         '''
@@ -244,7 +245,7 @@ class flu_upload(upload):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         fix_location = {}
         for line in reader:
-            fix_location[line['label'].decode('unicode-escape')] = line['fix']
+            fix_location[line['label'].encode().decode('unicode-escape')] = line['fix']
         return fix_location
 
     def fix_name(self, name):
@@ -252,7 +253,7 @@ class flu_upload(upload):
         Fix strain names
         '''
         # replace all accents with ? mark
-        original_name = name.encode('ascii', 'replace')
+        original_name = name.encode('ascii', 'replace').decode('unicode-escape')
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\

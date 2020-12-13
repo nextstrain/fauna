@@ -148,7 +148,7 @@ class upload(parse, flu_upload):
         Canonicalize strain names to match with vdb
         '''
         # replace all accents with ? mark
-        original_name = name.encode('ascii', 'replace')
+        original_name = name.encode('ascii', 'replace').decode('unicode-escape')
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
         lookup_month = {'Jan': '1', 'Feb': '2', 'Mar': '3', 'Apr': '4', 'May': '5', 'Jun': '6',
@@ -207,7 +207,7 @@ class upload(parse, flu_upload):
         Determine that strains come from known locations, if not, print suggestion to add location to
         flu_fix_location_label.tsv.
         '''
-        if isinstance(strain, basestring) and "/" in strain:
+        if isinstance(strain, str) and "/" in strain:
             location = strain.split('/')[1]
             if self.determine_location(location) is None:
                 print("Couldn't determine location for this strain, consider adding to flu_fix_location_label.tsv", location, strain)
@@ -390,7 +390,7 @@ class upload(parse, flu_upload):
         '''
         for meas in measurements:
             index = [meas[field] for field in self.index_fields]
-            meas['index'] = hashlib.md5("".join(index)).hexdigest()
+            meas['index'] = hashlib.md5("".join(index).encode()).hexdigest()
             if str(index) in self.indexes:
                 if output:
                     print("Repeat Index: " + str(index) + str(meas['titer']))
@@ -407,9 +407,9 @@ class upload(parse, flu_upload):
 #       print("Filtering out measurements whose serum strain is not paired with a ref or test virus strain ensuring proper formatting")
 #       measurements = filter(lambda meas: meas['serum_strain'] in self.ref_virus_strains or meas['serum_strain'] in self.test_virus_strains, measurements)
         print("Filtering out measurements missing required fields")
-        measurements = filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements)
+        measurements = list(filter(lambda meas: self.rethink_io.check_required_attributes(meas, self.upload_fields, self.index_fields, output=True), measurements))
         print("Filtering out measurements with virus, serum strain names or titers not formatted correctly")
-        measurements = filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) and self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']) and self.correct_titer_format(meas['titer']), measurements)
+        measurements = list(filter(lambda meas: self.correct_strain_format(meas['virus_strain'], meas['original_virus_strain']) and self.correct_strain_format(meas['serum_strain'], meas['original_serum_strain']) and self.correct_titer_format(meas['titer']), measurements))
         print(len(measurements), " measurements after filtering")
         return measurements
 
@@ -417,7 +417,7 @@ class upload(parse, flu_upload):
         if re.match("^[0-9<>.]*$", titer):
             return True
         else:
-            print "Bad titer: {}. Removing.".format(titer)
+            print("Bad titer: {}. Removing.".format(titer))
             return False
 
 if __name__=="__main__":

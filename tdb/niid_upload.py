@@ -139,9 +139,9 @@ if __name__=="__main__":
     args.fstem = args.fstem.replace('(','\\(').replace(')','\\)')
     if args.preview:
         command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
-        print command
+        print(command)
         subprocess.call(command, shell=True)
     else:
         command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path data/tmp/ --fstem " + args.fstem
-        print command
+        print(command)
         subprocess.call(command, shell=True)

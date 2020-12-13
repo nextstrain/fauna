@@ -2,9 +2,9 @@ import os, re, time, datetime, csv, sys, json
 from rethinkdb import r
 from Bio import SeqIO
 import argparse
-from parse import parse
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
+from vdb.parse import parse
 
 def get_parser():
     parser = argparse.ArgumentParser()
@@ -146,7 +146,7 @@ class upload(parse):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         fix_whole_name = {}
         for line in reader:
-            fix_whole_name[line['label'].decode('unicode-escape')] = line['fix']
+            fix_whole_name[line['label'].encode().decode('unicode-escape')] = line['fix']
         return fix_whole_name
 
     def define_location_fixes(self, fname):
@@ -156,7 +156,7 @@ class upload(parse):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         fix_location = {}
         for line in reader:
-            fix_location[line['label'].decode('unicode-escape')] = line['fix']
+            fix_location[line['label'].encode().decode('unicode-escape')] = line['fix']
         return fix_location
 
     def define_date_fixes(self, fname):
@@ -166,7 +166,7 @@ class upload(parse):
         reader = csv.DictReader(filter(lambda row: row[0]!='#', open(fname)), delimiter='\t')
         fix_date = {}
         for line in reader:
-            fix_date[line['label'].decode('unicode-escape')] = line['fix']
+            fix_date[line['label'].encode().decode('unicode-escape')] = line['fix']
         return fix_date
 
     def replace_strain_name(self, original_name, fixes={}):
@@ -255,9 +255,9 @@ class upload(parse):
         self.label_to_country = {}
 
         for line in reader:
-            self.label_to_location[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['location'])
-            self.label_to_division[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['division'])
-            self.label_to_country[line['label'].decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['country'])
+            self.label_to_location[line['label'].encode().decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['location'])
+            self.label_to_division[line['label'].encode().decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['division'])
+            self.label_to_country[line['label'].encode().decode('unicode-escape').lower()] = self.camelcase_to_snakecase(line['country'])
 
     def define_regions(self, fname):
         '''
@@ -339,7 +339,7 @@ class upload(parse):
         filter out certain documents
         '''
         print(str(len(documents)) + " documents before filtering")
-        documents = filter(lambda doc: index in doc, documents)
+        documents = list(filter(lambda doc: index in doc, documents))
         print(str(len(documents)) + " documents after filtering")
         return documents
 

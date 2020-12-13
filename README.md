@@ -10,7 +10,7 @@ Resulting data and inferences are available live at the website [nextstrain.org]
 
 The fauna database stores viral sequences and serological data in [RethinkDB](RETHINKDB.md). The current database and scripts are designed around influenza, Ebola and Zika viruses, but with the intention of provided a general purpose tool.
 
-_Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip fauna and proceed to directly to augur._
+_Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip fauna and proceed to directly to Augur._
 
 ### vdb
 
@@ -26,7 +26,7 @@ We maintain notes on [supported virus builds](builds/).
 
 ## Install
 
-Clone the repo and load submodules:
+Fauna requires Python 3. Clone the repo and load submodules:
 
     git clone https://github.com/nextstrain/fauna.git
     cd fauna
@@ -34,17 +34,19 @@ Clone the repo and load submodules:
 
 Install Python modules needed to run upload/download scripts:
 
-    python2 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt
 
 Install Chateau Web UI:
 
-    cd chateau 
+    cd chateau
     npm install
 
 Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/). With Homebrew, you can just do:
 
     cd ..
     brew install rethinkdb
+
+Most functions have been converted to work only in Python 3. However particular calls may not have been converted. If you run into a Python 2/3 error please note in an issue.
 
 ## Environment variables
 
@@ -67,6 +69,6 @@ Chateau configurations are stored in [`config.js`](config.js).
 
 ## License and copyright
 
-Copyright 2016-2018 Trevor Bedford.
+Copyright 2016-2020 Trevor Bedford.
 
 Source code to Nextstrain is made available under the terms of the [GNU Affero General Public License](LICENSE.txt) (AGPL). Nextstrain is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.

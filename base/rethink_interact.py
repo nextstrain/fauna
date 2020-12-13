@@ -71,7 +71,7 @@ class rethink_interact(object):
             command = ['rethinkdb', 'dump', '-e', database + '.' + dump_table, '-f', dump_file]
         try:
             with open(os.devnull, 'wb') as devnull:
-                print " ".join(command)
+                print(" ".join(command))
                 subprocess.check_call(command, stdout=devnull, stderr=subprocess.STDOUT, shell=True)
         except:
             raise Exception("Couldn't dump tar file, make sure " + dump_file + " doesn't exist")

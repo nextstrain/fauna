@@ -2,7 +2,7 @@
 
 ## Download
 
-    python2 vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
+    python3 vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
 
 ## Upload
 
@@ -14,7 +14,7 @@
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
 2. Move downloaded sequences to `fauna/data`
 3. Upload to vdb database
-  * `python2 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomicFastaResults.fasta`
+  * `python3 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomicFastaResults.fasta`
 
 ### [Fred Hutch sequences](https://github.com/blab/zika-usvi/tree/master/data)
 

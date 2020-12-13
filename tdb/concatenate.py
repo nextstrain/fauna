@@ -24,7 +24,7 @@ def concat(files):
             for line in f.readlines():
                 line = line.strip()
                 l = "%s\t%s\t%s" % (line, source, passage)
-                print l
+                print(l)
 
 if __name__=="__main__":
     args = parser.parse_args()

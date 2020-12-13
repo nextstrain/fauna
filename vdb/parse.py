@@ -220,7 +220,7 @@ class parse(object):
         queries = []
         giList = []
 
-        for i in sorted(xrange(0, len(accessions), n_entrez)): # split accessions list into 2500-long portions
+        for i in sorted(range(0, len(accessions), n_entrez)): # split accessions list into 2500-long portions
             queries.append(" ".join(accessions[i:i+n_entrez])) # convert list to ' ' separated string
 
         assert sum([len(q.split()) for q in queries]) == len(accessions) # sanity check
