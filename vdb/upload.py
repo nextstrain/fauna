@@ -1,5 +1,5 @@
 import os, re, time, datetime, csv, sys, json
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 import argparse
 from parse import parse

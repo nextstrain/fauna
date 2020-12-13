@@ -1,5 +1,5 @@
 import os, json, datetime, sys
-import rethinkdb as r
+from rethinkdb import r
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.download import download as vdb_download

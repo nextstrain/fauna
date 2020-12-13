@@ -1,5 +1,5 @@
 import os, json
-import rethinkdb as r
+from rethinkdb import r
 from upload import upload
 from upload import get_parser
 

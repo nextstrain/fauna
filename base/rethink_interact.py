@@ -1,5 +1,5 @@
 import os, shutil, sys, datetime, re, subprocess, json
-import rethinkdb as r
+from rethinkdb import r
 import boto3
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io

@@ -1,5 +1,5 @@
 import os, argparse, sys
-import rethinkdb as r
+from rethinkdb import r
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from base.rethink_interact import rethink_interact

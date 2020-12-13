@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 from update import update
 from flu_upload import flu_upload

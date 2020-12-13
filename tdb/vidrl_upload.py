@@ -1,7 +1,7 @@
 import os, re, time, datetime, csv, sys, json, errno
 import pandas as pd
 from upload import upload
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 import argparse
 import subprocess

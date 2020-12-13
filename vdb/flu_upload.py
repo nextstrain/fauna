@@ -1,6 +1,6 @@
 import os, re, time, datetime, csv, sys, json
 import numpy as np
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 from Bio import AlignIO
 from upload import upload

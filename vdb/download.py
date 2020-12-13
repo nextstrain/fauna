@@ -1,5 +1,5 @@
 import os, json, datetime, sys, re
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 import numpy as np
 

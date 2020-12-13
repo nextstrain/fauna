@@ -1,5 +1,5 @@
 import os, json, datetime, sys, time
-import rethinkdb as r
+from rethinkdb import r
 
 # Enable import from modules in parent directory.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
