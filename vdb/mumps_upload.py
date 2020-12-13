@@ -1,5 +1,5 @@
 import os, re, time, datetime, csv, sys
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 from upload import upload
 from upload import get_parser
@@ -28,7 +28,7 @@ class mumps_upload(upload):
         for field in ['host']:
             if field in document and document[field] is not None:
                 document[field] = self.camelcase_to_snakecase(document[field])
-                
+
     def format_viruses(self, documents, **kwargs):
         '''
         format virus information in preparation to upload to database table

@@ -1,6 +1,6 @@
 import os, re, time, datetime, csv, sys, json
 from upload import upload
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 import argparse
 from parse import parse
@@ -98,9 +98,9 @@ class cdc_upload(upload):
         if not meas['serum_id']:
             if 'lot_number' in meas.keys():
                 meas['serum_id'] = 'L' + str(meas['lot_number'])
-            #     print 'new serum id is %s' % (meas['serum_id'])
+            #     print('new serum id is %s' % (meas['serum_id']))
             # else:
-            #     print 'old serum id is %s' % (meas['serum_id'])
+            #     print('old serum id is %s' % (meas['serum_id']))
 
     def remove_fields(self, meas):
         '''

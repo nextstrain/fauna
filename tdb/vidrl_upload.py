@@ -1,7 +1,7 @@
 import os, re, time, datetime, csv, sys, json, errno
 import pandas as pd
 from upload import upload
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 import argparse
 import subprocess
@@ -64,7 +64,7 @@ def convert_xls_to_csv(path, fstem, ind):
             writer.writerows(sheet.row_values(row) for row in range(10))
             # Edit row containing serum strains
             # if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
-            #     print sheet.row_values(12)[4]
+            #     print(sheet.row_values(12)[4])
             # else:
             #     raise ValueError
             # assume there all always 12 reference viruses in a table
@@ -176,11 +176,11 @@ if __name__=="__main__":
     if args.subtype:
         if args.preview:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
-            print command
+            print(command)
             subprocess.call(command, shell=True)
         else:
             command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem
-            print command
+            print(command)
             subprocess.call(command, shell=True)
     else:
         print("Subtype needs to be specified with --subtype")

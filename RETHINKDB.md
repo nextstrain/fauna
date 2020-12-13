@@ -25,7 +25,7 @@ locally, data will be saved after stopping the server and loaded when rebooting 
 ### Import RethinkDB driver
 
 ```
-import rethinkdb as r
+from rethinkdb import r
 ```
 
 ### Open connection to rethink database

@@ -16,7 +16,7 @@
     * `DNA Accession no. | Isolate name | Isolate ID | Segment | Passage details/history | Submitting lab`
 2. Move files to `fauna/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
 3. Upload to vdb database
-  * `python2 vdb/avian_flu_upload.py -db vdb -v avian_flu --data_source gisaid --source gisaid --fname gisaid_epiflu`
+  * `python3 vdb/avian_flu_upload.py -db vdb -v avian_flu --data_source gisaid --source gisaid --fname gisaid_epiflu`
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
   	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv) and [flu_fix_location_label file](source-data/flu_fix_location_label.tsv) to fix some of the formatting.
 
@@ -32,12 +32,12 @@
   * Download "Segment FASTA" as `GenomicFastaResults.fasta`. Select "Custom format", select all and add.
 2. Move file to `fauna/data` as `GenomicFastaResults.fasta`.
 3. Upload to vdb database
-  * `python2 vdb/avian_flu_upload.py -db vdb -v avian_flu --data_source ird --source ird --fname GenomicFastaResults.fasta`
+  * `python3 vdb/avian_flu_upload.py -db vdb -v avian_flu --data_source ird --source ird --fname GenomicFastaResults.fasta`
   * Recommend running with `--preview` to confirm strain names and locations are correctly parsed before uploading
   	* Can add to [geo_synonyms file](source-data/geo_synonyms.tsv) and [flu_fix_location_label file](source-data/flu_fix_location_label.tsv) to fix some of the formatting.
 
 ### Download documents from VDB
 
 ```
-python2 vdb/avian_flu_download.py -db vdb -v avian_flu --select locus:HA subtype:h7n9 --fstem h7n9_ha
+python3 vdb/avian_flu_download.py -db vdb -v avian_flu --select locus:HA subtype:h7n9 --fstem h7n9_ha
 ```

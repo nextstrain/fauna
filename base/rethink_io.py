@@ -1,5 +1,5 @@
-import rethinkdb as r
 import datetime, os
+from rethinkdb import r
 
 class rethink_io(object):
     def __init__(self, **kwargs):

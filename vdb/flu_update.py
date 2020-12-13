@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import rethinkdb as r
+from rethinkdb import r
 from Bio import SeqIO
 from update import update
 from flu_upload import flu_upload
@@ -57,7 +57,7 @@ class flu_update(update, flu_upload):
             list_viruses = [viruses]
         print("Determining groupings for " + str(len(viruses)) + " viruses in " + str(len(list_viruses)) + " batches of " + str(optimal_upload) + " viruses at a time")
         for group_num, virus_group in enumerate(list_viruses):
-            print("Group " + str(group_num+1)) + " out of " + str(len(list_viruses)) + " groupings"
+            print("Group " + str(group_num+1) + " out of " + str(len(list_viruses)) + " groupings")
             for virus in virus_group:
                 for acc in virus['sequences']:
                     if acc in accession_to_sequence_doc:

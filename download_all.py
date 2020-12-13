@@ -31,7 +31,7 @@ def concatenate_titers(params, passage, assay):
         if len(hi_titers) > 0:
             with open(out, 'w+') as f:
                 call = ['cat'] + hi_titers
-                print call
+                print(call)
                 subprocess.call(call, stdout=f)
     for lineage in params.flu_lineages:
         out = 'data/%s_public_%s_%s_titers.tsv'%(lineage, assay, passage)
@@ -43,7 +43,7 @@ def concatenate_titers(params, passage, assay):
         if len(hi_titers) > 0:
             with open(out, 'w+') as f:
                 call = ['cat'] + hi_titers
-                print call
+                print(call)
                 subprocess.call(call, stdout=f)
 
 if __name__=="__main__":

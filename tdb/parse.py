@@ -43,7 +43,7 @@ class parse(object):
         else:
             with open(file) as infile:
                 table_reader = csv.reader(infile, delimiter="\t")
-                header = table_reader.next()
+                header = next(table_reader)
                 headers = {}
                 for i in range(len(header)):
                     headers[i] = header[i]
@@ -105,12 +105,12 @@ class parse(object):
         with self.myopen(fname) as infile:
             csv_reader = csv.reader(infile)
             # parse sera
-            row1 = csv_reader.next()
-            row2 = csv_reader.next()
-            row3 = csv_reader.next()
+            row1 = next(csv_reader)
+            row2 = next(csv_reader)
+            row3 = next(csv_reader)
             # starting 2016, included passage history row, need to get fourth row
             if self.determine_source_year(src_id) >= 2016:
-                row3 = csv_reader.next()
+                row3 = next(csv_reader)
             fields = self.determine_columns(row1)
             ref_sera_start = len(fields)
             if not all(field in fields for field in ['collection', 'passage']):
@@ -124,7 +124,6 @@ class parse(object):
             row3 = [re.match(r'^([^\*]*)', id).group(0).upper() for id in row3]  # get everything before the '*'?
             ref_sera = [[(e1+'/'+e2), e3.replace(' ', '')] for e1, e2, e3 in zip(row1, row2, row3)[ref_sera_start:]]
             fields = ['source','ref/test'] + fields + map(tuple, ref_sera)
-            #print fields
             for row in csv_reader: # advance until the reference virus
                 if row[0].startswith('REFERENCE'):
                     break
@@ -193,7 +192,7 @@ class parse(object):
                     return float(temp)
             return float(val)
         except:
-            #print "Bad HI measurement:", val
+            #print("Bad HI measurement:", val)
             return np.nan
 
     def check_titer_values(self, titers, src_id):

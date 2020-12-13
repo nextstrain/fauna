@@ -1,7 +1,7 @@
 biopython >=1.73, ==1.*
 boto >=2.38, ==2.*
-pandas >=0.23.4, ==0.23.*
-rethinkdb >=2.3.0.post6, ==2.3.*
+pandas >=1.1.5, ==1.*
+rethinkdb >=2.4.8, ==2.4.*
 requests >=2.20.0, ==2.*
 unidecode >=1.0.22, ==1.*
 xlrd >=1.0.0, ==1.*
