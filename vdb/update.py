@@ -110,7 +110,7 @@ class update(upload):
                     self.format_region(doc)
                     if doc['region'] != old_region:
                         updated_documents.append(doc)
-                except Error as e:
+                except Exception as e:
                     print(e)
                     continue
         return updated_documents
