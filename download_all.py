@@ -7,8 +7,10 @@
 # Assumes that nextflu/, nextflu-cdc/ and nextflu-cdc-fra/ are
 # sister directories to fauna/
 
-import os, subprocess
 import argparse
+import os
+import subprocess
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--virus', default="flu", help="virus to download; default is flu")
