@@ -691,6 +691,7 @@ XinjiangTulufan	China	Xinjiang	Tulufan
 XinjiangTianshan	China	Xinjiang	Tianshan
 Xinjiang	China	Xinjiang	Xinjiang
 XishuangBanna	China	Yunnan	XishuangBanna
+Xuyi	China	Jiangsu	Xuyi
 Xizang	China	Xizang	Xizang
 Xuancheng	China	Anhui	Xuancheng
 Xuanwu	China	Beijing	Xuanwu
@@ -700,6 +701,7 @@ Xuzhou	China	Jiangsu	Xuzhou
 Yancheng	China	Jiangsu	Yancheng
 Yangzhou	China	Jiangsu	Yangzhou
 Yantai	China	Shandong	Yantai
+Yichang	China	Hubei	Yichang
 Yongchuan	China	Chongqing	Yongchuan
 Yuhuan	China	Zhejiang	Yuhuan
 Yunan	China	Guangdong	Yunan
@@ -795,6 +797,9 @@ Vsetin	CzechRepublic	Zlin	Vsetin
 
 # Congo
 Congo	Congo	Congo	Congo
+
+# DemocraticRepublicofCongo
+Democratic_Republic_of_the_Congo	DemocraticRepublicOfCongo
 
 # Denmark
 Denmark	Denmark	Denmark	Denmark
@@ -1023,6 +1028,7 @@ Munich	Germany	Bayern	Munich
 Niedersachsen	Germany	Niedersachsen	Niedersachsen
 NordrheinWestfalen	Germany	NordrheinWestfalen	NordrheinWestfalen
 Nord-West Germany NordrheinWestfalen  NordrheinWestfalen
+Potsdam	Germany	Brandenburg	Potsdam
 Regensburg	Germany	Bavaria	Regensburg
 RheinlandPfalz	Germany	RheinlandPfalz	RheinlandPfalz
 Thuringen	Germany	Thuringen	Thuringen
@@ -1271,6 +1277,7 @@ Agam	Indonesia	Sumatra	Agam
 Bali	Indonesia	Bali	Bali
 BandarLampung	Indonesia	Sumatra	BandarLampung
 Bandung	Indonesia	Java	Bandung
+Banjarbaru	Indonesia	Kalimantan	Banjarbaru
 Banten	Indonesia	Banten	Banten
 Banyumas	Indonesia	Java	Banyumas
 Banyuwangi	Indonesia	Java	Banyuwangi
@@ -1311,9 +1318,11 @@ Makassar	Indonesia	Makassar	Makassar
 Medan	Indonesia	Sumatra	Medan
 MuraoJambi	Indonesia	Sumatra	MuraoJambi
 Nagrak	Indonesia	Java	Nagrak
+Ngawi	Indonesia	Java	Ngawi
 NorthSumatra	Indonesia	Sumatra	NorthSumatra
 NorthSulawesi	Indonesia	Sulawesi	NorthSulawesi
 Palembangsumatra	Indonesia	Sumatra	Palembang
+Palu	Indonesia	Sulawesi	Palu
 Pangkalpinang	Indonesia	BangkaBelitung	Pangkalpinang
 Parung	Indonesia	Java	Parung
 Payakumbuh	Indonesia	Sumatra	Payakumbuh
@@ -1626,6 +1635,7 @@ Bishkek	Kyrgyzstan	Chuy	Bishkek
 # Lao
 Lao	Laos	Laos	Laos
 Laos	Laos	Laos	Laos
+XaythanyDistrict	Laos	Vientiane	XaythanyDistrict
 
 # Latvia
 Latvia	Latvia	Latvia	Latvia
@@ -1708,6 +1718,7 @@ Malaysia	Malaysia	Malaysia	Malaysia
 Johorbahru	Malaysia	Johor	JohorBahru
 Kualalumpur	Malaysia	Malaysia	KualaLumpur
 Klangvalley	Malaysia	KlangValley	KlangValley
+Subang	Malaysia	Selangor	Subang
 
 # Maldives
 Maldives	Maldives	Maldives	Maldives
@@ -1745,6 +1756,7 @@ Coahuila	Mexico	Coahuila	Coahuila
 Colima	Mexico	Colima	Colima
 Jalisco	Mexico	Jalisco	Jalisco
 Guerrero	Mexico	Guerrero	Guerrero
+Guanajuato	Mexico	Guanajuato	Guanajuato
 Yucatan	Mexico	Mexico	Yucatan
 Yucatanstate	Mexico	Yucatan	Yucatan
 Michoacan	Mexico	Michoacan	Michoacan
@@ -2238,6 +2250,7 @@ Samara	Russia	Samara	Samara
 Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
 Shuberskoye	Russia	Voronezh	Shuberskoye
+Siberia	Russia	Siberia	Siberia
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
@@ -2388,6 +2401,7 @@ Somalia	Somalia	Somalia	Somalia
 
 # SouthAfrica
 SouthAfrica	SouthAfrica	SouthAfrica	SouthAfrica
+South_Africa	SouthAfrica	SouthAfrica	SouthAfrica
 South-Africa	SouthAfrica	SouthAfrica	SouthAfrica
 Johannesburg	SouthAfrica	Gauteng	Johannesburg
 Durban	SouthAfrica	KwaZuluNatal	Durban

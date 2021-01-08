@@ -294,6 +294,7 @@ St_Laurent_du_Var	StLaurentDuVar
 
 # GeorgiaCountry
 Ozirgeti	Ozurgeti
+Republic_of_Georgia	GeorgiaCountry
 
 # Germany
 Badenwurttemburg	BadenWurttemberg
@@ -737,7 +738,7 @@ Lipezk	Lipetsk
 Lipesk	Lipetsk
 Moscowoblast	Moscow
 Moscowv	Moscow
-Mahachkala
+Mahachkala	Makhachkala
 Murmask	Murmansk
 Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
