@@ -709,6 +709,7 @@ Yongcheng	China	Henan	Yongcheng
 YunnanAnning	China	Yunnan	Anning
 Yuelu	China	Hunan	Yuelu
 Yunnan	China	Yunnan	Yunnan
+Zhanjiang	China	Guangdong	Zhanjiang
 Zhangzhou	China	Fujian	Zhangzhou
 ZhejiangHaishu	China	Zhejiang	Haishu
 Zhejiangyiwu	China	Zhejiang	Yiwu
@@ -799,7 +800,7 @@ Vsetin	CzechRepublic	Zlin	Vsetin
 Congo	Congo	Congo	Congo
 
 # DemocraticRepublicofCongo
-Democratic_Republic_of_the_Congo	DemocraticRepublicOfCongo
+DemocraticRepublicofCongo	DemocraticRepublicofCongo	DemocraticRepublicofCongo	DemocraticRepublicofCongo
 
 # Denmark
 Denmark	Denmark	Denmark	Denmark
@@ -1289,9 +1290,11 @@ CentralJava	Indonesia	Java	CentralJava
 CentralSulawesi	Indonesia	Sulawesi	CentralSulawesi
 Cicurug	Indonesia	Java	Cicurug
 Cileungsi	Indonesia	Java	Cileungsi
+Cimahi	Indonesia	Java	Cimahi
 DeliDerdang	Indonesia	Sumatra	DeliDerdang
 Denpasar	Indonesia	Bali	Denpasar
 EastJava	Indonesia	Java	EastJava
+EastJakarta	Indonesia	Jakarta	EastJakarta
 EastKalimantan	Indonesia	Borneo	EastKalimantan
 Garut	Indonesia	Java	Garut
 Gorontalo	Indonesia	Sulawesi	Gorontalo
@@ -1327,12 +1330,14 @@ Pangkalpinang	Indonesia	BangkaBelitung	Pangkalpinang
 Parung	Indonesia	Java	Parung
 Payakumbuh	Indonesia	Sumatra	Payakumbuh
 Pekalongan	Indonesia	Java	Pekalongan
+Purwakarta	Indonesia	Java	Purwakarta
 Raas	Indonesia	Java	Raas
 Riau	Indonesia	Sumatra	Riau
 Semarang	Indonesia	Java	Semarang
 Sembawa	Indonesia	Java	Sembawa
 SouthKalimantan	Indonesia	Borneo	SouthKalimantan
 SouthSumatra	Indonesia	Sumatra	SouthSumatra
+Sukabumi	Indonesia	Java	Sukabumi
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
 Serpong	Indonesia	Banten	Serpong
@@ -1635,7 +1640,13 @@ Bishkek	Kyrgyzstan	Chuy	Bishkek
 # Lao
 Lao	Laos	Laos	Laos
 Laos	Laos	Laos	Laos
+LuangPrabangDistrict	Laos	LuangPrabang	LuangPrabangDistrict
+PakOuDistrict	Laos	LuangPrabang	PakOuDistrict
+SanasombounDistrict	Laos	Champasak	SanasombounDistrict
+ThaTengDistrict	Laos	Sekong	ThaTengDistrict
+ThathomDistrict	Laos	Xaisomboun	ThathomDistrict
 XaythanyDistrict	Laos	Vientiane	XaythanyDistrict
+
 
 # Latvia
 Latvia	Latvia	Latvia	Latvia
@@ -1712,6 +1723,7 @@ Toamasina	Madagascar	Atsinanana	Toamasina
 Tolagnaro	Madagascar	Anosy	Tolagnaro
 Tsaralalana	Madagascar	Antananarivo	Tsaralalana
 Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
+
 
 # Malaysia
 Malaysia	Malaysia	Malaysia	Malaysia
@@ -1895,15 +1907,56 @@ Kathmandu	Nepal	Kathmandu	Kathmandu
 
 # Netherlands
 Netherlands	Netherlands	Netherlands	Netherlands
+Abbegea	Netherlands	Friesland	Abbegea
+Akkrum	Netherlands	Friesland	Akkrum
+Almeerderstrand	Netherlands	Flevoland	Almeerderstrand
 Amsterdam	Netherlands	NorthHolland	Amsterdam
+Biddinghuizen	Netherlands	Flevoland	Biddinghuizen
+Boven-Leeuwen	Netherlands	Gelderland	Boven-Leeuwen
 Bilthoven	Netherlands	Utrecht	Bilthoven
+Bruchem	Netherlands	Gelderland	Bruchem
+DenOever	Netherlands	NorthHolland	DenOever
+DeWaal	Netherlands	NorthHolland	DeWaal
+Drieborg	Netherlands	Groningen	Drieborg
+Durgerdam	Netherlands	NorthHolland	Durgerdam
 Eindhoven	Netherlands	NorthBrabant	Eindhoven
 Enschede	Netherlands	Overijssel	Enschede
+Enumatil	Netherlands	Groningen	Enumatil
+Ferwert	Netherlands	Friesland	Ferwert
+Gouda	Netherlands	SouthHolland	Gouda
+Greonterp	Netherlands	Friesland	Greonterp
 Groningen	Netherlands	Groningen	Groningen
+Hiaure	Netherlands	Friesland	Hiaure
+IJsselmuiden	Netherlands	Overijssel	IJsselmuiden
+Kamperveen	Netherlands	Overijssel	Kamperveen
+Leeuwarden	Netherlands	Friesland	Leeuwarden
 Leiden	Netherlands	SouthHolland	Leiden
+Leidschendam	Netherlands	SouthHolland	Leidschendam
+Mastenbroek	Netherlands	Overijssel	Mastenbroek
+Monnickendam	Netherlands	NorthHolland	Monnickendam
 Nijmegen	Netherlands	Gelderland	Nijmegen
+Oostwoud	Netherlands	NorthHolland	Oostwoud
+Reeuwijk	Netherlands	SouthHolland	Reeuwijk
+Rhenen	Netherlands	Utrecht	Rhenen
+Roggebotsluis	Netherlands	Flevoland	Roggebotsluis
 Rotterdam	Netherlands	SouthHolland	Rotterdam
+Scheemda	Netherlands	Groningen	Scheemda
+Sint-Annen	Netherlands	Groningen	Sint-Annen
+Stolwijk	Netherlands	SouthHolland	Stolwijk
+Swifterband	Netherlands	Flevoland	Swifterband
+Terschelling	Netherlands	Friesland	Terschelling
 Tilburg	Netherlands	NorthBrabant	Tilburg
+Utrecht	Netherlands	Utrecht	Utrecht
+Vianen	Netherlands	Utrecht	Vianen
+Volendam	Netherlands	NorthHolland	Volendam
+Walterswald	Netherlands	Friesland	Walterswald
+Werkendam	Netherlands	NorthBrabant	Werkendam
+West-Graftdijk	Netherlands	NorthHolland	West-Graftdijk
+Wormer	Netherlands	NorthHolland	Wormer
+Zeewolde	Netherlands	Flevoland	Zeewolde
+Zoeterwoude	Netherlands	SouthHolland	Zoeterwoude
+Zuidoostbeemster	Netherlands	NorthHolland	Zuidoostbeemster
+Zwolle	Netherlands	Overijssel	Zwolle
 
 # NewCaledonia
 NewCaledonia	NewCaledonia	NewCaledonia	NewCaledonia
@@ -2311,6 +2364,7 @@ Samoa	Samoa	Samoa	Samoa
 SaudiArabia	SaudiArabia	SaudiArabia	SaudiArabia
 Jeddah	SaudiArabia	Makkah	Jeddah
 Riyadh	SaudiArabia	Riyadh	Riyadh
+Al-Ahsaa	SaudiArabia	EasternProvince	Al-Ahsaa
 
 # Senegal
 Senegal	Senegal	Senegal	Senegal
@@ -3113,12 +3167,14 @@ Vietnam	Vietnam	Vietnam	Vietnam
 BacGiang	Vietnam	BacGiang	BacGiang
 BacNinh	Vietnam	BacNinh	BacNinh
 BacLieu	Vietnam	BacLieu	BacLieu
+BaRia-VungTau	Vietnam	BaRia-VungTau	BaRia-VungTau
 CaMau	Vietnam	CaMau	CaMau
 CaoBang	Vietnam	CaoBang	CaoBang
 DaNang	Vietnam	DaNang	DaNang
 DongNai	Vietnam	DongNai	DongNai
 HaNam	Vietnam	HaNam	HaNam
 Hanoi	Vietnam	Hanoi	Hanoi
+HaTinh	Vietnam	HaTinh	HaTinh
 HaiDuong	Vietnam	HaiDuong	HaiDuong
 HoaBinh	Vietnam	HoaBinh	HoaBinh
 HoChiMinh	Vietnam	HoChiMinh	HoChiMinh
@@ -3130,8 +3186,10 @@ LangSon	Vietnam	LangSon	LangSon
 LongAn	Vietnam	LongAn	LongAn
 Mekongdelta	Vietnam	MekongDelta	MekongDelta
 NamDinh	Vietnam	NamDinh	NamDinh
+NgheAn	Vietnam	NgheAn	NgheAn
 NinhBinh	Vietnam	NinhBinh	NinhBinh
 QuangNinh	Vietnam	QuangNinh	QuangNinh
+QuangTri	Vietnam	QuangTri	QuangTri
 SocTrang	Vietnam	SocTrang	SocTrang
 SonLa	Vietnam	SonLa	SonLa
 TayNguyen	Vietnam	DakLak	TayNguyen
@@ -3148,3 +3206,6 @@ WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
 # Zambia
 Zambia	Zambia	Zambia	Zambia
 Lusaka	Zambia	Lusaka	Lusaka
+
+# Zimbabwe
+Zimbabwe	Zimbabwe	Zimbabwe	Zimbabwe

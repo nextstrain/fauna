@@ -253,6 +253,9 @@ Czech_Republic	CzechRepublic
 # DominicanRepublic
 DominicanRep	DominicanRepublic
 
+# Democratic Republic of the Congo
+Democratic_Republic_of_the_Congo	DemocraticRepublicofCongo
+
 # Denmark
 Dernmark	Denmark
 
@@ -432,6 +435,7 @@ Bandungjava	Bandung
 Central_Java	CentralJava
 Central_Sulawesi	CentralSulawesi
 East_Java	EastJava
+East_Jakarta	EastJakarta
 East_Kalimantan	EastKalimantan
 North_Sumatra	Sumatra
 North_Sumatera	Sumatra
@@ -546,6 +550,11 @@ Kyrgzstan	Kyrgyzstan
 
 # Lao
 Laos	Lao
+Luang_Prabang_District	LuangPrabangDistrict
+Pak_Ou_District	PakOuDistrict
+Sanasomboun_District	SanasombounDistrict
+Thateng_District	ThaTengDistrict
+Xhathom_District	ThathomDistrict
 
 # Lebanon
 AinWazein	AinWZain
@@ -566,6 +575,7 @@ Vilnus	Vilnius
 # Macedonia
 Kochani	Kocani
 Skopjeno	Skopje
+Republic_of_Macedonia	Macedonia
 
 # Madagascar
 Taolagnaro	Tolagnaro
@@ -617,6 +627,50 @@ Kyaing_Tong	KyaingTong
 # Netherlands
 Netherland	Netherlands
 NL	Netherlands
+NLDen_Oever	DenOever
+NLRoggebotsluis	Roggebotsluis
+NLVolendam	Volendam
+NLOostwoud	Oostwoud
+NLAbbega	Abbegea
+NLAkkrum	Akkrum
+NLAlmeerder_Zand	Almeerderstrand
+NLBiddinghuizen	Biddinghuizen
+NLBoven_Leeuwen	Boven-Leeuwen
+NLBruchem	Bruchem
+NLDe_Waal_(Texel)	DeWaal
+NLDrieborg	Drieborg
+NLDrieborg_(Dollard)	Drieborg
+NLDurgerdam	Durgerdam
+NLEnumatil-Groningen	Enumatil
+NLFerwert	Ferwert
+NLGouda	Gouda
+NLGreonterp	Greonterp
+NLGroningen	Groningen
+NLHiaure	Hiaure
+NLIJsselmuiden	IJsselmuiden
+NLKamperveen	Kamperveen
+NLLeeuwarden	Leeuwarden
+NLLeidschendam	Leidschendam
+NLMastenbroek	Mastenbroek
+NLMonnickendam	Monnickendam
+NLReeuwijk	Reeuwijk
+NLRhenen	Rhenen
+NLRotterdam	Rotterdam
+NLScheemda	Scheemda
+NLSint_Annen	Sint-Annen
+NLStolwijk	Stolwijk
+NLSwifterband	Swifterband
+NLTerschelling	Terschelling
+NLUtrecht	Utrecht
+NLVianen	Vianen
+NLWalterswald	Walterswald
+NLWerkendam	Werkendam
+NLWest_Graftdijk	West-Graftdijk
+NLWormer	Wormer
+NLZeewolde	Zeewolde
+NLZoeterwoude	Zoeterwoude
+NLZuidoost_Beemster	Zuidoostbeemster
+NLZwolle	Zwolle
 
 # NewZealand
 Nelson_Marlborough	NelsonMarlborough
@@ -1011,16 +1065,20 @@ Venezuala	Venezuela
 VietNam	Vietnam
 Viet_Nam	Vietnam
 Bac_Lieu	BacLieu
+Ba_Ria-Vung_Tau	BaRia-VungTau
 Ca_Mau	CaMau
 Cao_Bang	CaoBang
 HaNoi	Hanoi
+Ha_Tinh	HaTinh
 Hai_Duong	HaiDuong
 Hau_Giang	HauGiang
 Lang_Son	LangSon
 Long_An	LongAn
 Nam_Dinh	NamDinh
+Nghe_An	NgheAn
 Ninh_Binh	NinhBinh
 Quang_Ninh	QuangNinh
+Quang_Tri	QuangTri
 QuanhNinh	QuangNinh
 Vietnam_Hau_Giang	HuaGiang
 Soc_Trang	SocTrang
