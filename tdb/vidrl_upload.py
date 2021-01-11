@@ -59,7 +59,7 @@ def convert_xls_to_csv(path, fstem, ind):
             except OSError as exc: # Guard against race condition
                 if exc.errno != errno.EEXIST:
                     raise
-        with open(tmpfile, 'wb') as f:
+        with open(tmpfile, 'w') as f:
             writer = csv.writer(f)
             writer.writerows(sheet.row_values(row) for row in range(10))
             # Edit row containing serum strains
@@ -82,12 +82,11 @@ def convert_xls_to_csv(path, fstem, ind):
         return
 
 def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
-    from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
-    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
+    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'w') as outfile:
         outfile.write("%s\n" % ("\t".join(ELIFE_COLUMNS)))
         original_path = original_path.split('/')
         try:
