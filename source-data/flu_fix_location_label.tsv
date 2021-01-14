@@ -22,6 +22,9 @@ sydney	Sydney
 Victoira	Victoria
 CairnsNorth	Cairns
 
+# Austria
+Austriaquarantine	Austria
+
 # Barbados
 Christ_Church	ChristChurch
 
@@ -254,7 +257,7 @@ Czech_Republic	CzechRepublic
 DominicanRep	DominicanRepublic
 
 # Democratic Republic of the Congo
-Democratic_Republic_of_the_Congo	DemocraticRepublicofCongo
+DemocraticRepublicoftheCongo	DemocraticRepublicOfCongo
 
 # Denmark
 Dernmark	Denmark
@@ -297,7 +300,7 @@ St_Laurent_du_Var	StLaurentDuVar
 
 # GeorgiaCountry
 Ozirgeti	Ozurgeti
-Republic_of_Georgia	GeorgiaCountry
+RepublicofGeorgia	GeorgiaCountry
 
 # Germany
 Badenwurttemburg	BadenWurttemberg
@@ -551,10 +554,13 @@ Kyrgzstan	Kyrgyzstan
 # Lao
 Laos	Lao
 Luang_Prabang_District	LuangPrabangDistrict
+LuangPrabangDistrict	LuangPrabangDistrict
+Luang_Prabang_Province	LuangPrabang
+LuangPrabangProvince	LuangPrabang
 Pak_Ou_District	PakOuDistrict
 Sanasomboun_District	SanasombounDistrict
 Thateng_District	ThaTengDistrict
-Xhathom_District	ThathomDistrict
+XhathomDistrict	ThathomDistrict
 
 # Lebanon
 AinWazein	AinWZain
@@ -575,7 +581,7 @@ Vilnus	Vilnius
 # Macedonia
 Kochani	Kocani
 Skopjeno	Skopje
-Republic_of_Macedonia	Macedonia
+RepublicofMacedonia	Macedonia
 
 # Madagascar
 Taolagnaro	Tolagnaro
@@ -633,39 +639,45 @@ NLVolendam	Volendam
 NLOostwoud	Oostwoud
 NLAbbega	Abbegea
 NLAkkrum	Akkrum
-NLAlmeerder_Zand	Almeerderstrand
+NLAlmeerderZand	Almeerderstrand
+NLAssen	Assen
 NLBiddinghuizen	Biddinghuizen
-NLBoven_Leeuwen	Boven-Leeuwen
+NLBovenLeeuwen	Boven-Leeuwen
 NLBruchem	Bruchem
-NLDe_Waal_(Texel)	DeWaal
+NLDeWaal	DeWaal
+NLDeWaal(Texel)	DeWaal
 NLDrieborg	Drieborg
-NLDrieborg_(Dollard)	Drieborg
+NLDrieborg(Dollard)	Drieborg
 NLDurgerdam	Durgerdam
 NLEnumatil-Groningen	Enumatil
 NLFerwert	Ferwert
 NLGouda	Gouda
 NLGreonterp	Greonterp
 NLGroningen	Groningen
+NLGrootAmmers	GrootAmmers
 NLHiaure	Hiaure
 NLIJsselmuiden	IJsselmuiden
 NLKamperveen	Kamperveen
 NLLeeuwarden	Leeuwarden
 NLLeidschendam	Leidschendam
+NLMarkerWadden	MarkerWadden
 NLMastenbroek	Mastenbroek
 NLMonnickendam	Monnickendam
 NLReeuwijk	Reeuwijk
 NLRhenen	Rhenen
 NLRotterdam	Rotterdam
 NLScheemda	Scheemda
-NLSint_Annen	Sint-Annen
+NLSintAnnen	Sint-Annen
+NLSlootdorp	Slootdorp
 NLStolwijk	Stolwijk
 NLSwifterband	Swifterband
 NLTerschelling	Terschelling
 NLUtrecht	Utrecht
 NLVianen	Vianen
+NLVrouwenpolder	Vrouwenpolder
 NLWalterswald	Walterswald
 NLWerkendam	Werkendam
-NLWest_Graftdijk	West-Graftdijk
+NLWestGraftdijk	West-Graftdijk
 NLWormer	Wormer
 NLZeewolde	Zeewolde
 NLZoeterwoude	Zoeterwoude
@@ -896,6 +908,7 @@ StLucia	SaintLucia
 
 # SaudiArabia
 Saudi_Arabia	SaudiArabia
+AlQasim	Qassim
 
 # StVincentAndTheGrenadines
 StVincentAndGrenadines	StVincentAndTheGrenadines
@@ -980,6 +993,7 @@ Khmelnytsky	Khmelnitsky
 Kirovograd	Kirovohrad
 Kmelnitsk	Khmelnitsky
 Khmelnytskyi	Khmelnitsky
+Markeev	Markejev
 Odesa	Odessa
 Zaporizza	Zaporizhia
 Ivano-Frankivsk	IvanoFrankivsk
@@ -1066,6 +1080,8 @@ VietNam	Vietnam
 Viet_Nam	Vietnam
 Bac_Lieu	BacLieu
 Ba_Ria-Vung_Tau	BaRia-VungTau
+Ba_Ria-Vung_Tau	BaRia-VungTau
+BaRiaVungTau	BaRia-VungTau
 Ca_Mau	CaMau
 Cao_Bang	CaoBang
 HaNoi	Hanoi

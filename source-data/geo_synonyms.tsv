@@ -345,6 +345,7 @@ BruneiDarussalam	Brunei	Brunei	Brunei
 # Bulgaria
 Bulgaria	Bulgaria	Bulgaria	Bulgaria
 Sofia	Bulgaria	Sofia	Sofia
+Dobrich	Bulgaria	Dobrich	Dobrich
 
 # BurkinaFaso
 BurkinaFaso	BurkinaFaso	BurkinaFaso	BurkinaFaso
@@ -800,7 +801,7 @@ Vsetin	CzechRepublic	Zlin	Vsetin
 Congo	Congo	Congo	Congo
 
 # DemocraticRepublicofCongo
-DemocraticRepublicofCongo	DemocraticRepublicofCongo	DemocraticRepublicofCongo	DemocraticRepublicofCongo
+DemocraticRepublicOfCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo
 
 # Denmark
 Denmark	Denmark	Denmark	Denmark
@@ -991,6 +992,7 @@ Gabon	Gabon	Gabon	Gabon
 Gambia	Gambia	Gambia	Gambia
 
 # GeorgiaCountry
+GeorgiaCountry	GeorgiaCountry	GeorgiaCountry	GeorgiaCountry
 Akhaltsikhe	GeorgiaCountry	SamtskheJavakheti	Akhaltsikhe
 Batumi	GeorgiaCountry	Adjara	Batumi
 Chiatura	GeorgiaCountry	Imereti	Chiatura
@@ -1640,13 +1642,13 @@ Bishkek	Kyrgyzstan	Chuy	Bishkek
 # Lao
 Lao	Laos	Laos	Laos
 Laos	Laos	Laos	Laos
+LuangPrabang	Laos	LuangPrabang	LuangPrabang
 LuangPrabangDistrict	Laos	LuangPrabang	LuangPrabangDistrict
 PakOuDistrict	Laos	LuangPrabang	PakOuDistrict
 SanasombounDistrict	Laos	Champasak	SanasombounDistrict
 ThaTengDistrict	Laos	Sekong	ThaTengDistrict
 ThathomDistrict	Laos	Xaisomboun	ThathomDistrict
 XaythanyDistrict	Laos	Vientiane	XaythanyDistrict
-
 
 # Latvia
 Latvia	Latvia	Latvia	Latvia
@@ -1911,6 +1913,7 @@ Abbegea	Netherlands	Friesland	Abbegea
 Akkrum	Netherlands	Friesland	Akkrum
 Almeerderstrand	Netherlands	Flevoland	Almeerderstrand
 Amsterdam	Netherlands	NorthHolland	Amsterdam
+Assen	Netherlands	Drenthe	Assen
 Biddinghuizen	Netherlands	Flevoland	Biddinghuizen
 Boven-Leeuwen	Netherlands	Gelderland	Boven-Leeuwen
 Bilthoven	Netherlands	Utrecht	Bilthoven
@@ -1926,12 +1929,14 @@ Ferwert	Netherlands	Friesland	Ferwert
 Gouda	Netherlands	SouthHolland	Gouda
 Greonterp	Netherlands	Friesland	Greonterp
 Groningen	Netherlands	Groningen	Groningen
+GrootAmmers	Netherlands	SouthHolland	GrootAmmers
 Hiaure	Netherlands	Friesland	Hiaure
 IJsselmuiden	Netherlands	Overijssel	IJsselmuiden
 Kamperveen	Netherlands	Overijssel	Kamperveen
 Leeuwarden	Netherlands	Friesland	Leeuwarden
 Leiden	Netherlands	SouthHolland	Leiden
 Leidschendam	Netherlands	SouthHolland	Leidschendam
+MarkerWadden	Netherlands	Flevoland	MarkerWadden
 Mastenbroek	Netherlands	Overijssel	Mastenbroek
 Monnickendam	Netherlands	NorthHolland	Monnickendam
 Nijmegen	Netherlands	Gelderland	Nijmegen
@@ -1942,6 +1947,7 @@ Roggebotsluis	Netherlands	Flevoland	Roggebotsluis
 Rotterdam	Netherlands	SouthHolland	Rotterdam
 Scheemda	Netherlands	Groningen	Scheemda
 Sint-Annen	Netherlands	Groningen	Sint-Annen
+Slootdorp	Netherlands	NorthHolland	Slootdorp
 Stolwijk	Netherlands	SouthHolland	Stolwijk
 Swifterband	Netherlands	Flevoland	Swifterband
 Terschelling	Netherlands	Friesland	Terschelling
@@ -1949,6 +1955,7 @@ Tilburg	Netherlands	NorthBrabant	Tilburg
 Utrecht	Netherlands	Utrecht	Utrecht
 Vianen	Netherlands	Utrecht	Vianen
 Volendam	Netherlands	NorthHolland	Volendam
+Vrouwenpolder	Netherlands	Zeeland	Vrouwenpolder
 Walterswald	Netherlands	Friesland	Walterswald
 Werkendam	Netherlands	NorthBrabant	Werkendam
 West-Graftdijk	Netherlands	NorthHolland	West-Graftdijk
@@ -2365,6 +2372,7 @@ SaudiArabia	SaudiArabia	SaudiArabia	SaudiArabia
 Jeddah	SaudiArabia	Makkah	Jeddah
 Riyadh	SaudiArabia	Riyadh	Riyadh
 Al-Ahsaa	SaudiArabia	EasternProvince	Al-Ahsaa
+Qassim	SaudiArabia	Qassim	Qassim
 
 # Senegal
 Senegal	Senegal	Senegal	Senegal
@@ -2801,6 +2809,7 @@ Dniprodzerzhynsk	Ukraine	Dnipropetrovsk	Kamianske
 Donetsk	Ukraine	Donetsk	Donetsk
 IvanoFrankivsk	Ukraine	IvanoFrankivsk	IvanoFrankivsk
 Kharkiv	Ukraine	Kharkiv	Kharkiv
+Kherson	Ukraine	Kherson	Kherson
 Khmelnitsky	Ukraine	Khmelnitsky	Khmelnitsky
 Khmilnyk	Ukraine	Khmilnyk	Khmilnyk
 Kiev	Ukraine	Kiev	Kiev
@@ -2808,6 +2817,7 @@ Kirovohrad	Ukraine	Kirovohrad	Kirovohrad
 Kyiv	Ukraine	Kyiv	Kyiv
 Luhansk	Ukraine	Luhansk	Luhansk
 Lviv	Ukraine	Lviv	Lviv
+Markejev	Ukraine	Markejev	Markejev
 Odessa	Ukraine	Odessa	Odessa
 Poltava	Ukraine	Poltava	Poltava
 Rivne	Ukraine	Rivne	Rivne
