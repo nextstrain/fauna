@@ -330,10 +330,14 @@ class flu_upload(upload):
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','').replace('-','')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
-
+        
         split_name = name.split('/')
         # check location labels in strain names for fixing
-        for index, label in enumerate(split_name):
+        # for this first check for the location fixes, only check and replace the beginning 
+        # of the strain name, avoiding the last 2 splits that contain the random id and the year. 
+        # This is to avoid issues where the random id happens to match a location like
+        # "A/chicken/Hubei/wi/1997" getting converted to "A/chicken/Hubei/Wisconsin/1997"
+        for index, label in enumerate(split_name[:-2]):
             #print(label, split_name)
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
