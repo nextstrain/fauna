@@ -22,6 +22,9 @@ sydney	Sydney
 Victoira	Victoria
 CairnsNorth	Cairns
 
+# Austria
+Austriaquarantine	Austria
+
 # Barbados
 Christ_Church	ChristChurch
 
@@ -253,6 +256,9 @@ Czech_Republic	CzechRepublic
 # DominicanRepublic
 DominicanRep	DominicanRepublic
 
+# Democratic Republic of the Congo
+DemocraticRepublicoftheCongo	DemocraticRepublicOfCongo
+
 # Denmark
 Dernmark	Denmark
 
@@ -294,6 +300,7 @@ St_Laurent_du_Var	StLaurentDuVar
 
 # GeorgiaCountry
 Ozirgeti	Ozurgeti
+RepublicofGeorgia	GeorgiaCountry
 
 # Germany
 Badenwurttemburg	BadenWurttemberg
@@ -431,6 +438,7 @@ Bandungjava	Bandung
 Central_Java	CentralJava
 Central_Sulawesi	CentralSulawesi
 East_Java	EastJava
+East_Jakarta	EastJakarta
 East_Kalimantan	EastKalimantan
 North_Sumatra	Sumatra
 North_Sumatera	Sumatra
@@ -545,6 +553,14 @@ Kyrgzstan	Kyrgyzstan
 
 # Lao
 Laos	Lao
+Luang_Prabang_District	LuangPrabangDistrict
+LuangPrabangDistrict	LuangPrabangDistrict
+Luang_Prabang_Province	LuangPrabang
+LuangPrabangProvince	LuangPrabang
+Pak_Ou_District	PakOuDistrict
+Sanasomboun_District	SanasombounDistrict
+Thateng_District	ThaTengDistrict
+XhathomDistrict	ThathomDistrict
 
 # Lebanon
 AinWazein	AinWZain
@@ -565,6 +581,7 @@ Vilnus	Vilnius
 # Macedonia
 Kochani	Kocani
 Skopjeno	Skopje
+RepublicofMacedonia	Macedonia
 
 # Madagascar
 Taolagnaro	Tolagnaro
@@ -616,6 +633,56 @@ Kyaing_Tong	KyaingTong
 # Netherlands
 Netherland	Netherlands
 NL	Netherlands
+NLDen_Oever	DenOever
+NLRoggebotsluis	Roggebotsluis
+NLVolendam	Volendam
+NLOostwoud	Oostwoud
+NLAbbega	Abbegea
+NLAkkrum	Akkrum
+NLAlmeerderZand	Almeerderstrand
+NLAssen	Assen
+NLBiddinghuizen	Biddinghuizen
+NLBovenLeeuwen	Boven-Leeuwen
+NLBruchem	Bruchem
+NLDeWaal	DeWaal
+NLDeWaal(Texel)	DeWaal
+NLDrieborg	Drieborg
+NLDrieborg(Dollard)	Drieborg
+NLDurgerdam	Durgerdam
+NLEnumatil-Groningen	Enumatil
+NLFerwert	Ferwert
+NLGouda	Gouda
+NLGreonterp	Greonterp
+NLGroningen	Groningen
+NLGrootAmmers	GrootAmmers
+NLHiaure	Hiaure
+NLIJsselmuiden	IJsselmuiden
+NLKamperveen	Kamperveen
+NLLeeuwarden	Leeuwarden
+NLLeidschendam	Leidschendam
+NLMarkerWadden	MarkerWadden
+NLMastenbroek	Mastenbroek
+NLMonnickendam	Monnickendam
+NLReeuwijk	Reeuwijk
+NLRhenen	Rhenen
+NLRotterdam	Rotterdam
+NLScheemda	Scheemda
+NLSintAnnen	Sint-Annen
+NLSlootdorp	Slootdorp
+NLStolwijk	Stolwijk
+NLSwifterband	Swifterband
+NLTerschelling	Terschelling
+NLUtrecht	Utrecht
+NLVianen	Vianen
+NLVrouwenpolder	Vrouwenpolder
+NLWalterswald	Walterswald
+NLWerkendam	Werkendam
+NLWestGraftdijk	West-Graftdijk
+NLWormer	Wormer
+NLZeewolde	Zeewolde
+NLZoeterwoude	Zoeterwoude
+NLZuidoost_Beemster	Zuidoostbeemster
+NLZwolle	Zwolle
 
 # NewZealand
 Nelson_Marlborough	NelsonMarlborough
@@ -737,7 +804,7 @@ Lipezk	Lipetsk
 Lipesk	Lipetsk
 Moscowoblast	Moscow
 Moscowv	Moscow
-Mahachkala
+Mahachkala	Makhachkala
 Murmask	Murmansk
 Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
@@ -841,6 +908,7 @@ StLucia	SaintLucia
 
 # SaudiArabia
 Saudi_Arabia	SaudiArabia
+AlQasim	Qassim
 
 # StVincentAndTheGrenadines
 StVincentAndGrenadines	StVincentAndTheGrenadines
@@ -925,6 +993,7 @@ Khmelnytsky	Khmelnitsky
 Kirovograd	Kirovohrad
 Kmelnitsk	Khmelnitsky
 Khmelnytskyi	Khmelnitsky
+Markeev	Markejev
 Odesa	Odessa
 Zaporizza	Zaporizhia
 Ivano-Frankivsk	IvanoFrankivsk
@@ -1010,16 +1079,22 @@ Venezuala	Venezuela
 VietNam	Vietnam
 Viet_Nam	Vietnam
 Bac_Lieu	BacLieu
+Ba_Ria-Vung_Tau	BaRia-VungTau
+Ba_Ria-Vung_Tau	BaRia-VungTau
+BaRiaVungTau	BaRia-VungTau
 Ca_Mau	CaMau
 Cao_Bang	CaoBang
 HaNoi	Hanoi
+Ha_Tinh	HaTinh
 Hai_Duong	HaiDuong
 Hau_Giang	HauGiang
 Lang_Son	LangSon
 Long_An	LongAn
 Nam_Dinh	NamDinh
+Nghe_An	NgheAn
 Ninh_Binh	NinhBinh
 Quang_Ninh	QuangNinh
+Quang_Tri	QuangTri
 QuanhNinh	QuangNinh
 Vietnam_Hau_Giang	HuaGiang
 Soc_Trang	SocTrang

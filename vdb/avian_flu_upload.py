@@ -27,6 +27,14 @@ class flu_upload(upload):
                     ('a / h3n2', 'seasonal'): ('a', 'h3n2', 'seasonal_h3n2'),
                     ('a / h3n3', ''): ('a', 'h3n3', None),
                     ('a / h5n1', ''): ('a', 'h5n1', None),
+                    ('a / h5n2', ''): ('a', 'h5n2', None),
+                    ('a / h5n3', ''): ('a', 'h5n3', None),
+                    ('a / h5n4', ''): ('a', 'h5n4', None),
+                    ('a / h5n5', ''): ('a', 'h5n5', None),
+                    ('a / h5n6', ''): ('a', 'h5n6', None),
+                    ('a / h5n7', ''): ('a', 'h5n7', None),
+                    ('a / h5n8', ''): ('a', 'h5n8', None),
+                    ('a / h5n9', ''): ('a', 'h5n9', None),
                     ('a / h5n6', ''): ('a', 'h5n6', None),
                     ('a / h6n1', ''): ('a', 'h6n1', None),
                     ('a / h7n1', ''): ('a', 'h7n1', None),
@@ -322,10 +330,15 @@ class flu_upload(upload):
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','').replace('-','')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
-
+        
         split_name = name.split('/')
         # check location labels in strain names for fixing
-        for index, label in enumerate(split_name):
+        # for this first check for the location fixes, only check and replace the beginning 
+        # of the strain name, avoiding the last 2 splits that contain the random id and the year. 
+        # This is to avoid issues where the random id happens to match a location like
+        # "A/chicken/Hubei/wi/1997" getting converted to "A/chicken/Hubei/Wisconsin/1997"
+        for index, label in enumerate(split_name[:-2]):
+            #print(label, split_name)
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
         name = '/'.join(split_name)
@@ -369,54 +382,85 @@ class flu_upload(upload):
         Fix host formatting
         '''
         avian_list = [
-            "accipitergentilis", "accipiternisus", "accipitertrivirgatus",
+            "accipitercooperii","accipitergentilis", "accipiternisus", "accipitertrivirgatus","aixsponsa",
             "african__stonechat", "aixgalericulata", "alectorischukar", "american__black__duck",
-            "american__wigeon", "anasboschas", "anasacuta", "anasamericana", "anaspenelope",
-            "anseranserdomesticus", "anserbrachyrhynchus", "ansercanagica", "anasquerquedula",
+            "american__wigeon","americanwigeon", 
+            "anassibilatrix","anasboschas", "anasacuta", "anasamericana", "anasfalcata",
+            "anaspenelope","anasflavirostris","ansersp.","anseriformessp.","anasquerquedula",
+            "anseranserdomesticus", "anserbrachyrhynchus", "ansercanagica","ansercaerulescens" ,
+            "ansercygnoides","anasplatyrhynchosf.domestica","anas_platyrhynchos",
             "anascarolinensis", "anasclypeata", "anascrecca", "anascyanoptera",
-            "anasdiscors", "anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
+            "anasdiscors"," anasfalcata","anasgeorgica","anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
             "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasplatyrhynchosvar.domesticus",
             "anasundalata", "anseranser", "anserfabalis", "anseralbifrons", "anthropoidesvirgo",
-            "anserindicus", "arenariainterpres", "avian", "bar__headed__goose", "bird",
+            "anserindicus", "arenariainterpres",
+            "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
+            "avian", "bar__headed__goose","barnacle_goose", "beangoose","bird",
             "barn__swallow", "brown__headed__gull", "bucephalaclangula", "buteo",
             "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler",
-            "buteobuteo", "blue__winged__teal", "cairinamoschata", "canada__goose",
-            "chencanagica", "chicken", "chukar", "cormorant", "corvus", "common__pochard",
-            "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "condor",
+            "buteobuteo","buteojamaicensis","buteojaponicus",
+            "blue__winged__teal","blue-wingedteal","bluegoose", 
+            "brantahutchinsii","brantacanadensis","brantaleucopsis",
+            "cairinamoschata", "calidrisminutilla","canada__goose","chencaerulescens",
+            "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","common__pochard",
+            "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "common_teal","condor",
+            "cooper'shawk","cormorant", "corvus", "copsychussaularis","corvusmacrorhynchos",
             "coturnix", "coturnixsp.", "coturniccoturnix", "coturnixjaponica",
             "crane", "crow", "curlew", "cygnusatratus", "chinese__francolin",
-            "corvussplendens", "cygnuscolumbianus", "cygnuscygnus", "cygnusolor",
-            "duck", "dove", "eagle", "egret", "eurasian__eagel__owl",
+            "chroicocephaluscirrocephalus","corvusfrugilegus",
+            "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor",
+            "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove", 
+            "eagle", "egret","egyptiangoose","eurasiancurlew","eurasian__eagel__owl","emperorgoose",
             "eurasian__wigeon", "falco", "falcon",
             "falcoperegrinus", "finch", "francolinus", "fowl",
-            "falcotinnunculus", "gadwall", "gallus", "gallusgallus", "gallusgallusdomesticus",
+            "falcotinnunculus", "falscorusticolus",
+            "gadwall", "gallinulachloropus","gallus", "gallusgallus", "gallusgallusdomesticus",
             "goose", "graculareligiosa", "great__black__headed__gull", "garrulaxcanorus", "garganey",
-            "great__crested__grebe", "greatbustard", "great__bustard",
-            "greater__white__fronted__goose", "greylaggoose", "grebe", "green__winged__teal",
-            "green-wingedteal", "grey__heron", "guineafowl", "gull",
+            "glaucous-wingedgull",
+            "great__crested__grebe", "greatbustard", "great__bustard","greattit",
+            "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
+            "green__winged__teal","green-wingedteal", 
+            "grey__heron", "guineafowl", "gull","halietusleucocephalus",
+            "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
             "heron", "hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
-            "larusschistisagus", "larusargentatus", "larusbrunnicephalus", "larusmelanocephalus",
-            "larusatricilla", "laruscanus", "laughing__gull",
+            "larusarmenicus","larusschistisagus", "larusargentatus", "larusbrunnicephalus",
+            "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans",
+            "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull",
             "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", "little__grebe",
-            "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard", "murre",
-            "morphnusguianensis", "mute__swan", "muscovy__duck", "myna", "meleagrisgallopavo",
-            "necrosyrtesmonachus", "nisaetusnipalensis", "northern__shoveler", "northernshoveler",
-            "northern__pintail", "openbill__stork", "ostrich", "oystercatcher", "otheravian",
+            "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard", 
+            "mallardduck","murre",
+            "morphnusguianensis", "mulardduck","mute__swan", "muscovy__duck", "myna", "meleagrisgallopavo",
+            "necrosyrtesmonachus", "nisaetusnipalensis","northernpintail",
+            "northern__shoveler", "northernshoveler","numidasp.","northernpintail",
+            "northern__pintail", 
+            "openbill__stork","oreortyx", "ostrich", "oystercatcher", "otheravian",
+            "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
-            "pavocristatus", "peacock", "phasianuscolchicus", "pheasant",
-            "peregrine__falcon", "pigeon", "pink__footed__goose", "polyplectronbicalcaratum", "poultry",
-            "quail", "rook", "ruddy__turnstone", "rosy__billed__pochard",
-            "saker__falcon", "sanderling", "shrike", "silky__chicken", "snow__goose",
-            "shorebird", "sparrow", "starling", "swan", "stork", "swiftlet", "tadornaferuginea",
-            "teal", "turkey", "turtledove", "tree__sparrow", "us_quail", "waterfowl",
-            "wild__turkey", "white__bellied__bustard", "wild__chicken", "wild__duck",
-            "whooper__swan", "wildbird", "yellow__billed__duck", "zosteropsjaponicus"]
+            "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasaniussp.","pheasant",
+            "penguin","peregrine__falcon", "pigeon", "pink__footed__goose", "polyplectronbicalcaratum", 
+            "poultry","pygoscelisantarcticus",
+            "quail", "rails","rail","ring-neckedduck","rook", "ruddy__turnstone", "ruddyturnstone",
+            "ruddyshelduck","rosy__billed__pochard","sacredibis",
+            "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike", 
+            "shorebird", "silky__chicken",
+            "silverteal", "snow__goose","somateriamollissima",
+            "sparrow", "speckledpigeon","starling", "swan", "sterna",
+            "sternahirundo",
+            "streptopeliadecaocto",
+            "stork", "swiftlet", 
+            "tachybaptusruficollis","tadornaferuginea","tadornatadorna",
+            "teal", "turkey", "tern","turtledove", "tree__sparrow", "us_quail", "waterfowl",
+            "wild__turkey", "wildwaterfowl","white__bellied__bustard", 
+            "white-frontedgoose", "white-frontedgoose",
+            "wild__chicken","wild__duck",
+            "whooper__swan","whooperswan", "wildbird", "yellow__billed__duck", "zosteropsjaponicus"]
         environment_list = [
-            "feces", "otherenvironment", "surfaceswab", "watersample", "environment"]
+            "feces", "otherenvironment", "surfaceswab", "watersample", "environment",
+            "airsample"]
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "mammals", "mink", "othermammals",
             "swine", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika"]
+            "dog", "large__cat", "pika","seal","meerkat"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
 
@@ -508,7 +552,7 @@ class flu_upload(upload):
 
         else:
             v['location'], v['division'], v['country'] = None, None, None
-            print("couldn't parse country for ", original_name)
+            print("couldn't parse country for ", original_name, strain_name)
 
         if v['division'] == v['country']:
             v['division'] == '?'
