@@ -49,14 +49,14 @@ def convert_xls_to_csv(path, fstem, ind):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
-        with open('../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'wb') as f:
+        with open('../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'w') as f:
             writer = csv.writer(f)
             print(sheet.name)
             for row in range(sheet.nrows):
                 new_row = []
                 for cell in sheet.row_values(row):
                     try:
-                        new_row.append(unicode(cell).encode('utf-8'))
+                        new_row.append(cell)
                     except:
                         import pdb; pdb.set_trace()
                 writer.writerow(new_row)
@@ -65,12 +65,11 @@ def convert_xls_to_csv(path, fstem, ind):
     return sheets
 
 def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
-    from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
-    with open('../../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
+    with open('../../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'w') as outfile:
         header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
         outfile.write("%s\n" % ("\t".join(header)))
         original_path = original_path.split('/')
@@ -95,7 +94,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
                 virus_strain = mat[i][virus_strain_col_index]
                 serum_strain = mat[6][j]+"/"+mat[7][j]
                 m = build_location_mapping()
-                for (k,v) in m.iteritems():
+                for (k,v) in m.items():
                     if v not in serum_strain:
                         serum_strain = serum_strain.replace(k, v)
                 serum_id = mat[9][j]
