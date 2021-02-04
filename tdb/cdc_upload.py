@@ -9,6 +9,8 @@ sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
 
+parser.add_argument("--rename", action='store_true')
+
 class cdc_upload(upload):
     def __init__(self, **kwargs):
         upload.__init__(self, **kwargs)
@@ -124,11 +126,41 @@ class cdc_upload(upload):
                     meas.pop(old_name,None)
         return measurements
 
+
+def rename_cdc_columns(path, fstem) -> str:
+    """
+    Rename the columns according to previous CDC titer tables by using the
+    column map file at `source-data/cdc_titer_column_map.tsv`. Assumes the
+    titer file ends with .tsv and prints the filtered titers to a new TSV file.
+
+    Returns the new reportable titer fstem which is the provided
+    *fstem* + '_renamed'.
+    """
+    import pandas as pd
+
+    column_map = pd.read_csv('source-data/cdc_titer_column_map.tsv', sep='\t', index_col="label")["fix"].to_dict()
+
+    all_titer_file = path + fstem + '.tsv'
+    all_titers = pd.read_csv(all_titer_file, sep='\t')\
+                   .rename(columns=column_map)
+
+    all_titers['assay_type'] = all_titers['assay_type'].str.replace('_protocol', '')
+
+    renamed_titer_fstem = fstem + '_renamed'
+    renamed_titer_file = path + renamed_titer_fstem + '.tsv'
+    all_titers[column_map.values()].to_csv(renamed_titer_file, sep='\t', index=False)
+
+    return renamed_titer_fstem
+
+
 if __name__=="__main__":
     args = parser.parse_args()
     if args.path is None:
         args.path = "data/"
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
+    if args.rename:
+        args.fstem = rename_cdc_columns(args.path, args.fstem)
+
     connTDB = cdc_upload(**args.__dict__)
     connTDB.upload(**args.__dict__)
