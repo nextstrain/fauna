@@ -35,15 +35,13 @@ def convert_xls_to_csv(path, fstem, ind):
     wb_name = path + '/' + fstem + ind
     workbook = xlrd.open_workbook(filename=wb_name, encoding_override="cp1252")
     for sheet in workbook.sheets():
-        with open('data/tmp/%s.csv'%(fstem), 'wb') as f:
+        with open('data/tmp/%s.csv'%(fstem), 'w') as f:
             writer = csv.writer(f)
             rows = []
             for i in range(sheet.nrows):
                 row = []
                 for j in range(sheet.ncols):
                     val = sheet.cell_value(i, j)
-                    if isinstance(val, unicode):
-                        val = val.encode('utf8')
                     row.append(val)
                 rows.append(row)
             writer.writerows(rows)
@@ -56,12 +54,11 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
         flutype = "A"
     if subtype == "vic" or subtype == "yam":
         flutype = "B"
-    from string import strip
     src_id = fname.split('/')[-1]
     with open(fname) as infile:
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
-    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'wb') as outfile:
+    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'w') as outfile:
         header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
         outfile.write("%s\n" % ("\t".join(header)))
         original_path = original_path.split('/')
