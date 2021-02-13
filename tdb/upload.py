@@ -414,7 +414,7 @@ class upload(parse, flu_upload):
         return measurements
 
     def correct_titer_format(self, titer):
-        if re.match("^[0-9<>.]*$", titer):
+        if re.match("^[0-9<>.]*$", titer) and titer != '0':
             return True
         else:
             print("Bad titer: {}. Removing.".format(titer))
