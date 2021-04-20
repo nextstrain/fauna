@@ -116,6 +116,10 @@ class download(object):
         except IOError:
             pass
         else:
+            # Write out field names as a header.
+            handle.write("\t".join(text_fields) + "\n")
+
+            # Write out field values for each record.
             for meas in measurements:
                 for field in text_fields:
                     if field in meas and meas[field] is not None:
