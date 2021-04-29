@@ -110,7 +110,7 @@ class download(object):
             handle.close()
             print("Wrote to " + fname)
 
-    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer', 'assay_type']):
+    def write_text(self, measurements, fname, text_fields=['virus_strain', 'serum_strain', 'serum_id', 'source', 'titer', 'assay_type', 'assay_date', 'inclusion_date']):
         try:
             handle = open(fname, 'w')
         except IOError:
@@ -121,12 +121,12 @@ class download(object):
 
             # Write out field values for each record.
             for meas in measurements:
-                for field in text_fields:
-                    if field in meas and meas[field] is not None:
-                        handle.write(str(meas[field]) + '\t')
-                    else:
-                        handle.write('?' + '\t')
+                handle.write("\t".join([
+                    str(meas.get(field, "?"))
+                    for field in text_fields
+                ]))
                 handle.write('\n')
+
             handle.close()
             print("Wrote to " + fname)
 
