@@ -11,5 +11,5 @@ requests==2.22.0
 rethinkdb==2.4.8
 six==1.13.0
 Unidecode==1.1.1
-urllib3==1.25.7
+urllib3==1.25.8
 xlrd==1.2.0
