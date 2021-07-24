@@ -3,6 +3,7 @@ country	region
 algeria	africa
 benin	africa
 canary_islands	africa
+cape_verde	africa
 egypt	africa
 morocco	africa
 sudan	africa
@@ -114,6 +115,7 @@ saint_vincent_and_the_grenadines	north_america
 trinidad_and_tobago	north_america
 turks_and_caicos	north_america
 usvi	north_america
+virgin_islands	north_america
 belize	north_america
 costa_rica	north_america
 el_salvador	north_america
