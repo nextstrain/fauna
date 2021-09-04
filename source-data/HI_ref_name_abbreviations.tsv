@@ -13,9 +13,12 @@ BRIS1,	Brisbane
 C'CHURCH	Christchurch
 CA	California
 CAL	California
+CALIF	California
+CAMB	Cambodia
 CC	Christchurch
 CCHURCH	Christchurch
 CHCH	Christchurch
+CIV	CoteDIvoire
 DR	DominicanRepublic
 EG	Egypt
 ENG	England
@@ -23,8 +26,10 @@ FIN	Finland
 FL	Florida
 FOR	Formosa
 G-M	Guangdong-Maonan
+GAN-BAIY	Gansu-Baiyin
 GLAS	Glasgow
 H-X	HeilongjiangXiangfang
+HEN-XIG	Henan-Xigong
 HK	HongKong
 JHB	Johannesburg
 MAD	MADAGASCAR
@@ -54,6 +59,7 @@ STOCK	Stockholm
 STP	StPetersburg
 STPBURG	StPetersburg
 SWITZ	Switzerland
+TOAMAS	Toamasina
 VALL	Valladolid
 VIC	Victoria
 VORO	Voronezh
