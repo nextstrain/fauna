@@ -49,6 +49,9 @@ def convert_xls_to_csv(path, fstem, ind):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
+        # Replace spaces with underscores in sheet name so that the call to
+        # elife_upload does not error out due to the space in --fstem
+        sheet.name = sheet.name.replace(' ', '_')
         with open('../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'w') as f:
             writer = csv.writer(f)
             print(sheet.name)
