@@ -579,6 +579,8 @@ SouthLebanonSaida	Sidon
 SouthLebanon_Saida	Sidon
 SouthLebanonTyre	Tyre
 SouthLebanon_Tyre	Tyre
+ZahlehLBN	Zahle
+ZghortaLBN	Zgharta
 
 # Lithuania
 Vilnus	Vilnius
@@ -705,7 +707,9 @@ Mangua	Managua
 
 # Oman
 AlBuraymi	AlBuraimi
+AlMusana	AlMusannah
 ArRustaq	Rustaq
+Duqum	Duqm
 Hayma	Haima
 JaalanBBA	JalanBaniBuAli
 
@@ -1039,6 +1043,7 @@ DE	Delaware
 Delaware_Bay	DelawareBay
 Ft.Benning	FtBenning
 Georgia_NHRC	GeorgiaNHRC
+Illiniois	Illinois
 Interior_Alaska	InteriorAlaska
 Lousiana	Louisiana
 New_Jersey	NewJersey

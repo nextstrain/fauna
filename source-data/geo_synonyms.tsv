@@ -201,6 +201,7 @@ Goiania	Brazil	Goias	Goiania
 Goianesia	Brazil	Goias	Goianesia
 Goias	Brazil	Goias	Goias
 Guaratingueta	Brazil	SaoPaulo	Guaratingueta
+ItapecericaDaSerra	Brazil	SaoPaulo	ItapecericaDaSerra
 Itapevi	Brazil	SaoPaulo	Itapevi
 Jacarei	Brazil	SaoPaulo	Jacarei
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
@@ -260,6 +261,7 @@ Sanharo	Brazil	Pernambuco	Sanharo
 Spsaojosedoriopreto	Brazil	SaoJoseDoRioPreto	SaoJoseDoRioPreto
 Sergipe	Brazil	Brazil	Sergipe
 Salvador	Brazil	Bahia	Salvador
+TaboaoDaSerra	Brazil	SaoPaulo	TaboaoDaSerra
 Taubate	Brazil	SaoPaulo	Taubate
 Tocantins	Brazil	Brazil	Tocantins
 TresLagoas	Brazil	MatoGrossoDoSul	TresLagoas
@@ -1661,6 +1663,7 @@ Latvia	Latvia	Latvia	Latvia
 # Lebanon
 Lebanon	Lebanon	Lebanon	Lebanon
 AinWZain	Lebanon	MountLebanon	AinWZain
+Akkar	Lebanon	Akkar	Akkar
 Arsal	Lebanon	Baalbek-Hermel	Arsal
 Baabda	Lebanon	MountLebanon	Baabda
 Beirut	Lebanon	Beirut	Beirut
@@ -1673,6 +1676,7 @@ Sidon	Lebanon	SouthLebanon	Sidon
 Tripoli	Lebanon	NorthLebanon	Tripoli
 Tyre	Lebanon	SouthLebanon	Tyre
 Zahle	Lebanon	Beqaa	Zahle
+Zgharta	Lebanon	NorthLebanon	Zgharta
 
 # Liberia
 Liberia	Liberia	Liberia	Liberia
@@ -2045,8 +2049,10 @@ Oslo	Norway	Ostlandet	Oslo
 # Oman
 Oman	Oman	Oman	Oman
 AlBuraimi	Oman	AlBuraimi	AlBuraimi
+AlMusannah	Oman	AlBatinah	AlMusannah
 Bahla	Oman	AdDakhiliyah	Bahla
 Buraimi	Oman	AlBuraimi	Buraimi
+Duqm	Oman	AlWusta	Duqm
 Haima	Oman	AlWusta	Haima
 Ibra	Oman	AshSharqiyah	Ibra
 Ibri	Oman	AdDhahirah	Ibri
@@ -2057,6 +2063,7 @@ Muscat	Oman	AshSharqiyah	Muscat
 Nizwa	Oman	AdDakhiliyah	Nizwa
 Rustaq	Oman	AlBatinah	Rustaq
 Saham	Oman	AlBatinah	Saham
+Seeb	Oman	Muscat	Seeb
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
 Salalah	Oman	Dhofar	Salalah
