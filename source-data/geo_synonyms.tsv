@@ -961,6 +961,7 @@ Rodez	France	Occitanie	Rodez
 Rouen	France	Normandy	Rouen
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
+SaintMartinDHeres	France AuvergneRhoneAlpes SaintMartinDHeres
 StLaurentDuVar	France	ProvenceAlpesCoteDAzur	StLaurentDuVar
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
 Tulle	France	NouvelleAquitaine	Tulle
@@ -1835,6 +1836,9 @@ Yapisland	Micronesia	Yap	Yap
 # Moldova
 Moldova	Moldova	Moldova	Moldova
 
+#Monaco
+Monaco	Monaco	Monaco	Monaco
+
 # Mongolia
 Mongolia	Mongolia	Mongolia	Mongolia
 Arvaikheer	Mongolia	Arvaikheer	Arvaikheer
@@ -2051,6 +2055,8 @@ Oman	Oman	Oman	Oman
 AlBuraimi	Oman	AlBuraimi	AlBuraimi
 AlMusannah	Oman	AlBatinah	AlMusannah
 Bahla	Oman	AdDakhiliyah	Bahla
+Barka	Oman	AlBatinah	Barka
+Bawshar	Oman	Muscat	Bawshar
 Buraimi	Oman	AlBuraimi	Buraimi
 Duqm	Oman	AlWusta	Duqm
 Haima	Oman	AlWusta	Haima
@@ -2060,6 +2066,7 @@ JalanBaniBuAli	Oman	AshSharqiyah	JalanBaniBuAli
 Khasab	Oman	Musandam	Khasab
 Muqshin	Oman	Dhofar	Muqshin
 Muscat	Oman	AshSharqiyah	Muscat
+Muttrah	Oman	Muscat	Muttrah
 Nizwa	Oman	AdDakhiliyah	Nizwa
 Rustaq	Oman	AlBatinah	Rustaq
 Saham	Oman	AlBatinah	Saham
