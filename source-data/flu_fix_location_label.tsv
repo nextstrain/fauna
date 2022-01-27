@@ -571,11 +571,17 @@ XhathomDistrict	ThathomDistrict
 # Lebanon
 AinWazein	AinWZain
 AinWZein	AinWZain
+AleyhLBN	Aley
+BaalbeckLBN	Baalbek
+BazoureyehLBN	Bazouriyeh
 Bekaa	Beqaa
 Jbeil	Byblos
+MetnLBN	Matn
+Minieh DiniehLBN	MiniyehDanniyeh
 MountLebanon_Ain-W-zein	AinWZain
 North_Lebanon	NorthLebanon
 Saida	Sidon
+SaidaLBN	Sidon
 SouthLebanonSaida	Sidon
 SouthLebanon_Saida	Sidon
 SouthLebanonTyre	Tyre
@@ -592,8 +598,9 @@ Skopjeno	Skopje
 RepublicofMacedonia	Macedonia
 
 # Madagascar
-Taolagnaro	Tolagnaro
 Madagacar	Madagascar
+Taolagnaro	Tolagnaro
+Toliary	Toliara
 
 # Mauritania
 Nouackchott	Nouakchott

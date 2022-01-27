@@ -1665,12 +1665,17 @@ Latvia	Latvia	Latvia	Latvia
 Lebanon	Lebanon	Lebanon	Lebanon
 AinWZain	Lebanon	MountLebanon	AinWZain
 Akkar	Lebanon	Akkar	Akkar
+Aley	Lebanon	MountLebanon	Aley
 Arsal	Lebanon	Baalbek-Hermel	Arsal
 Baabda	Lebanon	MountLebanon	Baabda
+Baalbek	Lebanon	Baalbek-Hermel	Baalbek
+Bazouriyeh	Lebanon	SouthLebanon	Bazouriyeh
 Beirut	Lebanon	Beirut	Beirut
 Beqaa	Lebanon	Beqaa	Beqaa
 Byblos	Lebanon	MountLebanon	Byblos
 Hermel	Lebanon	Baalbek-Hermel	Hermel
+Matn	Lebanon	MountLebanon	Matn
+MiniyehDanniyeh	Lebanon	NorthLebanon	MiniyehDanniyeh
 Nabatieh	Lebanon	Nabatieh	Nabatieh
 NorthLebanon	Lebanon	NorthLebanon	NorthLebanon
 Sidon	Lebanon	SouthLebanon	Sidon
@@ -1736,6 +1741,7 @@ Moramanga	Madagascar	AlaotraMangoro	Moramanga
 NosyBe	Madagascar	Diana	NosyBe
 Toamasina	Madagascar	Atsinanana	Toamasina
 Tolagnaro	Madagascar	Anosy	Tolagnaro
+Toliara	Madagascar	AtsimoAndrefana	Toliara
 Tsaralalana	Madagascar	Antananarivo	Tsaralalana
 Tsiroanomandidy	Madagascar	Bongolava	Tsiroanomandidy
 
