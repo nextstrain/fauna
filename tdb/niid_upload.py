@@ -87,7 +87,7 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                 virus_strain = mat[i][1]
                 serum_id = mat[serum_id_row_index][j]
                 serum_id = re.sub(r'[\r\n ]+', '', serum_id)
-                m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr)', serum_id, re.IGNORECASE)
+                m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr|\(bvr)', serum_id, re.IGNORECASE)
                 serum_strain = ""
                 # import pdb; pdb.set_trace()
                 if m:
