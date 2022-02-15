@@ -26,7 +26,10 @@ We maintain notes on [supported virus builds](builds/).
 
 ## Install
 
-Fauna requires Python 3. Clone the repo and load submodules:
+Fauna requires Python 3.
+> **_note_**: A subset of tdb upload scripts use `xlrd` (v1.2.0) which will not work with Python 3.8 or newer
+
+Clone the repo and load submodules:
 
     git clone https://github.com/nextstrain/fauna.git
     cd fauna
@@ -61,9 +64,10 @@ Or this instance can be remote, in which case follow the [RethinkDB docs to conf
 
 [Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/timestamp)) allows easy web access to the database. To run, do the following:
 
-1. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. If running locally set `RETHINK_HOST` to `localhost` and leave `RETHINK_AUTH_KEY` empty.
-2. Run with `npm run chateau` from directory `fauna/`.
-3. Go to `http://localhost:3000/`.
+1. Start a local rethinkdb server by running `rethinkdb`, then switch to a new terminal.
+2. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. If running locally set `RETHINK_HOST` to `localhost` and leave `RETHINK_AUTH_KEY` empty.
+3. Run with `npm run chateau` from directory `fauna/`.
+4. Go to `http://localhost:3000/`.
 
 Chateau configurations are stored in [`config.js`](config.js).
 
