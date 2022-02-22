@@ -417,7 +417,7 @@ class flu_upload(upload):
             "gadwall", "gallinulachloropus","gallus", "gallusgallus", "gallusgallusdomesticus",
             "goose", "graculareligiosa", "great__black__headed__gull", "garrulaxcanorus", "garganey",
             "glaucous-wingedgull",
-            "great__crested__grebe", "greatbustard", "great__bustard","greattit",
+            "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
             "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
             "green__winged__teal","green-wingedteal", 
             "grey__heron", "guineafowl", "gull","halietusleucocephalus",
@@ -436,8 +436,10 @@ class flu_upload(upload):
             "openbill__stork","oreortyx", "ostrich", "oystercatcher", "otheravian",
             "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
-            "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasaniussp.","pheasant",
-            "penguin","peregrine__falcon", "pigeon", "pink__footed__goose", "polyplectronbicalcaratum", 
+            "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasianus",
+            "phasaniussp.","pheasant","phasaniuscolchicus",
+            "penguin","peregrine__falcon", "picapica","pica","pigeon", "pink__footed__goose", 
+            "polyplectronbicalcaratum", "podicepscristatus",
             "poultry","pygoscelisantarcticus",
             "quail", "rails","rail","ring-neckedduck","rook", "ruddy__turnstone", "ruddyturnstone",
             "ruddyshelduck","rosy__billed__pochard","sacredibis",
@@ -452,14 +454,14 @@ class flu_upload(upload):
             "teal", "turkey", "tern","turtledove", "tree__sparrow", "us_quail", "waterfowl",
             "wild__turkey", "wildwaterfowl","white__bellied__bustard", 
             "white-frontedgoose", "white-frontedgoose",
-            "wild__chicken","wild__duck",
+            "wild__chicken","wild__duck","wildbirds",
             "whooper__swan","whooperswan", "wildbird", "yellow__billed__duck", "zosteropsjaponicus"]
         environment_list = [
             "feces", "otherenvironment", "surfaceswab", "watersample", "environment",
             "airsample"]
         nonhuman_mammal_list = [
-            "bat", "canine", "equine", "feline", "mammals", "mink", "othermammals",
-            "swine", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
+            "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
+            "primate","swine", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
             "dog", "large__cat", "pika","seal","meerkat"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
