@@ -189,7 +189,9 @@ CampoGrande	Brazil	MatoGrosso	CampoGrande
 Canoas	Brazil	RioGrandeDoSul	Canoas
 Ceara	Brazil	Ceara	Ceara
 Ceilandia	Brazil	DistritoFederal	Ceilandia
+Corumba	Brazil	MatoGrossoDoSul	Corumba
 Cruzeiro	Brazil	SaoPaulo	Cruzeiro
+Cuiaba	Brazil	MatoGrosso	Cuiaba
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
 Cuiabamt	Brazil	MatoGrosso	Cuiaba
 DistritoFederal	Brazil	DistritoFederal	DistritoFederal
@@ -245,6 +247,7 @@ RibeiraoPreto	Brazil	SaoPaulo	RibeiraoPreto
 Ribeiraopretosaopaulo	Brazil	SaoPaulo	RibeiraoPreto
 RioDeJaneiro	Brazil	RioDeJaneiro	RioDeJaneiro
 RioGrandeDoNorte	Brazil	RioGrandeDoNorte	RioGrandeDoNorte
+RioVerde	Brazil	Goias	RioVerde
 Rondonia	Brazil	Rondonia	Rondonia
 Roraima	Brazil	Roraima	Roraima
 RioDoSul	Brazil	SantaCatarina	RioDoSul
@@ -263,6 +266,7 @@ Sergipe	Brazil	Brazil	Sergipe
 Salvador	Brazil	Bahia	Salvador
 TaboaoDaSerra	Brazil	SaoPaulo	TaboaoDaSerra
 Taubate	Brazil	SaoPaulo	Taubate
+Teresina	Brazil	Piaui	Teresina
 Tocantins	Brazil	Brazil	Tocantins
 TresLagoas	Brazil	MatoGrossoDoSul	TresLagoas
 Uberlandia	Brazil	MinasGerais	Uberlandia
@@ -2359,6 +2363,7 @@ Tver	Russia	Tver	Tver
 Tyva	Russia	Tyva	Tyva
 Tyumen	Russia	Tyumen	Tyumen
 Ufa	Russia	Bashkortostan	Ufa
+Uglich	Russia	Yaroslavl	Uglich
 UlanUde	Russia	Buryatia	UlanUde
 Ulyanovsk	Russia	Ulyanovsk	Ulyanovsk
 Urengoy	Russia	Yamalia	Urengoy
