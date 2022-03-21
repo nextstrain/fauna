@@ -1,10 +1,6 @@
 # ZIKA Pipeline Notes
 
-## Download
-
-    python3 vdb/zika_download.py -db vdb -v zika --fstem zika --resolve_method choose_genbank
-
-## Upload
+## Upload via ViPR and update citations
 
 ### [ViPR sequences](https://www.viprbrc.org/brc/vipr_genome_search.spg?method=ShowCleanSearch&decorator=flavi_zika)
 
@@ -16,21 +12,54 @@
 3. Upload to vdb database
   * `python3 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomicFastaResults.fasta`
 
-### [Fred Hutch sequences](https://github.com/blab/zika-usvi/tree/master/data)
-
-Upload with:
-
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands" --fname zika_usvi_good.fasta
-
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-usvi/ --title "Genetic characterization of the Zika virus epidemic in the US Virgin Islands" --fname zika_usvi_partial.fasta
-
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-good.fasta
-
-    python2 vdb/zibra_upload.py -db vdb -v zika --source fh --locus genome --authors "Black et al" --url https://github.com/blab/zika-colombia/ --title "Genomic epidemiology supports multiple introductions and cryptic transmission of Zika virus in Colombia" --fname ZIKA-COL-partial.fasta
-
-## Update
+### Update
 
 * Update citation fields
   * `python2 vdb/zika_update.py -db vdb -v zika --update_citations`
   * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
+
+## Download from Fauna, parse, compress and push to S3
+
+### Download from Fauna
+
+```
+python3 vdb/download.py \
+  --database vdb \
+  --virus zika \
+  --fasta_fields strain virus accession collection_date region country division location source locus authors url title journal puburl \
+  --resolve_method choose_genbank \
+  --fstem zika
+```
+
+This results in the file `data/zika.fasta` with FASTA header ordered as above.
+
+### Parse
+
+```
+augur parse \
+  --sequences data/zika.fasta \
+  --output-sequences data/sequences.fasta \
+  --output-metadata data/metadata.tsv \
+  --fields strain virus accession date region country division city db segment authors url title journal paper_url \
+  --prettify-fields region country division city
+```
+
+This results in the files `data/zika_sequences.fasta` and `data/zika_metadata.tsv`.
+
+### Compress
+
+```
+xz --compress data/sequences.fasta
+gzip data/metadata.tsv
+```
+
+This results in the files `data/sequences.fasta.xz` and `data/metadata.tsv.gz`.
+
+### Push to S3
+
+```
+nextstrain remote upload s3://nextstrain-data/files/zika/ data/sequences.fasta.xz data/metadata.tsv.gz
+```
+
+This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.xz and https://data.nextstrain.org/files/zika/metadata.tsv.gz.
