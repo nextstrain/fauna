@@ -47,19 +47,19 @@ augur parse \
 
 This results in the files `data/sequences.fasta` and `data/metadata.tsv`.
 
-### Compress sequences
+### Compress
 
 ```
 xz --compress data/sequences.fasta
+gzip data/metadata.tsv
 ```
 
-This results in the files `data/sequences.fasta.xz`.
+This results in the files `data/sequences.fasta.xz` and `data/metadata.tsv.gz`.
 
 ### Push to S3
 
 ```
-mv data/metadata.tsv data/metadata.tsv.gz
 nextstrain remote upload s3://nextstrain-data/files/zika/ data/sequences.fasta.xz data/metadata.tsv.gz
 ```
 
-This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.xz and https://data.nextstrain.org/files/zika/metadata.tsv.gz. Text files are automatically gzipped on upload with `nextstrain remote upload` and so the file is renamed locally to compensate.
+This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.xz and https://data.nextstrain.org/files/zika/metadata.tsv.gz.
