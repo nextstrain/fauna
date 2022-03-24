@@ -269,6 +269,7 @@ Taubate	Brazil	SaoPaulo	Taubate
 Teresina	Brazil	Piaui	Teresina
 Tocantins	Brazil	Brazil	Tocantins
 TresLagoas	Brazil	MatoGrossoDoSul	TresLagoas
+Trindade	Brazil	Goias	Trindade
 Uberlandia	Brazil	MinasGerais	Uberlandia
 Vacaria	Brazil	RioGrandeDoSul	Vacaria
 Varzeagrandemt	Brazil	MatoGrosso	VarzeaGrande
@@ -902,6 +903,7 @@ Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
 Antibes	France	ProvenceAlpesCoteDAzur	Antibes
 Aquitaine	France	Aquitaine	Aquitaine
+Argenteuil	France	IleDeFrance	Argenteuil
 Auxonne	France	BourgogneFrancheComte	Auxonne
 Avignon	France	ProvenceAlpesCoteDAzur	Avignon
 Barjols	France	ProvenceAlpesCoteDAzur	Barjols
@@ -924,12 +926,14 @@ Corte	France	Corsica	Corte
 Chambery	France	AuvergneRhoneAlpes	Chambery
 Desgenettes	France	AuvergneRhoneAlpes	Lyon
 Dijon	France	BourgogneFrancheComte	Dijon
+Dunkerque	France	HautsDeFrance	Dunkerque
 FrancheComte	France	FrancheComte	FrancheComte
 Frejus	France	ProvenceAlpesCoteDAzur	Frejus
 Gigean	France	Herault	Gigean
 Grenoble	France	AuvergneRhoneAlpes	Grenoble
 Gueret	France	AquitaineLimousinPoitouCharentes	Gueret
 HauteNormandie	France	Normandy	HauteNormandie
+IleDeFrance	France	IleDeFrance	IleDeFrance
 LaReunion	France	SaintDenis	LaReunion
 LaRochelle	France	CharenteMaritime	LaRochelle
 LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
@@ -949,6 +953,7 @@ Nice	France	ProvenceAlpesCoteDAzur	Nice
 Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
 NordPasDeCalais	France	NordPasdeCalaisPicardie	NordPasDeCalais
 Oms	France	LanguedocRoussillonMidiPyrenees	Oms
+Orleans	France	Centre	Orleans
 Paris	France	IleDeFrance	Paris
 PaysDeLoire	France	PaysDeLaLoire	PaysDeLaLoire
 PaysDeLaLoire	France	PaysDeLaLoire	PaysDeLaLoire
@@ -2143,6 +2148,7 @@ Pedrojuancaballeroamambay	Paraguay	Amambay	PedroJuanCaballero
 Peru	Peru	Peru	Peru
 Ancon	Peru	Lima	Ancon
 Arequipa	Peru	Arequipa	Arequipa
+Bagua	Peru	Bagua	Bagua
 Chanchamayo	Peru	Junin	Chanchamayo
 Chorrillos	Peru	Lima	Chorrillos
 Cusco	Peru	Cusco	Cusco
@@ -2704,6 +2710,7 @@ Kampheangephet	Thailand	KamphaengPhet	KamphaengPhet
 KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet
 KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
+Lampang	Thailand	Lampang	Lampang
 Loei	Thailand	Loei	Loei
 LopBuri	Thailand	LopBuri	LopBuri
 Loei	Thailand	Loei	Loei
