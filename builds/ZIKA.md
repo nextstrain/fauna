@@ -1,5 +1,10 @@
 # ZIKA Pipeline Notes
 
+## Setup
+
+1. Start fauna rethinkdb server in a separate terminal.
+2. Make sure environment variables for connecting to fauna are set.
+
 ## Upload via ViPR and update citations
 
 ### [ViPR sequences](https://www.viprbrc.org/brc/vipr_genome_search.spg?method=ShowCleanSearch&decorator=flavi_zika)
@@ -9,13 +14,14 @@
   * Download as Genome Fasta
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
 2. Move downloaded sequences to `fauna/data`
-3. Upload to vdb database
+3. Extract `GenomicFastaResults.tar.gz` and rename the extracted file to `GenomicFastaResults.fasta`
+4. Upload to vdb database
   * `python3 vdb/zika_upload.py -db vdb -v zika --source genbank --locus genome --fname GenomicFastaResults.fasta`
 
 ### Update
 
 * Update citation fields
-  * `python2 vdb/zika_update.py -db vdb -v zika --update_citations`
+  * `python3 vdb/zika_update.py -db vdb -v zika --update_citations`
   * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again
 
@@ -63,3 +69,7 @@ nextstrain remote upload s3://nextstrain-data/files/zika/ data/sequences.fasta.x
 ```
 
 This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.xz and https://data.nextstrain.org/files/zika/metadata.tsv.gz.
+
+## Run zika workflow
+
+See instructions at https://github.com/nextstrain/zika.
