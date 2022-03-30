@@ -22,6 +22,15 @@
   sed 's:N/A:NA:g' >\
   GenomicFastaResults.fasta
   ```
+  
+  The search-and-replace commands (`tr`, `sed`) are necessary because the API downloads fasta headers similar to:
+
+  `>KY241742|ZIKV_SG_072|N/A|2016-08-28|Human|Singapore|Asian|Zika virus`
+  
+  but need to match the GUI downloaded headers similar to: 
+  
+  `>KY241742|ZIKV_SG_072|NA|2016_08_28|Human|Singapore|Asian|Zika_virus`
+
 
 2. Move downloaded sequences to `fauna/data`
 3. Extract `GenomicFastaResults.tar.gz` and rename the extracted file to `GenomicFastaResults.fasta`
