@@ -13,6 +13,16 @@
   * Select year >= 2013 and genome length >= 5000
   * Download as Genome Fasta
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Species
+  * May also use the [ViPR API](https://www.viprbrc.org/brc/staticContent.spg?decorator=reo&type=ViprInfo&subtype=API)
+
+  ```
+  curl -k "https://www.viprbrc.org/brc/api/sequence?datatype=genome&family=flavi&species=Zika%20virus&fromyear=2003&minlength=5000&metadata=genbank,strainname,segment,date,host,country,genotype,species&output=fasta" |\
+  tr '-' '_' |\
+  tr ' ' '_' |\
+  sed 's:N/A:NA:g' >\
+  GenomicFastaResults.fasta
+  ```
+
 2. Move downloaded sequences to `fauna/data`
 3. Extract `GenomicFastaResults.tar.gz` and rename the extracted file to `GenomicFastaResults.fasta`
 4. Upload to vdb database
