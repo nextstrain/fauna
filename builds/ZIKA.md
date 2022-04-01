@@ -2,8 +2,7 @@
 
 ## Setup
 
-1. Start fauna rethinkdb server in a separate terminal.
-2. Make sure environment variables for connecting to fauna are set.
+1. Make sure environment variables for connecting to fauna are set.
 
 ## Upload via ViPR and update citations
 
