@@ -15,7 +15,7 @@
   * May also use the [ViPR API](https://www.viprbrc.org/brc/staticContent.spg?decorator=reo&type=ViprInfo&subtype=API)
 
   ```
-  curl "https://www.viprbrc.org/brc/api/sequence?datatype=genome&family=flavi&species=Zika%20virus&fromyear=2003&minlength=5000&metadata=genbank,strainname,segment,date,host,country,genotype,species&output=fasta" |\
+  curl "https://www.viprbrc.org/brc/api/sequence?datatype=genome&family=flavi&species=Zika%20virus&fromyear=2013&minlength=5000&metadata=genbank,strainname,segment,date,host,country,genotype,species&output=fasta" |\
   tr '-' '_' |\
   tr ' ' '_' |\
   sed 's:N/A:NA:g' >\
