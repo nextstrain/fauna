@@ -1689,6 +1689,7 @@ Beirut	Lebanon	Beirut	Beirut
 Beqaa	Lebanon	Beqaa	Beqaa
 Byblos	Lebanon	MountLebanon	Byblos
 Hermel	Lebanon	Baalbek-Hermel	Hermel
+Ksara	Lebanon	Beqaa	Ksara
 Matn	Lebanon	MountLebanon	Matn
 MiniyehDanniyeh	Lebanon	NorthLebanon	MiniyehDanniyeh
 Nabatieh	Lebanon	Nabatieh	Nabatieh
@@ -2085,6 +2086,7 @@ Ibra	Oman	AshSharqiyah	Ibra
 Ibri	Oman	AdDhahirah	Ibri
 JalanBaniBuAli	Oman	AshSharqiyah	JalanBaniBuAli
 Khasab	Oman	Musandam	Khasab
+Mahout	Oman	AlWusta	Mahout
 Muqshin	Oman	Dhofar	Muqshin
 Muscat	Oman	AshSharqiyah	Muscat
 Muttrah	Oman	Muscat	Muttrah
@@ -2936,6 +2938,7 @@ Chepstow	UnitedKingdom	Wales	Chepstow
 Cheshire	UnitedKingdom	England	Cheshire
 Chester	UnitedKingdom	England	Chester
 Chirk	UnitedKingdom	Wales	Chirk
+ChurchVillage	UnitedKingdom	Wales	ChurchVillage
 Cirencester	UnitedKingdom	England	Cirencester
 CityofLondon	UnitedKingdom	England	London
 CityofSouthampton	UnitedKingdom	England	Southampton
@@ -3027,6 +3030,7 @@ Oxfordshire	UnitedKingdom	England	Oxfordshire
 Pembroke	UnitedKingdom	Wales	Pembroke
 Penarth	UnitedKingdom	Wales	Penarth
 Pencader	UnitedKingdom	Wales	Pencader
+Pencoed	UnitedKingdom	Wales	Pencoed
 Peterborough	UnitedKingdom	England	Peterborough
 Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
@@ -3059,6 +3063,7 @@ Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
 Senghenydd	UnitedKingdom	Wales	Senghenydd
 Sheffield	UnitedKingdom	England	Sheffield
+Sketty	UnitedKingdom	Wales	Sketty
 Somerset	UnitedKingdom	England	Somerset
 Southampton	UnitedKingdom	England	Southampton
 Stevenage	UnitedKingdom	England	Stevenage
