@@ -8,14 +8,39 @@
   * Select genome length >= 5000
   * Download as Genome FASTA
   * Set Custom Format Fields to 0: GenBank Accession, 1: Strain Name, 2: Segment, 3: Date, 4: Host, 5: Country, 6: Subtype, 7: Virus Type
-2. Move downloaded sequences to `fauna/GenomicFastaResults.fasta`
-3. Upload to vdb database
-  * `python3 vdb/dengue_upload.py -db vdb -v dengue --source genbank --locus genome --fname GenomicFastaResults.fasta`
+
+3. Move downloaded sequences to `fauna/data/GenomicFastaResults.fasta`
+
+  ```
+  cd fauna
+  mkdir -p data
+  mv ~/Downloads/GenomicFastaResults.tar.gz data/.
+  tar -xf data/GenomicFastaResults.tar.gz
+  mv data/*GenomicFastaResults.fasta data/GenomicFastaResults.fasta
+  ```
+  
+4. Upload to vdb database
+
+  ```
+  python3 vdb/dengue_upload.py \
+    -db vdb \
+    -v dengue \
+    --source genbank \
+    --locus genome \
+    --fname GenomicFastaResults.fasta
+  ```
 
 ## Update
 
 * Update citation fields
-  * `python3 vdb/dengue_update.py -db vdb -v dengue --update_citations`
+
+  ```
+  python3 vdb/dengue_update.py \
+    -db vdb \
+    -v dengue \
+    --update_citations
+  ```
+  
   * updates `authors`, `title`, `url`, `journal` and `puburl` fields from genbank files
   * If you get `ERROR: Couldn't connect with entrez, please run again` just run command again    
 
