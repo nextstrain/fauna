@@ -202,6 +202,7 @@ Garanhuns	Brazil	Pernambuco	Garanhuns
 Goiania	Brazil	Goias	Goiania
 Goianesia	Brazil	Goias	Goianesia
 Goias	Brazil	Goias	Goias
+Guaracai	Brazil	SaoPaulo	Guaracai
 Guaratingueta	Brazil	SaoPaulo	Guaratingueta
 ItapecericaDaSerra	Brazil	SaoPaulo	ItapecericaDaSerra
 Itapevi	Brazil	SaoPaulo	Itapevi
@@ -1491,6 +1492,7 @@ Enna	Italy	Sicily	Enna
 Florence	Italy	Tuscany	Florence
 FriuliVeneziaGiulia	Italy	FriuliVeneziaGiulia	FriuliVeneziaGiulia
 Genoa	Italy	Liguria	Genoa
+Gorizia	Italy	FriuliVeneziaGiulia	Gorizia
 Lazio	Italy	Lazio	Lazio
 Messina	Italy	Sicily	Messina
 Milan	Italy	Lombardy	Milan
@@ -2918,6 +2920,7 @@ BetwysYCoed	UnitedKingdom	Wales	BetwysYCoed
 Birmingham	UnitedKingdom	England	Birmingham
 Blackwood	UnitedKingdom	Wales	Blackwood
 BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
+Blaenavon	UnitedKingdom	Wales	Blaenavon
 Brackla	UnitedKingdom	Wales	Brackla
 Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
@@ -2928,6 +2931,7 @@ Buckley	UnitedKingdom	Wales	Buckley
 BurryPort	UnitedKingdom	Wales	BurryPort
 Caerleon	UnitedKingdom	Wales	Caerleon
 Caldicot	UnitedKingdom	Wales	Caldicot
+Caernarfon	UnitedKingdom	Wales	Caernarfon
 Caerphilly	UnitedKingdom	Wales	Caerphilly
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
@@ -2944,6 +2948,7 @@ ChurchVillage	UnitedKingdom	Wales	ChurchVillage
 Cirencester	UnitedKingdom	England	Cirencester
 CityofLondon	UnitedKingdom	England	London
 CityofSouthampton	UnitedKingdom	England	Southampton
+Clydach	UnitedKingdom	Wales	Clydach
 Co.Durham	UnitedKingdom	England	CountyDurham
 Colchester	UnitedKingdom	England	Colchester
 ColwynBay	UnitedKingdom	Wales	ColwynBay
@@ -2965,6 +2970,7 @@ England	UnitedKingdom	England	England
 Exeter	UnitedKingdom	England	Exeter
 Feltham	UnitedKingdom	England	Feltham
 Flint	UnitedKingdom	Wales	Flint
+Ferndale	UnitedKingdom	Wales	Ferndale
 GerrardsCross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
 Glasgow	UnitedKingdom	Scotland	Glasgow
@@ -3002,6 +3008,7 @@ Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 London	UnitedKingdom	England	London
 Luton	UnitedKingdom	England	Luton
+Machen	UnitedKingdom	Wales	Machen
 Machynlleth	UnitedKingdom	Wales	Machynlleth
 Maerdy	UnitedKingdom	Wales	Maerdy
 Maesteg	UnitedKingdom	Wales	Maesteg
@@ -3039,6 +3046,7 @@ Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
 Pontardawe	UnitedKingdom	Wales	Pontardawe
 Pontardulais	UnitedKingdom	Wales	Pontardulais
+Pontprennau	UnitedKingdom	Wales	Pontprennau
 Pontyclun	UnitedKingdom	Wales	Pontyclun
 Pontypool	UnitedKingdom	Wales	Pontypool
 Pontypridd	UnitedKingdom	Wales	Pontypridd
@@ -3054,6 +3062,7 @@ Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
 Rhyl	UnitedKingdom	Wales	Rhyl
+Rhymney	UnitedKingdom	Wales	Rhymney
 Risca	UnitedKingdom	Wales	Risca
 Riverside	UnitedKingdom	Wales	Riverside
 Roath	UnitedKingdom	Wales	Roath
@@ -3071,6 +3080,7 @@ Somerset	UnitedKingdom	England	Somerset
 Southampton	UnitedKingdom	England	Southampton
 Stevenage	UnitedKingdom	England	Stevenage
 Steyning	UnitedKingdom	England	Steyning
+StMellons	UnitedKingdom	Wales	StMellons
 Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
 Telford	UnitedKingdom	England	Telford

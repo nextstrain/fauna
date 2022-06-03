@@ -506,6 +506,8 @@ Friuli-VeneziaGiulia	FriuliVeneziaGiulia
 FriuliVeneziaGiuliaPN	Pordenone
 FriuliVeneziaGiuliaTS	Trieste
 FriuliVeneziaGiuliaUD	Udine
+FVG-Gorizia	Gorizia
+FVG-Pordenone	Pordenone
 FVG-Trieste	Trieste
 Genova	Genoa
 MIlano	Milan
@@ -546,6 +548,7 @@ East_KazakhstanNRL	EastKazakhstan
 SouthKazakhstanNRL	SouthKazakhstan
 Almatinskaya_KazNRL	Almaty
 Karaganda_KazNRL	Karaganda
+Karaganda_region	Karaganda
 Akmolinskaya_NRL	Akmola
 Kysylorda_KazNRL	Kyzylorda
 Kyzylorda_NRL	Kyzylorda
@@ -1051,6 +1054,7 @@ United_Arab_Emirates	UnitedArabEmirates
 Abertysswgy	Abertysswg
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
+Merthyr_Tydfil	MerthyrTydfil
 NIreland	NorthernIreland
 ChristHospital	ChristsHospital
 United_Kingdom	UnitedKingdom
