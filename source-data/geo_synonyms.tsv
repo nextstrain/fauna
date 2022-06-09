@@ -922,6 +922,7 @@ Centre	France	Centre	Centre
 ChampagneArdenne	France	AlsaceChampagneArdenneLorraine	ChampagneArdenne
 ClermontFerrand	France	AuvergneRhoneAlpes	ClermontFerrand
 Contamines	France	AuvergneRhoneAlpes	Contamines
+Coquelles	France	HautsDeFrance	Coquelles
 Corsica	France	Corsica	Corsica
 Corte	France	Corsica	Corte
 Chambery	France	AuvergneRhoneAlpes	Chambery
@@ -930,6 +931,7 @@ Dijon	France	BourgogneFrancheComte	Dijon
 Dunkerque	France	HautsDeFrance	Dunkerque
 FrancheComte	France	FrancheComte	FrancheComte
 Frejus	France	ProvenceAlpesCoteDAzur	Frejus
+Garches	France	IleDeFrance	Garches
 Gigean	France	Herault	Gigean
 Grenoble	France	AuvergneRhoneAlpes	Grenoble
 Gueret	France	AquitaineLimousinPoitouCharentes	Gueret
@@ -939,6 +941,7 @@ LaReunion	France	SaintDenis	LaReunion
 LaRochelle	France	CharenteMaritime	LaRochelle
 LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
 LeCannet	France	ProvenceAlpesCoteDAzur	LeCannet
+LeChesnay	France	IleDeFrance	LeChesnay
 LeMans	France	PaysDeLaLoire	LeMans
 Libourne	France	NouvelleAquitaine	Libourne
 Lille	France	NordPasDeCalais	Lille
@@ -2355,6 +2358,7 @@ Reshoty	Russia	Pskov	Reshoty
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
 Ryazan	Russia	Ryazan	Ryazan
+Sakhalin	Russia	Sakhalin	Sakhalin
 Sartlan	Russia	Novosibirsk	Sartlan
 StPetersburg	Russia	StPetersburg	StPetersburg
 Salekhard	Russia	Yamalia	Salekhard
@@ -3200,6 +3204,7 @@ Memphis	USA	Tennessee	Memphis
 Nashville	USA	Tennessee	Nashville
 Newark	USA	NewJersey	Newark
 NewBern	USA	NorthCarolina	NewBern
+NewYorkCity	USA	NewYork	NewYorkCity
 OrangeCounty	USA	California	OrangeCounty
 Pendleton	USA	Oregon	Pendleton
 Pensacola	USA	Florida	Pensacola
