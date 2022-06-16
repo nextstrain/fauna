@@ -542,7 +542,6 @@ Almatinskay	Almaty
 AlmaAta	Almaty
 Almaty_NRL	Almaty
 Kazakstan	Kazakhstan
-Ustkamenogosk	Oskemen
 North_KazakhstanNRL	NorthKazakhstan
 West_KazakhstanNRL	WestKazakhstan
 East_KazakhstanNRL	EastKazakhstan
@@ -556,7 +555,10 @@ Kyzylorda_NRL	Kyzylorda
 Oskemen_NRL	Oskemen
 Taldykorgan_NRL	Taldykorgan
 Taraz_NRL	Taraz
+Turkestan	Turkistan
 Turkestan_NRL	Turkistan
+Ustkamenogosk	Oskemen
+Ust-Kamenogorsk	Oskemen
 
 # Kenya
 KENYA CP	Kenya
@@ -1056,13 +1058,16 @@ United_Arab_Emirates	UnitedArabEmirates
 Abertysswgy	Abertysswg
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
+Dinas_Powys	DinasPowys
 Merthyr_Tydfil	MerthyrTydfil
+New_Tredegar	NewTredegar
 NIreland	NorthernIreland
 ChristHospital	ChristsHospital
 United_Kingdom	UnitedKingdom
 ENG	England
 Eng	England
 Angelsey	Anglesey
+Senghennyd	Senghenydd
 StAsaph	SaintAsaph
 StClears	SaintClears
 
