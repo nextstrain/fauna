@@ -446,6 +446,7 @@ Ytml	Yavatmal
 Srinagar	Srinigar
 
 # Indonesia
+Ambon	KotaAmbon
 Bandungjava	Bandung
 Bukitlianggi	Bukittinggi
 Central_Java	CentralJava
@@ -932,6 +933,7 @@ Kyounggi	Gyeonggi
 Pusan	Busan
 Cheju	Jeju
 seoul	Seoul
+Sth_Korea	SouthKorea
 
 # SouthAfrica
 Capetown	CapeTown
@@ -1136,7 +1138,7 @@ Bac_Lieu	BacLieu
 Ba_Ria-Vung_Tau	BaRia-VungTau
 Ba_Ria-Vung_Tau	BaRia-VungTau
 BaRiaVungTau	BaRia-VungTau
-Ca_Mau	CaMau
+CaMau	CaMau
 Cao_Bang	CaoBang
 HaNoi	Hanoi
 Ha_Tinh	HaTinh
@@ -1144,9 +1146,12 @@ Hai_Duong	HaiDuong
 Hau_Giang	HauGiang
 Lang_Son	LangSon
 Long_An	LongAn
+Mong_Cai	MongCai
 Nam_Dinh	NamDinh
 Nghe_An	NgheAn
+NigheAn	NgheAn
 Ninh_Binh	NinhBinh
+Phu_Tho	PhuTho
 Quang_Ninh	QuangNinh
 Quang_Tri	QuangTri
 QuanhNinh	QuangNinh
