@@ -1331,12 +1331,15 @@ Indramayu	Indonesia	Java	Indramayu
 Jakarta	Indonesia	Jakarta	Jakarta
 Jambi	Indonesia	Sumatra	Jambi
 Java	Indonesia	Java	Java
+Jayapura	Indonesia	Papua	Jayapura
 Jembrana	Indonesia	Bali	Jembrana
 Jombang	Indonesia	Java	Jombang
 Kapuas	Indonesia	Borneo	Kapuas
 Kediri	Indonesia	Java	Kediri
 Klapanunggal	Indonesia	Java	Klapanunggal
 Klaten	Indonesia	Java	Klaten
+KonaweSelatan	Indonesia	Sulawesi	KonaweSelatan
+KotaAmbon	Indonesia	Maluku	KotaAmbon
 Kudus	Indonesia	Java	Kudus
 Kuningan	Indonesia	Java	Kuningan
 LampungUtara	Indonesia	Sulawesi	LampungUtara
@@ -1355,6 +1358,7 @@ NorthSumamatera	Indonesia	Sumatra	NorthSumatra
 NorthSulawesi	Indonesia	Sulawesi	NorthSulawesi
 Palembangsumatra	Indonesia	Sumatra	Palembang
 Palu	Indonesia	Sulawesi	Palu
+Papua	Indonesia	Papua	Papua
 Pangkalpinang	Indonesia	BangkaBelitung	Pangkalpinang
 Parung	Indonesia	Java	Parung
 Payakumbuh	Indonesia	Sumatra	Payakumbuh
@@ -3282,9 +3286,11 @@ KhanhHoa	Vietnam	KhanhHoa	KhanhHoa
 LangSon	Vietnam	LangSon	LangSon
 LongAn	Vietnam	LongAn	LongAn
 Mekongdelta	Vietnam	MekongDelta	MekongDelta
+MongCai	Vietnam	QuangNinh	MongCai
 NamDinh	Vietnam	NamDinh	NamDinh
 NgheAn	Vietnam	NgheAn	NgheAn
 NinhBinh	Vietnam	NinhBinh	NinhBinh
+PhuTho	Vietnam	PhuTho	PhuTho
 QuangNinh	Vietnam	QuangNinh	QuangNinh
 QuangTri	Vietnam	QuangTri	QuangTri
 SocTrang	Vietnam	SocTrang	SocTrang
