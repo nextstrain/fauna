@@ -1,4 +1,4 @@
-import os, re, time, datetime, csv, sys, json
+import os, re, time, datetime, csv, sys, json, math
 import numpy as np
 from rethinkdb import r
 from Bio import SeqIO
@@ -338,7 +338,6 @@ class flu_upload(upload):
         # This is to avoid issues where the random id happens to match a location like
         # "A/chicken/Hubei/wi/1997" getting converted to "A/chicken/Hubei/Wisconsin/1997"
         for index, label in enumerate(split_name[:-2]):
-            #print(label, split_name)
             if label.replace(' ', '').lower() in self.label_to_fix:
                 split_name[index] = self.label_to_fix[label.replace(' ', '').lower()]
         name = '/'.join(split_name)
@@ -419,7 +418,7 @@ class flu_upload(upload):
             "glaucous-wingedgull",
             "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
             "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
-            "green__winged__teal","green-wingedteal", 
+            "green__winged__teal","green-wingedteal", "grey__teal",
             "grey__heron", "guineafowl", "gull","halietusleucocephalus",
             "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
             "heron", "hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
@@ -451,7 +450,7 @@ class flu_upload(upload):
             "streptopeliadecaocto",
             "stork", "swiftlet", 
             "tachybaptusruficollis","tadornaferuginea","tadornatadorna",
-            "teal", "turkey", "tern","turtledove", "tree__sparrow", "us_quail", "waterfowl",
+            "teal", "turkey", "tern","turtledove", "tree__sparrow", "us_quail", "waterbird","waterfowl",
             "wild__turkey", "wildwaterfowl","white__bellied__bustard", 
             "white-frontedgoose", "white-frontedgoose",
             "wild__chicken","wild__duck","wildbirds",
@@ -608,7 +607,7 @@ class flu_upload(upload):
                 temp_subtype = v['Subtype'].lower()
             del v['Subtype']
         if 'Lineage' in v:
-            if v['Lineage'] is not None:
+            if v['Lineage'] is not None and math.isnan(v['Lineage']) != True:
                 temp_lineage = v['Lineage'].lower()
             del v['Lineage']
         if (temp_subtype, temp_lineage) in patterns:  #look for pattern from GISAID fasta file

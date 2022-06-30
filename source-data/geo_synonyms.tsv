@@ -110,6 +110,7 @@ Bahrain	Bahrain	Bahrain	Bahrain
 
 # Bangladesh
 Bangladesh	Bangladesh	Bangladesh	Bangladesh
+Chattogram	Bangladesh	Bangladesh	Chattogram
 Dhaka	Bangladesh	Bangladesh	Dhaka
 
 # Barbados
@@ -1370,6 +1371,7 @@ Semarang	Indonesia	Java	Semarang
 Sembawa	Indonesia	Java	Sembawa
 SouthKalimantan	Indonesia	Borneo	SouthKalimantan
 SouthSumatra	Indonesia	Sumatra	SouthSumatra
+SidenrengRappang	Indonesia	Sulawesi	SidenrengRappang
 Sukabumi	Indonesia	Java	Sukabumi
 Sumatra	Indonesia	Sumatra	Sumatra
 Surabaya	Indonesia	JawaTimur	Surabaya
@@ -1383,6 +1385,7 @@ Sulawesi	Indonesia	Sulawesi	Sulawesi
 SulawesiSelatan	Indonesia	Sulawesi	Sulawesi
 Sukoharjo	Indonesia	Java	Sukoharjo
 TanahDatar	Indonesia	Sumatra	TanahDatar
+Tanggamus	Indonesia	Sumatra	Tanggamus
 Tasikmalaya	Indonesia	Java	Tasikmalaya
 Temanggung	Indonesia	Java	Temanggung
 Wates	Indonesia	Java	Wates
@@ -1710,6 +1713,9 @@ Tyre	Lebanon	SouthLebanon	Tyre
 Zahle	Lebanon	Beqaa	Zahle
 Zgharta	Lebanon	NorthLebanon	Zgharta
 
+# Lesotho
+Lesotho	Lesotho	Lesotho	Lesotho
+
 # Liberia
 Liberia	Liberia	Liberia	Liberia
 Bomi	Liberia	Bomi	Bomi
@@ -1777,6 +1783,7 @@ Malaysia	Malaysia	Malaysia	Malaysia
 Johorbahru	Malaysia	Johor	JohorBahru
 Kualalumpur	Malaysia	Malaysia	KualaLumpur
 Klangvalley	Malaysia	KlangValley	KlangValley
+Sabah	Malaysia	Sabah	Sabah
 Subang	Malaysia	Selangor	Subang
 
 # Maldives
