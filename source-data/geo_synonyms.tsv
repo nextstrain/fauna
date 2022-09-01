@@ -169,6 +169,7 @@ Alagoas	Brazil	Alagoas	Alagoas
 Amazonas	Brazil	Amazonas	Amazonas
 Amapa	Brazil	Amapa	Amapa
 Anapolis	Brazil	Goias	Anapolis
+AntonioJoao	Brazil	MatoGrossoDoSul	AntonioJoao
 Arapiraca	Brazil	Alagoas	Arapiraca
 Aquidauana	Brazil	MatoGrossoDoSul	Aquidauana
 Bahia	Brazil	Bahia	Bahia
@@ -196,6 +197,7 @@ Cuiaba	Brazil	MatoGrosso	Cuiaba
 Cuiabamatogrosso	Brazil	MatoGrosso	Cuiaba
 Cuiabamt	Brazil	MatoGrosso	Cuiaba
 DistritoFederal	Brazil	DistritoFederal	DistritoFederal
+Dourados	Brazil	MatoGrossoDoSul	Dourados
 Dracena	Brazil	SaoPaulo	Dracena
 EspiritoSanto	Brazil	EspiritoSanto	EspiritoSanto
 FeiraDeSantana	Brazil	Bahia	FeiraDeSantana
@@ -205,9 +207,11 @@ Goianesia	Brazil	Goias	Goianesia
 Goias	Brazil	Goias	Goias
 Guaracai	Brazil	SaoPaulo	Guaracai
 Guaratingueta	Brazil	SaoPaulo	Guaratingueta
+Inocencia	Brazil	MatoGrossoDoSul	Inocencia
 ItapecericaDaSerra	Brazil	SaoPaulo	ItapecericaDaSerra
 Itapevi	Brazil	SaoPaulo	Itapevi
 Jacarei	Brazil	SaoPaulo	Jacarei
+Jardim	Brazil	MatoGrossoDoSul	Jardim
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
 Lorena	Brazil	SaoPaulo	Lorena
 Manausam	Brazil	Amazonas	Manaus
@@ -239,6 +243,7 @@ PilardoSul	Brazil	SaoPaulo	PilardoSul
 Parana	Brazil	Parana	Parana
 Poconemt	Brazil	MatoGrosso	Pocone
 Pompeia	Brazil	SaoPaulo	Pompeia
+PontaPora	Brazil	MatoGrossoDoSul	PontaPora
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Portovelhopv	Brazil	Rondonia	PortoVelho
 Presidentevenceslau	Brazil	SaoPaulo	PresidenteVenceslau
@@ -253,6 +258,7 @@ RioGrandeDoNorte	Brazil	RioGrandeDoNorte	RioGrandeDoNorte
 RioVerde	Brazil	Goias	RioVerde
 Rondonia	Brazil	Rondonia	Rondonia
 Roraima	Brazil	Roraima	Roraima
+RioBrilhante	Brazil	MatoGrossoDoSul	RioBrilhante
 RioDoSul	Brazil	SantaCatarina	RioDoSul
 RioGrandeDoSul	Brazil	RioGrandeDoSul	RioGrandeDoSul
 SantaCatarina	Brazil	SantaCatarina	SantaCatarina
@@ -266,6 +272,7 @@ Santossaopaulo	Brazil	SaoPaulo	Santos
 Sanharo	Brazil	Pernambuco	Sanharo
 Spsaojosedoriopreto	Brazil	SaoJoseDoRioPreto	SaoJoseDoRioPreto
 Sergipe	Brazil	Brazil	Sergipe
+SonoraBrazil	Brazil	MatoGrossoDoSul	Sonora
 Salvador	Brazil	Bahia	Salvador
 TaboaoDaSerra	Brazil	SaoPaulo	TaboaoDaSerra
 Taubate	Brazil	SaoPaulo	Taubate
@@ -2669,11 +2676,13 @@ Linkoping	Sweden	Ostergotland	Linkoping
 Loddekopinge	Sweden	Skane	Loddekopinge
 Lulea	Sweden	Norrbotten	Lulea
 Lund	Sweden	Skane	Lund
+Lycksele	Sweden	Vasterbotten	Lycksele
 Malmo	Sweden	Skane	Malmo
 Mellerud	Sweden	VastraGotaland	Mellerud
 Norrkoping	Sweden	Ostergotland	Norrkoping
 Orebro	Sweden	Orebro	Orebro
 Ostersund	Sweden	Jamtland	Ostersund
+Skelleftea	Sweden	Vasterbotten	Skelleftea
 Skovde	Sweden	VastraGotaland	Skovde
 Sodertalje	Sweden	Stockholm	Sodertalje
 Stockholm	Sweden	Stockholm	Stockholm
