@@ -40,9 +40,10 @@ Install Python modules needed to run upload/download scripts:
     python3 -m pip install -r requirements.txt
 
 Install Chateau Web UI:
+> **_note_**: this step is optional and only required if you plan to use Chateau to explore the data
 
     cd chateau
-    npm install
+    npm install --production
 
 Backup and restore functionality requires the rethinkdb command line utility. This can be installed by following instructions [here](http://www.rethinkdb.com/docs/install/). With Homebrew, you can just do:
 
