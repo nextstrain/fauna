@@ -110,6 +110,7 @@ Puerto_Montt	PuertoMontt
 PuertoMont	PuertoMontt
 Punta_Arenas	PuntaArenas
 PtaArenas	PuntaArenas
+Sanmtiago	Santiago
 Valpara?so	Valparaiso
 Vi?a_del_Mar	VinaDelMar
 Vina_del_Mar	VinaDelMar
@@ -309,6 +310,8 @@ Lyonchu	Lyon
 Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
+Romans	RomansSurIsere
+Saint-Denis	SaintDenis
 Saint-MartindHeres	SaintMartinDHeres
 St-Etienne	StEtienne
 St_Etienne	StEtienne
@@ -510,6 +513,7 @@ Yedidia	KfarYedidia
 Ysodot	Yesodot
 
 # Italy
+Barletta-Andria-Trani	BarlettaAndriaTrani
 Firenze	Florence
 Friuli-VeneziaGiulia	FriuliVeneziaGiulia
 FriuliVeneziaGiuliaPN	Pordenone

@@ -431,6 +431,7 @@ Curico	Chile	Maule	Curico
 Gorbea	Chile	Araucania	Gorbea
 Easterisland	Chile	EasterIsland	EasterIsland
 HangaRoa	Chile	EasterIsland	EasterIsland
+Huasco	Chile	Atacama	Huasco
 Iquique	Chile	Tarapaca	Iquique
 IslaDePascua	Chile	Valparaiso	IslaDePascua
 LaSerena	Chile	Coquimbo	LaSerena
@@ -962,6 +963,7 @@ Marignier	France	AuvergneRhoneAlpes	Marignier
 Marseille	France	ProvenceAlpesCoteDAzur	Marseille
 Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
 Mougins	France	ProvenceAlpesCoteDAzur	Mougins
+Moulins	France	AuvergneRhoneAlpes	Moulins
 Nantes	France	PaysDeLaLoire	Nantes
 Nice	France	ProvenceAlpesCoteDAzur	Nice
 Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
@@ -982,7 +984,9 @@ Reunion	France	SaintDenis	Reunion
 Roanne	France	AuvergneRhoneAlpes	Roanne
 Rochefort	France	CharenteMaritime	Rochefort
 Rodez	France	Occitanie	Rodez
+RomansSurIsere	France	AuvergneRhoneAlpes	RomansSurIsere
 Rouen	France	Normandy	Rouen
+SaintDenis	France	IleDeFrance	SaintDenis
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintMartinDHeres	France AuvergneRhoneAlpes SaintMartinDHeres
@@ -1504,6 +1508,7 @@ Yesodot	Israel	Shephelah	Yesodot
 Italy	Italy	Italy	Italy
 Ancona	Italy	Marche	Ancona
 Bari	Italy	Apulia	Bari
+BarlettaAndriaTrani	Italy	Apulia	BarlettaAndriaTrani
 Bolzano	Italy	TrentinoAltoAdige	Bolzano
 Caserta	Italy	Caserta	Caserta
 Enna	Italy	Sicily	Enna
@@ -1512,6 +1517,7 @@ FriuliVeneziaGiulia	Italy	FriuliVeneziaGiulia	FriuliVeneziaGiulia
 Genoa	Italy	Liguria	Genoa
 Gorizia	Italy	FriuliVeneziaGiulia	Gorizia
 Lazio	Italy	Lazio	Lazio
+Lecce	Italy	Apulia	Lecce
 Messina	Italy	Sicily	Messina
 Milan	Italy	Lombardy	Milan
 Napoli	Italy	Campania	Napoli
