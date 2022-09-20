@@ -137,7 +137,7 @@ class flu_upload(upload):
             raise Exception(xls, "not found")
         else:
             df = pandas.read_excel(handle)
-            df = df.where((pd.notnull(df)), None)  # convert Nan type to None
+            #df = df.where((pd.notnull(df)), None)  # convert Nan type to None
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
@@ -200,7 +200,6 @@ class flu_upload(upload):
                     doc['gisaid_strain'] = doc['gisaid_strain'].replace(" ", "")
             else:
                 print("Missing strain name!")
-            print(doc)
             self.fix_casing(doc, args.data_source)
             self.fix_age(doc)
             self.format_host(doc)
@@ -388,7 +387,7 @@ class flu_upload(upload):
         avian_list = [
             "accipitercooperii","accipitergentilis", "accipiternisus", "accipitertrivirgatus","aixsponsa",
             "african__stonechat", "aixgalericulata", "alectorischukar", "american__black__duck",
-            "american__wigeon","americanwigeon", 
+            "americanpelican","american__wigeon","americanwigeon", "anade",
             "anassibilatrix","anasboschas", "anasacuta", "anasamericana", "anasfalcata",
             "anaspenelope","anasflavirostris","ansersp.","anseriformessp.","anasquerquedula",
             "anseranserdomesticus", "anserbrachyrhynchus", "ansercanagica","ansercaerulescens" ,
@@ -397,20 +396,20 @@ class flu_upload(upload):
             "anasdiscors"," anasfalcata","anasgeorgica","anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
             "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasplatyrhynchosvar.domesticus",
             "anasundalata", "anseranser", "anserfabalis", "anseralbifrons", "anthropoidesvirgo",
-            "anserindicus", "arenariainterpres",
+            "anserindicus", "arenariainterpres","ardeacinerea",
             "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
-            "avian", "bar__headed__goose","barnacle_goose", "beangoose","bird",
+            "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
             "barn__swallow", "brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
-            "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler",
+            "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler","black-headedgull",
             "buteobuteo","buteojamaicensis","buteojaponicus",
             "blue__winged__teal","blue-wingedteal","bluegoose", 
             "brantahutchinsii","brantacanadensis","brantaleucopsis",
             "cairinamoschata", "calidrisminutilla","canada__goose","chencaerulescens",
-            "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","common__pochard",
+            "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","ciconiaciconia","common__pochard",
             "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "common_teal","condor",
             "cooper'shawk","cormorant", "corvus", "copsychussaularis","corvusmacrorhynchos",
             "coturnix", "coturnixsp.", "coturniccoturnix", "coturnixjaponica",
-            "crane", "crow", "curlew", "cygnusatratus", "chinese__francolin",
+            "crane", "crow", "cygnus","cyrtonyxmontezumai","curlew", "cygnusatratus", "chinese__francolin",
             "chroicocephaluscirrocephalus","corvusfrugilegus",
             "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor",
             "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove", 
@@ -424,9 +423,9 @@ class flu_upload(upload):
             "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
             "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
             "green__winged__teal","green-wingedteal", "grey__teal",
-            "grey__heron", "guineafowl", "gull","halietusleucocephalus",
+            "grey__heron", "guineafowl", "gull","halietusleucocephalus","haliaeetusleucocephalus",
             "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
-            "heron", "hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
+            "heron", "herringgull","hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
             "larusarmenicus","larusschistisagus", "larusargentatus", "larusbrunnicephalus",
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans",
             "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull",
@@ -450,7 +449,7 @@ class flu_upload(upload):
             "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike", 
             "shorebird", "silky__chicken",
             "silverteal", "snow__goose","somateriamollissima",
-            "sparrow", "speckledpigeon","starling", "swan", "sterna",
+            "sparrow", "speckledpigeon","starling", "sternasandvicensis","swan", "sterna",
             "sternahirundo",
             "streptopeliadecaocto",
             "stork", "swiftlet", 
