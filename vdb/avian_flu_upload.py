@@ -1,5 +1,6 @@
 import os, re, time, datetime, csv, sys, json, math
 import numpy as np
+import pandas as pd
 from rethinkdb import r
 from Bio import SeqIO
 from Bio import AlignIO
@@ -136,7 +137,7 @@ class flu_upload(upload):
             raise Exception(xls, "not found")
         else:
             df = pandas.read_excel(handle)
-            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None
+            df = df.where((pd.notnull(df)), None)  # convert Nan type to None
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
@@ -192,12 +193,14 @@ class flu_upload(upload):
         self.define_regions("source-data/geo_regions.tsv")
         self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
+            #doc = doc.where(pd.notnull(doc), None)
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
                 if data_source == "gisaid":
                     doc['gisaid_strain'] = doc['gisaid_strain'].replace(" ", "")
             else:
                 print("Missing strain name!")
+            print(doc)
             self.fix_casing(doc, args.data_source)
             self.fix_age(doc)
             self.format_host(doc)
@@ -261,10 +264,12 @@ class flu_upload(upload):
         fix gisaid specific fields casing
         '''
         for field in ['originating_lab', 'submitting_lab']:
-            if field in doc and doc[field] is not None:
+            if field in doc and doc[field] is not None and pd.isna(doc[field]) == False:
+            #if field in doc and doc[field] is not None:
                 doc[field] = doc[field].replace(' ', '_').replace('-', '_').lower()
         for field in ['gender', 'host', 'locus']:
-            if field in doc and doc[field] is not None:
+            if field in doc and doc[field] is not None and pd.isna(doc[field]) == False:
+            #if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
                 doc[field] = doc[field].lstrip("_").rstrip("_")
         if 'accession' in doc and doc['accession'] is not None and data_source == 'gisaid':
@@ -607,7 +612,7 @@ class flu_upload(upload):
                 temp_subtype = v['Subtype'].lower()
             del v['Subtype']
         if 'Lineage' in v:
-            if v['Lineage'] is not None and math.isnan(v['Lineage']) != True:
+            if v['Lineage'] is not None and pd.isna(v['Lineage']) == False:
                 temp_lineage = v['Lineage'].lower()
             del v['Lineage']
         if (temp_subtype, temp_lineage) in patterns:  #look for pattern from GISAID fasta file
