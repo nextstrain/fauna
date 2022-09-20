@@ -136,8 +136,8 @@ class flu_upload(upload):
         except IOError:
             raise Exception(xls, "not found")
         else:
-            df = pandas.read_excel(handle)
-            #df = df.where((pd.notnull(df)), None)  # convert Nan type to None
+            df = pandas.read_excel(handle, dtype=object) # dtype=object is necessary so that the next line works. otherwise, we will get a mix of Nans and Nones. .where only works on dtype object. 
+            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None; Nones are passed to JSON null, but Nans are not, so nans give errors during the upload 
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
@@ -193,7 +193,6 @@ class flu_upload(upload):
         self.define_regions("source-data/geo_regions.tsv")
         self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         for doc in documents:
-            #doc = doc.where(pd.notnull(doc), None)
             if 'strain' in doc:
                 doc['strain'], doc['gisaid_strain'] = self.fix_name(doc['strain'])
                 if data_source == "gisaid":
@@ -263,12 +262,10 @@ class flu_upload(upload):
         fix gisaid specific fields casing
         '''
         for field in ['originating_lab', 'submitting_lab']:
-            if field in doc and doc[field] is not None and pd.isna(doc[field]) == False:
-            #if field in doc and doc[field] is not None:
+            if field in doc and doc[field] is not None:
                 doc[field] = doc[field].replace(' ', '_').replace('-', '_').lower()
         for field in ['gender', 'host', 'locus']:
-            if field in doc and doc[field] is not None and pd.isna(doc[field]) == False:
-            #if field in doc and doc[field] is not None:
+            if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
                 doc[field] = doc[field].lstrip("_").rstrip("_")
         if 'accession' in doc and doc['accession'] is not None and data_source == 'gisaid':
@@ -396,7 +393,7 @@ class flu_upload(upload):
             "anasdiscors"," anasfalcata","anasgeorgica","anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
             "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasplatyrhynchosvar.domesticus",
             "anasundalata", "anseranser", "anserfabalis", "anseralbifrons", "anthropoidesvirgo",
-            "anserindicus", "arenariainterpres","ardeacinerea",
+            "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha",
             "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
             "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
             "barn__swallow", "brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
@@ -464,7 +461,7 @@ class flu_upload(upload):
             "airsample"]
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
-            "primate","swine", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
+            "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
             "dog", "large__cat", "pika","seal","meerkat"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
@@ -611,7 +608,7 @@ class flu_upload(upload):
                 temp_subtype = v['Subtype'].lower()
             del v['Subtype']
         if 'Lineage' in v:
-            if v['Lineage'] is not None and pd.isna(v['Lineage']) == False:
+            if v['Lineage'] is not None:
                 temp_lineage = v['Lineage'].lower()
             del v['Lineage']
         if (temp_subtype, temp_lineage) in patterns:  #look for pattern from GISAID fasta file
