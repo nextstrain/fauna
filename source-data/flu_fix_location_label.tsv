@@ -76,7 +76,6 @@ British_Columbia	BritishColumbia
 Canada_SK	Saskatchewan
 Canada_QC	Quebec
 Canada_ON	Ontario
-ON	Ontario
 Canada_NWT	NorthwestTerritories
 Canada_NFL	NewfoundlandAndLabrador
 Canada_NB	NewBrunswick
@@ -419,7 +418,6 @@ Zakynthos_IslandGR	Zakynthos
 Gutemala	Guatemala
 
 # HongKong
-HK	HongKong
 Hong_Kong	HongKong
 Hongkong	HongKong
 HongKong2180	HongKong/2180
@@ -680,7 +678,6 @@ Kyaing_Tong	KyaingTong
 # Netherlands
 Netherland	Netherlands
 Netherlads	Netherlands
-NL	Netherlands
 NLDen_Oever	DenOever
 NLRoggebotsluis	Roggebotsluis
 NLVolendam	Volendam
