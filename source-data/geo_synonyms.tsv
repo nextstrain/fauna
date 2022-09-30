@@ -1346,6 +1346,7 @@ Java	Indonesia	Java	Java
 Jayapura	Indonesia	Papua	Jayapura
 Jembrana	Indonesia	Bali	Jembrana
 Jombang	Indonesia	Java	Jombang
+KabupatenBelitungTimor	Indonesia	BangkaBelitungIslands	KabupatenBelitungTimor
 Kapuas	Indonesia	Borneo	Kapuas
 Kediri	Indonesia	Java	Kediri
 Klapanunggal	Indonesia	Java	Klapanunggal
@@ -1376,6 +1377,7 @@ Parung	Indonesia	Java	Parung
 Payakumbuh	Indonesia	Sumatra	Payakumbuh
 Pekalongan	Indonesia	Java	Pekalongan
 Purwakarta	Indonesia	Java	Purwakarta
+Purworejo	Indonesia	Java	Purworejo
 Raas	Indonesia	Java	Raas
 Riau	Indonesia	Sumatra	Riau
 Semarang	Indonesia	Java	Semarang
@@ -1399,6 +1401,7 @@ TanahDatar	Indonesia	Sumatra	TanahDatar
 Tanggamus	Indonesia	Sumatra	Tanggamus
 Tasikmalaya	Indonesia	Java	Tasikmalaya
 Temanggung	Indonesia	Java	Temanggung
+Timika	Indonesia	Papua	Timika
 Wates	Indonesia	Java	Wates
 WestJava	Indonesia	Java	WestJava
 WestSumatra	Indonesia	Sumatra	WestSumatra
@@ -3303,10 +3306,13 @@ Aragua	Venezuela	Aragua	Aragua
 
 # Vietnam
 Vietnam	Vietnam	Vietnam	Vietnam
+AnGiang	Vietnam	AnGiang	AnGiang
 BacGiang	Vietnam	BacGiang	BacGiang
 BacNinh	Vietnam	BacNinh	BacNinh
 BacLieu	Vietnam	BacLieu	BacLieu
 BaRia-VungTau	Vietnam	BaRia-VungTau	BaRia-VungTau
+BenTre	Vietnam	BenTre	BenTre
+BinhDuong	Vietnam	BinhDuong	BinhDuong
 CaMau	Vietnam	CaMau	CaMau
 CaoBang	Vietnam	CaoBang	CaoBang
 DaNang	Vietnam	DaNang	DaNang
