@@ -74,19 +74,19 @@ This results in the files `data/sequences.fasta` and `data/metadata.tsv`.
 ### Compress
 
 ```
-xz --compress data/sequences.fasta
-gzip data/metadata.tsv
+zstd -T0 data/sequences.fasta
+zstd -T0 data/metadata.tsv
 ```
 
-This results in the files `data/sequences.fasta.xz` and `data/metadata.tsv.gz`.
+This results in the files `data/sequences.fasta.zst` and `data/metadata.tsv.zst`.
 
 ### Push to S3
 
 ```
-nextstrain remote upload s3://nextstrain-data/files/zika/ data/sequences.fasta.xz data/metadata.tsv.gz
+nextstrain remote upload s3://nextstrain-data/files/zika/ data/sequences.fasta.zst data/metadata.tsv.zst
 ```
 
-This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.xz and https://data.nextstrain.org/files/zika/metadata.tsv.gz.
+This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.zst and https://data.nextstrain.org/files/zika/metadata.tsv.zst.
 
 ## Run zika workflow
 
