@@ -25,9 +25,46 @@ python3 vdb/measles_upload.py \
 ## Download from fauna
 
 ```
-python3 vdb/measles_download.py \
-  -db vdb \
-  -v measles \
-  --fstem measles \
-  --resolve_method choose_genbank
+python3 vdb/download.py \
+  --database vdb \
+  --virus measles \
+  --fasta_fields strain virus accession collection_date region country division location source locus authors url title journal puburl \
+  --resolve_method choose_genbank \
+  --fstem measles
 ```
+
+This results in the file `data/measles.fasta` with FASTA header ordered as above.
+
+### Parse
+
+```
+augur parse \
+  --sequences data/measles.fasta \
+  --output-sequences data/sequences.fasta \
+  --output-metadata data/metadata.tsv \
+  --fields strain virus accession date region country division city db segment authors url title journal paper_url \
+  --prettify-fields region country division city
+```
+
+This results in the files `data/sequences.fasta` and `data/metadata.tsv`.
+
+### Compress
+
+```
+zstd -T0 data/sequences.fasta
+zstd -T0 data/metadata.tsv
+```
+
+This results in the files `data/sequences.fasta.zst` and `data/metadata.tsv.zst`.
+
+### Push to S3
+
+```
+nextstrain remote upload s3://nextstrain-data/files/measles/ data/sequences.fasta.zst data/metadata.tsv.zst
+```
+
+This pushes files to S3 to be made available at https://data.nextstrain.org/files/measles/sequences.fasta.zst and https://data.nextstrain.org/files/measles/metadata.tsv.zst.
+
+## Run measles workflow
+
+See instructions at https://github.com/nextstrain/measles.
