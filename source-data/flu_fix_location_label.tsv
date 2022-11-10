@@ -52,6 +52,7 @@ CeilandiaNorte	Ceilandia
 Espirito_Santo	EspiritoSanto
 Minas_Gerais	MinasGerais
 Osasaco	Osasco
+Paran?	Parana
 Rio_de_Janeiro	RioDeJaneiro
 RioGdeSul	RioGrandeDoSul
 RioGdoSul	RioGrandeDoSul
@@ -312,6 +313,7 @@ Lyonchu	Lyon
 Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
+NOYAL-PONTIVY	NoyalPontivy
 Romans	RomansSurIsere
 Saint-Denis	SaintDenis
 Saint-MartindHeres	SaintMartinDHeres
@@ -413,6 +415,9 @@ TinosGR	Tinos
 ViotiaGR	Viotia
 VonitsaGR	Vonitsa
 Zakynthos_IslandGR	Zakynthos
+
+# Guadeloupe
+POINTE-A-PITRE	PointeAPitre
 
 # Guatemala
 Gutemala	Guatemala
@@ -635,6 +640,9 @@ RepublicofMacedonia	Macedonia
 Madagacar	Madagascar
 Taolagnaro	Tolagnaro
 Toliary	Toliara
+
+# Martinique
+FORT-DE-FRANCE	FortDeFrance
 
 # Mauritania
 Nouackchott	Nouakchott

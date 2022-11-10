@@ -908,6 +908,7 @@ Rovaniemi	Finland	Lapland	Rovaniemi
 
 # France
 France	France	France	France
+Agen	France	NouvelleAquitaine	Agen
 AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Annecy	France	AuvergneRhoneAlpes	Annecy
@@ -920,12 +921,14 @@ Avignon	France	ProvenceAlpesCoteDAzur	Avignon
 Barjols	France	ProvenceAlpesCoteDAzur	Barjols
 BasseNormandie	France	Normandy	BasseNormandie
 Bordeaux	France	AquitaineLimousinPoitouCharentes	Bordeaux
+Boulogne	France	HautsDeFrance	Boulogne
 Bourgogne	France	BourgogneFrancheComte	Bourgogne
 Bourgoin	France	AuvergneRhoneAlpes	BourgoinJallieu
 BourgoinJallieu	France	AuvergneRhoneAlpes	BourgoinJallieu
 Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
 CagnessurMer	France	ProvenceAlpesCoteDAzur	CagnesSurMer
+Cahors	France	Occitanie	Cahors
 Cannes	France	ProvenceAlpesCoteDAzur	Cannes
 Camargue	France	France	Camargue
 Centre	France	Centre	Centre
@@ -939,6 +942,7 @@ Chambery	France	AuvergneRhoneAlpes	Chambery
 Desgenettes	France	AuvergneRhoneAlpes	Lyon
 Dijon	France	BourgogneFrancheComte	Dijon
 Dunkerque	France	HautsDeFrance	Dunkerque
+Firminy	France	AuvergneRhoneAlpes	Firminy
 FrancheComte	France	FrancheComte	FrancheComte
 Frejus	France	ProvenceAlpesCoteDAzur	Frejus
 Garches	France	IleDeFrance	Garches
@@ -957,6 +961,7 @@ Libourne	France	NouvelleAquitaine	Libourne
 Lille	France	NordPasDeCalais	Lille
 Limoges	France	AquitaineLimousinPoitouCharentes	Limoges
 Lorraine	France	AlsaceChampagneArdenneLorraine	Lorraine
+Lourdes	France	Occitanie	Lourdes
 Lyon	France	AuvergneRhoneAlpes	Lyon
 Macon	France	BourgogneFrancheComte	Macon
 Marignier	France	AuvergneRhoneAlpes	Marignier
@@ -968,6 +973,7 @@ Nantes	France	PaysDeLaLoire	Nantes
 Nice	France	ProvenceAlpesCoteDAzur	Nice
 Nimes	France	LanguedocRoussillonMidiPyrenees	Nimes
 NordPasDeCalais	France	NordPasdeCalaisPicardie	NordPasDeCalais
+NoyalPontivy	France	Bretagne	NoyalPontivy
 Oms	France	LanguedocRoussillonMidiPyrenees	Oms
 Orleans	France	Centre	Orleans
 Paris	France	IleDeFrance	Paris
@@ -1154,6 +1160,7 @@ Granada	Grenada	Grenada	Grenada
 
 # Guadeloupe
 Guadeloupe	Guadeloupe	Guadeloupe	Guadeloupe
+PointeAPitre	Guadeloupe	PointeAPitre	PointeAPitre
 
 # Guam
 Guam	Guam	Guam	Guam
@@ -1822,6 +1829,7 @@ MarshallIslands	MarshallIslands	MarshallIslands	MarshallIslands
 
 # Martinique
 Martinique	Martinique	Martinique	Martinique
+FortDeFrance	Martinique	FortDeFrance	FortDeFrance
 
 # Mauritania
 Mauritania	Mauritania	Mauritania	Mauritania
@@ -2983,6 +2991,7 @@ Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
 Cardigan	UnitedKingdom	Wales	Ceredigion
 Carmarthen	UnitedKingdom	Wales	Carmarthen
+Carrog	UnitedKingdom	Wales	Carrog
 CefnCoed	UnitedKingdom	Wales	CefnCoed
 CefnYBedd	UnitedKingdom	Wales	CefnYBedd
 ChristsHospital	UnitedKingdom	England	Horsham
@@ -3013,6 +3022,7 @@ Deeside	UnitedKingdom	Wales	Deeside
 Denbigh	UnitedKingdom	Wales	Denbigh
 Derbyshire	UnitedKingdom	England	Derbyshire
 DinasPowys	UnitedKingdom	Wales	DinasPowys
+Dowlais	UnitedKingdom	Wales	Dowlais
 Dundee	UnitedKingdom	England	Dundee
 EbbwVale	UnitedKingdom	Wales	EbbwVale
 Edinburgh	UnitedKingdom	Scotland	Edinburgh
@@ -3039,6 +3049,7 @@ Hengoed	UnitedKingdom	Wales	Hengoed
 HERTS	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
 Holywell	UnitedKingdom	Wales	Holywell
+Hopkinstown	UnitedKingdom	Wales	Hopkinstown
 Huntingdon	UnitedKingdom	England	Huntingdon
 HUNTINGDONCAMBS	UnitedKingdom	England	Huntingdon
 Inverness	UnitedKingdom	Scotland	Inverness
@@ -3102,6 +3113,7 @@ Plymouth	UnitedKingdom	England	Plymouth
 Poole	UnitedKingdom	England	Poole
 Pontardawe	UnitedKingdom	Wales	Pontardawe
 Pontardulais	UnitedKingdom	Wales	Pontardulais
+Pontllanfraith	UnitedKingdom	Wales	Pontllanfraith
 Pontprennau	UnitedKingdom	Wales	Pontprennau
 Pontyclun	UnitedKingdom	Wales	Pontyclun
 Pontypool	UnitedKingdom	Wales	Pontypool
@@ -3122,6 +3134,7 @@ Rhymney	UnitedKingdom	Wales	Rhymney
 Risca	UnitedKingdom	Wales	Risca
 Riverside	UnitedKingdom	Wales	Riverside
 Roath	UnitedKingdom	Wales	Roath
+Rogerstone	UnitedKingdom	Wales	Rogerstone
 Ruabon	UnitedKingdom	Wales	Ruabon
 Ruthin	UnitedKingdom	Wales	Ruthin
 SaintAsaph	UnitedKingdom	Wales	SaintAsaph
@@ -3139,12 +3152,14 @@ Steyning	UnitedKingdom	England	Steyning
 StMellons	UnitedKingdom	Wales	StMellons
 Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
+Tongwynlais	UnitedKingdom	Wales	Tongwynlais
 Tonyrefail	UnitedKingdom	Wales	Tonyrefail
 Telford	UnitedKingdom	England	Telford
 Tetbury	UnitedKingdom	England	Tetbury
 Tonypandy	UnitedKingdom	Wales	Tonypandy
-Tregaron	UnitedKingdom	Wales	Tregaron
 Tredegar	UnitedKingdom	Wales	Tredegar
+Tregaron	UnitedKingdom	Wales	Tregaron
+Treherbert	UnitedKingdom	Wales	Treherbert
 Treorchy	UnitedKingdom	Wales	Treorchy
 Tywyn	UnitedKingdom	Wales	Tywyn
 Usk	UnitedKingdom	Wales	Usk
