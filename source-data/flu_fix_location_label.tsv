@@ -16,7 +16,6 @@ NorthernTerritories	NorthernTerritory
 29c	/
 NT	NorthernTerritory
 SouthAustalia	SouthAustralia
-SouthAustraila	SouthAustralia
 SouthAustrallia	SouthAustralia
 SouthAustalia	SouthAustralia
 SouthAustralai	SouthAustralia
@@ -53,7 +52,6 @@ CeilandiaNorte	Ceilandia
 Espirito_Santo	EspiritoSanto
 Minas_Gerais	MinasGerais
 Osasaco	Osasco
-Paran?	Parana
 Rio_de_Janeiro	RioDeJaneiro
 RioGdeSul	RioGrandeDoSul
 RioGdoSul	RioGrandeDoSul
@@ -314,7 +312,6 @@ Lyonchu	Lyon
 Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
-NOYAL-PONTIVY	NoyalPontivy
 Romans	RomansSurIsere
 Saint-Denis	SaintDenis
 Saint-MartindHeres	SaintMartinDHeres
@@ -417,14 +414,10 @@ ViotiaGR	Viotia
 VonitsaGR	Vonitsa
 Zakynthos_IslandGR	Zakynthos
 
-# Guadeloupe
-POINTE-A-PITRE	PointeAPitre
-
 # Guatemala
 Gutemala	Guatemala
 
 # HongKong
-HK	HongKong
 Hong_Kong	HongKong
 Hongkong	HongKong
 HongKong2180	HongKong/2180
@@ -464,7 +457,6 @@ Srinagar	Srinigar
 # Indonesia
 Ambon	KotaAmbon
 Bandungjava	Bandung
-BelitungTimor	KabupatenBelitungTimor
 Bukitlianggi	Bukittinggi
 Central_Java	CentralJava
 Central_Sulawesi	CentralSulawesi
@@ -475,7 +467,6 @@ North_Sumatra	Sumatra
 North_Sumatera	Sumatra
 NorthSumatera	Sumatra
 NorthSumamatera	Sumatra
-Purworojo	Purworejo
 Sidenreng_Rappang	SidenrengRappang
 Sulawesi_Selatan	SulawesiSelatan
 South_Kalimantan	SouthKalimantan
@@ -605,7 +596,6 @@ Pak_Ou_District	PakOuDistrict
 Sanasomboun_District	SanasombounDistrict
 Thateng_District	ThaTengDistrict
 XhathomDistrict	ThathomDistrict
-Xaythiani	XaythanyDistrict
 
 # Lebanon
 AinWazein	AinWZain
@@ -641,9 +631,6 @@ RepublicofMacedonia	Macedonia
 Madagacar	Madagascar
 Taolagnaro	Tolagnaro
 Toliary	Toliara
-
-# Martinique
-FORT-DE-FRANCE	FortDeFrance
 
 # Mauritania
 Nouackchott	Nouakchott
@@ -1015,7 +1002,6 @@ Tajikstan	Tajikistan
 
 # Thailand
 Ayatthaya	Ayutthaya
-Ayuttaya	Ayutthaya
 Bankgok	Bangkok
 Chantaburi	Chanthaburi
 Chantuaburi	Chanthaburi
@@ -1090,7 +1076,6 @@ United_Arab_Emirates	UnitedArabEmirates
 
 # UnitedKingdom
 Abertysswgy	Abertysswg
-Aberystywyth	Aberystwyth
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
 Clydach_Vale	ClydachVale
