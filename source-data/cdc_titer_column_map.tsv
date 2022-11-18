@@ -3,8 +3,7 @@ ag_cdc_id	virus_cdc_id
 ag_strain_name	virus_strain
 ag_passage	virus_strain_passage
 sr_strain_name	serum_strain
-sr_ferret	ferret_id
-sr_lot	lot_number
+sr_lot	serum_id
 sr_passage	serum_antigen_passage
 test_date	assay_date
 test_subtype	subtype
