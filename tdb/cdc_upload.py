@@ -71,6 +71,9 @@ class cdc_upload(upload):
             if meas['ref'] == False:
                 self.test_virus_strains.add(meas['virus_strain'])
             meas['serum_host'] = self.get_serum_host(meas)
+            # Update serum passage category for human pool serum using the serum id
+            if meas['serum_host'] == 'human':
+                self.format_passage(meas, 'serum_id', 'serum_passage_category')
             self.rethink_io.check_optional_attributes(meas, self.optional_fields)
             self.remove_fields(meas)
         if len(self.new_different_date_format) > 0:
