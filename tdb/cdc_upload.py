@@ -70,8 +70,7 @@ class cdc_upload(upload):
                 self.ref_virus_strains.add(meas['virus_strain'])
             if meas['ref'] == False:
                 self.test_virus_strains.add(meas['virus_strain'])
-            if "Human" in meas['serum_id']:
-                meas['serum_host'] = 'human'
+            meas['serum_host'] = self.get_serum_host(meas)
             self.rethink_io.check_optional_attributes(meas, self.optional_fields)
             self.remove_fields(meas)
         if len(self.new_different_date_format) > 0:
@@ -112,6 +111,20 @@ class cdc_upload(upload):
         for f in self.removal_fields:
             if f in meas.keys():
                 meas.pop(f,None)
+
+    def get_serum_host(self, meas):
+        """
+        Returns the serum host based on whether the host is in the measurement's serum id.
+        The default serum host is 'ferret' if there are no matches for other hosts.
+        """
+        # These are known serum hosts that exist in the CDC titer data
+        known_serum_hosts = ['human', 'mouse']
+        for host in known_serum_hosts:
+            if re.search(host, meas['serum_id'], re.IGNORECASE):
+                return host
+
+        return 'ferret'
+
 
     def clean_field_names(self, measurements):
         '''
