@@ -15,6 +15,7 @@ Birsbane	Brisbane
 NorthernTerritories	NorthernTerritory
 29c	/
 NT	NorthernTerritory
+SouthAustraila	SouthAustralia
 SouthAustalia	SouthAustralia
 SouthAustrallia	SouthAustralia
 SouthAustalia	SouthAustralia
@@ -756,12 +757,17 @@ Mangua	Managua
 # Oman
 AlBuraymi	AlBuraimi
 AlMusana	AlMusannah
+Amerat	AlAmarat
 ArRustaq	Rustaq
 Baushar	Bawshar
+Buraymi	AlBuraimi
+Daba	DibbaAlBaya
 Duqum	Duqm
 Hayma	Haima
 JaalanBBA	JalanBaniBuAli
+JaalanBaniBuAli	JalanBaniBuAli
 Mahoot	Mahout
+Mutrah	Muttrah
 
 # Palestine
 Beithlehem	Bethlehem

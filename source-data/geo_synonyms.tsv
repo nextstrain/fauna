@@ -2126,12 +2126,14 @@ Oslo	Norway	Ostlandet	Oslo
 
 # Oman
 Oman	Oman	Oman	Oman
+AlAmarat	Oman	Muscat	AlAmarat
 AlBuraimi	Oman	AlBuraimi	AlBuraimi
 AlMusannah	Oman	AlBatinah	AlMusannah
 Bahla	Oman	AdDakhiliyah	Bahla
 Barka	Oman	AlBatinah	Barka
 Bawshar	Oman	Muscat	Bawshar
 Buraimi	Oman	AlBuraimi	Buraimi
+DibbaAlBaya	Oman	Musandam	DibbaAlBaya
 Duqm	Oman	AlWusta	Duqm
 Haima	Oman	AlWusta	Haima
 Ibra	Oman	AshSharqiyah	Ibra
@@ -2143,8 +2145,10 @@ Muqshin	Oman	Dhofar	Muqshin
 Muscat	Oman	AshSharqiyah	Muscat
 Muttrah	Oman	Muscat	Muttrah
 Nizwa	Oman	AdDakhiliyah	Nizwa
+Qurayyat	Oman	Muscat	Qurayyat
 Rustaq	Oman	AlBatinah	Rustaq
 Saham	Oman	AlBatinah	Saham
+Samail	Oman	AdDakhiliyah	Samail
 Seeb	Oman	Muscat	Seeb
 Sur	Oman	AshSharqiyah	Sur
 Sohar	Oman	AlBatinah	Sohar
@@ -2394,6 +2398,7 @@ Noyabrsk	Russia	Yamalia	Noyabrsk
 Omsk	Russia	Omsk	Omsk
 Orel	Russia	Oryol	Orel
 Orenburg	Russia	Orenburg	Orenburg
+Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
