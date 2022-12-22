@@ -911,6 +911,7 @@ France	France	France	France
 Agen	France	NouvelleAquitaine	Agen
 AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
+Amiens	France	HautsDeFrance	Amiens
 Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
 Antibes	France	ProvenceAlpesCoteDAzur	Antibes
@@ -1003,6 +1004,7 @@ Tulle	France	NouvelleAquitaine	Tulle
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
 Tours	France	CentreValDeLoire	Tours
+Villejuif	France	IleDeFrance	Villejuif
 
 # FrenchGuiana
 FrenchGuiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
@@ -2384,6 +2386,7 @@ Magadan	Russia	Magadan	Magadan
 Maiya	Russia	Sakha	Maiya
 Majkop	Russia	Adygeya	Majkop
 MariEl	Russia	MariEl	MariEl
+Maykop	Russia	Adygea	Maykop
 Mcensk	Russia	Oryol	Mcensk
 Mordovia	Russia	Mordovia	Mordovia
 Moscow	Russia	Moscow	Moscow
@@ -3162,6 +3165,7 @@ Sheffield	UnitedKingdom	England	Sheffield
 Sketty	UnitedKingdom	Wales	Sketty
 Somerset	UnitedKingdom	England	Somerset
 Southampton	UnitedKingdom	England	Southampton
+StAthan	UnitedKingdom	Wales	StAthan
 Stevenage	UnitedKingdom	England	Stevenage
 Steyning	UnitedKingdom	England	Steyning
 StMellons	UnitedKingdom	Wales	StMellons
