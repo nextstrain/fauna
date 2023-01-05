@@ -447,7 +447,7 @@ class flu_upload(upload):
             "shorebird", "silky__chicken",
             "silverteal", "snow__goose","somateriamollissima",
             "sparrow", "speckledpigeon","starling", "sternasandvicensis","swan", "sterna",
-            "sternahirundo",
+            "sternahirundo","sternaparadisaea",
             "streptopeliadecaocto",
             "stork", "swiftlet", 
             "tachybaptusruficollis","tadornaferuginea","tadornatadorna",
