@@ -2323,6 +2323,7 @@ Alania	Russia	OssetiaAlania	Alania
 Altai	Russia	Altai	Altai
 Anadyr	Russia	Chukotka	Anadyr
 Anapa	Russia	KrasnodarKrai	Anapa
+Anna	Russia	Voronezh	Anna
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
 Astrakhan	Russia	Astrakhan	Astrakhan
@@ -2334,6 +2335,7 @@ Birobidzhan	Russia	JewishOblast	Birobidzhan
 Blagoveshchensk	Russia	Amur	Blagoveshchensk
 Bryansk	Russia	Bryansk	Bryansk
 Buryatia	Russia	Buryatia	Buryatia
+Buturlinovka	Russia	Voronezh	Buturlinovka
 Chany	Russia	Novosibirsk	Chany
 Cheboksary	Russia	Chuvash	Cheboksary
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
@@ -2349,10 +2351,12 @@ Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
 Elista	Russia	Kalmykia	Elista
 Gatchina	Russia	Leningrad	Gatchina
 GornoAltaysk	Russia	Altaia	GornoAltaysk
+Gribanovsk	Russia	Voronezh	Gribanovsk
 Grozny	Russia	Chechnya	Grozny
 Irkutsk	Russia	Irkutsk	Irkutsk
 Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
+Kalach	Russia	Voronezh	Kalach
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
 Kalmykia	Russia	Kalmykia	Kalmykia
@@ -2365,6 +2369,7 @@ Khabarovsk	Russia	Khabarovsk	Khabarovsk
 Khakassia	Russia	Khakassia	Khakassia
 KhantiMansiysk	Russia	KhantyMansi	KhantiMansiysk
 Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
+Khrenovoe	Russia	Voronezh	Khrenovoe
 Kirishi	Russia	Leningrad	Kirishi
 Kirov	Russia	Kirov	Kirov
 Kirovsk	Russia	Leningrad	Kirovsk
@@ -2391,6 +2396,7 @@ Mcensk	Russia	Oryol	Mcensk
 Mordovia	Russia	Mordovia	Mordovia
 Moscow	Russia	Moscow	Moscow
 Murmansk	Russia	Murmansk	Murmansk
+Nalchik	Russia	KabardinoBalkaria	Nalchik
 Naryan-Mar	Russia	Naryan-Mar	Naryan-Mar
 Nadym	Russia	Yamalia	Nadym
 NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod
@@ -2421,6 +2427,7 @@ Salekhard	Russia	Yamalia	Salekhard
 Samara	Russia	Samara	Samara
 Saransk	Russia	Saransk	Saransk
 Saratov	Russia	Saratov	Saratov
+Semiluki	Russia	Voronezh	Semiluki
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
 Shuberskoye	Russia	Voronezh	Shuberskoye
 Siberia	Russia	Siberia	Siberia
@@ -2460,6 +2467,7 @@ Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
 ZabaykalskyKrai	Russia	ZabaykalskyKrai	ZabaykalskyKrai
 Zhizdra	Russia	Kaluga	Zhizdra
+Zhuravka	Russia	Voronezh	Zhuravka
 Znamensk	Russia	Astrakhan	Znamensk
 
 # Rwanda
@@ -3053,6 +3061,7 @@ Gloucester	UnitedKingdom	England	Gloucester
 Gorseinon	UnitedKingdom	Wales	Gorseinon
 Grangetown	UnitedKingdom	Wales	Grangetown
 Guildford	UnitedKingdom	England	Guildford
+Gwersyllt	UnitedKingdom	Wales	Gwersyllt
 Hampshire	UnitedKingdom	England	Hampshire
 Harlow	UnitedKingdom	England	Harlow
 Harrow	UnitedKingdom	England	Harrow
@@ -3074,6 +3083,7 @@ Llandudno	UnitedKingdom	Wales	Llandudno
 Llangollen	UnitedKingdom	Wales	Llangollen
 Llanharan	UnitedKingdom	Wales	Llanharan
 Llanidloes	UnitedKingdom	Wales	Llanidloes
+Llantrisant	UnitedKingdom	Wales	Llantrisant
 Llay	UnitedKingdom	Wales	Llay
 Leeds	UnitedKingdom	England	Leeds
 Leicester	UnitedKingdom	England	Leicester
@@ -3115,6 +3125,7 @@ Nib	UnitedKingdom	UnitedKingdom	UnitedKingdom
 NorthernIreland	UnitedKingdom	NorthernIreland	NorthernIreland
 Norwich	UnitedKingdom	England	Norwich
 Nottingham	UnitedKingdom	England	Nottingham
+Osbaston	UnitedKingdom	Wales	Osbaston
 Oswestry	UnitedKingdom	England	Oswestry
 Oxford	UnitedKingdom	England	Oxford
 Oxon	UnitedKingdom	England	Oxfordshire
@@ -3147,6 +3158,7 @@ Raglan	UnitedKingdom	Wales	Raglan
 Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
+Rhoose	UnitedKingdom	Wales	Rhoose
 Rhyl	UnitedKingdom	Wales	Rhyl
 Rhymney	UnitedKingdom	Wales	Rhymney
 Risca	UnitedKingdom	Wales	Risca
