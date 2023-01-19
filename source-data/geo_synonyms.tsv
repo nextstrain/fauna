@@ -1430,6 +1430,7 @@ Ardebil	Iran	Ardebil	Ardebil
 AzarbayejanSharghi	Iran	AzarbayejanSharghi	AzarbayejanSharghi
 Babol	Iran	Mazandaran	Babol
 BandarAbbas	Iran	Hormozgan	BandarAbbas
+Behbahan	Iran	Khuzestan	Behbahan
 Birjand	Iran	SouthKhorasan	Birjand
 Boshehr	Iran	Boshehr	Boshehr
 Bushehr	Iran	Bushehr	Bushehr
@@ -1452,8 +1453,10 @@ Mashad	Iran	RazaviKhorasan	Mashad
 Marivan	Iran	Kurdistan	Marivan
 Mazandaran	Iran	Mazandaran	Mazandaran
 Minab	Iran	Hormozgan	Minab
+Pakdasht	Iran	Tehran	Pakdasht
 Qazvin	Iran	Qazvin	Qazvin
 Qom	Iran	Qom	Qom
+RayIran	Iran	Tehran	RayIran
 Sanandaj	Iran	Kurdistan	Sanandaj
 Sardasht	Iran	WestAzerbaijan	Sardasht
 Sari	Iran	Mazandaran	Sari
@@ -1463,6 +1466,7 @@ Shahriar	Iran	Tehran	Shahriar
 Sistan	Iran	SistanAndBaluchestan	Sistan
 Tabriz	Iran	EastAzerbaijan	Tabriz
 Tehran	Iran	Tehran	Tehran
+Varamin	Iran	Tehran	Varamin
 Yazd	Iran	Yazd	Yazd
 Zahedan	Iran	SistanAndBaluchestan	Zahedan
 Zanjan	Iran	Zanjan	Zanjan
@@ -2373,6 +2377,7 @@ Khrenovoe	Russia	Voronezh	Khrenovoe
 Kirishi	Russia	Leningrad	Kirishi
 Kirov	Russia	Kirov	Kirov
 Kirovsk	Russia	Leningrad	Kirovsk
+KhantyMansi	Russia	KhantyMansi	KhantyMansi
 KhantyMansia	Russia	KhantyMansia	KhantyMansia
 Koltsovo	Russia	Novosibirsk	Koltsovo
 Komi	Russia	Komi	Komi
@@ -2972,6 +2977,7 @@ Abercanaid	UnitedKingdom	Wales	Abercanaid
 Aberdare	UnitedKingdom	Wales	Aberdare
 Abergavenny	UnitedKingdom	Wales	Abergavenny
 Abergele	UnitedKingdom	Wales	Abergele
+Aberkenfig	UnitedKingdom	Wales	Aberkenfig
 Abertillery	UnitedKingdom	Wales	Abertillery
 Aberaeron	UnitedKingdom	Wales	Aberaeron
 Abertysswg	UnitedKingdom	Wales	Abertysswg
@@ -3058,6 +3064,7 @@ GerrardsCross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
 Glasgow	UnitedKingdom	Scotland	Glasgow
 Gloucester	UnitedKingdom	England	Gloucester
+Glynneath	UnitedKingdom	Wales	Glynneath
 Gorseinon	UnitedKingdom	Wales	Gorseinon
 Grangetown	UnitedKingdom	Wales	Grangetown
 Guildford	UnitedKingdom	England	Guildford
@@ -3081,6 +3088,7 @@ Lambeth	UnitedKingdom	England	Lambeth
 Lampeter	UnitedKingdom	Wales	Lampeter
 Llandudno	UnitedKingdom	Wales	Llandudno
 Llangollen	UnitedKingdom	Wales	Llangollen
+Llangynwyd	UnitedKingdom	Wales	Llangynwyd
 Llanharan	UnitedKingdom	Wales	Llanharan
 Llanidloes	UnitedKingdom	Wales	Llanidloes
 Llantrisant	UnitedKingdom	Wales	Llantrisant
@@ -3112,6 +3120,7 @@ Minehead	UnitedKingdom	England	Minehead
 Miskin	UnitedKingdom	Wales	Miskin
 Mold	UnitedKingdom	Wales	Mold
 Monmouth	UnitedKingdom	Wales	Monmouth
+Monmouthshire	UnitedKingdom	Wales	Monmouthshire
 MountainAsh	UnitedKingdom	Wales	MountainAsh
 Neath	UnitedKingdom	Wales	Neath
 Newcastleunderlyme	UnitedKingdom	England	Newcastleunderlyme

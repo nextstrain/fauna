@@ -488,10 +488,14 @@ WestJava_Sbg_	WestJava
 Bandar_Abbas	BandarAbbas
 Azarbayejan-Sharghi	AzarbayejanSharghi
 Azarbayejan_Sharghi	AzarbayejanSharghi
+Behbahan.Iran	Behbahan
 Ghazivin	Qazvin
 Ghazvin Qazvin
 Ghom	Qom
 Gholestan	Golestan
+ReyIran	RayIran
+Pakdasht.Iran	Pakdasht
+Varamin.Iran	Varamin
 Zanjani	Zanjan
 Zanjann	Zanjan
 
@@ -850,6 +854,7 @@ Astrahkan	Astrakhan
 Birobidjan	Birobidzhan
 Blagovechensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
+HMAO	KhantyMansi
 Kalinigrad	Kaliningrad
 Karachay-Cherkess	Cherkessk
 Khakasia	Khakassia
