@@ -401,7 +401,7 @@ class flu_upload(upload):
             "buteobuteo","buteojamaicensis","buteojaponicus",
             "blue__winged__teal","blue-wingedteal","bluegoose", 
             "brantahutchinsii","brantacanadensis","brantaleucopsis",
-            "cairinamoschata", "calidrisminutilla","canada__goose","chencaerulescens",
+            "cairinamoschata", "calidrisalba","calidrisminutilla","canada__goose","chencaerulescens",
             "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","ciconiaciconia","common__pochard",
             "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "common_teal","condor",
             "cooper'shawk","cormorant", "corvus", "copsychussaularis","corvusmacrorhynchos",
@@ -423,7 +423,7 @@ class flu_upload(upload):
             "grey__heron", "guineafowl", "gull","halietusleucocephalus","haliaeetusleucocephalus",
             "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
             "heron", "herringgull","hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
-            "larusarmenicus","larusschistisagus", "larusargentatus", "larusbrunnicephalus",
+            "larusarmenicus","larusschistisagus", "larussmithsonianus","larusargentatus", "larusbrunnicephalus",
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans",
             "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull",
             "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", "little__grebe",
@@ -462,7 +462,7 @@ class flu_upload(upload):
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika","seal","meerkat"]
+            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
 
