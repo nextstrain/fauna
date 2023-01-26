@@ -4,6 +4,7 @@ from rethinkdb import r
 from Bio import SeqIO
 import argparse
 import subprocess
+import unicodedata
 from parse import parse
 from upload import parser
 sys.path.append('')  # need to import from base
@@ -94,7 +95,8 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                     serum_strain = m.group(1)
                     if not serum_strain.startswith(flutype + "/"):
                         serum_strain = flutype + "/" + serum_strain
-                titer = mat[i][j]
+                # Normalize U+ff1c '＜' to U+003c '<'
+                titer = unicodedata.normalize('NFKC', mat[i][j])
                 source = "niid_%s"%(src_id)
                 virus_passage = mat[i][2]
                 virus_passage_category = ''
