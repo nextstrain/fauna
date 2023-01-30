@@ -202,6 +202,9 @@ class flu_upload(upload):
             self.fix_casing(doc, args.data_source)
             self.fix_age(doc)
             self.format_host(doc)
+            self.format_domestic_status(doc)
+            self.format_animal_health_status(doc)
+            self.format_authors(doc)
             self.determine_group_fields(doc, self.patterns)
             if args.data_source == 'ird':
                 self.format_ird_date(doc)
@@ -377,6 +380,18 @@ class flu_upload(upload):
                 name = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
         return name
 
+    def format_domestic_status(self, v):
+        if v['domestic_status'] is not None: 
+            v['domestic_status'] = v['domestic_status'].strip().lower()
+            
+    def format_animal_health_status(self, v):
+        if v['animal_health_status'] is not None: 
+            v['animal_health_status'] = v['animal_health_status'].strip().lower()
+
+    def format_authors(self, v):
+        if v['authors'] is not None: 
+            v['authors'] = v['authors'].replace("\r","").replace("\n","")
+
     def format_host(self, v):
         '''
         Fix host formatting
@@ -467,12 +482,6 @@ class flu_upload(upload):
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
 
         if v['host'] is not None:
-
-#             """print an error if the length of the strain does not match the host"""
-#             if len(v['strain'].split('/')) == 4 and v['host'] != 'human':
-#                 print(v['strain'], "only has 4 fields but is labelled as not human", v['host'])
-#             if len(v['strain'].split('/')) == 5 and v['host'] == 'human':
-#                 print(v['strain'], "has 5 fields but is labelled as human", v['host'])
 
             if v['host'] in avian_list:
                 v['host'] = "avian"
@@ -619,13 +628,16 @@ class flu_upload(upload):
 if __name__=="__main__":
     args = parser.parse_args()
     if (args.data_source == 'gisaid'):
-        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
-        #>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab', 11: 'originating_lab', 17: 'INSDC_accession'}
+        #gisaid fasta fields: 
+        # DNA Accession no.|Isolate name | Isolate ID | Segment | Passage details/history | Submitting lab | Collection date | Submitter | Sample ID by sample provider | Sample ID by submitting lab | Last modified | Originating lab | Submitting lab | Segment | Segment number | Identifier | DNA Accession no. | DNA INSDC | DNA Accession no. | Isolate name  | I
         setattr(args, 'fasta_fields', sequence_fasta_fields)
         xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                                  ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
                                  ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
-                                 ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
+                                 ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
+                                 ('submitting_lab', 'Submitting_Lab'), ('authors','Authors'), ('domestic_status','Domestic_Status'), 
+                                 ('PMID','PMID'), ('animal_health_status','Animal_Health_Status')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
         virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 11:'h5_clade'}
