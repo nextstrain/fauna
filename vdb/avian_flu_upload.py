@@ -204,6 +204,7 @@ class flu_upload(upload):
             self.format_host(doc)
             self.format_domestic_status(doc)
             self.format_animal_health_status(doc)
+            self.format_authors(doc)
             self.determine_group_fields(doc, self.patterns)
             if args.data_source == 'ird':
                 self.format_ird_date(doc)
@@ -387,6 +388,9 @@ class flu_upload(upload):
         if v['animal_health_status'] is not None: 
             v['animal_health_status'] = v['animal_health_status'].strip().lower()
 
+    def format_authors(self, v):
+        if v['authors'] is not None: 
+            v['authors'] = v['authors'].replace("\r","").replace("\n","")
 
     def format_host(self, v):
         '''
