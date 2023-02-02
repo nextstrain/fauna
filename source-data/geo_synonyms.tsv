@@ -912,11 +912,13 @@ Agen	France	NouvelleAquitaine	Agen
 AixEnProvence	France	ProvenceAlpesCoteDAzur	AixEnProvence
 Alsace	France	AlsaceChampagneArdenneLorraine	Alsace
 Amiens	France	HautsDeFrance	Amiens
+Angers	France	PaysDeLaLoire	Angers
 Annecy	France	AuvergneRhoneAlpes	Annecy
 Annonay	France	AuvergneRhoneAlpes	Annonay
 Antibes	France	ProvenceAlpesCoteDAzur	Antibes
 Aquitaine	France	Aquitaine	Aquitaine
 Argenteuil	France	IleDeFrance	Argenteuil
+AuvergneRhoneAlpes	France	AuvergneRhoneAlpes	AuvergneRhoneAlpes
 Auxonne	France	BourgogneFrancheComte	Auxonne
 Avignon	France	ProvenceAlpesCoteDAzur	Avignon
 Barjols	France	ProvenceAlpesCoteDAzur	Barjols
@@ -930,6 +932,7 @@ Bretagne	France	Bretagne	Bretagne
 Caen	France	Normandy	Caen
 CagnessurMer	France	ProvenceAlpesCoteDAzur	CagnesSurMer
 Cahors	France	Occitanie	Cahors
+Calais	France	HautsDeFrance	Calais
 Cannes	France	ProvenceAlpesCoteDAzur	Cannes
 Camargue	France	France	Camargue
 Centre	France	Centre	Centre
@@ -953,6 +956,7 @@ Grenoble	France	AuvergneRhoneAlpes	Grenoble
 Gueret	France	AquitaineLimousinPoitouCharentes	Gueret
 HauteNormandie	France	Normandy	HauteNormandie
 IleDeFrance	France	IleDeFrance	IleDeFrance
+Lannion	France	Bretagne	Lannion
 LaReunion	France	SaintDenis	LaReunion
 LaRochelle	France	CharenteMaritime	LaRochelle
 LanguedocRoussillon	France	LanguedocRoussillonMidiPyrenees	LanguedocRoussillon
@@ -968,6 +972,7 @@ Lyon	France	AuvergneRhoneAlpes	Lyon
 Macon	France	BourgogneFrancheComte	Macon
 Marignier	France	AuvergneRhoneAlpes	Marignier
 Marseille	France	ProvenceAlpesCoteDAzur	Marseille
+Melesse	France	Bretagne	Melesse
 Montpellier	France	LanguedocRoussillonMidiPyrenees	Montpellier
 Mougins	France	ProvenceAlpesCoteDAzur	Mougins
 Moulins	France	AuvergneRhoneAlpes	Moulins
@@ -998,12 +1003,14 @@ SaintDenis	France	IleDeFrance	SaintDenis
 StEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintEtienne	France	AuvergneRhoneAlpes	SaintEtienne
 SaintMartinDHeres	France AuvergneRhoneAlpes SaintMartinDHeres
+SaintNazaire	France	PaysDeLaLoire	SaintNazaire
 StLaurentDuVar	France	ProvenceAlpesCoteDAzur	StLaurentDuVar
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
 Tulle	France	NouvelleAquitaine	Tulle
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
 Tours	France	CentreValDeLoire	Tours
+Villefranche	France	ProvenceAlpesCoteDAzur	Villefranche
 Villejuif	France	IleDeFrance	Villejuif
 
 # FrenchGuiana
@@ -2383,13 +2390,17 @@ KhantyMansi	Russia	KhantyMansi	KhantyMansi
 KhantyMansia	Russia	KhantyMansia	KhantyMansia
 Koltsovo	Russia	Novosibirsk	Koltsovo
 Komi	Russia	Komi	Komi
+Konstantinovka	Russia	Amur	Konstantinovka
+KoshAgach	Russia	Altai	KoshAgach
 Kostroma	Russia	Kostroma	Kostroma
+Kozmodemyansk	Russia	MariEl	Kozmodemyansk
 Krasnodar	Russia	Krasnodar	Krasnodar
 Krasnoozerka	Russia	Khakassia	Krasnoozerka
 Krasnoozerskoe	Russia	Khakassia	Krasnoozerka
 Krasnoyarsk	Russia	Krasnoyarsk	Krasnoyarsk
 Kurgan	Russia	Kurgan	Kurgan
 Kursk	Russia	Kursk	Kursk
+Kuzhener	Russia	MariEl	Kuzhener
 Leningrad	Russia	Leningrad	Leningrad
 Lipetsk	Russia	Lipetsk	Lipetsk
 Luga	Russia	Leningrad	Luga
@@ -2400,7 +2411,9 @@ Majkop	Russia	Adygeya	Majkop
 MariEl	Russia	MariEl	MariEl
 Maykop	Russia	Adygea	Maykop
 Mcensk	Russia	Oryol	Mcensk
+Medvedevo	Russia	MariEl	Medvedevo
 Mordovia	Russia	Mordovia	Mordovia
+Morki	Russia	MariEl	Morki
 Moscow	Russia	Moscow	Moscow
 Murmansk	Russia	Murmansk	Murmansk
 Nalchik	Russia	KabardinoBalkaria	Nalchik
@@ -2412,10 +2425,12 @@ Novosibirsk	Russia	Novosibirsk	Novosibirsk
 NovyUrengoy	Russia	Yamalia	NovyUrengoy
 Noyabrsk	Russia	Yamalia	Noyabrsk
 Omsk	Russia	Omsk	Omsk
+Onguday	Russia	Altai	Onguday
 Orel	Russia	Oryol	Orel
 Orenburg	Russia	Orenburg	Orenburg
 Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
+Paranga	Russia	MariEl	Paranga
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
 Petrozavodsk	Russia	Karelia	Petrozavodsk
@@ -2441,6 +2456,7 @@ Siberia	Russia	Siberia	Siberia
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
+Sovetsky	Russia	MariEl	Sovetsky
 Suzdalka	Russia	Novosibirsk	Suzdalka
 Surgut	Russia	KhantyMansia	Surgut
 Syktyvkar	Russia	Komi	Syktyvkar
@@ -2448,6 +2464,7 @@ Tambov	Russia	Tambov	Tambov
 Tatarstan	Russia	Tatarstan	Tatarstan
 Tomsk	Russia	Tomsk	Tomsk
 Tula	Russia	Tula	Tula
+Turochak	Russia	Altai	Turochak
 Tver	Russia	Tver	Tver
 Tyva	Russia	Tyva	Tyva
 Tyumen	Russia	Tyumen	Tyumen
@@ -2476,6 +2493,7 @@ ZabaykalskyKrai	Russia	ZabaykalskyKrai	ZabaykalskyKrai
 Zhizdra	Russia	Kaluga	Zhizdra
 Zhuravka	Russia	Voronezh	Zhuravka
 Znamensk	Russia	Astrakhan	Znamensk
+Zvenigovo	Russia	MariEl	Zvenigovo
 
 # Rwanda
 Rwanda	Rwanda	Rwanda	Rwanda

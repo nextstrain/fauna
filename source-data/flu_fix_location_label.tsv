@@ -296,6 +296,7 @@ Sharkia	Sharqia
 Finlad	Finland
 
 # France
+Aix	AixEnProvence
 Aix-en-Provence	AixEnProvence
 Provence_Alpes_Cote_Azur	ProvenceAlpesCoteDAzur
 Provence-Alpes-C?tedAzur	ProvenceAlpesCoteDAzur
@@ -317,9 +318,12 @@ Pays_de_Loire	PaysDeLoire
 Nord_Pas_de_Calais	NordPasDeCalais
 NordpasdeCalais	NordPasDeCalais
 NOYAL-PONTIVY	NoyalPontivy
+Rhone_Alpes	AuvergneRhoneAlpes
 Romans	RomansSurIsere
 Saint-Denis	SaintDenis
 Saint-MartindHeres	SaintMartinDHeres
+SAINT-NAZAIRE	SaintNazaire
+SAINT_NAZAIRE	SaintNazaire
 St-Etienne	StEtienne
 St_Etienne	StEtienne
 Saint-Etienne	StEtienne
@@ -854,11 +858,16 @@ Astrahan	Astrakhan
 Astrahkan	Astrakhan
 Birobidjan	Birobidzhan
 Blagovechensk	Blagoveshchensk
+Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
 HMAO	KhantyMansi
 Kalinigrad	Kaliningrad
+Kalininghrad	Kaliningrad
 Karachay-Cherkess	Cherkessk
 Khakasia	Khakassia
+Kosh-Agach	KoshAgach
+Kozmodemiansk	Kozmodemyansk
+Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
 Groznyi	Grozny
 IIV-Anadyr	Anadyr
@@ -921,6 +930,7 @@ St-Petersburg	StPetersburg
 StPetersburgoblast	StPetersburg
 SPetersburg	StPetersburg
 Swirtzerland	Switzerland
+Turochack	Turochak
 Tuymen	Tyumen
 Ulan-Ude	UlanUde
 Ulan_Ude	UlanUde
@@ -1070,6 +1080,9 @@ Zoguldak	Zonguldak
 
 # TurksAndCaicos
 TurksandCaicos	TurksAndCaicos
+
+# Turkmenistan
+Ashabat	Ashgabat
 
 # Ukraine
 Dnepropetrovsk	Dnipropetrovsk
