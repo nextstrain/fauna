@@ -1748,10 +1748,13 @@ Byblos	Lebanon	MountLebanon	Byblos
 Hermel	Lebanon	Baalbek-Hermel	Hermel
 Ksara	Lebanon	Beqaa	Ksara
 Matn	Lebanon	MountLebanon	Matn
+Miniyeh	Lebanon	NorthLebanon	Miniyeh
 MiniyehDanniyeh	Lebanon	NorthLebanon	MiniyehDanniyeh
+MountLebanon	Lebanon	MountLebanon	MountLebanon
 Nabatieh	Lebanon	Nabatieh	Nabatieh
 NorthLebanon	Lebanon	NorthLebanon	NorthLebanon
 Sidon	Lebanon	SouthLebanon	Sidon
+SouthLebanon	Lebanon	SouthLebanon	SouthLebanon
 Tripoli	Lebanon	NorthLebanon	Tripoli
 Tyre	Lebanon	SouthLebanon	Tyre
 Zahle	Lebanon	Beqaa	Zahle
@@ -1814,6 +1817,7 @@ Mahajanga	Madagascar	Mahajanga	Mahajanga
 Mananjary	Madagascar	VatovavyFitovinany	Mananjary
 Manjakaray	Madagascar	Antananarivo	Antananarivo
 Moramanga	Madagascar	AlaotraMangoro	Moramanga
+Morondava	Madagascar	Menabe	Morondava
 NosyBe	Madagascar	Diana	NosyBe
 Toamasina	Madagascar	Atsinanana	Toamasina
 Tolagnaro	Madagascar	Anosy	Tolagnaro
@@ -2578,6 +2582,7 @@ Bojnice	Slovakia	Trencin	Bojnice
 Bratislava	Slovakia	Bratislava	Bratislava
 DunajskaStreda	Slovakia	Trnava	DunajskaStreda
 Galanta	Slovakia	Trnava	Galanta
+Klacany	Slovakia	Trnava	Klacany
 Komarno	Slovakia	Nitra	Komarno
 Kosice	Slovakia	Kosice	Kosice
 Levice	Slovakia	Nitriansky	Levice
@@ -2598,8 +2603,10 @@ Trnava	Slovakia	Trnava	Trnava
 Sastin	Slovakia	Trnava	Sastin
 SastinStraze	Slovakia	Trnava	SastinStraze
 Senica	Slovakia	Trnava	Senica
+Siladice	Slovakia	Trnava	Siladice
 Skalica	Slovakia	Trnava	Skalica
 Sobotiste	Slovakia	Trnava	Sobotiste
+Sulekovo	Slovakia	Trnava	Sulekovo
 
 # Slovenia
 Slovenia	Slovenia	Slovenia	Slovenia
@@ -2989,7 +2996,10 @@ Zhytomyr	Ukraine	Zhytomyr	Zhytomyr
 UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 Dubai	UnitedArabEmirates	Dubai	Dubai
 AbuDhabi	UnitedArabEmirates	AbuDhabi	AbuDhabi
+Ajman	UnitedArabEmirates	Ajman	Ajman
 Emirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
+Fujairah	UnitedArabEmirates	Fujairah	Fujairah
+RasAlKhaimah	UnitedArabEmirates	RasAlKhaimah	RasAlKhaimah
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom

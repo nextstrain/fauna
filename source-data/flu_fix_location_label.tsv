@@ -110,9 +110,11 @@ Osoorno	Osorno
 PtoMontt	PuertoMontt
 Puerto_Montt	PuertoMontt
 PuertoMont	PuertoMontt
+PuntoMontt	PuertoMontt
 Punta_Arenas	PuntaArenas
 PtaArenas	PuntaArenas
 Sanmtiago	Santiago
+Santaigo	Santiago
 Santisgo	Santiago
 Valpara?so	Valparaiso
 Vi?aDelMar	VinaDelMar
@@ -540,6 +542,7 @@ FriuliVeneziaGiuliaUD	Udine
 FVG-Gorizia	Gorizia
 FVG-Pordenone	Pordenone
 FVG-Trieste	Trieste
+FVG-Udine	Udine
 Genova	Genoa
 MIlano	Milan
 Milano	Milan
@@ -618,12 +621,15 @@ XhathomDistrict	ThathomDistrict
 AinWazein	AinWZain
 AinWZein	AinWZain
 AleyhLBN	Aley
+Baalbeck	Baalbek
 BaalbeckLBN	Baalbek
 BazoureyehLBN	Bazouriyeh
 Bekaa	Beqaa
 Jbeil	Byblos
 KsaraLBN	Ksara
+Metn	Matn
 MetnLBN	Matn
+Minieh	Miniyeh
 Minieh DiniehLBN	MiniyehDanniyeh
 MountLebanon_Ain-W-zein	AinWZain
 North_Lebanon	NorthLebanon
@@ -1073,6 +1079,9 @@ thailand	Thailand
 # TrinidadAndTobago
 Trinidad-Tobago	Trinidad
 
+# Tunisia
+Tunsia	Tunisia
+
 # Turkey
 SUrfa	Sanliurfa
 Ha_Tay	Hatay
@@ -1108,6 +1117,7 @@ Zaporizzya	Zaporizhia
 Zhitomir	Zhytomyr
 
 # United Arab Emirates
+Rak	RasAlKhaimah
 United_Arab_Emirates	UnitedArabEmirates
 
 # UnitedKingdom
