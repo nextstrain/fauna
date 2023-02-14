@@ -67,6 +67,7 @@ class download(object):
         print("Downloading titer measurements from the table: " + self.virus)
         measurements = self.rethinkdb_download(self.virus, presents=present, selections=select, intervals=interval, **kwargs)
         self.rename_strains_with_passage(measurements)
+        self.correct_strain_type(measurements)
         print("Downloaded " + str(len(measurements)) + " measurements")
         print("--- %s minutes to download ---" % ((time.time() - start_time)/60))
         return measurements
@@ -94,6 +95,38 @@ class download(object):
                 measurement['virus_strain'] = measurement['virus_strain'] + "-egg"
             if measurement['serum_passage_category'] == "egg":
                 measurement['serum_strain'] = measurement['serum_strain'] + "-egg"
+
+    def correct_strain_type(self, measurements):
+        '''
+        Correct the flu type (A vs B) in the strain names based on the
+        measurement record's subtype.
+        '''
+        type_a = {'h1n1pdm', 'h3n2'}
+        type_b = {'vic', 'yam'}
+        strain_name_types = {'A', 'B'}
+        strain_fields = ['virus_strain', 'serum_strain']
+        for measurement in measurements:
+            subtype = measurement['subtype']
+
+            if subtype not in type_a | type_b:
+                print (f"WARNING: Encountered unexpected subtype {subtype!r}")
+                continue
+
+            for field in strain_fields:
+                new_strain_name = measurement[field]
+                new_strain_name_type = new_strain_name[0]
+
+                if new_strain_name_type not in strain_name_types:
+                    print(f"WARNING: Encountered unknown strain name type {new_strain_name_type!r}")
+                    continue
+
+                if subtype in type_a and new_strain_name_type == 'B':
+                    new_strain_name_type = 'A'
+
+                if subtype in type_b and new_strain_name_type == 'A':
+                    new_strain_name_type = 'B'
+
+                measurement[field] = new_strain_name_type + new_strain_name[1:]
 
     def write_json(self, data, fname, indent=1):
         '''
