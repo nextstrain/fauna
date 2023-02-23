@@ -1565,6 +1565,7 @@ Trieste	Italy	FriuliVeneziaGiulia	Trieste
 Turin	Italy	Piedmont	Turin
 Udine	Italy	FriuliVeneziaGiulia	Udine
 Varese	Italy	Lombardy	Varese
+Veneto	Italy	Veneto	Veneto
 Verona	Italy	Veneto	Verona
 Vicenza	Italy	Veneto	Vicenza
 
@@ -2650,7 +2651,7 @@ Gyeongnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Hanam	SouthKorea	Gyeonggi	Hanam
 Incheon	SouthKorea	Seoul	Incheon
 Jeju	SouthKorea	Jeju	Jeju
-Jeonbuk	SouthKorea	Seoul	Gangnam
+Jeonbuk	SouthKorea	Jeonbuk	Jeonbuk
 Jeonnam	SouthKorea	Jeollanam	Jeonnam
 Jochiwon	SouthKorea	Daejeon	Jochiwon
 Korea	SouthKorea	SouthKorea	SouthKorea
@@ -2662,6 +2663,7 @@ Kyungbuk	SouthKorea	Gyeongsangbuk	Gyeongbuk
 Kyunggi	SouthKorea	Gyeonggi	Gyeonggi
 Kyungnam	SouthKorea	Gyeongsangnam	Gyeongnam
 Seoul	SouthKorea	Seoul	Seoul
+Sejong	SouthKorea	Sejong	Sejong
 Suwon	SouthKorea	Gyeonggi	Suwon
 Ulsan	SouthKorea	Ulsan	Ulsan
 Wonju	SouthKorea	Gangwon	Wonju
@@ -2829,7 +2831,7 @@ Loei	Thailand	Loei	Loei
 MaeHongSon	Thailand	MaeHongSon	MaeHongSon
 MahaSarakham	Thailand	MahaSarakham	MahaSarakham
 Mukdahan	Thailand	Mukdahan	Mukdahan
-Nakhonphanom	Thailand	NakhonPhanom	NakhonPhanom
+NakhonPhanom	Thailand	NakhonPhanom	NakhonPhanom
 NakhonPathom	Thailand	NakhonPathom	NakhonPathom
 NakhonRatachasima	Thailand	NakhonRatachasima	NakhonRatachasima
 Nakhonsawan	Thailand	Nakhonsawan	Nakhonsawan
