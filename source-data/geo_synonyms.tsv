@@ -1091,6 +1091,7 @@ Saarland	Germany	Saarland	Saarland
 SachsenAnhalt	Germany	SachsenAnhalt	SachsenAnhalt
 Sachsen	Germany	Sachsen	Sachsen
 SchleswigHolstein	Germany	SchleswigHolstein	SchleswigHolstein
+Schweiz	Germany	Saxony	Schweiz
 Wurzburg	Germany	Bayern	Wurzburg
 
 # Ghana
@@ -1600,6 +1601,7 @@ Kadoma	Japan	Osaka	Kadoma
 Kagawa	Japan	Kagawa	Kagawa
 Kagoshima	Japan	Kagoshima	Kagoshima
 Kamata	Japan	Tokyo	Kamata
+Kamigoto	Japan	Nagasaki	Kamigoto
 Kanagawa	Japan	Kanagawa	Kanagawa
 Kawasaki	Japan	Kanagawa	Kawasaki
 Kitakyushu	Japan	Fukuoka	Kitakyushu
@@ -2709,6 +2711,7 @@ Soria	Spain	CastileAndLeon	Soria
 Terrassa	Spain	Catalonia	Terrassa
 Tarragona	Spain	Catalonia	Tarragona
 Valencia	Spain	Valencia	Valencia
+ValencianCommunity	Spain	ValencianCommunity	ValencianCommunity
 Valladolid	Spain	CastileAndLeon	Valladolid
 Zamora	Spain	CastileAndLeon	Zamora
 Zaragoza	Spain	Aragon	Zaragoza
@@ -3065,6 +3068,7 @@ CityofSouthampton	UnitedKingdom	England	Southampton
 Clydach	UnitedKingdom	Wales	Clydach
 ClydachVale	UnitedKingdom	Wales	ClydachVale
 Co.Durham	UnitedKingdom	England	CountyDurham
+Coedpoeth	UnitedKingdom	Wales	Coedpoeth
 Colchester	UnitedKingdom	England	Colchester
 ColwynBay	UnitedKingdom	Wales	ColwynBay
 Conwy	UnitedKingdom	Wales	Conwy
@@ -3132,6 +3136,7 @@ Liverpool	UnitedKingdom	England	Liverpool
 Llandeilo	UnitedKingdom	Wales	Llandeilo
 Llanelli	UnitedKingdom	Wales	Llanelli
 Llanfairfechan	UnitedKingdom	Wales	Llanfairfechan
+LlanfihangelGlynMyfyr	UnitedKingdom	Wales	LlanfihangelGlynMyfyr
 Llangefni	UnitedKingdom	Wales	Llangefni
 Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
@@ -3176,6 +3181,7 @@ Penarth	UnitedKingdom	Wales	Penarth
 Pencader	UnitedKingdom	Wales	Pencader
 Pencae	UnitedKingdom	Wales	Pencae
 Pencoed	UnitedKingdom	Wales	Pencoed
+Pendoylan	UnitedKingdom	Wales	Pendoylan
 Pentre	UnitedKingdom	Wales	Pentre
 Penyffordd	UnitedKingdom	Wales	Penyffordd
 Peterborough	UnitedKingdom	England	Peterborough
@@ -3213,11 +3219,13 @@ SaintClears	UnitedKingdom	Wales	SaintClears
 Saundersfoot	UnitedKingdom	Wales	Saundersfoot
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
+Sedbury	UnitedKingdom	England	Sedbury
 Senghenydd	UnitedKingdom	Wales	Senghenydd
 Sheffield	UnitedKingdom	England	Sheffield
 Sketty	UnitedKingdom	Wales	Sketty
 Somerset	UnitedKingdom	England	Somerset
 Southampton	UnitedKingdom	England	Southampton
+Southsea	UnitedKingdom	Wales	Southsea
 StAthan	UnitedKingdom	Wales	StAthan
 Stevenage	UnitedKingdom	England	Stevenage
 Steyning	UnitedKingdom	England	Steyning
