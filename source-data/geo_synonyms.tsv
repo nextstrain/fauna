@@ -13,9 +13,12 @@ Algeria	Algeria	Algeria	Algeria
 Algiers	Algeria	Algiers	Algiers
 Annaba	Algeria	Annaba	Annaba
 Blida	Algeria	Blida	Blida
+Bouira	Algeria	Bouira	Bouira
 Boumerdes	Algeria	Boumerdes	Boumerdes
+Medea	Algeria	Medea	Medea
 Oran	Algeria	Oran	Oran
 Setif	Algeria	Setif	Setif
+Tebessa	Algeria	Tebessa	Tebessa
 Tiaret	Algeria	Tiaret	Tiaret
 
 # AmericanSamoa
@@ -966,6 +969,7 @@ LeMans	France	PaysDeLaLoire	LeMans
 Libourne	France	NouvelleAquitaine	Libourne
 Lille	France	NordPasDeCalais	Lille
 Limoges	France	AquitaineLimousinPoitouCharentes	Limoges
+LonsLeSaunier	France	BourgogneFrancheComte	LonsLeSaunier
 Lorraine	France	AlsaceChampagneArdenneLorraine	Lorraine
 Lourdes	France	Occitanie	Lourdes
 Lyon	France	AuvergneRhoneAlpes	Lyon
