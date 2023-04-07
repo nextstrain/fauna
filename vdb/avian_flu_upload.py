@@ -411,7 +411,7 @@ class flu_upload(upload):
             "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha",
             "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
             "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
-            "barn__swallow", "brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
+            "barn__swallow", "blackvulture","black vulture","brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
             "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler","black-headedgull",
             "buteobuteo","buteojamaicensis","buteojaponicus",
             "blue__winged__teal","blue-wingedteal","bluegoose", 
@@ -452,7 +452,7 @@ class flu_upload(upload):
             "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
             "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasianus",
-            "phasaniussp.","pheasant","phasaniuscolchicus","pelican",
+            "phasaniussp.","pheasant","phasaniuscolchicus","pelican","pelecanus",
             "penguin","peregrine__falcon", "picapica","pica","pigeon", "pink__footed__goose", 
             "polyplectronbicalcaratum", "podicepscristatus",
             "poultry","pygoscelisantarcticus","rynchopsniger",
@@ -477,7 +477,7 @@ class flu_upload(upload):
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus"]
+            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
 
