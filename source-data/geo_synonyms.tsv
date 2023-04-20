@@ -1565,6 +1565,7 @@ Sassari	Italy	Sardinia	Sassari
 Siena	Italy	Tuscany	Siena
 Siracusa	Italy	Sicily	Siracusa
 Torino	Italy	Piedmont	Torino
+Trapani	Italy	Sicily	Trapani
 Trento	Italy	TrentinoAltoAdige	Trento
 Trieste	Italy	FriuliVeneziaGiulia	Trieste
 Turin	Italy	Piedmont	Turin
@@ -3100,11 +3101,13 @@ Ely	UnitedKingdom	Wales	Ely
 Enfield	UnitedKingdom	England	Enfield
 England	UnitedKingdom	England	England
 Exeter	UnitedKingdom	England	Exeter
+FalklandIslands	UnitedKingdom	BritishOverseasTerritory	FalklandIslands
 Feltham	UnitedKingdom	England	Feltham
 Flint	UnitedKingdom	Wales	Flint
 Ferndale	UnitedKingdom	Wales	Ferndale
 GerrardsCross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
+Gilwern	UnitedKingdom	Wales	Gilwern
 Glasgow	UnitedKingdom	Scotland	Glasgow
 Gloucester	UnitedKingdom	England	Gloucester
 Glynneath	UnitedKingdom	Wales	Glynneath
@@ -3248,6 +3251,7 @@ Tredegar	UnitedKingdom	Wales	Tredegar
 Tregaron	UnitedKingdom	Wales	Tregaron
 Treherbert	UnitedKingdom	Wales	Treherbert
 Treorchy	UnitedKingdom	Wales	Treorchy
+Tylorstown	UnitedKingdom	Wales	Tylorstown
 Tywyn	UnitedKingdom	Wales	Tywyn
 Usk	UnitedKingdom	Wales	Usk
 Wales	UnitedKingdom	Wales	Wales
