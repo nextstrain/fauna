@@ -542,11 +542,24 @@ class flu_upload(upload):
         if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
             print("check location for", strain_name, original_name, "location ",loc)
 
+        """perform a check for sequences for Georgia to determine whether they are from the 
+        country or the US state. If from gisaid and location is Georgia, check the region. 
+        If region == asia, set location to georgia country"""
+        if loc.lower() == "georgia":
+            if data_source == "gisaid":
+                if v['gisaid_location'] is not None:
+                    region = v['gisaid_location'].split('/')[0].replace(" ", "")
+                    if region.lower() == "asia":
+                        loc = "GeorgiaCountry"
+                    else: 
+                        loc = loc
+                    result = self.determine_location(loc)
 
         if data_source == "gisaid":
             if v['gisaid_location'] is not None and result is None:
                 loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
                 result = self.determine_location(loc)
+
         if data_source == 'ird':
             if field_count == 4 and v['host'].lower() == 'human':
                 loc = strain_name.split("/")[1]
