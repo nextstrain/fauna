@@ -191,6 +191,7 @@ Caetes	Brazil	Pernambuco	Caetes
 CambaradoSul	Brazil	RioGrandeDoSul	CambaradoSul
 Cambepr	Brazil	Parana	Cambe
 CampoGrande	Brazil	MatoGrosso	CampoGrande
+CamposDosGoytacazes	Brazil	RioDeJaneiro	CamposDosGoytacazes
 Canoas	Brazil	RioGrandeDoSul	Canoas
 Ceara	Brazil	Ceara	Ceara
 Ceilandia	Brazil	DistritoFederal	Ceilandia
@@ -238,6 +239,7 @@ Paraiba	Brazil	Paraiba	Paraiba
 Paulista	Brazil	Pernambuco	Paulista
 PedraBela	Brazil	SaoPaulo	PedraBela
 Pelotas	Brazil	RioGrandeDoSul	Pelotas
+Penedo	Brazil	Alagoas	Penedo
 Pernambuco	Brazil	Pernambuco	Pernambuco
 Pernambucocamaragib	Brazil	Pernambuco	Camaragibe
 PernambucorecifePernambuco	Brazil	Pernambuco	Recife
@@ -2368,6 +2370,7 @@ Cheboksary	Russia	Chuvash	Cheboksary
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherepovets	Russia	Vologda	Cherepovets
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
+Chernogorsk	Russia	Khakassia	Chernogorsk
 Chita	Russia	ZabaykalskyKrai	Chita
 Chukotka	Russia	Chukotka	Chukotka
 Chuvashia	Russia	Volga	Chuvashia
@@ -2446,6 +2449,7 @@ Orel	Russia	Oryol	Orel
 Orenburg	Russia	Orenburg	Orenburg
 Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
+Ozersk	Russia	Chelyabinsk	Ozersk
 Paranga	Russia	MariEl	Paranga
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
