@@ -258,6 +258,9 @@ Yunnananning	YunnanAnning
 ZhangZhou	Zhangzhou
 Zhejianghaishu	ZhejiangHaishu
 
+# CostaRica
+Costa_Rica	CostaRica
+
 # CoteDIvoire
 CotedIvoir	CoteDIvoire
 CotedIvoire	CoteDIvoire
@@ -391,6 +394,7 @@ ChiosIslandGR	Chios
 Chios_IslandGR	Chios
 CreteGR	Crete
 Crete_IslandGR	Crete
+Cyclades.GR	Cyclades
 EvritaniaGR	Evrytania
 HerakleionGR	Heraklion
 Heraklion_CreteGR	Heraklion
@@ -613,6 +617,7 @@ Kosova	Kosovo
 # Kyrgyzstan
 Kyrgyztan	Kyrgyzstan
 Kyrgzstan	Kyrgyzstan
+Bischkek	Bishkek
 
 # Lao
 Laos	Lao
@@ -884,6 +889,7 @@ Kosh-Agach	KoshAgach
 Kozmodemiansk	Kozmodemyansk
 Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
+Gornoaltaisk	GornoAltaysk
 Grozniy	Grozny
 Groznyi	Grozny
 IIV-Anadyr	Anadyr
@@ -895,6 +901,7 @@ IIV-Penza	Penza
 IIV-Ryazan	Ryazan
 IIV-Tomsk	Tomsk
 Irkursk	Irkutsk
+JAO	JewishOblast
 Joshkar-Ola	YoshkarOla
 Khanti-Mansiysk	KhantiMansiysk
 Khanty-Mansiysk	KhantiMansiysk
@@ -964,6 +971,7 @@ Volgda	Vologda
 Vologd	Vologda
 Voroneg	Voronezh
 YANAO	Yamalo-Nenets
+Yarosavl	Yaroslavl
 Yaroslavyl	Yaroslavl
 Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
@@ -1148,6 +1156,7 @@ Falkland-Islands	FalklandIslands
 Merthyr_Tydfil	MerthyrTydfil
 New_Tredegar	NewTredegar
 NIreland	NorthernIreland
+Newporrt	Newport
 ChristHospital	ChristsHospital
 United_Kingdom	UnitedKingdom
 ENG	England
