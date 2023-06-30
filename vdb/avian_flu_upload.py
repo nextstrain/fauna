@@ -411,11 +411,11 @@ class flu_upload(upload):
             "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha",
             "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
             "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
-            "barn__swallow", "brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
+            "barn__swallow", "blackvulture","black vulture","brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
             "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler","black-headedgull",
             "buteobuteo","buteojamaicensis","buteojaponicus",
             "blue__winged__teal","blue-wingedteal","bluegoose", 
-            "brantahutchinsii","brantacanadensis","brantaleucopsis",
+            "brantahutchinsii","brantacanadensis","brantaleucopsis","buteolineatus",
             "cairinamoschata", "calidrisalba","calidrisminutilla","canada__goose","chencaerulescens",
             "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","ciconiaciconia","common__pochard",
             "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "common_teal","condor",
@@ -431,7 +431,7 @@ class flu_upload(upload):
             "falcotinnunculus", "falscorusticolus",
             "gadwall", "gallinulachloropus","gallus", "gallusgallus", "gallusgallusdomesticus",
             "goose", "graculareligiosa", "great__black__headed__gull", "garrulaxcanorus", "garganey",
-            "glaucous-wingedgull",
+            "glaucous-wingedgull","greygull",
             "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
             "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
             "green__winged__teal","green-wingedteal", "grey__teal",
@@ -440,7 +440,7 @@ class flu_upload(upload):
             "heron", "herringgull","hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
             "larusarmenicus","larusschistisagus", "larussmithsonianus","larusargentatus", "larusbrunnicephalus",
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans",
-            "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull",
+            "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull","larus",
             "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", "little__grebe",
             "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard", 
             "mallardduck","marecapenelope","murre",
@@ -452,10 +452,10 @@ class flu_upload(upload):
             "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
             "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasianus",
-            "phasaniussp.","pheasant","phasaniuscolchicus",
+            "phasaniussp.","pheasant","phasaniuscolchicus","pelican","pelecanus",
             "penguin","peregrine__falcon", "picapica","pica","pigeon", "pink__footed__goose", 
             "polyplectronbicalcaratum", "podicepscristatus",
-            "poultry","pygoscelisantarcticus",
+            "poultry","pygoscelisantarcticus","rynchopsniger",
             "quail", "rails","rail","ring-neckedduck","rook", "ruddy__turnstone", "ruddyturnstone",
             "ruddyshelduck","rosy__billed__pochard","sacredibis",
             "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike", 
@@ -477,7 +477,7 @@ class flu_upload(upload):
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus"]
+            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
 
@@ -542,11 +542,24 @@ class flu_upload(upload):
         if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
             print("check location for", strain_name, original_name, "location ",loc)
 
+        """perform a check for sequences for Georgia to determine whether they are from the 
+        country or the US state. If from gisaid and location is Georgia, check the region. 
+        If region == asia, set location to georgia country"""
+        if loc.lower() == "georgia":
+            if data_source == "gisaid":
+                if v['gisaid_location'] is not None:
+                    region = v['gisaid_location'].split('/')[0].replace(" ", "")
+                    if region.lower() == "asia":
+                        loc = "GeorgiaCountry"
+                    else: 
+                        loc = loc
+                    result = self.determine_location(loc)
 
         if data_source == "gisaid":
             if v['gisaid_location'] is not None and result is None:
                 loc = v['gisaid_location'].split('/')[-1].replace(" ", "")
                 result = self.determine_location(loc)
+
         if data_source == 'ird':
             if field_count == 4 and v['host'].lower() == 'human':
                 loc = strain_name.split("/")[1]
