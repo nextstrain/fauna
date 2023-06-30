@@ -60,7 +60,7 @@ class flu_upload(upload):
                                   'H1N1pdm': ('a', 'h1n1', 'seasonal_h1n1pdm'),
                                   'Vic': ('b', None, 'seasonal_vic'),
                                   'Yam': ('b', None, 'seasonal_yam')}
-        self.strain_fix_fname = "source-data/flu_strain_name_fix.tsv"
+        self.strain_fix_fname = "source-data/avian_flu_strain_name_fix.tsv"
         self.location_fix_fname = "source-data/flu_location_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
         self.fix = set()
@@ -380,6 +380,10 @@ class flu_upload(upload):
                 name = re.match(r'([\w\s\-/]+)/([0-9][0-9])$', name).group(1) + "/19" + year
         return name
 
+    def format_gisaid_clade(self, v):
+        if v['gisaid_clade'] is not None: 
+            v['gisaid_clade'] = v['gisaid_clade'].strip().lower()
+            
     def format_domestic_status(self, v):
         if v['domestic_status'] is not None: 
             v['domestic_status'] = v['domestic_status'].strip().lower()
@@ -439,7 +443,7 @@ class flu_upload(upload):
             "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
             "heron", "herringgull","hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
             "larusarmenicus","larusschistisagus", "larussmithsonianus","larusargentatus", "larusbrunnicephalus",
-            "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans",
+            "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans","larosternainca",
             "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull","larus",
             "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", "little__grebe",
             "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard", 
@@ -466,7 +470,7 @@ class flu_upload(upload):
             "streptopeliadecaocto",
             "stork", "swiftlet", 
             "tachybaptusruficollis","tadornaferuginea","tadornatadorna",
-            "teal", "turkey", "tern","turtledove", "tree__sparrow", "us_quail", "waterbird","waterfowl",
+            "teal", "turkey", "tern","turtledove", "tree__sparrow", "turnstone","us_quail", "waterbird","waterfowl",
             "wild__turkey", "wildwaterfowl","white__bellied__bustard", 
             "white-frontedgoose", "white-frontedgoose",
             "wild__chicken","wild__duck","wildbirds",
@@ -532,6 +536,9 @@ class flu_upload(upload):
         elif field_count == 5:
             loc = strain_name.split('/')[2].replace(" ", "")
             result = self.determine_location(loc)
+        else: 
+            loc = None
+            print("improperly formatted strain name, ", strain_name, original_name)
 
         """there are some old avian viruses whose strain names are incorrectly formatted
         and are missing a strain identifier. Therefore, they are only 4 fields long instead
@@ -540,20 +547,21 @@ class flu_upload(upload):
         will check whether the strain name is only 4 fields and has turkey in it, and if
         the location field is not also Turkey, it will print out this error message"""
         if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
-            print("check location for", strain_name, original_name, "location ",loc)
+            print("check location for", strain_name, "original strain name: ", original_name, "location ",loc)
 
         """perform a check for sequences for Georgia to determine whether they are from the 
         country or the US state. If from gisaid and location is Georgia, check the region. 
         If region == asia, set location to georgia country"""
-        if loc.lower() == "georgia":
-            if data_source == "gisaid":
-                if v['gisaid_location'] is not None:
-                    region = v['gisaid_location'].split('/')[0].replace(" ", "")
-                    if region.lower() == "asia":
-                        loc = "GeorgiaCountry"
-                    else: 
-                        loc = loc
-                    result = self.determine_location(loc)
+        if loc is not None:
+            if loc.lower() == "georgia":
+                if data_source == "gisaid":
+                    if v['gisaid_location'] is not None:
+                        region = v['gisaid_location'].split('/')[0].replace(" ", "")
+                        if region.lower() == "asia":
+                            loc = "GeorgiaCountry"
+                        else: 
+                            loc = loc
+                        result = self.determine_location(loc)
 
         if data_source == "gisaid":
             if v['gisaid_location'] is not None and result is None:
@@ -641,16 +649,16 @@ class flu_upload(upload):
 if __name__=="__main__":
     args = parser.parse_args()
     if (args.data_source == 'gisaid'):
-        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab', 11: 'originating_lab', 17: 'INSDC_accession'}
+        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'INSDC_accession'}
         #gisaid fasta fields: 
-        # DNA Accession no.|Isolate name | Isolate ID | Segment | Passage details/history | Submitting lab | Collection date | Submitter | Sample ID by sample provider | Sample ID by submitting lab | Last modified | Originating lab | Submitting lab | Segment | Segment number | Identifier | DNA Accession no. | DNA INSDC | DNA Accession no. | Isolate name  | I
+        # DNA Accession no. | Isolate name | Isolate ID | Segment
         setattr(args, 'fasta_fields', sequence_fasta_fields)
         xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                                  ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
                                  ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
                                  ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
                                  ('submitting_lab', 'Submitting_Lab'), ('authors','Authors'), ('domestic_status','Domestic_Status'), 
-                                 ('PMID','PMID'), ('animal_health_status','Animal_Health_Status')]
+                                 ('PMID','PMID'), ('animal_health_status','Animal_Health_Status'), ('gisaid_clade','Clade')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
         virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 11:'h5_clade'}
