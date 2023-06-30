@@ -838,6 +838,7 @@ Congo	Congo	Congo	Congo
 
 # DemocraticRepublicofCongo
 DemocraticRepublicOfCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo
+TheDemocraticRepublicoftheCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo	DemocraticRepublicOfCongo
 
 # Denmark
 Denmark	Denmark	Denmark	Denmark
@@ -1180,6 +1181,9 @@ Volos	Greece	Thessaly	Volos
 Vonitsa	Greece	WesternGreece	Vonitsa
 Xanthi	Greece	EasternMacedoniaAndThrace	Xanthi
 Zakynthos	Greece	IonianIslands	Zakynthos
+
+# Greenland
+Greenland	Greenland	Greenland	Greenland
 
 # Grenada
 Grenada	Grenada	Grenada	Grenada
@@ -1930,6 +1934,7 @@ Puertovallartajalisco	Mexico	Jalisco	PuertoVallarta
 Cdvictoriatamaulipas	Mexico	Tamaulipas	CiudadVictoria
 Veracruz	Mexico	Veracruz	Veracruz
 Tabasco	Mexico	Tabasco	Tabasco
+Durango	Mexico	Durango	Durango
 
 # Micronesia
 MicronesiaFederatedStatesOf	Micronesia	Micronesia	Micronesia
@@ -2023,6 +2028,9 @@ Shan	Myanmar	Shan	Shan
 Thanatpin	Myanmar	Bago	Thanatpin
 Yinmarbin	Myanmar	Sagaing	Yinmarbin
 Pyigyitagon	Myanmar	Mandalay	Pyigyitagon
+
+# Namibia
+Namibia	Namibia	Namibia	Namibia
 
 # Nauru
 Nauru	Nauru	Nauru	Nauru
@@ -2376,6 +2384,7 @@ Buryatia	Russia	Buryatia	Buryatia
 Buturlinovka	Russia	Voronezh	Buturlinovka
 Chany	Russia	Novosibirsk	Chany
 Cheboksary	Russia	Chuvash	Cheboksary
+Chechnya	Russia	Chechnya	Chechnya
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherepovets	Russia	Vologda	Cherepovets
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
@@ -3386,6 +3395,7 @@ Kansas	USA	Kansas	Kansas
 Lackland	USA	Texas	Lackland
 LosAngeles	USA	California	LosAngeles
 Keywestfl	USA	Florida	KeyWest
+Maine	USA	Maine	Maine
 Mayoclinic	USA	Minnesota	Mayoclinic
 Minneapolis	USA	Minnesota	Minneapolis
 Memphis	USA	Tennessee	Memphis
@@ -3473,6 +3483,7 @@ Mekongdelta	Vietnam	MekongDelta	MekongDelta
 MongCai	Vietnam	QuangNinh	MongCai
 NamDinh	Vietnam	NamDinh	NamDinh
 NgheAn	Vietnam	NgheAn	NgheAn
+NhaTrang	Vietnam	KhanhHoa	NhaTrang
 NinhBinh	Vietnam	NinhBinh	NinhBinh
 PhuTho	Vietnam	PhuTho	PhuTho
 QuangNinh	Vietnam	QuangNinh	QuangNinh
