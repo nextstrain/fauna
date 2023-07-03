@@ -412,21 +412,22 @@ class flu_upload(upload):
             "anasdiscors"," anasfalcata","anasgeorgica","anasformosa", "anasplatyrhynchos", "anaspoecilorhyncha",
             "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasplatyrhynchosvar.domesticus",
             "anasundalata", "anseranser", "anserfabalis", "anseralbifrons", "anthropoidesvirgo",
-            "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha",
-            "aythyamarila","aythyafuligula","aythyanyroca","aythyacollaris","aythyaferina",
+            "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha","aythyaaffinis",
+            "anserrossii",
+            "aythyamarila","aythyafuligula","aythyaamericana","aythya_americana","aythyanyroca","aythyacollaris","aythyaferina",
             "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
             "barn__swallow", "blackvulture","black vulture","brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
             "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler","black-headedgull",
             "buteobuteo","buteojamaicensis","buteojaponicus",
             "blue__winged__teal","blue-wingedteal","bluegoose", 
             "brantahutchinsii","brantacanadensis","brantaleucopsis","buteolineatus",
-            "cairinamoschata", "calidrisalba","calidrisminutilla","canada__goose","chencaerulescens",
+            "cairinamoschata", "calidrisalba","calidris_canutus","calidriscanutus","calidrisminutilla","canada__goose","chencaerulescens",
             "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","ciconiaciconia","common__pochard",
             "common__goldeneye", "common__coot", "common__pheasant", "commonteal", "common_teal","condor",
             "cooper'shawk","cormorant", "corvus", "copsychussaularis","corvusmacrorhynchos",
-            "coturnix", "coturnixsp.", "coturniccoturnix", "coturnixjaponica",
+            "coturnix", "coturnixsp.", "coturniccoturnix", "coturnixjaponica","chlidoniashybridus",
             "crane", "crow", "cygnus","cyrtonyxmontezumai","curlew", "cygnusatratus", "chinese__francolin",
-            "chroicocephaluscirrocephalus","corvusfrugilegus",
+            "chroicocephaluscirrocephalus","corvusfrugilegus","chlidoniashybridus","circusaeruginosus,"
             "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor",
             "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove", 
             "eagle", "egret","egyptiangoose","eurasiancurlew","eurasian__eagel__owl","emperorgoose",
@@ -434,7 +435,8 @@ class flu_upload(upload):
             "falcoperegrinus", "finch", "francolinus", "fowl",
             "falcotinnunculus", "falscorusticolus",
             "gadwall", "gallinulachloropus","gallus", "gallusgallus", "gallusgallusdomesticus",
-            "goose", "graculareligiosa", "great__black__headed__gull", "garrulaxcanorus", "garganey",
+            "gallinagogallinago",
+            "goose", "graculareligiosa", "great__black__headed__gull", "grey_teal","greyteal","garrulaxcanorus", "garganey",
             "glaucous-wingedgull","greygull",
             "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
             "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
@@ -444,14 +446,16 @@ class flu_upload(upload):
             "heron", "herringgull","hirundorustica", "houbara__bustard", "japanese__white__eye", "japanese__quail",
             "larusarmenicus","larusschistisagus", "larussmithsonianus","larusargentatus", "larusbrunnicephalus",
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans","larosternainca",
-            "larusatricilla", "laruscanus", "larusdominicanus","laughing__gull","larus",
-            "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", "little__grebe",
-            "little__egret", "lophuranycthemera", "magpie", "magpie__robin", "mallard", 
+            "larusatricilla", "laruscanus", "larusdelawarensis","larusdominicanus","laughing__gull","larus",
+            "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", 
+            "leucophaeus","little__grebe",
+            "little__egret", "lophuranycthemera", "lophodytescucullatus","lophodytescucullatus",
+            "magpie", "magpie__robin", "mallard", 
             "mallardduck","marecapenelope","murre",
             "morphnusguianensis", "mulardduck","mute__swan", "muscovy__duck", "myna", "meleagrisgallopavo",
             "necrosyrtesmonachus", "nisaetusnipalensis","northernpintail",
             "northern__shoveler", "northernshoveler","numidasp.","northernpintail",
-            "northern__pintail", 
+            "northern__pintail", "numidameleagris",
             "openbill__stork","oreortyx", "ostrich", "oystercatcher", "otheravian",
             "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
@@ -481,9 +485,9 @@ class flu_upload(upload):
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus"]
+            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus","rodent"]
         other_list = [
-            "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal"]
+            "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal","host"]
 
         if v['host'] is not None:
 
