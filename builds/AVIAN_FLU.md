@@ -7,13 +7,13 @@
 #### Upload from GISAID
 
 1. Download sequences and meta information from [GISAID](http://platform.gisaid.org/)
-  * In EPIFLU, select for either H7N9 sequences or H5N1 sequences, select `HA` as required segment, select Submission Date >= last upload date to vdb
+  * In EPIFLU, select for H9N2, H7N9, or H5 sequences, select `HA` as required segment, select Submission Date >= last upload date to vdb
   * Download at most 5000 isolates at a time, may have to split downloads by submission date
   * Download Isolates as XLS with YYYY-MM-DD date format
   * Download Isolates as "Sequences (DNA) as FASTA"
-    * Select all DNA
+    * Select all DNA, except HE and PE
     * Fasta Header as 0: DNA Accession no., 1: Isolate name, 2: Isolate ID, 3: Segment, 4: Passage details/history, 5: Submitting lab
-    * `DNA Accession no. | Isolate name | Isolate ID | Segment | Passage details/history | Submitting lab`
+    * `DNA Accession no. | Isolate name | Isolate ID | Segment | Passage details/history  | DNA INSDC`
 2. Move files to `fauna/data` as `gisaid_epiflu.xls` and `gisaid_epiflu.fasta`.
 3. Upload to vdb database
   * `python3 vdb/avian_flu_upload.py -db vdb -v avian_flu --data_source gisaid --source gisaid --fname gisaid_epiflu`
