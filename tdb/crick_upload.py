@@ -35,7 +35,7 @@ def read_crick(path, fstem, assay_type):
         ind = exten.index(True)
         sheets = convert_xls_to_csv(path, fstem, ind)
         for sheet in sheets:
-            fname = "../../fludata/Crick-London-WHO-CC/processed-data/csv/{}.csv".format(sheet)
+            fname = "../fludata/Crick-London-WHO-CC/processed-data/csv/{}.csv".format(sheet)
             parse_crick_matrix_to_tsv(fname, path, assay_type)
     else:
         # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
@@ -52,7 +52,7 @@ def convert_xls_to_csv(path, fstem, ind):
         # Replace spaces with underscores in sheet name so that the call to
         # elife_upload does not error out due to the space in --fstem
         sheet.name = sheet.name.replace(' ', '_')
-        with open('../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'w') as f:
+        with open('../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'w') as f:
             writer = csv.writer(f)
             print(sheet.name)
             for row in range(sheet.nrows):
@@ -63,7 +63,7 @@ def convert_xls_to_csv(path, fstem, ind):
                     except:
                         import pdb; pdb.set_trace()
                 writer.writerow(new_row)
-        print("wrote new csv to ../../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv".format(fstem, sheet.name))
+        print("wrote new csv to ../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv".format(fstem, sheet.name))
         sheets.append("{}_{}".format(fstem, sheet.name))
     return sheets
 
@@ -72,7 +72,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
     with open(fname) as infile:
         csv_reader = csv.reader(infile)
         mat = list(csv_reader)
-    with open('../../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'w') as outfile:
+    with open('../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'w') as outfile:
         header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
         outfile.write("%s\n" % ("\t".join(header)))
         original_path = original_path.split('/')
@@ -142,10 +142,10 @@ if __name__=="__main__":
         if args.preview:
             print("Subtype: {}".format(subtype))
             print("Sheet: {}".format(sheet))
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet + " --preview"
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet + " --preview"
             print(command)
             subprocess.call(command, shell=True)
         else:
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet
+            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + subtype + " --path ../fludata/Crick-London-WHO-CC/processed-data/tsv/ --fstem " + sheet
             print(command)
             subprocess.call(command, shell=True)
