@@ -112,7 +112,9 @@ class flu_upload(upload):
             raise Exception(xls, "not found")
         else:
             df = pandas.read_excel(handle)
-            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None
+            # Make sure all Nan values are converted to None, regardless of column dtype
+            # based on https://stackoverflow.com/a/70803926
+            df = df.astype(object).where((pandas.notnull(df)), None)  # convert Nan type to None
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
