@@ -1027,8 +1027,10 @@ Tulle	France	NouvelleAquitaine	Tulle
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
 Tours	France	CentreValDeLoire	Tours
+VandoeuvreLesNancy	France	GrandEst	VandoeuvreLesNancy
 Villefranche	France	ProvenceAlpesCoteDAzur	Villefranche
 Villejuif	France	IleDeFrance	Villejuif
+
 
 # FrenchGuiana
 FrenchGuiana	FrenchGuiana	FrenchGuiana	FrenchGuiana
@@ -2747,6 +2749,7 @@ Palencia	Spain	CastileAndLeon	Palencia
 Santander	Spain	Cantabria	Santander
 Salamanca	Spain	CastileAndLeon	Salamanca
 SanSebastian	Spain	BasqueCountry	SanSebastian
+SantiagoDeCompostela	Spain	Galicia	SantiagoDeCompostela
 Segovia	Spain	CastileAndLeon	Segovia
 Soria	Spain	CastileAndLeon	Soria
 Terrassa	Spain	Catalonia	Terrassa
@@ -3049,6 +3052,7 @@ Ajman	UnitedArabEmirates	Ajman	Ajman
 Emirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 Fujairah	UnitedArabEmirates	Fujairah	Fujairah
 RasAlKhaimah	UnitedArabEmirates	RasAlKhaimah	RasAlKhaimah
+UmmAlQuwain	UnitedArabEmirates	UmmAlQuwain	UmmAlQuwain
 
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
