@@ -78,7 +78,7 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
         elif subtype == "vic":
             start_row = 5
             start_col = 4
-            serum_id_row_index = 4
+            serum_id_row_index = 3
         elif subtype == "yam":
             start_row = 5
             start_col = 4
