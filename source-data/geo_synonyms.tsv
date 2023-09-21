@@ -2578,6 +2578,10 @@ Senegal	Senegal	Senegal	Senegal
 Dakar	Senegal	Dakar	Dakar
 Fatick	Senegal	Fatick	Fatick
 Niakhar	Senegal	Fatick	Niakhar
+Saint-louis	Senegal	Saint-louis	Saint-louis
+Sedhiou	Senegal	Ziguinchor	Sedhiou
+Thies	Senegal	Thies	Thies
+Ziguinchor	Senegal	Ziguinchor	Ziguinchor
 
 # Serbia
 Serbia	Serbia	Serbia	Serbia
@@ -2624,20 +2628,26 @@ Singapore	Singapore	Singapore	Singapore
 # Slovakia
 Slovakia	Slovakia	Slovakia	Slovakia
 BanskaBystrica	Slovakia	Banskobystricky	BanskaBystrica
+Banske	Slovakia	Presov	Banske
 Bojnice	Slovakia	Trencin	Bojnice
 Bratislava	Slovakia	Bratislava	Bratislava
 DunajskaStreda	Slovakia	Trnava	DunajskaStreda
 Galanta	Slovakia	Trnava	Galanta
+Hencovce	Slovakia	Presov	Hencovce
 Klacany	Slovakia	Trnava	Klacany
+Kladzany	Slovakia	Presov	Kladzany
 Komarno	Slovakia	Nitra	Komarno
 Kosice	Slovakia	Kosice	Kosice
+Kraliky	Slovakia	Banskobystricky	Kraliky
 Levice	Slovakia	Nitriansky	Levice
 Lubica	Slovakia	Presov	Lubica
 Malacky	Slovakia	Bratislava	Malacky
 Michalovce	Slovakia	Kosice	Michalovce
 Modra	Slovakia	Bratislava	Modra
 Nitra	Slovakia	Nitra	Nitra
+NiznyHrabovec	Slovakia	Presov	NiznyHrabovec
 NoveZamky	Slovakia	Nitra	NoveZamky
+Ocova	Slovakia	Banskobystricky	Ocova
 Partizanske	Slovakia	Trencin	Partizanske
 Piestany	Slovakia	Trnava	Piestany
 Poprad	Slovakia	Presov	Poprad
@@ -2648,11 +2658,13 @@ Trencin	Slovakia	Trencin	Trencin
 Trnava	Slovakia	Trnava	Trnava
 Sastin	Slovakia	Trnava	Sastin
 SastinStraze	Slovakia	Trnava	SastinStraze
+SecovskaPolianka	Slovakia	Presov	SecovskaPolianka
 Senica	Slovakia	Trnava	Senica
 Siladice	Slovakia	Trnava	Siladice
 Skalica	Slovakia	Trnava	Skalica
 Sobotiste	Slovakia	Trnava	Sobotiste
 Sulekovo	Slovakia	Trnava	Sulekovo
+VranovnadToplou	Slovakia	Presov	VranovnadToplou
 
 # Slovenia
 Slovenia	Slovenia	Slovenia	Slovenia
