@@ -99,6 +99,8 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
                         serum_strain = flutype + "/" + serum_strain
                 # Normalize U+ff1c '＜' to U+003c '<'
                 titer = unicodedata.normalize('NFKC', mat[i][j])
+                # Allow either "< 10" or "<10"
+                titer = re.sub(r'< ', '<', titer)
                 source = "niid_%s"%(src_id)
                 virus_passage = mat[i][2]
                 virus_passage_category = ''
