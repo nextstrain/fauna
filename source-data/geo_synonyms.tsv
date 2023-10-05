@@ -490,6 +490,7 @@ BeijingMiyun	China	Beijing	Miyun
 BeijingXicheng	China	Beijing	Xicheng
 BeijingXuanwu	China	Beijing	Xicheng
 Changchun	China	Jilin	Changchun
+ChangShou	China	Chongqing	ChangShou
 Changzhou	China	Jiangsu	Changzhou
 Chaoyang	China	Liaoning	Chaoyang
 Changsha	China	Hunan	Changsha
@@ -2634,6 +2635,7 @@ Bratislava	Slovakia	Bratislava	Bratislava
 DunajskaStreda	Slovakia	Trnava	DunajskaStreda
 Galanta	Slovakia	Trnava	Galanta
 Hencovce	Slovakia	Presov	Hencovce
+Hrochot	Slovakia	BanskaBystrica	Hrochot
 Klacany	Slovakia	Trnava	Klacany
 Kladzany	Slovakia	Presov	Kladzany
 Komarno	Slovakia	Nitra	Komarno
@@ -2788,6 +2790,9 @@ SaintVincentAndTheGrenadines	SaintVincentAndTheGrenadines	SaintVincentAndTheGren
 # Sudan
 Sudan	Sudan	Sudan	Sudan
 
+# South Sudan
+SouthSudan	SouthSudan	SouthSudan	SouthSudan
+
 # Suriname
 Suriname	Suriname	Suriname	Suriname
 
@@ -2917,6 +2922,7 @@ Ranong	Thailand	Ranong	Ranong
 SaKaeo	Thailand	SaKaeo	SaKaeo
 SakonNakhon	Thailand	SakonNakhon	SakonNakhon
 SamutPrakan	Thailand	SamutPrakan	SamutPrakan
+SamutSongkhram	Thailand	SamutSongkhram	SamutSongkhram
 Saraburi	Thailand	Saraburi	Saraburi
 Satun	Thailand	Satun	Satun
 Siriraj_ICRC_NKS_1	Thailand	Bangkok	Bangkok
