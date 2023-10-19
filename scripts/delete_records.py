@@ -30,8 +30,12 @@ if __name__ == "__main__":
         deletion_count = 0
         sources = set()
         for record in filtered_records:
-            source = record['source']
-            file_source, line = source.rsplit('_', 1)
+            source = file_source = record['source']
+
+            # The titer uploads using `elife_upload` appends a line counter to the end of the sources.
+            if "_" in source:
+                file_source, line = source.rsplit('_', 1)
+
             sources.add(file_source)
             deletion_count += 1
 
