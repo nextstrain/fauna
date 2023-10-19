@@ -626,6 +626,7 @@ Lijiang	China	Yunnan	Lijiang
 Lishui	China	Zhejiang	Lishui
 Longquan	China	Zhejiang	Longquan
 LongYan	China	Fujian	Longyan
+Luoyang	China	Henan	Luoyang
 Macau	China	Macau	Macau
 Menyuan	China	Qinghai	Menyuan
 Mudanjiang	China	Heilongjiang	Mudanjiang
@@ -1009,6 +1010,7 @@ Poitiers	France	AquitaineLimousinPoitouCharentes	Poitiers
 PoitouCharentes	France	AquitaineLimousinPoitouCharentes	PoitouCharentes
 ProvenceAlpesCoteDAzur	France	ProvenceAlpesCoteDAzur	ProvenceAlpesCoteDAzur
 Puymirol	France	NouvelleAquitaine	Puymirol
+Quimper	France	Bretagne	Quimper
 Reims	France	AlsaceChampagneArdenneLorraine	Reims
 Rennes	France	Bretagne	Rennes
 Reunion	France	SaintDenis	Reunion
@@ -2454,6 +2456,7 @@ Maiya	Russia	Sakha	Maiya
 Majkop	Russia	Adygeya	Majkop
 MalayaVishera	Russia	Novgorod	MalayaVishera
 MariEl	Russia	MariEl	MariEl
+Mamonovo	Russia	Kaliningrad	Mamonovo
 Maykop	Russia	Adygea	Maykop
 Mcensk	Russia	Oryol	Mcensk
 Medvedevo	Russia	MariEl	Medvedevo
@@ -3530,10 +3533,12 @@ WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
 
 # Zambia
 Zambia	Zambia	Zambia	Zambia
+Chipata	Zambia	EasternProvince	Chipata
 Lusaka	Zambia	Lusaka	Lusaka
 Macha	Zambia	SouthernProvince	Macha
 Nakonde	Zambia	Muchinga	Nakonde
 Ndola	Zambia	Copperbelt	Ndola
+Solwezi	Zambia	NorthWesternProvince	Solwezi
 
 # Zimbabwe
 Zimbabwe	Zimbabwe	Zimbabwe	Zimbabwe
