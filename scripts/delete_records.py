@@ -25,8 +25,10 @@ if __name__ == "__main__":
 
     print(delete_filters)
 
+    rethinkdb_command = r.table(args.virus).filter(delete_filters)
+
     if args.preview:
-        filtered_records = r.table(args.virus).filter(delete_filters).run()
+        filtered_records = rethinkdb_command.run()
         deletion_count = 0
         sources = set()
         for record in filtered_records:
@@ -42,5 +44,5 @@ if __name__ == "__main__":
         print("Preview: selection would delete {} records".format(deletion_count))
         print("Sources of deleted records: {}".format(sources))
     else:
-        deleted = r.table(args.virus).filter(delete_filters).delete().run()
+        deleted = rethinkdb_command.delete().run()
         print("Deleted {} records".format(deleted["deleted"]))
