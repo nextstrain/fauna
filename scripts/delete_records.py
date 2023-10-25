@@ -25,15 +25,19 @@ if __name__ == "__main__":
         key, value = delete_filter.split(':')
         delete_filters[key] = value
 
-    print(delete_filters)
+    print(f"Delete filters: {delete_filters}")
 
     rethinkdb_command = r.table(args.virus).filter(delete_filters)
 
+    delete_intervals = {}
     for interval in args.interval:
         field, values = interval.split(':')
         older_date, newer_date = values.split(',')
         rethinkdb_command = rethinkdb_command.filter(lambda doc: rethinkdb_date_greater(doc[field].split('-'), older_date.split('-'), relaxed_interval=False))
         rethinkdb_command = rethinkdb_command.filter(lambda doc: rethinkdb_date_greater(newer_date.split('-'), doc[field].split('-'), relaxed_interval=False))
+        delete_intervals[field] = (older_date, newer_date)
+
+    print(f"Delete intervals: {delete_intervals}")
 
     if args.preview:
         filtered_records = rethinkdb_command.run()
