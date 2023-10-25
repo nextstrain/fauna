@@ -3,6 +3,7 @@ import argparse
 from rethinkdb import r
 sys.path.append('')
 from base.rethink_io import rethink_io
+from vdb.download import rethinkdb_date_greater
 
 
 if __name__ == "__main__":
@@ -10,6 +11,7 @@ if __name__ == "__main__":
     parser.add_argument("-db", "--database", help="database to delete from")
     parser.add_argument("-v", "--virus", default="flu", help="virus table to interact with")
     parser.add_argument("--filter", nargs="*", help="Filters for records to delete, i.e. inclusion_date: 2021-02-12")
+    parser.add_argument('--interval', nargs="*", help="Select date interval of values for fields, e.g. assay_date:2019-09-03,2023-10-25")
     parser.add_argument("--preview", action="store_true", help="Preview records to be deleted without deleting from db.")
 
     args = parser.parse_args()
@@ -26,6 +28,12 @@ if __name__ == "__main__":
     print(delete_filters)
 
     rethinkdb_command = r.table(args.virus).filter(delete_filters)
+
+    for interval in args.interval:
+        field, values = interval.split(':')
+        older_date, newer_date = values.split(',')
+        rethinkdb_command = rethinkdb_command.filter(lambda doc: rethinkdb_date_greater(doc[field].split('-'), older_date.split('-'), relaxed_interval=False))
+        rethinkdb_command = rethinkdb_command.filter(lambda doc: rethinkdb_date_greater(newer_date.split('-'), doc[field].split('-'), relaxed_interval=False))
 
     if args.preview:
         filtered_records = rethinkdb_command.run()
