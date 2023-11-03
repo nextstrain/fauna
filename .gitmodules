@@ -1,3 +1,4 @@
 [submodule "chateau"]
 	path = chateau
 	url = https://github.com/nextstrain/chateau
+	branch = trs/tls-support
