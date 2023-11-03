@@ -26,6 +26,7 @@ locally, data will be saved after stopping the server and loaded when rebooting 
 
 ```
 from rethinkdb import r
+import certifi
 ```
 
 ### Open connection to rethink database
@@ -36,7 +37,7 @@ r.connect(host='localhost', port=28015, db=database).repl()
 ```
 To open a connection to a database on an external host that requires an authorization key run
 ```
-r.connect(host=rethink_host, port=28015, db=database, auth_key=auth_key).repl()
+r.connect(host=rethink_host, port=28015, db=database, auth_key=auth_key, ssl={"ca_certs":certifi.where()}).repl()
 ```
 
 ### Create new databases and tables

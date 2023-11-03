@@ -1,5 +1,6 @@
 import datetime, os
 from rethinkdb import r
+import certifi
 
 class rethink_io(object):
     def __init__(self, **kwargs):
@@ -42,7 +43,7 @@ class rethink_io(object):
                 raise Exception("Failed to connect to the database, " + db)
         else:
             try:
-                conn = r.connect(host=rethink_host, port=28015, db=db, auth_key=auth_key).repl()
+                conn = r.connect(host=rethink_host, port=28015, db=db, auth_key=auth_key, ssl={"ca_certs":certifi.where()}).repl()
                 print("Connected to the \"" + db + "\" database")
                 return conn
             except:
