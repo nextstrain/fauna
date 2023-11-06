@@ -1,5 +1,6 @@
 biopython >=1.73, ==1.*
 boto >=2.38, ==2.*
+certifi
 pandas >=1.1.5, ==1.*
 rethinkdb >=2.4.8, ==2.4.*
 requests >=2.20.0, ==2.*
