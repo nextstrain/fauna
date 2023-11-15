@@ -50,7 +50,8 @@ class elife_upload(upload):
             self.format_subtype(meas)
             self.format_assay_type(meas)
             self.format_date(meas)
-            meas['assay_date'] = fstem_assay_date
+            if meas.get('assay_date') is None:
+                meas['assay_date'] = fstem_assay_date
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_ref(meas)
