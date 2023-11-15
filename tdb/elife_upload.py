@@ -75,18 +75,30 @@ class elife_upload(upload):
         *fstem* is expected to be formatted as `YYYYMMDD*`
 
         If unable to parse date from *fstem*, then return masked assay date as `XXXX-XX-XX`.
+        If there are multiple valid dates, then return the latest date.
         """
         assay_date = "XXXX-XX-XX"
-        tmp = fstem.split('-')[0]
-        if len(tmp) > 8:
-            tmp = tmp[:(8-len(tmp))]
-        elif len(tmp) < 8:
-            assay_date = "XXXX-XX-XX"
+        valid_dates = set()
+        for potential_date in re.findall(r"\d{8}", fstem):
+            # Check if the dates are valid
+            try:
+                date = datetime.datetime.strptime(potential_date, '%Y%m%d')
+            except ValueError:
+                continue
+
+            # Date is only a valid assay date if it's earlier than the current datetime!
+            if date < datetime.datetime.now():
+                valid_dates.add(date)
+
+        if len(valid_dates) == 0:
+            print(f"Failed to parse assay date from filename {fstem!r}")
+        elif len(valid_dates) == 1:
+            assay_date = datetime.datetime.strftime(valid_dates.pop(), '%Y-%m-%d')
         else:
-            if tmp[0:2] == '20':
-                assay_date = "{}-{}-{}".format(tmp[0:4],tmp[4:6],tmp[6:8])
-            else:
-                assay_date = "XXXX-XX-XX"
+            sorted_dates = list(map(lambda x: datetime.datetime.strftime(x, '%Y-%m-%d'), sorted(valid_dates)))
+            assay_date = sorted_dates[-1]
+            print(f"Found multiple potential assay dates in filename {fstem!r}: {sorted_dates}.",
+                  f"Using the last valid date as the assay date: {assay_date!r}")
 
         return assay_date
 
