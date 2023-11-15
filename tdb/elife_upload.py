@@ -49,18 +49,7 @@ class elife_upload(upload):
             self.format_subtype(meas)
             self.format_assay_type(meas)
             self.format_date(meas)
-            tmp = kwargs['fstem'].split('-')[0]
-            if len(tmp) > 8:
-                tmp = tmp[:(8-len(tmp))]
-            elif len(tmp) < 8:
-                meas['assay_date'] = "XXXX-XX-XX"
-            else:
-                if tmp[0:2] == '20':
-                    meas['assay_date'] = "{}-{}-{}".format(tmp[0:4],tmp[4:6],tmp[6:8])
-                else:
-                    meas['assay_date'] = "XXXX-XX-XX"
-            if 'assay_date' not in meas.keys() or meas['assay_date'] is None:
-                meas['assay_date'] = "XXXX-XX-XX"
+            self.parse_assay_date_from_filename(meas, kwargs['fstem'])
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_ref(meas)
@@ -77,6 +66,28 @@ class elife_upload(upload):
         self.check_strain_names(measurements)
         self.disambiguate_sources(measurements)
         return measurements
+
+
+    def parse_assay_date_from_filename(self, meas, fstem):
+        """
+        Parse assay date from the *fstem*.
+        *fstem* is expected to be formatted as `YYYYMMDD*`
+
+        If unable to parse date from *fstem*, then assay date is masked as `XXXX-XX-XX`.
+        """
+        tmp = fstem.split('-')[0]
+        if len(tmp) > 8:
+            tmp = tmp[:(8-len(tmp))]
+        elif len(tmp) < 8:
+            meas['assay_date'] = "XXXX-XX-XX"
+        else:
+            if tmp[0:2] == '20':
+                meas['assay_date'] = "{}-{}-{}".format(tmp[0:4],tmp[4:6],tmp[6:8])
+            else:
+                meas['assay_date'] = "XXXX-XX-XX"
+        if 'assay_date' not in meas.keys() or meas['assay_date'] is None:
+            meas['assay_date'] = "XXXX-XX-XX"
+
 
     def disambiguate_sources(self, measurements):
         '''
