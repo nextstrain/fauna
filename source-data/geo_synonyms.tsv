@@ -1153,6 +1153,7 @@ Ioannina	Greece	Epirus	Ioannina
 Kalamata	Greece	Peloponnese	Kalamata
 Kastoria	Greece	WesternMacedonia	Kastoria
 Katerini	Greece	CentralMacedonia	Katerini
+KarditsaGR	Greece	NomosKardhitsas	KarditsaGR
 Kavala	Greece	EasternMacedoniaAndThrace	Kavala
 Kerkira	Greece	IonianIslands	Kerkira
 Kilkis	Greece	CentralMacedonia	Kilkis
@@ -1205,8 +1206,24 @@ Barrigada	Guam	Barrigada	Barrigada
 Mangilao	Guam	Mangilao	Mangilao
 
 # Guatemala
+Altaverapaz	Guatemala	Guatemala	Altaverapaz
+Ayutla	Guatemala	Guatemala	Ayutla
+Chinautla	Guatemala	Guatemala	Chinautla
+Chiquimula	Guatemala	Guatemala	Chiquimula
+Coban	Guatemala	Guatemala	Coban
 Guatemala	Guatemala	Guatemala	Guatemala
+GUATEMALA	Guatemala	Guatemala	Guatemala
 Guatemalacity	Guatemala	Guatemala	GuatemalaCity
+Mixco	Guatemala	Guatemala	Mixco
+Monjas	Guatemala	Guatemala	Monjas
+Parramos	Guatemala	Guatemala	Parramos
+Retalhuleu	Guatemala	Guatemala	Retalhuleu
+Sanmarcos	Guatemala	Guatemala	SanMarcos
+Sanpedroayampuc	Guatemala	Guatemala	Sanpedroayampuc
+Sanpedrosacatepequez	Guatemala	Guatemala	SanPedroSacatepequez
+Sanjuansacatepequez	Guatemala	Guatemala	Sanjuansacatepequez
+Tecpan	Guatemala	Guatemala	Tecpan
+Zacapa	Guatemala	Guatemala	Zacapa
 
 # Guinea
 Guinea	Guinea	Guinea	Guinea
@@ -3311,6 +3328,7 @@ Swansea	UnitedKingdom	Wales	Swansea
 Tongwynlais	UnitedKingdom	Wales	Tongwynlais
 Tonyrefail	UnitedKingdom	Wales	Tonyrefail
 Telford	UnitedKingdom	England	Telford
+Tenby	UnitedKingdom	Wales	Tenby
 Tetbury	UnitedKingdom	England	Tetbury
 Tonypandy	UnitedKingdom	Wales	Tonypandy
 Tredegar	UnitedKingdom	Wales	Tredegar
