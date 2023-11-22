@@ -3093,6 +3093,7 @@ Ajman	UnitedArabEmirates	Ajman	Ajman
 Emirates	UnitedArabEmirates	UnitedArabEmirates	UnitedArabEmirates
 Fujairah	UnitedArabEmirates	Fujairah	Fujairah
 RasAlKhaimah	UnitedArabEmirates	RasAlKhaimah	RasAlKhaimah
+Uaq	UnitedArabEmirates	UmmAlQuwain	UmmAlQuwain
 UmmAlQuwain	UnitedArabEmirates	UmmAlQuwain	UmmAlQuwain
 
 # UnitedKingdom
@@ -3202,6 +3203,7 @@ Harrow	UnitedKingdom	England	Harrow
 Haverfordwest	UnitedKingdom	Wales	Haverfordwest
 Headington	UnitedKingdom	England	Headington
 Hengoed	UnitedKingdom	Wales	Hengoed
+Hertfordshire	UnitedKingdom	England	Hertfordshire
 HERTS	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
 Holywell	UnitedKingdom	Wales	Holywell
@@ -3554,6 +3556,7 @@ WallisAndFutuna	WallisAndFutuna	FrenchOverseasCollectivity	WallisAndFutuna
 
 # Zambia
 Zambia	Zambia	Zambia	Zambia
+Livingstone	Zambia	SouthernProvince	Livingstone
 Chipata	Zambia	EasternProvince	Chipata
 Lusaka	Zambia	Lusaka	Lusaka
 Macha	Zambia	SouthernProvince	Macha
