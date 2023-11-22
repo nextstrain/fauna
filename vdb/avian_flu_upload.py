@@ -271,7 +271,9 @@ class flu_upload(upload):
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
                 doc[field] = doc[field].lstrip("_").rstrip("_")
-        if 'accession' in doc and doc['accession'] is not None and data_source == 'gisaid':
+        if (doc.get('accession') is not None and
+            not doc['accession'].startswith('EPI') and
+            data_source == 'gisaid'):
             doc['accession'] = 'EPI' + doc['accession']
         if 'accession' in doc and doc['accession'] is not None and data_source == 'ird':
             doc['accession'] = doc['accession']
