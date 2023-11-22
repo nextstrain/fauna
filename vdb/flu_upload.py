@@ -209,7 +209,7 @@ class flu_upload(upload):
         for field in ['gender', 'host', 'locus']:
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
-        if 'accession' in doc and doc['accession'] is not None:
+        if doc.get('accession') is not None and not doc['accession'].startswith('EPI'):
             doc['accession'] = 'EPI' + doc['accession']
 
     def fix_age(self, doc):
