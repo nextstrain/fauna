@@ -136,8 +136,8 @@ class flu_upload(upload):
         except IOError:
             raise Exception(xls, "not found")
         else:
-            df = pandas.read_excel(handle, dtype=object) # dtype=object is necessary so that the next line works. otherwise, we will get a mix of Nans and Nones. .where only works on dtype object. 
-            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None; Nones are passed to JSON null, but Nans are not, so nans give errors during the upload 
+            df = pandas.read_excel(handle, dtype=object) # dtype=object is necessary so that the next line works. otherwise, we will get a mix of Nans and Nones. .where only works on dtype object.
+            df = df.where((pandas.notnull(df)), None)  # convert Nan type to None; Nones are passed to JSON null, but Nans are not, so nans give errors during the upload
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
@@ -271,7 +271,9 @@ class flu_upload(upload):
             if field in doc and doc[field] is not None:
                 doc[field] = self.camelcase_to_snakecase(doc[field])
                 doc[field] = doc[field].lstrip("_").rstrip("_")
-        if 'accession' in doc and doc['accession'] is not None and data_source == 'gisaid':
+        if (doc.get('accession') is not None and
+            not doc['accession'].startswith('EPI') and
+            data_source == 'gisaid'):
             doc['accession'] = 'EPI' + doc['accession']
         if 'accession' in doc and doc['accession'] is not None and data_source == 'ird':
             doc['accession'] = doc['accession']
@@ -334,11 +336,11 @@ class flu_upload(upload):
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '').replace('_','').replace('-','')  # above at end used to be .replace(' ', '')
         name = name.lstrip('-').lstrip('_').lstrip(')').lstrip('(')
         name = name.lstrip('-').rstrip('_').rstrip(')').rstrip('(')
-        
+
         split_name = name.split('/')
         # check location labels in strain names for fixing
-        # for this first check for the location fixes, only check and replace the beginning 
-        # of the strain name, avoiding the last 2 splits that contain the random id and the year. 
+        # for this first check for the location fixes, only check and replace the beginning
+        # of the strain name, avoiding the last 2 splits that contain the random id and the year.
         # This is to avoid issues where the random id happens to match a location like
         # "A/chicken/Hubei/wi/1997" getting converted to "A/chicken/Hubei/Wisconsin/1997"
         for index, label in enumerate(split_name[:-2]):
@@ -381,19 +383,19 @@ class flu_upload(upload):
         return name
 
     def format_gisaid_clade(self, v):
-        if v['gisaid_clade'] is not None: 
+        if v['gisaid_clade'] is not None:
             v['gisaid_clade'] = v['gisaid_clade'].strip().lower()
-            
+
     def format_domestic_status(self, v):
-        if v['domestic_status'] is not None: 
+        if v['domestic_status'] is not None:
             v['domestic_status'] = v['domestic_status'].strip().lower()
-            
+
     def format_animal_health_status(self, v):
-        if v['animal_health_status'] is not None: 
+        if v['animal_health_status'] is not None:
             v['animal_health_status'] = v['animal_health_status'].strip().lower()
 
     def format_authors(self, v):
-        if v['authors'] is not None: 
+        if v['authors'] is not None:
             v['authors'] = v['authors'].replace("\r","").replace("\n","")
 
     def format_host(self, v):
@@ -419,7 +421,7 @@ class flu_upload(upload):
             "barn__swallow", "blackvulture","black vulture","brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",
             "baikal__teal", "bewick's__swan", "black__billed__magpie", "babbler","black-headedgull",
             "buteobuteo","buteojamaicensis","buteojaponicus",
-            "blue__winged__teal","blue-wingedteal","bluegoose", 
+            "blue__winged__teal","blue-wingedteal","bluegoose",
             "brantahutchinsii","brantacanadensis","brantaleucopsis","buteolineatus",
             "cairinamoschata", "calidrisalba","calidris_canutus","calidriscanutus","calidrisminutilla","canada__goose","chencaerulescens",
             "chencanagica", "chicken", "chukar", "chroicocephalusridibundus","ciconiaciconia","common__pochard",
@@ -429,7 +431,7 @@ class flu_upload(upload):
             "crane", "crow", "cygnus","cyrtonyxmontezumai","curlew", "cygnusatratus", "chinese__francolin",
             "chroicocephaluscirrocephalus","corvusfrugilegus","chlidoniashybridus","circusaeruginosus,"
             "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor",
-            "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove", 
+            "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove",
             "eagle", "egret","egyptiangoose","eurasiancurlew","eurasian__eagel__owl","emperorgoose",
             "eurasian__wigeon", "falco", "falcon",
             "falcoperegrinus", "finch", "francolinus", "fowl",
@@ -439,7 +441,7 @@ class flu_upload(upload):
             "goose", "graculareligiosa", "great__black__headed__gull", "grey_teal","greyteal","garrulaxcanorus", "garganey",
             "glaucous-wingedgull","greygull",
             "great__crested__grebe", "greatcrestedgrebe","greatbustard", "great__bustard","greattit",
-            "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe", 
+            "greater__white__fronted__goose", "greylaggoose","greylag_goose" "grebe",
             "green__winged__teal","green-wingedteal", "grey__teal",
             "grey__heron", "guineafowl", "gull","halietusleucocephalus","haliaeetusleucocephalus",
             "halietusalbicilla","himantopushimantopusmelanurus","larusfuscus",
@@ -447,10 +449,10 @@ class flu_upload(upload):
             "larusarmenicus","larusschistisagus", "larussmithsonianus","larusargentatus", "larusbrunnicephalus",
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans","larosternainca",
             "larusatricilla", "laruscanus", "larusdelawarensis","larusdominicanus","laughing__gull","larus",
-            "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla", 
+            "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla",
             "leucophaeus","little__grebe",
             "little__egret", "lophuranycthemera", "lophodytescucullatus","lophodytescucullatus",
-            "magpie", "magpie__robin", "mallard", 
+            "magpie", "magpie__robin", "mallard",
             "mallardduck","marecapenelope","murre",
             "morphnusguianensis", "mulardduck","mute__swan", "muscovy__duck", "myna", "meleagrisgallopavo",
             "necrosyrtesmonachus", "nisaetusnipalensis","northernpintail",
@@ -461,21 +463,21 @@ class flu_upload(upload):
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",
             "pavocristatus", "peacock","peafowl", "phasianuscolchicus", "phasianus",
             "phasaniussp.","pheasant","phasaniuscolchicus","pelican","pelecanus",
-            "penguin","peregrine__falcon", "picapica","pica","pigeon", "pink__footed__goose", 
+            "penguin","peregrine__falcon", "picapica","pica","pigeon", "pink__footed__goose",
             "polyplectronbicalcaratum", "podicepscristatus",
             "poultry","pygoscelisantarcticus","rynchopsniger",
             "quail", "rails","rail","ring-neckedduck","rook", "ruddy__turnstone", "ruddyturnstone",
             "ruddyshelduck","rosy__billed__pochard","sacredibis",
-            "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike", 
+            "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike",
             "shorebird", "silky__chicken",
             "silverteal", "snow__goose","somateriamollissima",
             "sparrow", "speckledpigeon","starling", "sternasandvicensis","swan", "sterna",
             "sternahirundo","sternaparadisaea",
             "streptopeliadecaocto",
-            "stork", "swiftlet", 
+            "stork", "swiftlet",
             "tachybaptusruficollis","tadornaferuginea","tadornatadorna",
             "teal", "turkey", "tern","turtledove", "tree__sparrow", "turnstone","us_quail", "waterbird","waterfowl",
-            "wild__turkey", "wildwaterfowl","white__bellied__bustard", 
+            "wild__turkey", "wildwaterfowl","white__bellied__bustard",
             "white-frontedgoose", "white-frontedgoose",
             "wild__chicken","wild__duck","wildbirds",
             "whooper__swan","whooperswan", "wildbird", "yellow__billed__duck", "zosteropsjaponicus"]
@@ -540,7 +542,7 @@ class flu_upload(upload):
         elif field_count == 5:
             loc = strain_name.split('/')[2].replace(" ", "")
             result = self.determine_location(loc)
-        else: 
+        else:
             loc = None
             print("improperly formatted strain name, ", strain_name, original_name)
 
@@ -553,8 +555,8 @@ class flu_upload(upload):
         if len(strain_name.split('/')) == 4 and "turkey" in strain_name.lower():
             print("check location for", strain_name, "original strain name: ", original_name, "location ",loc)
 
-        """perform a check for sequences for Georgia to determine whether they are from the 
-        country or the US state. If from gisaid and location is Georgia, check the region. 
+        """perform a check for sequences for Georgia to determine whether they are from the
+        country or the US state. If from gisaid and location is Georgia, check the region.
         If region == asia, set location to georgia country"""
         if loc is not None:
             if loc.lower() == "georgia":
@@ -563,7 +565,7 @@ class flu_upload(upload):
                         region = v['gisaid_location'].split('/')[0].replace(" ", "")
                         if region.lower() == "asia":
                             loc = "GeorgiaCountry"
-                        else: 
+                        else:
                             loc = loc
                         result = self.determine_location(loc)
 
@@ -654,14 +656,14 @@ if __name__=="__main__":
     args = parser.parse_args()
     if (args.data_source == 'gisaid'):
         sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'INSDC_accession'}
-        #gisaid fasta fields: 
+        #gisaid fasta fields:
         # DNA Accession no. | Isolate name | Isolate ID | Segment
         setattr(args, 'fasta_fields', sequence_fasta_fields)
         xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                                  ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
                                  ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
                                  ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
-                                 ('submitting_lab', 'Submitting_Lab'), ('authors','Authors'), ('domestic_status','Domestic_Status'), 
+                                 ('submitting_lab', 'Submitting_Lab'), ('authors','Authors'), ('domestic_status','Domestic_Status'),
                                  ('PMID','PMID'), ('animal_health_status','Animal_Health_Status'), ('gisaid_clade','Clade')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
