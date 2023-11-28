@@ -25,7 +25,8 @@ This results in the files `results/sequences.fasta.zst` and `results/metadata.ts
 
 ## Upload data to s3
 
-Make sure environment variables for connecting to nextstrain remote are set.
+> [!NOTE]
+> Make sure [authentication for the S3 remote](https://docs.nextstrain.org/projects/cli/en/stable/remotes/s3/#authentication) is configured.
 
 ```
 nextstrain remote upload s3://nextstrain-data/files/zika/ results/sequences.fasta.zst
