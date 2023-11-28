@@ -40,9 +40,7 @@ This pushes files to S3 to be made available at https://data.nextstrain.org/file
 See instructions at https://github.com/nextstrain/zika/tree/persephone/phylogenetic
 
 ```
-git clone https://github.com/nextstrain/zika.git
-cd zika
-git checkout persephone
-cd phylogenetic
+cd ../phylogenetic
+mv ingest/results data
 nextstrain build .
 ```
