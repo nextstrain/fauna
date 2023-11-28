@@ -96,10 +96,9 @@ class elife_upload(upload):
         elif len(valid_dates) == 1:
             assay_date = datetime.datetime.strftime(valid_dates.pop(), '%Y-%m-%d')
         else:
-            sorted_dates = list(map(lambda x: datetime.datetime.strftime(x, '%Y-%m-%d'), sorted(valid_dates)))
-            assay_date = sorted_dates[-1]
-            print(f"Found multiple potential assay dates in filename {fstem!r}: {sorted_dates}.",
-                  f"Using the last valid date as the assay date: {assay_date!r}")
+            sorted_dates = [datetime.datetime.strftime(valid_date, '%Y-%m-%d') for valid_date in sorted(valid_dates)]
+            raise Exception(f"Found multiple potential assay dates in filename {fstem!r}: {sorted_dates}. " +
+                            "Filename should only contain one assay date in format YYYYMMDD.")
 
         return assay_date
 
