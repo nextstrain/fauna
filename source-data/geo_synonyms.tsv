@@ -2199,9 +2199,12 @@ Oslo	Norway	Ostlandet	Oslo
 
 # Oman
 Oman	Oman	Oman	Oman
+AdDuqm	Oman	AlWusta	Duqm
 AlAmarat	Oman	Muscat	AlAmarat
 AlBuraimi	Oman	AlBuraimi	AlBuraimi
 AlMusannah	Oman	AlBatinah	AlMusannah
+AlMusanaah	Oman	AlBatinah	AlMusannah
+AsSuwaiq	Oman	AlBatinah	AsSuwaiq
 Bahla	Oman	AdDakhiliyah	Bahla
 Barka	Oman	AlBatinah	Barka
 Bawshar	Oman	Muscat	Bawshar
@@ -2531,6 +2534,7 @@ Sovetsky	Russia	MariEl	Sovetsky
 Suzdalka	Russia	Novosibirsk	Suzdalka
 Surgut	Russia	KhantyMansia	Surgut
 Syktyvkar	Russia	Komi	Syktyvkar
+Syktyvkarc	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
 Tatarstan	Russia	Tatarstan	Tatarstan
 Tomsk	Russia	Tomsk	Tomsk
@@ -2899,6 +2903,7 @@ Thailand	Thailand	Thailand	Thailand
 Angthong	Thailand	Angthong	Angthong
 Ayutthaya	Thailand	Ayutthaya	Ayutthaya
 Bangkok	Thailand	Bangkok	Bangkok
+BuriRam	Thailand	BuriRam	BuriRam
 Chachoengsao	Thailand	Chachoengsao	Chachoengsao
 Chaiyaphum	Thailand	Chaiyaphum	Chaiyaphum
 Chanthaburi	Thailand	Chanthaburi	Chanthaburi
