@@ -32,6 +32,7 @@ Anguilla	Anguilla	Anguilla	Anguilla
 
 # Antarctica
 Antarctica	Antarctica	Antarctica	Antarctica
+BirdIsland	Antarctica	SouthGeorgiaAndTheSouthSandwichIslands	BirdIsland
 
 # Antigua
 antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda	antigua_and_barbuda
@@ -1119,10 +1120,12 @@ Wurzburg	Germany	Bayern	Wurzburg
 
 # Ghana
 Ghana	Ghana	Ghana	Ghana
+GreaterAccraRegion	Ghana	GreaterAccraRegion	GreaterAccraRegion
 Ashanti	Ghana	Ashanti	Ashanti
 BrongAhafo	Ghana	BrongAhafo	BrongAhafo
 Manhean	Ghana	Accra	Manhean
 Korlebu	Ghana	Accra	Accra
+VoltaRegion	Ghana	VoltaRegion	VoltaRegion
 
 # Greece
 Greece	Greece	Greece	Greece
