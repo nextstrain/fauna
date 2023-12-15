@@ -20,7 +20,8 @@ def build_location_mapping():
           "Maur": "Mauritius",
           "Nord-West": "NordrheinWestfalen",
           "Mich": "Michigan",
-          "Bret": "Bretagne"}
+          "Bret": "Bretagne",
+          "Catal": "Catalonia"}
     return l
 
 def read_crick(path, fstem, assay_type):
@@ -81,7 +82,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         except:
             pass
         if assay_type == "hi":
-            start_row = 14
+            start_row = 9
             start_col = 6
             col_span = 1
             virus_strain_col_index = 1
@@ -95,17 +96,17 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index]
-                serum_strain = mat[6][j].rstrip("/")+"/"+mat[7][j]
+                serum_strain = mat[3][j].rstrip("/")+"/"+mat[4][j].lstrip("/")
                 m = build_location_mapping()
                 for (k,v) in m.items():
                     if v not in serum_strain:
                         serum_strain = serum_strain.replace(k, v)
-                serum_id = mat[9][j]
+                serum_id = mat[6][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
                 virus_passage = mat[i][virus_passage_col_index]
                 virus_passage_category = ''
-                serum_passage = mat[8][j]
+                serum_passage = mat[5][j]
                 serum_passage_category = ''
                 line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                 outfile.write(line)
