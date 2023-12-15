@@ -2923,6 +2923,7 @@ KamphaengPhet	Thailand	KamphaengPhet	KamphaengPhet
 KhonKaen	Thailand	KhonKaen	KhonKaen
 Krabi	Thailand	Krabi	Krabi
 Lampang	Thailand	Lampang	Lampang
+Lamphun	Thailand	Lamphun	Lamphun
 Loei	Thailand	Loei	Loei
 LopBuri	Thailand	LopBuri	LopBuri
 Loei	Thailand	Loei	Loei
@@ -3108,6 +3109,7 @@ UmmAlQuwain	UnitedArabEmirates	UmmAlQuwain	UmmAlQuwain
 # UnitedKingdom
 UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
 Abercanaid	UnitedKingdom	Wales	Abercanaid
+Abercynon	UnitedKingdom	Wales	Abercynon
 Aberdare	UnitedKingdom	Wales	Aberdare
 Abergavenny	UnitedKingdom	Wales	Abergavenny
 Abergele	UnitedKingdom	Wales	Abergele
@@ -3135,6 +3137,7 @@ Blackwood	UnitedKingdom	Wales	Blackwood
 BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
 Blaenavon	UnitedKingdom	Wales	Blaenavon
 Brackla	UnitedKingdom	Wales	Brackla
+Brecon	UnitedKingdom	Wales	Brecon
 Bridgend	UnitedKingdom	Wales	Bridgend
 Brighton	UnitedKingdom	England	Brighton
 BritonFerry	UnitedKingdom	Wales	BritonFerry
@@ -3166,6 +3169,7 @@ CityofLondon	UnitedKingdom	England	London
 CityofSouthampton	UnitedKingdom	England	Southampton
 Clydach	UnitedKingdom	Wales	Clydach
 ClydachVale	UnitedKingdom	Wales	ClydachVale
+Clynderwen	UnitedKingdom	Wales	Clynderwen
 Co.Durham	UnitedKingdom	England	CountyDurham
 Coedpoeth	UnitedKingdom	Wales	Coedpoeth
 Colchester	UnitedKingdom	England	Colchester
@@ -3179,6 +3183,7 @@ Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
 Cumbria	UnitedKingdom	England	Cumbria
 Cwmbran	UnitedKingdom	Wales	Cwmbran
+Cwmdare	UnitedKingdom	Wales	Cwmdare
 Cwmdu	UnitedKingdom	Wales	Cwmdu
 Deeside	UnitedKingdom	Wales	Deeside
 Denbigh	UnitedKingdom	Wales	Denbigh
@@ -3246,6 +3251,7 @@ Llangefni	UnitedKingdom	Wales	Llangefni
 Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 London	UnitedKingdom	England	London
+Ludlow	UnitedKingdom	England	Ludlow
 Luton	UnitedKingdom	England	Luton
 Machen	UnitedKingdom	Wales	Machen
 Machynlleth	UnitedKingdom	Wales	Machynlleth
@@ -3346,6 +3352,7 @@ Tetbury	UnitedKingdom	England	Tetbury
 Tonypandy	UnitedKingdom	Wales	Tonypandy
 Tredegar	UnitedKingdom	Wales	Tredegar
 Tregaron	UnitedKingdom	Wales	Tregaron
+Treharris	UnitedKingdom	Wales	Treharris
 Treherbert	UnitedKingdom	Wales	Treherbert
 Treorchy	UnitedKingdom	Wales	Treorchy
 Tylorstown	UnitedKingdom	Wales	Tylorstown
