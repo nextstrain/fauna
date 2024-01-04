@@ -924,6 +924,7 @@ Moscowoblast	Moscow
 Moscowv	Moscow
 Mahachkala	Makhachkala
 Murmask	Murmansk
+NorthOssetia	NorthOssetiaAlania
 Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
 NNovgorod	NizhnyNovgorod
@@ -938,6 +939,7 @@ NizhnyNovgorod	NizhnyNovgorod
 NorthNovgorod	NizhnyNovgorod
 NRCEM-Orenburg	Orenburg
 NyzhniNovgorod	NizhnyNovgorod
+NizhnyNovgorodOblast	NizhnyNovgorod
 Oreburg	Orenburg
 Ossetia-Alania	OssetiaAlania
 Primorie	Primorsky
@@ -1039,6 +1041,7 @@ ComunidadValenciana	ValencianCommunity
 
 # SriLanka
 Rathnapura	Ratnapura
+Sri_Lanka	SriLanka
 
 # SaintLucia
 StLucia	SaintLucia

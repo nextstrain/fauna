@@ -2401,12 +2401,14 @@ Russia	Russia	Russia	Russia
 Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
 Altai	Russia	Altai	Altai
+AmurOblast	Russia	Amur	AmurOblast
 Anadyr	Russia	Chukotka	Anadyr
 Anapa	Russia	KrasnodarKrai	Anapa
 Anna	Russia	Voronezh	Anna
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
 Astrakhan	Russia	Astrakhan	Astrakhan
+Balashikha	Russia	Moscow	Balashikha
 Bavly	Russia	Tatarstan	Bavly
 Barnaul	Russia	AltaiKrai	Barnaul
 Belgorod	Russia	Belgorod	Belgorod
@@ -2454,6 +2456,7 @@ Kemerovo	Russia	Kemerovo	Kemerovo
 Khabarovsk	Russia	Khabarovsk	Khabarovsk
 Khakassia	Russia	Khakassia	Khakassia
 KhantiMansiysk	Russia	KhantyMansi	KhantiMansiysk
+Khanty-Mansi	Russia	KhantyMansi	Khanty-Mansi
 Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
 Khrenovoe	Russia	Voronezh	Khrenovoe
 Kirishi	Russia	Leningrad	Kirishi
@@ -2535,6 +2538,7 @@ Semiluki	Russia	Voronezh	Semiluki
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
 Shuberskoye	Russia	Voronezh	Shuberskoye
 Siberia	Russia	Siberia	Siberia
+Slantsy	Russia	Leningrad	Slantsy
 StarayaRussa	Russia	Novgorod	StarayaRussa
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
@@ -2542,6 +2546,7 @@ SosnoviyBor	Russia	Leningrad	SosnoviyBor
 Sovetsky	Russia	MariEl	Sovetsky
 Suzdalka	Russia	Novosibirsk	Suzdalka
 Surgut	Russia	KhantyMansia	Surgut
+SverdlovskOblast	Russia	Sverdlovsk	SverdlovskOblast
 Syktyvkar	Russia	Komi	Syktyvkar
 Syktyvkarc	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
