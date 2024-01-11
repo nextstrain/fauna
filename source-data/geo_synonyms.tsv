@@ -412,6 +412,7 @@ CapeVerde	CapeVerde	CapeVerde	CapeVerde
 
 # CaymanIslands
 CaymanIslands	CaymanIslands	CaymanIslands	CaymanIslands
+Georgetown	CaymanIslands	CaymanIslands	Georgetown
 
 # CentralAfricanRepublic
 CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic	CentralAfricanRepublic
@@ -2780,6 +2781,7 @@ Baleares	Spain	BalearicIslands	Baleares
 Barcelona	Spain	Catalonia	Barcelona
 BasqueCountry	Spain	BasqueCountry	BasqueCountry
 Burgos	Spain	CastillaLaMancha	Burgos
+Caceres	Spain	Extremadura	Caceres
 Canarias	Spain	CanaryIslands	Canarias
 Cantabria	Spain	Cantabria	Cantabria
 Castellon	Spain	Castellon	Castellon
@@ -3188,9 +3190,12 @@ Conwy	UnitedKingdom	Wales	Conwy
 Cornelly	UnitedKingdom	Wales	Cornelly
 Cornwall	UnitedKingdom	England	Cornwall
 Cowbridge	UnitedKingdom	Wales	Cowbridge
+Coytrahen	UnitedKingdom	Wales	Coytrahen
 Craven	UnitedKingdom	England	Craven
 Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
+Cwmaman	UnitedKingdom	Wales	Cwmaman
+Cwmafan	UnitedKingdom	Wales	Cwmafan
 Cumbria	UnitedKingdom	England	Cumbria
 Cwmbran	UnitedKingdom	Wales	Cwmbran
 Cwmdare	UnitedKingdom	Wales	Cwmdare
@@ -3258,6 +3263,8 @@ Llanelli	UnitedKingdom	Wales	Llanelli
 Llanfairfechan	UnitedKingdom	Wales	Llanfairfechan
 LlanfihangelGlynMyfyr	UnitedKingdom	Wales	LlanfihangelGlynMyfyr
 Llangefni	UnitedKingdom	Wales	Llangefni
+Llangeinor	UnitedKingdom	Wales	Llangeinor
+Llangennech	UnitedKingdom	Wales	Llangennech
 Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 London	UnitedKingdom	England	London
@@ -3285,6 +3292,7 @@ Newcastleunderlyme	UnitedKingdom	England	Newcastleunderlyme
 Newcastle-Under-Lyme	UnitedKingdom	England	Newcastleunderlyme
 Newcastleupontyne	UnitedKingdom	England	Newcastleupontyne
 Newcastle-Upon-Tyne	UnitedKingdom	England	Newcastleupontyne
+NewInn	UnitedKingdom	Wales	NewInn
 Newport	UnitedKingdom	Wales	Newport
 NewTredegar	UnitedKingdom	Wales	NewTredegar
 Ni	UnitedKingdom	NorthernIreland	Belfast
@@ -3292,6 +3300,8 @@ Nib	UnitedKingdom	UnitedKingdom	UnitedKingdom
 NorthernIreland	UnitedKingdom	NorthernIreland	NorthernIreland
 Norwich	UnitedKingdom	England	Norwich
 Nottingham	UnitedKingdom	England	Nottingham
+Ogmore	UnitedKingdom	Wales	Ogmore
+OldColwyn	UnitedKingdom	Wales	OldColwyn
 Osbaston	UnitedKingdom	Wales	Osbaston
 Oswestry	UnitedKingdom	England	Oswestry
 Oxford	UnitedKingdom	England	Oxford
@@ -3303,8 +3313,10 @@ Pencader	UnitedKingdom	Wales	Pencader
 Pencae	UnitedKingdom	Wales	Pencae
 Pencoed	UnitedKingdom	Wales	Pencoed
 Pendoylan	UnitedKingdom	Wales	Pendoylan
+Penrhiwceiber	UnitedKingdom	Wales	Penrhiwceiber
 Pentre	UnitedKingdom	Wales	Pentre
 Pentrebach	UnitedKingdom	Wales	Pentrebach
+Penydarren	UnitedKingdom	Wales	Penydarren
 Penyffordd	UnitedKingdom	Wales	Penyffordd
 Peterborough	UnitedKingdom	England	Peterborough
 Plymouth	UnitedKingdom	England	Plymouth
@@ -3323,6 +3335,8 @@ PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
 Prestatyn	UnitedKingdom	Wales	Prestatyn
 Pwllheli	UnitedKingdom	Wales	Pwllheli
+Pyle	UnitedKingdom	Wales	Pyle
+Queensferry	UnitedKingdom	Scotland	Queensferry
 Raglan	UnitedKingdom	Wales	Raglan
 Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
@@ -3338,6 +3352,7 @@ Ruabon	UnitedKingdom	Wales	Ruabon
 Ruthin	UnitedKingdom	Wales	Ruthin
 SaintAsaph	UnitedKingdom	Wales	SaintAsaph
 SaintClears	UnitedKingdom	Wales	SaintClears
+Sarn	UnitedKingdom	Wales	Sarn
 Saundersfoot	UnitedKingdom	Wales	Saundersfoot
 Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe

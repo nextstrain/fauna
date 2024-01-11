@@ -31,6 +31,7 @@ CairnsNorth	Cairns
 
 # Austria
 Ausria	Austria
+Autria	Austria
 Austriaquarantine	Austria
 
 # Bangladesh
@@ -1038,6 +1039,7 @@ Castilla-LaMancha	CastillaLaMancha
 CastillayLeon	CastileAndLeon
 Comunidad_Valenciana	ValencianCommunity
 ComunidadValenciana	ValencianCommunity
+C?ceres	Caceres
 
 # SriLanka
 Rathnapura	Ratnapura
@@ -1167,8 +1169,10 @@ Abertysswgy	Abertysswg
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
 Clydach_Vale	ClydachVale
+Cwmavon	Cwmafan
 Dinas_Powys	DinasPowys
 Falkland-Islands	FalklandIslands
+Llanngeinor	Llangeinor
 Merthyr_Tydfil	MerthyrTydfil
 New_Tredegar	NewTredegar
 NIreland	NorthernIreland
