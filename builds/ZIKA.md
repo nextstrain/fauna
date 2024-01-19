@@ -2,12 +2,11 @@
 
 ## Ingest data from NCBI GenBank
 
-Navigate to the nextstrain/zika repository and [follow the instructions for ingest](https://github.com/nextstrain/zika/tree/persephone/ingest).
+Navigate to the nextstrain/zika repository and [follow the instructions for ingest](https://github.com/nextstrain/zika/tree/main/ingest).
 
 ```
 git clone https://github.com/nextstrain/zika.git
 cd zika
-git checkout persephone
 cd ingest
 nextstrain build .
 ```
@@ -37,7 +36,7 @@ This pushes files to S3 to be made available at https://data.nextstrain.org/file
 
 ## Run zika workflow
 
-See instructions at https://github.com/nextstrain/zika/tree/persephone/phylogenetic
+See instructions at https://github.com/nextstrain/zika/tree/main/phylogenetic
 
 ```
 cd ../phylogenetic
