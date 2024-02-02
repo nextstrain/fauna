@@ -457,7 +457,7 @@ class flu_upload(upload):
             "morphnusguianensis", "mulardduck","mute__swan", "muscovy__duck", "myna", "meleagrisgallopavo",
             "necrosyrtesmonachus", "nisaetusnipalensis","northernpintail",
             "northern__shoveler", "northernshoveler","numidasp.","northernpintail",
-            "northern__pintail", "numidameleagris",
+            "northern__pintail", "numidameleagris","numeniusarquata",
             "openbill__stork","oreortyx", "ostrich", "oystercatcher", "otheravian",
             "parabuteo","parabuteounicinctus",
             "partridge", "passerdomesticus", "parakeet", "parrot", "passerine", "passermontanus",

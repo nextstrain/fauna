@@ -424,6 +424,8 @@ AltoHospicio	Chile	Tarapaca	AltoHospicio
 Antofagasta	Chile	Antofagasta	Antofagasta
 Arauco	Chile	Arauco	Arauco
 Arica	Chile	Arica	Arica
+Atacama	Chile	Atacama	Atacama
+BioBio	Chile	BioBio	BioBio
 Calama	Chile	Antofagasta	Calama
 Castro	Chile	LosLagos	Castro
 CerroNavia	Chile	Santiago	CerroNavia
@@ -447,8 +449,11 @@ Lautaro	Chile	Araucania	Lautaro
 Lebu	Chile	BioBio	Lebu
 Linares	Chile	Maule	Linares
 Lota	Chile	BioBio	Lota
+Maule	Chile	Maule	Maule
 Melipilla	Chile	Santiago	Melipilla
+Nuble	Chile	BioBio	Nuble
 NuevaImperial	Chile	Araucania	NuevaImperial
+OHiggins	Chile	OHiggins	OHiggins
 Osorno	Chile	LosLagos	Osorno
 Ovalle	Chile	Coquimbo	Ovalle
 Panguipulli	Chile	LosRios	Panguipulli
@@ -458,6 +463,7 @@ PuertoMontt	Chile	LosLagos	PuertoMontt
 PuntaArenas	Chile	Magallanes	PuntaArenas
 Quillota	Chile	Valparaiso	Quillota
 Rancagua	Chile	OHiggins	Rancagua
+RegiondelLibertadorGeneralBernardoOHiggins	Chile	OHiggins	OHiggins
 Rengo	Chile	OHiggins	Rengo
 Santiago	Chile	Santiago	Santiago
 Talca	Chile	Maule	Talca
