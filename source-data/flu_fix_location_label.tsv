@@ -701,6 +701,7 @@ Mexicocity	MexicoCity
 
 # Mongolia
 Bayan-ulgii	BayanOlgii
+Bayan-Olgiy	BayanOlgii
 Bayanulgii	BayanOlgii
 Chiobalsan	Choibalsan
 Darkhan-uul	DarkhanUul
@@ -713,6 +714,7 @@ Ulgii	Olgii
 Ulaabaatar	Ulaanbaatar
 unmugobi	Omnogovi
 Umnogobi	Omnogovi
+UTuv	Tuv
 Uvurkhagai	Uvurkhangai
 Zamiin-Uud	Zamyn-Uud
 
@@ -889,22 +891,33 @@ Bucuresti	Bucharest
 Targu-Mures	TarguMures
 
 # Russia
+Altai_Republic	Altai
+Amur_Oblast	AmurOblast
 Anzhero-Sudzhensk	AnzheroSudzhensk
 Archangelsk	Arkhangelsk
 Astrahan	Astrakhan
 Astrahkan	Astrakhan
+Belgorod_Oblast	Belgorod
 Birobidjan	Birobidzhan
 Blagovechensk	Blagoveshchensk
 Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
 Drozhzhanoe	Drozhzhanovsky
+Chelyabinsk_Oblast	Chelyabinsk
 HMAO	KhantyMansi
 Kalinigrad	Kaliningrad
 Kalininghrad	Kaliningrad
+Kaliningrad_Oblast	Kaliningrad
 Karachay-Cherkess	Cherkessk
+Khabarovsk_Krai	Khabarovsk
 Khakasia	Khakassia
+Khanty-Mansi_AO	KhantyMansi
 Kosh-Agach	KoshAgach
 Kozmodemiansk	Kozmodemyansk
+Krasnoyarsk_Krai	Krasnoyarsk
+Krasnodar_Krai	Krasnodar
+Kurgan_Oblast	Kurgan
+Kursk_Oblast	Kursk
 Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
 Gornoaltaisk	GornoAltaysk
@@ -919,6 +932,7 @@ IIV-Penza	Penza
 IIV-Ryazan	Ryazan
 IIV-Tomsk	Tomsk
 Irkursk	Irkutsk
+Irkutsk_Oblast	Irkutsk
 JAO	JewishOblast
 Joshkar-Ola	YoshkarOla
 Khanti-Mansiysk	KhantiMansiysk
@@ -927,14 +941,18 @@ Khmao	KhantyMansia
 KMAO	KhantyMansia
 Kmao	KhantyMansia
 Krasnojarsk	Krasnoyarsk
+Khabarovsk_Krai	Khabarovsk
 LIPETSK	Lipetsk
 Lipetsk	Lipetsk
 Lipezk	Lipetsk
 Lipesk	Lipetsk
+Lipetsk_Oblast	Lipetsk
+Magadan_Oblast	Magadan
 Moscowoblast	Moscow
 Moscowv	Moscow
 Mahachkala	Makhachkala
 Murmask	Murmansk
+Murmansk_Oblast	Murmansk
 NorthOssetia	NorthOssetiaAlania
 Novgorod	NizhnyNovgorod
 NovgorogVelikiy	VelikyNovgorod
@@ -947,6 +965,8 @@ NizhniyNovgorod	NizhnyNovgorod
 Nizhny-Novgorod	NizhnyNovgorod
 Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
+Nizhny_Novgorod_Oblast	NizhnyNovgorod
+Novosibirsk_Oblast	Novosibirsk
 NorthNovgorod	NizhnyNovgorod
 NRCEM-Orenburg	Orenburg
 NyzhniNovgorod	NizhnyNovgorod
@@ -955,6 +975,9 @@ Oreburg	Orenburg
 Ossetia-Alania	OssetiaAlania
 Primorie	Primorsky
 Pogranichnyy	Pogranichny
+Penza_Oblast	Penza
+Pskov_Oblast	Pskov
+Perm_Krai	Perm
 Rostov-On-Don	RostovOnDon
 Rostov-on-Don	RostovOnDon
 Rostov_on_Don	RostovOnDon
@@ -977,6 +1000,14 @@ St-Petersburg	StPetersburg
 StPetersburgoblast	StPetersburg
 SPetersburg	StPetersburg
 Swirtzerland	Switzerland
+Sakhalin_Oblast	Sakhalin
+Samara_Oblast	Samara
+Saratov_Oblast	Saratov
+Sverdlovsk_Oblast	SverdlovskOblast
+Stavropol_Krai	Stavropol
+Tambov_Oblast	Tambov
+Tomsk_Oblast	Tomsk
+Tyumen_Oblast	Tyumen
 Turochack	Turochak
 Tuymen	Tyumen
 Ulan-Ude	UlanUde
@@ -991,6 +1022,8 @@ Verkh-Chebula	VerkhChebula
 Volgda	Vologda
 Vologd	Vologda
 Voroneg	Voronezh
+Volgograd_Oblast	Volgograd
+Vologda_Oblast	Vologda
 YANAO	Yamalo-Nenets
 Yarosavl	Yaroslavl
 Yaroslavyl	Yaroslavl
@@ -998,6 +1031,8 @@ Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
 Yaroslavyl	Yaroslavl
 Yoshkar-Ola	YoshkarOla
+Yamalo-Nenets_AO	Yamalo-Nenets
+Zabaykalsky_Krai	ZabaykalskyKrai
 
 # Saint Martin
 Saint-Martin	SaintMartin
