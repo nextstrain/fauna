@@ -1947,6 +1947,7 @@ Fianarantsoa	Madagascar	HauteMatsiatra	Fianarantsoa
 Itaosy	Madagascar	Antananarivo	Itaosy
 Maevatanana	Madagascar	Betsiboka	Maevatanana
 Mahajanga	Madagascar	Mahajanga	Mahajanga
+Manandona	Madagascar	Vakinankaratra	Manandona
 Mananjary	Madagascar	VatovavyFitovinany	Mananjary
 Manjakaray	Madagascar	Antananarivo	Antananarivo
 Moramanga	Madagascar	AlaotraMangoro	Moramanga
@@ -3206,6 +3207,7 @@ UnitedKingdom	UnitedKingdom	UnitedKingdom	UnitedKingdom
 Abercanaid	UnitedKingdom	Wales	Abercanaid
 Abercynon	UnitedKingdom	Wales	Abercynon
 Aberdare	UnitedKingdom	Wales	Aberdare
+Aberdaugleddau	UnitedKingdom	Pembrokeshire	Aberdaugleddau
 Abergavenny	UnitedKingdom	Wales	Abergavenny
 Abergele	UnitedKingdom	Wales	Abergele
 Aberkenfig	UnitedKingdom	Wales	Aberkenfig
@@ -3233,6 +3235,7 @@ Birmingham	UnitedKingdom	England	Birmingham
 Blackwood	UnitedKingdom	Wales	Blackwood
 BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
 Blaenavon	UnitedKingdom	Wales	Blaenavon
+Blaenffos	UnitedKingdom	Pembrokeshire	Blaenffos
 Brackla	UnitedKingdom	Wales	Brackla
 Brecon	UnitedKingdom	Wales	Brecon
 Bridgend	UnitedKingdom	Wales	Bridgend
@@ -3351,12 +3354,16 @@ LINCS	UnitedKingdom	England	Lincolnshire
 Liverpool	UnitedKingdom	England	Liverpool
 Llanberis	UnitedKingdom	Wales	Llanberis
 Llandeilo	UnitedKingdom	Wales	Llandeilo
+Llandissilio	UnitedKingdom	Pembrokeshire	Llandissilio
+Llanbrynmair	UnitedKingdom	Powys	Llanbrynmair
 Llanelli	UnitedKingdom	Wales	Llanelli
 Llanfairfechan	UnitedKingdom	Wales	Llanfairfechan
 LlanfihangelGlynMyfyr	UnitedKingdom	Wales	LlanfihangelGlynMyfyr
+Llanfynydd	UnitedKingdom	Wales	Llanfynydd
 Llangefni	UnitedKingdom	Wales	Llangefni
 Llangeinor	UnitedKingdom	Wales	Llangeinor
 Llangennech	UnitedKingdom	Wales	Llangennech
+Llanon	UnitedKingdom	Cardiganshire	Llanon
 Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 London	UnitedKingdom	England	London
@@ -3401,6 +3408,7 @@ Oswestry	UnitedKingdom	England	Oswestry
 Oxford	UnitedKingdom	England	Oxford
 Oxon	UnitedKingdom	England	Oxfordshire
 Oxfordshire	UnitedKingdom	England	Oxfordshire
+Pembrey	UnitedKingdom	Wales	Pembrey
 Pembroke	UnitedKingdom	Wales	Pembroke
 Penarth	UnitedKingdom	Wales	Penarth
 Pencader	UnitedKingdom	Wales	Pencader
@@ -3428,6 +3436,7 @@ Porthcawl	UnitedKingdom	Wales	Porthcawl
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
+Prengwyn	UnitedKingdom	Cardiganshire	Prengwyn
 Prestatyn	UnitedKingdom	Wales	Prestatyn
 Pwllheli	UnitedKingdom	Wales	Pwllheli
 Pyle	UnitedKingdom	Wales	Pyle
@@ -3437,6 +3446,7 @@ Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
 Rhoose	UnitedKingdom	Wales	Rhoose
+Rhosllanerchrugog	UnitedKingdom	Wales	Rhosllanerchrugog
 Rhyl	UnitedKingdom	Wales	Rhyl
 Rhymney	UnitedKingdom	Wales	Rhymney
 Risca	UnitedKingdom	Wales	Risca
@@ -3466,6 +3476,7 @@ Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
 Tongwynlais	UnitedKingdom	Wales	Tongwynlais
 Tonyrefail	UnitedKingdom	Wales	Tonyrefail
+Treffgarne	UnitedKingdom	Pembrokeshire	Treffgarne
 Telford	UnitedKingdom	England	Telford
 Tenby	UnitedKingdom	Wales	Tenby
 Tetbury	UnitedKingdom	England	Tetbury
@@ -3483,6 +3494,7 @@ Wallingford	UnitedKingdom	Wales	Wallingford
 Ware	UnitedKingdom	England	Ware
 Wenvoe	UnitedKingdom	Wales	Wenvoe
 Whitechapel	UnitedKingdom	England	London
+Whitland	UnitedKingdom	Wales	Whitland
 Wirral	UnitedKingdom	England	Wirral
 Wrexham	UnitedKingdom	Wales	Wrexham
 Wythenshawe	UnitedKingdom	England	Wythenshawe
