@@ -54,6 +54,7 @@ Bosnia	BosniaHerzegovina
 Alagoa	Alagoas
 Belo_Horizonte	BeloHorizonte
 Borda_Da_Mata	BordaDaMata
+Brazil-PR	Brazil
 CeilandiaNorte	Ceilandia
 Carmopolis_De_Minas	CarmopolisDeMinas
 CamposdosGoytacazes	CamposDosGoytacazes
@@ -396,8 +397,12 @@ Schleswig-Holstein	SchleswigHolstein
 # Ghana
 Ahafo	BrongAhafo
 Brong_Ahafo	BrongAhafo
+Brong-Ahafo Region	BrongAhafo
+Central Region	CentralRegion
 Volta	VoltaRegion
 GreaterAccra	GreaterAccraRegion
+Greater Accra Region	GreaterAccraRegion
+Upper East Region	UpperEastRegion
 
 # Greece
 ArgolidaGR	Argolida
