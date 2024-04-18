@@ -429,11 +429,13 @@ Cyclades.GR	Cyclades
 EvritaniaGR	Evrytania
 HerakleionGR	Heraklion
 Heraklion_CreteGR	Heraklion
+IraklionCreteGR	Heraklion
 IliaGR	Ilia
 IraklioGR	Irakleio
 IrakleioGR	Irakleio
 KalamataGR	Kalamata
 KorinthosGR	Korinthos
+LaconiaGR	Laconia
 LamiaGR	Lamia
 Larisa	Larissa
 Larisa GR	Larissa
@@ -1232,6 +1234,7 @@ United_Arab_Emirates	UnitedArabEmirates
 Abertysswgy	Abertysswg
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
+Burry_Port	BurryPort
 Clydach_Vale	ClydachVale
 Cwmavon	Cwmafan
 Dinas_Powys	DinasPowys
@@ -1245,15 +1248,19 @@ New_Tredegar	NewTredegar
 NIreland	NorthernIreland
 Newporrt	Newport
 ChristHospital	ChristsHospital
+Colwyn_Bay	ColwynBay
 United_Kingdom	UnitedKingdom
 ENG	England
 Eng	England
 Angelsey	Anglesey
 Obaston	Osbaston
+Pembroke_Dock	PembrokeDock
 Port_Talbot	PortTalbot
 Senghennyd	Senghenydd
 StAsaph	SaintAsaph
+St_Brides_Major	StBridesMajor
 StClears	SaintClears
+Taffs_Well	TaffsWell
 
 # USA
 Ann_Arbor	AnnArbor

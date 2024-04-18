@@ -1251,6 +1251,7 @@ Kilkis	Greece	CentralMacedonia	Kilkis
 Komotini	Greece	EasternMacedoniaAndThrace	Komotini
 Korinthos	Greece	Peloponnese	Korinthos
 Kozani	Greece	WesternMacedonia	Kozani
+Laconia	Greece	Laconia	Laconia
 Lamia	Greece	CentralGreece	Lamia
 Larissa	Greece	Thessaly	Larissa
 Lasithi	Greece	Crete	Lasithi
@@ -3268,7 +3269,7 @@ Caerphilly	UnitedKingdom	Wales	Caerphilly
 Cambridge	UnitedKingdom	England	Cambridge
 Cambridgeshire	UnitedKingdom	England	Cambridgeshire
 Cardiff	UnitedKingdom	Wales	Cardiff
-Cardigan	UnitedKingdom	Wales	Ceredigion
+Cardigan	UnitedKingdom	Wales	Cardigan
 Carmarthen	UnitedKingdom	Wales	Carmarthen
 Carmel	UnitedKingdom	Wales	Carmel
 Carrog	UnitedKingdom	Wales	Carrog
@@ -3336,11 +3337,13 @@ Hampshire	UnitedKingdom	England	Hampshire
 Harlow	UnitedKingdom	England	Harlow
 Harrow	UnitedKingdom	England	Harrow
 Haverfordwest	UnitedKingdom	Wales	Haverfordwest
+Hawarden	UnitedKingdom	Wales	Hawarden
 Headington	UnitedKingdom	England	Headington
 Hengoed	UnitedKingdom	Wales	Hengoed
 Hertfordshire	UnitedKingdom	England	Hertfordshire
 HERTS	UnitedKingdom	England	Hertfordshire
 Hexham	UnitedKingdom	England	Hexham
+Holyhead	UnitedKingdom	Wales	Holyhead
 Holywell	UnitedKingdom	Wales	Holywell
 Hopkinstown	UnitedKingdom	Wales	Hopkinstown
 Huntingdon	UnitedKingdom	England	Huntingdon
@@ -3353,6 +3356,7 @@ Kilgetty	UnitedKingdom	Wales	Kilgetty
 Lambeth	UnitedKingdom	England	Lambeth
 Lampeter	UnitedKingdom	Wales	Lampeter
 Lanelli	UnitedKingdom	Wales	Lanelli
+Llanblethian	UnitedKingdom	Wales	Llanblethian
 Llandudno	UnitedKingdom	Wales	Llandudno
 Llandovery	UnitedKingdom	Wales	Llandovery
 Llanfairpwllgwyngyll	UnitedKingdom	Wales	Llanfairpwllgwyngyll
@@ -3368,9 +3372,10 @@ Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
 Liverpool	UnitedKingdom	England	Liverpool
 Llanberis	UnitedKingdom	Wales	Llanberis
+Llanbrynmair	UnitedKingdom	Powys	Llanbrynmair
 Llandeilo	UnitedKingdom	Wales	Llandeilo
 Llandissilio	UnitedKingdom	Pembrokeshire	Llandissilio
-Llanbrynmair	UnitedKingdom	Powys	Llanbrynmair
+Llandybie	UnitedKingdom	Wales	Llandybie
 Llanelli	UnitedKingdom	Wales	Llanelli
 Llanfairfechan	UnitedKingdom	Wales	Llanfairfechan
 LlanfihangelGlynMyfyr	UnitedKingdom	Wales	LlanfihangelGlynMyfyr
@@ -3398,6 +3403,7 @@ MilfordHaven	UnitedKingdom	Wales	MilfordHaven
 Minehead	UnitedKingdom	England	Minehead
 Miskin	UnitedKingdom	Wales	Miskin
 Mold	UnitedKingdom	Wales	Mold
+Monkton	UnitedKingdom	Wales	Monkton
 Monmouth	UnitedKingdom	Wales	Monmouth
 Monmouthshire	UnitedKingdom	Wales	Monmouthshire
 MountainAsh	UnitedKingdom	Wales	MountainAsh
@@ -3425,6 +3431,7 @@ Oxon	UnitedKingdom	England	Oxfordshire
 Oxfordshire	UnitedKingdom	England	Oxfordshire
 Pembrey	UnitedKingdom	Wales	Pembrey
 Pembroke	UnitedKingdom	Wales	Pembroke
+PembrokeDock	UnitedKingdom	Wales	PembrokeDock
 Penarth	UnitedKingdom	Wales	Penarth
 Pencader	UnitedKingdom	Wales	Pencader
 Pencae	UnitedKingdom	Wales	Pencae
@@ -3462,6 +3469,7 @@ Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
 Rhoose	UnitedKingdom	Wales	Rhoose
 Rhosllanerchrugog	UnitedKingdom	Wales	Rhosllanerchrugog
+Rhosneigr	UnitedKingdom	Wales	Rhosneigr
 Rhyl	UnitedKingdom	Wales	Rhyl
 Rhymney	UnitedKingdom	Wales	Rhymney
 Risca	UnitedKingdom	Wales	Risca
@@ -3486,9 +3494,11 @@ Southsea	UnitedKingdom	Wales	Southsea
 StAthan	UnitedKingdom	Wales	StAthan
 Stevenage	UnitedKingdom	England	Stevenage
 Steyning	UnitedKingdom	England	Steyning
+StBridesMajor	UnitedKingdom	Wales	StBridesMajor
 StMellons	UnitedKingdom	Wales	StMellons
 Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
+TaffsWell	UnitedKingdom	Wales	TaffsWell
 Tongwynlais	UnitedKingdom	Wales	Tongwynlais
 Tonyrefail	UnitedKingdom	Wales	Tonyrefail
 Treffgarne	UnitedKingdom	Pembrokeshire	Treffgarne
@@ -3507,6 +3517,7 @@ Usk	UnitedKingdom	Wales	Usk
 Wales	UnitedKingdom	Wales	Wales
 Wallingford	UnitedKingdom	Wales	Wallingford
 Ware	UnitedKingdom	England	Ware
+Welshpool	UnitedKingdom	Wales	Welshpool
 Wenvoe	UnitedKingdom	Wales	Wenvoe
 Whitechapel	UnitedKingdom	England	London
 Whitland	UnitedKingdom	Wales	Whitland
