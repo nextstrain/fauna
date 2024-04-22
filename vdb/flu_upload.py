@@ -95,6 +95,9 @@ class flu_upload(upload):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
                 s['sequence'] = str(record.seq)
+                # Exclude the bad submitting lab names due to download bug in GISAID
+                if s.get("submitting_lab", "").lower() == "$ins_submitting_name":
+                    s["submitting_lab"] = ""
                 s = self.add_sequence_fields(s, **kwargs)
                 sequences.append(s)
             handle.close()
@@ -471,7 +474,7 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage'}
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
     #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
     setattr(args, 'fasta_fields', sequence_fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
