@@ -471,13 +471,14 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage'}
     #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
     setattr(args, 'fasta_fields', sequence_fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                              ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
                              ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
-                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date')]
+                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
+                             ('submitting_lab', 'Submitting_Lab')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
         args.path = "data/"
