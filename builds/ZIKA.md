@@ -1,5 +1,7 @@
 # ZIKA Pipeline Notes
 
+_The use of Zika in Fauna is now defunct. Instead of uploading Zika sequences and metadata to Fauna, it's directly downloaded from NCBI via `nextstrain/zika/ingest` and uploaded to S3 as part of the ingest pipeline. The notes below are for future reference, but are not actively maintained or acted upon._
+
 ## Ingest data from NCBI GenBank
 
 Navigate to the nextstrain/zika repository and [follow the instructions for ingest](https://github.com/nextstrain/zika/tree/main/ingest).
@@ -24,15 +26,12 @@ This results in the files `results/sequences.fasta.zst` and `results/metadata.ts
 
 ## Upload data to s3
 
-> [!NOTE]
-> Make sure [authentication for the S3 remote](https://docs.nextstrain.org/projects/cli/en/stable/remotes/s3/#authentication) is configured.
-
 ```
-nextstrain remote upload s3://nextstrain-data/files/zika/ results/sequences.fasta.zst
-nextstrain remote upload s3://nextstrain-data/files/zika/ results/metadata.tsv.zst
+nextstrain remote upload s3://nextstrain-data/files/workflows/zika/ results/sequences.fasta.zst
+nextstrain remote upload s3://nextstrain-data/files/workflows/zika/ results/metadata.tsv.zst
 ```
 
-This pushes files to S3 to be made available at https://data.nextstrain.org/files/zika/sequences.fasta.zst and https://data.nextstrain.org/files/zika/metadata.tsv.zst.
+This pushes files to S3 to be made available at https://data.nextstrain.org/files/workflows/zika/sequences.fasta.zst and https://data.nextstrain.org/files/workflows/zika/metadata.tsv.zst.
 
 ## Run zika workflow
 
