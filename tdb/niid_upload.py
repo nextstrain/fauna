@@ -68,24 +68,28 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
         except:
             pass
         if subtype == "h3n2":
-            start_row = 7
+            serum_id_row_index = 6 #5
+            start_row = 8
+            virus_id_col_index = 1
             start_col = 4
-            serum_id_row_index = 5
         elif subtype == "h1n1pdm":
+            serum_id_row_index = 5
             start_row = 6
+            virus_id_col_index = 1
             start_col = 4
-            serum_id_row_index = 4
         elif subtype == "vic":
+            serum_id_row_index = 4
             start_row = 5
+            virus_id_col_index = 1
             start_col = 4
-            serum_id_row_index = 3
         elif subtype == "yam":
-            start_row = 5
-            start_col = 4
             serum_id_row_index = 3
+            start_row = 5
+            virus_id_col_index = 1
+            start_col = 4
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0])):
-                virus_strain = mat[i][1]
+                virus_strain = mat[i][virus_id_col_index]
                 serum_id = mat[serum_id_row_index][j]
                 serum_id = re.sub(r'[\r\n ]+', '', serum_id)
                 m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr|\(bvr)', serum_id, re.IGNORECASE)

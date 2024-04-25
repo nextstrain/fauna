@@ -87,26 +87,32 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             col_span = 1
             virus_strain_col_index = 1
             virus_passage_col_index = 5
+            serum_strain_row_index = 3
+            serum_passage_row_index = 5
+            serum_id_row_index = 6
         elif assay_type == "fra":
-            start_row = 16
+            start_row = 13
             start_col = 5
             col_span = 2
             virus_strain_col_index = 1
             virus_passage_col_index = 4
+            serum_strain_row_index = 6
+            serum_passage_row_index = 8
+            serum_id_row_index = 9
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
-                virus_strain = mat[i][virus_strain_col_index]
-                serum_strain = mat[3][j].rstrip("/")+"/"+mat[4][j].lstrip("/")
+                virus_strain = mat[i][virus_strain_col_index].strip()
+                serum_strain = mat[serum_strain_row_index][j].rstrip("/")+"/"+mat[serum_strain_row_index+1][j].lstrip("/")
                 m = build_location_mapping()
                 for (k,v) in m.items():
                     if v not in serum_strain:
                         serum_strain = serum_strain.replace(k, v)
-                serum_id = mat[6][j]
+                serum_id = mat[serum_id_row_index][j]
                 titer = mat[i][j]
                 source = "crick_%s"%(src_id)
                 virus_passage = mat[i][virus_passage_col_index]
                 virus_passage_category = ''
-                serum_passage = mat[5][j]
+                serum_passage = mat[serum_passage_row_index][j]
                 serum_passage_category = ''
                 line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                 outfile.write(line)

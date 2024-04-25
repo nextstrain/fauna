@@ -97,24 +97,30 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         if assay_type == "hi":
             start_row = 12
             start_col = 4 # Changed from 7 to 5 for VIC/YAM tables -BP
-            end_col = 15
+            end_col = 13+4
             virus_strain_col_index = 2
-            virus_passage_col_index = 16
+            virus_passage_col_index = 13+4+1
+            serum_id_row_index = 8
+            serum_passage_row_index = 9
+            serum_strain_row_index = 10
         elif assay_type == "fra":
             start_row = 12
             start_col = 4
             end_col = 13
             virus_strain_col_index = 2
             virus_passage_col_index = 14
-            # some FRA tables have 10 sera, some have 11, some have 9
-            check_cell_10th_sera = mat[start_col][13]
-            check_cell_11th_sera = mat[start_col][14]
-            if check_cell_10th_sera == '':
-                virus_passage_col_index = 13
-            elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
-                virus_passage_col_index = 14
-            else:
-                virus_passage_col_index = 15
+            serum_id_row_index = 8
+            serum_passage_row_index = 9
+            serum_strain_row_index = 10
+            # # some FRA tables have 10 sera, some have 11, some have 9
+            # check_cell_10th_sera = mat[start_col][13]
+            # check_cell_11th_sera = mat[start_col][14]
+            # if check_cell_10th_sera == '':
+            #     virus_passage_col_index = 13
+            # elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
+            #     virus_passage_col_index = 14
+            # else:
+            #     virus_passage_col_index = 15
 
         # some tables are do not begin where we think they do
         # add possible starting locations
@@ -124,13 +130,13 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
                 for i in range(start_row, len(mat)):
                     for j in range(start_col, end_col):
                         virus_strain = mat[i][virus_strain_col_index].strip()
-                        serum_strain = mat[10][j].strip()
-                        serum_id = mat[8][j].strip().replace(' ','')
+                        serum_strain = mat[serum_strain_row_index][j].strip()
+                        serum_id = mat[serum_id_row_index][j].strip().replace(' ','')
                         titer = mat[i][j].strip()
                         source = "vidrl_%s"%(src_id).strip()
                         virus_passage = mat[i][virus_passage_col_index].strip()
                         virus_passage_category = ''
-                        serum_passage = mat[9][j].strip()
+                        serum_passage = mat[serum_passage_row_index][j].strip()
                         serum_passage_category = ''
                         line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                         outfile.write(line)
