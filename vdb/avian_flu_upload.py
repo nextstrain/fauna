@@ -484,6 +484,7 @@ class flu_upload(upload):
         environment_list = [
             "feces", "otherenvironment", "surfaceswab", "watersample", "environment",
             "airsample"]
+        cattle_list = ["dairycattle","cattle","cow","bovine"]
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
@@ -497,8 +498,18 @@ class flu_upload(upload):
                 v['host'] = "avian"
             elif v['host'] in environment_list:
                 v['host'] = "environment"
+            elif v['host'] in cattle_list:
+                v['host'] = "cattle"
+            
+            #adding in extra logic to find cattle sequences that are annotated as mammal but are cattle
             elif v['host'] in nonhuman_mammal_list:
-                v['host'] = "nonhuman_mammal"
+                if len(v['strain'].split("/")) == 5:
+                    species = v['strain'].split("/")[1]
+                    if species in cattle_list: 
+                        v['host'] = "cattle"
+                    else:
+                        v['host'] = "nonhuman_mammal"
+            
             elif v['host'] in other_list:
                 v['host'] = "other"
 
