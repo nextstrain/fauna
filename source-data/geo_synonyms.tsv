@@ -492,6 +492,7 @@ AltoHospicio	Chile	Tarapaca	AltoHospicio
 Antofagasta	Chile	Antofagasta	Antofagasta
 Arauco	Chile	Arauco	Arauco
 Arica	Chile	Arica	Arica
+AricaYParinacota	Chile	AricaYParinacota	AricaYParinacota
 Atacama	Chile	Atacama	Atacama
 BioBio	Chile	BioBio	BioBio
 Calama	Chile	Antofagasta	Calama
@@ -538,6 +539,7 @@ SanFelipe	Chile	Santiago	SanFelipe
 Santiago	Chile	Santiago	Santiago
 Talca	Chile	Maule	Talca
 Talcahuano	Chile	BioBio	Talcahuano
+Tarapaca	Chile	Tarapaca	Tarapaca
 Temuco	Chile	Araucania	Temuco
 Valdivia	Chile	LosRios	Valdivia
 Vallenar	Chile	Vallenar	Vallenar
@@ -1874,11 +1876,14 @@ Lao	Laos	Laos	Laos
 Laos	Laos	Laos	Laos
 LuangPrabang	Laos	LuangPrabang	LuangPrabang
 LuangPrabangDistrict	Laos	LuangPrabang	LuangPrabangDistrict
+LuangNamtha	Laos	LuangNamtha	LuangNamtha
 PakOuDistrict	Laos	LuangPrabang	PakOuDistrict
 SanasombounDistrict	Laos	Champasak	SanasombounDistrict
 ThaTengDistrict	Laos	Sekong	ThaTengDistrict
 ThathomDistrict	Laos	Xaisomboun	ThathomDistrict
+Vientiane	Laos	Vientiane	Vientiane
 XaythanyDistrict	Laos	Vientiane	XaythanyDistrict
+Xiangkhouang	Laos	Xiangkhouang	Xiangkhouang
 
 # Latvia
 Latvia	Latvia	Latvia	Latvia

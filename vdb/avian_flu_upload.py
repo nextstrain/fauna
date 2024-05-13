@@ -488,7 +488,7 @@ class flu_upload(upload):
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
-            "dog", "large__cat", "pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus","rodent"]
+            "dog", "large__cat", "mouse","murine","pika","seal","meerkat", "cat","feliscatus", "rousettusaegyptiacus","rodent"]
         other_list = [
             "circus", "ferret", "insect", "laboratoryderived", "unknown", "animal","host"]
 
