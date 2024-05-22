@@ -484,7 +484,7 @@ class flu_upload(upload):
         environment_list = [
             "feces", "otherenvironment", "surfaceswab", "watersample", "environment",
             "airsample"]
-        cattle_list = ["dairycattle","cattle","cow","bovine"]
+        cattle_list = ["dairycattle", "cattle", "cow", "bovine", "dairycow"]
         nonhuman_mammal_list = [
             "bat", "canine", "equine", "feline", "harbourseal","mammals", "mink", "othermammals",
             "primate","swine","pig", "susscrofadomesticus", "lion", "weasel", "raccoon__dog", "tiger",
