@@ -1323,6 +1323,7 @@ Monjas	Guatemala	Guatemala	Monjas
 Parramos	Guatemala	Guatemala	Parramos
 Quetzaltepeque	Guatemala	Guatemala	Quetzaltepeque
 Retalhuleu	Guatemala	Guatemala	Retalhuleu
+Riohondo	Guatemala	Guatemala	Riohondo
 Sanantoniolapaz	Guatemala	Guatemala	Sanantoniolapaz
 Sanarate	Guatemala	Guatemala	Sanarate
 Sanmarcos	Guatemala	Guatemala	SanMarcos
@@ -2522,6 +2523,7 @@ Anapa	Russia	KrasnodarKrai	Anapa
 Anna	Russia	Voronezh	Anna
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
+Armavir	Russia	KrasnodarKrai	Armavir
 Astrakhan	Russia	Astrakhan	Astrakhan
 Balashikha	Russia	Moscow	Balashikha
 Bavly	Russia	Tatarstan	Bavly
@@ -2536,6 +2538,7 @@ Bryansk	Russia	Bryansk	Bryansk
 Buryatia	Russia	Buryatia	Buryatia
 Buturlinovka	Russia	Voronezh	Buturlinovka
 Chany	Russia	Novosibirsk	Chany
+Chaykovsky	Russia	Chaykovsky	Chaykovsky
 Cheboksary	Russia	Chuvash	Cheboksary
 Chechnya	Russia	Chechnya	Chechnya
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
@@ -2554,6 +2557,7 @@ Elista	Russia	Kalmykia	Elista
 Gatchina	Russia	Leningrad	Gatchina
 GornoAltaysk	Russia	Altaia	GornoAltaysk
 Gribanovsk	Russia	Voronezh	Gribanovsk
+Grigorovo	Russia	Novgorod	Grigorovo
 Grozny	Russia	Chechnya	Grozny
 Gusev	Russia	Kaliningrad	Gusev
 Ingushetia	Russia	Ingushetia	Ingushetia
@@ -2577,6 +2581,7 @@ KhantiMansiysk	Russia	KhantyMansi	KhantiMansiysk
 Khanty-Mansi	Russia	KhantyMansi	Khanty-Mansi
 Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
 Khrenovoe	Russia	Voronezh	Khrenovoe
+Khuzhir	Russia	MariEl	Khuzhir
 Kirishi	Russia	Leningrad	Kirishi
 Kirov	Russia	Kirov	Kirov
 Kirovsk	Russia	Leningrad	Kirovsk
@@ -2612,6 +2617,7 @@ Mamonovo	Russia	Kaliningrad	Mamonovo
 Maykop	Russia	Adygea	Maykop
 Mcensk	Russia	Oryol	Mcensk
 Medvedevo	Russia	MariEl	Medvedevo
+Medved	Russia	Novgorod	Medved
 Mordovia	Russia	Mordovia	Mordovia
 Morki	Russia	MariEl	Morki
 Moscow	Russia	Moscow	Moscow
@@ -2619,8 +2625,11 @@ Murmansk	Russia	Murmansk	Murmansk
 Nalchik	Russia	KabardinoBalkaria	Nalchik
 Naryan-Mar	Russia	Naryan-Mar	Naryan-Mar
 Nadym	Russia	Yamalia	Nadym
+Nesterov	Russia	Kaliningrad	Nesterov
 NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod
 NorthOssetiaAlania	Russia	NorthOssetiaAlania	NorthOssetiaAlania
+NovayaDerevnya	Russia	Novgorod	NovayaDerevnya
+Novgorod	Russia	Novgorod	Novgorod
 NovoeRakhino	Russia	Novgorod	NovoeRakhino
 Novosibirsk	Russia	Novosibirsk	Novosibirsk
 NovyUrengoy	Russia	Yamalia	NovyUrengoy
@@ -2657,6 +2666,7 @@ Saratov	Russia	Saratov	Saratov
 Semiluki	Russia	Voronezh	Semiluki
 Sernur	Russia	MariEl	Sernur
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
+Shimsk	Russia	Novgorod	Shimsk
 Shuberskoye	Russia	Voronezh	Shuberskoye
 Siberia	Russia	Siberia	Siberia
 Slantsy	Russia	Leningrad	Slantsy
@@ -2672,7 +2682,9 @@ Syktyvkar	Russia	Komi	Syktyvkar
 Syktyvkarc	Russia	Komi	Syktyvkar
 Tambov	Russia	Tambov	Tambov
 Tatarstan	Russia	Tatarstan	Tatarstan
+Tolyatti	Russia	Samara	Tolyatti
 Tomsk	Russia	Tomsk	Tomsk
+Trubichino	Russia	Vologda	Trubichino
 Tula	Russia	Tula	Tula
 Turochak	Russia	Altai	Turochak
 Tver	Russia	Tver	Tver
