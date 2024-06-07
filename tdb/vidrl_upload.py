@@ -10,8 +10,6 @@ from upload import parser
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
-import logging
-# logger = logging.getLogger()
 
 parser.add_argument('--assay_type', default='hi')
 
@@ -31,8 +29,6 @@ def read_vidrl(path, fstem, assay_type):
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
     fname = path + fstem + ".csv"
-    # import glob
-    # flist = glob.glob(path + '/NIMR*csv') #BP
     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
 
     if True in exten:
@@ -41,7 +37,6 @@ def read_vidrl(path, fstem, assay_type):
         fname = "data/tmp/%s.csv"%(fstem)
         parse_vidrl_matrix_to_tsv(fname, path, assay_type)
     else:
-        # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         print("Unable to recognize file {}/{}".format(path,fstem))
         sys.exit()
 
