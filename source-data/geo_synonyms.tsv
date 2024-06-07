@@ -449,11 +449,13 @@ Kampongchamhospital	Cambodia	KampongCham	KampongCham
 PhenomPenh	Cambodia	PhenomPenh	PhenomPenh
 
 # Cameroon
-Buea	Cameroon	Southwest	Buea
 Cameroon	Cameroon	Cameroon	Cameroon
-Ebolowa	Cameroon	South	Ebolowa
 AbongMbang	Cameroon	East	AbongMbang
+Buea	Cameroon	Southwest	Buea
+Bamenda	Cameroon	NorthWest	Bamenda
 Douala	Cameroon	Littoral	Douala
+Ebolowa	Cameroon	South	Ebolowa
+Foumban	Cameroon	West	Foumban
 Garoua	Cameroon	North	Garoua
 Hevecam	Cameroon	South	South
 Yaounde	Cameroon	Mfoundi	Yaounde
@@ -771,6 +773,7 @@ Sichuan	China	Sichuan	Sichuan
 SichuanWenjiang	China	Sichuan	Wenjiang
 Sunan	China	Gansu	Sunan
 Suzhou	China	Jiangsu	Suzhou
+Taiyuan	China	Shanxi	Taiyuan
 Taizhou	China	Zhejiang	Taizhou
 Taixing	China	Jiangsu	Taixing
 Tianjin	China	Tianjin	Tianjin
