@@ -88,6 +88,7 @@ Burkina_Faso	BurkinaFaso
 
 # Canada
 ALB	Alberta
+AB	Alberta
 NorthwestTerritories	NorthWestTerritories
 BC	BritishColumbia
 British_Columbia	BritishColumbia
@@ -113,7 +114,15 @@ Canada-MB	Manitoba
 Canada-BC	BritishColumbia
 Canada-AB	Alberta
 Canada-NS	NovaScotia
+ON	Ontario
+NB	NewBrunswick
+NL	Newfoundland
+NS	NovaScotia
+PE	PrinceEdwardIsland
+QC	Quebec
+SK	Saskatchewan
 Saskachewan	Saskatchewan
+YT	Yukon
 
 # Chile
 Alto_Hospicio	AltoHospicio

@@ -468,7 +468,7 @@ class flu_upload(upload):
             "poultry","pygoscelisantarcticus","rissatridactyla","rynchopsniger",
             "quail", "rails","rail","ring-neckedduck","rook", "ruddy__turnstone", "ruddyturnstone",
             "ruddyshelduck","rosy__billed__pochard","sacredibis",
-            "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shrike",
+            "saker__falcon", "sanderling","sandpiper", "scolopaxrusticola","shearwater","shrike",
             "shorebird", "silky__chicken",
             "silverteal", "snow__goose","somateriamollissima",
             "sparrow", "speckledpigeon","starling", "sternasandvicensis","swan", "sterna",
