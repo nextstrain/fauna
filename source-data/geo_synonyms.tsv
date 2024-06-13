@@ -628,6 +628,7 @@ Guangzhou	China	Guangdong	Guangzhou
 Gansu	China	Gansu	Gansu
 Ganzhou	China	Jiangxi	Ganzhou
 Guizhou	China	Guizhou	Guizhou
+Haicang	China	Fujian	Haicang
 Hainan	China	Hainan	Hainan
 Haikou	China	Hainan	Haikou
 Haidian	China	Beijing	Haidian
@@ -746,6 +747,7 @@ Qixian	China	Shanxi	Qixian
 Quanzhou	China	Fujian	Quanzhou
 Quzhou	China	Zhejiang	Quzhou
 Sanming	China	Fujian	Sanming
+Siming	China	Fujian	Siming
 Rencheng	China	Shandong	Rencheng
 Rizhao	China	Shandong	Rizhao
 Ruzhou	China	Henan	Ruzhou
@@ -787,6 +789,7 @@ TianjinNankai	China	Tianjin	Nankai
 TianjinNinghe	China	Tianjin	Ninghe
 TianjinTanggu	China	Tianjin	Tanggu
 Tientsin	China	Tianjin	Tianjin
+Tongan	China	Fujian	Tongan
 Tongshan	China	Hubei	Tongshan
 Tumen	China	Jilin	Tumen
 Wangcheng	China	Hunan	Wangcheng
@@ -803,6 +806,7 @@ Wuzhou	China	Guangxi	Wuzhou
 Xiamen	China	Fujian	Xiamen
 Xian	China	Shaanxi	Xian
 Xianfeng	China	Hubei	Xianfeng
+Xiangan	China	Fujian	Xiangan
 Xianghai	China	Jilin	Xianghai
 Xiangshui	China	Jiangsu	Xiangshui
 Xigong	China	Henan	Xigong
@@ -2060,6 +2064,7 @@ Lacoloradasonora	Mexico	Sonora	LaColorada
 Nayarit	Mexico	Nayarit	Nayarit
 Chiapas	Mexico	Chiapas	Chiapas
 MexicoCity	Mexico	DistritoFederal	MexicoCity
+StateofMexico	Mexico	StateofMexico	StateofMexico
 NuevoLeon	Mexico	NuevoLeon	NuevoLeon
 Oaxaca	Mexico	Oaxaca	Oaxaca
 Cerrodeltepezcouintleoaxaca	Mexico	Oaxaca	Oaxaca
