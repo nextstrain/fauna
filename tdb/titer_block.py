@@ -129,6 +129,21 @@ def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=Non
     """
     Find the row containing cell passage data and the row containing abbreviated antigen names.
     """
+    # Define a regular expression pattern to match Antisera ID
+    antisera_id_pattern = r"^[A-Z]\d{4,8}$"
+
+    # Find the row containing antisera ID
+    antisera_id_row_idx = None
+    for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
+        antisera_id_count = 0
+        for col_idx in range(worksheet.ncols):
+            cell_value = str(worksheet.cell_value(row_idx, col_idx))
+            if re.match(antisera_id_pattern, cell_value):
+                antisera_id_count += 1
+        if antisera_id_count > 0:
+            antisera_id_row_idx = row_idx
+            break
+
     # Define a regular expression pattern to match cell passage data
     cell_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
@@ -166,6 +181,7 @@ def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=Non
             break
 
     return {
+        "antisera_id_row_idx": antisera_id_row_idx,
         "cell_passage_row_idx": cell_passage_row_idx,
         "abbrev_antigen_row_idx": abbrev_antigen_row_idx,
         "antigen_mapping": antigen_mapping
@@ -204,6 +220,7 @@ def main():
     # Print serum and virus annotations row and column indices
     print(f"Most likely strain column index: {strain_block['strain_col_idx']}")
     print(f"Most likely strain names: {strain_block['strain_names']}")
+    print(f"Most likely antisera ID row index: {antigen_block['antisera_id_row_idx']}")
     print(f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}")
     print(f"Most likely abbreviated antigen row index: {antigen_block['abbrev_antigen_row_idx']}")
 
