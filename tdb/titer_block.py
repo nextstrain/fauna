@@ -97,7 +97,7 @@ def find_titer_block(worksheet):
         "row_end": sorted_row_end
     }
 
-def find_strain_column(worksheet, col_start, row_end):
+def find_strain_column(worksheet, col_start, row_end, col_end):
     """
     Find the column containing strain names based on the most likely column indices for the titer block.
     """
@@ -120,9 +120,27 @@ def find_strain_column(worksheet, col_start, row_end):
         if strain_count > 0:
             strain_col_idx = col_idx
             break
+
+    # Find the most likely column containing strain passage
+    most_likely_col_end = col_end
+
+    # Define a regular expression pattern to match strain passage column
+    strain_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    strain_passage_col_idx = None
+    for col_idx in range(most_likely_col_end, worksheet.ncols):  # Iterate from col_start to the right
+        strain_passage_count = 0
+        for row_idx in range(row_end):
+            cell_value = str(worksheet.cell_value(row_idx, col_idx))
+            if re.match(strain_passage_pattern, cell_value):
+                strain_passage_count += 1
+        if strain_passage_count > 0:
+            strain_passage_col_idx = col_idx
+            break
+
     return {
         "strain_col_idx": strain_col_idx,
-        "strain_names": strains
+        "strain_names": strains,
+        "strain_passage_col_idx": strain_passage_col_idx
     }
 
 def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=None):
@@ -201,7 +219,8 @@ def main():
     strain_block = find_strain_column(
         worksheet = worksheet,
         col_start = titer_block['col_start'][0][0],
-        row_end = titer_block['row_end'][0][0]
+        row_end = titer_block['row_end'][0][0],
+        col_end=titer_block['col_end'][0][0]
     )
     antigen_block = find_antigen_rows(
         worksheet = worksheet,
@@ -219,6 +238,7 @@ def main():
 
     # Print serum and virus annotations row and column indices
     print(f"Most likely strain column index: {strain_block['strain_col_idx']}")
+    print(f"Most likely strain passage column index: {strain_block['strain_passage_col_idx']}")
     print(f"Most likely strain names: {strain_block['strain_names']}")
     print(f"Most likely antisera ID row index: {antigen_block['antisera_id_row_idx']}")
     print(f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}")
