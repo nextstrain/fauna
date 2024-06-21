@@ -41,8 +41,8 @@ def read_vidrl(path, fstem, assay_type):
         sys.exit()
 
 def convert_xls_to_csv(path, fstem, ind):
-    ref_sera_row=8    # Should be <= serum_strain_row_index
-    titer_col_start=3 # Should be <= start_col
+    ref_sera_row=10    # Should be <= serum_strain_row_index
+    titer_col_start=4 # Should be <= start_col
     import xlrd
     sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
     sera_mapping = parse_tsv_mapping_to_dict(sera_mapping_file)
@@ -58,7 +58,7 @@ def convert_xls_to_csv(path, fstem, ind):
                     raise
         with open(tmpfile, 'w') as f:
             writer = csv.writer(f)
-            writer.writerows(sheet.row_values(row) for row in range(10))
+            writer.writerows(sheet.row_values(row) for row in range(ref_sera_row))
             # Edit row containing serum strains
             # if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
             #     print(sheet.row_values(12)[4])
@@ -93,14 +93,14 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
         print("assay_type: " + assay_type)
         if assay_type == "hi":
             # Zero-indexed positions
-            start_row = 10
-            start_col = 3
+            start_row = 12
+            start_col = 4
             end_col = 12+start_col # Changed from 7 to 5 for Vic/YAM tables -BP
-            virus_strain_col_index = 1
+            virus_strain_col_index = 2
             virus_passage_col_index = end_col
-            serum_id_row_index = 6
-            serum_passage_row_index = 7
-            serum_strain_row_index = 8
+            serum_id_row_index = 7
+            serum_passage_row_index = 8
+            serum_strain_row_index = 9
         elif assay_type == "fra":
             start_row = 12
             start_col = 4
@@ -122,22 +122,24 @@ def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
 
         # some tables are do not begin where we think they do
         # add possible starting locations
-        possible_starts = [mat[serum_strain_row_index][virus_strain_col_index], mat[10][2], mat[13][0]]
-        for check_cell in possible_starts:
-            if check_cell == "Reference Antigens":
-                for i in range(start_row, len(mat)):
-                    for j in range(start_col, end_col):
-                        virus_strain = mat[i][virus_strain_col_index].strip()
-                        serum_strain = mat[serum_strain_row_index][j].strip()
-                        serum_id = mat[serum_id_row_index][j].strip().replace(' ','')
-                        titer = mat[i][j].strip()
-                        source = "vidrl_%s"%(src_id).strip()
-                        virus_passage = mat[i][virus_passage_col_index].strip()
-                        virus_passage_category = ''
-                        serum_passage = mat[serum_passage_row_index][j].strip()
-                        serum_passage_category = ''
-                        line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                        outfile.write(line)
+        #possible_starts = [mat[serum_strain_row_index][virus_strain_col_index], mat[0][0]]
+        check_cell = mat[serum_strain_row_index][virus_strain_col_index]
+        #for check_cell in possible_starts:
+        if check_cell == "Reference Antigens":
+            print("Found reference antigens")
+            for i in range(start_row, len(mat)):
+                for j in range(start_col, end_col):
+                    virus_strain = mat[i][virus_strain_col_index].strip()
+                    serum_strain = mat[serum_strain_row_index][j].strip()
+                    serum_id = mat[serum_id_row_index][j].strip().replace(' ','')
+                    titer = mat[i][j].strip()
+                    source = "vidrl_%s"%(src_id).strip()
+                    virus_passage = mat[i][virus_passage_col_index].strip()
+                    virus_passage_category = ''
+                    serum_passage = mat[serum_passage_row_index][j].strip()
+                    serum_passage_category = ''
+                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                    outfile.write(line)
 
 
 def read_flat_vidrl(path, fstem, assay_type):
