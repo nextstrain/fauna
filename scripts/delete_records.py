@@ -44,7 +44,7 @@ if __name__ == "__main__":
         deletion_count = 0
         sources = set()
         for record in filtered_records:
-            source = file_source = record['source']
+            source = file_source = record.get('source', "")
 
             # The titer uploads using `elife_upload` appends a line counter to the end of the sources.
             if "_" in source:
