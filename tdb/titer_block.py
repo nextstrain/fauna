@@ -6,16 +6,20 @@ import xlrd
 from collections import defaultdict
 import re
 
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Find the block of titers in an Excel worksheet.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--file",
-                        default="~/nextstrain/fludata/VIDRL-Melbourne-WHO-CC/raw-data/A/H1N1pdm/HI/2024/20240528H1N1.xlsx",
-                        required=False,
-                        help="Path to the Excel file")
+    parser.add_argument(
+        "--file",
+        default="~/nextstrain/fludata/VIDRL-Melbourne-WHO-CC/raw-data/A/H1N1pdm/HI/2024/20240528H1N1.xlsx",
+        required=False,
+        help="Path to the Excel file",
+    )
     return parser.parse_args()
+
 
 def is_numeric(value):
     """
@@ -27,13 +31,14 @@ def is_numeric(value):
         return True
     if isinstance(value, str):
         value = value.strip()
-        if value.startswith('<'):
+        if value.startswith("<"):
             try:
                 float(value[1:].strip())
                 return True
             except ValueError:
                 return False
     return False
+
 
 def find_titer_block(worksheet):
     """
@@ -52,7 +57,11 @@ def find_titer_block(worksheet):
         last_numeric_index = None
         for col_idx in range(worksheet.ncols):
             cell_value = worksheet.cell_value(row_idx, col_idx)
-            next_cell_value = worksheet.cell_value(row_idx, col_idx + 1) if col_idx + 1 < worksheet.ncols else None
+            next_cell_value = (
+                worksheet.cell_value(row_idx, col_idx + 1)
+                if col_idx + 1 < worksheet.ncols
+                else None
+            )
 
             # Check for two consecutive numeric values in a row before incrementing the count
             if is_numeric(cell_value) and is_numeric(next_cell_value):
@@ -71,7 +80,11 @@ def find_titer_block(worksheet):
         last_numeric_index = None
         for row_idx in range(worksheet.nrows):
             cell_value = worksheet.cell_value(row_idx, col_idx)
-            next_cell_value = worksheet.cell_value(row_idx + 1, col_idx) if row_idx + 1 < worksheet.nrows else None
+            next_cell_value = (
+                worksheet.cell_value(row_idx + 1, col_idx)
+                if row_idx + 1 < worksheet.nrows
+                else None
+            )
 
             # Check for two consecutive numeric values in a column before incrementing the count
             if is_numeric(cell_value) and is_numeric(next_cell_value):
@@ -85,17 +98,26 @@ def find_titer_block(worksheet):
             row_end_dict[last_numeric_index] += 1
 
     # Sort the dictionaries by frequency in descending order
-    sorted_col_start = sorted(col_start_dict.items(), key=lambda item: item[1], reverse=True)
-    sorted_col_end = sorted(col_end_dict.items(), key=lambda item: item[1], reverse=True)
-    sorted_row_start = sorted(row_start_dict.items(), key=lambda item: item[1], reverse=True)
-    sorted_row_end = sorted(row_end_dict.items(), key=lambda item: item[1], reverse=True)
+    sorted_col_start = sorted(
+        col_start_dict.items(), key=lambda item: item[1], reverse=True
+    )
+    sorted_col_end = sorted(
+        col_end_dict.items(), key=lambda item: item[1], reverse=True
+    )
+    sorted_row_start = sorted(
+        row_start_dict.items(), key=lambda item: item[1], reverse=True
+    )
+    sorted_row_end = sorted(
+        row_end_dict.items(), key=lambda item: item[1], reverse=True
+    )
 
     return {
         "col_start": sorted_col_start,
         "col_end": sorted_col_end,
         "row_start": sorted_row_start,
-        "row_end": sorted_row_end
+        "row_end": sorted_row_end,
     }
+
 
 def find_strain_column(worksheet, col_start, row_end, col_end):
     """
@@ -110,7 +132,9 @@ def find_strain_column(worksheet, col_start, row_end, col_end):
     most_likely_col_start = col_start
 
     strain_col_idx = None
-    for col_idx in range(most_likely_col_start - 1, -1, -1):  # Iterate from col_start to the left
+    for col_idx in range(
+        most_likely_col_start - 1, -1, -1
+    ):  # Iterate from col_start to the left
         strain_count = 0
         for row_idx in range(row_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
@@ -127,7 +151,9 @@ def find_strain_column(worksheet, col_start, row_end, col_end):
     # Define a regular expression pattern to match strain passage column
     strain_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
     strain_passage_col_idx = None
-    for col_idx in range(most_likely_col_end, worksheet.ncols):  # Iterate from col_start to the right
+    for col_idx in range(
+        most_likely_col_end, worksheet.ncols
+    ):  # Iterate from col_start to the right
         strain_passage_count = 0
         for row_idx in range(row_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
@@ -140,8 +166,9 @@ def find_strain_column(worksheet, col_start, row_end, col_end):
     return {
         "strain_col_idx": strain_col_idx,
         "strain_names": strains,
-        "strain_passage_col_idx": strain_passage_col_idx
+        "strain_passage_col_idx": strain_passage_col_idx,
     }
+
 
 def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=None):
     """
@@ -202,7 +229,7 @@ def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=Non
         "antisera_id_row_idx": antisera_id_row_idx,
         "cell_passage_row_idx": cell_passage_row_idx,
         "abbrev_antigen_row_idx": abbrev_antigen_row_idx,
-        "antigen_mapping": antigen_mapping
+        "antigen_mapping": antigen_mapping,
     }
 
 
@@ -211,43 +238,57 @@ def main():
 
     # Load the Excel file
     workbook = xlrd.open_workbook(args.file)
-    worksheet = workbook.sheet_by_index(0) # first sheet or loop
+    worksheet = workbook.sheet_by_index(0)  # first sheet or loop
 
     # Find the block of titers in the worksheet
     titer_block = find_titer_block(worksheet)
 
     strain_block = find_strain_column(
-        worksheet = worksheet,
-        col_start = titer_block['col_start'][0][0],
-        row_end = titer_block['row_end'][0][0],
-        col_end=titer_block['col_end'][0][0]
+        worksheet=worksheet,
+        col_start=titer_block["col_start"][0][0],
+        row_end=titer_block["row_end"][0][0],
+        col_end=titer_block["col_end"][0][0],
     )
     antigen_block = find_antigen_rows(
-        worksheet = worksheet,
-        row_start=titer_block['row_start'][0][0],
-        col_start=titer_block['col_start'][0][0],
-        col_end=titer_block['col_end'][0][0],
-        strain_names=strain_block['strain_names']
+        worksheet=worksheet,
+        row_start=titer_block["row_start"][0][0],
+        col_start=titer_block["col_start"][0][0],
+        col_end=titer_block["col_end"][0][0],
+        strain_names=strain_block["strain_names"],
     )
 
     # Print the most likely row and column indices for the titer block
-    print(f"Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
-    print(f"Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
-    print(f"Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
-    print(f"Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
+    print(
+        f"Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}"
+    )
+    print(
+        f"Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}"
+    )
+    print(
+        f"Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}"
+    )
+    print(
+        f"Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}"
+    )
 
     # Print serum and virus annotations row and column indices
     print(f"Most likely strain column index: {strain_block['strain_col_idx']}")
-    print(f"Most likely strain passage column index: {strain_block['strain_passage_col_idx']}")
+    print(
+        f"Most likely strain passage column index: {strain_block['strain_passage_col_idx']}"
+    )
     print(f"Most likely strain names: {strain_block['strain_names']}")
     print(f"Most likely antisera ID row index: {antigen_block['antisera_id_row_idx']}")
-    print(f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}")
-    print(f"Most likely abbreviated antigen row index: {antigen_block['abbrev_antigen_row_idx']}")
+    print(
+        f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}"
+    )
+    print(
+        f"Most likely abbreviated antigen row index: {antigen_block['abbrev_antigen_row_idx']}"
+    )
 
     # Match abbreviated names across the top to the full names along the left side and auto convert to full names
-    if antigen_block['abbrev_antigen_row_idx'] is not None:
+    if antigen_block["abbrev_antigen_row_idx"] is not None:
         print("Antigen mapping:")
-        for abbrev, full in antigen_block['antigen_mapping'].items():
+        for abbrev, full in antigen_block["antigen_mapping"].items():
             print(f"  {abbrev} -> {full}")
 
 
