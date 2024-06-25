@@ -8,6 +8,9 @@ import re
 
 
 def parse_args():
+    """
+    Parse command line arguments.
+    """
     parser = argparse.ArgumentParser(
         description="Find the block of titers in an Excel worksheet.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -98,18 +101,10 @@ def find_titer_block(worksheet):
             row_end_dict[last_numeric_index] += 1
 
     # Sort the dictionaries by frequency in descending order
-    sorted_col_start = sorted(
-        col_start_dict.items(), key=lambda item: item[1], reverse=True
-    )
-    sorted_col_end = sorted(
-        col_end_dict.items(), key=lambda item: item[1], reverse=True
-    )
-    sorted_row_start = sorted(
-        row_start_dict.items(), key=lambda item: item[1], reverse=True
-    )
-    sorted_row_end = sorted(
-        row_end_dict.items(), key=lambda item: item[1], reverse=True
-    )
+    sorted_col_start = sorted(col_start_dict.items(), key=lambda item: item[1], reverse=True)
+    sorted_col_end = sorted(col_end_dict.items(), key=lambda item: item[1], reverse=True)
+    sorted_row_start = sorted(row_start_dict.items(), key=lambda item: item[1], reverse=True)
+    sorted_row_end = sorted(row_end_dict.items(), key=lambda item: item[1], reverse=True)
 
     return {
         "col_start": sorted_col_start,
@@ -278,12 +273,12 @@ def main():
     print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
     # Print Virus and Serum annotations row and column indices
-    print("Virus (serum) block: left and right of the titer block")
+    print("Virus (antigen) block: left and right of the titer block")
     print(f"  virus column index: {virus_block['virus_col_idx']}")
     print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
     print(f"  virus names: {virus_block['virus_names']}")
 
-    print("Serum block: above the titer block")
+    print("Serum (antisera) block: above the titer block")
     print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
     print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
     print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
