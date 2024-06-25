@@ -272,6 +272,11 @@ def main():
     print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
     print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
+    # For debugging purposes, print alternative indices (e.g. col_start, col_end, row_start, row_end)
+    # print("Alternative indices:")
+    # for i in range(1, len(titer_block['row_start'])):
+    #     print(f"  Alternative (n={titer_block['row_start'][i][1]}) row_start: {titer_block['row_start'][i][0]}")
+
     # Print Virus and Serum annotations row and column indices
     print("Virus (antigen) block: left and right of the titer block")
     print(f"  virus column index: {virus_block['virus_col_idx']}")
