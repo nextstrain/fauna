@@ -119,54 +119,58 @@ def find_titer_block(worksheet):
     }
 
 
-def find_virus_columns(worksheet, col_start, row_end, col_end):
+def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
     """
     Find the columns containing virus names based on the most likely column indices for the titer block.
     """
-    virus_names = []
+    # List of outputs
+    virus_col_idx = None  # Index of the column containing virus names
+    virus_passage_col_idx = None  # Index of the column containing virus passage data
+    virus_names = (
+        []
+    )  # List of virus names, will be used by find_antigen_rows to map abbreviated antigen names to full names
 
+    # VIDRL-Melbourne-WHO-CC specific patterns (TODO: parameterize the pattern matching by data source)
     # Define a regular expression pattern to match virus names
     virus_pattern = r"[A-Z]/\w+/.+/\d{4}"
+    # Define a regular expression pattern to match virus passage column
+    virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
-    # Find the most likely column containing virus names
-    most_likely_col_start = col_start
-
-    virus_col_idx = None
-    for col_idx in range(
-        most_likely_col_start - 1, -1, -1
-    ):  # Iterate from col_start to the left
+    # Find the column containing virus names searching to the left of the titer block
+    for col_idx in range(col_start - 1, -1, -1):
         virus_count = 0
-        for row_idx in range(row_end):
+        for row_idx in range(row_start, row_end + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(virus_pattern, cell_value):
                 virus_count += 1
-                virus_names.append(cell_value)
-        if virus_count > 0:
+
+        # Index of the first column that contains more than 50% rows matching the virus pattern
+        if virus_count > (row_end - row_start) / 2:
             virus_col_idx = col_idx
             break
 
-    # Find the most likely column containing virus passage
-    most_likely_col_end = col_end
+    # Get the virus names from the column containing virus names
+    # This allows for some lienency in matching the virus pattern in the column
+    for row_idx in range(row_end+1):
+        virus_names.append(str(worksheet.cell_value(row_idx, virus_col_idx)))
 
-    # Define a regular expression pattern to match virus passage column
-    virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
-    virus_passage_col_idx = None
-    for col_idx in range(
-        most_likely_col_end, worksheet.ncols
-    ):  # Iterate from col_start to the right
+    # Find the column containing virus passage data searching to the right of the titer block
+    for col_idx in range(col_end, worksheet.ncols):
         virus_passage_count = 0
         for row_idx in range(row_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(virus_passage_pattern, cell_value):
                 virus_passage_count += 1
-        if virus_passage_count > 0:
+
+        # Index of the first column that contains more than 50% rows matching the virus passage pattern
+        if virus_passage_count > (row_end - row_start) / 2:
             virus_passage_col_idx = col_idx
             break
 
     return {
         "virus_col_idx": virus_col_idx,
-        "virus_names": virus_names,
         "virus_passage_col_idx": virus_passage_col_idx,
+        "virus_names": virus_names,
     }
 
 
@@ -246,8 +250,9 @@ def main():
     virus_block = find_virus_columns(
         worksheet=worksheet,
         col_start=titer_block["col_start"][0][0],
-        row_end=titer_block["row_end"][0][0],
         col_end=titer_block["col_end"][0][0],
+        row_start=titer_block["row_start"][0][0],
+        row_end=titer_block["row_end"][0][0],
     )
     serum_block = find_serum_rows(
         worksheet=worksheet,
