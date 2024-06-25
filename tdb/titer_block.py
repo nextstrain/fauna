@@ -119,58 +119,58 @@ def find_titer_block(worksheet):
     }
 
 
-def find_strain_column(worksheet, col_start, row_end, col_end):
+def find_virus_columns(worksheet, col_start, row_end, col_end):
     """
-    Find the column containing strain names based on the most likely column indices for the titer block.
+    Find the columns containing virus names based on the most likely column indices for the titer block.
     """
-    strains = []
+    virus_names = []
 
-    # Define a regular expression pattern to match strain names
-    strain_pattern = r"[A-Z]/\w+/.+/\d{4}"
+    # Define a regular expression pattern to match virus names
+    virus_pattern = r"[A-Z]/\w+/.+/\d{4}"
 
-    # Find the most likely column containing strain names
+    # Find the most likely column containing virus names
     most_likely_col_start = col_start
 
-    strain_col_idx = None
+    virus_col_idx = None
     for col_idx in range(
         most_likely_col_start - 1, -1, -1
     ):  # Iterate from col_start to the left
-        strain_count = 0
+        virus_count = 0
         for row_idx in range(row_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(strain_pattern, cell_value):
-                strain_count += 1
-                strains.append(cell_value)
-        if strain_count > 0:
-            strain_col_idx = col_idx
+            if re.match(virus_pattern, cell_value):
+                virus_count += 1
+                virus_names.append(cell_value)
+        if virus_count > 0:
+            virus_col_idx = col_idx
             break
 
-    # Find the most likely column containing strain passage
+    # Find the most likely column containing virus passage
     most_likely_col_end = col_end
 
-    # Define a regular expression pattern to match strain passage column
-    strain_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
-    strain_passage_col_idx = None
+    # Define a regular expression pattern to match virus passage column
+    virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    virus_passage_col_idx = None
     for col_idx in range(
         most_likely_col_end, worksheet.ncols
     ):  # Iterate from col_start to the right
-        strain_passage_count = 0
+        virus_passage_count = 0
         for row_idx in range(row_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(strain_passage_pattern, cell_value):
-                strain_passage_count += 1
-        if strain_passage_count > 0:
-            strain_passage_col_idx = col_idx
+            if re.match(virus_passage_pattern, cell_value):
+                virus_passage_count += 1
+        if virus_passage_count > 0:
+            virus_passage_col_idx = col_idx
             break
 
     return {
-        "strain_col_idx": strain_col_idx,
-        "strain_names": strains,
-        "strain_passage_col_idx": strain_passage_col_idx,
+        "virus_col_idx": virus_col_idx,
+        "virus_names": virus_names,
+        "virus_passage_col_idx": virus_passage_col_idx,
     }
 
 
-def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=None):
+def find_antigen_rows(worksheet, row_start, col_start, col_end, virus_names=None):
     """
     Find the row containing cell passage data and the row containing abbreviated antigen names.
     """
@@ -207,7 +207,7 @@ def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=Non
     # Define a regular expression pattern to match abbreviated antigen names
     abbrev_antigen_pattern = r"\w+/\d+.*"
     antigen_mapping = {}
-    strain_idx = 0
+    virus_idx = 0
 
     # Find the row containing abbreviated antigen names
     abbrev_antigen_row_idx = None
@@ -218,8 +218,8 @@ def find_antigen_rows(worksheet, row_start, col_start, col_end, strain_names=Non
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(abbrev_antigen_pattern, cell_value):
                 abbrev_antigen_count += 1
-                antigen_mapping[cell_value] = strain_names[strain_idx]
-                strain_idx += 1
+                antigen_mapping[cell_value] = virus_names[virus_idx]
+                virus_idx += 1
 
         if abbrev_antigen_count > 0:
             abbrev_antigen_row_idx = row_idx
@@ -243,7 +243,7 @@ def main():
     # Find the block of titers in the worksheet
     titer_block = find_titer_block(worksheet)
 
-    strain_block = find_strain_column(
+    virus_block = find_virus_columns(
         worksheet=worksheet,
         col_start=titer_block["col_start"][0][0],
         row_end=titer_block["row_end"][0][0],
@@ -254,29 +254,22 @@ def main():
         row_start=titer_block["row_start"][0][0],
         col_start=titer_block["col_start"][0][0],
         col_end=titer_block["col_end"][0][0],
-        strain_names=strain_block["strain_names"],
+        virus_names=virus_block["virus_names"],
     )
 
     # Print the most likely row and column indices for the titer block
-    print(
-        f"Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}"
-    )
-    print(
-        f"Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}"
-    )
-    print(
-        f"Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}"
-    )
-    print(
-        f"Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}"
-    )
+    print(f"Titer block: n = {titer_block['row_start'][0][1]}x{titer_block['col_start'][0][1]} = {titer_block['row_start'][0][1]*titer_block['col_start'][0][1]}")
+    print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
+    print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
+    print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
+    print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
     # Print serum and virus annotations row and column indices
-    print(f"Most likely strain column index: {strain_block['strain_col_idx']}")
-    print(
-        f"Most likely strain passage column index: {strain_block['strain_passage_col_idx']}"
-    )
-    print(f"Most likely strain names: {strain_block['strain_names']}")
+    print("Virus (antigen) block: left and right of the titer block")
+    print(f"  virus column index: {virus_block['virus_col_idx']}")
+    print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
+    print(f"  virus names: {virus_block['virus_names']}")
+
     print(f"Most likely antisera ID row index: {antigen_block['antisera_id_row_idx']}")
     print(
         f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}"
