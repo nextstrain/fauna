@@ -151,7 +151,7 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
 
     # Get the virus names from the column containing virus names
     # This allows for some lienency in matching the virus pattern in the column
-    for row_idx in range(row_end+1):
+    for row_idx in range(row_start, row_end + 1):
         virus_names.append(str(worksheet.cell_value(row_idx, virus_col_idx)))
 
     # Find the column containing virus passage data searching to the right of the titer block
@@ -174,60 +174,67 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
     }
 
 
-def find_serum_rows(worksheet, row_start, col_start, col_end, virus_names=None):
+def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_names=None):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
     """
-    # Define a regular expression pattern to match Serum ID
-    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    # List of outputs
+    serum_id_row_idx = None  # Index of the row containing serum ID
+    serum_passage_row_idx = None  # Index of the row containing cell passage data
+    serum_abbrev_row_idx = None  # Index of the row containing abbreviated antigen names
+    serum_mapping = {}  # Mapping of abbreviated antigen names to full names
 
-    # Find the row containing serum ID
-    serum_id_row_idx = None
+    # VIDRL-Melbourne-WHO-CC specific patterns (TODO: parameterize the pattern matching by data source)
+    # Define a regular expression pattern to match serum ID
+    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    # Define a regular expression pattern to match cell passage data
+    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    # Define a regular expression pattern to match abbreviated antigen names
+    serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+
+    # Find the row containing serum ID searching from the top of the titer block upwards
     for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
         serum_id_count = 0
-        for col_idx in range(worksheet.ncols):
+        for col_idx in range(col_start, col_end + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_id_pattern, cell_value):
                 serum_id_count += 1
-        if serum_id_count > 0:
+        # Index of the first row that contains more than 50% columns matching the serum ID pattern
+        if serum_id_count > (col_end - col_start) / 2:
             serum_id_row_idx = row_idx
             break
 
-    # Define a regular expression pattern to match cell passage data
-    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
-
-    # Find the row containing cell passage data
-    serum_passage_row_idx = None
+    # Find the row containing cell passage data searching from the top of the titer block upwards
     for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
         serum_passage_count = 0
-        for col_idx in range(worksheet.ncols):
+        for col_idx in range(col_start, col_end + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_passage_pattern, cell_value):
                 serum_passage_count += 1
-        if serum_passage_count > 0:
+        if serum_passage_count > (col_end - col_start) / 2:
             serum_passage_row_idx = row_idx
             break
 
-    # Define a regular expression pattern to match abbreviated serum names
-    serum_abbrev_pattern = r"\w+/\d+.*"
-    serum_mapping = {}
-    virus_idx = 0
-
-    # Find the row containing abbreviated serum names
-    serum_abbrev_row_idx = None
-
-    for row_idx in range(serum_passage_row_idx + 1, worksheet.nrows):
+    # Find the row containing abbreviated serum names searching from the top of the titer block upwards
+    for row_idx in range(row_start -1, -1, -1):
         serum_abbrev_count = 0
-        for col_idx in range(col_start, col_end):
+        for col_idx in range(col_start, col_end + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_abbrev_pattern, cell_value):
                 serum_abbrev_count += 1
-                serum_mapping[cell_value] = virus_names[virus_idx]
-                virus_idx += 1
 
-        if serum_abbrev_count > 0:
+        if serum_abbrev_count > (col_end - col_start) / 2:
             serum_abbrev_row_idx = row_idx
             break
+
+    # Map abbreviated serum names to full names
+    virus_idx = 0
+    for col_idx in range(col_start, col_end + 1):
+        cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
+        # A more lenient check for the presence of a "/" in the cell value to find the abbreviated serum names
+        if r"/" in cell_value:
+            serum_mapping[cell_value] = virus_names[virus_idx]
+            virus_idx += 1
 
     return {
         "serum_id_row_idx": serum_id_row_idx,
@@ -256,9 +263,10 @@ def main():
     )
     serum_block = find_serum_rows(
         worksheet=worksheet,
-        row_start=titer_block["row_start"][0][0],
         col_start=titer_block["col_start"][0][0],
         col_end=titer_block["col_end"][0][0],
+        row_start=titer_block["row_start"][0][0],
+        row_end=titer_block["row_end"][0][0],
         virus_names=virus_block["virus_names"],
     )
 
