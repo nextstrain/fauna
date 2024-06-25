@@ -106,22 +106,20 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
         serum_passage_row_index = serum_block['serum_passage_row_idx']
         serum_strain_row_index = serum_block['serum_abbrev_row_idx']
 
-        for i in range(start_row, (end_row+1)):
-            for j in range(start_col, (end_col+1)):
+            source = "vidrl_%s"%(fstem).strip()
+            virus_passage_category = ''
+            serum_passage_category = ''
+            for i in range(start_row, (end_row+1)):
                 virus_strain = str(mat.cell_value(i,virus_strain_col_index)).strip()
-                serum_strain = serum_block['serum_mapping'].get(str(mat.cell_value(serum_strain_row_index,j)).strip(), str(mat.cell_value(serum_strain_row_index,j)))
-                serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
-                titer = str(mat.cell_value(i,j)).strip()
-
-                source = "vidrl_%s"%(fstem).strip()
-
                 virus_passage = str(mat.cell_value(i,virus_passage_col_index)).strip()
-                virus_passage_category = ''
-
-                serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
-                serum_passage_category = ''
-                line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                outfile.write(line)
+                for j in range(start_col, (end_col+1)):
+                    serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
+                    serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
+                    serum_abbr = str(mat.cell_value(serum_strain_row_index,j)).strip()
+                    serum_strain = serum_mapping.get(serum_abbr, serum_abbr)
+                    titer = str(mat.cell_value(i,j)).strip()
+                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                    outfile.write(line)
 
 
 def read_flat_vidrl(path, fstem, assay_type):
