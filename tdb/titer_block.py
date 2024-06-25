@@ -170,66 +170,66 @@ def find_virus_columns(worksheet, col_start, row_end, col_end):
     }
 
 
-def find_antigen_rows(worksheet, row_start, col_start, col_end, virus_names=None):
+def find_serum_rows(worksheet, row_start, col_start, col_end, virus_names=None):
     """
-    Find the row containing cell passage data and the row containing abbreviated antigen names.
+    Find the row containing cell passage data and the row containing abbreviated serum names.
     """
-    # Define a regular expression pattern to match Antisera ID
-    antisera_id_pattern = r"^[A-Z]\d{4,8}$"
+    # Define a regular expression pattern to match Serum ID
+    serum_id_pattern = r"^[A-Z]\d{4,8}$"
 
-    # Find the row containing antisera ID
-    antisera_id_row_idx = None
+    # Find the row containing serum ID
+    serum_id_row_idx = None
     for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
-        antisera_id_count = 0
+        serum_id_count = 0
         for col_idx in range(worksheet.ncols):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(antisera_id_pattern, cell_value):
-                antisera_id_count += 1
-        if antisera_id_count > 0:
-            antisera_id_row_idx = row_idx
+            if re.match(serum_id_pattern, cell_value):
+                serum_id_count += 1
+        if serum_id_count > 0:
+            serum_id_row_idx = row_idx
             break
 
     # Define a regular expression pattern to match cell passage data
-    cell_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
     # Find the row containing cell passage data
-    cell_passage_row_idx = None
+    serum_passage_row_idx = None
     for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
-        cell_passage_count = 0
+        serum_passage_count = 0
         for col_idx in range(worksheet.ncols):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(cell_passage_pattern, cell_value):
-                cell_passage_count += 1
-        if cell_passage_count > 0:
-            cell_passage_row_idx = row_idx
+            if re.match(serum_passage_pattern, cell_value):
+                serum_passage_count += 1
+        if serum_passage_count > 0:
+            serum_passage_row_idx = row_idx
             break
 
-    # Define a regular expression pattern to match abbreviated antigen names
-    abbrev_antigen_pattern = r"\w+/\d+.*"
-    antigen_mapping = {}
+    # Define a regular expression pattern to match abbreviated serum names
+    serum_abbrev_pattern = r"\w+/\d+.*"
+    serum_mapping = {}
     virus_idx = 0
 
-    # Find the row containing abbreviated antigen names
-    abbrev_antigen_row_idx = None
+    # Find the row containing abbreviated serum names
+    serum_abbrev_row_idx = None
 
-    for row_idx in range(cell_passage_row_idx + 1, worksheet.nrows):
-        abbrev_antigen_count = 0
+    for row_idx in range(serum_passage_row_idx + 1, worksheet.nrows):
+        serum_abbrev_count = 0
         for col_idx in range(col_start, col_end):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(abbrev_antigen_pattern, cell_value):
-                abbrev_antigen_count += 1
-                antigen_mapping[cell_value] = virus_names[virus_idx]
+            if re.match(serum_abbrev_pattern, cell_value):
+                serum_abbrev_count += 1
+                serum_mapping[cell_value] = virus_names[virus_idx]
                 virus_idx += 1
 
-        if abbrev_antigen_count > 0:
-            abbrev_antigen_row_idx = row_idx
+        if serum_abbrev_count > 0:
+            serum_abbrev_row_idx = row_idx
             break
 
     return {
-        "antisera_id_row_idx": antisera_id_row_idx,
-        "cell_passage_row_idx": cell_passage_row_idx,
-        "abbrev_antigen_row_idx": abbrev_antigen_row_idx,
-        "antigen_mapping": antigen_mapping,
+        "serum_id_row_idx": serum_id_row_idx,
+        "serum_passage_row_idx": serum_passage_row_idx,
+        "serum_abbrev_row_idx": serum_abbrev_row_idx,
+        "serum_mapping": serum_mapping,
     }
 
 
@@ -249,7 +249,7 @@ def main():
         row_end=titer_block["row_end"][0][0],
         col_end=titer_block["col_end"][0][0],
     )
-    antigen_block = find_antigen_rows(
+    serum_block = find_serum_rows(
         worksheet=worksheet,
         row_start=titer_block["row_start"][0][0],
         col_start=titer_block["col_start"][0][0],
@@ -264,24 +264,21 @@ def main():
     print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
     print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
-    # Print serum and virus annotations row and column indices
-    print("Virus (antigen) block: left and right of the titer block")
+    # Print Virus and Serum annotations row and column indices
+    print("Virus (serum) block: left and right of the titer block")
     print(f"  virus column index: {virus_block['virus_col_idx']}")
     print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
     print(f"  virus names: {virus_block['virus_names']}")
 
-    print(f"Most likely antisera ID row index: {antigen_block['antisera_id_row_idx']}")
-    print(
-        f"Most likely cell passage row index: {antigen_block['cell_passage_row_idx']}"
-    )
-    print(
-        f"Most likely abbreviated antigen row index: {antigen_block['abbrev_antigen_row_idx']}"
-    )
+    print("Serum block: above the titer block")
+    print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
+    print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
+    print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
 
     # Match abbreviated names across the top to the full names along the left side and auto convert to full names
-    if antigen_block["abbrev_antigen_row_idx"] is not None:
-        print("Antigen mapping:")
-        for abbrev, full in antigen_block["antigen_mapping"].items():
+    if serum_block["serum_abbrev_row_idx"] is not None:
+        print("Serum mapping:")
+        for abbrev, full in serum_block["serum_mapping"].items():
             print(f"  {abbrev} -> {full}")
 
 
