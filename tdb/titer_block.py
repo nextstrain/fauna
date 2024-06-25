@@ -285,9 +285,14 @@ def main():
 
     # Match abbreviated names across the top to the full names along the left side and auto convert to full names
     if serum_block["serum_abbrev_row_idx"] is not None:
-        print("Serum mapping:")
+        # print("Serum mapping:")
+        # for abbrev, full in serum_block["serum_mapping"].items():
+        #     print(f"  {abbrev} -> {full}")
+
+        print("serum_mapping = {")
         for abbrev, full in serum_block["serum_mapping"].items():
-            print(f"  {abbrev} -> {full}")
+            print(f"    '{abbrev}': '{full}',")
+        print("}")
 
 
 if __name__ == "__main__":
