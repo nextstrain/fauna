@@ -244,60 +244,65 @@ def main():
 
     # Load the Excel file
     workbook = xlrd.open_workbook(args.file)
-    worksheet = workbook.sheet_by_index(0)  # first sheet or loop
 
-    # Find the block of titers in the worksheet
-    titer_block = find_titer_block(worksheet)
+    for worksheet in workbook.sheets():
+        print(f"Worksheet: {worksheet.name}")
 
-    virus_block = find_virus_columns(
-        worksheet=worksheet,
-        col_start=titer_block["col_start"][0][0],
-        col_end=titer_block["col_end"][0][0],
-        row_start=titer_block["row_start"][0][0],
-        row_end=titer_block["row_end"][0][0],
-    )
-    serum_block = find_serum_rows(
-        worksheet=worksheet,
-        col_start=titer_block["col_start"][0][0],
-        col_end=titer_block["col_end"][0][0],
-        row_start=titer_block["row_start"][0][0],
-        row_end=titer_block["row_end"][0][0],
-        virus_names=virus_block["virus_names"],
-    )
+        # Find the block of titers in the worksheet
+        titer_block = find_titer_block(worksheet)
+        if len(titer_block["col_start"]) == 0:
+            print("No titer block found.")
+            break
 
-    # Print the most likely row and column indices for the titer block
-    print(f"Titer block: n = {titer_block['row_start'][0][1]}x{titer_block['col_start'][0][1]} = {titer_block['row_start'][0][1]*titer_block['col_start'][0][1]}")
-    print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
-    print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
-    print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
-    print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
+        virus_block = find_virus_columns(
+            worksheet=worksheet,
+            col_start=titer_block["col_start"][0][0],
+            col_end=titer_block["col_end"][0][0],
+            row_start=titer_block["row_start"][0][0],
+            row_end=titer_block["row_end"][0][0],
+        )
+        serum_block = find_serum_rows(
+            worksheet=worksheet,
+            col_start=titer_block["col_start"][0][0],
+            col_end=titer_block["col_end"][0][0],
+            row_start=titer_block["row_start"][0][0],
+            row_end=titer_block["row_end"][0][0],
+            virus_names=virus_block["virus_names"],
+        )
 
-    # For debugging purposes, print alternative indices (e.g. col_start, col_end, row_start, row_end)
-    # print("Alternative indices:")
-    # for i in range(1, len(titer_block['row_start'])):
-    #     print(f"  Alternative (n={titer_block['row_start'][i][1]}) row_start: {titer_block['row_start'][i][0]}")
+        # Print the most likely row and column indices for the titer block
+        print(f"Titer block: n = {titer_block['row_start'][0][1]}x{titer_block['col_start'][0][1]} = {titer_block['row_start'][0][1]*titer_block['col_start'][0][1]}")
+        print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
-    # Print Virus and Serum annotations row and column indices
-    print("Virus (antigen) block: left and right of the titer block")
-    print(f"  virus column index: {virus_block['virus_col_idx']}")
-    print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
-    print(f"  virus names: {virus_block['virus_names']}")
+        # For debugging purposes, print alternative indices (e.g. col_start, col_end, row_start, row_end)
+        # print("Alternative indices:")
+        # for i in range(1, len(titer_block['row_start'])):
+        #     print(f"  Alternative (n={titer_block['row_start'][i][1]}) row_start: {titer_block['row_start'][i][0]}")
 
-    print("Serum (antisera) block: above the titer block")
-    print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
-    print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
-    print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
+        # Print Virus and Serum annotations row and column indices
+        print("Virus (antigen) block: left and right of the titer block")
+        print(f"  virus column index: {virus_block['virus_col_idx']}")
+        print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
+        print(f"  virus names: {virus_block['virus_names']}")
 
-    # Match abbreviated names across the top to the full names along the left side and auto convert to full names
-    if serum_block["serum_abbrev_row_idx"] is not None:
-        # print("Serum mapping:")
-        # for abbrev, full in serum_block["serum_mapping"].items():
-        #     print(f"  {abbrev} -> {full}")
+        print("Serum (antisera) block: above the titer block")
+        print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
+        print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
+        print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
 
-        print("serum_mapping = {")
-        for abbrev, full in serum_block["serum_mapping"].items():
-            print(f"    '{abbrev}': '{full}',")
-        print("}")
+        # Match abbreviated names across the top to the full names along the left side and auto convert to full names
+        if serum_block["serum_abbrev_row_idx"] is not None:
+            # print("Serum mapping:")
+            # for abbrev, full in serum_block["serum_mapping"].items():
+            #     print(f"  {abbrev} -> {full}")
+
+            print("serum_mapping = {")
+            for abbrev, full in serum_block["serum_mapping"].items():
+                print(f"    '{abbrev}': '{full}',")
+            print("}")
 
 
 if __name__ == "__main__":
