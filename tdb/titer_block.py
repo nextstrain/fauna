@@ -127,7 +127,7 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
 
     # VIDRL-Melbourne-WHO-CC specific patterns (TODO: parameterize the pattern matching by data source)
     # Define a regular expression pattern to match virus names
-    virus_pattern = r"[A-Z]/\w+/.+/\d{4}"
+    virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
     # Define a regular expression pattern to match virus passage column
     virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
