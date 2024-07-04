@@ -48,6 +48,9 @@ def find_titer_block(worksheet):
     Find the block of titers in the worksheet.
 
     To reduce false positives, the function looks for rows and columns where at least two consecutive cells contain numeric values.
+
+    :param worksheet: The worksheet object
+    :return: Dictionary containing the most likely row and column indices for the titer block sorted by vote count
     """
     col_start_dict = defaultdict(int)
     col_end_dict = defaultdict(int)
@@ -117,6 +120,12 @@ def find_titer_block(worksheet):
 def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passage_pattern=None):
     """
     Find the columns containing virus names based on the most likely column indices for the titer block.
+
+    :param worksheet: The worksheet object
+    :param titer_block: Dictionary containing the titer block coordinates
+    :param virus_pattern: Regular expression pattern to match virus names (optional)
+    :param virus_passage_pattern: Regular expression pattern to match virus passage data (optional)
+    :return: Dictionary containing the column indices for virus names, virus passage data, and a list of virus names
     """
     # List of outputs
     virus_col_idx = None  # Index of the column containing virus names
@@ -174,6 +183,14 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
 def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
+
+    :param worksheet: The worksheet object
+    :param titer_coords: Dictionary containing the titer block coordinates
+    :param virus_names: List of virus names
+    :param serum_id_pattern: Regular expression pattern to match serum ID (optional)
+    :param serum_passage_pattern: Regular expression pattern to match cell passage data (optional)
+    :param serum_abbrev_pattern: Regular expression pattern to match abbreviated serum names (optional)
+    :return: Dictionary containing the row indices for serum ID, cell passage data, abbreviated serum names, and a mapping of abbreviated names to full names
     """
     # List of outputs
     serum_id_row_idx = None  # Index of the row containing serum ID
