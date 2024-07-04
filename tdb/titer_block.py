@@ -114,7 +114,7 @@ def find_titer_block(worksheet):
     }
 
 
-def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
+def find_virus_columns(worksheet, col_start, col_end, row_start, row_end, virus_pattern=None, virus_passage_pattern=None):
     """
     Find the columns containing virus names based on the most likely column indices for the titer block.
     """
@@ -125,11 +125,13 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
         []
     )  # List of virus names, will be used by find_antigen_rows to map abbreviated antigen names to full names
 
-    # VIDRL-Melbourne-WHO-CC specific patterns (TODO: parameterize the pattern matching by data source)
+    # By default use VIDRL-Melbourne-WHO-CC specific patterns
     # Define a regular expression pattern to match virus names
-    virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
+    if virus_pattern is None:
+        virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
     # Define a regular expression pattern to match virus passage column
-    virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    if virus_passage_pattern is None:
+        virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
     # Find the column containing virus names searching to the left of the titer block
     for col_idx in range(col_start - 1, -1, -1):
@@ -169,7 +171,7 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end):
     }
 
 
-def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_names=None):
+def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
     """
@@ -179,13 +181,16 @@ def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_nam
     serum_abbrev_row_idx = None  # Index of the row containing abbreviated antigen names
     serum_mapping = {}  # Mapping of abbreviated antigen names to full names
 
-    # VIDRL-Melbourne-WHO-CC specific patterns (TODO: parameterize the pattern matching by data source)
+    # By default, use VIDRL-Melbourne-WHO-CC specific patterns
     # Define a regular expression pattern to match serum ID
-    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    if serum_id_pattern is None:
+        serum_id_pattern = r"^[A-Z]\d{4,8}$"
     # Define a regular expression pattern to match cell passage data
-    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    if serum_passage_pattern is None:
+        serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
     # Define a regular expression pattern to match abbreviated antigen names
-    serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+    if serum_abbrev_pattern is None:
+        serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
 
     # Find the row containing serum ID searching from the top of the titer block upwards
     for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
