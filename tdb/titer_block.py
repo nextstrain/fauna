@@ -114,7 +114,7 @@ def find_titer_block(worksheet):
     }
 
 
-def find_virus_columns(worksheet, col_start, col_end, row_start, row_end, virus_pattern=None, virus_passage_pattern=None):
+def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passage_pattern=None):
     """
     Find the columns containing virus names based on the most likely column indices for the titer block.
     """
@@ -134,33 +134,33 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end, virus_
         virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
 
     # Find the column containing virus names searching to the left of the titer block
-    for col_idx in range(col_start - 1, -1, -1):
+    for col_idx in range(titer_coords['col_start'] - 1, -1, -1):
         virus_count = 0
-        for row_idx in range(row_start, row_end + 1):
+        for row_idx in range(titer_coords['row_start'], titer_coords['row_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(virus_pattern, cell_value):
                 virus_count += 1
 
         # Index of the first column that contains more than 50% rows matching the virus pattern
-        if virus_count > (row_end - row_start) / 2:
+        if virus_count > (titer_coords['row_end'] - titer_coords['row_start']) / 2:
             virus_col_idx = col_idx
             break
 
     # Get the virus names from the column containing virus names
     # This allows for some lienency in matching the virus pattern in the column
-    for row_idx in range(row_start, row_end + 1):
+    for row_idx in range(titer_coords['row_start'], titer_coords['row_end'] + 1):
         virus_names.append(str(worksheet.cell_value(row_idx, virus_col_idx)))
 
     # Find the column containing virus passage data searching to the right of the titer block
-    for col_idx in range(col_end, worksheet.ncols):
+    for col_idx in range(titer_coords['col_end'], worksheet.ncols):
         virus_passage_count = 0
-        for row_idx in range(row_end):
+        for row_idx in range(titer_coords['row_end']):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(virus_passage_pattern, cell_value):
                 virus_passage_count += 1
 
         # Index of the first column that contains more than 50% rows matching the virus passage pattern
-        if virus_passage_count > (row_end - row_start) / 2:
+        if virus_passage_count > (titer_coords['row_end'] - titer_coords['row_start']) / 2:
             virus_passage_col_idx = col_idx
             break
 
@@ -171,7 +171,7 @@ def find_virus_columns(worksheet, col_start, col_end, row_start, row_end, virus_
     }
 
 
-def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None):
+def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
     """
@@ -193,43 +193,43 @@ def find_serum_rows(worksheet, col_start, col_end, row_start, row_end, virus_nam
         serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
 
     # Find the row containing serum ID searching from the top of the titer block upwards
-    for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
+    for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
         serum_id_count = 0
-        for col_idx in range(col_start, col_end + 1):
+        for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_id_pattern, cell_value):
                 serum_id_count += 1
         # Index of the first row that contains more than 50% columns matching the serum ID pattern
-        if serum_id_count > (col_end - col_start) / 2:
+        if serum_id_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
             serum_id_row_idx = row_idx
             break
 
     # Find the row containing cell passage data searching from the top of the titer block upwards
-    for row_idx in range(row_start - 1, -1, -1):  # Iterate from row_start to the top
+    for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
         serum_passage_count = 0
-        for col_idx in range(col_start, col_end + 1):
+        for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_passage_pattern, cell_value):
                 serum_passage_count += 1
-        if serum_passage_count > (col_end - col_start) / 2:
+        if serum_passage_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
             serum_passage_row_idx = row_idx
             break
 
     # Find the row containing abbreviated serum names searching from the top of the titer block upwards
-    for row_idx in range(row_start -1, -1, -1):
+    for row_idx in range(titer_coords['row_start'] -1, -1, -1):
         serum_abbrev_count = 0
-        for col_idx in range(col_start, col_end + 1):
+        for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             if re.match(serum_abbrev_pattern, cell_value):
                 serum_abbrev_count += 1
 
-        if serum_abbrev_count > (col_end - col_start) / 2:
+        if serum_abbrev_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
             serum_abbrev_row_idx = row_idx
             break
 
     # Map abbreviated serum names to full names
     virus_idx = 0
-    for col_idx in range(col_start, col_end + 1):
+    for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
         cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
         # A more lenient check for the presence of a "/" in the cell value to find the abbreviated serum names
         if r"/" in cell_value:
@@ -259,19 +259,20 @@ def main():
             print("No titer block found.")
             break
 
+        titer_coords = {
+            'col_start': titer_block["col_start"][0][0],
+            'col_end': titer_block["col_end"][0][0],
+            'row_start': titer_block["row_start"][0][0],
+            'row_end': titer_block["row_end"][0][0]
+        }
+
         virus_block = find_virus_columns(
             worksheet=worksheet,
-            col_start=titer_block["col_start"][0][0],
-            col_end=titer_block["col_end"][0][0],
-            row_start=titer_block["row_start"][0][0],
-            row_end=titer_block["row_end"][0][0],
+            titer_coords=titer_coords,
         )
         serum_block = find_serum_rows(
             worksheet=worksheet,
-            col_start=titer_block["col_start"][0][0],
-            col_end=titer_block["col_end"][0][0],
-            row_start=titer_block["row_start"][0][0],
-            row_end=titer_block["row_end"][0][0],
+            titer_coords=titer_coords,
             virus_names=virus_block["virus_names"],
         )
 
