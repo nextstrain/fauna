@@ -21,6 +21,12 @@ def parse_args():
         required=False,
         help="Path to the Excel file",
     )
+    parser.add_argument(
+        "--source",
+        default="vidrl",
+        required=False,
+        help="Either vidrl, niid, or crick. Used to select appropriate pattern"
+    )
     return parser.parse_args()
 
 
@@ -140,7 +146,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
         virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
     # Define a regular expression pattern to match virus passage column
     if virus_passage_pattern is None:
-        virus_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+        virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
 
     # Find the column containing virus names searching to the left of the titer block
     for col_idx in range(titer_coords['col_start'] - 1, -1, -1):
@@ -158,10 +164,13 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
     # Get the virus names from the column containing virus names
     # This allows for some lienency in matching the virus pattern in the column
     for row_idx in range(titer_coords['row_start'], titer_coords['row_end'] + 1):
-        virus_names.append(str(worksheet.cell_value(row_idx, virus_col_idx)))
+        cell_value = str(worksheet.cell_value(row_idx, virus_col_idx))
+        if r"/" in cell_value:
+            virus_names.append(cell_value)
 
     # Find the column containing virus passage data searching to the right of the titer block
-    for col_idx in range(titer_coords['col_end'], worksheet.ncols):
+    # If not found, search left
+    for col_idx in list(range(titer_coords['col_end'], worksheet.ncols)) + list(range(titer_coords['col_start'] - 1, -1, -1)):
         virus_passage_count = 0
         for row_idx in range(titer_coords['row_end']):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
@@ -214,6 +223,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         serum_id_count = 0
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
+            cell_value = re.sub(r'[\r\n ]+', '', cell_value)
             if re.match(serum_id_pattern, cell_value):
                 serum_id_count += 1
         # Index of the first row that contains more than 50% columns matching the serum ID pattern
@@ -226,6 +236,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         serum_passage_count = 0
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
+            cell_value = re.sub(r'[\r\n ]+', '', cell_value)
             if re.match(serum_passage_pattern, cell_value):
                 serum_passage_count += 1
         if serum_passage_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
@@ -237,6 +248,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         serum_abbrev_count = 0
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
+            cell_value = re.sub(r'[\r\n ]+', '', cell_value)
             if re.match(serum_abbrev_pattern, cell_value):
                 serum_abbrev_count += 1
 
@@ -248,6 +260,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     virus_idx = 0
     for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
         cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
+        cell_value = re.sub(r'[\r\n ]+', '', cell_value)
         # A more lenient check for the presence of a "/" in the cell value to find the abbreviated serum names
         if r"/" in cell_value:
             serum_mapping[cell_value] = virus_names[virus_idx]
@@ -263,6 +276,17 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
 
 def main():
     args = parse_args()
+
+    # Default patterns, VIDRL
+    virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
+    virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
+    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+
+    if(args.source == "niid"):
+        serum_id_pattern = r".+(No\.|no\.).+"
+        serum_passage_pattern = r".+(Egg|Cell).+"
 
     # Load the Excel file
     workbook = xlrd.open_workbook(args.file)
@@ -286,11 +310,17 @@ def main():
         virus_block = find_virus_columns(
             worksheet=worksheet,
             titer_coords=titer_coords,
+            virus_pattern=virus_pattern,
+            virus_passage_pattern=virus_passage_pattern,
         )
+
         serum_block = find_serum_rows(
             worksheet=worksheet,
             titer_coords=titer_coords,
             virus_names=virus_block["virus_names"],
+            serum_id_pattern=serum_id_pattern,
+            serum_passage_pattern=serum_passage_pattern,
+            serum_abbrev_pattern=serum_abbrev_pattern,
         )
 
         # Print the most likely row and column indices for the titer block
