@@ -189,7 +189,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
     }
 
 
-def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None):
+def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None, crick=False):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
 
@@ -260,6 +260,8 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     virus_idx = 0
     for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
         cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
+        if crick:
+            cell_value = cell_value + str(worksheet.cell_value(serum_abbrev_row_idx+1, col_idx))
         cell_value = re.sub(r'[\r\n ]+', '', cell_value)
         # A more lenient check for the presence of a "/" in the cell value to find the abbreviated serum names
         if r"/" in cell_value:
@@ -283,10 +285,18 @@ def main():
     serum_id_pattern = r"^[A-Z]\d{4,8}$"
     serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+    crick = False
 
     if(args.source == "niid"):
         serum_id_pattern = r".+(No\.|no\.).+"
         serum_passage_pattern = r".+(Egg|Cell).+"
+
+    if(args.source == "crick"):
+        virus_pattern = r"[A-Z]/[\w\s-]+"
+        serum_id_pattern = r"F\d+/\d+"
+        serum_passage_pattern = r"(MDCK|SIAT|Egg)"
+        serum_abbrev_pattern = r"[A-Z]/[\w\s-]+"
+        crick = True
 
     # Load the Excel file
     workbook = xlrd.open_workbook(args.file)
@@ -321,6 +331,7 @@ def main():
             serum_id_pattern=serum_id_pattern,
             serum_passage_pattern=serum_passage_pattern,
             serum_abbrev_pattern=serum_abbrev_pattern,
+            crick=crick,
         )
 
         # Print the most likely row and column indices for the titer block
