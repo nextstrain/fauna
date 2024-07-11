@@ -4,13 +4,15 @@ Nextstrain is an open-source project to harness the scientific and public health
 
 Resulting data and inferences are available live at the website [nextstrain.org](https://nextstrain.org). Documentation is available at [nextstrain.org/docs](https://nextstrain.org/docs).
 
-## fauna
+## Fauna
 
 *Definition: The animals of a given region or period considered as a whole. Also, prophetic Roman deity.*
 
-The fauna database stores viral sequences and serological data in [RethinkDB](RETHINKDB.md). The current database and scripts are designed around influenza, Ebola and Zika viruses, but with the intention of provided a general purpose tool.
+The Fauna database stores viral sequences and serological data in [RethinkDB](RETHINKDB.md). The current database and scripts are designed around influenza, Ebola and Zika viruses, but with the intention of provided a general purpose tool.
 
-_Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip fauna and proceed to directly to Augur._
+_Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use Fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip Fauna and proceed to directly to Augur._
+
+_Note: The Nextstrain team's own internal Fauna instance is private because it contains data that cannot be public.  If you're part of the Nextstrain team, you can see [details of its current setup on AWS](https://github.com/nextstrain/private/issues/86#issuecomment-1793247244)._
 
 ### vdb
 
@@ -54,7 +56,7 @@ Most functions have been converted to work only in Python 3. However particular 
 
 ## Environment variables
 
-Throughout we assume the existence of environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. We do not share these variables here, because for security reasons our RethinkDB instance is private. To use fauna you will need to set up your own RethinkDB instance as described [here](RETHINKDB.md). This instance can be local, in which case variables will be:
+Throughout we assume the existence of environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. We do not share these variables here, because for security reasons our RethinkDB instance is private. To use Fauna you will need to set up your own RethinkDB instance as described [here](RETHINKDB.md). This instance can be local, in which case variables will be:
 
 * `RETHINK_HOST`: `localhost`
 * `RETHINK_AUTH_KEY`: ``
@@ -63,7 +65,7 @@ Or this instance can be remote, in which case follow the [RethinkDB docs to conf
 
 ## Chateau
 
-[Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/timestamp)) allows easy web access to the database. To run, do the following:
+[Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/trs/tls-support)) allows easy web access to the database. To run, do the following:
 
 1. Start a local rethinkdb server by running `rethinkdb`, then switch to a new terminal.
 2. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. If running locally set `RETHINK_HOST` to `localhost` and leave `RETHINK_AUTH_KEY` empty.
