@@ -12,6 +12,8 @@ The Fauna database stores viral sequences and serological data in [RethinkDB](RE
 
 _Note: In most cases, it will be easier to pass augur a self-prepared FASTA file than to use Fauna with the overhead of launching a RethinkDB instance. If you are new to Nextstrain, we suggest you skip Fauna and proceed to directly to Augur._
 
+_Note: The Nextstrain team's own internal Fauna instance is private because it contains data that cannot be public.  If you're part of the Nextstrain team, you can see [details of its current setup on AWS](https://github.com/nextstrain/private/issues/86#issuecomment-1793247244)._
+
 ### vdb
 
 The [virus database (vdb)](vdb/) is used to store viral information in an organized schema. This allows easy storage and querying of viruses which can be downloaded in formatted fasta or json files.
@@ -63,7 +65,7 @@ Or this instance can be remote, in which case follow the [RethinkDB docs to conf
 
 ## Chateau
 
-[Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/timestamp)) allows easy web access to the database. To run, do the following:
+[Chateau](https://github.com/neumino/chateau) (forked to [nextstrain/chateau/](https://github.com/nextstrain/chateau/tree/trs/tls-support)) allows easy web access to the database. To run, do the following:
 
 1. Start a local rethinkdb server by running `rethinkdb`, then switch to a new terminal.
 2. Set environment variables `RETHINK_HOST` and `RETHINK_AUTH_KEY`. If running locally set `RETHINK_HOST` to `localhost` and leave `RETHINK_AUTH_KEY` empty.
