@@ -1243,6 +1243,7 @@ Chalkida	Greece	CentralGreece	Chalkida
 Chalkidiki	Greece	CentralMacedonia	Chalkidiki
 Chania	Greece	Crete	Chania
 Chios	Greece	NorthAegean	Chios
+CorinthGR	Greece	CorinthGR	CorinthGR
 Crete	Greece	Crete	Crete
 Cyclades	Greece	SouthAegean	Cyclades
 Drama	Greece	EasternMacedoniaAndThrace	Drama
@@ -2532,6 +2533,7 @@ Russia	Russia	Russia	Russia
 Adygea	Russia	Adygea	Adygea
 Alania	Russia	OssetiaAlania	Alania
 Altai	Russia	Altai	Altai
+Alexandrov	Russia	Vladimir	Alexandrov
 AmurOblast	Russia	Amur	AmurOblast
 Anadyr	Russia	Chukotka	Anadyr
 Anapa	Russia	KrasnodarKrai	Anapa
@@ -2575,6 +2577,7 @@ Gribanovsk	Russia	Voronezh	Gribanovsk
 Grigorovo	Russia	Novgorod	Grigorovo
 Grozny	Russia	Chechnya	Grozny
 Gusev	Russia	Kaliningrad	Gusev
+Gus-Khrustalny	Russia	Vladimir	Gus-Khrustalny
 Ingushetia	Russia	Ingushetia	Ingushetia
 Irkutsk	Russia	Irkutsk	Irkutsk
 Ivanovo	Russia	Ivanovo	Ivanovo
@@ -2616,6 +2619,7 @@ Krasnogorsk	Russia	Moscow	Krasnogorsk
 Krasnoyarsk	Russia	Krasnoyarsk	Krasnoyarsk
 Kurgan	Russia	Kurgan	Kurgan
 Kursk	Russia	Kursk	Kursk
+Kurumkan	Russia	Buryatia	Kurumkan
 Kuzhener	Russia	MariEl	Kuzhener
 Kyzyl	Russia	Tyva	Kyzyl
 Leningrad	Russia	Leningrad	Leningrad
@@ -2647,8 +2651,10 @@ NovayaDerevnya	Russia	Novgorod	NovayaDerevnya
 Novgorod	Russia	Novgorod	Novgorod
 NovoeRakhino	Russia	Novgorod	NovoeRakhino
 Novosibirsk	Russia	Novosibirsk	Novosibirsk
+Novorossiysk	Russia	Krasnodar	Novorossiysk
 NovyUrengoy	Russia	Yamalia	NovyUrengoy
 Noyabrsk	Russia	Yamalia	Noyabrsk
+Nurlat	Russia	Tatarstan	Nurlat
 Omsk	Russia	Omsk	Omsk
 Onguday	Russia	Altai	Onguday
 Orel	Russia	Oryol	Orel
@@ -2659,6 +2665,7 @@ Ozersk	Russia	Chelyabinsk	Ozersk
 Paranga	Russia	MariEl	Paranga
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
+Permskiy	Russia	Permskiy	Permskiy
 Petrozavodsk	Russia	Karelia	Petrozavodsk
 Pionersky	Russia	Kaliningrad	Pionersky
 Podporozhie	Russia	Podporozhie	Podporozhie
@@ -2689,6 +2696,7 @@ StarayaRussa	Russia	Novgorod	StarayaRussa
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
+Sosnovo-Ozerskoye	Russia	Buryatia	Sosnovo-Ozerskoye
 Sovetsky	Russia	MariEl	Sovetsky
 Suzdalka	Russia	Novosibirsk	Suzdalka
 Surgut	Russia	KhantyMansia	Surgut
@@ -3310,6 +3318,7 @@ Buckinghamshire	UnitedKingdom	England	Buckinghamshire
 Buckley	UnitedKingdom	Wales	Buckley
 BurryPort	UnitedKingdom	Wales	BurryPort
 Caerleon	UnitedKingdom	Wales	Caerleon
+Caersws	UnitedKingdom	Powys	Caersws
 Caldicot	UnitedKingdom	Wales	Caldicot
 Caernarfon	UnitedKingdom	Wales	Caernarfon
 Caerphilly	UnitedKingdom	Wales	Caerphilly
@@ -3533,6 +3542,7 @@ Scotland	UnitedKingdom	Scotland	Scotland
 Scunthorpe	UnitedKingdom	England	Scunthorpe
 Sedbury	UnitedKingdom	England	Sedbury
 Senghenydd	UnitedKingdom	Wales	Senghenydd
+Sennybridge	UnitedKingdom	Powys	Sennybridge
 Sheffield	UnitedKingdom	England	Sheffield
 Sketty	UnitedKingdom	Wales	Sketty
 Somerset	UnitedKingdom	England	Somerset
@@ -3555,6 +3565,7 @@ Tetbury	UnitedKingdom	England	Tetbury
 Tonypandy	UnitedKingdom	Wales	Tonypandy
 Tredegar	UnitedKingdom	Wales	Tredegar
 Tregaron	UnitedKingdom	Wales	Tregaron
+Tregarth	UnitedKingdom	Wales	Tregarth
 Treharris	UnitedKingdom	Wales	Treharris
 Treherbert	UnitedKingdom	Wales	Treherbert
 Treorchy	UnitedKingdom	Wales	Treorchy
