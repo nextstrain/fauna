@@ -29,18 +29,23 @@ def parse_args():
     )
     return parser.parse_args()
 
-
 def is_numeric(value):
     """
     Check if the value is numeric or a string representing a numeric value with '<'.
 
-    Basically checking for titer values e.g. "80", "< 10", "1400", etc.
+    Basically checking for titer values e.g. "80", "< 10", "1400", ">2560", etc.
     """
     if isinstance(value, (int, float)):
         return True
     if isinstance(value, str):
         value = value.strip()
-        if value.startswith("<"):
+        if value.startswith("<") or value.startswith('＜'):
+            try:
+                float(value[1:].strip())
+                return True
+            except ValueError:
+                return False
+        if value.startswith(">"):
             try:
                 float(value[1:].strip())
                 return True
