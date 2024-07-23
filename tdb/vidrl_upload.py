@@ -91,7 +91,6 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
         print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
 
         # Print virus and serum annotations row and column indices
-        # Print Virus and Serum annotations row and column indices
         print("Virus (antigen) block: left and right of the titer block")
         print(f"  virus column index: {virus_block['virus_col_idx']}")
         print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
