@@ -51,7 +51,8 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     crick = False
 
-    for worksheet in workbook.sheets():
+    for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
+        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{workbook.filename}'")
         # autodetecting titer, strain, serum blocks
         titer_block = find_titer_block(worksheet)
 
