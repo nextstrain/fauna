@@ -158,7 +158,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
         virus_count = 0
         for row_idx in range(titer_coords['row_start'], titer_coords['row_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(virus_pattern, cell_value):
+            if re.search(virus_pattern, cell_value):
                 virus_count += 1
 
         # Index of the first column that contains more than 50% rows matching the virus pattern
@@ -179,7 +179,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
         virus_passage_count = 0
         for row_idx in range(titer_coords['row_end']):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
-            if re.match(virus_passage_pattern, cell_value):
+            if re.search(virus_passage_pattern, cell_value):
                 virus_passage_count += 1
 
         # Index of the first column that contains more than 50% rows matching the virus passage pattern
@@ -229,12 +229,13 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             cell_value = re.sub(r'[\r\n ]+', '', cell_value)
-            if re.match(serum_id_pattern, cell_value):
+            if re.search(serum_id_pattern, cell_value):
                 serum_id_count += 1
         # Index of the first row that contains more than 50% columns matching the serum ID pattern
         if serum_id_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
             serum_id_row_idx = row_idx
             break
+
 
     # Find the row containing cell passage data searching from the top of the titer block upwards
     for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
@@ -242,7 +243,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             cell_value = re.sub(r'[\r\n ]+', '', cell_value)
-            if re.match(serum_passage_pattern, cell_value):
+            if re.search(serum_passage_pattern, cell_value):
                 serum_passage_count += 1
         if serum_passage_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:
             serum_passage_row_idx = row_idx
@@ -254,7 +255,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
             cell_value = str(worksheet.cell_value(row_idx, col_idx))
             cell_value = re.sub(r'[\r\n ]+', '', cell_value)
-            if re.match(serum_abbrev_pattern, cell_value):
+            if re.search(serum_abbrev_pattern, cell_value):
                 serum_abbrev_count += 1
 
         if serum_abbrev_count > (titer_coords['col_end'] - titer_coords['col_start']) / 2:

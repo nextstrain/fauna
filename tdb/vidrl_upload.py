@@ -46,7 +46,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
     # Default patterns, VIDRL
     virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
     virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
-    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    serum_id_pattern = r"^[A-Z]\d{4,8}"
     serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     crick = False
