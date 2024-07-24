@@ -52,7 +52,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
     crick = False
 
     for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
-        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{workbook.filename}'")
+        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{fstem}'")
         # autodetecting titer, strain, serum blocks
         titer_block = find_titer_block(worksheet)
 
