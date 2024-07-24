@@ -318,8 +318,8 @@ def main():
     # Load the Excel file
     workbook = xlrd.open_workbook(args.file)
 
-    for worksheet in workbook.sheets():
-        print(f"Worksheet: {worksheet.name}")
+    for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
+        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{args.file}'")
 
         # Find the block of titers in the worksheet
         titer_block = find_titer_block(worksheet)
@@ -340,6 +340,11 @@ def main():
             virus_pattern=virus_pattern,
             virus_passage_pattern=virus_passage_pattern,
         )
+
+        # If no virus names are found, might not be a valid worksheet, skip worksheet to avoid breaking find_serum_rows
+        if virus_block["virus_names"] is None:
+            print(f"Virus names not found. Check the virus pattern: '{virus_pattern}'")
+            break
 
         serum_block = find_serum_rows(
             worksheet=worksheet,
@@ -384,6 +389,22 @@ def main():
             for abbrev, full in serum_block["serum_mapping"].items():
                 print(f"    '{abbrev}': '{full}',")
             print("}")
+
+        # Check if all the necessary indices were found
+        if virus_block["virus_col_idx"] is None:
+            print(f"Virus column index not found. Check the virus pattern: '{virus_pattern}'")
+
+        if virus_block["virus_passage_col_idx"] is None:
+            print(f"Virus passage column index not found. Check the virus passage pattern: '{virus_passage_pattern}'")
+
+        if serum_block["serum_id_row_idx"] is None:
+            print(f"Serum ID row index not found. Check the serum ID pattern: '{serum_id_pattern}'")
+
+        if serum_block["serum_passage_row_idx"] is None:
+            print(f"Serum passage row index not found. Check the serum passage pattern: '{serum_passage_pattern}'")
+
+        if serum_block["serum_abbrev_row_idx"] is None:
+            print(f"Serum abbreviated name row index not found. Check the serum abbreviated name pattern: '{serum_abbrev_pattern}'")
 
 
 if __name__ == "__main__":
