@@ -7,9 +7,11 @@ import argparse
 import subprocess
 from parse import parse
 from upload import parser
+import xlrd
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
+from titer_block import find_titer_block, find_serum_rows, find_virus_columns
 
 parser.add_argument('--assay_type', default='hi')
 
@@ -28,116 +30,145 @@ def read_vidrl(path, fstem, assay_type):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
-    fname = path + fstem + ".csv"
     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
 
     if True in exten:
         ind = exten.index(True)
-        convert_xls_to_csv(path, fstem, ind)
-        fname = "data/tmp/%s.csv"%(fstem)
-        parse_vidrl_matrix_to_tsv(fname, path, assay_type)
+        convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type)
     else:
         print("Unable to recognize file {}/{}".format(path,fstem))
         sys.exit()
 
-def convert_xls_to_csv(path, fstem, ind):
-    ref_sera_row=10    # Should be <= serum_strain_row_index
-    titer_col_start=4 # Should be <= start_col
-    import xlrd
-    sera_mapping_file = 'source-data/vidrl_serum_mapping.tsv'
-    sera_mapping = parse_tsv_mapping_to_dict(sera_mapping_file)
+def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
-    for sheet in workbook.sheets():
-        tmpfile = 'data/tmp/%s.csv'%(fstem)
-        if not os.path.exists(os.path.dirname(tmpfile)):
-            try:
-                os.makedirs(os.path.dirname(tmpfile))
-            except OSError as exc: # Guard against race condition
-                if exc.errno != errno.EEXIST:
-                    raise
-        with open(tmpfile, 'w') as f:
-            writer = csv.writer(f)
-            writer.writerows(sheet.row_values(row) for row in range(ref_sera_row))
-            # Edit row containing serum strains
-            # if '/' in sheet.row_values(10)[4].strip() and '/' in sheet.row_values(12)[2].strip():
-            #     print(sheet.row_values(12)[4])
-            # else:
-            #     raise ValueError
-            # assume there all always 12 reference viruses in a table
-            row_with_ref_sera = sheet.row_values(ref_sera_row)
-            for i in range(titer_col_start,16):
-                row_with_ref_sera[i] = row_with_ref_sera[i].strip('\n')
-                try:
-                    row_with_ref_sera[i] = sera_mapping[row_with_ref_sera[i].lower()]
-                except KeyError:
-                    print("Couldn't find {} in mapping lookup {}".format(row_with_ref_sera[i], sera_mapping_file))
-                    with open ('data/BAD_VIDRL_KEYS.txt', 'a') as f:
-                        f.write(row_with_ref_sera[i])
-            writer.writerow(row_with_ref_sera)
-            writer.writerows(sheet.row_values(row) for row in range(ref_sera_row+1,sheet.nrows))
-        return
 
-def parse_vidrl_matrix_to_tsv(fname, original_path, assay_type):
-    src_id = fname.split('/')[-1]
-    with open(fname) as infile:
-        csv_reader = csv.reader(infile)
-        mat = list(csv_reader)
-    with open('data/tmp/%s.tsv'%(src_id[:-4]), 'w') as outfile:
-        outfile.write("%s\n" % ("\t".join(ELIFE_COLUMNS)))
-        original_path = original_path.split('/')
-        try:
-            original_path.remove('')
-        except:
-            pass
-        print("assay_type: " + assay_type)
-        if assay_type == "hi":
+    # Default patterns, VIDRL
+    virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
+    virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
+    serum_id_pattern = r"^[A-Z]\d{4,8}$"
+    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+    crick = False
+
+    for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
+        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{workbook.filename}'")
+        # autodetecting titer, strain, serum blocks
+        titer_block = find_titer_block(worksheet)
+
+        if len(titer_block["col_start"]) == 0:
+            print("No titer block found.")
+            break
+
+        titer_coords = {
+            'col_start': titer_block["col_start"][0][0],
+            'col_end': titer_block["col_end"][0][0],
+            'row_start': titer_block["row_start"][0][0],
+            'row_end': titer_block["row_end"][0][0]
+        }
+
+        virus_block = find_virus_columns(
+            worksheet=worksheet,
+            titer_coords=titer_coords,
+            virus_pattern=virus_pattern,
+            virus_passage_pattern=virus_passage_pattern,
+        )
+
+        # If no virus names are found, might not be a valid worksheet, skip worksheet to avoid breaking find_serum_rows
+        if virus_block["virus_names"] is None:
+            print(f"Virus names not found. Check the virus pattern: '{virus_pattern}'")
+            break
+
+        serum_block = find_serum_rows(
+            worksheet=worksheet,
+            titer_coords=titer_coords,
+            virus_names=virus_block["virus_names"],
+            serum_id_pattern=serum_id_pattern,
+            serum_passage_pattern=serum_passage_pattern,
+            serum_abbrev_pattern=serum_abbrev_pattern,
+            crick=crick,
+        )
+
+        # Print the most likely row and column indices for the titer block and the vote counts
+        print("Titer block:")
+        print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
+
+        # Print virus and serum annotations row and column indices
+        print("Virus (antigen) block: left and right of the titer block")
+        print(f"  virus column index: {virus_block['virus_col_idx']}")
+        print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
+        print(f"  virus names: {virus_block['virus_names']}")
+
+        print("Serum (antisera) block: above the titer block")
+        print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
+        print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
+        print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
+
+        # Match abbreviated names across the top to the full names along the left side and auto convert to full names
+        if serum_block["serum_abbrev_row_idx"] is not None:
+            print("serum_mapping = {")
+            for abbrev, full in serum_block["serum_mapping"].items():
+                print(f"    '{abbrev}': '{full}',")
+            print("}")
+
+        serum_mapping = serum_block["serum_mapping"]
+
+        # Check if all the necessary indices were found
+        if virus_block["virus_col_idx"] is None:
+            print(f"Virus column index not found. Check the virus pattern: '{virus_pattern}'")
+            break
+
+        if virus_block["virus_passage_col_idx"] is None:
+            print(f"Virus passage column index not found. Check the virus passage pattern: '{virus_passage_pattern}'")
+            break
+
+        if serum_block["serum_id_row_idx"] is None:
+            print(f"Serum ID row index not found. Check the serum ID pattern: '{serum_id_pattern}'")
+            break
+
+        if serum_block["serum_passage_row_idx"] is None:
+            print(f"Serum passage row index not found. Check the serum passage pattern: '{serum_passage_pattern}'")
+            break
+
+        if serum_block["serum_abbrev_row_idx"] is None:
+            print(f"Serum abbreviated name row index not found. Check the serum abbreviated name pattern: '{serum_abbrev_pattern}'")
+            break
+
+        mat=worksheet
+
+        with open('data/tmp/%s.tsv'%(fstem), 'w') as outfile:
+            outfile.write("%s\n" % ("\t".join(ELIFE_COLUMNS)))
+
+            print("assay_type: " + assay_type)
             # Zero-indexed positions
-            start_row = 12
-            start_col = 4
-            end_col = 12+start_col # Changed from 7 to 5 for Vic/YAM tables -BP
-            virus_strain_col_index = 2
-            virus_passage_col_index = end_col
-            serum_id_row_index = 7
-            serum_passage_row_index = 8
-            serum_strain_row_index = 9
-        elif assay_type == "fra":
-            start_row = 12
-            start_col = 4
-            end_col = 13
-            virus_strain_col_index = 2
-            virus_passage_col_index = 14
-            serum_id_row_index = 8
-            serum_passage_row_index = 9
-            serum_strain_row_index = 10
-            # # some FRA tables have 10 sera, some have 11, some have 9
-            # check_cell_10th_sera = mat[start_col][13]
-            # check_cell_11th_sera = mat[start_col][14]
-            # if check_cell_10th_sera == '':
-            #     virus_passage_col_index = 13
-            # elif check_cell_10th_sera != '' and check_cell_11th_sera == '':
-            #     virus_passage_col_index = 14
-            # else:
-            #     virus_passage_col_index = 15
+            row_start = titer_coords['row_start']
+            row_end = titer_coords['row_end']
+            col_start = titer_coords['col_start']
+            col_end = titer_coords['col_end']
 
-        # some tables are do not begin where we think they do
-        # add possible starting locations
-        #possible_starts = [mat[serum_strain_row_index][virus_strain_col_index], mat[0][0]]
-        check_cell = mat[serum_strain_row_index][virus_strain_col_index]
-        #for check_cell in possible_starts:
-        if check_cell == "Reference Antigens":
-            print("Found reference antigens")
-            for i in range(start_row, len(mat)):
-                for j in range(start_col, end_col):
-                    virus_strain = mat[i][virus_strain_col_index].strip()
-                    serum_strain = mat[serum_strain_row_index][j].strip()
-                    serum_id = mat[serum_id_row_index][j].strip().replace(' ','')
-                    titer = mat[i][j].strip()
-                    source = "vidrl_%s"%(src_id).strip()
-                    virus_passage = mat[i][virus_passage_col_index].strip()
-                    virus_passage_category = ''
-                    serum_passage = mat[serum_passage_row_index][j].strip()
-                    serum_passage_category = ''
+            virus_strain_col_index = virus_block['virus_col_idx']
+            virus_passage_col_index = virus_block['virus_passage_col_idx']
+
+            serum_id_row_index = serum_block['serum_id_row_idx']
+            serum_passage_row_index = serum_block['serum_passage_row_idx']
+            serum_strain_row_index = serum_block['serum_abbrev_row_idx']
+
+            source = "vidrl_%s"%(fstem).strip()
+            virus_passage_category = ''
+            serum_passage_category = ''
+            for i in range(row_start, (row_end+1)):
+                virus_strain = str(mat.cell_value(i,virus_strain_col_index)).strip()
+                virus_passage = str(mat.cell_value(i,virus_passage_col_index)).strip()
+                for j in range(col_start, (col_end+1)):
+                    serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
+                    serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
+                    serum_abbr = str(mat.cell_value(serum_strain_row_index,j)).strip()
+                    serum_abbr = serum_abbr.replace(' ','')
+                    serum_strain = serum_mapping.get(serum_abbr, serum_abbr)
+                    titer = str(mat.cell_value(i,j)).strip()
                     line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                     outfile.write(line)
 
