@@ -7,6 +7,7 @@ import argparse
 import subprocess
 from parse import parse
 from upload import parser
+import xlrd
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
@@ -39,7 +40,6 @@ def read_vidrl(path, fstem, assay_type):
         sys.exit()
 
 def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
-    import xlrd
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
 
