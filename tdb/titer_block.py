@@ -194,7 +194,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
     }
 
 
-def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None, crick=False):
+def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None, crick=False, ignore_serum_pattern=None):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
 
@@ -222,6 +222,8 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     # Define a regular expression pattern to match abbreviated antigen names
     if serum_abbrev_pattern is None:
         serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+    if ignore_serum_pattern is None:
+        ignore_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera).*"
 
     # Find the row containing serum ID searching from the top of the titer block upwards
     for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
@@ -269,8 +271,11 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         if crick:
             cell_value = cell_value + str(worksheet.cell_value(serum_abbrev_row_idx+1, col_idx))
         cell_value = re.sub(r'[\r\n ]+', '', cell_value)
-        # A more lenient check for the presence of a "/" in the cell value to find the abbreviated serum names
-        if r"/" in cell_value:
+        if cell_value == "":
+            break
+        # Ignore human serum (e.g. "SH2002", "sera", "SHVAX2002")
+        if re.search(ignore_serum_pattern, cell_value):
+            break
             serum_mapping[cell_value] = virus_names[virus_idx]
             virus_idx += 1
 
