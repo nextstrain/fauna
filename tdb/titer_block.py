@@ -264,25 +264,26 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
             serum_abbrev_row_idx = row_idx
             break
 
-    # Map abbreviated serum names to full names
-    virus_idx = 0
-    for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
-        cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
-        if crick:
-            cell_value = cell_value + str(worksheet.cell_value(serum_abbrev_row_idx+1, col_idx))
-        cell_value = re.sub(r'[\r\n ]+', '', cell_value)
-        if cell_value == "":
-            break
-        # Ignore human serum (e.g. "SH2002", "sera", "SHVAX2002")
-        if re.search(ignore_serum_pattern, cell_value):
-            break
-        # Deal with duplicate serum abbreviations which can get out of sync with virus full names
-        if cell_value not in serum_mapping:
-            serum_mapping[cell_value] = virus_names[virus_idx]
-            # Increment virus_idx until it does not equal last_full_name
-            current_full_name = virus_names[virus_idx].lower()
-            while virus_names[virus_idx].lower() == current_full_name and virus_idx < len(virus_names) - 1:
-                virus_idx += 1
+    if serum_abbrev_row_idx is not None:
+        # Map abbreviated serum names to full names
+        virus_idx = 0
+        for col_idx in range(titer_coords['col_start'], titer_coords['col_end'] + 1):
+            cell_value = str(worksheet.cell_value(serum_abbrev_row_idx, col_idx))
+            if crick:
+                cell_value = cell_value + str(worksheet.cell_value(serum_abbrev_row_idx+1, col_idx))
+            cell_value = re.sub(r'[\r\n ]+', '', cell_value)
+            if cell_value == "":
+                break
+            # Ignore human serum (e.g. "SH2002", "sera", "SHVAX2002")
+            if re.search(ignore_serum_pattern, cell_value):
+                break
+            # Deal with duplicate serum abbreviations which can get out of sync with virus full names
+            if cell_value not in serum_mapping:
+                serum_mapping[cell_value] = virus_names[virus_idx]
+                # Increment virus_idx until it does not equal last_full_name
+                current_full_name = virus_names[virus_idx].lower()
+                while virus_names[virus_idx].lower() == current_full_name and virus_idx < len(virus_names) - 1:
+                    virus_idx += 1
 
     return {
         "serum_id_row_idx": serum_id_row_idx,
