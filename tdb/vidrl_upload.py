@@ -83,7 +83,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             crick=crick,
         )
 
-        # Print the most likely row and column indices for the titer block
+        # Print the most likely row and column indices for the titer block and the vote counts
         print("Titer block:")
         print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
         print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
@@ -117,10 +117,10 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
 
             print("assay_type: " + assay_type)
             # Zero-indexed positions
-            start_row = titer_block['row_start'][0][0]
-            end_row = titer_block['row_end'][0][0]
-            start_col = titer_block['col_start'][0][0]
-            end_col = titer_block['col_end'][0][0]
+            start_row = titer_coords['row_start']
+            end_row = titer_coords['row_end']
+            start_col = titer_coords['col_start']
+            end_col = titer_coords['col_end']
 
             virus_strain_col_index = virus_block['virus_col_idx']
             virus_passage_col_index = virus_block['virus_passage_col_idx']
