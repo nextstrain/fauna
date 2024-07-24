@@ -74,6 +74,11 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             virus_passage_pattern=virus_passage_pattern,
         )
 
+        # If no virus names are found, might not be a valid worksheet, skip worksheet to avoid breaking find_serum_rows
+        if virus_block["virus_names"] is None:
+            print(f"Virus names not found. Check the virus pattern: '{virus_pattern}'")
+            break
+
         serum_block = find_serum_rows(
             worksheet=worksheet,
             titer_coords=titer_coords,
@@ -110,6 +115,27 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             print("}")
 
         serum_mapping = serum_block["serum_mapping"]
+
+        # Check if all the necessary indices were found
+        if virus_block["virus_col_idx"] is None:
+            print(f"Virus column index not found. Check the virus pattern: '{virus_pattern}'")
+            break
+
+        if virus_block["virus_passage_col_idx"] is None:
+            print(f"Virus passage column index not found. Check the virus passage pattern: '{virus_passage_pattern}'")
+            break
+
+        if serum_block["serum_id_row_idx"] is None:
+            print(f"Serum ID row index not found. Check the serum ID pattern: '{serum_id_pattern}'")
+            break
+
+        if serum_block["serum_passage_row_idx"] is None:
+            print(f"Serum passage row index not found. Check the serum passage pattern: '{serum_passage_pattern}'")
+            break
+
+        if serum_block["serum_abbrev_row_idx"] is None:
+            print(f"Serum abbreviated name row index not found. Check the serum abbreviated name pattern: '{serum_abbrev_pattern}'")
+            break
 
         mat=worksheet
 
