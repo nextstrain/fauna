@@ -117,10 +117,10 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
 
             print("assay_type: " + assay_type)
             # Zero-indexed positions
-            start_row = titer_coords['row_start']
-            end_row = titer_coords['row_end']
-            start_col = titer_coords['col_start']
-            end_col = titer_coords['col_end']
+            row_start = titer_coords['row_start']
+            row_end = titer_coords['row_end']
+            col_start = titer_coords['col_start']
+            col_end = titer_coords['col_end']
 
             virus_strain_col_index = virus_block['virus_col_idx']
             virus_passage_col_index = virus_block['virus_passage_col_idx']
@@ -132,10 +132,10 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             source = "vidrl_%s"%(fstem).strip()
             virus_passage_category = ''
             serum_passage_category = ''
-            for i in range(start_row, (end_row+1)):
+            for i in range(row_start, (row_end+1)):
                 virus_strain = str(mat.cell_value(i,virus_strain_col_index)).strip()
                 virus_passage = str(mat.cell_value(i,virus_passage_col_index)).strip()
-                for j in range(start_col, (end_col+1)):
+                for j in range(col_start, (col_end+1)):
                     serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
                     serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
                     serum_abbr = str(mat.cell_value(serum_strain_row_index,j)).strip()
