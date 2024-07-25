@@ -2337,7 +2337,10 @@ Oslo	Norway	Ostlandet	Oslo
 Oman	Oman	Oman	Oman
 AdDuqm	Oman	AlWusta	Duqm
 AlAmarat	Oman	Muscat	AlAmarat
+AlBidayah	Oman	AlBidayah	AlBidayah
 AlBuraimi	Oman	AlBuraimi	AlBuraimi
+AdDuqm	Oman	AdDuqm	AdDuqm
+AlMultaqa	Oman	AlMultaqa	AlMultaqa
 AlMusannah	Oman	AlBatinah	AlMusannah
 AlMusanaah	Oman	AlBatinah	AlMusannah
 AsSuwaiq	Oman	AlBatinah	AsSuwaiq
@@ -2347,6 +2350,7 @@ Bawshar	Oman	Muscat	Bawshar
 Buraimi	Oman	AlBuraimi	Buraimi
 DibbaAlBaya	Oman	Musandam	DibbaAlBaya
 Duqm	Oman	AlWusta	Duqm
+Firq	Oman	Firq	Firq
 Haima	Oman	AlWusta	Haima
 Ibra	Oman	AshSharqiyah	Ibra
 Ibri	Oman	AdDhahirah	Ibri
@@ -2767,6 +2771,7 @@ Samoa	Samoa	Samoa	Samoa
 SaudiArabia	SaudiArabia	SaudiArabia	SaudiArabia
 Jeddah	SaudiArabia	Makkah	Jeddah
 Riyadh	SaudiArabia	Riyadh	Riyadh
+AnNahdah	SaudiArabia	Riyadh	AnNahdah
 Al-Ahsaa	SaudiArabia	EasternProvince	Al-Ahsaa
 Qassim	SaudiArabia	Qassim	Qassim
 
@@ -3293,6 +3298,7 @@ Ammanford	UnitedKingdom	Wales	Ammanford
 Anglesey	UnitedKingdom	Wales	Anglesey
 Aylesbury	UnitedKingdom	England	Aylesbury
 Bangor	UnitedKingdom	Wales	Bangor
+BangorOnDee	UnitedKingdom	Wales	BangorOnDee
 Bargoed	UnitedKingdom	Wales	Bargoed
 Barry	UnitedKingdom	Wales	Barry
 Beaumaris	UnitedKingdom	Wales	Beaumaris
@@ -3317,6 +3323,7 @@ Bryncethin	UnitedKingdom	Wales	Bryncethin
 Buckinghamshire	UnitedKingdom	England	Buckinghamshire
 Buckley	UnitedKingdom	Wales	Buckley
 BurryPort	UnitedKingdom	Wales	BurryPort
+Bwlchgwyn	UnitedKingdom	Wales	Bwlchgwyn
 Caerleon	UnitedKingdom	Wales	Caerleon
 Caersws	UnitedKingdom	Powys	Caersws
 Caldicot	UnitedKingdom	Wales	Caldicot
@@ -3345,6 +3352,7 @@ ClydachVale	UnitedKingdom	Wales	ClydachVale
 Clynderwen	UnitedKingdom	Wales	Clynderwen
 Co.Durham	UnitedKingdom	England	CountyDurham
 Coedpoeth	UnitedKingdom	Wales	Coedpoeth
+Coity	UnitedKingdom	Wales	Coity
 Colchester	UnitedKingdom	England	Colchester
 ColwynBay	UnitedKingdom	Wales	ColwynBay
 Conwy	UnitedKingdom	Wales	Conwy
@@ -3356,12 +3364,14 @@ Craven	UnitedKingdom	England	Craven
 Croesyceiliog	UnitedKingdom	Wales	Croesyceiliog
 Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
+Crundale	UnitedKingdom	Wales	Crundale
 Cwmaman	UnitedKingdom	Wales	Cwmaman
 Cwmafan	UnitedKingdom	Wales	Cwmafan
 Cumbria	UnitedKingdom	England	Cumbria
 Cwmbran	UnitedKingdom	Wales	Cwmbran
 Cwmdare	UnitedKingdom	Wales	Cwmdare
 Cwmdu	UnitedKingdom	Wales	Cwmdu
+Cynwyd	UnitedKingdom	Wales	Cynwyd
 Deeside	UnitedKingdom	Wales	Deeside
 Denbigh	UnitedKingdom	Wales	Denbigh
 Derbyshire	UnitedKingdom	England	Derbyshire
@@ -3379,6 +3389,9 @@ Feltham	UnitedKingdom	England	Feltham
 Ffairfach	UnitedKingdom	Wales	Ffairfach
 Flint	UnitedKingdom	Wales	Flint
 Ferndale	UnitedKingdom	Wales	Ferndale
+Ferryside	UnitedKingdom	Wales	Ferryside
+Fochriw	UnitedKingdom	Wales	Fochriw
+Gelligaer	UnitedKingdom	Wales	Gelligaer
 GerrardsCross	UnitedKingdom	England	GerrardsCross
 Gibraltar	UnitedKingdom	BritishOverseasTerritory	Gibraltar
 Gilwern	UnitedKingdom	Wales	Gilwern
@@ -3420,6 +3433,7 @@ Llangollen	UnitedKingdom	Wales	Llangollen
 Llangynwyd	UnitedKingdom	Wales	Llangynwyd
 Llanharan	UnitedKingdom	Wales	Llanharan
 Llanidloes	UnitedKingdom	Wales	Llanidloes
+Llanrug	UnitedKingdom	Wales	Llanrug
 Llantrisant	UnitedKingdom	Wales	Llantrisant
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
 Llay	UnitedKingdom	Wales	Llay
@@ -3440,8 +3454,10 @@ Llangefni	UnitedKingdom	Wales	Llangefni
 Llangeinor	UnitedKingdom	Wales	Llangeinor
 Llangennech	UnitedKingdom	Wales	Llangennech
 Llanon	UnitedKingdom	Cardiganshire	Llanon
+Llanrhos	UnitedKingdom	Wales	Llanrhos
 Llansamlet	UnitedKingdom	Wales	Llansamlet
 LlantwitMajor	UnitedKingdom	Wales	LlantwitMajor
+Llantarnam	UnitedKingdom	Wales	Llantarnam
 London	UnitedKingdom	England	London
 Ludlow	UnitedKingdom	England	Ludlow
 Luton	UnitedKingdom	England	Luton
@@ -3520,6 +3536,7 @@ Pwllheli	UnitedKingdom	Wales	Pwllheli
 Pyle	UnitedKingdom	Wales	Pyle
 Queensferry	UnitedKingdom	Scotland	Queensferry
 Raglan	UnitedKingdom	Wales	Raglan
+Rassau	UnitedKingdom	Wales	Rassau
 Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
@@ -3555,6 +3572,7 @@ StBridesMajor	UnitedKingdom	Wales	StBridesMajor
 StMellons	UnitedKingdom	Wales	StMellons
 Surrey	UnitedKingdom	England	Surrey
 Swansea	UnitedKingdom	Wales	Swansea
+Swffryd	UnitedKingdom	Wales	Swffryd
 TaffsWell	UnitedKingdom	Wales	TaffsWell
 Tongwynlais	UnitedKingdom	Wales	Tongwynlais
 Tonyrefail	UnitedKingdom	Wales	Tonyrefail
@@ -3569,6 +3587,7 @@ Tregarth	UnitedKingdom	Wales	Tregarth
 Treharris	UnitedKingdom	Wales	Treharris
 Treherbert	UnitedKingdom	Wales	Treherbert
 Treorchy	UnitedKingdom	Wales	Treorchy
+Tumble	UnitedKingdom	Wales	Tumble
 Tylorstown	UnitedKingdom	Wales	Tylorstown
 Tywyn	UnitedKingdom	Wales	Tywyn
 Usk	UnitedKingdom	Wales	Usk
