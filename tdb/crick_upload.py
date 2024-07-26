@@ -102,6 +102,7 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
         for i in range(start_row, len(mat)):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index].strip()
+                virus_strain = re.sub('\u0410', 'A', virus_strain) # Cyrillic A
                 serum_strain = mat[serum_strain_row_index][j].rstrip("/")+"/"+mat[serum_strain_row_index+1][j].lstrip("/")
                 m = build_location_mapping()
                 for (k,v) in m.items():
