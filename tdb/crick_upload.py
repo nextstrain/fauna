@@ -6,9 +6,11 @@ import argparse
 import subprocess
 from parse import parse
 from upload import parser
+import xlrd
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
+from titer_block import find_titer_block, find_serum_rows, find_virus_columns
 
 parser.add_argument('--assay_type', default='hi')
 
@@ -29,108 +31,166 @@ def read_crick(path, fstem, assay_type):
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
     fname = path + fstem # + ".csv"
-    # import glob
-    # flist = glob.glob(path + '/NIMR*csv') #BP
     exten = [ os.path.isfile(path + fstem + ext) for ext in ['.xls', '.xlsm', '.xlsx'] ]
     if True in exten:
         ind = exten.index(True)
-        sheets = convert_xls_to_csv(path, fstem, ind)
-        for sheet in sheets:
-            fname = "../fludata/Crick-London-WHO-CC/processed-data/csv/{}.csv".format(sheet)
-            parse_crick_matrix_to_tsv(fname, path, assay_type)
+        sheets = convert_crick_xls_to_tsv(path, fstem, ind, assay_type)
     else:
-        # logger.critical("Unable to recognize file extension of {}/{}".format(path,fstem))
         print("EXITING")
         sys.exit()
     return sheets
 
-def convert_xls_to_csv(path, fstem, ind):
-    import xlrd
+def convert_crick_xls_to_tsv(path, fstem, ind, assay_type):
+    # Return list of sheet names
     sheets = []
+
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
-    for sheet in workbook.sheets():
-        # comments sheets are just instructions on how to use the workbook template
-        if sheet.name == 'comments':
-            print(f"Skipping sheet {sheet.name!r}", file=sys.stderr)
-            continue
-        # Replace spaces with underscores in sheet name so that the call to
-        # elife_upload does not error out due to the space in --fstem
-        sheet.name = sheet.name.replace(' ', '_')
-        with open('../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv'.format(fstem, sheet.name), 'w') as f:
-            writer = csv.writer(f)
-            print(sheet.name)
-            for row in range(sheet.nrows):
-                new_row = []
-                for cell in sheet.row_values(row):
-                    try:
-                        new_row.append(cell)
-                    except:
-                        import pdb; pdb.set_trace()
-                writer.writerow(new_row)
-        print("wrote new csv to ../fludata/Crick-London-WHO-CC/processed-data/csv/{}_{}.csv".format(fstem, sheet.name))
-        sheets.append("{}_{}".format(fstem, sheet.name))
-    return sheets
 
-def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
-    src_id = fname.split('/')[-1]
-    with open(fname) as infile:
-        csv_reader = csv.reader(infile)
-        mat = list(csv_reader)
-    with open('../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(src_id[:-4]), 'w') as outfile:
-        header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
-        outfile.write("%s\n" % ("\t".join(header)))
-        original_path = original_path.split('/')
-        try:
-            original_path.remove('')
-        except:
-            pass
+    # Set Crick patterns
+    virus_pattern = r"[A-Z]/[\w\s-]+"
+    virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
+    serum_id_pattern = r"F\d+/\d+"
+    serum_passage_pattern = r"(MDCK|SIAT|Egg)"
+    serum_abbrev_pattern = r"[A-Z]/[\w\s-]+"
+    crick = True
+
+    for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
+        # comments sheets are just instructions on how to use the workbook template
+        if worksheet.name == 'comments':
+            print(f"Skipping sheet {worksheet.name!r}", file=sys.stderr)
+            continue
+
+        worksheet.name = worksheet.name.replace(' ', '_')
+        print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{fstem}'")
+
+        # autodetecting titer, strain, serum blocks
+        titer_block = find_titer_block(worksheet)
+
+        if len(titer_block["col_start"]) == 0:
+            print("No titer block found.")
+            break
+
+        titer_coords = {
+            'col_start': titer_block["col_start"][0][0],
+            'col_end': titer_block["col_end"][0][0],
+            'row_start': titer_block["row_start"][0][0],
+            'row_end': titer_block["row_end"][0][0]
+        }
+
+        virus_block = find_virus_columns(
+            worksheet=worksheet,
+            titer_coords=titer_coords,
+            virus_pattern=virus_pattern,
+            virus_passage_pattern=virus_passage_pattern,
+        )
+
+        # If no virus names are found, might not be a valid worksheet, skip worksheet to avoid breaking find_serum_rows
+        if virus_block["virus_names"] is None:
+            print(f"Virus names not found. Check the virus pattern: '{virus_pattern}'")
+            break
+
+        serum_block = find_serum_rows(
+            worksheet=worksheet,
+            titer_coords=titer_coords,
+            virus_names=virus_block["virus_names"],
+            serum_id_pattern=serum_id_pattern,
+            serum_passage_pattern=serum_passage_pattern,
+            serum_abbrev_pattern=serum_abbrev_pattern,
+            crick=crick,
+        )
+
+        # Print the most likely row and column indices for the titer block and the vote counts
+        print("Titer block:")
+        print(f"  Most likely (n={titer_block['col_start'][0][1]}) col_start: {titer_block['col_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['col_end'][0][1]}) col_end: {titer_block['col_end'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_start'][0][1]}) row_start: {titer_block['row_start'][0][0]}")
+        print(f"  Most likely (n={titer_block['row_end'][0][1]}) row_end: {titer_block['row_end'][0][0]}")
+
+        # Print virus and serum annotations row and column indices
+        print("Virus (antigen) block: left and right of the titer block")
+        print(f"  virus column index: {virus_block['virus_col_idx']}")
+        print(f"  virus passage column index: {virus_block['virus_passage_col_idx']}")
+        print(f"  virus names: {virus_block['virus_names']}")
+
+        print("Serum (antisera) block: above the titer block")
+        print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
+        print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
+        print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
+
+        # Match abbreviated names across the top to the full names along the left side and auto convert to full names
+        if serum_block["serum_abbrev_row_idx"] is not None:
+            print("serum_mapping = {")
+            for abbrev, full in serum_block["serum_mapping"].items():
+                print(f"    '{abbrev}': '{full}',")
+            print("}")
+
+        serum_mapping = serum_block["serum_mapping"] # unused
+
+        mat = worksheet
+
         if assay_type == "hi":
-            start_row = 9
-            start_col = 6
+            start_row = titer_coords['row_start']
+            start_col = titer_coords['col_start']
+            end_row = titer_coords['row_end']
+            end_col = titer_coords['col_end']
+            virus_strain_col_index = virus_block['virus_col_idx']
+            virus_passage_col_index = virus_block['virus_passage_col_idx']
+            serum_strain_row_index = serum_block['serum_abbrev_row_idx']
+            serum_passage_row_index = serum_block['serum_passage_row_idx']
+            serum_id_row_index = serum_block['serum_id_row_idx']
             col_span = 1
             virus_strain_col_index = 1
             virus_passage_col_index = 5
-            # cdc
-            # virus_strain_col_index = 2
-            # virus_passage_col_index = 4
             serum_strain_row_index = 3
             serum_passage_row_index = 5
             serum_id_row_index = 6
         elif assay_type == "fra":
             start_row = 13
             start_col = 5
+            end_row = len(mat)
+            end_col = len(mat[0])
             col_span = 2
             virus_strain_col_index = 1
             virus_passage_col_index = 4
             serum_strain_row_index = 6
             serum_passage_row_index = 8
             serum_id_row_index = 9
-        for i in range(start_row, len(mat)):
-            for j in range(start_col, len(mat[0]), col_span):
-                virus_strain = mat[i][virus_strain_col_index].strip()
-                virus_strain = re.sub('\u0410', 'A', virus_strain) # Cyrillic A
-                # cdc
+
+        with open('../fludata/Crick-London-WHO-CC/processed-data/tsv/%s.tsv'%(fname), 'w') as outfile:
+            header = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
+            outfile.write("%s\n" % ("\t".join(header)))
+
+            for i in range(start_row, end_row+1):
+                for j in range(start_col, end_col+1, col_span):
+                    virus_strain = mat[i][virus_strain_col_index].strip()
+                    virus_strain = re.sub('\u0410', 'A', virus_strain) # Cyrillic A
+                    virus_strain = re.sub('\u0410', 'A', virus_strain) # Cyrillic A
+                    # cdc
                 virus_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', virus_strain)
                 virus_strain = virus_strain.replace(" (NEW)","").replace("(NEW)", "").replace(" NEW","")
 
                 serum_strain = mat[serum_strain_row_index][j].rstrip("/")+"/"+mat[serum_strain_row_index+1][j].lstrip("/")
-                # cdc
+                    # cdc
                 serum_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', serum_strain)
                 serum_strain = re.sub(r'District of /Columbia', 'DistrictOfColumbia', serum_strain)
                 m = build_location_mapping()
-                for (k,v) in m.items():
-                    if v not in serum_strain:
-                        serum_strain = serum_strain.replace(k, v)
-                serum_id = mat[serum_id_row_index][j]
-                titer = mat[i][j]
-                source = "crick_%s"%(src_id)
-                virus_passage = mat[i][virus_passage_col_index]
-                virus_passage_category = ''
-                serum_passage = mat[serum_passage_row_index][j]
-                serum_passage_category = ''
-                line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
-                outfile.write(line)
+                    for (k,v) in m.items():
+                        if v not in serum_strain:
+                            serum_strain = serum_strain.replace(k, v)
+                    serum_id = mat[serum_id_row_index][j]
+                    titer = mat[i][j]
+                    source = "crick_%s"%(src_id)
+                    virus_passage = mat[i][virus_passage_col_index]
+                    virus_passage_category = ''
+                    serum_passage = mat[serum_passage_row_index][j]
+                    serum_passage_category = ''
+                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                    outfile.write(line)
+
+        sheets.append("{}_{}".format(fstem, worksheet.name))
+
+    return sheets
 
 def determine_subtype(fname):
     if fname.lower().startswith('h3n2'):
