@@ -115,6 +115,18 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             print("}")
 
         serum_mapping = serum_block["serum_mapping"]
+        # # Use manual correction when needed
+        # serum_mapping = {
+        #     'Dar/6': 'A/Darwin/6/2021',
+        #     'Thai/8': 'A/Thailand/8/2022',
+        #     'Syd/856': 'A/Sydney/856/2023',
+        #     'Can/327': 'A/Canberra/327/2023',
+        #     'Can/302': 'A/Canberra/302/2023',
+        #     'Vic/2997': 'A/Victoria/2997/2023',
+        #     'Can/373': 'A/Canberra/373/2023',
+        #     'Can/309': 'A/Canberra/309/2023',
+        # }
+        # print(f"corrected: serum_mapping={json.dumps(serum_mapping, indent=4)}")
 
         # Check if all the necessary indices were found
         if virus_block["virus_col_idx"] is None:
