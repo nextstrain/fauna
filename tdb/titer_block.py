@@ -27,6 +27,12 @@ def parse_args():
         required=False,
         help="Either vidrl, niid, or crick. Used to select appropriate pattern"
     )
+    parser.add_argument(
+        "--log-human-sera",
+        default=False,
+        required=False,
+        help="Whether to log human serum samples"
+    )
     return parser.parse_args()
 
 def is_numeric(value):
@@ -194,7 +200,7 @@ def find_virus_columns(worksheet, titer_coords, virus_pattern=None, virus_passag
     }
 
 
-def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None, crick=False, ignore_serum_pattern=None):
+def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=None, serum_passage_pattern=None, serum_abbrev_pattern=None, crick=False, ignore_serum_pattern=None, log_human_sera=False):
     """
     Find the row containing cell passage data and the row containing abbreviated serum names.
 
@@ -211,6 +217,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     serum_passage_row_idx = None  # Index of the row containing cell passage data
     serum_abbrev_row_idx = None  # Index of the row containing abbreviated antigen names
     serum_mapping = {}  # Mapping of abbreviated antigen names to full names
+    human_serum_data = [] # Will store a list of dictionaries containing human serum abbreviated name, ID, and passage data, and column index
 
     # By default, use VIDRL-Melbourne-WHO-CC specific patterns
     # Define a regular expression pattern to match serum ID
@@ -223,7 +230,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     if serum_abbrev_pattern is None:
         serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     if ignore_serum_pattern is None:
-        ignore_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera).*"
+        ignore_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera|vaxpool).*"
 
     # Find the row containing serum ID searching from the top of the titer block upwards
     for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
@@ -276,7 +283,14 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
                 break
             # Ignore human serum (e.g. "SH2002", "sera", "SHVAX2002")
             if re.search(ignore_serum_pattern, cell_value):
-                break
+                if log_human_sera:
+                    human_serum_data.append({
+                        "col_idx": col_idx,
+                        "serum_abbrev": cell_value,
+                        "serum_id": str(worksheet.cell_value(serum_id_row_idx, col_idx)),
+                        "serum_passage": str(worksheet.cell_value(serum_passage_row_idx, col_idx))
+                    })
+                continue
             # Deal with duplicate serum abbreviations which can get out of sync with virus full names
             if cell_value not in serum_mapping:
                 serum_mapping[cell_value] = virus_names[virus_idx]
@@ -290,6 +304,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
         "serum_passage_row_idx": serum_passage_row_idx,
         "serum_abbrev_row_idx": serum_abbrev_row_idx,
         "serum_mapping": serum_mapping,
+        "human_serum_data": human_serum_data
     }
 
 
@@ -300,7 +315,7 @@ def main():
     virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
     virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
     serum_id_pattern = r"^[A-Z]\d{4,8}"
-    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
+    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+|CELL|cell|Cell)"
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     crick = False
 
@@ -354,6 +369,7 @@ def main():
             serum_passage_pattern=serum_passage_pattern,
             serum_abbrev_pattern=serum_abbrev_pattern,
             crick=crick,
+            log_human_sera=args.log_human_sera
         )
 
         # Print the most likely row and column indices for the titer block
@@ -389,6 +405,12 @@ def main():
             for abbrev, full in serum_block["serum_mapping"].items():
                 print(f"    '{abbrev}': '{full}',")
             print("}")
+
+        # Print human serum data
+        if args.log_human_sera:
+            print("HumanSerumData\tcol_idx\tserum_abbrev\tserum_id\tserum_passage\tfilename")
+            for serum_data in serum_block["human_serum_data"]:
+                print(f"HumanSerumData\t{serum_data['col_idx']}\t{serum_data['serum_abbrev']}\t{serum_data['serum_id']}\t{serum_data['serum_passage']}\t{args.file}")
 
         # Check if all the necessary indices were found
         if virus_block["virus_col_idx"] is None:
