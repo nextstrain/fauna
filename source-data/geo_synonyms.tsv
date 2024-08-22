@@ -453,6 +453,7 @@ Cameroon	Cameroon	Cameroon	Cameroon
 AbongMbang	Cameroon	East	AbongMbang
 Buea	Cameroon	Southwest	Buea
 Bamenda	Cameroon	NorthWest	Bamenda
+Bertoua	Cameroon	East	Bertoua
 Douala	Cameroon	Littoral	Douala
 Ebolowa	Cameroon	South	Ebolowa
 Foumban	Cameroon	West	Foumban
@@ -1330,6 +1331,7 @@ Estanzuela	Guatemala	Zacapa	Estanzuela
 Guatemala	Guatemala	Guatemala	Guatemala
 GUATEMALA	Guatemala	Guatemala	Guatemala
 Guatemalacity	Guatemala	Guatemala	GuatemalaCity
+Ipala	Guatemala	Chiquimula	Ipala
 Lablanca	Guatemala	Guatemala	LaBlanca
 Mixco	Guatemala	Guatemala	Mixco
 Monjas	Guatemala	Guatemala	Monjas
@@ -1996,6 +1998,7 @@ Kocani	Macedonia	Kocani	Kocani
 
 # Madagascar
 Madagascar	Madagascar	Madagascar	Madagascar
+Ambositra	Madagascar	AmoroniMania	Ambositra
 Analavory	Madagascar	Miarinarivo	Analavory
 Anjeva	Madagascar	Antananarivo	Anjeva
 Antananarivo	Madagascar	Antananarivo	Antananarivo
@@ -2003,6 +2006,7 @@ Antsirabe	Madagascar	Vakinankaratra	Antsirabe
 Antsohihy	Madagascar	Sofia	Antsohihy
 Behoririka	Madagascar	Antananarivo	Behoririka
 Fianarantsoa	Madagascar	HauteMatsiatra	Fianarantsoa
+Ihosy	Madagascar	Ihorombe	Ihosy
 Itaosy	Madagascar	Antananarivo	Itaosy
 Maevatanana	Madagascar	Betsiboka	Maevatanana
 Mahajanga	Madagascar	Mahajanga	Mahajanga
