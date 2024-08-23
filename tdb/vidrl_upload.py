@@ -16,6 +16,7 @@ from titer_block import find_titer_block, find_serum_rows, find_virus_columns
 parser.add_argument('--assay_type', default='hi')
 
 ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
+EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
 
 def parse_tsv_mapping_to_dict(tsv_file):
     map_dict = {}
@@ -206,6 +207,11 @@ def read_flat_vidrl(path, fstem, assay_type):
 
 if __name__=="__main__":
     args = parser.parse_args()
+    # Asserting here because this is using a shared parser
+    # other tdb scripts do not require subtype
+    assert args.subtype is not None, "Subtype needs to be specified with --subtype"
+    assert args.subtype in EXPECTED_SUBTYPES, f"Subtype must be one of {EXPECTED_SUBTYPES!r}"
+
     if args.path is None:
         args.path = "data/"
     else:
@@ -221,14 +227,11 @@ if __name__=="__main__":
     else:
         read_vidrl(args.path, args.fstem, args.assay_type)
 
-    if args.subtype:
-        if args.preview:
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
-            print(command)
-            subprocess.call(command, shell=True)
-        else:
-            command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem
-            print(command)
-            subprocess.call(command, shell=True)
+    if args.preview:
+        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
+        print(command)
+        subprocess.call(command, shell=True)
     else:
-        print("Subtype needs to be specified with --subtype")
+        command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem
+        print(command)
+        subprocess.call(command, shell=True)
