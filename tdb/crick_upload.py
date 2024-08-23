@@ -50,6 +50,10 @@ def convert_xls_to_csv(path, fstem, ind):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
     for sheet in workbook.sheets():
+        # comments sheets are just instructions on how to use the workbook template
+        if sheet.name == 'comments':
+            print(f"Skipping sheet {sheet.name!r}", file=sys.stderr)
+            continue
         # Replace spaces with underscores in sheet name so that the call to
         # elife_upload does not error out due to the space in --fstem
         sheet.name = sheet.name.replace(' ', '_')
