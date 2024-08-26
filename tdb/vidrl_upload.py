@@ -14,6 +14,8 @@ from vdb.flu_upload import flu_upload
 from titer_block import find_titer_block, find_serum_rows, find_virus_columns
 
 parser.add_argument('--assay_type', default='hi')
+parser.add_argument('--human-ref-only', action="store_true",
+    help="Only ingest human sera references, used for backfilling data that was skipped in previous ingests.")
 
 ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
@@ -117,7 +119,7 @@ def parse_human_serum_references(human_serum_data, subtype):
     return human_serum_references
 
 
-def read_vidrl(path, fstem, assay_type, subtype):
+def read_vidrl(path, fstem, assay_type, subtype, human_ref_only):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
@@ -125,12 +127,12 @@ def read_vidrl(path, fstem, assay_type, subtype):
 
     if True in exten:
         ind = exten.index(True)
-        convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype)
+        convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_only)
     else:
         print("Unable to recognize file {}/{}".format(path,fstem))
         sys.exit()
 
-def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype):
+def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_only):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
 
@@ -281,6 +283,9 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype):
                         serum_id = human_serum_references[j]['serum_id']
                         serum_passage = human_serum_references[j]['serum_passage']
                         serum_strain = human_serum_references[j]['serum_strain']
+                    # Skip other titer measurements if we only want to ingest human serum references
+                    elif human_ref_only:
+                        continue
                     else:
                         serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
                         serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
@@ -332,7 +337,7 @@ if __name__=="__main__":
     if args.ftype == "flat":
         read_flat_vidrl(args.path, args.fstem, args.assay_type)
     else:
-        read_vidrl(args.path, args.fstem, args.assay_type, args.subtype)
+        read_vidrl(args.path, args.fstem, args.assay_type, args.subtype, args.human_ref_only)
 
     if args.preview:
         command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
