@@ -284,11 +284,14 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
             # Ignore human serum (e.g. "SH2002", "sera", "SHVAX2002")
             if re.search(ignore_serum_pattern, cell_value):
                 if log_human_sera:
+                    max_row = max(serum_abbrev_row_idx, serum_id_row_idx, serum_passage_row_idx)
                     human_serum_data.append({
                         "col_idx": col_idx,
                         "serum_abbrev": cell_value,
                         "serum_id": str(worksheet.cell_value(serum_id_row_idx, col_idx)),
-                        "serum_passage": str(worksheet.cell_value(serum_passage_row_idx, col_idx))
+                        "serum_passage": str(worksheet.cell_value(serum_passage_row_idx, col_idx)),
+                        # Sometimes egg/cell distinction is stored in a separate row
+                        "extra_info": str(worksheet.cell_value(max_row + 1, col_idx))
                     })
                 continue
             # Deal with duplicate serum abbreviations which can get out of sync with virus full names

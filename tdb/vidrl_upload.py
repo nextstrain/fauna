@@ -18,6 +18,26 @@ parser.add_argument('--assay_type', default='hi')
 ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
 
+# Vaccine mapping used for mapping human pooled sera to a specific reference virus
+# This is based on the vaccine composition for the Southern Hemisphere
+# because all human pooled sera should be from Australia
+VACCINE_MAPPING = {
+    "2024": {
+        "egg": {
+            "h1n1pdm": "A/Victoria/4897/2022",
+            "h3n2": "A/Thailand/8/2022",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        },
+        "cell": {
+            "h1n1pdm": "A/Wisconsin/67/2022",
+            "h3n2": "A/Massachusetts/18/2022",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        }
+    }
+}
+
 def parse_tsv_mapping_to_dict(tsv_file):
     map_dict = {}
     with open(tsv_file, 'r') as f:
@@ -27,7 +47,75 @@ def parse_tsv_mapping_to_dict(tsv_file):
             map_dict[key] = value.rstrip('\n')
     return map_dict
 
-def read_vidrl(path, fstem, assay_type):
+
+def parse_human_serum_references(human_serum_data, subtype):
+    """
+    Expects the *human_serum_data* from titer_block.find_serum_rows
+    Returns parsed human serum references, where keys are the column number of
+    the human serum reference in the Excel sheet and the values are the serum
+    data with serum id, serum passage, and serum strain.
+    """
+    human_serum_references = {}
+    year_regex = r"SH(vax|VAX|\s)?(\d{4})"
+    egg_or_cell_regex = r"^(egg|cell)$" # Used with re.IGNORECASE
+
+    potential_year_fields = ['serum_id', 'serum_passage', 'serum_abbrev']
+    potential_egg_or_cell_fields = ['serum_passage', 'extra_info']
+
+    for human_serum in human_serum_data:
+        column = human_serum['col_idx']
+        # First try to parse the year from the human serum data
+        year = new_serum_id = None
+        for field in potential_year_fields:
+            matches = re.match(year_regex, human_serum[field])
+            # Use the first match of the potential fields
+            if matches is not None:
+                year = matches.group(2)
+                # Follow a standard pattern where serum_id is `SH {year}`
+                new_serum_id = f"SH {year}"
+                break
+
+        # year is required to know which vaccine reference strain to use,
+        # so skip the human serum if it can't be parsed
+        if year is None:
+            print(f"WARNING: Skipping human sera column {column} ",
+                  f"because none of {potential_year_fields} fields ",
+                  f"matched the year regex {year_regex!r}")
+            continue
+
+        # Then try to parse egg or cell from the human serum data
+        egg_or_cell = None
+        for field in potential_egg_or_cell_fields:
+            matches = re.match(egg_or_cell_regex, human_serum[field], re.IGNORECASE)
+            # Use the first match of the potential fields
+            if matches is not None:
+                egg_or_cell = matches.group(1).lower()
+                break
+
+        # egg_or_cell is required to know which vaccine reference strain to use,
+        # so skip the human serum if it can't be parsed
+        if egg_or_cell is None:
+            print(f"WARNING: Skipping human sera column {column} ",
+                  f"because none of {potential_egg_or_cell_fields} fields ",
+                  f"matched the regex {egg_or_cell_regex!r}")
+            continue
+
+        # Raise a loud error so we know to update the VACCINE_MAPPING as needed
+        try:
+            serum_strain = VACCINE_MAPPING[year][egg_or_cell][subtype]
+        except KeyError as err:
+            raise Exception(f"VACCINE_MAPPING needs to be updated!") from err
+
+        human_serum_references[column] = {
+            "serum_id": new_serum_id,
+            "serum_passage": egg_or_cell,
+            "serum_strain": serum_strain
+        }
+
+    return human_serum_references
+
+
+def read_vidrl(path, fstem, assay_type, subtype):
     '''
     Read all csv tables in path, create data frame with reference viruses as columns
     '''
@@ -35,12 +123,12 @@ def read_vidrl(path, fstem, assay_type):
 
     if True in exten:
         ind = exten.index(True)
-        convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type)
+        convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype)
     else:
         print("Unable to recognize file {}/{}".format(path,fstem))
         sys.exit()
 
-def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
+def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype):
     exts = ['.xls', '.xlsm', '.xlsx']
     workbook = xlrd.open_workbook(path+fstem + exts[ind])
 
@@ -89,6 +177,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             serum_passage_pattern=serum_passage_pattern,
             serum_abbrev_pattern=serum_abbrev_pattern,
             ignore_serum_pattern=human_serum_pattern,
+            log_human_sera=True,
             crick=crick,
         )
 
@@ -130,6 +219,12 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
         #     'Can/309': 'A/Canberra/309/2023',
         # }
         # print(f"corrected: serum_mapping={json.dumps(serum_mapping, indent=4)}")
+
+        human_serum_references = parse_human_serum_references(serum_block['human_serum_data'], args.subtype)
+
+        print("Human pooled serum references parsed from serum block")
+        for col, values in human_serum_references.items():
+            print(f"Column {col!r}: {values}")
 
         # Check if all the necessary indices were found
         if virus_block["virus_col_idx"] is None:
@@ -178,11 +273,19 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
                 virus_strain = str(mat.cell_value(i,virus_strain_col_index)).strip()
                 virus_passage = str(mat.cell_value(i,virus_passage_col_index)).strip()
                 for j in range(col_start, (col_end+1)):
-                    serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
-                    serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
-                    serum_abbr = str(mat.cell_value(serum_strain_row_index,j)).strip()
-                    serum_abbr = serum_abbr.replace(' ','')
-                    serum_strain = serum_mapping.get(serum_abbr, serum_abbr)
+                    # Special handling of human pooled sera that were matched to
+                    # vaccine reference strain instead of the normal serum mapping
+                    if j in human_serum_references:
+                        serum_id = human_serum_references[j]['serum_id']
+                        serum_passage = human_serum_references[j]['serum_passage']
+                        serum_strain = human_serum_references[j]['serum_strain']
+                    else:
+                        serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
+                        serum_passage = str(mat.cell_value(serum_passage_row_index,j)).strip()
+                        serum_abbr = str(mat.cell_value(serum_strain_row_index,j)).strip()
+                        serum_abbr = serum_abbr.replace(' ','')
+                        serum_strain = serum_mapping.get(serum_abbr, serum_abbr)
+
                     titer = str(mat.cell_value(i,j)).strip()
                     line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
                     outfile.write(line)
@@ -227,7 +330,7 @@ if __name__=="__main__":
     if args.ftype == "flat":
         read_flat_vidrl(args.path, args.fstem, args.assay_type)
     else:
-        read_vidrl(args.path, args.fstem, args.assay_type)
+        read_vidrl(args.path, args.fstem, args.assay_type, args.subtype)
 
     if args.preview:
         command = "python tdb/elife_upload.py -db " + args.database +  " --subtype " + args.subtype + " --path data/tmp/ --fstem " + args.fstem + " --preview"
