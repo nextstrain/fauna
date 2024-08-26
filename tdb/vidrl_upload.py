@@ -71,8 +71,10 @@ def parse_human_serum_references(human_serum_data, subtype):
             # Use the first match of the potential fields
             if matches is not None:
                 year = matches.group(2)
-                # Follow a standard pattern where serum_id is `SH {year}`
-                new_serum_id = f"SH {year}"
+                # Follow a standard pattern where serum_id is `Human pool <year>`
+                # Need "human" in serum_id because this is how we match for human sera in seasonal flu
+                # <https://github.com/nextstrain/seasonal-flu/blob/89f6cfd11481b2c51c50d68822c18d46ed56db51/workflow/snakemake_rules/download_from_fauna.smk#L93>
+                new_serum_id = f"Human pool {year}"
                 break
 
         # year is required to know which vaccine reference strain to use,
