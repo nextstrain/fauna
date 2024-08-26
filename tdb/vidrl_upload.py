@@ -24,6 +24,20 @@ EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
 # This is based on the vaccine composition for the Southern Hemisphere
 # because all human pooled sera should be from Australia
 VACCINE_MAPPING = {
+    "2023": {
+        "egg": {
+            "h1n1pdm": "A/Sydney/5/2021",
+            "h3n2": "A/Darwin/9/2021",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        },
+        "cell": {
+            "h1n1pdm": "A/Sydney/5/2021",
+            "h3n2": "A/Darwin/6/2021",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        }
+    },
     "2024": {
         "egg": {
             "h1n1pdm": "A/Victoria/4897/2022",
