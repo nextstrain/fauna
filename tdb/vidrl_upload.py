@@ -50,6 +50,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
     serum_id_pattern = r"^[A-Z]\d{4,8}"
     serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+)"
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
+    human_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera|vaxpool).*"
     crick = False
 
     for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
@@ -87,6 +88,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type):
             serum_id_pattern=serum_id_pattern,
             serum_passage_pattern=serum_passage_pattern,
             serum_abbrev_pattern=serum_abbrev_pattern,
+            ignore_serum_pattern=human_serum_pattern,
             crick=crick,
         )
 
