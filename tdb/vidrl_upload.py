@@ -93,13 +93,12 @@ def parse_human_serum_references(human_serum_data, subtype):
                 new_serum_id = f"Human pool {year}"
                 break
 
-        # year is required to know which vaccine reference strain to use,
-        # so skip the human serum if it can't be parsed
+        # year is required to know which vaccine reference strain to use
+        # Raise an error because this info should _always_ be available
         if year is None:
-            print(f"WARNING: Skipping human sera column {column} ",
-                  f"because none of {potential_year_fields} fields ",
-                  f"matched the year regex {year_regex!r}")
-            continue
+            raise Exception(f"Unable to process human sera column {column} ",
+                            f"because none of {potential_year_fields} fields ",
+                            f"matched the year regex {year_regex!r}")
 
         # Then try to parse egg or cell from the human serum data
         egg_or_cell = None
@@ -112,6 +111,10 @@ def parse_human_serum_references(human_serum_data, subtype):
 
         # egg_or_cell is required to know which vaccine reference strain to use,
         # so skip the human serum if it can't be parsed
+        # Only outputting a warning because I've seen Excel worksheets _without_
+        # any egg/cell distinctions from 2023. This will require extra correspondence
+        # with VIDRL, so don't let it block ingest of other data.
+        #   -Jover, 28 August 2024
         if egg_or_cell is None:
             print(f"WARNING: Skipping human sera column {column} ",
                   f"because none of {potential_egg_or_cell_fields} fields ",
