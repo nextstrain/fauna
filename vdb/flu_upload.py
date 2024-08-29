@@ -132,7 +132,7 @@ class flu_upload(upload):
         if self.location_fix_fname is not None:
             self.fix_location = self.define_location_fixes(self.location_fix_fname)
         if self.location_label_fix_fname is not None:
-            self.fix_location_label = self.define_location_label_fixes(self.location_label_fix_fname)
+            self.define_location_label_fixes(self.location_label_fix_fname)
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
         for doc in documents:
