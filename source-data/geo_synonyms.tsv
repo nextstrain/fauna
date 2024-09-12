@@ -1125,6 +1125,7 @@ SaintMartinDHeres	France AuvergneRhoneAlpes SaintMartinDHeres
 SaintNazaire	France	PaysDeLaLoire	SaintNazaire
 StLaurentDuVar	France	ProvenceAlpesCoteDAzur	StLaurentDuVar
 Strasbourg	France	AlsaceChampagneArdenneLorraine	Strasbourg
+Tarbes	France	Occitanie	Tarbes
 Tulle	France	NouvelleAquitaine	Tulle
 Toulon	France	ProvenceAlpesCoteDAzur	Toulon
 Toulouse	France	LanguedocRoussillonMidiPyrenees	Toulouse
@@ -2010,6 +2011,7 @@ Behoririka	Madagascar	Antananarivo	Behoririka
 Fianarantsoa	Madagascar	HauteMatsiatra	Fianarantsoa
 Ihosy	Madagascar	Ihorombe	Ihosy
 Itaosy	Madagascar	Antananarivo	Itaosy
+Itasy	Madagascar	Itasy	Itasy
 Maevatanana	Madagascar	Betsiboka	Maevatanana
 Mahajanga	Madagascar	Mahajanga	Mahajanga
 Manandona	Madagascar	Vakinankaratra	Manandona
@@ -2335,6 +2337,7 @@ Masaya	Nicaragua	Masaya	Masaya
 
 # Niger
 Niger	Niger	Niger	Niger
+Agadez	Niger	Agadez	Agadez
 
 # Nigeria
 Nigeria	Nigeria	Nigeria	Nigeria
