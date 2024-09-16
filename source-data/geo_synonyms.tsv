@@ -160,6 +160,7 @@ Bhutan	Bhutan	Bhutan	Bhutan
 Bolivia	Bolivia	Bolivia	Bolivia
 Cochabamba	Bolivia	Cochabamba	Cochabamba
 LaPaz	Bolivia	LaPaz	LaPaz
+Potosi	Bolivia	Potosi	Potosi
 SantaCruz	Bolivia	SantaCruz	SantaCruz
 SantaCruzDeLaSierra	Bolivia	SantaCruz	SantaCruzDeLaSierra
 
@@ -500,6 +501,7 @@ Arauco	Chile	Arauco	Arauco
 Arica	Chile	Arica	Arica
 AricaYParinacota	Chile	AricaYParinacota	AricaYParinacota
 Atacama	Chile	Atacama	Atacama
+Aysen	Chile	Aysen	Aysen
 BioBio	Chile	BioBio	BioBio
 Calama	Chile	Antofagasta	Calama
 Castro	Chile	LosLagos	Castro
@@ -523,7 +525,9 @@ LaSerena	Chile	Coquimbo	LaSerena
 Lautaro	Chile	Araucania	Lautaro
 Lebu	Chile	BioBio	Lebu
 Linares	Chile	Maule	Linares
+LosLagos	Chile	LosLagos	LosLagos
 Lota	Chile	BioBio	Lota
+Magallanes	Chile	Magallanes	Magallanes
 Maule	Chile	Maule	Maule
 Melipilla	Chile	Santiago	Melipilla
 Molina	Chile	Molina	Molina
@@ -3066,6 +3070,7 @@ Ystad	Sweden	Skane	Ystad
 # Switzerland
 Switzerland	Switzerland	Switzerland	Switzerland
 Basel	Switzerland	Basel	Basel
+Bern	Switzerland	Bern	Bern
 Geneva	Switzerland	Geneva	Geneva
 Thurgau	Switzerland	Thurgau	Thurgau
 Zurich	Switzerland	Zurich	Zurich
