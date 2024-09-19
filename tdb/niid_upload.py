@@ -68,8 +68,8 @@ def parse_niid_matrix_to_tsv(fname, original_path, subtype, assay_type):
         except:
             pass
         if subtype == "h3n2":
-            serum_id_row_index = 6 #5
-            start_row = 8
+            serum_id_row_index = 5 #5
+            start_row = 7
             virus_id_col_index = 1
             start_col = 4
         elif subtype == "h1n1pdm":
