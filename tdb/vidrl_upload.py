@@ -344,6 +344,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         "reference passage": "serum_passage",
         "ferret": "serum_id",
         "titre": "titer",
+        "antisera": "serum_abbr",
     }
     for record in records:
         new_record = {new_field: record[old_field] for old_field, new_field in column_map.items()}
@@ -351,6 +352,13 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         new_record["virus_passage_category"] = ""
         new_record["serum_passage_category"] = ""
         new_record["source"] = "vidrl_{}.csv".format(fstem)
+
+        # Standardized human sera name and ids
+        if new_record["serum_id"] == "NA":
+            # TODO: Verify the serum strain matches the year's vaccine strain
+            new_record["serum_strain"] = re.sub(r"pool$", "", new_record["serum_strain"])
+            _, new_record["serum_id"] = parse_human_serum_id(new_record["serum_abbr"], HUMAN_SERA_YEAR_REGEX)
+
         yield new_record
 
 
