@@ -314,12 +314,12 @@ def read_flat_vidrl(path, fstem, assay_type):
     # The new column names need to be one of the ELIFE_COLUMNS in order to be
     # included in the temporary output file that's then passed to elife_upload.py
     column_map = {
-        "virus": "virus_strain",
-        "virus.passage": "virus_passage",
-        "antisera.passage": "serum_passage",
+        "test virus": "virus_strain",
+        "test virus passage": "virus_passage",
+        "reference antigen": "serum_strain",
+        "antisera passage": "serum_passage",
         "ferret": "serum_id",
-        "value": "titer",
-        "antisera.name": "serum_strain"
+        "titre": "titer",
     }
     filepath = path + fstem + ".csv"
 
