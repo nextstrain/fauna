@@ -8,7 +8,7 @@ import subprocess
 from parse import parse
 from upload import parser
 import xlrd
-from typing import Iterator
+from typing import Iterator, Optional, Tuple
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
@@ -20,6 +20,7 @@ parser.add_argument('--human-ref-only', action="store_true",
 
 ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
+HUMAN_SERA_YEAR_REGEX = r"SH(vax|VAX|\s)?(\d{4})"
 
 # Vaccine mapping used for mapping human pooled sera to a specific reference virus
 # This is based on the proxy reference viruses used for human pooled sera
@@ -55,6 +56,26 @@ VACCINE_MAPPING = {
     }
 }
 
+def parse_human_serum_id(original_id: str, year_regex: str) -> Tuple[Optional[str],Optional[str]]:
+    """
+    Attempts to parse the year (YYYY) from the provided *original_id* to
+    construct a new standard serum id with the provided *year_regex*.
+
+    Returns None if the year could not be parsed from the *original_id*.
+    If year is successfully parsed, then returns a tuple of (year, new_serum_id).
+    """
+    year = new_serum_id = None
+    matches = re.match(year_regex, original_id)
+    if matches is None:
+        return (None, None)
+
+    year = matches.group(2)
+    # Follow a standard pattern where serum_id is `Human pool <year>`
+    # Need "human" in serum_id because this is how we match for human sera in seasonal flu
+    # <https://github.com/nextstrain/seasonal-flu/blob/89f6cfd11481b2c51c50d68822c18d46ed56db51/workflow/snakemake_rules/download_from_fauna.smk#L93>
+    new_serum_id = f"Human pool {year}"
+    return (year, new_serum_id)
+
 
 def parse_human_serum_references(human_serum_data, subtype):
     """
@@ -64,7 +85,6 @@ def parse_human_serum_references(human_serum_data, subtype):
     data with serum id, serum passage, and serum strain.
     """
     human_serum_references = {}
-    year_regex = r"SH(vax|VAX|\s)?(\d{4})"
     egg_or_cell_regex = r"^(egg|cell)$" # Used with re.IGNORECASE
 
     potential_year_fields = ['serum_id', 'serum_passage', 'serum_abbrev']
@@ -75,14 +95,9 @@ def parse_human_serum_references(human_serum_data, subtype):
         # First try to parse the year from the human serum data
         year = new_serum_id = None
         for field in potential_year_fields:
-            matches = re.match(year_regex, human_serum[field])
+            year, new_serum_id = parse_human_serum_id(human_serum[field], HUMAN_SERA_YEAR_REGEX)
             # Use the first match of the potential fields
-            if matches is not None:
-                year = matches.group(2)
-                # Follow a standard pattern where serum_id is `Human pool <year>`
-                # Need "human" in serum_id because this is how we match for human sera in seasonal flu
-                # <https://github.com/nextstrain/seasonal-flu/blob/89f6cfd11481b2c51c50d68822c18d46ed56db51/workflow/snakemake_rules/download_from_fauna.smk#L93>
-                new_serum_id = f"Human pool {year}"
+            if new_serum_id is not None:
                 break
 
         # year is required to know which vaccine reference strain to use
@@ -90,7 +105,7 @@ def parse_human_serum_references(human_serum_data, subtype):
         if year is None:
             raise Exception(f"Unable to process human sera column {column} ",
                             f"because none of {potential_year_fields} fields ",
-                            f"matched the year regex {year_regex!r}")
+                            f"matched the year regex {HUMAN_SERA_YEAR_REGEX!r}")
 
         # Then try to parse egg or cell from the human serum data
         egg_or_cell = None
