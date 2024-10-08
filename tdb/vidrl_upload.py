@@ -18,7 +18,19 @@ parser.add_argument('--assay_type', default='hi')
 parser.add_argument('--human-ref-only', action="store_true",
     help="Only ingest human sera references, used for backfilling data that was skipped in previous ingests.")
 
-ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
+ELIFE_COLUMNS = [
+    "virus_strain",
+    "serum_strain",
+    "serum_id",
+    "titer",
+    "source",
+    "virus_passage",
+    "virus_passage_category",
+    "serum_passage",
+    "serum_passage_category",
+    "assay_type",
+    "date", # Using "date" instead of "assay_date" because elife_upload/upload/format_date overwrites "assay_date" with the parsed "date"
+]
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
 HUMAN_SERA_YEAR_REGEX = r"SH(vax|VAX|\s)?(\d{4})"
 
@@ -168,6 +180,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_on
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     human_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera|vaxpool).*"
     crick = False
+    assay_date = "unknown"
 
     for worksheet_index, worksheet in enumerate(workbook.sheets(), start=1):
         print(f"Reading worksheet {worksheet_index} '{worksheet.name}' in file '{fstem}'")
@@ -318,7 +331,7 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_on
                         serum_strain = serum_mapping.get(serum_abbr, serum_abbr)
 
                     titer = str(mat.cell_value(i,j)).strip()
-                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type]))
+                    line = "%s\n" % ("\t".join([ virus_strain, serum_strain, serum_id, titer, source, virus_passage, virus_passage_category, serum_passage, serum_passage_category, assay_type, assay_date]))
                     outfile.write(line)
 
 
@@ -345,6 +358,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         "ferret": "serum_id",
         "titre": "titer",
         "antisera": "serum_abbr",
+        "test date": "date",
     }
     for record in records:
         new_record = {new_field: record[old_field] for old_field, new_field in column_map.items()}
