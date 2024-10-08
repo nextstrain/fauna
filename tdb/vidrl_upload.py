@@ -8,6 +8,7 @@ import subprocess
 from parse import parse
 from upload import parser
 import xlrd
+from typing import Iterator
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
@@ -306,10 +307,18 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_on
                     outfile.write(line)
 
 
-def read_flat_vidrl(path, fstem, assay_type):
+def read_csv_to_dict(csv_file: str) -> Iterator[dict]:
     """
-    Read the flat CSV file with *fstem* in the provided *path* and convert
-    to the expected TSV file at `data/tmp/<fstem>.tsv` for tdb/elife_upload.
+    Read provided *csv_file* and yields each row as a dict.
+    """
+    with open(csv_file, newline="") as fh:
+        reader = csv.DictReader(fh, delimiter=",")
+        yield from reader
+
+
+def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) -> Iterator[dict]:
+    """
+    Curate the measurement records expected from the _flat_file.csv files.
     """
     # The new column names need to be one of the ELIFE_COLUMNS in order to be
     # included in the temporary output file that's then passed to elife_upload.py
@@ -321,17 +330,41 @@ def read_flat_vidrl(path, fstem, assay_type):
         "ferret": "serum_id",
         "titre": "titer",
     }
+    for record in records:
+        new_record = {new_field: record[old_field] for old_field, new_field in column_map.items()}
+        new_record["assay_type"] = assay_type
+        new_record["virus_passage_category"] = ""
+        new_record["serum_passage_category"] = ""
+        new_record["source"] = "vidrl_{}.csv".format(fstem)
+        yield new_record
+
+
+def write_records_to_tsv(records: Iterator[dict], output_file: str):
+    with open(output_file, "w", newline="") as fh:
+        tsv_writer = csv.DictWriter(
+            fh,
+            ELIFE_COLUMNS,
+            extrasaction="ignore",
+            delimiter="\t",
+            lineterminator="\n",
+        )
+        tsv_writer.writeheader()
+        for record in records:
+            tsv_writer.writerow(record)
+
+
+def read_flat_vidrl(path, fstem, assay_type):
+    """
+    Read the flat CSV file with *fstem* in the provided *path* and convert
+    to the expected TSV file at `data/tmp/<fstem>.tsv` for tdb/elife_upload.
+    """
+
     filepath = path + fstem + ".csv"
+    output_filepath ="data/tmp/{}.tsv".format(fstem)
 
-    titer_measurements = pd.read_csv(filepath, usecols=column_map.keys()) \
-                           .rename(columns=column_map)
-
-    titer_measurements["assay_type"] = assay_type
-    titer_measurements["virus_passage_category"] = ""
-    titer_measurements["serum_passage_category"] = ""
-    titer_measurements["source"] = "vidrl_{}.csv".format(fstem)
-
-    titer_measurements[ELIFE_COLUMNS].to_csv("data/tmp/{}.tsv".format(fstem), sep="\t", index=False)
+    records = read_csv_to_dict(filepath)
+    curated_records = curate_flat_records(records, fstem, assay_type)
+    write_records_to_tsv(curated_records, output_filepath)
 
 
 if __name__=="__main__":
