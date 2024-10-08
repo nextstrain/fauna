@@ -54,15 +54,6 @@ VACCINE_MAPPING = {
     }
 }
 
-def parse_tsv_mapping_to_dict(tsv_file):
-    map_dict = {}
-    with open(tsv_file, 'r') as f:
-        for line in f:
-            (key, value) = line.split('\t')
-            key = key.lower()
-            map_dict[key] = value.rstrip('\n')
-    return map_dict
-
 
 def parse_human_serum_references(human_serum_data, subtype):
     """
@@ -320,7 +311,16 @@ def read_flat_vidrl(path, fstem, assay_type):
     Read the flat CSV file with *fstem* in the provided *path* and convert
     to the expected TSV file at `data/tmp/<fstem>.tsv` for tdb/elife_upload.
     """
-    column_map = parse_tsv_mapping_to_dict("source-data/vidrl_flat_file_column_map.tsv")
+    # The new column names need to be one of the ELIFE_COLUMNS in order to be
+    # included in the temporary output file that's then passed to elife_upload.py
+    column_map = {
+        "virus": "virus_strain",
+        "virus.passage": "virus_passage",
+        "antisera.passage": "serum_passage",
+        "ferret": "serum_id",
+        "value": "titer",
+        "antisera.name": "serum_strain"
+    }
     filepath = path + fstem + ".csv"
 
     titer_measurements = pd.read_csv(filepath, usecols=column_map.keys()) \
