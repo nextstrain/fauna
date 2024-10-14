@@ -360,6 +360,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         "antisera": "serum_abbr",
         "test date": "date",
     }
+
     for record in records:
         new_record = {new_field: record[old_field] for old_field, new_field in column_map.items()}
         new_record["assay_type"] = assay_type
@@ -400,6 +401,53 @@ def write_records_to_tsv(records: Iterator[dict], output_file: str):
             tsv_writer.writerow(record)
 
 
+class IteratorReturnValue:
+    """
+    An iterator that wraps another one and stores the return value.
+    Modified from https://discuss.python.org/t/getting-generator-return-values-with-natural-for-loop-syntax/59556/2
+    """
+    def __init__(self, iterable):
+        self.iterable = iterable
+    def __iter__(self):
+        self.return_value = yield from self.iterable
+
+
+def validate_records(records: Iterator[dict]) -> Tuple[Iterator[dict], str]:
+    """
+    Loop through *records* to validate the values for
+    - `serum_abbr` maps to a single `serum_strain`
+    - single `date` (test_date)
+
+    Raises AssertionError if validation for a record fails or yields the
+    validated record.
+
+    Once the records have all been validated, returns the serum abbr map and
+    the test date. The final return value is expected to be captured by
+    `IteratorReturnValue`.
+    """
+    serum_abbr_map = {}
+    test_date = None
+    for record in records:
+        serum_abbr = record["serum_abbr"]
+        serum_strain = record["serum_strain"]
+        if serum_abbr in serum_abbr_map:
+            assert serum_strain == serum_abbr_map[serum_abbr], \
+                f"Serum abbreviation {serum_abbr} mapped to multiple serum strain names: {(serum_strain, serum_abbr_map[serum_abbr])}"
+        else:
+            serum_abbr_map[serum_abbr] = serum_strain
+
+        record_date = record["date"]
+        if test_date is None:
+            test_date = record_date
+        else:
+            assert test_date == record_date, \
+                f"Record date {record_date!r} is different from previous record dates {test_date!r}"
+
+        yield record
+
+    return (serum_abbr_map, test_date)
+
+
 def read_flat_vidrl(path, fstem, assay_type):
     """
     Read the flat CSV file with *fstem* in the provided *path* and convert
@@ -411,7 +459,13 @@ def read_flat_vidrl(path, fstem, assay_type):
 
     records = read_csv_to_dict(filepath)
     curated_records = curate_flat_records(records, fstem, assay_type)
-    write_records_to_tsv(curated_records, output_filepath)
+    validated_records = IteratorReturnValue(validate_records(curated_records))
+    write_records_to_tsv(validated_records, output_filepath)
+
+    serum_abbr_map, test_date = validated_records.return_value
+    # TODO: Use serum_abbr_map and test_date for _reference_panel.csv records
+    print(serum_abbr_map)
+    print(test_date)
 
 
 if __name__=="__main__":
