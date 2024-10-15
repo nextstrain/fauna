@@ -368,6 +368,51 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         yield new_record
 
 
+def curate_reference_panel_records(
+        records: Iterator[dict],
+        serum_abbr_map: dict,
+        test_date: str,
+        fstem: str,
+        assay_type: str) -> Iterator[dict]:
+    """
+    Curate the measurement records expected from the _reference_panel.csv files.
+    """
+    # The new column names need to be one of the ELIFE_COLUMNS in order to be
+    # included in the temporary output file that's then passed to elife_upload.py
+    column_map = {
+        "reference antigen": "virus_strain",
+        "reference passage": "virus_passage",
+        # _reference_panel.csv does not include the full serum_strain
+        # serum_strain will need to be mapped from the serum_abbr
+        "antisera": "serum_abbr",
+        "antisera passage": "serum_passage",
+        "ferret": "serum_id",
+        "titre": "titer",
+    }
+
+    for record in records:
+        new_record = rename_record_fields(record, column_map)
+        new_record = add_hardcoded_fields(new_record, assay_type, fstem)
+        # test_date column is not included in the _reference_panel.csv, so use provided test_date.
+        new_record["date"] = test_date
+
+        # Map serum_abbr to serum_strain
+        serum_abbr = new_record["serum_abbr"]
+        serum_strain = serum_abbr_map.get(serum_abbr, None)
+        if serum_strain is None:
+            print(f"WARNING: No serum strain available for {serum_abbr!r}, skipping record", file=sys.stderr)
+            continue
+        else:
+            new_record["serum_strain"] = serum_strain
+
+        new_record = standardize_human_serum(new_record)
+
+        # TODO: Clean up `virus_strain` that includes "pool" suffix
+        # Should these be dropped completely because they are not "real" measurements?
+
+        yield new_record
+
+
 def rename_record_fields(record: dict, field_map: dict) -> dict:
     return {new_field: record[old_field] for old_field, new_field in field_map.items()}
 
@@ -402,8 +447,8 @@ def standardize_human_serum(record: dict) -> dict:
     return new_record
 
 
-def write_records_to_tsv(records: Iterator[dict], output_file: str):
-    with open(output_file, "w", newline="") as fh:
+def write_records_to_tsv(records: Iterator[dict], output_file: str, write_mode: str = "w"):
+    with open(output_file, write_mode, newline="") as fh:
         tsv_writer = csv.DictWriter(
             fh,
             ELIFE_COLUMNS,
@@ -411,7 +456,8 @@ def write_records_to_tsv(records: Iterator[dict], output_file: str):
             delimiter="\t",
             lineterminator="\n",
         )
-        tsv_writer.writeheader()
+        if write_mode == "w":
+            tsv_writer.writeheader()
         for record in records:
             tsv_writer.writerow(record)
 
@@ -477,10 +523,21 @@ def read_flat_vidrl(path, fstem, assay_type):
     validated_records = IteratorReturnValue(validate_records(curated_records))
     write_records_to_tsv(validated_records, output_filepath)
 
+    reference_fstem = fstem.replace("_flat_file", "_reference_panel")
+    reference_filepath = path + reference_fstem + ".csv"
     serum_abbr_map, test_date = validated_records.return_value
-    # TODO: Use serum_abbr_map and test_date for _reference_panel.csv records
-    print(serum_abbr_map)
-    print(test_date)
+    if os.path.isfile(reference_filepath):
+        reference_records = read_csv_to_dict(reference_filepath)
+        curated_reference_records = curate_reference_panel_records(
+            reference_records,
+            serum_abbr_map,
+            test_date,
+            reference_fstem,
+            assay_type)
+        # Append to the same temp file as the flat_file.csv records
+        write_records_to_tsv(curated_reference_records, output_filepath, "a")
+    else:
+        print(f"WARNING: Coupled reference panel file {reference_filepath!r} does not exist.", file=sys.stderr)
 
 
 if __name__=="__main__":
