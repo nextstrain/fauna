@@ -362,29 +362,44 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
     }
 
     for record in records:
-        new_record = {new_field: record[old_field] for old_field, new_field in column_map.items()}
-        new_record["assay_type"] = assay_type
-        new_record["virus_passage_category"] = ""
-        new_record["serum_passage_category"] = ""
-        new_record["source"] = "vidrl_{}.csv".format(fstem)
-
-        # Standardized human sera name and ids
-        if new_record["serum_id"] == "NA":
-            human_serum_id = new_record["serum_abbr"]
-            egg_or_cell = human_serum_id[-1].lower()
-
-            if egg_or_cell == "e":
-                new_record["serum_passage"] = "egg"
-            elif egg_or_cell == "c":
-                new_record["serum_passage"] = "cell"
-            else:
-                raise ValueError(f"Human serum id {human_serum_id!r} does not include expected egg or cell type")
-
-            # TODO: Verify the serum strain matches the year's vaccine strain
-            new_record["serum_strain"] = re.sub(r"pool$", "", new_record["serum_strain"])
-            _, new_record["serum_id"] = parse_human_serum_id(human_serum_id, HUMAN_SERA_YEAR_REGEX)
-
+        new_record = rename_record_fields(record, column_map)
+        new_record = add_hardcoded_fields(new_record, assay_type, fstem)
+        new_record = standardize_human_serum(new_record)
         yield new_record
+
+
+def rename_record_fields(record: dict, field_map: dict) -> dict:
+    return {new_field: record[old_field] for old_field, new_field in field_map.items()}
+
+
+def add_hardcoded_fields(record: dict, assay_type: str, fstem: str) -> dict:
+    new_record = record.copy()
+    new_record["assay_type"] = assay_type
+    new_record["virus_passage_category"] = ""
+    new_record["serum_passage_category"] = ""
+    new_record["source"] = "vidrl_{}.csv".format(fstem)
+    return new_record
+
+
+def standardize_human_serum(record: dict) -> dict:
+    if record["serum_id"] != "NA":
+        return record
+
+    new_record = record.copy()
+    human_serum_id = new_record["serum_abbr"]
+    egg_or_cell = human_serum_id[-1].lower()
+
+    if egg_or_cell == "e":
+        new_record["serum_passage"] = "egg"
+    elif egg_or_cell == "c":
+        new_record["serum_passage"] = "cell"
+    else:
+        raise ValueError(f"Human serum id {human_serum_id!r} does not include expected egg or cell type")
+
+    # TODO: Verify the serum strain matches the year's vaccine strain
+    new_record["serum_strain"] = re.sub(r"pool$", "", new_record["serum_strain"])
+    _, new_record["serum_id"] = parse_human_serum_id(human_serum_id, HUMAN_SERA_YEAR_REGEX)
+    return new_record
 
 
 def write_records_to_tsv(records: Iterator[dict], output_file: str):
