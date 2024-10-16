@@ -354,6 +354,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         "test virus": "virus_strain",
         "test virus passage": "virus_passage",
         "reference antigen": "serum_strain",
+        "reference passage": "human_serum_passage",
         "antisera passage": "serum_passage",
         "ferret": "serum_id",
         "titre": "titer",
@@ -396,14 +397,16 @@ def curate_reference_panel_records(
         # test_date column is not included in the _reference_panel.csv, so use provided test_date.
         new_record["date"] = test_date
 
-        # Map serum_abbr to serum_strain
+        # Map serum_abbr to serum_strain and human_serum_passage
         serum_abbr = new_record["serum_abbr"]
-        serum_strain = serum_abbr_map.get(serum_abbr, None)
+        serum_map = serum_abbr_map.get(serum_abbr, {})
+        serum_strain = serum_map.get("serum_strain")
         if serum_strain is None:
             print(f"WARNING: No serum strain available for {serum_abbr!r}, skipping record", file=sys.stderr)
             continue
         else:
             new_record["serum_strain"] = serum_strain
+            new_record["human_serum_passage"] = serum_map.get("human_serum_passage")
 
         new_record = standardize_human_serum(new_record)
 
@@ -431,17 +434,12 @@ def standardize_human_serum(record: dict) -> dict:
         return record
 
     new_record = record.copy()
+    # We are purposely _not_ verifying serum_strain/serum_passage against the VACCINE_MAPPING.
+    # VIDRL uses reference antigens that are proxies for the human serum
+    # vaccine strains so these do not always align with the exact egg/cell vaccine strains.
+    #   -Jover, 04 November 2024
+    new_record["serum_passage"] = new_record["human_serum_passage"]
     human_serum_id = new_record["serum_abbr"]
-    egg_or_cell = human_serum_id[-1].lower()
-
-    if egg_or_cell == "e":
-        new_record["serum_passage"] = "egg"
-    elif egg_or_cell == "c":
-        new_record["serum_passage"] = "cell"
-    else:
-        raise ValueError(f"Human serum id {human_serum_id!r} does not include expected egg or cell type")
-
-    # TODO: Verify the serum strain matches the year's vaccine strain
     new_record["serum_strain"] = re.sub(r"pool$", "", new_record["serum_strain"])
     _, new_record["serum_id"] = parse_human_serum_id(human_serum_id, HUMAN_SERA_YEAR_REGEX)
     return new_record
@@ -476,7 +474,7 @@ class IteratorReturnValue:
 def validate_records(records: Iterator[dict]) -> Tuple[Iterator[dict], str]:
     """
     Loop through *records* to validate the values for
-    - `serum_abbr` maps to a single `serum_strain`
+    - `serum_abbr` maps to a single `serum_strain` and `human_serum_passage`
     - single `date` (test_date)
 
     Raises AssertionError if validation for a record fails or yields the
@@ -491,11 +489,20 @@ def validate_records(records: Iterator[dict]) -> Tuple[Iterator[dict], str]:
     for record in records:
         serum_abbr = record["serum_abbr"]
         serum_strain = record["serum_strain"]
+        human_serum_passage = record["human_serum_passage"]
         if serum_abbr in serum_abbr_map:
-            assert serum_strain == serum_abbr_map[serum_abbr], \
-                f"Serum abbreviation {serum_abbr} mapped to multiple serum strain names: {(serum_strain, serum_abbr_map[serum_abbr])}"
+            previous_serum_strain = serum_abbr_map[serum_abbr]["serum_strain"]
+            previous_serum_passage = serum_abbr_map[serum_abbr]["human_serum_passage"]
+            assert serum_strain == previous_serum_strain, \
+                f"Serum abbreviation {serum_abbr} mapped to multiple serum strain names: {(serum_strain, previous_serum_strain)}"
+
+            assert human_serum_passage == previous_serum_passage, \
+                f"Serum abbreviation {serum_abbr} mapped to multiple human serum passage: {(serum_passage, previous_serum_passage)}"
         else:
-            serum_abbr_map[serum_abbr] = serum_strain
+            serum_abbr_map[serum_abbr] = {
+                "serum_strain": serum_strain,
+                "human_serum_passage": human_serum_passage,
+            }
 
         record_date = record["date"]
         if test_date is None:
