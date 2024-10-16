@@ -354,6 +354,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
         "test virus": "virus_strain",
         "test virus passage": "virus_passage",
         "reference antigen": "serum_strain",
+        "reference passage": "backup_serum_passage", # Used for human serum passage
         "antisera passage": "serum_passage",
         "ferret": "serum_id",
         "titre": "titer",
@@ -364,7 +365,7 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
     for record in records:
         new_record = rename_record_fields(record, column_map)
         new_record = add_hardcoded_fields(new_record, assay_type, fstem)
-        new_record = standardize_human_serum(new_record)
+        new_record = standardize_human_serum(new_record, "backup_serum_passage")
         yield new_record
 
 
@@ -381,7 +382,7 @@ def curate_reference_panel_records(
     # included in the temporary output file that's then passed to elife_upload.py
     column_map = {
         "reference antigen": "virus_strain",
-        "reference passage": "virus_passage",
+        "reference passage": "virus_passage", # Also used for human serum passage
         # _reference_panel.csv does not include the full serum_strain
         # serum_strain will need to be mapped from the serum_abbr
         "antisera": "serum_abbr",
@@ -405,7 +406,7 @@ def curate_reference_panel_records(
         else:
             new_record["serum_strain"] = serum_strain
 
-        new_record = standardize_human_serum(new_record)
+        new_record = standardize_human_serum(new_record, "virus_passage")
 
         # TODO: Clean up `virus_strain` that includes "pool" suffix
         # Should these be dropped completely because they are not "real" measurements?
@@ -426,20 +427,14 @@ def add_hardcoded_fields(record: dict, assay_type: str, fstem: str) -> dict:
     return new_record
 
 
-def standardize_human_serum(record: dict) -> dict:
+def standardize_human_serum(record: dict, passage_field: str) -> dict:
     if record["serum_id"] != "NA":
         return record
 
     new_record = record.copy()
+    # TODO: Translate passage to egg/cell to support vaccine strain verification
+    new_record["serum_passage"] = new_record[passage_field]
     human_serum_id = new_record["serum_abbr"]
-    egg_or_cell = human_serum_id[-1].lower()
-
-    if egg_or_cell == "e":
-        new_record["serum_passage"] = "egg"
-    elif egg_or_cell == "c":
-        new_record["serum_passage"] = "cell"
-    else:
-        raise ValueError(f"Human serum id {human_serum_id!r} does not include expected egg or cell type")
 
     # TODO: Verify the serum strain matches the year's vaccine strain
     new_record["serum_strain"] = re.sub(r"pool$", "", new_record["serum_strain"])
