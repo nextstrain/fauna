@@ -305,6 +305,7 @@ PontaPora	Brazil	MatoGrossoDoSul	PontaPora
 Portovelhorondonia	Brazil	Rondonia	PortoVelho
 Portovelhopv	Brazil	Rondonia	PortoVelho
 Presidentevenceslau	Brazil	SaoPaulo	PresidenteVenceslau
+Reboucas	Brazil	Parana	Reboucas
 Recife	Brazil	Pernambuco	Recife
 Reboucas	Brazil	Parana	Reboucas
 Registro	Brazil	SaoPaulo	Registro
@@ -335,6 +336,7 @@ Saoluismaranhao	Brazil	Maranhao	SaoLuis
 SaoMiguelArcanjo	Brazil	SaoPaulo	SaoMiguelArcanjo
 SantaHelena	Brazil	Parana	SantaHelena
 SaoTomasDeAquino	Brazil	MinasGerais	SaoTomasDeAquino
+SantaHelena	Brazil	Parana	SantaHelena
 Santos	Brazil	SaoPaulo	Santos
 Santossaopaulo	Brazil	SaoPaulo	Santos
 Sanharo	Brazil	Pernambuco	Sanharo
@@ -2488,6 +2490,7 @@ Zarumilla	Peru	Tumbes	Zarumilla
 
 # Philippines
 Philippines	Philippines	Philippines	Philippines
+Biliran	Philippines	Philippines	Biliran
 
 # Poland
 Poland	Poland	Poland	Poland
@@ -2979,6 +2982,7 @@ BasqueCountry	Spain	BasqueCountry	BasqueCountry
 Burgos	Spain	CastillaLaMancha	Burgos
 Caceres	Spain	Extremadura	Caceres
 Canarias	Spain	CanaryIslands	Canarias
+CanaryIslands	Spain	CanaryIslands	CanaryIslands
 Cantabria	Spain	Cantabria	Cantabria
 Castellon	Spain	Castellon	Castellon
 CastillaLaMancha	Spain	CastillaLaMancha	CastillaLaMancha
