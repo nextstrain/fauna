@@ -1242,6 +1242,7 @@ Korlebu	Ghana	Accra	Accra
 UpperEastRegion	Ghana	UpperEastRegion	UpperEastRegion
 UpperWestRegion	Ghana	UpperWestRegion	UpperWestRegion
 VoltaRegion	Ghana	VoltaRegion	VoltaRegion
+Oti	Ghana	VoltaRegion	Oti
 
 # Greece
 Greece	Greece	Greece	Greece
@@ -2213,6 +2214,7 @@ Tiznit	Morocco	SoussMassa	Tiznit
 # Mozambique
 Mozambique	Mozambique	Mozambique	Mozambique
 Maputo	Mozambique	Maputo	Maputo
+MaputoCity	Mozambique	Maputo	MaputoCity
 
 # Myanmar
 Myanmar	Myanmar	Myanmar	Myanmar
@@ -3553,6 +3555,7 @@ Pencae	UnitedKingdom	Wales	Pencae
 Pencoed	UnitedKingdom	Wales	Pencoed
 Pendoylan	UnitedKingdom	Wales	Pendoylan
 Penrhiwceiber	UnitedKingdom	Wales	Penrhiwceiber
+Penrhyncoch	UnitedKingdom	Wales	Penrhyncoch
 Penrhyndeudraeth	UnitedKingdom	Wales	Penrhyndeudraeth
 Pentre	UnitedKingdom	Wales	Pentre
 Pentrebach	UnitedKingdom	Wales	Pentrebach
@@ -3646,6 +3649,7 @@ Wirral	UnitedKingdom	England	Wirral
 Wrexham	UnitedKingdom	Wales	Wrexham
 Wythenshawe	UnitedKingdom	England	Wythenshawe
 Ynysddu	UnitedKingdom	Wales	Ynysddu
+Ynysfach	UnitedKingdom	Wales	Ynysfach
 York	UnitedKingdom	England	York
 Ystradgynlais	UnitedKingdom	Wales	Ystradgynlais
 YstradMynach	UnitedKingdom	Wales	YstradMynach

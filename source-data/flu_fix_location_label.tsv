@@ -427,6 +427,7 @@ Greater Accra Region	GreaterAccraRegion
 Upper East Region	UpperEastRegion
 Upper West Region	UpperWestRegion
 Northern Region	NorthernRegion
+Northern	NorthernRegion
 Ashanti Region	Ashanti
 
 # Greece
@@ -765,6 +766,7 @@ RABT	Rabat
 
 # Mozambique
 Maputo_Province	Maputo
+Maputo_City	MaputoCity
 
 # Myanmar
 Myanmer	Myanmar
