@@ -389,6 +389,8 @@ def curate_reference_panel_records(
         "antisera passage": "serum_passage",
         "ferret": "serum_id",
         "titre": "titer",
+        # Used for cleaning up `virus_strain` that includes "pool" suffix
+        "homologous": "homologous"
     }
 
     for record in records:
@@ -410,8 +412,16 @@ def curate_reference_panel_records(
 
         new_record = standardize_human_serum(new_record)
 
-        # TODO: Clean up `virus_strain` that includes "pool" suffix
-        # Should these be dropped completely because they are not "real" measurements?
+        # Clean up `virus_strain` that includes "pool" suffix
+        # Strip "pool" suffix and keep as proxy of homologous titer
+        # for the human serum pool reference. Skip measurements that are not
+        # marked as homologous since they are just duplicates of the proxy measurements
+        #   -Jover, 04 November 2024
+        if re.match(r".*pool$", new_record["virus_strain"]):
+            if new_record["homologous"] == "TRUE":
+                new_record["virus_strain"] = re.sub(r"pool$", "", new_record["virus_strain"])
+            else:
+                continue
 
         yield new_record
 
