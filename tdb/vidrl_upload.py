@@ -1,4 +1,4 @@
-import os, re, time, datetime, csv, sys, json, errno
+import os, re, time, datetime, csv, sys, json, errno, filecmp
 import pandas as pd
 from upload import upload
 from rethinkdb import r
@@ -526,6 +526,52 @@ def validate_records(records: Iterator[dict]) -> Tuple[Iterator[dict], str]:
     return (serum_abbr_map, test_date)
 
 
+def get_ref_panel_filepath(fstem, path) -> Optional[str]:
+    """
+    Returns valid _reference_panel filepath if it should be ingested.
+    1. Checks the expected _reference_panel.csv file exists
+    2. Checks if the _reference_panel file is a duplicate of another file
+
+    Note: This does depend on the user having all of the flat files locally
+    and expects the user to always ingest the first _reference_panel file.
+    """
+    reference_filepath = path + fstem + ".csv"
+    if not os.path.isfile(reference_filepath):
+        print(f"WARNING: Coupled reference panel file {reference_filepath!r} does not exist.", file=sys.stderr)
+        return None
+
+    # Check if the file is a potential duplicate where one Excel file got split into multiple flat files.
+    # Look for `b` or `_2` files that are potentially duplicates of `a` or `_1` files
+    # We are ignoring the capital A/B patterns because these indicate separate assays.
+    char_pattern = r"b"
+    num_pattern  = r"_2"
+    dup_ref_pattern = rf"(\d*(?:_?[A-Z])?)({char_pattern}|{num_pattern})(\.xlsx.*)"
+    dup_match = re.match(dup_ref_pattern, fstem)
+    if dup_match:
+        # Construct the filepath for the first potential file that was ingested, e.g.
+        # 0612b.xlsx_H3_reference_panel.csv    ->  0612a.xlsx_H3_reference_panel.csv
+        # 0710_B_2.xlsx_H3_reference_panel.csv ->  0710_B_1.xlsx_H3_reference_panel.csv
+        # 0717B_2.xlsx_H3_reference_panel.csv  ->  0717B_1.xlsx_H3_reference_panel.csv
+        if re.match(char_pattern, dup_match.group(2)):
+            first_pattern = "a"
+        elif re.match(num_pattern, dup_match.group(2)):
+            first_pattern = "_1"
+        else:
+            # This should only occur if the `dup_ref_pattern` is out of sync with the `char_pattern` and `num_pattern`
+            raise Error(f"Unable to match reference {dup_match.group(2)!r} to {ab_pattern} or {num_pattern}")
+
+        first_fstem = f"{dup_match.group(1)}{first_pattern}{dup_match.group(3)}"
+        first_filepath = path + first_fstem + ".csv"
+
+        # If the first potential file exists and has the same content as the
+        # current file, then ignore the current file.
+        if os.path.isfile(first_filepath) and filecmp.cmp(first_filepath, reference_filepath, shallow=False):
+            print(f"WARNING: Ignoring reference panel file {fstem!r} because it is duplicate of {first_fstem!r}", file=sys.stderr)
+            return None
+
+    return reference_filepath
+
+
 def read_flat_vidrl(path, fstem, assay_type):
     """
     Read the flat CSV file with *fstem* in the provided *path* and convert
@@ -541,9 +587,9 @@ def read_flat_vidrl(path, fstem, assay_type):
     write_records_to_tsv(validated_records, output_filepath)
 
     reference_fstem = fstem.replace("_flat_file", "_reference_panel")
-    reference_filepath = path + reference_fstem + ".csv"
+    reference_filepath = get_ref_panel_filepath(reference_fstem, path)
     serum_abbr_map, test_date = validated_records.return_value
-    if os.path.isfile(reference_filepath):
+    if reference_filepath:
         reference_records = read_csv_to_dict(reference_filepath)
         curated_reference_records = curate_reference_panel_records(
             reference_records,
@@ -553,8 +599,6 @@ def read_flat_vidrl(path, fstem, assay_type):
             assay_type)
         # Append to the same temp file as the flat_file.csv records
         write_records_to_tsv(curated_reference_records, output_filepath, "a")
-    else:
-        print(f"WARNING: Coupled reference panel file {reference_filepath!r} does not exist.", file=sys.stderr)
 
 
 if __name__=="__main__":
