@@ -604,8 +604,10 @@ FriuliVeneziaGiuliaPN	Pordenone
 FriuliVeneziaGiuliaTS	Trieste
 FriuliVeneziaGiuliaUD	Udine
 FVG-Gorizia	Gorizia
+FVG-PN	Pordenone
 FVG-Pordenone	Pordenone
 FVG-Trieste	Trieste
+FVG-UD	Udine
 FVG-Udine	Udine
 Genova	Genoa
 MIlano	Milan
@@ -1134,6 +1136,7 @@ Ohannesburg	Johannesburg
 Johanneburg	Johannesburg
 South_Africa	SouthAfrica
 South-Africa-PERCH	SouthAfrica
+SouthAfricB	SouthAfrica
 
 # Spain
 Baleares100	Baleares/100
