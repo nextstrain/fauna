@@ -21,8 +21,8 @@ ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
 
 # Vaccine mapping used for mapping human pooled sera to a specific reference virus
-# This is based on the vaccine composition for the Southern Hemisphere
-# because all human pooled sera should be from Australia
+# This is based on the proxy reference viruses used for human pooled sera
+# in the flat files provided by VIDRL.
 VACCINE_MAPPING = {
     "2023": {
         "egg": {
@@ -46,8 +46,8 @@ VACCINE_MAPPING = {
             "yam": "B/Phuket/3073/2013"
         },
         "cell": {
-            "h1n1pdm": "A/Wisconsin/67/2022",
-            "h3n2": "A/Massachusetts/18/2022",
+            "h1n1pdm": "A/Victoria/4897/2022",
+            "h3n2": "A/Thailand/8/2022",
             "vic": "B/Austria/1359417/2021",
             "yam": "B/Phuket/3073/2013"
         }
