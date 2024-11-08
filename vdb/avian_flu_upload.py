@@ -430,7 +430,7 @@ class flu_upload(upload):
             "coturnix", "coturnixsp.", "coturniccoturnix", "coturnixjaponica","chlidoniashybridus",
             "crane", "crow", "cygnus","cyrtonyxmontezumai","curlew", "cygnusatratus", "chinese__francolin",
             "chroicocephaluscirrocephalus","corvusfrugilegus","chlidoniashybridus","circusaeruginosus,"
-            "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor",
+            "corvussplendens", "cygnuscolumbianus", "cygnuscygnus","cygnus_cygnus", "cygnusolor","dabblingduck",
             "dendrocygnaviduata","dendrocygnaautumnalis","domesticgoose","duck", "dove",
             "eagle", "egret","egyptiangoose","eurasiancurlew","eurasian__eagel__owl","emperorgoose",
             "eurasian__wigeon", "falco", "falcon",
