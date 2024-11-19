@@ -351,7 +351,9 @@ def curate_flat_records(records: Iterator[dict], fstem: str, assay_type: str) ->
     # The new column names need to be one of the ELIFE_COLUMNS in order to be
     # included in the temporary output file that's then passed to elife_upload.py
     column_map = {
-        "test virus": "virus_strain",
+        # Using original strain name _without_ VIDRL standardization so that
+        # the strain name can be standardized to match our sequence strain names
+        "original designation": "virus_strain",
         "test virus passage": "virus_passage",
         "reference antigen": "serum_strain",
         "reference passage": "human_serum_passage",
