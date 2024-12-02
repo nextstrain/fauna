@@ -41,6 +41,7 @@ class flu_upload(upload):
                     ('a / h7n1', ''): ('a', 'h7n1', None),
                     ('a / h7n2', ''): ('a', 'h7n2', None),
                     ('a / h7n3', ''): ('a', 'h7n3', None),
+                    ('a / h7n6', ''): ('a', 'h7n6', None),
                     ('a / h7n7', ''): ('a', 'h7n7', None),
                     ('a / h7n9', ''): ('a', 'h7n9', None),
                     ('a / h9n2', ''): ('a', 'h9n2', None),
@@ -52,6 +53,7 @@ class flu_upload(upload):
                     ('b', 'victoria'): ('b', None, 'seasonal_vic'),
                     ('b', 'yamagata'): ('b', None, 'seasonal_yam'),
                     ('h5n1',''): ('a', 'h5n1', None),
+                    ('h7n6',''): ('a', 'h7n6', None),
                     ('h7n9',''): ('a', 'h7n9', None),
                     ('h9n2',''): ('a', 'h9n2', None)}
         self.outgroups = {lineage: SeqIO.read('source-data/'+lineage+'_outgroup.gb', 'genbank') for lineage in ['H3N2', 'H1N1pdm', 'Vic', 'Yam']}
@@ -215,7 +217,7 @@ class flu_upload(upload):
                     doc['location'] = self.fix_location[doc['strain']]
             self.format_place(doc, determine_location=True)
             self.format_region(doc)
-            self.rethink_io.check_optional_attributes(doc, [])
+            # self.rethink_io.check_optional_attributes(doc, [])
 
     def format_sequences(self, documents, **kwargs):
         '''
@@ -232,7 +234,7 @@ class flu_upload(upload):
             self.format_passage(doc, 'passage', 'passage_category')
             self.format_passage(doc, 'virus_strain_passage', 'virus_strain_passage_category') #BP
             self.format_passage(doc, 'serum_antigen_passage', 'serum_antigen_passage_category') #BP
-            self.rethink_io.check_optional_attributes(doc, [])
+            # self.rethink_io.check_optional_attributes(doc, [])
             self.fix_casing(doc, args.data_source)
         print("Names that need to be fixed")
         for name in sorted(self.fix):
@@ -675,7 +677,7 @@ if __name__=="__main__":
                                  ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
                                  ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
                                  ('submitting_lab', 'Submitting_Lab'), ('authors','Authors'), ('domestic_status','Domestic_Status'),
-                                 ('PMID','PMID'), ('animal_health_status','Animal_Health_Status'), ('gisaid_clade','Clade')]
+                                 ('PMID','PMID'), ('animal_health_status','Animal_Health_Status'), ('gisaid_clade','Clade'), ('pathogenicity', 'Pathogenicity')]
         setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     elif (args.data_source == 'ird'):
         virus_fasta_fields = {0:'strain', 4: 'vtype', 5: 'Subtype', 6:'collection_date', 8:'country', 10: 'host', 11:'h5_clade'}
@@ -689,4 +691,39 @@ if __name__=="__main__":
     if not os.path.isdir(args.path):
         os.makedirs(args.path)
     connVDB = flu_upload(**args.__dict__)
-    connVDB.upload(**args.__dict__)
+    (viruses, sequences) = connVDB.upload(**args.__dict__)
+
+    # sequences are an array of {'accession': 'EPI1895707', 'strain': 'A/ruddyturnstone/DelawareBay/281/2020', 'isolate_id': 'EP, ...
+    # viruses are an array of {'strain': 'A/quail/Aichi/6/2009', ... 'sequences': ['EPI266264', 'EPI266265', 'EPI266266', 'EPI266267', 'EPI266268', 'EPI266269', 'EPI266270', 'EPI266271'], etc
+    sequences_by_accession = {s['accession']: s for s in sequences} # may override if dups
+
+    handles = {locus: open(f"data/{locus}.fasta", 'w') for locus in {s['locus'] for s in sequences}}
+    print(f"Opened file handles for {', '.join(handles.keys())} loci")
+
+    # Looking at avian-flu / ingest we want the following '|' separated FASTA header fields:
+    header = ['strain', 'virus', 'accession', 'collection_date', 'region', 'country', 'division', 'location', 'host', 'domestic_status', 'subtype', 'originating_lab', 'submitting_lab', 'authors', 'PMID', 'gisaid_clade', 'h5_clade', 'pathogenicity']
+
+    from collections import defaultdict
+    seen = defaultdict(set)
+
+    for virus in viruses:
+        strain = virus['strain']
+        for accession in virus['sequences']:
+            sequence = sequences_by_accession.get(accession, None)
+            if sequence is None:
+                print(f"WARNING: missing accession {accession} for virus {virus['strain']}")
+                continue
+            locus = sequence['locus']
+            if locus in seen[strain]:
+                print(f"WARNING: skipping _virus_ {strain} _segment_ {locus} as already seen!")
+                continue
+            else:
+                seen[strain].add(locus)
+            fields = [str(virus[field]) if (field in virus and virus[field] is not None) else '?' for field in header]
+            fields[header.index('accession')] = accession
+            assert virus['subtype']=='h7n6'
+            handle = handles[sequence['locus']]
+            handle.write(">"+'|'.join(fields)+'\n')
+            handle.write(sequence['sequence'] + "\n")
+
+    print("\n\nmkdir -p ../avian-flu/ingest/fauna/data\ncp data/*.fasta ../avian-flu/ingest/fauna/data/")
