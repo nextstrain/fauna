@@ -62,6 +62,7 @@ class flu_upload(upload):
                                   'Yam': ('b', None, 'seasonal_yam')}
         self.strain_fix_fname = "source-data/avian_flu_strain_name_fix.tsv"
         self.location_fix_fname = "source-data/flu_location_fix.tsv"
+        self.date_fix_fname = "source-data/avian_flu_date_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
         self.fix = set()
 
@@ -189,6 +190,8 @@ class flu_upload(upload):
             self.fix_whole_name = self.define_strain_fixes(self.strain_fix_fname)
         if self.location_fix_fname is not None:
             self.fix_location = self.define_location_fixes(self.location_fix_fname)
+        if self.date_fix_fname is not None:
+            self.fix_date = self.define_date_fixes(self.date_fix_fname)
         self.define_countries("source-data/geo_synonyms.tsv")
         self.define_regions("source-data/geo_regions.tsv")
         self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
@@ -208,6 +211,9 @@ class flu_upload(upload):
             self.determine_group_fields(doc, self.patterns)
             if args.data_source == 'ird':
                 self.format_ird_date(doc)
+            if self.fix_date is not None:
+                if doc['strain'] in self.fix_date:
+                    doc['collection_date'] = self.fix_date[doc['strain']]
             self.format_date(doc)
             self.format_country(doc, args.data_source) # first format from strain name
             if self.fix_location is not None: # override with fixes
