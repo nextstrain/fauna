@@ -1353,10 +1353,12 @@ Ipala	Guatemala	Chiquimula	Ipala
 Jalapa	Guatemala	Guatemala	Jalapa
 Jutiapa	Guatemala	Guatemala	Jutiapa
 Lablanca	Guatemala	Guatemala	LaBlanca
+Malacatan	Guatemala	Guatemala	Malacatan
 Mixco	Guatemala	Guatemala	Mixco
 Monjas	Guatemala	Guatemala	Monjas
 Morazan	Guatemala	Guatemala	Morazan
 Pajapita	Guatemala	SanMarcos	Pajapita
+Panzos	Guatemala	Guatemala	Panzos
 Patzicia	Guatemala	Guatemala	Patzicia
 Patzun	Guatemala	Guatemala	Patzun
 Parramos	Guatemala	Guatemala	Parramos
@@ -1371,6 +1373,7 @@ Sanantoniosacatepequez	Guatemala	Guatemala	Sanantoniosacatepequez
 Sanarate	Guatemala	Guatemala	Sanarate
 Sanagustinacasaguastlan	Guatemala	Guatemala	Sanagustinacasaguastlan
 Sancristobalacasaguastlan	Guatemala	Guatemala	Sancristobalacasaguastlan
+SanJoseLaArada	Guatemala	Guatemala	SanJoseLaArada
 SanLuisJilotepeque	Guatemala	Guatemala	SanLuisJilotepeque
 Sanmarcos	Guatemala	Guatemala	SanMarcos
 Sanmiguelpetapa	Guatemala	Guatemala	SanMiguelPetapa
@@ -3028,7 +3031,9 @@ Zaragoza	Spain	Aragon	Zaragoza
 
 # SriLanka
 SriLanka	SriLanka	SriLanka	SriLanka
+Batticaloa	SriLanka	EasternProvince	Batticaloa
 Colombo	SriLanka	WesternProvince	SriLanka
+Kandy	SriLanka	CentralProvince	Kandy
 Karapitiya	SriLanka	SouthernProvince	Karapitiya
 Matara	SriLanka	SouthernProvince	Matara
 Ratnapura	SriLanka	Sabaragamuwa	Ratnapura
@@ -3438,6 +3443,7 @@ Exeter	UnitedKingdom	England	Exeter
 FalklandIslands	UnitedKingdom	BritishOverseasTerritory	FalklandIslands
 Feltham	UnitedKingdom	England	Feltham
 Ffairfach	UnitedKingdom	Wales	Ffairfach
+Fishguard	UnitedKingdom	Wales	Fishguard
 Flint	UnitedKingdom	Wales	Flint
 Ferndale	UnitedKingdom	Wales	Ferndale
 Ferryside	UnitedKingdom	Wales	Ferryside
