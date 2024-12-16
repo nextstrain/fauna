@@ -230,7 +230,7 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
     if serum_abbrev_pattern is None:
         serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     if ignore_serum_pattern is None:
-        ignore_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera|vaxpool).*"
+        ignore_serum_pattern = r"(^SH\d+|SHVAX|SHvax|sera|vaxpool|Pool).*"
 
     # Find the row containing serum ID searching from the top of the titer block upwards
     for row_idx in range(titer_coords['row_start'] - 1, -1, -1):  # Iterate from row_start to the top
