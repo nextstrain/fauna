@@ -118,6 +118,7 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
             print("}")
 
         serum_mapping = serum_block["serum_mapping"] # This is not used since serum_strain is being parsed in the loop below
+        print("NOTE: Serum mapping is not used since serum_strain is being parsed in the loop")
 
         mat = worksheet
 
