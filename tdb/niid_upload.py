@@ -107,18 +107,7 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
 
         print("Serum (antisera) block: above the titer block")
         print(f"  serum ID row index: {serum_block['serum_id_row_idx']}")
-        print(f"  serum passage row index: {serum_block['serum_passage_row_idx']}")
-        print(f"  serum abbreviated name row index: {serum_block['serum_abbrev_row_idx']}")
-
-        # Match abbreviated names across the top to the full names along the left side and auto convert to full names
-        if serum_block["serum_abbrev_row_idx"] is not None:
-            print("serum_mapping = {")
-            for abbrev, full in serum_block["serum_mapping"].items():
-                print(f"    '{abbrev}': '{full}',")
-            print("}")
-
-        serum_mapping = serum_block["serum_mapping"] # This is not used since serum_strain is being parsed in the loop below
-        print("NOTE: Serum mapping is not used since serum_strain is being parsed in the loop")
+        print("Serum strain and serum passage will be parsed from serum ID row")
 
         mat = worksheet
 
