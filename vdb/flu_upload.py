@@ -296,6 +296,10 @@ class flu_upload(upload):
         # Add year info to these Hongkong sequences
         if re.match(r'A/HongKong/H090-[0-9]{3}-V[0-9]$', name):  # A/HongKong/H090-750-V1 All confirmed from 2009
             name = name + "/2009"
+        # Reformat names like A/NorthAmerica/Canada/NewBrunswick/NBPHLFLU03K-flu-MM00014R/2023 to A/NewBrunswick/NBPHLFLU03K-flu-MM00014R/2023
+        if re.match(r'([A|B]/)NorthAmerica/Canada/(NewBrunswick/[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)NorthAmerica/Canada/(NewBrunswick/[^/]+/[0-9]{4})', name)
+            name = match.group(1) + match.group(2)
         # Add year info to these Sendai sequences
         if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
             name = name + "/2010"
