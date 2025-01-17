@@ -11,6 +11,7 @@ if __name__ == "__main__":
     parser.add_argument("-db", "--database", help="database to delete from")
     parser.add_argument("-v", "--virus", default="flu", help="virus table to interact with")
     parser.add_argument("--filter", nargs="*", default=[], help="Filters for records to delete, i.e. inclusion_date: 2021-02-12")
+    parser.add_argument("--match", nargs="*", default=[], help="Match for records to delete with regex pattern, e.g. accession:^EPIEPI")
     parser.add_argument('--interval', nargs="*", default=[], help="Select date interval of values for fields, e.g. assay_date:2019-09-03,2023-10-25")
     parser.add_argument("--preview", action="store_true", help="Preview records to be deleted without deleting from db.")
 
@@ -28,6 +29,14 @@ if __name__ == "__main__":
     print(f"Delete filters: {delete_filters}")
 
     rethinkdb_command = r.table(args.virus).filter(delete_filters)
+
+    delete_matches = {}
+    for delete_match in args.match:
+        field, pattern = delete_match.split(":")
+        rethinkdb_command = rethinkdb_command.filter(lambda doc: doc[field].match(pattern))
+        delete_matches[field] = pattern
+
+    print(f"Delete matches: {delete_matches}")
 
     delete_intervals = {}
     for interval in args.interval:
