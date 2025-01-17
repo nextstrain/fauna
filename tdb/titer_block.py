@@ -298,8 +298,8 @@ def find_serum_rows(worksheet, titer_coords, virus_names=None, serum_id_pattern=
             if cell_value not in serum_mapping:
                 serum_mapping[cell_value] = virus_names[virus_idx]
                 # Increment virus_idx until it does not equal last_full_name
-                current_full_name = virus_names[virus_idx].lower()
-                while virus_names[virus_idx].lower() == current_full_name and virus_idx < len(virus_names) - 1:
+                current_full_name = virus_names[virus_idx].lower().strip()
+                while virus_names[virus_idx].lower().strip() == current_full_name and virus_idx < len(virus_names) - 1:
                     virus_idx += 1
 
     return {
