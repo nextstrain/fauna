@@ -300,6 +300,14 @@ class flu_upload(upload):
         if re.match(r'([A|B]/)NorthAmerica/Canada/(NewBrunswick/[^/]+/[0-9]{4})', name):
             match = re.match(r'([A|B]/)NorthAmerica/Canada/(NewBrunswick/[^/]+/[0-9]{4})', name)
             name = match.group(1) + match.group(2)
+        # Reformat names like A/ABUDHABI/UAE/0015851/2023 to A/ABUDHABI/0015851/2023
+        if re.match(r'([A|B]/[^/]+/)UAE/([^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/[^/]+/)UAE/([^/]+/[0-9]{4})', name)
+            name = match.group(1) + match.group(2)
+        # Reformat names like A/St.Peterburg/CRIE/142/2024 to A/St.Peterburg/142/2024
+        if re.match(r'([A|B]/[^/]+/)CRIE/([^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/[^/]+/)CRIE/([^/]+/[0-9]{4})', name)
+            name = match.group(1) + match.group(2)
         # Add year info to these Sendai sequences
         if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
             name = name + "/2010"

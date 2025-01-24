@@ -943,6 +943,12 @@ VilaReal_PT	VilaReal
 Puerto_Rico	PuertoRico
 
 # Romania
+Romania_AR	Romania
+Romania_BB	Romania
+Romania_BH	Romania
+Romania_DJ	Romania
+Romania_IS	Romania
+Romania_OT	Romania
 Bucuresti	Bucharest
 Targu-Mures	TarguMures
 
@@ -1059,6 +1065,8 @@ Stpetersburg	StPetersburg
 St-Petersburg	StPetersburg
 StPetersburgoblast	StPetersburg
 SPetersburg	StPetersburg
+StPeterburg	StPetersburg
+St.Peterburg	StPetersburg
 Swirtzerland	Switzerland
 Sakhalin_Oblast	Sakhalin
 Samara_Oblast	Samara
