@@ -308,6 +308,11 @@ class flu_upload(upload):
         if re.match(r'([A|B]/[^/]+/)CRIE/([^/]+/[0-9]{4})', name):
             match = re.match(r'([A|B]/[^/]+/)CRIE/([^/]+/[0-9]{4})', name)
             name = match.group(1) + match.group(2)
+        # Reformat names like A/Uganda/UVRI_NISS-UV-0736_2024 to A/Uganda/UVRI_NISS-UV-0736/2024
+        # and A/Uganda/UVRI_FTL2657_2024 to A/Uganda/UVRI_FTL2657/2024
+        if re.match(r'([A|B]/Uganda/UVRI_[^/^_]+)_(2024)', name):
+            match = re.match(r'([A|B]/Uganda/UVRI_[^/^_]+)_(2024)', name)
+            name = match.group(1) + '/' + match.group(2)
         # Add year info to these Sendai sequences
         if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
             name = name + "/2010"

@@ -73,6 +73,7 @@ Ushuaia	Argentina	TierraDelFuego	Ushuaia
 
 # Armenia
 Armenia	Armenia	Armenia	Armenia
+Yerevan	Armenia	Yerevan	Yerevan
 
 # Aruba
 Aruba	Aruba	Aruba	Aruba
@@ -2716,6 +2717,7 @@ Omsk	Russia	Omsk	Omsk
 Onguday	Russia	Altai	Onguday
 Orel	Russia	Oryol	Orel
 Orenburg	Russia	Orenburg	Orenburg
+Orshanka	Russia	MariEl	Orshanka
 Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
 Ozersk	Russia	Chelyabinsk	Ozersk
@@ -2747,6 +2749,7 @@ Sernur	Russia	MariEl	Sernur
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
 Shimsk	Russia	Novgorod	Shimsk
 Shuberskoye	Russia	Voronezh	Shuberskoye
+Shumerlya	Russia	Shumerlya	Shumerlya
 Siberia	Russia	Siberia	Siberia
 Slantsy	Russia	Leningrad	Slantsy
 StarayaRussa	Russia	Novgorod	StarayaRussa
@@ -2885,8 +2888,10 @@ Singapore	Singapore	Singapore	Singapore
 Slovakia	Slovakia	Slovakia	Slovakia
 BanskaBystrica	Slovakia	Banskobystricky	BanskaBystrica
 Banske	Slovakia	Presov	Banske
+BielyKostol	Slovakia	Trnava	BielyKostol
 Bojnice	Slovakia	Trencin	Bojnice
 Bratislava	Slovakia	Bratislava	Bratislava
+DolnaKrupa	Slovakia	Trnava	DolnaKrupa
 DunajskaStreda	Slovakia	Trnava	DunajskaStreda
 Galanta	Slovakia	Trnava	Galanta
 Hencovce	Slovakia	Presov	Hencovce
