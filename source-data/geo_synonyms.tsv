@@ -1889,6 +1889,7 @@ Nur-Sultan	Kazakhstan	Nur-Sultan	Nur-Sultan
 Oskemen	Kazakhstan	EastKazakhstan	Oskemen
 Petropavlovsk	Kazakhstan	NorthKazakhstan	Petropavlovsk
 Semey	Kazakhstan	EastKazakhstan	Semey
+Shymkent	Kazakhstan	Shymkent	Shymkent
 Taldykorgan	Kazakhstan	Almaty	Taldykorgan
 Taraz	Kazakhstan	Jambyl	Taraz
 Turkistan	Kazakhstan	Turkistan	Turkistan
@@ -3305,6 +3306,8 @@ Tuvalu	Tuvalu	Tuvalu	Tuvalu
 Uganda	Uganda	Uganda	Uganda
 
 # Ukraine
+Alchevsk	Ukraine	Luhansk	Alchevsk
+Antratsyt	Ukraine	Luhansk	Antratsyt
 Ukraine	Ukraine	Ukraine	Ukraine
 Cherkasy	Ukraine	Cherkasy	Cherkasy
 Chernihiv	Ukraine	Chernihiv	Chernihiv
@@ -3315,6 +3318,7 @@ Donetsk	Ukraine	Donetsk	Donetsk
 IvanoFrankivsk	Ukraine	IvanoFrankivsk	IvanoFrankivsk
 Kharkiv	Ukraine	Kharkiv	Kharkiv
 Kherson	Ukraine	Kherson	Kherson
+KrasnyLuch	Ukraine	Luhansk	KrasnyLuch
 Khmelnitsky	Ukraine	Khmelnitsky	Khmelnitsky
 Khmilnyk	Ukraine	Khmilnyk	Khmilnyk
 Kiev	Ukraine	Kiev	Kiev
@@ -3326,6 +3330,7 @@ Markejev	Ukraine	Markejev	Markejev
 Odessa	Ukraine	Odessa	Odessa
 Poltava	Ukraine	Poltava	Poltava
 Rivne	Ukraine	Rivne	Rivne
+Rovenky	Ukraine	Luhansk	Rovenky
 Ternopil	Ukraine	Ternopil	Ternopil
 Sumy	Ukraine	Sumy	Sumy
 Volyn	Ukraine	Volyn	Volyn
