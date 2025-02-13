@@ -313,6 +313,26 @@ class flu_upload(upload):
         if re.match(r'([A|B]/Uganda/UVRI_[^/^_]+)_(2024)', name):
             match = re.match(r'([A|B]/Uganda/UVRI_[^/^_]+)_(2024)', name)
             name = match.group(1) + '/' + match.group(2)
+        # Reformat names like A/La/EVTL-23435/2025 to A/Louisiana/EVTL-23435/2025
+        if re.match(r'([A|B]/)LA(/EVTL-[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)LA(/EVTL-[^/]+/[0-9]{4})', name)
+            name = match.group(1) + "Louisiana" + match.group(2)
+        # Reformat names like A/Unknown/DE-DHSS-871/2025 to A/UnitedStates/DE-DHSS-871/2025
+        if re.match(r'([A|B]/)Unknown(/DE-DHSS-[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)Unknown(/DE-DHSS-[^/]+/[0-9]{4})', name)
+            name = match.group(1) + "UnitedStates" + match.group(2)
+        # Reformat names like A/NJ/DE-DHSS-864/2025 to A/NewJersey/DE-DHSS-864/2025
+        if re.match(r'([A|B]/)NJ(/DE-DHSS-[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)NJ(/DE-DHSS-[^/]+/[0-9]{4})', name)
+            name = match.group(1) + "NewJersey" + match.group(2)
+        # Reformat names like A/FL/DE-DHSS-874/2025 to A/Florida/DE-DHSS-874/2025
+        if re.match(r'([A|B]/)FL(/DE-DHSS-[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)FL(/DE-DHSS-[^/]+/[0-9]{4})', name)
+            name = match.group(1) + "Florida" + match.group(2)
+        # Reformat names like A/AL/DE-DHSS-890/2025 to A/Alabama/DE-DHSS-890/2025
+        if re.match(r'([A|B]/)AL(/DE-DHSS-[^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/)AL(/DE-DHSS-[^/]+/[0-9]{4})', name)
+            name = match.group(1) + "Alabama" + match.group(2)
         # Add year info to these Sendai sequences
         if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
             name = name + "/2010"
