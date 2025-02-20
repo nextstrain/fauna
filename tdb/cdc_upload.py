@@ -8,8 +8,11 @@ from upload import parser
 sys.path.append('')  # need to import from base
 from base.rethink_io import rethink_io
 from vdb.flu_upload import flu_upload
+from download import download
 
 parser.add_argument("--rename", action='store_true')
+parser.add_argument("--curate-output", metavar="<NDJSON>",
+    help="Curate data without uploading to database and output to local NDJSON file.")
 
 class cdc_upload(upload):
     def __init__(self, **kwargs):
@@ -17,11 +20,10 @@ class cdc_upload(upload):
         self.removal_fields  = ['tested_by_fra', 'reported_by_fra', 'date', 'virus_collection_date', 'ref', 'virus_harvest_date', 'Boosted', 'RBC_species']
         self.cleanup_fields =  {'assay-type': 'assay_type', 'lot #': 'lot_number'}
 
-    def upload(self, ftype='flat', preview=False, **kwargs):
+    def upload(self, ftype='flat', preview=False, curate_output=None, **kwargs):
         '''
         format virus information, then upload to database
         '''
-        print("Uploading Viruses to TDB")
         measurements = self.parse(ftype, **kwargs)
         print('Formatting documents for upload')
         measurements = self.clean_field_names(measurements)
@@ -30,13 +32,25 @@ class cdc_upload(upload):
         measurements = self.create_index(measurements)
         #self.adjust_tdb_strain_names_from_vdb(measurements)
         print('Total number of indexes', len(self.indexes), 'Total number of measurements', len(measurements))
-        if not preview:
-            self.upload_documents(self.table, measurements, index='index', **kwargs)
-        else:
+
+        if curate_output:
+            # Since we are bypassing the upload/download cycle, run the curation
+            # steps that happen during download here
+            downloader = download(**kwargs)
+            downloader.rename_strains_with_passage(measurements)
+            downloader.correct_strain_type(measurements)
+            with open(curate_output, "w") as fh:
+                for measurement in measurements:
+                    print(json.dumps(measurement, allow_nan=False), file=fh)
+        elif preview:
             print("Titer Measurements:")
             print(json.dumps(measurements[0], indent=1))
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
+        else:
+            print("Uploading titer measurements to TDB")
+            self.upload_documents(self.table, measurements, index='index', **kwargs)
+
 
     def format_measurements(self, measurements, **kwargs):
         '''
