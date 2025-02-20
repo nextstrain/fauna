@@ -333,6 +333,10 @@ class flu_upload(upload):
         if re.match(r'([A|B]/)AL(/DE-DHSS-[^/]+/[0-9]{4})', name):
             match = re.match(r'([A|B]/)AL(/DE-DHSS-[^/]+/[0-9]{4})', name)
             name = match.group(1) + "Alabama" + match.group(2)
+        # Reformat names like A/Lyon/CHU/0241865678/2024 to A/Lyon/0241865678/2024
+        if re.match(r'([A|B]/Lyon/)CHU/([^/]+/[0-9]{4})', name):
+            match = re.match(r'([A|B]/Lyon/)CHU/([^/]+/[0-9]{4})', name)
+            name = match.group(1) + match.group(2)
         # Add year info to these Sendai sequences
         if re.match(r'A/Sendai/TU[0-9]{2}', name): # A/Sendai/TU08 All confirmed from 2010
             name = name + "/2010"
