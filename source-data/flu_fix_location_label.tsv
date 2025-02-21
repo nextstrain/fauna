@@ -1009,6 +1009,7 @@ Irkursk	Irkutsk
 Irkutsk_Oblast	Irkutsk
 JAO	JewishOblast
 Joshkar-Ola	YoshkarOla
+Kabardino-Balkar	KabardinoBalkar
 Khanti-Mansiysk	KhantiMansiysk
 Khanty-Mansiysk	KhantiMansiysk
 Khmao	KhantyMansia
@@ -1022,6 +1023,7 @@ Lipezk	Lipetsk
 Lipesk	Lipetsk
 Lipetsk_Oblast	Lipetsk
 Magadan_Oblast	Magadan
+Mari_El	MariEl
 Moscowoblast	Moscow
 Moscowv	Moscow
 Mahachkala	Makhachkala
@@ -1037,11 +1039,13 @@ Nizhni Novgorod	NizhnyNovgorod
 NizhniiNovgorod	NizhnyNovgorod
 NizhniyNovgorod	NizhnyNovgorod
 Nizhny-Novgorod	NizhnyNovgorod
+Nizhny_Novgorod	NizhnyNovgorod
 Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
 Nizhny_Novgorod_Oblast	NizhnyNovgorod
 Novosibirsk_Oblast	Novosibirsk
 NorthNovgorod	NizhnyNovgorod
+North_Ossetia-Alania	NorthOssetiaAlania
 NRCEM-Orenburg	Orenburg
 NyzhniNovgorod	NizhnyNovgorod
 NizhnyNovgorodOblast	NizhnyNovgorod
@@ -1054,6 +1058,7 @@ Penza_Oblast	Penza
 Pskov_Oblast	Pskov
 Perm_Krai	Perm
 Permskiykrai	Permskiy
+Primorsky_Krai	Permskiy
 Rostov-On-Don	RostovOnDon
 Rostov-on-Don	RostovOnDon
 Rostov_on_Don	RostovOnDon
@@ -1082,6 +1087,7 @@ Sakhalin_Oblast	Sakhalin
 Samara_Oblast	Samara
 Saratov_Oblast	Saratov
 Sverdlovsk_Oblast	SverdlovskOblast
+Sverdlovsk	SverdlovskOblast
 Stavropol_Krai	Stavropol
 Tambov_Oblast	Tambov
 RepublicofTatarstan	Tatarstan

@@ -2605,6 +2605,8 @@ Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
 Armavir	Russia	KrasnodarKrai	Armavir
 Astrakhan	Russia	Astrakhan	Astrakhan
 Balashikha	Russia	Moscow	Balashikha
+Bashkiria	Russia	Bashkortostan	Bashkiria
+Bashkortostan	Russia	Bashkortostan	Bashkortostan
 Bavly	Russia	Tatarstan	Bavly
 Barnaul	Russia	AltaiKrai	Barnaul
 Belgorod	Russia	Belgorod	Belgorod
@@ -2645,6 +2647,7 @@ Irkutsk	Russia	Irkutsk	Irkutsk
 Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
 JewishOblast	Russia	JewishOblast	JewishOblast
+KabardinoBalkar	Russia	NorthCaucasus	KabardinoBalkar
 Kalach	Russia	Voronezh	Kalach
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
@@ -2709,6 +2712,7 @@ Nadym	Russia	Yamalia	Nadym
 Nesterov	Russia	Kaliningrad	Nesterov
 NizhnyNovgorod	Russia	NizhnyNovgorod	NizhnyNovgorod
 NorthOssetiaAlania	Russia	NorthOssetiaAlania	NorthOssetiaAlania
+NorthCaucasus	Russia	NorthCaucasus	NorthCaucasus
 NovayaDerevnya	Russia	Novgorod	NovayaDerevnya
 Novgorod	Russia	Novgorod	Novgorod
 NovoeRakhino	Russia	Novgorod	NovoeRakhino
@@ -3520,6 +3524,7 @@ Leeds	UnitedKingdom	England	Leeds
 Leicester	UnitedKingdom	England	Leicester
 LINCS	UnitedKingdom	England	Lincolnshire
 Liverpool	UnitedKingdom	England	Liverpool
+LlanbedrYCennin	UnitedKingdom	Wales	LlanbedrYCennin
 Llanberis	UnitedKingdom	Wales	Llanberis
 Llanbrynmair	UnitedKingdom	Powys	Llanbrynmair
 Llandeilo	UnitedKingdom	Wales	Llandeilo
@@ -3597,6 +3602,7 @@ Penrhyncoch	UnitedKingdom	Wales	Penrhyncoch
 Penrhyndeudraeth	UnitedKingdom	Wales	Penrhyndeudraeth
 Pentre	UnitedKingdom	Wales	Pentre
 Pentrebach	UnitedKingdom	Wales	Pentrebach
+Penperlleni	UnitedKingdom	Wales	Penperlleni
 Penydarren	UnitedKingdom	Wales	Penydarren
 Penyffordd	UnitedKingdom	Wales	Penyffordd
 Peterborough	UnitedKingdom	England	Peterborough
@@ -3689,6 +3695,7 @@ Whitechapel	UnitedKingdom	England	London
 Whitland	UnitedKingdom	Wales	Whitland
 Wirral	UnitedKingdom	England	Wirral
 Wrexham	UnitedKingdom	Wales	Wrexham
+Wyesham	UnitedKingdom	Wales	Wyesham
 Wythenshawe	UnitedKingdom	England	Wythenshawe
 Ynysddu	UnitedKingdom	Wales	Ynysddu
 Ynysfach	UnitedKingdom	Wales	Ynysfach
