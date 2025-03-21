@@ -757,6 +757,7 @@ Pingxiang	China	Jiangxi	Pingxiang
 Pudong	China	Shanghai	Pudong
 Puer	China	Yunnang	Puer
 Putian	China	Fujian	Putian
+Qidong	China	Jiangsu	Qidong
 Qingdao	China	Shandong	Qingdao
 Qingfeng	China	Henan	Qingfeng
 Qinghai	China	Qinghai	Qinghai
@@ -2178,6 +2179,7 @@ Bulgan	Mongolia	Bulgan	Bulgan
 Choibalsan	Mongolia	Dornod	Choibalsan
 Darkhan	Mongolia	DarkhanUul	Darkhan
 DarkhanUul	Mongolia	DarkhanUul	DarkhanUul
+Dornod	Mongolia	Dornod	Dornod
 Dornogovi	Mongolia	Dornogovi	Dornogovi
 Dundgovi	Mongolia	Dundgovi	Dundgovi
 GobiAltai	Mongolia	GobiAltai	GobiAltai
@@ -2670,6 +2672,7 @@ Khanty-Mansi	Russia	KhantyMansi	Khanty-Mansi
 Khleborodnoye	Russia	Khleborodnoye	Khleborodnoye
 Khrenovoe	Russia	Voronezh	Khrenovoe
 Khuzhir	Russia	MariEl	Khuzhir
+KirillovskoyeSeltso	Russia	Novgorod	KirillovskoyeSeltso
 Kirishi	Russia	Leningrad	Kirishi
 Kirov	Russia	Kirov	Kirov
 Kirovsk	Russia	Leningrad	Kirovsk
@@ -2710,6 +2713,7 @@ Medved	Russia	Novgorod	Medved
 Mordovia	Russia	Mordovia	Mordovia
 Morki	Russia	MariEl	Morki
 Moscow	Russia	Moscow	Moscow
+Mshaga	Russia	Novgorod	Mshaga
 Murmansk	Russia	Murmansk	Murmansk
 Nalchik	Russia	KabardinoBalkaria	Nalchik
 Naryan-Mar	Russia	Naryan-Mar	Naryan-Mar
@@ -2721,6 +2725,7 @@ NorthCaucasus	Russia	NorthCaucasus	NorthCaucasus
 NovayaDerevnya	Russia	Novgorod	NovayaDerevnya
 Novgorod	Russia	Novgorod	Novgorod
 NovoeRakhino	Russia	Novgorod	NovoeRakhino
+Novoseletsky	Russia	Novgorod	Novoseletsky
 Novosibirsk	Russia	Novosibirsk	Novosibirsk
 Novorossiysk	Russia	Krasnodar	Novorossiysk
 NovyUrengoy	Russia	Yamalia	NovyUrengoy
@@ -2761,6 +2766,7 @@ Semiluki	Russia	Voronezh	Semiluki
 Sernur	Russia	MariEl	Sernur
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
 Shimsk	Russia	Novgorod	Shimsk
+Sholokhov	Russia	Novgorod	Sholokhov
 Shuberskoye	Russia	Voronezh	Shuberskoye
 Shumerlya	Russia	Shumerlya	Shumerlya
 Siberia	Russia	Siberia	Siberia
@@ -2806,6 +2812,7 @@ Yakutia	Russia	Sakha	Yakutia
 Yamalo-Nenets	Russia	Yamalo-Nenets	Yamalo-Nenets
 Yar	Russia	Udmurt	Yar
 Yaroslavl	Russia	Yaroslavl	Yaroslavl
+Yermolina	Russia	Novgorod	Yermolina
 Yekaterinburg	Russia	Sverdlovsk	Yekaterinburg
 YoshkarOla	Russia	MariElRepublic	YoshkarOla
 ZabaykalskyKrai	Russia	ZabaykalskyKrai	ZabaykalskyKrai
@@ -2896,6 +2903,9 @@ WesternUrban	SierraLeone	WesternUrban	WesternUrban
 
 # Singapore
 Singapore	Singapore	Singapore	Singapore
+
+# SintMaarten
+SintMaarten	SintMaarten	SintMaarten	SintMaarten
 
 # Slovakia
 Slovakia	Slovakia	Slovakia	Slovakia
