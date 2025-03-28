@@ -120,6 +120,7 @@ Canada-NS	NovaScotia
 ON	Ontario
 NB	NewBrunswick
 NL	Newfoundland
+NU	Nunavut
 NS	NovaScotia
 PE	PrinceEdwardIsland
 QC	Quebec
@@ -427,6 +428,8 @@ Schleswig-Holstein	SchleswigHolstein
 Ahafo	BrongAhafo
 Brong_Ahafo	BrongAhafo
 Brong-Ahafo Region	BrongAhafo
+Central	CentralRegion
+CebtralRegion	CentralRegion
 Central Region	CentralRegion
 Volta	VoltaRegion
 GreaterAccra	GreaterAccraRegion

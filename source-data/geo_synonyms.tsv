@@ -70,6 +70,7 @@ SantiagoDelEstero	Argentina	SantiagoDelEstero	SantiagoDelEstero
 TierraDelFuego	Argentina	TierraDelFuego	TierraDelFuego
 Tucuman	Argentina	Tucuman	Tucuman
 Ushuaia	Argentina	TierraDelFuego	Ushuaia
+PeninsulaValdes	Argentina	Patagonia	PeninsulaValdes
 
 # Armenia
 Armenia	Armenia	Armenia	Armenia
@@ -3132,11 +3133,23 @@ Ystad	Sweden	Skane	Ystad
 
 # Switzerland
 Switzerland	Switzerland	Switzerland	Switzerland
+Altnau	Switzerland	Thurgau	Altnau
 Basel	Switzerland	Basel	Basel
 Bern	Switzerland	Bern	Bern
+Erlach	Switzerland	Bern	Erlach
+Fehraltorf	Switzerland	Zurich	Fehraltorf
 Geneva	Switzerland	Geneva	Geneva
+Kleinandelfingen	Switzerland	Zurich	Zurich
+Lutry	Switzerland	Vaud	Lutry
+Luzern	Switzerland	Luzern	Luzern
+SteinAmRhein	Switzerland	SteinAmRhein	SteinAmRhein
+Seuzach	Switzerland	Zurich	Seuzach
+Thalwil	Switzerland	Thalwil	Thalwil
 Thurgau	Switzerland	Thurgau	Thurgau
+Vevey	Switzerland	Vaud	Vevey
+Zug	Switzerland	Zug	Zug
 Zurich	Switzerland	Zurich	Zurich
+Zuerich	Switzerland	Zurich	Zurich
 
 # Syria
 Syria	Syria	Syria	Syria
