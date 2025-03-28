@@ -763,6 +763,7 @@ Ulgii	Olgii
 Ulaabaatar	Ulaanbaatar
 unmugobi	Omnogovi
 Umnogobi	Omnogovi
+umnugobi	Omnogovi
 UTuv	Tuv
 Uvurkhagai	Uvurkhangai
 Zamiin-Uud	Zamyn-Uud
@@ -960,6 +961,14 @@ Romania_DJ	Romania
 Romania_GL	Romania
 Romania_IS	Romania
 Romania_OT	Romania
+Romania_BC	Romania
+Romania_CT	Romania
+Romania_HD	Romania
+Romania_IF	Romania
+Romania_MM	Romania
+Romania_MS	Romania
+Romania_PH	Romania
+Romania_VN	Romania
 Bucuresti	Bucharest
 Targu-Mures	TarguMures
 
@@ -1320,6 +1329,7 @@ Llanfair?pwllgwyngyll?gogery?chwyrn?drobwll?llan?tysilio?gogo?goch	Llanfairpwllg
 Llanfihangel_Glyn_Myrfyr	LlanfihangelGlynMyfyr
 Llanngeinor	Llangeinor
 Llantwit_Major	LlantwitMajor
+Llandew	Llanddew
 Merthyr_Tydfil	MerthyrTydfil
 Mountain_Ash	MountainAsh
 New_Tredegar	NewTredegar
@@ -1339,6 +1349,8 @@ StAsaph	SaintAsaph
 St_Brides_Major	StBridesMajor
 StClears	SaintClears
 Taffs_Well	TaffsWell
+Pontycymmer	Pontycymer
+Trefforest	Treforest
 
 # USA
 Ann_Arbor	AnnArbor

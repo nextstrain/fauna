@@ -1885,6 +1885,7 @@ Amman	Jordan	CapitalGovernorate	Amman
 
 # Kazakhstan
 Kazakhstan	Kazakhstan	Kazakhstan	Kazakhstan
+Abay	Kazakhstan	EastKazakhstan	Abay
 Aktobe	Kazakhstan	Aktobe	Aktobe
 Almaty	Kazakhstan	Almaty	Almaty
 Astana	Kazakhstan	Astana	Astana
@@ -2106,6 +2107,7 @@ Mayotte	Mayotte	Mayotte	Mayotte
 # Mexico
 Mexico	Mexico	Mexico	Mexico
 Aguascalientes	Mexico	Aguascalientes	Aguascalientes
+BajaCalifornia	Mexico	BajaCalifornia	BajaCalifornia
 Campeche	Mexico	Campeche	Campeche
 Chihuahua	Mexico	Chihuahua	Chihuahua
 Coahuila	Mexico	Coahuila	Coahuila
@@ -2135,6 +2137,7 @@ Oaxaca	Mexico	Oaxaca	Oaxaca
 Cerrodeltepezcouintleoaxaca	Mexico	Oaxaca	Oaxaca
 Nejapademorelosoaxaca	Mexico	Oaxaca	NejapaDeMorelos
 Hidalgo	Mexico	Hidalgo	Hidalgo
+Tamaulipas	Mexico	Tamaulipas	Tamaulipas
 Tapachula	Mexico	Chiapas	Tapachula
 Tlaxcala	Mexico	Tlaxcala	Tlaxcala
 Zacatecas	Mexico	Zacatecas	Zacatecas
@@ -3418,6 +3421,7 @@ Buckinghamshire	UnitedKingdom	England	Buckinghamshire
 Buckley	UnitedKingdom	Wales	Buckley
 BurryPort	UnitedKingdom	Wales	BurryPort
 Bwlchgwyn	UnitedKingdom	Wales	Bwlchgwyn
+Brynna	UnitedKingdom	Wales	Brynna
 Caerleon	UnitedKingdom	Wales	Caerleon
 Caersws	UnitedKingdom	Powys	Caersws
 Caldicot	UnitedKingdom	Wales	Caldicot
@@ -3462,6 +3466,7 @@ Crumlin	UnitedKingdom	Wales	Crumlin
 Crundale	UnitedKingdom	Wales	Crundale
 Cwmaman	UnitedKingdom	Wales	Cwmaman
 Cwmafan	UnitedKingdom	Wales	Cwmafan
+Cwmifor	UnitedKingdom	Wales	Cwmifor
 Cumbria	UnitedKingdom	England	Cumbria
 Cwmbran	UnitedKingdom	Wales	Cwmbran
 Cwmdare	UnitedKingdom	Wales	Cwmdare
@@ -3475,6 +3480,7 @@ Dowlais	UnitedKingdom	Wales	Dowlais
 Dundee	UnitedKingdom	England	Dundee
 EbbwVale	UnitedKingdom	Wales	EbbwVale
 Edinburgh	UnitedKingdom	Scotland	Edinburgh
+Ellesmere	UnitedKingdom	England	Ellesmere
 Ely	UnitedKingdom	Wales	Ely
 Enfield	UnitedKingdom	England	Enfield
 England	UnitedKingdom	England	England
@@ -3498,7 +3504,9 @@ Glyndyfrdwy	UnitedKingdom	Wales	Glyndyfrdwy
 Glynneath	UnitedKingdom	Wales	Glynneath
 Gorseinon	UnitedKingdom	Wales	Gorseinon
 Grangetown	UnitedKingdom	Wales	Grangetown
+Gresford	UnitedKingdom	Wales	Gresford
 Guildford	UnitedKingdom	England	Guildford
+GwaunCaeGurwen	UnitedKingdom	Wales	GwaunCaeGurwen
 Gwersyllt	UnitedKingdom	Wales	Gwersyllt
 Hampshire	UnitedKingdom	England	Hampshire
 Harlow	UnitedKingdom	England	Harlow
@@ -3524,8 +3532,10 @@ Lambeth	UnitedKingdom	England	Lambeth
 Lampeter	UnitedKingdom	Wales	Lampeter
 Lanelli	UnitedKingdom	Wales	Lanelli
 Llanblethian	UnitedKingdom	Wales	Llanblethian
+Llanddew	UnitedKingdom	Wales	Llanddew
 Llandudno	UnitedKingdom	Wales	Llandudno
 Llandovery	UnitedKingdom	Wales	Llandovery
+Llanfaes	UnitedKingdom	Wales	Llanfaes
 Llanfairpwllgwyngyll	UnitedKingdom	Wales	Llanfairpwllgwyngyll
 Llangollen	UnitedKingdom	Wales	Llangollen
 Llangynwyd	UnitedKingdom	Wales	Llangynwyd
@@ -3568,6 +3578,7 @@ Maerdy	UnitedKingdom	Wales	Maerdy
 Maesteg	UnitedKingdom	Wales	Maesteg
 Maesycwmmer	UnitedKingdom	Wales	Maesycwmmer
 Manchester	UnitedKingdom	England	Manchester
+Manorbier	UnitedKingdom	Wales	Manorbier
 Markham	UnitedKingdom	Wales	Markham
 MerthyrTydfil	UnitedKingdom	Wales	MerthyrTydfil
 Middlesex	UnitedKingdom	England	Middlesex
@@ -3612,6 +3623,7 @@ Pencader	UnitedKingdom	Wales	Pencader
 Pencae	UnitedKingdom	Wales	Pencae
 Pencoed	UnitedKingdom	Wales	Pencoed
 Pendoylan	UnitedKingdom	Wales	Pendoylan
+Penley	UnitedKingdom	Wales	Penley
 Penrhiwceiber	UnitedKingdom	Wales	Penrhiwceiber
 Penrhyncoch	UnitedKingdom	Wales	Penrhyncoch
 Penrhyndeudraeth	UnitedKingdom	Wales	Penrhyndeudraeth
@@ -3649,6 +3661,7 @@ Reading	UnitedKingdom	England	Reading
 Rhayader	UnitedKingdom	Wales	Rhayader
 Rhondda	UnitedKingdom	Wales	Rhondda
 Rhoose	UnitedKingdom	Wales	Rhoose
+Rhosybol	UnitedKingdom	Wales	Rhosybol
 Rhosllanerchrugog	UnitedKingdom	Wales	Rhosllanerchrugog
 Rhosneigr	UnitedKingdom	Wales	Rhosneigr
 Rhyl	UnitedKingdom	Wales	Rhyl
@@ -3692,6 +3705,7 @@ Tenby	UnitedKingdom	Wales	Tenby
 Tetbury	UnitedKingdom	England	Tetbury
 Tonypandy	UnitedKingdom	Wales	Tonypandy
 Tredegar	UnitedKingdom	Wales	Tredegar
+Treforest	UnitedKingdom	Wales	Treforest
 Tregaron	UnitedKingdom	Wales	Tregaron
 Tregarth	UnitedKingdom	Wales	Tregarth
 Treharris	UnitedKingdom	Wales	Treharris
