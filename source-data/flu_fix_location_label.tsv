@@ -81,6 +81,8 @@ Santa_Catarina	SantaCatarina
 SantanadeParnaiba	SantanaDeParnaiba
 SaopPaulo	SaoPaulo
 S?oPaulo	SaoPaulo
+Sao_Paulo	SaoPaulo
+Sao_Paulo_	SaoPaulo
 StaCatarina	SantaCatarina
 Sete_Lagoas	SeteLagoas
 Taubat?	Taubate
@@ -119,9 +121,11 @@ Canada-AB	Alberta
 Canada-NS	NovaScotia
 ON	Ontario
 NB	NewBrunswick
+New_Brunswick	NewBrunswick
 NL	Newfoundland
 NU	Nunavut
 NS	NovaScotia
+Nova_Scotia	NovaScotia
 PE	PrinceEdwardIsland
 QC	Quebec
 SK	Saskatchewan
@@ -385,6 +389,12 @@ Saint-Etienne	StEtienne
 St_Laurent_du_Var	StLaurentDuVar
 Vandoeuvre_Les_Nancy	VandoeuvreLesNancy
 
+# FrenchGuiana
+French_Guiana	FrenchGuiana
+
+# FrenchPolynesia
+French_Polynesia	FrenchPolynesia
+
 # GeorgiaCountry
 Ozirgeti	Ozurgeti
 RepublicofGeorgia	GeorgiaCountry
@@ -504,6 +514,8 @@ POINTE-A-PITRE	PointeAPitre
 
 # Guatemala
 Gutemala	Guatemala
+San_Pedro_Ayampuc	SanPedroAyampuc
+Villa_Nueva	VillaNueva
 
 # HongKong
 HK	HongKong
@@ -663,6 +675,7 @@ Akmolinskaya_NRL	Akmola
 Kysylorda_KazNRL	Kyzylorda
 Kyzylorda_NRL	Kyzylorda
 Oskemen_NRL	Oskemen
+Shymkent_	Shymkent
 Taldykorgan_NRL	Taldykorgan
 Taraz_NRL	Taraz
 Turkestan	Turkistan
@@ -748,7 +761,14 @@ Mauritus	Mauritius
 FederatedStatesOfMicronesia	Micronesia
 
 # Mexico
+Baja_California	BajaCalifornia
+Baja_California_Sur	BajaCaliforniaSur
+Mexico_City	MexicoCity
 Mexicocity	MexicoCity
+Nuevo_Leon	NuevoLeon
+San_Luis_Potosi	SanLuisPotosi
+State_of_Mexico	StateofMexico
+Quintana_Roo	QuintanaRoo
 
 # Mongolia
 Bayan-ulgii	BayanOlgii
@@ -842,6 +862,9 @@ NLZeewolde	Zeewolde
 NLZoeterwoude	Zoeterwoude
 NLZuidoost_Beemster	Zuidoostbeemster
 NLZwolle	Zwolle
+
+# NewCaledonia
+New_Caledonia	NewCaledonia
 
 # NewZealand
 Nelson_Marlborough	NelsonMarlborough
@@ -998,6 +1021,7 @@ Karachay-Cherkess	Cherkessk
 Khabarovsk_Krai	Khabarovsk
 Khakasia	Khakassia
 Khanty-Mansi_AO	KhantyMansi
+Kirillovskoye_Seltso	KirillovskoyeSeltso
 Kosh-Agach	KoshAgach
 Kozmodemiansk	Kozmodemyansk
 Krasnoyarsk_Krai	Krasnoyarsk
@@ -1141,6 +1165,9 @@ Zabaykalsky_Krai	ZabaykalskyKrai
 # Saint Martin
 Saint-Martin	SaintMartin
 
+# SintMaarten
+Sint_Maarten	SintMaarten
+
 # Slovakia
 Sastin-Straze	SastinStraze
 Sastin-Sraze	SastinStraze
@@ -1154,6 +1181,9 @@ Serbia-NS	Serbia
 Sinagpore	Singapore
 Singpaore	Singapore
 Singpore	Singapore
+
+# SolomonIslands
+Solomon_Islands	SolomonIslands
 
 # SouthKorea
 Chonnam	Cheonnam
@@ -1237,6 +1267,7 @@ Ayatthaya	Ayutthaya
 Bankgok	Bangkok
 Chantaburi	Chanthaburi
 Chantuaburi	Chanthaburi
+Chiang_Rai	ChiangRai
 CU-THA	CuTha
 Cu-Tha	CuTha
 Kamphaengphet	KamphaengPhet
@@ -1247,6 +1278,7 @@ NakohnPhanom	NakhonPhanom
 Nakhonratchasima	NakhonRatachasima
 Nakhonratchaisma	NakhonRatachasima
 Nakhon_Pathom	NakhonPathom
+Nakhon_Phanom	NakhonPhanom
 NONG KAI	NongKhai
 Nongkai	NongKhai
 NONTHANURI	Nonthaburi
@@ -1256,6 +1288,7 @@ Nothaburi	Nonthaburi
 Pathumthani	PathumThani
 Petchaburi	Phetchaburi
 Phathumthani	PathumThani
+Phra_Nakhon_Si_Ayutthaya	PhraNakhonSiAyutthaya
 Prachinburi__Thailand_	PrachinBuri
 Prachuapkhirikhan	PrachuapKhiriKhan
 Prachinburi	PrachinBuri
@@ -1268,6 +1301,7 @@ SongKhlai	Songkhla
 SongKha	Songkhla
 Supanburi	Suphanburi
 Suratthani	SuratThani
+Surat_Thani	SuratThani
 thailand	Thailand
 
 # TrinidadAndTobago
@@ -1362,6 +1396,7 @@ Delware	Delaware
 DictrictofColumbia	DistrictOfColumbia
 DistrictofColombia	DistrictOfColumbia
 DistrictofColumbia	DistrictOfColumbia
+District_Of_Columbia	DistrictOfColumbia
 DC	DistrictOfColumbia
 DE	Delaware
 Delaware_Bay	DelawareBay
@@ -1386,6 +1421,7 @@ WV	WestVirginia
 Md	Maryland
 MI	Michigan
 MN	Minnesota
+New_Hampshire	NewHampshire
 NEW-YORK	NewYork
 New_York	NewYork
 NY	NewYork
