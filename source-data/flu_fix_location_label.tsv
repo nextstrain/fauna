@@ -58,7 +58,10 @@ Bangor_On_Dee	BangorOnDee
 Belo_Horizonte	BeloHorizonte
 Borda_Da_Mata	BordaDaMata
 Brazil-PR	Brazil
+Bras?lia	Brasilia
+Candeias_Do_Jamari	CandeiasDoJamari
 CeilandiaNorte	Ceilandia
+Campo_Grande	CampoGrande
 Carmopolis_De_Minas	CarmopolisDeMinas
 CamposdosGoytacazes	CamposDosGoytacazes
 Congonhas_Do_Norte	CongonhasDoNorte
@@ -70,6 +73,7 @@ Minas_Gerais	MinasGerais
 Osasaco	Osasco
 Ouro_Branco	OuroBranco
 Paran?	Parana
+Porto_Velho	PortoVelho
 Ribeirao_Das_Neves	RibeiraoDasNeves
 Rio_de_Janeiro	RioDeJaneiro
 RiodeJaniero	RioDeJaneiro
@@ -918,6 +922,7 @@ Chachamayo	Chanchamayo
 Chamchamayo	Chanchamayo
 Cuzco	Cusco
 PuertoMaldonado	Maldonado
+Puerto_Maldonado	Maldonado
 
 # Philippines
 Phiippines	Philippines
@@ -1214,6 +1219,7 @@ South-Africa-PERCH	SouthAfrica
 SouthAfricB	SouthAfrica
 
 # Spain
+astuiras	Asturias
 Baleares100	Baleares/100
 Catal	Catalonia
 Cataluna	Catalonia
