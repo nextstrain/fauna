@@ -2756,6 +2756,7 @@ Orshanka	Russia	MariEl	Orshanka
 Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
 Ozersk	Russia	Chelyabinsk	Ozersk
+Pankovka	Russia	Novgorod	Pankovka
 Paranga	Russia	MariEl	Paranga
 Penza	Russia	Penza	Penza
 Perm	Russia	Perm	Perm
@@ -2792,6 +2793,7 @@ Slantsy	Russia	Leningrad	Slantsy
 StarayaRussa	Russia	Novgorod	StarayaRussa
 Stavropol	Russia	Stavropol	Stavropol
 Smolensk	Russia	Smolensk	Smolensk
+Soltsy	Russia	Novgorod	Soltsy
 SosnoviyBor	Russia	Leningrad	SosnoviyBor
 Sosnovo-Ozerskoye	Russia	Buryatia	Sosnovo-Ozerskoye
 Sovetsky	Russia	MariEl	Sovetsky
@@ -2818,6 +2820,7 @@ Urengoy	Russia	Yamalia	Urengoy
 USSR	Russia	Russia	Russia
 VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
 VerkhChebula	Russia	Kemerovo	VerkhChebula
+VerkhniyPrikhon	Russia	NizhnyNovgorod	VerkhniyPrikhon
 Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
 Vladimir	Russia	Vladimir	Vladimir
 Vladivostok	Russia	Primorsky	Vladivostok
@@ -2825,6 +2828,7 @@ Voronezh	Russia	Voronezh	Voronezh
 Volgograd	Russia	Volgograd	Volgograd
 Vologda	Russia	Vologda	Vologda
 Volzhsk	Russia	MariEl	Volzhsk
+Vybyti	Russia	NizhnyNovgorod	Vybyti
 Yakutsk	Russia	Sakha	Yakutsk
 Yakutia	Russia	Sakha	Yakutia
 Yamalo-Nenets	Russia	Yamalo-Nenets	Yamalo-Nenets
@@ -3359,6 +3363,8 @@ Uganda	Uganda	Uganda	Uganda
 # Ukraine
 Alchevsk	Ukraine	Luhansk	Alchevsk
 Antratsyt	Ukraine	Luhansk	Antratsyt
+Antratsit	Ukraine	Luhansk	Antratsyt
+Bryanka	Ukraine	Luhansk	Bryanka
 Ukraine	Ukraine	Ukraine	Ukraine
 Cherkasy	Ukraine	Cherkasy	Cherkasy
 Chernihiv	Ukraine	Chernihiv	Chernihiv
@@ -3378,10 +3384,15 @@ Kyiv	Ukraine	Kyiv	Kyiv
 Luhansk	Ukraine	Luhansk	Luhansk
 Lviv	Ukraine	Lviv	Lviv
 Markejev	Ukraine	Markejev	Markejev
+Melove	Ukraine	Luhansk	Melove
+Novoaydar	Ukraine	Luhansk	Novoaydar
+Novopskov	Ukraine	Luhansk	Novopskov
 Odessa	Ukraine	Odessa	Odessa
 Poltava	Ukraine	Poltava	Poltava
 Rivne	Ukraine	Rivne	Rivne
 Rovenky	Ukraine	Luhansk	Rovenky
+Starobilsk	Ukraine	Luhansk	Starobilsk
+Svatovo	Ukraine	Luhansk	Svatovo
 Ternopil	Ukraine	Ternopil	Ternopil
 Sumy	Ukraine	Sumy	Sumy
 Volyn	Ukraine	Volyn	Volyn
