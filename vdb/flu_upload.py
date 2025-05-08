@@ -261,6 +261,10 @@ class flu_upload(upload):
         original_name = name.encode('ascii', 'replace').decode('unicode-escape')
         # Replace whole strain names
         name = self.replace_strain_name(original_name, self.fix_whole_name)
+        # Reformat names like H1N1/Spain/PV-HUD-96039629/2025 to A/Spain/PV-HUD-96039629/2025
+        if re.match(r'(H1N1|H3N2)/([^/]+/[^/]+/[0-9]{4})', name):
+            match = re.match(r'(H1N1|H3N2)/([^/]+/[^/]+/[0-9]{4})', name)
+            name = "A/" + match.group(2)
         name = name.replace('H1N1', '').replace('H5N6', '').replace('H3N2', '').replace('Human', '')\
             .replace('human', '').replace('//', '/').replace('.', '').replace(',', '').replace('&', '').replace(' ', '')\
             .replace('\'', '').replace('>', '').replace('-like', '').replace('+', '')

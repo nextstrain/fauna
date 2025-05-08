@@ -66,9 +66,12 @@ Carmopolis_De_Minas	CarmopolisDeMinas
 CamposdosGoytacazes	CamposDosGoytacazes
 Congonhas_Do_Norte	CongonhasDoNorte
 Coronel_Fabriciano	CoronelFabriciano
+Distrito_Federal	DistritoFederal
 Espirito_Santo	EspiritoSanto
 EspritoSanto	EspiritoSanto
 MatoGrossoDuSul	MatoGrossoDoSul
+Mato_Grosso_do_Sul	MatoGrossoDoSul
+Mato_Grosso_Do_Sul	MatoGrossoDoSul
 Minas_Gerais	MinasGerais
 Osasaco	Osasco
 Ouro_Branco	OuroBranco
@@ -520,8 +523,25 @@ POINTE-A-PITRE	PointeAPitre
 
 # Guatemala
 Gutemala	Guatemala
+Casillas	SantaRosa
+Esquipulas	Chiquimula
 San_Pedro_Ayampuc	SanPedroAyampuc
+PuebloNuevoVi?as	VillaNueva
+Pueblo_Nuevo_Vi?as	VillaNueva
+San_Agustin_Acasaguastlan	SanAgustinAcasaguastlan
+San_Cristobal_Verapaz	AltaVerapaz
+SanCristobalVerapaz	AltaVerapaz
+San_Jorge	Zacapa
+SanJorge	Zacapa
+San_Jose_Del_Gofo	Guatemala
+SanJoseDelGofo	Guatemala
+San_Luis_Jilotepeque	SanLuisJilotepeque
+Santa_Apolonia	SantaApolonia
+SantaApolonia	Chimaltenango
+Santa_Catarina_Pinula	SantaCatarinaPinula
+Villa_Canales	VillaCanales
 Villa_Nueva	VillaNueva
+
 
 # HongKong
 HK	HongKong
