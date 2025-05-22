@@ -6,6 +6,8 @@ Eph Blida	Blida
 # Argentina
 Buenosaires	BuenosAires
 Mar_del_Plata	MardelPlata
+Mar_de_Ajo	BuenosAires
+MardeAjo	BuenosAires
 SantiagodelEstero	SantiagoDelEstero
 TierradelFuego	TierraDelFuego
 Tucum?n	Tucuman
@@ -697,6 +699,7 @@ SouthKazakhstanNRL	SouthKazakhstan
 Almatinskaya_KazNRL	Almaty
 Karaganda_KazNRL	Karaganda
 Karaganda_region	Karaganda
+Konaev	Almaty
 Akmolinskaya_NRL	Akmola
 Kysylorda_KazNRL	Kyzylorda
 Kyzylorda_NRL	Kyzylorda
@@ -1037,6 +1040,7 @@ Birobidjan	Birobidzhan
 Blagovechensk	Blagoveshchensk
 Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
+Burga	Novgorod
 Drozhzhanoe	Drozhzhanovsky
 Chaikovsky	Chaykovsky
 Chelyabinsk_Oblast	Chelyabinsk
@@ -1060,8 +1064,10 @@ Kuzher	Khuzhir
 Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
 Gornoaltaisk	GornoAltaysk
+GornoyeVeretye	Novgorod
 Grozniy	Grozny
 Groznyi	Grozny
+Gornoye_Veretye	GornoyeVeretye
 IIV-Anadyr	Anadyr
 IIV-Birobidzhan	Birobidzhan
 IIV-Cheboksary	Cheboksary
@@ -1099,6 +1105,11 @@ Malaya_Vishera	MalayaVishera
 Novgorod_Oblast	Novgorod
 NorthOssetia	NorthOssetiaAlania
 NovgorodRegion	Novgorod
+Nizhnevartovsk
+Chudovo	Novgorod
+Novgrorod	Novgorod
+Novoselye	Novgorod
+Nizhnevartovsky
 NovgorogVelikiy	VelikyNovgorod
 NNovgorod	NizhnyNovgorod
 NizniyNovgorod	NizhnyNovgorod
@@ -1108,6 +1119,7 @@ NizhniiNovgorod	NizhnyNovgorod
 NizhniyNovgorod	NizhnyNovgorod
 Nizhny-Novgorod	NizhnyNovgorod
 Nizhny_Novgorod	NizhnyNovgorod
+Nizhnevartovsk	KhantyMansi
 Nizhnii-Novogorod	NizhnyNovgorod
 NizhnyNovgorod	NizhnyNovgorod
 Nizhny_Novgorod_Oblast	NizhnyNovgorod
