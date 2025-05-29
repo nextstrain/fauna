@@ -8,6 +8,9 @@ Buenosaires	BuenosAires
 Mar_del_Plata	MardelPlata
 Mar_de_Ajo	BuenosAires
 MardeAjo	BuenosAires
+SantaTeresita	BuenosAires
+Santa_Teresita_	BuenosAires
+Santa_Teresita	BuenosAires
 SantiagodelEstero	SantiagoDelEstero
 TierradelFuego	TierraDelFuego
 Tucum?n	Tucuman
@@ -262,6 +265,7 @@ Liaoninghuanggu	LiaoningHuanggu
 LongYan	Longyan
 Macao	Macau
 Macao-	Macau
+Nanning	Guangxi
 NanPing	Nanping
 Nangchang	Nanchang
 Neimeng	Neimenggu
@@ -525,14 +529,22 @@ POINTE-A-PITRE	PointeAPitre
 
 # Guatemala
 Gutemala	Guatemala
+Barberena_	SantaRosa
 Casillas	SantaRosa
+Comapa	Jutiapa
+Cuilapa_	SantaRosa
 Esquipulas	Chiquimula
+Huite	Zacapa
 San_Pedro_Ayampuc	SanPedroAyampuc
 PuebloNuevoVi?as	VillaNueva
 Pueblo_Nuevo_Vi?as	VillaNueva
 San_Agustin_Acasaguastlan	SanAgustinAcasaguastlan
 San_Cristobal_Verapaz	AltaVerapaz
 SanCristobalVerapaz	AltaVerapaz
+Santa_Catarina_Pinula_	Guatemala
+SantaCruzBarillas	Huehuetenango
+Santa_Cruz_Barillas	Huehuetenango
+Santa_Maria_Ixhuatan_	SantaRosa
 San_Jorge	Zacapa
 SanJorge	Zacapa
 San_Jose_Del_Gofo	Guatemala
@@ -541,6 +553,9 @@ San_Luis_Jilotepeque	SanLuisJilotepeque
 Santa_Apolonia	SantaApolonia
 SantaApolonia	Chimaltenango
 Santa_Catarina_Pinula	SantaCatarinaPinula
+Tecpan_	Chimaltenango
+Teculutan	Zacapa
+Teculutan_	Zacapa
 Villa_Canales	VillaCanales
 Villa_Nueva	VillaNueva
 
@@ -1040,6 +1055,7 @@ Birobidjan	Birobidzhan
 Blagovechensk	Blagoveshchensk
 Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
+Bokhan	Irkutsk
 Burga	Novgorod
 Drozhzhanoe	Drozhzhanovsky
 Chaikovsky	Chaykovsky
@@ -1048,11 +1064,13 @@ HMAO	KhantyMansi
 Kalinigrad	Kaliningrad
 Kalininghrad	Kaliningrad
 Kaliningrad_Oblast	Kaliningrad
+Kandalaksha	Murmansk
 Karachay-Cherkess	Cherkessk
 Khabarovsk_Krai	Khabarovsk
 Khakasia	Khakassia
 Khanty-Mansi_AO	KhantyMansi
 Kirillovskoye_Seltso	KirillovskoyeSeltso
+Kola	Murmansk
 Kosh-Agach	KoshAgach
 Kozmodemiansk	Kozmodemyansk
 Krasnoyarsk_Krai	Krasnoyarsk
@@ -1130,6 +1148,7 @@ North_Ossetia-Alania	NorthOssetiaAlania
 NRCEM-Orenburg	Orenburg
 NyzhniNovgorod	NizhnyNovgorod
 NizhnyNovgorodOblast	NizhnyNovgorod
+Olenegorsk	Murmansk
 Omsk_Oblast	Omsk
 Oreburg	Orenburg
 Ossetia-Alania	OssetiaAlania
@@ -1149,6 +1168,7 @@ RussianFederation	Russia
 Sakha	Yakutia
 Salehard	Salekhard
 SaintPetersburg	StPetersburg
+Severomorsk	Murmansk
 Sosnoviy_Bor	SosnoviyBor
 SosnovyiBor	SosnoviyBor
 SPeteresburg	StPetersburg
@@ -1432,6 +1452,22 @@ StClears	SaintClears
 Taffs_Well	TaffsWell
 Pontycymmer	Pontycymer
 Trefforest	Treforest
+Bala	Wales
+Barmouth	Wales
+Caerwys	Wales
+CefnCribwr	Wales
+Eglwyswrw	Wales
+Flintshire	Wales
+Gwernaffield	Wales
+Llanddona	Wales
+Llanybydder	Wales
+MenaiBridge	Wales
+Nantglyn	Wales
+Newtown	Wales
+Rhuddlan	Wales
+Talygarn	Wales
+Ynysmaerdy	Wales
+YFelinheli	Wales
 
 # USA
 Ann_Arbor	AnnArbor
