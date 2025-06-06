@@ -1763,16 +1763,23 @@ Yesodot	Israel	Shephelah	Yesodot
 
 # Italy
 Italy	Italy	Italy	Italy
+Abruzzo	Italy	Abruzzo	Abruzzo
 Ancona	Italy	Marche	Ancona
 Agrigento	Italy	Sicily	Agrigento
+AostaValley	Italy	AostaValley	AostaValley
+Apulia	Italy	Apulia	Apulia
+Basilicata	Italy	Basilicata	Basilicata
 Bari	Italy	Apulia	Bari
 BarlettaAndriaTrani	Italy	Apulia	BarlettaAndriaTrani
 Bologna	Italy	EmiliaRomagna	Bologna
 Bolzano	Italy	TrentinoAltoAdige	Bolzano
+Calabria	Italy	Calabria	Calabria
+Campania	Italy	Campania	Campania
 Caltanissetta	Italy	Sicily	Caltanissetta
 Caserta	Italy	Caserta	Caserta
 Cosenza	Italy	Calabria	Cosenza
 Catania	Italy	Sicily	Catania
+EmiliaRomagna	Italy	EmiliaRomagna	EmiliaRomagna
 Enna	Italy	Sicily	Enna
 Florence	Italy	Tuscany	Florence
 FriuliVeneziaGiulia	Italy	FriuliVeneziaGiulia	FriuliVeneziaGiulia
@@ -1780,9 +1787,13 @@ Foggia	Italy	Apulia	Foggia
 Genoa	Italy	Liguria	Genoa
 Gorizia	Italy	FriuliVeneziaGiulia	Gorizia
 Lazio	Italy	Lazio	Lazio
+Liguria	Italy	Liguria	Liguria
+Lombardy	Italy	Lombardy	Lombardy
 Lecce	Italy	Apulia	Lecce
 Messina	Italy	Sicily	Messina
 Milan	Italy	Lombardy	Milan
+Marche	Italy	Marche	Marche
+Molise	Italy	Molise	Molise
 Napoli	Italy	Campania	Napoli
 Padova	Italy	Veneto	Padova
 Palermo	Italy	Sicily	Palermo
@@ -1791,7 +1802,9 @@ Pavia	Italy	Lombardy	Pavia
 Perugia	Italy	Umbria	Perugia
 Piacenza	Italy	EmiliaRomagna	Piacenza
 Pordenone	Italy	FriuliVeneziaGiulia	Pordenone
-Rome	Italy	Lazio	Rome
+Piedmont	Italy	Piedmont	Piedmont
+Sardinia	Italy	Sardinia	Sardinia
+Sicily	Italy	Sicily	Sicily
 Sassari	Italy	Sardinia	Sassari
 Siena	Italy	Tuscany	Siena
 Siracusa	Italy	Sicily	Siracusa
@@ -1800,7 +1813,11 @@ Trapani	Italy	Sicily	Trapani
 Trento	Italy	TrentinoAltoAdige	Trento
 Trieste	Italy	FriuliVeneziaGiulia	Trieste
 Turin	Italy	Piedmont	Turin
+TrentinoAltoAdige	Italy	TrentinoAltoAdige	TrentinoAltoAdige
+Tuscany	Italy	Tuscany	Tuscany
+Rome	Italy	Lazio	Rome
 Udine	Italy	FriuliVeneziaGiulia	Udine
+Umbria	Italy	Umbria	Umbria
 Varese	Italy	Lombardy	Varese
 Veneto	Italy	Veneto	Veneto
 Verona	Italy	Veneto	Verona
