@@ -9,6 +9,9 @@ Bahia_Blanca	BuenosAires
 Mar_del_Plata	MardelPlata
 Mar_de_Ajo	BuenosAires
 MardeAjo	BuenosAires
+MardeAj?	BuenosAires
+Miramar	BuenosAires
+Olavarria	BuenosAires
 SanBernardo	BuenosAires
 San_Bernardo	BuenosAires
 SantaTeresita	BuenosAires
@@ -31,6 +34,7 @@ SouthAustalia	SouthAustralia
 SouthAustralai	SouthAustralia
 South_Australia	SouthAustralia
 SouthAustrallia	SouthAustralia
+South_Queensland	Queensland
 Sydey	Sydney
 sydney	Sydney
 Vict	Victoria
@@ -532,21 +536,37 @@ POINTE-A-PITRE	PointeAPitre
 
 # Guatemala
 Gutemala	Guatemala
+Asuncion_Mita_Jutiapa	Jutiapa
 Barberena_	SantaRosa
 Casillas	SantaRosa
 Comapa	Jutiapa
 Cuilapa_	SantaRosa
+ElProgreso	Jutiapa
+El_Progreso	Jutiapa
 Esquipulas	Chiquimula
 Huite	Zacapa
+Jalpatagua	Jutiapa
+Nebaj	ElQuiche
+Oratorio	SantaRosa
+Salcaja	Quetzaltenango
 San_Pedro_Ayampuc	SanPedroAyampuc
+SantaCruzNaranjo	SantaRosa
 PuebloNuevoVi?as	VillaNueva
 Pueblo_Nuevo_Vi?as	VillaNueva
+Rio_Hondo	Riohondo
 San_Agustin_Acasaguastlan	SanAgustinAcasaguastlan
 San_Cristobal_Verapaz	AltaVerapaz
 SanCristobalVerapaz	AltaVerapaz
+San_Marcos	SanMarcos
+SanMiguelIxtahuacan	SanMarcos
+San_Miguel_Ixtahuacan	SanMarcos
+SanRafaelLasFlores	SantaRosa
+San_Rafael_Las_Flores	SantaRosa
 Santa_Catarina_Pinula_	Guatemala
 SantaCruzBarillas	Huehuetenango
 Santa_Cruz_Barillas	Huehuetenango
+Santa_Cruz__Naranjo	SantaRosa
+SantaCruzNaranjo	SantaRosa
 Santa_Maria_Ixhuatan_	SantaRosa
 San_Jorge	Zacapa
 SanJorge	Zacapa
@@ -955,6 +975,9 @@ G_Karachi	Karachi
 GKarachi	Karachi
 Kasoor	Kasur
 
+# Paraguay
+San_Lorenzo	SanLorenzo
+
 # PapuaNewGuinea
 EAST SEPIK PROVINCE	EastSepik
 Eastsepikprovince	EastSepik
@@ -1059,6 +1082,7 @@ Blagovechensk	Blagoveshchensk
 Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
 Bokhan	Irkutsk
+Bor	NizhnyNovgorod
 Burga	Novgorod
 Drozhzhanoe	Drozhzhanovsky
 Chaikovsky	Chaykovsky
@@ -1082,6 +1106,7 @@ Krasny_Luch	KrasnyLuch
 Kurgan_Oblast	Kurgan
 Kursk_Oblast	Kursk
 Kuzher	Khuzhir
+Kutulik	Irkutsk
 Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
 Gornoaltaisk	GornoAltaysk
@@ -1115,6 +1140,7 @@ Lipetsk	Lipetsk
 Lipezk	Lipetsk
 Lipesk	Lipetsk
 Lipetsk_Oblast	Lipetsk
+Luka	NizhnyNovgorod
 Magadan_Oblast	Magadan
 Mari_El	MariEl
 Moscowoblast	Moscow
@@ -1156,8 +1182,11 @@ Omsk_Oblast	Omsk
 Oreburg	Orenburg
 Ossetia-Alania	OssetiaAlania
 Primorie	Primorsky
+Plavsk	Tula
 Pogranichnyy	Pogranichny
 Penza_Oblast	Penza
+Peregino	NizhnyNovgorod
+Poddorye	NizhnyNovgorod
 Pskov_Oblast	Pskov
 Perm_Krai	Perm
 Permskiykrai	Permskiy
@@ -1194,6 +1223,7 @@ Saratov_Oblast	Saratov
 Sverdlovsk_Oblast	SverdlovskOblast
 Sverdlovsk	SverdlovskOblast
 Stavropol_Krai	Stavropol
+Susuman	Magadan
 Tambov_Oblast	Tambov
 RepublicofTatarstan	Tatarstan
 Tomsk_Oblast	Tomsk
@@ -1201,15 +1231,18 @@ Tver_Oblast	Tver
 Tyumen_Oblast	Tyumen
 Turochack	Turochak
 Tuymen	Tyumen
+Ugolnaya	Irkutsk
 Ulan-Ude	UlanUde
 Ulan_Ude	UlanUde
 Ussr	USSR
 Vladivistok	Vladivostok
 VNovgorod	VelikyNovgorod
 VelikiyNovgorod	VelikyNovgorod
+Verkhneokinsky	Irkutsk
 Velikiy_Novgorod	VelikyNovgorod
 Veliky_Novgorod	VelikyNovgorod
 Verkh-Chebula	VerkhChebula
+Vilyuchinsk	Kamchatka
 Volgda	Vologda
 Vologd	Vologda
 Voroneg	Voronezh
@@ -1227,6 +1260,8 @@ Yermolino	Yermolina
 Yoshkar-Ola	YoshkarOla
 Yamalo-Nenets_AO	Yamalo-Nenets
 Zabaykalsky_Krai	ZabaykalskyKrai
+Zima	Irkutsk
+Zony	Irkutsk
 
 # Saint Martin
 Saint-Martin	SaintMartin
