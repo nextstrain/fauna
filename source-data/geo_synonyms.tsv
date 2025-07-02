@@ -35,6 +35,7 @@ Anguilla	Anguilla	Anguilla	Anguilla
 
 # Antarctica
 Antarctica	Antarctica	Antarctica	Antarctica
+BeakIsland	Antarctica	Antarctica	BeakIsland
 BirdIsland	Antarctica	SouthGeorgiaAndTheSouthSandwichIslands	BirdIsland
 SouthShetlandIslands	Antarctica	Antarctica	SouthShetlandIslands
 TorgersenIsland	Antarctica	Antarctica	TorgersenIsland
@@ -123,6 +124,8 @@ Bahrain	Bahrain	Bahrain	Bahrain
 Bangladesh	Bangladesh	Bangladesh	Bangladesh
 Chattogram	Bangladesh	Bangladesh	Chattogram
 Dhaka	Bangladesh	Bangladesh	Dhaka
+Jashore	Bangladesh	Khulna	Jashore
+Khulna	Bangladesh	Khulna	Khulna
 
 # Barbados
 Barbados	Barbados	Barbados	Barbados
@@ -611,6 +614,7 @@ Chengdu	China	Sichuan	Chengdu
 ChengMei	China	Fujian	ChengMei
 ChongqingYuzhong	China	Chongqing	Yuzhong
 Chongqing	China	Chongqing	Chongqing
+Chongming	China	Shanghai	Chongming
 Chongwen	China	Beijing	Chongwen
 Cnic	China	China	Cnic
 Dalian	China	Liaoning	Dalian
@@ -727,6 +731,7 @@ Jingmen	China	Hubei	Jingmen
 Jinhua	China	Zhejiang	Jinhua
 Jinshui	China	Henan	Jinshui
 Jitie	China	China	China
+Jiujiang	China	Jiangxi	Jiujiang
 Jurong	China	Jiangsu	Jurong
 Juxian	China	Shandong	Juxian
 Kaifeng	China	Henan	Kaifeng
@@ -1716,8 +1721,10 @@ Zanjan	Iran	Zanjan	Zanjan
 # Iraq
 Iraq	Iraq	Iraq	Iraq
 Baghdad	Iraq	Baghdad	Baghdad
+Basra	Iraq	Basra	Basra
 Erbil	Iraq	Kurdistan	Erbil
 Sulaimani	Iraq	Kurdistan	Sulaimani
+
 
 # Ireland
 Ireland	Ireland	Ireland	Ireland
@@ -2421,6 +2428,7 @@ Agadez	Niger	Agadez	Agadez
 # Nigeria
 Nigeria	Nigeria	Nigeria	Nigeria
 Lagos	Nigeria	Lagos	Lagos
+Hadejia	Nigeria	Jigawa	Hadejia
 
 # Niue
 Niue	Niue	Niue	Niue
@@ -3911,6 +3919,7 @@ SanDiego	USA	California	SanDiego
 SanFrancisco	USA	California	SanFrancisco
 SanRamon	USA	California	SanRamon
 SantaClara	USA	California	SantaClara
+SanBernardinoCounty	USA	California	SanBernardinoCounty
 SantaFe	USA	NewMexico	SantaFe
 Seattle	USA	Washington	Seattle
 SilverSpring	USA	Maryland	SilverSpring

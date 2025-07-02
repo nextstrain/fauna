@@ -456,7 +456,7 @@ class flu_upload(upload):
             "larusglaucescens","larusmarinus","larusmelanocephalus","laruscachinnans","larosternainca",
             "larusatricilla", "laruscanus", "larusdelawarensis","larusdominicanus","laughing__gull","larus",
             "larusichthyaetus", "larusridibundus", "larusridibundus", "leucophaeusatricilla",
-            "leucophaeus","little__grebe","larushyperboreus",
+            "leucophaeus","little__grebe","larushyperboreus","larusmichahellis",
             "little__egret", "lophuranycthemera", "lophodytescucullatus","lophodytescucullatus",
             "magpie", "magpie__robin", "mallard",
             "mallardduck","marecapenelope","murre",
