@@ -34,6 +34,7 @@ SouthAustalia	SouthAustralia
 SouthAustralai	SouthAustralia
 South_Australia	SouthAustralia
 SouthAustrallia	SouthAustralia
+North_Queensland	Queensland
 South_Queensland	Queensland
 Sydey	Sydney
 sydney	Sydney
@@ -410,6 +411,7 @@ Finlad	Finland
 # France
 Aix	AixEnProvence
 Aix-en-Provence	AixEnProvence
+Aubusson	NouvelleAquitaine
 Provence_Alpes_Cote_Azur	ProvenceAlpesCoteDAzur
 Provence-Alpes-C?tedAzur	ProvenceAlpesCoteDAzur
 Provence-Alpes-CotedAzur	ProvenceAlpesCoteDAzur
@@ -1135,6 +1137,7 @@ Blagoveshensk	Blagoveshchensk
 Bokhan	Irkutsk
 Bor	NizhnyNovgorod
 Burga	Novgorod
+Novgorod_Region	Novgorod
 Drozhzhanoe	Drozhzhanovsky
 Chaikovsky	Chaykovsky
 Chelyabinsk_Oblast	Chelyabinsk
@@ -1187,6 +1190,8 @@ Kmao	KhantyMansia
 Kolpino	StPetersburg
 Krasnojarsk	Krasnoyarsk
 Khabarovsk_Krai	Khabarovsk
+Laishevo	Tatarstan
+Lugansk	Luhansk
 LIPETSK	Lipetsk
 Lipetsk	Lipetsk
 Lipezk	Lipetsk
@@ -1261,9 +1266,12 @@ Saint-Peresburg	StPetersburg
 Saint-Petersburg	StPetersburg
 Saint-Peterburg	StPetersburg
 Saint-Petrsburg	StPetersburg
+Shimsky District	Novgorod
+Shimsky_District	Novgorod
 Sholokhovo	Sholokhov
 Stpetersburg	StPetersburg
 St-Petersburg	StPetersburg
+Starobelsk	Luhansk
 StPetersburgoblast	StPetersburg
 SPetersburg	StPetersburg
 StPeterburg	StPetersburg
