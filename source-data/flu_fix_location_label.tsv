@@ -23,6 +23,7 @@ Tucum?n	Tucuman
 CiudaddeBuenosAires	BuenosAires
 
 # Australia
+Australian_Capital_Territory	AustralianCapitalTerritory
 Birsbane	Brisbane
 NorthernTerritories	NorthernTerritory
 29c	/
@@ -34,13 +35,16 @@ SouthAustalia	SouthAustralia
 SouthAustralai	SouthAustralia
 South_Australia	SouthAustralia
 SouthAustrallia	SouthAustralia
+New_South_Wales	NewSouthWales
 North_Queensland	Queensland
+Northern_Territory	NorthernTerritory
 South_Queensland	Queensland
 Sydey	Sydney
 sydney	Sydney
 Vict	Victoria
 Victoira	Victoria
 Victoriatoria	Victoria
+Western_Australia	WesternAustralia
 CairnsNorth	Cairns
 
 # Austria
@@ -67,11 +71,15 @@ Bosnia	BosniaHerzegovina
 
 # Brazil
 Alagoa	Alagoas
+Ariquemes	Rondonia
+Barretos	SaoPaulo
 Bangor_On_Dee	BangorOnDee
+Bebedouro	SaoPaulo
 Belo_Horizonte	BeloHorizonte
 Borda_Da_Mata	BordaDaMata
 Brazil-PR	Brazil
 Bras?lia	Brasilia
+Cacoal	Rondonia
 Candeias_Do_Jamari	CandeiasDoJamari
 CeilandiaNorte	Ceilandia
 Campo_Grande	CampoGrande
@@ -79,21 +87,47 @@ Carmopolis_De_Minas	CarmopolisDeMinas
 CamposdosGoytacazes	CamposDosGoytacazes
 Congonhas_Do_Norte	CongonhasDoNorte
 Coronel_Fabriciano	CoronelFabriciano
+Diamantino	MatoGrosso
 Distrito_Federal	DistritoFederal
 Espirito_Santo	EspiritoSanto
 EspritoSanto	EspiritoSanto
+Guaira	SaoPaulo
+Guajara-Mirim	Rondonia
+Gurupi	Tocantins
+Itapua_Do_Oeste	ItapuaDoOeste
+ItapuaDoOeste	Rondonia
+Joao_Pessoa	JoaoPessoa
+JoaoPessoa	Goias
+Jardinopolis	SaoPaulo
+Lencois_Paulista	LencoisPaulista
+LencoisPaulista	SaoPaulo
+Luziania	Goias
 MatoGrossoDuSul	MatoGrossoDoSul
 Mato_Grosso_do_Sul	MatoGrossoDoSul
 Mato_Grosso_Do_Sul	MatoGrossoDoSul
 Minas_Gerais	MinasGerais
+Nova_Brasilandia_Doeste	NovaBrasilandiaDoeste
+NovaBrasilandiaDoeste	Rondonia
+Nova_Mutum	NovaMutum
+NovaMutum	MatoGrosso
 Osasaco	Osasco
 Ouro_Branco	OuroBranco
 Paran?	Parana
 Parana?	Parana
+Pitangueiras	SaoPaulo
+Porto_Nacional	Tocantines
 Porto_Velho	PortoVelho
+Recanto_Das_Emas	RecantoDasEmas
+RecantoDasEmas	DistritoFederal
 Ribeirao_Das_Neves	RibeiraoDasNeves
 Ribeirao_Preto	SaoPaulo
+Sao_Jose_Dos_Campos	SaoPaulo
 Sao_Sebastiao	SaoPaulo
+Sao_Luis_De_Montes_Belos	SaoLuisDeMontesBelos
+SaoLuisDeMontesBelos	Goias
+Sao_Miguel_Do_Guapore	SaoMiguelDoGuapore
+SaoMiguelDoGuapore	Rondonia
+Taguatinga	DistritoFederal
 Porto_Feliz	SaoPaulo
 Rio_de_Janeiro	RioDeJaneiro
 RiodeJaniero	RioDeJaneiro
@@ -393,6 +427,9 @@ Timor-Leste	TimorLeste
 
 # Ecuador
 Equador	Ecuador
+
+# El Salvador
+El_Salvador	ElSalvador
 
 # Egypt
 Helwan746	Helwan/746
@@ -1523,6 +1560,7 @@ Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
 Briton_Ferry	BritonFerry
 Burry_Port	BurryPort
+BrynYGarreg	Wales
 Clydach_Vale	ClydachVale
 Cwmavon	Cwmafan
 Dinas_Powys	DinasPowys
@@ -1542,6 +1580,7 @@ Colwyn_Bay	ColwynBay
 United_Kingdom	UnitedKingdom
 ENG	England
 Eng	England
+Gronant	Wales
 Angelsey	Anglesey
 Obaston	Osbaston
 Pembroke_Dock	PembrokeDock
@@ -1569,6 +1608,7 @@ Rhuddlan	Wales
 Talygarn	Wales
 Ynysmaerdy	Wales
 YFelinheli	Wales
+Padeswood	Wales
 
 # USA
 Ann_Arbor	AnnArbor
