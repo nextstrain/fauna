@@ -51,6 +51,20 @@ VACCINE_MAPPING = {
             "vic": "B/Austria/1359417/2021",
             "yam": "B/Phuket/3073/2013"
         }
+    },
+    "2025": {
+        "egg": {
+            "h1n1pdm": "A/Victoria/4897/2022",
+            "h3n2": "A/Croatia/10136RV/2023",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        },
+        "cell": {
+            "h1n1pdm": "A/Wisconsin/67/2022",
+            "h3n2": "A/District of Columbia/27/2023",
+            "vic": "B/Austria/1359417/2021",
+            "yam": "B/Phuket/3073/2013"
+        }
     }
 }
 
