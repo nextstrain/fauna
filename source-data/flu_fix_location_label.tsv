@@ -1126,6 +1126,7 @@ Lisboa134 Lisbon/134
 Lisboa_PT	Lisbon
 LisboaPT	Lisbon
 Lissabon	Lisbon
+Libsoa	Lisbon
 Madeira_PT	Madeira
 Madeirapt	Madeira
 Portalegre_PT	Portalegre
@@ -1181,6 +1182,8 @@ Novgorod_Region	Novgorod
 Drozhzhanoe	Drozhzhanovsky
 Chaikovsky	Chaykovsky
 Chelyabinsk_Oblast	Chelyabinsk
+Chernyshkovsky	Volgograd
+Dubovka	Volgograd
 Gortsy	Novgorod
 HMAO	KhantyMansi
 Kalinigrad	Kaliningrad
@@ -1324,6 +1327,8 @@ Sverdlovsk_Oblast	SverdlovskOblast
 Sverdlovsk	SverdlovskOblast
 Stavropol_Krai	Stavropol
 Susuman	Magadan
+Severskaya	Krasnodar
+Sochi	Krasnodar
 Tambov_Oblast	Tambov
 RepublicofTatarstan	Tatarstan
 Tomsk_Oblast	Tomsk
@@ -1335,6 +1340,7 @@ Ugolnaya	Irkutsk
 Ulan-Ude	UlanUde
 Ulan_Ude	UlanUde
 Ussr	USSR
+Uryupinsk	Volgograd
 Vladivistok	Vladivostok
 VNovgorod	VelikyNovgorod
 VelikiyNovgorod	VelikyNovgorod
@@ -1415,6 +1421,7 @@ South-Africa-PERCH	SouthAfrica
 SouthAfricB	SouthAfrica
 
 # Spain
+?Vila	Avila
 astuiras	Asturias
 Baleares100	Baleares/100
 Catal	Catalonia
@@ -1424,6 +1431,7 @@ CastillayLeon	CastileAndLeon
 Comunidad_Valenciana	ValencianCommunity
 ComunidadValenciana	ValencianCommunity
 C?ceres	Caceres
+LE?N	Leon
 
 # SriLanka
 Rathnapura	Ratnapura
