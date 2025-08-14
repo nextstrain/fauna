@@ -610,6 +610,8 @@ POINTE-A-PITRE	PointeAPitre
 # Guatemala
 Gutemala	Guatemala
 Asuncion_Mita_Jutiapa	Jutiapa
+Asuncion_Mita	Jutiapa
+AsuncionMita	Jutiapa
 Barberena_	SantaRosa
 Caba?as	Zacapa
 Casillas	SantaRosa
@@ -622,19 +624,26 @@ Esquipulas	Chiquimula
 Esquipulas_	Chiquimula
 Huite	Zacapa
 Jalpatagua	Jutiapa
+Jocotan	Chiquimula
 Lanquin	Altaverapaz
+LosAmates	Izabal
+Los_Amates	Izabal
 Nebaj	ElQuiche
 NuevaSantaRosa	SantaRosa
 Nueva_Santa_Rosa	SantaRosa
 Oratorio	SantaRosa
 Salcaja	Quetzaltenango
 San_Pedro_Ayampuc	SanPedroAyampuc
+SanJacinto	Chiquimula
+San_Jacinto	Chiquimula
 SanJosePoaquil	Chimaltenango
 San_Jose_Poaquil	Chimaltenango
+San_Jose_Pinula	Guatemala
 SanJoseOjeteman	SanMarcos
 San_Jose_Ojeteman	SanMarcos
 SantaCatarinaMita	Jutiapa
 SantaCruzNaranjo	SantaRosa
+Taxisco	SantaRosa
 PuebloNuevoVi?as	VillaNueva
 Pueblo_Nuevo_Vi?as	VillaNueva
 Rio_Hondo	Riohondo
@@ -642,6 +651,7 @@ San_Agustin_Acasaguastlan	SanAgustinAcasaguastlan
 San_Cristobal_Verapaz	AltaVerapaz
 SanCristobalVerapaz	AltaVerapaz
 San_Marcos	SanMarcos
+San_Marcos_	SanMarcos
 SanMiguelIxtahuacan	SanMarcos
 San_Miguel_Ixtahuacan	SanMarcos
 SanRafaelLasFlores	SantaRosa
@@ -651,6 +661,7 @@ Santa_Catarina_Pinula_	Guatemala
 SantaCruzBarillas	Huehuetenango
 Santa_Cruz_Barillas	Huehuetenango
 Santa_Cruz__Naranjo	SantaRosa
+Santa_Cruz_Naranjo	SantaRosa
 SantaCruzNaranjo	SantaRosa
 Santa_Maria_Ixhuatan_	SantaRosa
 Santa_Rosa_De_Lima	SantaRosa
@@ -945,6 +956,8 @@ Dornogobi	Dornogovi
 Dundgobi	Dundgovi
 Gobi-Altai	GobiAltai
 Gobisumber	Govisumber
+HovsgolAymag	Khuvsgul
+Khuvusgul	Khuvsgul
 Inner_Mongolia	InnerMongolia
 Orchon	Orkhon
 Ulgii	Olgii
@@ -1075,6 +1088,7 @@ GKarachi	Karachi
 Kasoor	Kasur
 
 # Paraguay
+_Paraguay	Paraguay
 San_Lorenzo	SanLorenzo
 
 # PapuaNewGuinea
