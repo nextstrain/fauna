@@ -105,6 +105,7 @@ Luziania	Goias
 MatoGrossoDuSul	MatoGrossoDoSul
 Mato_Grosso_do_Sul	MatoGrossoDoSul
 Mato_Grosso_Do_Sul	MatoGrossoDoSul
+Mato_Grosso	MatoGrosso
 Minas_Gerais	MinasGerais
 Nova_Brasilandia_Doeste	NovaBrasilandiaDoeste
 NovaBrasilandiaDoeste	Rondonia
@@ -387,6 +388,9 @@ Xin-Jiang-Tianshan	XinjiangTianshan
 Yunnananning	YunnanAnning
 ZhangZhou	Zhangzhou
 Zhejianghaishu	ZhejiangHaishu
+
+# CookIslands
+Cook_Islands	CookIslands
 
 # CostaRica
 Costa_Rica	CostaRica
