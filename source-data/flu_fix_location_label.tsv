@@ -225,6 +225,7 @@ PEI	PrinceEdwardIsland
 # Chile
 Alto_Hospicio	AltoHospicio
 Concepci?n	Concepcion
+_Chillan	Chillan
 Hanga_Roa	EasterIsland
 Isla_de_Pascua	IslaDePascua
 IslaPascua	IslaDePascua
@@ -238,6 +239,7 @@ PuertoMont	PuertoMontt
 PuntoMontt	PuertoMontt
 Punta_Arenas	PuntaArenas
 PtaArenas	PuntaArenas
+San_Felipe	SanFelipe
 Sanmtiago	Santiago
 Santaigo	Santiago
 Santisgo	Santiago
@@ -330,6 +332,8 @@ Jiangsusucheng	JiangsuSucheng
 Jiangsutinghu	JiangsuTinghu
 Jiangxidonghu	JiangxiDonghu
 Jiangxiguix1	JiangxiGuix
+jianshebingtuanbingtuanjiguan	Xinjiang
+XinjiangBintuan	Xinjiang
 jinfang	Jinfang
 jingfang	Jinfang
 Jinlin	Jilin
@@ -802,6 +806,7 @@ Firenze	Florence
 Friuli-VeneziaGiulia	FriuliVeneziaGiulia
 FriuliVeneziaGiuliaPN	Pordenone
 FriuliVeneziaGiuliaTS	Trieste
+FVGTrieste	Trieste
 FriuliVeneziaGiuliaUD	Udine
 FVG-Gorizia	Gorizia
 FVG-PN	Pordenone
@@ -1211,6 +1216,7 @@ Chernyshkovsky	Volgograd
 Dubovka	Volgograd
 Gortsy	Novgorod
 HMAO	KhantyMansi
+Inya	Altai
 Kalinigrad	Kaliningrad
 Kalininghrad	Kaliningrad
 Kaliningrad_Oblast	Kaliningrad
@@ -1230,6 +1236,7 @@ Kurgan_Oblast	Kurgan
 Kursk_Oblast	Kursk
 Kuzher	Khuzhir
 Kutulik	Irkutsk
+Galich	Kostroma
 Gorno-Altaisk	GornoAltaysk
 Gorno-Altaysk	GornoAltaysk
 Gornoaltaisk	GornoAltaysk
@@ -1258,6 +1265,7 @@ Kmao	KhantyMansia
 Kolpino	StPetersburg
 Krasnojarsk	Krasnoyarsk
 Khabarovsk_Krai	Khabarovsk
+Krasnoye-na-Volge	Kostroma
 Laishevo	Tatarstan
 Lugansk	Luhansk
 LIPETSK	Lipetsk
@@ -1284,6 +1292,7 @@ Novoselye	Novgorod
 Nizhnevartovsky
 NovgorogVelikiy	VelikyNovgorod
 NNovgorod	NizhnyNovgorod
+Nikel	Murmansk
 NizniyNovgorod	NizhnyNovgorod
 Nizhni_Novgorod	NizhnyNovgorod
 Nizhni Novgorod	NizhnyNovgorod
@@ -1387,6 +1396,7 @@ Yaryslavl	Yaroslavl
 Yaroslav	Yaroslavl
 Yaroslavl_Oblast	Yaroslavl
 Yaroslavyl	Yaroslavl
+Yelo	Altai
 Yermolino	Yermolina
 Yoshkar-Ola	YoshkarOla
 Yamalo-Nenets_AO	Yamalo-Nenets
