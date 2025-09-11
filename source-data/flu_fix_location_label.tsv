@@ -1063,11 +1063,14 @@ New_Caledonia	NewCaledonia
 Nelson_Marlborough	NelsonMarlborough
 New_Zealand	NewZealand
 Bop	BayOfPlenty
+Bay_of_Plenty	BayOfPlenty
 Capitalcoast	CapitalCoast
 Christhcurch	Christchurch
 CHR	Christchurch
 CountiesofManukau	CountiesManukau
 Dundedin	Dunedin
+Hawkes_Bay	HawkesBay
+Hawkes Bay	HawkesBay
 Nelsonmarlborough	NelsonMarlborough
 NZL	NewZealand
 
@@ -1100,6 +1103,9 @@ Manshera	Mansehra
 G_Karachi	Karachi
 GKarachi	Karachi
 Kasoor	Kasur
+
+# Panama
+Meteti	Darien
 
 # Paraguay
 _Paraguay	Paraguay
