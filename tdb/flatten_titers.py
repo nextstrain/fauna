@@ -3,6 +3,7 @@
 import os, sys
 import argparse
 import xlrd
+from datetime import datetime
 from collections import defaultdict
 import re
 sys.path.append('')  # need to import from base
@@ -22,17 +23,105 @@ def parse_args():
         required=False,
         help="Path to the Excel file",
     )
+    parser.add_argument(
+        "--test-protocol",
+        default="hi_protocol",
+        required=False,
+        help="Pass in assay protocol",
+    )
+    parser.add_argument(
+        "--lot_column",
+        default=3,
+        required=False,
+        help="Numeric column which has the lot id, below the titer block",
+    )
 
     return parser.parse_args()
+
+def is_titer_value(value):
+    """
+    Check if the value is numeric or a string representing a numeric value with '<'.
+
+    Basically checking for titer values e.g. "80", "< 10", "1400", ">2560", etc.
+    """
+    if isinstance(value, (int, float)):
+        return True
+    if isinstance(value, str):
+        value = value.strip()
+        if value.startswith("<") or value.startswith('＜'):
+            try:
+                float(value[1:].strip())
+                return True
+            except ValueError:
+                return False
+        if value.startswith(">"):
+            try:
+                float(value[1:].strip())
+                return True
+            except ValueError:
+                return False
+    return False
+
+def find_sr_lookup(worksheet, titer_coords, lot_column, strain_column):
+    """
+    Find the lookup table for SR references
+
+    :param worksheet: The worksheet object
+    :params titer_coords: The coordinates of the titer block, might only need the last row
+    :params lot_column: The column index for sr_lot
+    :params strain_column: The column index for strain name
+    :return: dictionary of mapping of serum ID to serum information for strain and lot ID
+
+    """
+    lot_mapping={}
+    strain_mapping={}
+
+    store=False
+    for i in range(titer_coords['row_end']+1, worksheet.nrows, 1):
+        if(worksheet.cell_value(i, 0) == "REFERENCE ANTISERUM"):
+            print(f"Found REFERENCE ANTISERUM at row: {i}; col: 0")
+            store=True
+
+        if store and worksheet.cell_value(i, 0) !="":
+            lot_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, lot_column)
+            if worksheet.cell_value(i, strain_column) !="":
+                strain_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, strain_column)
+            if worksheet.cell_value(i, strain_column-1) !="":
+                strain_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, strain_column-1)
+
+
+    return {
+        "lot_mapping": lot_mapping,
+        "strain_mapping": strain_mapping
+    }
+
+def find_assay_date(worksheet):
+    """
+    Find the assay date
+
+    :param worksheet: The worksheet object
+    :return: the assay date
+    """
+    iso_date="YYYY-MM-DD"
+    for i in range(worksheet.nrows):
+        for j in range(worksheet.ncols):
+            cell_value = str(worksheet.cell_value(i, j)).strip()
+            if cell_value.startswith("DATE TESTED:"):
+                date_str = cell_value.split(":", 1)[1].strip()
+                date_obj = datetime.strptime(date_str, "%m/%d/%Y")
+                iso_date = date_obj.date().isoformat()
+                return iso_date
+
+    return iso_date
 
 def main():
     args = parse_args()
 
-    # Default patterns, VIDRL
+    # Pattern matching
     virus_pattern = r"[A-Z]/[\w\s-]+/.+/\d{4}"
-    virus_passage_pattern = r"(MDCK|SIAT|E\d+|hCK)"
-    serum_id_pattern = r"^[A-Z]\d{4,8}"
-    serum_passage_pattern = r"(MDCK\d+|SIAT\d+|E\d+|CELL|cell|Cell)"
+    virus_passage_pattern = r"(S\d+|E\d+|Spf|QMC)"
+    serum_id_pattern = r"^[A-Z]$"
+    serum_passage_pattern = r"(SIAT|EGG|SPA|QMC|CELL)"
     serum_abbrev_pattern = r"\w+\s{0,1}\w+/\d+.*"
     crick = False
 
@@ -51,9 +140,9 @@ def main():
 
         titer_coords = {
             'col_start': titer_block["col_start"][0][0],
-            'col_end': titer_block["col_end"][0][0],
+            'col_end': titer_block["col_end"][0][0]-2, # ADJUSTMENT! Specific to dataset, due two numeric columns to the right (4, titer value)
             'row_start': titer_block["row_start"][0][0],
-            'row_end': titer_block["row_end"][0][0]
+            'row_end': titer_block["row_end"][0][0]+1 # ADJUSTMENT! Specific to dataset
         }
 
         virus_block = find_virus_columns(
@@ -78,6 +167,17 @@ def main():
             crick=crick,
             log_human_sera=False
         )
+        lookups = find_sr_lookup(
+            worksheet=worksheet,
+            titer_coords=titer_coords,
+            lot_column=args.lot_column,
+            strain_column=virus_block['virus_col_idx']
+            )
+
+        lot_map=lookups["lot_mapping"]
+
+
+        test_date=find_assay_date(worksheet=worksheet)
 
         # Print the most likely row and column indices for the titer block
         print(f"Titer block: n = {titer_block['row_start'][0][1]}x{titer_block['col_start'][0][1]} = {titer_block['row_start'][0][1]*titer_block['col_start'][0][1]}")
@@ -131,18 +231,53 @@ def main():
             print(f"Serum abbreviated name row index not found. Check the serum abbreviated name pattern: '{serum_abbrev_pattern}'")
 
         # flatten to tsv
-        serum_mapping = serum_block["serum_mapping"]
+        # serum_mapping = serum_block["serum_mapping"]
+        strain_map=lookups["strain_mapping"]
 
+        print(f"Writing to file: {filebasename.replace(' ', '_')}_{worksheet.name.replace(' ', '_')}.tsv")
+
+        test_subtype="None"
         with open(f"{filebasename.replace(' ', '_')}_{worksheet.name.replace(' ', '_')}.tsv", 'w') as outfile:
-          outfile.write("%s\n" % ("\t".join(["ag_strain_name","sr_strain_name","titer_value"])))
-          # print
+          # Print header to flattened titer values output file
+          outfile.write("%s\n" % ("\t".join(["test_date","test_protocol","test_subtype","ag_strain_name","ag_passage","ag_cdc_id","sr_strain_name","sr_passage","sr_lot","titer_value"])))
+          #outfile.write("%s\n" % ("\t".join(["test_date","assay_type","virus_strain","virus_strain_passage","serum_strain","serum_antigen_passage","serum_id","titer_value"])))
           for i in range(titer_coords['row_start'], titer_coords['row_end']):
-              ag_strain_name=str(worksheet.cell_value(i,virus_block['virus_col_idx'])).strip()
+
+              # Pull ag_strain information since it is consistent across a row.
+              ag_strain_name=str(worksheet.cell_value(i,virus_block['virus_col_idx'])).strip().replace(" (NEW)","").replace("(NEW)", "").replace(" NEW","")
+              ag_passage=str(worksheet.cell_value(i,virus_block['virus_passage_col_idx'])).strip().split("(", 1)[0].strip()
+              ag_cdc_id=""
+
+              cell = worksheet.cell(i, virus_block['virus_col_idx']+1)
+              if cell.ctype == xlrd.XL_CELL_NUMBER:
+                  ag_cdc_id = str(int(cell.value)) if cell.value.is_integer() else str(cell.value)
+              else:
+                  ag_cdc_id = str(cell.value).strip()
+
+              if str(worksheet.cell_value(i,virus_block['virus_col_idx']+4)).strip()!="":
+                  test_subtype=str(worksheet.cell_value(i,virus_block['virus_col_idx']+4)).strip().replace("H3N2","H3")
+
               for j in range(titer_coords['col_start'], titer_coords['col_end']):
-                  sr_strain_abbr=str(worksheet.cell_value(serum_block['serum_abbrev_row_idx'],j)).strip()
-                  sr_strain_name=serum_mapping.get(sr_strain_abbr, sr_strain_abbr)
+                  if not is_titer_value(worksheet.cell_value(i,j)):
+                      break
+
+                  # Pull sr_strain information for the particular cell in a row
+                  #sr_strain_abbr=str(worksheet.cell_value(serum_block['serum_abbrev_row_idx'],j)).strip()
+                  #sr_strain_name=serum_mapping.get(sr_strain_abbr, sr_strain_abbr)
+                  # Turns out human pool is only listed in the REFERENCE ANTISERUM section
+                  sr_strain_name=strain_map[str(worksheet.cell_value(serum_block['serum_id_row_idx'],j)).strip()].replace(" (NEW)","").replace("(NEW)", "").replace(" NEW","")
+                  sr_passage=str(worksheet.cell_value(serum_block['serum_passage_row_idx'],j)).strip()
+                  sr_lot=lot_map[str(worksheet.cell_value(serum_block['serum_id_row_idx'],j)).strip()]
+
+                  if sr_strain_name=="Human POOL / CSID 3100021731,3100021827,3100021837":
+                      sr_strain_name="A/Darwin/6/2021"
+                      sr_passage="CELL"
+
+                  # Pull titer value
                   titer = str(worksheet.cell_value(i,j)).strip()
-                  outfile.write(f"{ag_strain_name}\t{sr_strain_name}\t{titer}\n")
+
+                  # Print flattened titer values to output file
+                  outfile.write(f"{test_date}\t{args.test_protocol}\t{test_subtype}\t{ag_strain_name}\t{ag_passage}\t{ag_cdc_id}\t{sr_strain_name}\t{sr_passage}\t{sr_lot}\t{titer}\n")
 
 if __name__ == "__main__":
     main()
