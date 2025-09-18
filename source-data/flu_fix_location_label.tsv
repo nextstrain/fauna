@@ -71,6 +71,7 @@ Bosnia	BosniaHerzegovina
 
 # Brazil
 Alagoa	Alagoas
+Aracariguama	SaoPaulo
 Ariquemes	Rondonia
 Barretos	SaoPaulo
 Bangor_On_Dee	BangorOnDee
@@ -94,8 +95,10 @@ EspritoSanto	EspiritoSanto
 Guaira	SaoPaulo
 Guajara-Mirim	Rondonia
 Gurupi	Tocantins
+Itapeva	SaoPaulo
 Itapua_Do_Oeste	ItapuaDoOeste
 ItapuaDoOeste	Rondonia
+Itu	SaoPaulo
 Joao_Pessoa	JoaoPessoa
 JoaoPessoa	Goias
 Jardinopolis	SaoPaulo
@@ -115,6 +118,7 @@ Osasaco	Osasco
 Ouro_Branco	OuroBranco
 Paran?	Parana
 Parana?	Parana
+Pedreira	SaoPaulo
 Pitangueiras	SaoPaulo
 Porto_Nacional	Tocantines
 Porto_Velho	PortoVelho
@@ -130,6 +134,7 @@ SaoLuisDeMontesBelos	Goias
 Sao_Miguel_Do_Guapore	SaoMiguelDoGuapore
 SaoMiguelDoGuapore	Rondonia
 Taguatinga	DistritoFederal
+Taquaratinga	SaoPaulo
 Porto_Feliz	SaoPaulo
 Rio_de_Janeiro	RioDeJaneiro
 RiodeJaniero	RioDeJaneiro
@@ -996,6 +1001,7 @@ RABT	Rabat
 # Mozambique
 Maputo_Province	Maputo
 Maputo_City	MaputoCity
+Mozambique-Maputo_City	Maputo
 
 # Myanmar
 Myanmer	Myanmar
@@ -1116,6 +1122,7 @@ San_Lorenzo	SanLorenzo
 EAST SEPIK PROVINCE	EastSepik
 Eastsepikprovince	EastSepik
 Portmoresby	PortMoresby
+Papua_New_Guinea	PapuaNewGuinea
 
 # Peru
 Chachamayo	Chanchamayo
