@@ -87,7 +87,7 @@ def parse_human_serum_references(human_serum_data, subtype):
     """
     human_serum_references = {}
     year_regex = r"SH(vax|VAX|\s)?(\d{4})"
-    egg_or_cell_regex = r"^(egg|cell)$" # Used with re.IGNORECASE
+    egg_or_cell_regex = r"^(egg|cell)" # Used with re.IGNORECASE, can match "cell, human"
 
     potential_year_fields = ['serum_id', 'serum_passage', 'serum_abbrev']
     potential_egg_or_cell_fields = ['serum_passage', 'extra_info']

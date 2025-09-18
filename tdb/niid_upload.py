@@ -125,8 +125,10 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
 
             for i in range(row_start, row_end+1):
                 for j in range(col_start, col_end+1):
-                    virus_strain = str(mat.cell_value(i,virus_id_col_index)).strip()
-                    serum_id = str(mat.cell_value(serum_id_row_index,j)).strip().replace(' ','')
+                    virus_strain = str(mat.cell_value(i,virus_id_col_index)).replace('\u3000', ' ').strip()
+                    virus_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', virus_strain)
+                    serum_id = str(mat.cell_value(serum_id_row_index,j)).replace('\u3000', ' ').strip().replace(' ','')
+                    serum_id = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', serum_id)
                     serum_id = re.sub(r'[\r\n ]+', '', serum_id)
                     m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr|\(bvr)', serum_id, re.IGNORECASE)
                     if m is None:
@@ -136,6 +138,9 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
                         serum_strain = m.group(1)
                         if not serum_strain.startswith(flutype + "/"):
                             serum_strain = flutype + "/" + serum_strain
+                    serum_strain=serum_strain.replace('\u3000', ' ').strip().replace(' ','')
+                    serum_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', serum_strain)
+
                     # Normalize U+ff1c '＜' to U+003c '<'
                     titer = unicodedata.normalize('NFKC', str(mat.cell_value(i,j)).strip())
                     # Allow either "< 10" or "<10"

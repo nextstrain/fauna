@@ -91,6 +91,9 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             col_span = 1
             virus_strain_col_index = 1
             virus_passage_col_index = 5
+            # cdc
+            # virus_strain_col_index = 2
+            # virus_passage_col_index = 4
             serum_strain_row_index = 3
             serum_passage_row_index = 5
             serum_id_row_index = 6
@@ -107,7 +110,14 @@ def parse_crick_matrix_to_tsv(fname, original_path, assay_type):
             for j in range(start_col, len(mat[0]), col_span):
                 virus_strain = mat[i][virus_strain_col_index].strip()
                 virus_strain = re.sub('\u0410', 'A', virus_strain) # Cyrillic A
+                # cdc
+                virus_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', virus_strain)
+                virus_strain = virus_strain.replace(" (NEW)","").replace("(NEW)", "").replace(" NEW","")
+
                 serum_strain = mat[serum_strain_row_index][j].rstrip("/")+"/"+mat[serum_strain_row_index+1][j].lstrip("/")
+                # cdc
+                serum_strain = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', serum_strain)
+                serum_strain = re.sub(r'District of /Columbia', 'DistrictOfColumbia', serum_strain)
                 m = build_location_mapping()
                 for (k,v) in m.items():
                     if v not in serum_strain:
