@@ -30,12 +30,37 @@ def parse_args():
         help="Pass in assay protocol",
     )
     parser.add_argument(
-        "--lot_column",
+        "--lot-column",
         default=3,
         required=False,
         help="Numeric column which has the lot id, below the titer block",
     )
-
+    parser.add_argument(
+        "--subtype-column",
+        default=20,
+        required=False,
+        help="Subtype column, since sometimes to the left or right of the titer block or even intersperced",
+        # TODO: autodetect this later
+    )
+    parser.add_argument(
+        "--cdcid-column",
+        default=15,
+        required=False,
+        help="CDCID column, since sometimes to the left or right of the titer block",
+        # TODO: Autodetect this later
+    )
+    parser.add_argument(
+        "--test-date",
+        default="YYYY-MM-DD",
+        required=False,
+        help="Default test date, tends to be reported in very inconsistent places in the excel file",
+    )
+    parser.add_argument(
+        "--col-end-adjustment",
+        default=-3,
+        required=False,
+        help="Numeric column which has the lot id, below the titer block",
+    )
     return parser.parse_args()
 
 def is_titer_value(value):
@@ -86,8 +111,9 @@ def find_sr_lookup(worksheet, titer_coords, lot_column, strain_column):
             lot_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, lot_column)
             if worksheet.cell_value(i, strain_column) !="":
                 strain_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, strain_column)
-            if worksheet.cell_value(i, strain_column-1) !="":
-                strain_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, strain_column-1)
+            else:
+                if worksheet.cell_value(i, strain_column-1) !="":
+                    strain_mapping[worksheet.cell_value(i, 0)] = worksheet.cell_value(i, strain_column-1)
 
 
     return {
@@ -95,14 +121,14 @@ def find_sr_lookup(worksheet, titer_coords, lot_column, strain_column):
         "strain_mapping": strain_mapping
     }
 
-def find_assay_date(worksheet):
+def find_assay_date(worksheet, default="YYYY-MM-DD"):
     """
     Find the assay date
 
     :param worksheet: The worksheet object
     :return: the assay date
     """
-    iso_date="YYYY-MM-DD"
+    iso_date=default
     for i in range(worksheet.nrows):
         for j in range(worksheet.ncols):
             cell_value = str(worksheet.cell_value(i, j)).strip()
@@ -140,9 +166,9 @@ def main():
 
         titer_coords = {
             'col_start': titer_block["col_start"][0][0],
-            'col_end': titer_block["col_end"][0][0]-2, # ADJUSTMENT! Specific to dataset, due two numeric columns to the right (4, titer value)
+            'col_end': titer_block["col_end"][0][0] + int(args.col_end_adjustment), # ADJUSTMENT! Specific to dataset, due two numeric columns to the right (4, titer value)
             'row_start': titer_block["row_start"][0][0],
-            'row_end': titer_block["row_end"][0][0]+1 # ADJUSTMENT! Specific to dataset
+            'row_end': titer_block["row_end"][0][0] # ADJUSTMENT! Specific to dataset
         }
 
         virus_block = find_virus_columns(
@@ -170,14 +196,12 @@ def main():
         lookups = find_sr_lookup(
             worksheet=worksheet,
             titer_coords=titer_coords,
-            lot_column=args.lot_column,
+            lot_column=int(args.lot_column),
             strain_column=virus_block['virus_col_idx']
             )
 
         lot_map=lookups["lot_mapping"]
-
-
-        test_date=find_assay_date(worksheet=worksheet)
+        test_date=find_assay_date(worksheet=worksheet, default=args.test_date)
 
         # Print the most likely row and column indices for the titer block
         print(f"Titer block: n = {titer_block['row_start'][0][1]}x{titer_block['col_start'][0][1]} = {titer_block['row_start'][0][1]*titer_block['col_start'][0][1]}")
@@ -248,14 +272,18 @@ def main():
               ag_passage=str(worksheet.cell_value(i,virus_block['virus_passage_col_idx'])).strip().split("(", 1)[0].strip()
               ag_cdc_id=""
 
-              cell = worksheet.cell(i, virus_block['virus_col_idx']+1)
+              #ag_cdc_id_col=virus_block['virus_col_idx']+1
+              ag_cdc_id_col=int(args.cdcid_column)
+              cell = worksheet.cell(i, ag_cdc_id_col)
               if cell.ctype == xlrd.XL_CELL_NUMBER:
                   ag_cdc_id = str(int(cell.value)) if cell.value.is_integer() else str(cell.value)
               else:
                   ag_cdc_id = str(cell.value).strip()
 
               if str(worksheet.cell_value(i,virus_block['virus_col_idx']+4)).strip()!="":
-                  test_subtype=str(worksheet.cell_value(i,virus_block['virus_col_idx']+4)).strip().replace("H3N2","H3")
+                  subtype_col=virus_block['virus_col_idx']+4
+                  subtype_col=int(args.subtype_column)
+                  test_subtype=str(worksheet.cell_value(i,subtype_col)).strip().replace("H3N2","H3")
 
               for j in range(titer_coords['col_start'], titer_coords['col_end']):
                   if not is_titer_value(worksheet.cell_value(i,j)):
