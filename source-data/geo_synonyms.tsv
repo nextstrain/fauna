@@ -37,6 +37,8 @@ Anguilla	Anguilla	Anguilla	Anguilla
 Antarctica	Antarctica	Antarctica	Antarctica
 BeakIsland	Antarctica	Antarctica	BeakIsland
 BirdIsland	Antarctica	SouthGeorgiaAndTheSouthSandwichIslands	BirdIsland
+DevilIsland	Antarctica	Antarctica	DevilIsland
+HopeBay	Antarctica	Antarctica	HopeBay
 SouthShetlandIslands	Antarctica	Antarctica	SouthShetlandIslands
 TorgersenIsland	Antarctica	Antarctica	TorgersenIsland
 
@@ -127,6 +129,10 @@ Chattogram	Bangladesh	Bangladesh	Chattogram
 Dhaka	Bangladesh	Bangladesh	Dhaka
 Jashore	Bangladesh	Khulna	Jashore
 Khulna	Bangladesh	Khulna	Khulna
+Narsingdi	Bangladesh	Dhaka	Narsingdi
+Mymensingh	Bangladesh	Mymensingh	Mymensingh
+Gazipur	Bangladesh	Dhaka	Gazipur
+
 
 # Barbados
 Barbados	Barbados	Barbados	Barbados
@@ -1025,7 +1031,9 @@ Giza	Egypt	Giza	Giza
 NorthSinai	Egypt	NorthSinai	NorthSinai
 Sharqia	Egypt	Sharqia	Sharqia
 Qalubia	Egypt	Qalubia	Qalubia
+Qalyubia	Egypt	Qalyubia	Qalyubia
 Zagazig	Egypt	Sharqia	Zagazig
+
 
 # ElSalvador
 ElSalvador	ElSalvador	ElSalvador	ElSalvador
@@ -1037,6 +1045,7 @@ Eritrea	Eritrea	Eritrea	Eritrea
 
 # Estonia
 Estonia	Estonia	Estonia	Estonia
+EstKunda	Estonia	LaaneVirumaa	EstKunda
 Paikuse	Estonia	Parnu	Paikuse
 Parnu	Estonia	Parnu	Parnu
 Tallinn	Estonia	Harju	Tallinn
@@ -2167,6 +2176,7 @@ Guerrero	Mexico	Guerrero	Guerrero
 Guanajuato	Mexico	Guanajuato	Guanajuato
 Yucatan	Mexico	Mexico	Yucatan
 Yucatanstate	Mexico	Yucatan	Yucatan
+Lerma	Mexico	Lerma	Lerma
 Michoacan	Mexico	Michoacan	Michoacan
 Monterrey	Mexico	Mexico	Monterrey
 Morelos	Mexico	Morelos	Morelos
@@ -2338,6 +2348,7 @@ Eindhoven	Netherlands	NorthBrabant	Eindhoven
 Enschede	Netherlands	Overijssel	Enschede
 Enumatil	Netherlands	Groningen	Enumatil
 Ferwert	Netherlands	Friesland	Ferwert
+Friesland	Netherlands	Friesland	Friesland
 Gouda	Netherlands	SouthHolland	Gouda
 Greonterp	Netherlands	Friesland	Greonterp
 Groningen	Netherlands	Groningen	Groningen
@@ -3904,6 +3915,7 @@ Bronx	USA	NewYork	Bronx
 Brownsville	USA	Texas	Brownsville
 Cambridge	USA	Massachusetts	Cambridge
 CapeMay	USA	NewJersey	CapeMay
+CasaGrande	USA	Arizona	CasaGrande
 Charlottesville	USA	Virginia	Charlottesville
 CherryPoint	USA	NorthCarolina	CherryPoint
 Chicago	USA	Illinois	Chicago
@@ -3920,6 +3932,7 @@ GreatLakes	USA	Michigan	GreatLakes
 Houston	USA	Texas	Houston
 Kansas	USA	Kansas	Kansas
 Lackland	USA	Texas	Lackland
+LitchfieldPark	USA	Arizona	LitchFieldPark
 LosAngeles	USA	California	LosAngeles
 Keywestfl	USA	Florida	KeyWest
 Maine	USA	Maine	Maine
@@ -3933,6 +3946,7 @@ NewYorkCity	USA	NewYork	NewYorkCity
 OrangeCounty	USA	California	OrangeCounty
 Pendleton	USA	Oregon	Pendleton
 Pensacola	USA	Florida	Pensacola
+QueenCreek	USA	Arizona	QueenCreek
 Rochester	USA	NewYork	Rochester
 Temple	USA	Pennsylvania	Temple
 SanAntonio	USA	Texas	SanAntonio
@@ -3942,12 +3956,15 @@ SanRamon	USA	California	SanRamon
 SantaClara	USA	California	SantaClara
 SanBernardinoCounty	USA	California	SanBernardinoCounty
 SantaFe	USA	NewMexico	SantaFe
+SanTanValley	USA	Arizona	SanTanValley
+Scottsdale	USA	Arizona	Scottsdale
 Seattle	USA	Washington	Seattle
 SilverSpring	USA	Maryland	SilverSpring
 SL	USA	USA	USA
 Springfield	USA	Illinois	Springfield
 Sophia	USA	WestVirginia	Sophia
 StLouis	USA	Missouri	StLouis
+Surprise	USA	Arizona	Surprise
 Virginia	USA	Virginia	Virginia
 
 # US Virgin Islands
