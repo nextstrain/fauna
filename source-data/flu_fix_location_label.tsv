@@ -232,6 +232,7 @@ PEI	PrinceEdwardIsland
 Alto_Hospicio	AltoHospicio
 Concepci?n	Concepcion
 _Chillan	Chillan
+CHL	Chile
 Hanga_Roa	EasterIsland
 Isla_de_Pascua	IslaDePascua
 IslaPascua	IslaDePascua
@@ -399,6 +400,9 @@ Xin-Jiang-Tianshan	XinjiangTianshan
 Yunnananning	YunnanAnning
 ZhangZhou	Zhangzhou
 Zhejianghaishu	ZhejiangHaishu
+
+# Colombia
+Cartagena	Bolivar
 
 # CookIslands
 Cook_Islands	CookIslands
