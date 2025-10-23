@@ -650,6 +650,7 @@ Asuncion_Mita	Jutiapa
 AsuncionMita	Jutiapa
 Barberena_	SantaRosa
 Caba?as	Zacapa
+Cahabon	Altaverapaz
 Casillas	SantaRosa
 Chamelco	Altaverapaz
 Comapa	Jutiapa
@@ -663,6 +664,7 @@ Huite	Zacapa
 Jalpatagua	Jutiapa
 Jocotan	Chiquimula
 Lanquin	Altaverapaz
+LaTinta	Altaverapaz
 LosAmates	Izabal
 Los_Amates	Izabal
 Nebaj	ElQuiche
@@ -678,6 +680,7 @@ ElJicaro	ElProgreso
 El_Jicaro	ElProgreso
 San_Juan_Comalapa	SanJuanComalapa
 SanJuanComalapa	Chimaltenango
+SanJoseAcatempa	Jutiapa
 SanJosePoaquil	Chimaltenango
 San_Jose_Poaquil	Chimaltenango
 San_Jose_Pinula	Guatemala
@@ -1651,6 +1654,8 @@ Clydach_Vale	ClydachVale
 Cwmavon	Cwmafan
 Dinas_Powys	DinasPowys
 Falkland-Islands	FalklandIslands
+LlanfairPG	Wales
+Llanfoist	Wales
 Llanfair?pwllgwyngyll?gogery?chwyrn?drobwll?llan?tysilio?gogo?goch	Llanfairpwllgwyngyll
 Llanfihangel_Glyn_Myrfyr	LlanfihangelGlynMyfyr
 Llanngeinor	Llangeinor
@@ -1675,8 +1680,10 @@ Senghennyd	Senghenydd
 StAsaph	SaintAsaph
 St_Brides_Major	StBridesMajor
 StClears	SaintClears
+Sully	Wales
 Taffs_Well	TaffsWell
 Pontycymmer	Pontycymer
+PenrhynBay	Wales
 Trefforest	Treforest
 Bala	Wales
 Barmouth	Wales
