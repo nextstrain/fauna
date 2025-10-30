@@ -434,6 +434,8 @@ Cote d\'Ivorie	CoteDIvoire
 Cote d'Ivorie	CoteDIvoire
 CoteDIvorie	CoteDIvoire
 C?teDIvoire	CoteDIvoire
+C??te-dIvoire	CoteDIvoire
+C?te-d'Ivoire	CoteDIvoire
 YopougonGR926	Yopougon/GR926
 Korogho	Korhogo
 IvoryCoast	CoteDIvoire
@@ -1645,6 +1647,7 @@ AbuDhbai	AbuDhabi
 
 # UnitedKingdom
 Abertysswgy	Abertysswg
+Aberthin	Wales
 Blaenau_Ffestiniog	BlaenauFfestiniog
 BrittonFerry	BritonFerry
 Briton_Ferry	BritonFerry
@@ -1652,6 +1655,7 @@ Burry_Port	BurryPort
 BrynYGarreg	Wales
 Clydach_Vale	ClydachVale
 Cwmavon	Cwmafan
+Caerau	Wales
 Dinas_Powys	DinasPowys
 Falkland-Islands	FalklandIslands
 LlanfairPG	Wales
@@ -1685,6 +1689,7 @@ Taffs_Well	TaffsWell
 Pontycymmer	Pontycymer
 PenrhynBay	Wales
 Trefforest	Treforest
+Tycroes	Wales
 Bala	Wales
 Barmouth	Wales
 Caerwys	Wales
