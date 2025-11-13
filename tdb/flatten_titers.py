@@ -37,14 +37,14 @@ def parse_args():
     )
     parser.add_argument(
         "--subtype-column",
-        default=20,
+        default=22,
         required=False,
         help="Subtype column, since sometimes to the left or right of the titer block or even intersperced",
         # TODO: autodetect this later
     )
     parser.add_argument(
         "--cdcid-column",
-        default=15,
+        default=19,
         required=False,
         help="CDCID column, since sometimes to the left or right of the titer block",
         # TODO: Autodetect this later
@@ -59,7 +59,7 @@ def parse_args():
         "--col-end-adjustment",
         default=-3,
         required=False,
-        help="Numeric column which has the lot id, below the titer block",
+        help="Since a pair of numeric columns occur after the titer block, adjustment of the end of the titer block",
     )
     return parser.parse_args()
 
