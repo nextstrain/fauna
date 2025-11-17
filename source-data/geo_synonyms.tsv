@@ -1698,6 +1698,7 @@ Behbahan	Iran	Khuzestan	Behbahan
 Birjand	Iran	SouthKhorasan	Birjand
 Boshehr	Iran	Boshehr	Boshehr
 Bushehr	Iran	Bushehr	Bushehr
+ChaharmahalandBakhtiari	Iran	ChaharmahalandBakhtiari	ChaharmahalandBakhtiari
 Esfahan	Iran	Esfahan	Esfahan
 Golestan	Iran	Golestan	Golestan
 Hamedan	Iran	Hamedan	Hamedan
@@ -1726,6 +1727,7 @@ Sardasht	Iran	WestAzerbaijan	Sardasht
 Sari	Iran	Mazandaran	Sari
 Semnan	Iran	Semnan	Semnan
 Shiraz	Iran	Fars	Shiraz
+Shahrekord	Iran	ChaharmahalandBakhtiari	Shahrekord
 Shahriar	Iran	Tehran	Shahriar
 Sistan	Iran	SistanAndBaluchestan	Sistan
 Tabriz	Iran	EastAzerbaijan	Tabriz
@@ -1901,6 +1903,7 @@ Nagasaki	Japan	Nagasaki	Nagasaki
 Nagoya	Japan	Aichi	Nagoya
 Nara	Japan	Nara	Nara
 Narita	Japan	Chiba	Narita
+Nemuro	Japan	Hokkaido	Nemuro
 Niigata	Japan	Niigata	Niigata
 Oita	Japan	Oita	Oita
 Okayama	Japan	Okayama	Okayama
