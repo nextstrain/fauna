@@ -215,6 +215,7 @@ Boavistarr	Brazil	Roraima	BoaVista
 BordaDaMata	Brazil	MinasGerais	BordaDaMata
 Roraimarr	Brazil	Roraima	Roraima
 Boavistaroraimastate	Brazil	Roraima	BoaVista
+Bonito	Brazil	MatoGrossoDoSul	Bonito
 Bragancapara	Brazil	Para	Braganca
 Brasilandia	Brazil	MatoGrossoDoSul	Brasilandia
 Brasilia	Brazil	Brasilia	Brasilia
@@ -243,6 +244,7 @@ Contagem	Brazil	MinasGerais	Contagem
 Corinto	Brazil	MinasGerais	Corinto
 CoronelFabriciano	Brazil	MinasGerais	CoronelFabriciano
 Corumba	Brazil	MatoGrossoDoSul	Corumba
+CorumbadeGoias	Brazil	Goias	CorumbadeGoias
 Cruzeiro	Brazil	SaoPaulo	Cruzeiro
 Cruzilia	Brazil	MinasGerais	Cruzilia
 Cuiaba	Brazil	MatoGrosso	Cuiaba
@@ -270,8 +272,11 @@ Ibipora	Brazil	Parana	Ibipora
 Ibirite	Brazil	MinasGerais	Ibirite
 Inocencia	Brazil	MatoGrossoDoSul	Inocencia
 Ipatinga	Brazil	MinasGerais	Ipatinga
+Ipora	Brazil	Goias	Ipora
+Itaberai	Brazil	Goias	Itaberai
 Itajuba	Brazil	MinasGerais	Itajuba
 Itamonte	Brazil	MinasGerais	Itamonte
+Itanhaem	Brazil	SaoPaulo	Itanhaem
 ItapecericaDaSerra	Brazil	SaoPaulo	ItapecericaDaSerra
 Itapevi	Brazil	SaoPaulo	Itapevi
 Itauna	Brazil	MinasGerais	Itauna
@@ -294,6 +299,7 @@ Maceio	Brazil	Alagoas	Maceio
 Maracaju	Brazil	MatoGrossoDoSul	Maracaju
 MatoGrossoDoSul	Brazil	MatoGrossoDoSul	MatoGrossoDoSul
 MatoGrosso	Brazil	MatoGrosso	MatoGrosso
+MojiMirim	Brazil	SaoPaulo	MojiMirim
 MogidasCruzes	Brazil	SaoPaulo	MogidasCruzes
 MontesClaros	Brazil	MinasGerais	MontesClaros
 Murici	Brazil	Alagoas	Murici
@@ -371,6 +377,7 @@ SonoraBrazil	Brazil	MatoGrossoDoSul	Sonora
 Salvador	Brazil	Bahia	Salvador
 TaboaoDaSerra	Brazil	SaoPaulo	TaboaoDaSerra
 TaquaracuDeMinas	Brazil	MinasGerais	TaquaracuDeMinas
+Taquaritinga	Brazil	SaoPaulo	Taquaritinga
 Taubate	Brazil	SaoPaulo	Taubate
 TeofiloOtoni	Brazil	MinasGerais	TeofiloOtoni
 Teresina	Brazil	Piaui	Teresina
@@ -2682,6 +2689,7 @@ Vrancea	Romania	Vrancea	Vrancea
 # Russia
 Russia	Russia	Russia	Russia
 Adygea	Russia	Adygea	Adygea
+AdygeyaRepublic	Russia	AdygeyaRepublic	AdygeyaRepublic
 Alania	Russia	OssetiaAlania	Alania
 Altai	Russia	Altai	Altai
 Alexandrov	Russia	Vladimir	Alexandrov
@@ -2691,6 +2699,7 @@ Anapa	Russia	KrasnodarKrai	Anapa
 Anna	Russia	Voronezh	Anna
 AnzheroSudzhensk	Russia	Kemerovo	AnzheroSudzhensk
 Arkhangelsk	Russia	Arkhangelsk	Arkhangelsk
+ArkhangelskOblast	Russia	ArkhangelskOblast	ArkhangelskOblast
 Armavir	Russia	KrasnodarKrai	Armavir
 Astrakhan	Russia	Astrakhan	Astrakhan
 Balashikha	Russia	Moscow	Balashikha
@@ -2705,6 +2714,7 @@ Birobidzhan	Russia	JewishOblast	Birobidzhan
 Blagoveshchensk	Russia	Amur	Blagoveshchensk
 BolshieKolpany	Russia	Leningrad	BolshieKolpany
 Bryansk	Russia	Bryansk	Bryansk
+Bryansk_Oblast	Russia	BryanskOblast	BryanskOblast
 Buryatia	Russia	Buryatia	Buryatia
 Buturlinovka	Russia	Voronezh	Buturlinovka
 Chany	Russia	Novosibirsk	Chany
@@ -2737,12 +2747,15 @@ Ivanovo	Russia	Ivanovo	Ivanovo
 Izhevsk	Russia	Udmurt	Izhevsk
 JewishOblast	Russia	JewishOblast	JewishOblast
 KabardinoBalkar	Russia	NorthCaucasus	KabardinoBalkar
+Kabardino-Balkaria	Russia	Kabardino-Balkaria	Kabardino-Balkaria
 Kalach	Russia	Voronezh	Kalach
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
 Kalmykia	Russia	Kalmykia	Kalmykia
 Kaluga	Russia	Kaluga	Kaluga
+KalugaOblast	Russia	KalugaOblast	KalugaOblast
 Kamchatka	Russia	Kamchatka	Kamchatka
+Karachay-Cherkessia	Russia	Karachay-Cherkessia	Karachay-Cherkessia
 Karasuk	Russia	Novosibirsk	Karasuk
 Kazan	Russia	Tatarstan	Kazan
 Kemerovo	Russia	Kemerovo	Kemerovo
@@ -2766,6 +2779,7 @@ Komi	Russia	Komi	Komi
 Konstantinovka	Russia	Amur	Konstantinovka
 KoshAgach	Russia	Altai	KoshAgach
 Kostroma	Russia	Kostroma	Kostroma
+KostromaOblast	Russia	KostromaOblast	KostromaOblast
 Kozmodemyansk	Russia	MariEl	Kozmodemyansk
 Krasnodar	Russia	Krasnodar	Krasnodar
 Krasnoozerka	Russia	Khakassia	Krasnoozerka
@@ -2795,6 +2809,7 @@ Medved	Russia	Novgorod	Medved
 Mordovia	Russia	Mordovia	Mordovia
 Morki	Russia	MariEl	Morki
 Moscow	Russia	Moscow	Moscow
+MoscowOblast	Russia	MoscowOblast	MoscowOblast
 Mshaga	Russia	Novgorod	Mshaga
 Murmansk	Russia	Murmansk	Murmansk
 Nalchik	Russia	KabardinoBalkaria	Nalchik
@@ -2816,7 +2831,9 @@ Nurlat	Russia	Tatarstan	Nurlat
 Omsk	Russia	Omsk	Omsk
 Onguday	Russia	Altai	Onguday
 Orel	Russia	Oryol	Orel
+OrelOblast	Russia	OrelOblast	OrelOblast
 Orenburg	Russia	Orenburg	Orenburg
+OrenburgOblast	Russia	OrenburgOblast	OrenburgOblast
 Orshanka	Russia	MariEl	Orshanka
 Oryol	Russia	Oryol	Oryol
 OssetiaAlania	Russia	OssetiaAlania	OssetiaAlania
@@ -2837,8 +2854,10 @@ Pskov	Russia	Pskov	Pskov
 Reshoty	Russia	Pskov	Reshoty
 RostovOnDon	Russia	Rostov	RostovOnDon
 Rostov	Russia	Rostov	Rostov
+RostovOblast	Russia	RostovOblast	RostovOblast
 Rovenki	Russia	Belgorod	Rovenki
 Ryazan	Russia	Ryazan	Ryazan
+RyazanOblast	Russia	RyazanOblast	RyazanOblast
 Sakhalin	Russia	Sakhalin	Sakhalin
 Sartlan	Russia	Novosibirsk	Sartlan
 StPetersburg	Russia	StPetersburg	StPetersburg
@@ -2874,14 +2893,17 @@ Tolyatti	Russia	Samara	Tolyatti
 Tomsk	Russia	Tomsk	Tomsk
 Trubichino	Russia	Vologda	Trubichino
 Tula	Russia	Tula	Tula
+Tula_Oblast	Russia	TulaOblast	TulaOblast
 Turochak	Russia	Altai	Turochak
 Tver	Russia	Tver	Tver
 Tyva	Russia	Tyva	Tyva
 Tyumen	Russia	Tyumen	Tyumen
+Udmurtia	Russia	Udmurtia	Udmurtia
 Ufa	Russia	Bashkortostan	Ufa
 Uglich	Russia	Yaroslavl	Uglich
 UlanUde	Russia	Buryatia	UlanUde
 Ulyanovsk	Russia	Ulyanovsk	Ulyanovsk
+Ulyanovsk_Oblast	Russia	UlyanovskOblast	UlyanovskOblast
 Urengoy	Russia	Yamalia	Urengoy
 USSR	Russia	Russia	Russia
 VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
@@ -2889,6 +2911,7 @@ VerkhChebula	Russia	Kemerovo	VerkhChebula
 VerkhniyPrikhon	Russia	NizhnyNovgorod	VerkhniyPrikhon
 Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
 Vladimir	Russia	Vladimir	Vladimir
+Vladimir_Oblast	Russia	VladimirOblast	VladimirOblast
 Vladivostok	Russia	Primorsky	Vladivostok
 Voronezh	Russia	Voronezh	Voronezh
 Volgograd	Russia	Volgograd	Volgograd

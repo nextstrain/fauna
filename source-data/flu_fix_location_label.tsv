@@ -1250,10 +1250,12 @@ Bucuresti	Bucharest
 Targu-Mures	TarguMures
 
 # Russia
+Adygeya_Republic	AdygeyaRepublic
 Altai_Republic	Altai
 Amur_Oblast	AmurOblast
 Anzhero-Sudzhensk	AnzheroSudzhensk
 Archangelsk	Arkhangelsk
+Arkhangelsk_Oblast	ArkhangelskOblast
 Astrahan	Astrakhan
 Astrahkan	Astrakhan
 Belgorod_Oblast	Belgorod
@@ -1263,6 +1265,7 @@ Blagoveschensk	Blagoveshchensk
 Blagoveshensk	Blagoveshchensk
 Bokhan	Irkutsk
 Bor	NizhnyNovgorod
+Bryansk_Oblast	BryanskOblast
 Burga	Novgorod
 Novgorod_Region	Novgorod
 Drozhzhanoe	Drozhzhanovsky
@@ -1276,14 +1279,17 @@ Inya	Altai
 Kalinigrad	Kaliningrad
 Kalininghrad	Kaliningrad
 Kaliningrad_Oblast	Kaliningrad
+Kaluga_Oblast	KalugaOblast
 Kandalaksha	Murmansk
 Karachay-Cherkess	Cherkessk
+Karachay-Cherkessia?	Karachay-Cherkessia
 Khabarovsk_Krai	Khabarovsk
 Khakasia	Khakassia
 Khanty-Mansi_AO	KhantyMansi
 Kirillovskoye_Seltso	KirillovskoyeSeltso
 Kola	Murmansk
 Kosh-Agach	KoshAgach
+Kostroma_Oblast	KostromaOblast
 Kozmodemiansk	Kozmodemyansk
 Krasnoyarsk_Krai	Krasnoyarsk
 Krasnodar_Krai	Krasnodar
@@ -1334,12 +1340,14 @@ Magadan_Oblast	Magadan
 Mari_El	MariEl
 Moscowoblast	Moscow
 Moscowv	Moscow
+Moscow_Oblast	MoscowOblast
 Mahachkala	Makhachkala
 Murmask	Murmansk
 Murmansk_Oblast	Murmansk
 Malaya_Vishera	MalayaVishera
 Novgorod_Oblast	Novgorod
 NorthOssetia	NorthOssetiaAlania
+North_Ossetia	NorthOssetiaAlania
 NovgorodRegion	Novgorod
 Nizhnevartovsk
 Chudovo	Novgorod
@@ -1370,6 +1378,8 @@ NizhnyNovgorodOblast	NizhnyNovgorod
 Olenegorsk	Murmansk
 Omsk_Oblast	Omsk
 Oreburg	Orenburg
+Orel_Oblast	OrelOblast
+Orenburg_Oblast	OrenburgOblast
 Ossetia-Alania	OssetiaAlania
 Primorie	Primorsky
 Plavsk	Tula
@@ -1385,8 +1395,10 @@ Rostov-On-Don	RostovOnDon
 Rostov-on-Don	RostovOnDon
 Rostov_on_Don	RostovOnDon
 Rostovoblast	Rostov
+Rostov_Oblast	RostovOblast
 Russia_Krasnodar	Krasnodar
 RussianFederation	Russia
+Ryazan_Oblast	RyazanOblast
 Sakha	Yakutia
 Salehard	Salekhard
 SaintPetersburg	StPetersburg
@@ -1424,11 +1436,13 @@ RepublicofTatarstan	Tatarstan
 Tomsk_Oblast	Tomsk
 Tver_Oblast	Tver
 Tyumen_Oblast	Tyumen
+Tula_Oblast	TulaOblast
 Turochack	Turochak
 Tuymen	Tyumen
 Ugolnaya	Irkutsk
 Ulan-Ude	UlanUde
 Ulan_Ude	UlanUde
+Ulyanovsk_Oblast	UlyanovskOblast
 Ussr	USSR
 Uryupinsk	Volgograd
 Vladivistok	Vladivostok
@@ -1439,6 +1453,7 @@ Velikiy_Novgorod	VelikyNovgorod
 Veliky_Novgorod	VelikyNovgorod
 Verkh-Chebula	VerkhChebula
 Vilyuchinsk	Kamchatka
+Vladimir_Oblast	VladimirOblast
 Volgda	Vologda
 Vologd	Vologda
 Voroneg	Voronezh
