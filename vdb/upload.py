@@ -50,6 +50,7 @@ class upload(parse):
         self.date_fix_fname = None
         self.fix_date = None
         self.virus_to_sequence_transfer_fields = []
+        self.sequence_to_virus_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
         '''
@@ -72,6 +73,7 @@ class upload(parse):
         #self.match_duplicate_accessions(sequences, **kwargs)
         #self.match_database_duplicate_accessions(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
+        self.transfer_fields(sequences, viruses, self.sequence_to_virus_transfer_fields)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("")
         print("Upload Step")
