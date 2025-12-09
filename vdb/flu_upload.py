@@ -52,6 +52,7 @@ class flu_upload(upload):
         self.location_fix_fname = "source-data/flu_location_fix.tsv"
         self.location_label_fix_fname = "source-data/flu_fix_location_label.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
+        self.sequence_to_virus_transfer_fields = ['originating_lab', 'submitting_lab']
         self.fix = set()
 
     def parse(self, path, fname, upload_directory, **kwargs):
@@ -524,8 +525,8 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
-    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab', 6: 'originating_lab'}
+    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1 | Medical University Vienna | Department of Virology, Medical University Vienna 
     setattr(args, 'fasta_fields', sequence_fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                              ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
