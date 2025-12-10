@@ -64,6 +64,7 @@ class flu_upload(upload):
         self.location_fix_fname = "source-data/flu_location_fix.tsv"
         self.date_fix_fname = "source-data/avian_flu_date_fix.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
+        self.sequence_to_virus_transfer_fields = ['originating_lab', 'submitting_lab']
         self.fix = set()
 
     def parse(self, path, fname, data_source, upload_directory, **kwargs):
@@ -672,9 +673,9 @@ class flu_upload(upload):
 if __name__=="__main__":
     args = parser.parse_args()
     if (args.data_source == 'gisaid'):
-        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'INSDC_accession'}
+        sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'INSDC_accession', 6: 'submitting_lab', 7: 'originating_lab'}
         #gisaid fasta fields:
-        # DNA Accession no. | Isolate name | Isolate ID | Segment
+        # DNA Accession no. | Isolate name | Isolate ID | Segment | Passage details/history | DNA INSDC | Submitting lab | Originating lab 
         setattr(args, 'fasta_fields', sequence_fasta_fields)
         xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                                  ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
