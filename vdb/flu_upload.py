@@ -94,6 +94,9 @@ class flu_upload(upload):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
+                # Only check the first record since we expect a single file to have the same headers
+                if len(sequences) == 0 and len(content) < len(sequence_fasta_fields):
+                    raise Exception(f"FASTA header only has {len(content)} fields but we are expecting {len(sequence_fasta_fields)} fields.")
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
                 s['sequence'] = str(record.seq)
                 # Exclude the bad submitting lab names due to download bug in GISAID
@@ -119,6 +122,9 @@ class flu_upload(upload):
             # Make sure all Nan values are converted to None, regardless of column dtype
             # based on https://stackoverflow.com/a/70803926
             df = df.astype(object).where((pandas.notnull(df)), None)  # convert Nan type to None
+            missing_columns = set(x[1] for x in xls_fields_wanted) - set(df.columns)
+            if missing_columns:
+                raise Exception(f"Not all expected columns are available in XLS file, missing: {missing_columns}")
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
