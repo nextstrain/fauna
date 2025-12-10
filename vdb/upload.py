@@ -50,6 +50,7 @@ class upload(parse):
         self.date_fix_fname = None
         self.fix_date = None
         self.virus_to_sequence_transfer_fields = []
+        self.sequence_to_virus_transfer_fields = []
 
     def upload(self, preview=False, **kwargs):
         '''
@@ -72,6 +73,8 @@ class upload(parse):
         #self.match_duplicate_accessions(sequences, **kwargs)
         #self.match_database_duplicate_accessions(sequences, **kwargs)
         self.link_viruses_to_sequences(viruses, sequences)
+        # Keep fields in sequences to be able to debug per sequence data as needed
+        self.transfer_fields(sequences, viruses, self.sequence_to_virus_transfer_fields, remove_from_fields=False)
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("")
         print("Upload Step")
@@ -490,7 +493,7 @@ class upload(parse):
                     virus_doc['sequences'].append(sequence_doc['accession'])
                     virus_doc['number_sequences'] += 1
 
-    def transfer_fields(self, docs_from, docs_to, fields=[]):
+    def transfer_fields(self, docs_from, docs_to, fields=[], remove_from_fields=True):
         '''
         transfer fields between corresponding dictionaries based on matching strain field
         '''
@@ -501,9 +504,10 @@ class upload(parse):
                     strain = doc_to['strain']
                     doc_to[field] = strain_name_to_docs_from[strain][field]
         # delete fields after adding to every doc_to
-        for doc_from in docs_from:
-            for field in fields:
-                del doc_from[field]
+        if remove_from_fields:
+            for doc_from in docs_from:
+                for field in fields:
+                    del doc_from[field]
 
     def upload_documents(self, table, documents, database, replace=False, **kwargs):
         if replace:

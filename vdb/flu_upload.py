@@ -52,6 +52,7 @@ class flu_upload(upload):
         self.location_fix_fname = "source-data/flu_location_fix.tsv"
         self.location_label_fix_fname = "source-data/flu_fix_location_label.tsv"
         self.virus_to_sequence_transfer_fields = ['submission_date']
+        self.sequence_to_virus_transfer_fields = ['originating_lab', 'submitting_lab']
         self.fix = set()
 
     def parse(self, path, fname, upload_directory, **kwargs):
@@ -93,6 +94,9 @@ class flu_upload(upload):
         else:
             for record in SeqIO.parse(handle, "fasta"):
                 content = list(map(lambda x: x.strip(), record.description.replace(">", "").split('|')))
+                # Only check the first record since we expect a single file to have the same headers
+                if len(sequences) == 0 and len(content) < len(sequence_fasta_fields):
+                    raise Exception(f"FASTA header only has {len(content)} fields but we are expecting {len(sequence_fasta_fields)} fields.")
                 s = {key: content[ii] if ii < len(content) else "" for ii, key in sequence_fasta_fields.items()}
                 s['sequence'] = str(record.seq)
                 # Exclude the bad submitting lab names due to download bug in GISAID
@@ -118,6 +122,9 @@ class flu_upload(upload):
             # Make sure all Nan values are converted to None, regardless of column dtype
             # based on https://stackoverflow.com/a/70803926
             df = df.astype(object).where((pandas.notnull(df)), None)  # convert Nan type to None
+            missing_columns = set(x[1] for x in xls_fields_wanted) - set(df.columns)
+            if missing_columns:
+                raise Exception(f"Not all expected columns are available in XLS file, missing: {missing_columns}")
             viruses = df.to_dict('records')
             viruses = [{new_field: v[old_field] if old_field in v else None for new_field, old_field in xls_fields_wanted} for v in viruses]
             viruses = [self.add_virus_fields(v, **kwargs) for v in viruses]
@@ -524,14 +531,14 @@ class flu_upload(upload):
 
 if __name__=="__main__":
     args = parser.parse_args()
-    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab'}
-    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1
+    sequence_fasta_fields = {0: 'accession', 1: 'strain', 2: 'isolate_id', 3:'locus', 4: 'passage', 5: 'submitting_lab', 6: 'originating_lab'}
+    #              >>B/Austria/896531/2016  | EPI_ISL_206054 | 687738 | HA | Siat 1 | Medical University Vienna | Department of Virology, Medical University Vienna 
     setattr(args, 'fasta_fields', sequence_fasta_fields)
     xls_fields_wanted = [('strain', 'Isolate_Name'), ('isolate_id', 'Isolate_Id'), ('collection_date', 'Collection_Date'),
                              ('host', 'Host'), ('Subtype', 'Subtype'), ('Lineage', 'Lineage'),
-                             ('gisaid_location', 'Location'), ('originating_lab', 'Originating_Lab'), ('Host_Age', 'Host_Age'),
-                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'), ('submission_date', 'Submission_Date'),
-                             ('submitting_lab', 'Submitting_Lab')]
+                             ('gisaid_location', 'Location'), ('Host_Age', 'Host_Age'),
+                             ('Host_Age_Unit', 'Host_Age_Unit'), ('gender', 'Host_Gender'),
+                             ('submission_date', 'Submission_Date')]
     setattr(args, 'xls_fields_wanted', xls_fields_wanted)
     if args.path is None:
         args.path = "data/"
