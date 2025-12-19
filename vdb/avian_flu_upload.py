@@ -421,7 +421,7 @@ class flu_upload(upload):
             "anasrubripes", "anassp.", "anasstrepera", "anasstrepera", "anasplatyrhynchosvar.domesticus",
             "anasundalata", "anseranser", "anserfabalis", "anseralbifrons", "anthropoidesvirgo",
             "anserindicus", "arenariainterpres","ardeacinerea","anaszonorhyncha","aythyaaffinis",
-            "anserrossii",
+            "anserrossii","anasplatyrhynchosx_anasacuta",
             "aythyamarila","aythyafuligula","aythyaamericana","aythya_americana","aythyanyroca","aythyacollaris","aythyaferina",
             "avian","baldeagle", "bar__headed__goose","barnacle_goose", "beangoose","bird",
             "barn__swallow", "blackvulture","black vulture","brantabernicla","brown__headed__gull", "bucephalaclangula", "buteo",

@@ -200,7 +200,6 @@ Amazonas	Brazil	Amazonas	Amazonas
 Amapa	Brazil	Amapa	Amapa
 Anapolis	Brazil	Goias	Anapolis
 AntonioJoao	Brazil	MatoGrossoDoSul	AntonioJoao
-AralMoreira	Brazil	MatoGrossoDoSul	AralMoreira
 Arapiraca	Brazil	Alagoas	Arapiraca
 Aquidauana	Brazil	MatoGrossoDoSul	Aquidauana
 Bahia	Brazil	Bahia	Bahia
@@ -211,7 +210,6 @@ Belempa	Brazil	Para	Belem
 BeloHorizonte	Brazil	MinasGerais	BeloHorizonte
 BeloVale	Brazil	MinasGerais	BeloVale
 Betim	Brazil	MinasGerais	Betim
-Bertioga	Brazil	SaoPaulo	Bertioga
 Boavistaroraima	Brazil	Roraima	BoaVista
 Boavistarr	Brazil	Roraima	BoaVista
 BordaDaMata	Brazil	MinasGerais	BordaDaMata
@@ -272,7 +270,6 @@ Guaracai	Brazil	SaoPaulo	Guaracai
 Guaratingueta	Brazil	SaoPaulo	Guaratingueta
 Ibipora	Brazil	Parana	Ibipora
 Ibirite	Brazil	MinasGerais	Ibirite
-Ibitinga	Brazil	SaoPaulo	Ibitinga
 Inocencia	Brazil	MatoGrossoDoSul	Inocencia
 Ipatinga	Brazil	MinasGerais	Ipatinga
 Ipora	Brazil	Goias	Ipora
@@ -290,7 +287,6 @@ Januaria	Brazil	MinasGerais	Januaria
 Jardim	Brazil	MatoGrossoDoSul	Jardim
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
 Lorena	Brazil	SaoPaulo	Lorena
-Luiziania	Brazil	DistritoFederal	Luiziania
 Manausam	Brazil	Amazonas	Manaus
 Manausamazonasstate	Brazil	Amazonas	Manaus
 Manhuacu	Brazil	MinasGerais	Manhuacu
@@ -308,7 +304,6 @@ MogidasCruzes	Brazil	SaoPaulo	MogidasCruzes
 MontesClaros	Brazil	MinasGerais	MontesClaros
 Murici	Brazil	Alagoas	Murici
 Natal	Brazil	RioGrandeDoNorte	Natal
-Nioaque	Brazil	MatoGrossoDoSul	Nioaque
 Nossasenhoradolivramentomt	Brazil	MatoGrosso	NossaSenhoraDoLivramento
 Olinda	Brazil	Pernambuco	Olinda
 OuroBranco	Brazil	MinasGerais	OuroBranco
@@ -1401,7 +1396,6 @@ Fraijanes	Guatemala	Guatemala	Fraijanes
 Guatemala	Guatemala	Guatemala	Guatemala
 GUATEMALA	Guatemala	Guatemala	Guatemala
 Guatemalacity	Guatemala	Guatemala	GuatemalaCity
-Guazacapan	Guatemala	Guatemala	Guazacapan
 Huehuetenango	Guatemala	Huehuetenango	Huehuetenango
 Ipala	Guatemala	Chiquimula	Ipala
 Izabal	Guatemala	Izabal	Izabal
@@ -1669,6 +1663,7 @@ Raas	Indonesia	Java	Raas
 Riau	Indonesia	Sumatra	Riau
 Semarang	Indonesia	Java	Semarang
 Sembawa	Indonesia	Java	Sembawa
+Singkawang	Indonesia	WestKalimantan	Singkawang
 SouthKalimantan	Indonesia	Borneo	SouthKalimantan
 SouthSumatra	Indonesia	Sumatra	SouthSumatra
 SidenrengRappang	Indonesia	Sulawesi	SidenrengRappang
@@ -2619,7 +2614,6 @@ Olsztyn	Poland	WarmianMasurian	Olsztyn
 Warsaw	Poland	Masovian	Warsaw
 Gdansk	Poland	Pomeranian	Gdansk
 Rzeszow	Poland	Subcarpathia	Rzeszow
-Szczecin	Poland	West Pomeranian	Szczecin
 Wroclaw	Poland	LowerSilesian	Wroclaw
 
 # Portugal
@@ -2710,7 +2704,6 @@ ArkhangelskOblast	Russia	ArkhangelskOblast	ArkhangelskOblast
 Armavir	Russia	KrasnodarKrai	Armavir
 Astrakhan	Russia	Astrakhan	Astrakhan
 Balashikha	Russia	Moscow	Balashikha
-Baltiysk	Russia	Kaliningrad Oblast	Baltiysk
 Bashkiria	Russia	Bashkortostan	Bashkiria
 Bashkortostan	Russia	Bashkortostan	Bashkortostan
 Bavly	Russia	Tatarstan	Bavly
@@ -2738,7 +2731,6 @@ Chukotka	Russia	Chukotka	Chukotka
 Chuvashia	Russia	Volga	Chuvashia
 Dagestan	Russia	Dagestan	Dagestan
 Domodedovo	Russia	Moscow	Domodedovo
-Dorozhny	Russia	Sakha Republic	Dorozhny
 Dovolnoe	Russia	Novosibirsk	Dovolnoe
 Drozhzhanovsky	Russia	Tatarstan	Drozhzhanovsky
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
@@ -2757,7 +2749,6 @@ Izhevsk	Russia	Udmurt	Izhevsk
 JewishOblast	Russia	JewishOblast	JewishOblast
 KabardinoBalkar	Russia	NorthCaucasus	KabardinoBalkar
 Kabardino-Balkaria	Russia	Kabardino-Balkaria	Kabardino-Balkaria
-Kaduy	Russia	VologdaOblast	Kaduy
 Kalach	Russia	Voronezh	Kalach
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
@@ -2879,7 +2870,6 @@ Saratov	Russia	Saratov	Saratov
 Semiluki	Russia	Voronezh	Semiluki
 Sernur	Russia	MariEl	Sernur
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
-Sheksna	Russia	VologdaOblast	Sheksna
 Shimsk	Russia	Novgorod	Shimsk
 Sholokhov	Russia	Novgorod	Sholokhov
 Shuberskoye	Russia	Voronezh	Shuberskoye
@@ -2920,7 +2910,6 @@ USSR	Russia	Russia	Russia
 VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
 VerkhChebula	Russia	Kemerovo	VerkhChebula
 VerkhniyPrikhon	Russia	NizhnyNovgorod	VerkhniyPrikhon
-Verkhovye	Russia	Oryol	Verkhovye
 Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
 Vladimir	Russia	Vladimir	Vladimir
 Vladimir_Oblast	Russia	VladimirOblast	VladimirOblast
@@ -3554,7 +3543,6 @@ Blackwood	UnitedKingdom	Wales	Blackwood
 BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
 Blaenavon	UnitedKingdom	Wales	Blaenavon
 Blaenffos	UnitedKingdom	Pembrokeshire	Blaenffos
-Borth	UnitedKingdom	Wales	Borth
 Brackla	UnitedKingdom	Wales	Brackla
 Brecon	UnitedKingdom	Wales	Brecon
 Bridgend	UnitedKingdom	Wales	Bridgend
@@ -3606,7 +3594,6 @@ Cornwall	UnitedKingdom	England	Cornwall
 Cowbridge	UnitedKingdom	Wales	Cowbridge
 Coytrahen	UnitedKingdom	Wales	Coytrahen
 Craven	UnitedKingdom	England	Craven
-Crickhowell	UnitedKingdom	Wales	Crickhowell
 Croesyceiliog	UnitedKingdom	Wales	Croesyceiliog
 Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
@@ -3685,7 +3672,6 @@ Llandovery	UnitedKingdom	Wales	Llandovery
 Llanfaes	UnitedKingdom	Wales	Llanfaes
 Llanfairpwllgwyngyll	UnitedKingdom	Wales	Llanfairpwllgwyngyll
 Llangollen	UnitedKingdom	Wales	Llangollen
-Llangunnor	UnitedKingdom	Wales	Llangunnor
 Llangynwyd	UnitedKingdom	Wales	Llangynwyd
 Llanharan	UnitedKingdom	Wales	Llanharan
 Llanidloes	UnitedKingdom	Wales	Llanidloes
