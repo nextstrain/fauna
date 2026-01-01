@@ -194,6 +194,7 @@ Acre	Brazil	Acre	Acre
 AguaClara	Brazil	MatoGrossoDoSul	AguaClara
 Alagoas	Brazil	Alagoas	Alagoas
 Alfenas	Brazil	MinasGerais	Alfenas
+AralMoreira	Brazil	MatoGrossoDoSul	AralMoreira
 Argirita	Brazil	MinasGerais	Argirita
 Almenara	Brazil	MinasGerais	Almenara
 Amazonas	Brazil	Amazonas	Amazonas
@@ -209,6 +210,7 @@ Belem	Brazil	Para	Belem
 Belempa	Brazil	Para	Belem
 BeloHorizonte	Brazil	MinasGerais	BeloHorizonte
 BeloVale	Brazil	MinasGerais	BeloVale
+Bertioga	Brazil	SaoPaulo	Bertioga
 Betim	Brazil	MinasGerais	Betim
 Boavistaroraima	Brazil	Roraima	BoaVista
 Boavistarr	Brazil	Roraima	BoaVista
@@ -270,6 +272,7 @@ Guaracai	Brazil	SaoPaulo	Guaracai
 Guaratingueta	Brazil	SaoPaulo	Guaratingueta
 Ibipora	Brazil	Parana	Ibipora
 Ibirite	Brazil	MinasGerais	Ibirite
+Ibitinga	Brazil	SaoPaulo	Ibitinga
 Inocencia	Brazil	MatoGrossoDoSul	Inocencia
 Ipatinga	Brazil	MinasGerais	Ipatinga
 Ipora	Brazil	Goias	Ipora
@@ -287,6 +290,7 @@ Januaria	Brazil	MinasGerais	Januaria
 Jardim	Brazil	MatoGrossoDoSul	Jardim
 JoaoCamara	Brazil	RioGrandeDoNorte	JoaoCamara
 Lorena	Brazil	SaoPaulo	Lorena
+Luiziania	Brazil	DistritoFederal	Luiziania
 Manausam	Brazil	Amazonas	Manaus
 Manausamazonasstate	Brazil	Amazonas	Manaus
 Manhuacu	Brazil	MinasGerais	Manhuacu
@@ -304,6 +308,7 @@ MogidasCruzes	Brazil	SaoPaulo	MogidasCruzes
 MontesClaros	Brazil	MinasGerais	MontesClaros
 Murici	Brazil	Alagoas	Murici
 Natal	Brazil	RioGrandeDoNorte	Natal
+Nioaque	Brazil	MatoGrossoDoSul	Nioaque
 Nossasenhoradolivramentomt	Brazil	MatoGrosso	NossaSenhoraDoLivramento
 Olinda	Brazil	Pernambuco	Olinda
 OuroBranco	Brazil	MinasGerais	OuroBranco
@@ -1396,6 +1401,7 @@ Fraijanes	Guatemala	Guatemala	Fraijanes
 Guatemala	Guatemala	Guatemala	Guatemala
 GUATEMALA	Guatemala	Guatemala	Guatemala
 Guatemalacity	Guatemala	Guatemala	GuatemalaCity
+Guazacapan	Guatemala	Guazacapan	Guazacapan
 Huehuetenango	Guatemala	Huehuetenango	Huehuetenango
 Ipala	Guatemala	Chiquimula	Ipala
 Izabal	Guatemala	Izabal	Izabal
@@ -2610,10 +2616,12 @@ Biliran	Philippines	Philippines	Biliran
 
 # Poland
 Poland	Poland	Poland	Poland
-Olsztyn	Poland	WarmianMasurian	Olsztyn
-Warsaw	Poland	Masovian	Warsaw
 Gdansk	Poland	Pomeranian	Gdansk
+Olsztyn	Poland	WarmianMasurian	Olsztyn
+Szczecin	Poland	WestPomeranianVoivodeship	Szczecin
 Rzeszow	Poland	Subcarpathia	Rzeszow
+Warsaw	Poland	Masovian	Warsaw
+WestPomeranianVoivodeship	Poland	WestPomeranianVoivodeship	WestPomeranianVoivodeship
 Wroclaw	Poland	LowerSilesian	Wroclaw
 
 # Portugal
@@ -2704,8 +2712,10 @@ ArkhangelskOblast	Russia	ArkhangelskOblast	ArkhangelskOblast
 Armavir	Russia	KrasnodarKrai	Armavir
 Astrakhan	Russia	Astrakhan	Astrakhan
 Balashikha	Russia	Moscow	Balashikha
+Baltiysk	Russia	KaliningradOblast	Baltiysk
 Bashkiria	Russia	Bashkortostan	Bashkiria
 Bashkortostan	Russia	Bashkortostan	Bashkortostan
+Beshpeltir	Russia	AltaiRepublic	Beshpeltir
 Bavly	Russia	Tatarstan	Bavly
 Barnaul	Russia	AltaiKrai	Barnaul
 Belgorod	Russia	Belgorod	Belgorod
@@ -2722,6 +2732,7 @@ Chany	Russia	Novosibirsk	Chany
 Chaykovsky	Russia	Chaykovsky	Chaykovsky
 Cheboksary	Russia	Chuvash	Cheboksary
 Chechnya	Russia	Chechnya	Chechnya
+Chemal	Russia	AltaiRepublic	Chemal
 Chelyabinsk	Russia	Chelyabinsk	Chelyabinsk
 Cherepovets	Russia	Vologda	Cherepovets
 Cherkessk	Russia	Karachay-Cherkess	Cherkessk
@@ -2731,9 +2742,11 @@ Chukotka	Russia	Chukotka	Chukotka
 Chuvashia	Russia	Volga	Chuvashia
 Dagestan	Russia	Dagestan	Dagestan
 Domodedovo	Russia	Moscow	Domodedovo
+Dorozhny	Russia	KaliningradOblast	Dorozhny
 Dovolnoe	Russia	Novosibirsk	Dovolnoe
 Drozhzhanovsky	Russia	Tatarstan	Drozhzhanovsky
 Ekaterinburg	Russia	SverdlovskOblast	Ekaterinburg
+Elekmnar	Russia	AltaiRepublic	Elekmnar
 Elista	Russia	Kalmykia	Elista
 Gatchina	Russia	Leningrad	Gatchina
 GornoAltaysk	Russia	Altaia	GornoAltaysk
@@ -2749,6 +2762,7 @@ Izhevsk	Russia	Udmurt	Izhevsk
 JewishOblast	Russia	JewishOblast	JewishOblast
 KabardinoBalkar	Russia	NorthCaucasus	KabardinoBalkar
 Kabardino-Balkaria	Russia	Kabardino-Balkaria	Kabardino-Balkaria
+Kaduy	Russia	VologdaOblast	Kaduy
 Kalach	Russia	Voronezh	Kalach
 Kaliningrad	Russia	Kaliningrad	Kaliningrad
 Kalingrad	Russia	Kaliningrad	Kaliningrad
@@ -2778,6 +2792,7 @@ Koltsovo	Russia	Novosibirsk	Koltsovo
 Komsomolsk-On-Amur	Russia	KhabarovskKrai	Komsomolsk-On-Amur
 Komi	Russia	Komi	Komi
 Konstantinovka	Russia	Amur	Konstantinovka
+Korolyov	Russia	MoscowOblast	Korolyov
 KoshAgach	Russia	Altai	KoshAgach
 Kostroma	Russia	Kostroma	Kostroma
 KostromaOblast	Russia	KostromaOblast	KostromaOblast
@@ -2804,6 +2819,7 @@ MalayaVishera	Russia	Novgorod	MalayaVishera
 MariEl	Russia	MariEl	MariEl
 Mamonovo	Russia	Kaliningrad	Mamonovo
 Maykop	Russia	Adygea	Maykop
+Mayma	Russia	AltaiRepublic	Mayma
 Mcensk	Russia	Oryol	Mcensk
 Medvedevo	Russia	MariEl	Medvedevo
 Medved	Russia	Novgorod	Medved
@@ -2870,6 +2886,9 @@ Saratov	Russia	Saratov	Saratov
 Semiluki	Russia	Voronezh	Semiluki
 Sernur	Russia	MariEl	Sernur
 Severodvinsk	Russia	Arkhangelsk	Severodvinsk
+Shashikman	Russia	AltaiRepublic	Shashikman
+Shebalino	Russia	AltaiRepublic	Shebalino
+Sheksna	Russia	VologdaOblast	Sheksna
 Shimsk	Russia	Novgorod	Shimsk
 Sholokhov	Russia	Novgorod	Sholokhov
 Shuberskoye	Russia	Voronezh	Shuberskoye
@@ -2895,6 +2914,7 @@ Tomsk	Russia	Tomsk	Tomsk
 Trubichino	Russia	Vologda	Trubichino
 Tula	Russia	Tula	Tula
 Tula_Oblast	Russia	TulaOblast	TulaOblast
+Tulun	Russia	IrkutskOblast	Tulun
 Turochak	Russia	Altai	Turochak
 Tver	Russia	Tver	Tver
 Tyva	Russia	Tyva	Tyva
@@ -2903,13 +2923,18 @@ Udmurtia	Russia	Udmurtia	Udmurtia
 Ufa	Russia	Bashkortostan	Ufa
 Uglich	Russia	Yaroslavl	Uglich
 UlanUde	Russia	Buryatia	UlanUde
+Ulita	Russia	AltaiRepublic	Ulita
 Ulyanovsk	Russia	Ulyanovsk	Ulyanovsk
 Ulyanovsk_Oblast	Russia	UlyanovskOblast	UlyanovskOblast
 Urengoy	Russia	Yamalia	Urengoy
+Urlu-Aspak	Russia	AltaiRepublic	Urlu-Aspak
 USSR	Russia	Russia	Russia
+Ust-Koksa	Russia	AltaiRepublic	Ust-Koksa
+Ust-Kut	Russia	IrkutskOblast	Ust-Kut
 VelikyNovgorod	Russia	Novgorod	VelikyNovgorod
 VerkhChebula	Russia	Kemerovo	VerkhChebula
 VerkhniyPrikhon	Russia	NizhnyNovgorod	VerkhniyPrikhon
+Verkhovye	Russia	OryolOblast	Verkhovye
 Vladikavkaz	Russia	NorthOssetia	Vladikavkaz
 Vladimir	Russia	Vladimir	Vladimir
 Vladimir_Oblast	Russia	VladimirOblast	VladimirOblast
@@ -3436,6 +3461,7 @@ Siirt	Turkey	Siirt	Siirt
 Tekirdag	Turkey	Tekirdag	Tekirdag
 Tokat	Turkey	Tokat	Tokat
 Trabzon	Turkey	Trabzon	Trabzon
+Turkiye	Turkey	AnkaraProvince	Turkiye
 Usak	Turkey	Usak	Usak
 Van	Turkey	Van	Van
 Yalova	Turkey	Yalova	Yalova
@@ -3543,6 +3569,7 @@ Blackwood	UnitedKingdom	Wales	Blackwood
 BlaenauFfestiniog	UnitedKingdom	Wales	BlaenauFfestiniog
 Blaenavon	UnitedKingdom	Wales	Blaenavon
 Blaenffos	UnitedKingdom	Pembrokeshire	Blaenffos
+Borth	UnitedKingdom	Wales	Borth
 Brackla	UnitedKingdom	Wales	Brackla
 Brecon	UnitedKingdom	Wales	Brecon
 Bridgend	UnitedKingdom	Wales	Bridgend
@@ -3594,6 +3621,7 @@ Cornwall	UnitedKingdom	England	Cornwall
 Cowbridge	UnitedKingdom	Wales	Cowbridge
 Coytrahen	UnitedKingdom	Wales	Coytrahen
 Craven	UnitedKingdom	England	Craven
+Crickhowell	UnitedKingdom	Wales	Crickhowell
 Croesyceiliog	UnitedKingdom	Wales	Croesyceiliog
 Croydon	UnitedKingdom	England	Croydon
 Crumlin	UnitedKingdom	Wales	Crumlin
@@ -3661,6 +3689,7 @@ Inverness	UnitedKingdom	Scotland	Inverness
 Jersey	UnitedKingdom	Jersey	Jersey
 Kent	UnitedKingdom	England	Kent
 Kidwelly	UnitedKingdom	Wales	Kidwelly
+Knighton	UnitedKingdom	Wales	Knighton
 Kilgetty	UnitedKingdom	Wales	Kilgetty
 Lambeth	UnitedKingdom	England	Lambeth
 Lampeter	UnitedKingdom	Wales	Lampeter
@@ -3672,6 +3701,7 @@ Llandovery	UnitedKingdom	Wales	Llandovery
 Llanfaes	UnitedKingdom	Wales	Llanfaes
 Llanfairpwllgwyngyll	UnitedKingdom	Wales	Llanfairpwllgwyngyll
 Llangollen	UnitedKingdom	Wales	Llangollen
+Llangunnor	UnitedKingdom	Wales	Llangunnor
 Llangynwyd	UnitedKingdom	Wales	Llangynwyd
 Llanharan	UnitedKingdom	Wales	Llanharan
 Llanidloes	UnitedKingdom	Wales	Llanidloes
@@ -3713,6 +3743,7 @@ Maesteg	UnitedKingdom	Wales	Maesteg
 Maesycwmmer	UnitedKingdom	Wales	Maesycwmmer
 Manchester	UnitedKingdom	England	Manchester
 Manorbier	UnitedKingdom	Wales	Manorbier
+Marchwiel	UnitedKingdom	Wales	Marchwiel
 Markham	UnitedKingdom	Wales	Markham
 MerthyrTydfil	UnitedKingdom	Wales	MerthyrTydfil
 Middlesex	UnitedKingdom	England	Middlesex
@@ -3780,12 +3811,14 @@ Pontycymer	UnitedKingdom	Wales	Pontycymer
 Pontypool	UnitedKingdom	Wales	Pontypool
 Pontypridd	UnitedKingdom	Wales	Pontypridd
 Porth	UnitedKingdom	Wales	Porth
+Porthmadog	UnitedKingdom	Wales	Porthmadog
 Porthcawl	UnitedKingdom	Wales	Porthcawl
 Portsmouth	UnitedKingdom	England	Portsmouth
 PortTalbot	UnitedKingdom	Wales	PortTalbot
 Powys	UnitedKingdom	Wales	Powys
 Prengwyn	UnitedKingdom	Cardiganshire	Prengwyn
 Prestatyn	UnitedKingdom	Wales	Prestatyn
+Presteigne	UnitedKingdom	Wales	Presteigne
 Pwllheli	UnitedKingdom	Wales	Pwllheli
 Pyle	UnitedKingdom	Wales	Pyle
 Queensferry	UnitedKingdom	Scotland	Queensferry
