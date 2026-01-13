@@ -56,7 +56,7 @@ class upload(parse):
         '''
         format virus information, then upload to database
         '''
-        self.connect(**kwargs)
+        # self.connect(**kwargs)
         print("Uploading Viruses to VDB")
         viruses, sequences = self.parse(**kwargs)
         print('Formatting documents for upload')
@@ -78,6 +78,7 @@ class upload(parse):
         #self.transfer_fields(viruses, sequences, self.virus_to_sequence_transfer_fields)
         print("")
         print("Upload Step")
+        preview = True # avoid uploading at all costs!
         if not preview:
             print("Uploading viruses to " + self.database + "." + self.viruses_table)
             self.upload_documents(self.viruses_table, viruses, index='strain', **kwargs)
@@ -90,6 +91,7 @@ class upload(parse):
             print(json.dumps(sequences[0], indent=1))
             print("Remove \"--preview\" to upload documents")
             print("Printed preview of viruses to be uploaded to make sure fields make sense")
+        return (viruses, sequences)
 
     def connect(self, **kwargs):
         if self.database not in self.uploadable_databases:

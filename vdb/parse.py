@@ -170,8 +170,8 @@ class parse(object):
             else :
                 v['country'] = country
         v['virus'] = self.virus
-        v['timestamp'] = self.rethink_io.get_upload_timestamp()
-        v['virus_inclusion_date'] = self.rethink_io.get_upload_date()
+        # v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        # v['virus_inclusion_date'] = self.rethink_io.get_upload_date()
         v['sequences'] = []
         v['number_sequences'] = 0
         return v
@@ -208,8 +208,8 @@ class parse(object):
         if 'public' not in v and public is not None:
             v['public'] = public
         v['virus'] = self.virus
-        v['timestamp'] = self.rethink_io.get_upload_timestamp()
-        v['sequence_inclusion_date'] = self.rethink_io.get_upload_date()
+        # v['timestamp'] = self.rethink_io.get_upload_timestamp()
+        # v['sequence_inclusion_date'] = self.rethink_io.get_upload_date()
         return v
 
     def get_GIs(self, accessions, n_entrez=2500, **kwargs):
