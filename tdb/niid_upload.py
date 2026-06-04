@@ -130,7 +130,7 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
                     serum_id = str(mat.cell_value(serum_id_row_index,j)).replace('\u3000', ' ').strip().replace(' ','')
                     serum_id = re.sub(r'[\u2010\u2011\u2012\u2013\u2014\u2212]', '-', serum_id)
                     serum_id = re.sub(r'[\r\n ]+', '', serum_id)
-                    m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr|\(bvr)', serum_id, re.IGNORECASE)
+                    m = re.search(r'^(\S+)(egg|cell|siat|hck|nib121|ivr|\(bvr|e3\/spe1)', serum_id, re.IGNORECASE)
                     if m is None:
                         m = re.search(r'^(\S+)(no\.)', serum_id, re.IGNORECASE)
                     serum_strain = ""
@@ -149,7 +149,7 @@ def convert_niid_xls_to_tsv(path, fstem, ind, subtype, assay_type):
                     virus_passage = str(mat.cell_value(i,virus_passage_col_index)).strip()
                     virus_passage_category = ''
                     serum_passage = "unknown"
-                    m = re.search(r'(egg)', serum_id, re.IGNORECASE)
+                    m = re.search(r'(egg|e3\/spe1)', serum_id, re.IGNORECASE)
                     if m:
                         serum_passage = m.group(1)
                     m = re.search(r'(cell|siat|hck)', serum_id, re.IGNORECASE)
