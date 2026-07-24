@@ -16,6 +16,8 @@ from titer_block import find_titer_block, find_serum_rows, find_virus_columns
 parser.add_argument('--assay_type', default='hi')
 parser.add_argument('--human-ref-only', action="store_true",
     help="Only ingest human sera references, used for backfilling data that was skipped in previous ingests.")
+parser.add_argument('--skip-unknown-human-columns', action="store_true",
+    help="Skip columns with human data that can't be mapped to a known reference virus.")
 
 ELIFE_COLUMNS = ["virus_strain", "serum_strain","serum_id", "titer", "source", "virus_passage", "virus_passage_category", "serum_passage", "serum_passage_category", "assay_type"]
 EXPECTED_SUBTYPES = {"h1n1pdm", "h3n2", "vic", "yam"}
@@ -78,7 +80,7 @@ def parse_tsv_mapping_to_dict(tsv_file):
     return map_dict
 
 
-def parse_human_serum_references(human_serum_data, subtype):
+def parse_human_serum_references(human_serum_data, subtype, skip_unknown_human_columns=False):
     """
     Expects the *human_serum_data* from titer_block.find_serum_rows
     Returns parsed human serum references, where keys are the column number of
@@ -110,9 +112,13 @@ def parse_human_serum_references(human_serum_data, subtype):
         # year is required to know which vaccine reference strain to use
         # Raise an error because this info should _always_ be available
         if year is None:
-            raise Exception(f"Unable to process human sera column {column} ",
-                            f"because none of {potential_year_fields} fields ",
-                            f"matched the year regex {year_regex!r}")
+            year_warning = f"Unable to process human sera column {column} because none of {potential_year_fields} fields matched the year regex {year_regex!r}."
+
+            if skip_unknown_human_columns:
+                print(year_warning)
+                continue
+            else:
+                raise Exception(year_warning)
 
         # Then try to parse egg or cell from the human serum data
         egg_or_cell = None
@@ -255,7 +261,11 @@ def convert_vidrl_xls_to_tsv(path, fstem, ind, assay_type, subtype, human_ref_on
         # }
         # print(f"corrected: serum_mapping={json.dumps(serum_mapping, indent=4)}")
 
-        human_serum_references = parse_human_serum_references(serum_block['human_serum_data'], args.subtype)
+        human_serum_references = parse_human_serum_references(
+            serum_block['human_serum_data'],
+            args.subtype,
+            args.skip_unknown_human_columns,
+        )
 
         print("Human pooled serum references parsed from serum block")
         for col, values in human_serum_references.items():
