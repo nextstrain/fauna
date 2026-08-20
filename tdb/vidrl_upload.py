@@ -67,6 +67,16 @@ VACCINE_MAPPING = {
             "vic": "B/Austria/1359417/2021",
             "yam": "B/Phuket/3073/2013"
         }
+    },
+    "2026": {
+        "egg": {
+            "h3n2": "A/Singapore/GP20238/2024",
+            "vic": "B/Austria/1359417/2021",
+        },
+        "cell": {
+            "h3n2": "A/Sydney/1359/2024",
+            "vic": "B/Austria/1359417/2021",
+        }
     }
 }
 
