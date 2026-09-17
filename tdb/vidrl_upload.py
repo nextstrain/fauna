@@ -70,10 +70,12 @@ VACCINE_MAPPING = {
     },
     "2026": {
         "egg": {
+            "h1n1pdm": "A/Missouri/11/2025",
             "h3n2": "A/Singapore/GP20238/2024",
             "vic": "B/Austria/1359417/2021",
         },
         "cell": {
+            "h1n1pdm": "A/Missouri/11/2025",
             "h3n2": "A/Sydney/1359/2024",
             "vic": "B/Austria/1359417/2021",
         }
