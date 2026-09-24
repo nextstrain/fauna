@@ -40,6 +40,7 @@ class elife_upload(upload):
         self.HI_ref_name_abbrev =self.define_strain_fixes(self.HI_ref_name_abbrev_fname)
         self.define_location_label_fixes("source-data/flu_fix_location_label.tsv")
         self.define_countries("source-data/geo_synonyms.tsv")
+        fstem_assay_date = self.parse_assay_date_from_filename(kwargs['fstem'])
         for meas in measurements:
             meas['virus_strain'], meas['original_virus_strain'] = self.fix_name(self.HI_fix_name(meas['virus_strain'], serum=False))
             meas['serum_strain'], meas['original_serum_strain'] = self.fix_name(self.HI_fix_name(meas['serum_strain'], serum=True))
@@ -49,18 +50,8 @@ class elife_upload(upload):
             self.format_subtype(meas)
             self.format_assay_type(meas)
             self.format_date(meas)
-            tmp = kwargs['fstem'].split('-')[0]
-            if len(tmp) > 8:
-                tmp = tmp[:(8-len(tmp))]
-            elif len(tmp) < 8:
-                meas['assay_date'] = "XXXX-XX-XX"
-            else:
-                if tmp[0:2] == '20':
-                    meas['assay_date'] = "{}-{}-{}".format(tmp[0:4],tmp[4:6],tmp[6:8])
-                else:
-                    meas['assay_date'] = "XXXX-XX-XX"
-            if 'assay_date' not in meas.keys() or meas['assay_date'] is None:
-                meas['assay_date'] = "XXXX-XX-XX"
+            if meas.get('assay_date') is None:
+                meas['assay_date'] = fstem_assay_date
             self.format_passage(meas, 'serum_passage', 'serum_passage_category')
             self.format_passage(meas, 'virus_passage', 'virus_passage_category')
             self.format_ref(meas)
@@ -77,6 +68,40 @@ class elife_upload(upload):
         self.check_strain_names(measurements)
         self.disambiguate_sources(measurements)
         return measurements
+
+
+    def parse_assay_date_from_filename(self, fstem):
+        """
+        Parse assay date from the *fstem*.
+        *fstem* is expected to be formatted as `YYYYMMDD*`
+
+        If unable to parse date from *fstem*, then return masked assay date as `XXXX-XX-XX`.
+        If there are multiple valid dates, then return the latest date.
+        """
+        assay_date = "XXXX-XX-XX"
+        valid_dates = set()
+        for potential_date in re.findall(r"\d{8}", fstem):
+            # Check if the dates are valid
+            try:
+                date = datetime.datetime.strptime(potential_date, '%Y%m%d')
+            except ValueError:
+                continue
+
+            # Date is only a valid assay date if it's earlier than the current datetime!
+            if date < datetime.datetime.now():
+                valid_dates.add(date)
+
+        if len(valid_dates) == 0:
+            print(f"Failed to parse assay date from filename {fstem!r}")
+        elif len(valid_dates) == 1:
+            assay_date = datetime.datetime.strftime(valid_dates.pop(), '%Y-%m-%d')
+        else:
+            sorted_dates = [datetime.datetime.strftime(valid_date, '%Y-%m-%d') for valid_date in sorted(valid_dates)]
+            raise Exception(f"Found multiple potential assay dates in filename {fstem!r}: {sorted_dates}. " +
+                            "Filename should only contain one assay date in format YYYYMMDD.")
+
+        return assay_date
+
 
     def disambiguate_sources(self, measurements):
         '''
